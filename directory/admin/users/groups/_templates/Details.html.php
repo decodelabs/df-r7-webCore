@@ -1,0 +1,54 @@
+<?php
+use df\user;
+
+echo $this->html->menuBar()
+    ->addLinks(
+        $this->html->link(
+                $this->uri->request('~admin/users/groups/edit?group='.$this['group']['id'], true),
+                $this->_('Edit group')
+            )
+            ->setIcon('edit'),
+
+        $this->html->link(
+                $this->uri->request(
+                    '~admin/users/groups/delete?group='.$this['group']['id'], true,
+                    '~admin/users/groups/'
+                ),
+                $this->_('Delete group')
+            )
+            ->setIcon('delete'),
+            
+        '|',
+
+        $this->html->backLink()
+    );
+
+
+
+echo $this->html->attributeList($this['group'])
+    ->addField('name')
+    ->addField('users', function($row) {
+        return $row->users->select()->count();
+    });
+    
+
+
+echo $this->html->element('h3', $this->_('Roles'));
+
+    
+echo $this->html->collectionList($this['group']->roles->fetch()->orderBy('priority'))
+    ->setErrorMessage('This group has no roles')
+    
+    // Name
+    ->addField('name', function($row, $view) {
+        return $view->html->link('~admin/users/roles/details?role='.$row['id'], $row['name'])
+            ->setIcon('role')
+            ->setDisposition('transitive');
+    })
+    
+    // State
+    ->addField('state', 'Bind state', function($row, $view) {
+        return user\Client::stateIdToName($row['state']);
+    })
+    
+    ->addField('priority');
