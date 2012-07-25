@@ -37,7 +37,7 @@ echo $this->html->element('h3', $this->_('Roles'));
 
     
 echo $this->html->collectionList($this['group']->roles->fetch()->orderBy('priority'))
-    ->setErrorMessage('This group has no roles')
+    ->setErrorMessage($this->_('This group has no roles'))
     
     // Name
     ->addField('name', function($row, $view) {

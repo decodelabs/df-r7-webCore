@@ -46,6 +46,8 @@ class HttpController extends arch\Controller {
     		$this->throwError(404, 'User not found');
     	}
 
+        // TODO: check access
+
     	return $view;
     }
 }

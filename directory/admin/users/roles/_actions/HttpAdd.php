@@ -49,18 +49,7 @@ class HttpAdd extends arch\form\Action {
                 
                 
         // Buttons
-        $fs->addButtonArea(
-            $this->html->eventButton('save', $this->_('Save'))
-                ->setIcon('save'),
-
-            $this->html->eventButton('reset', $this->_('Reset'))
-                ->shouldValidate(false)
-                ->setIcon('refresh'),
-
-            $this->html->eventButton('cancel', $this->_('Cancel'))
-                ->shouldValidate(false)
-                ->setIcon('cancel')
-        );
+        $fs->push($this->html->defaultButtonGroup());
     }
 
 
