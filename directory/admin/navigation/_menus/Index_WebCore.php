@@ -10,9 +10,9 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class Index_WebCore extends arch\menu\Base {
+class Index_WebCore extends arch\navigation\menu\Base {
 
-    protected function _createEntries(arch\menu\IEntryList $entryList) {
+    protected function _createEntries(arch\navigation\IEntryList $entryList) {
     	$entryList->addEntries(
     		$entryList->newLink('~admin/navigation/directory/', 'System menus')
     			->setId('system')

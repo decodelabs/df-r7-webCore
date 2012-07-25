@@ -16,7 +16,7 @@ class HttpEdit extends arch\form\Action {
     protected $_menu;
 
     protected function _init() {
-    	if(!$this->_menu = arch\menu\Base::factory($this->_context, 'directory://'.$this->request->query['menu'])) {
+    	if(!$this->_menu = arch\navigation\menu\Base::factory($this->_context, 'directory://'.$this->request->query['menu'])) {
     		$this->throwError(404, 'Menu not found');
     	}
 	}

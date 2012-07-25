@@ -10,11 +10,11 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class Index_WebCore extends arch\menu\Base {
+class Index_WebCore extends arch\navigation\menu\Base {
 
-    protected function _createEntries(arch\menu\IEntryList $entryList) {
-    	$entryList->addEntries(
-    		$entryList->newLink('~admin/users/', 'User management')
+    protected function _createEntries(arch\navigation\IEntryList $entryList) {
+        $entryList->addEntries(
+            $entryList->newLink('~admin/users/', 'User management')
                 ->setId('users')
     			->setDescription('View, add and edit site users, set up groups and roles and create access keys')
     			->setIcon('user')

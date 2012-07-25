@@ -22,7 +22,7 @@ class HttpController extends arch\Controller {
                     $area = null;
                 }
 
-                $facetController['source'] = arch\menu\source\Base::factory($this->_context, 'directory');
+                $facetController['source'] = arch\navigation\menu\source\Base::factory($this->_context, 'directory');
                 $facetController['area'] = $area;
             })
 
@@ -47,11 +47,9 @@ class HttpController extends arch\Controller {
     }
 
     public function refreshAction() {
-    	arch\menu\Base::clearCache($this->_context);
+    	arch\navigation\menu\Base::clearCache($this->_context);
 
-        $this->arch->notify('complete', $this->_('The system menu list has been refreshed'), 'success')
-            ->setDescription('This is a description. It is nice isn\'t it')
-            ->setLink('~admin/', 'Click this link');
+        $this->arch->notify('complete', $this->_('The system menu list has been refreshed'), 'success');
 
     	return $this->http->defaultRedirect();
     }
@@ -59,7 +57,7 @@ class HttpController extends arch\Controller {
     public function detailsHtmlAction() {
     	$view = $this->aura->getView('Details.html');
 
-    	if(!$view['menu'] = arch\menu\Base::factory($this->_context, 'Directory://'.$this->request->query['menu'])) {
+    	if(!$view['menu'] = arch\navigation\menu\Base::factory($this->_context, 'Directory://'.$this->request->query['menu'])) {
     		$this->throwError(404, 'Menu not found');
     	}
 
