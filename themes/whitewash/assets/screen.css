@@ -264,12 +264,24 @@ button {
     color: #777;
 }
 
-button.disposition-positive {
+.disposition-positive {
     color: green;
 }
 
-button.disposition-negative {
+.disposition-negative {
     color: red;
+}
+
+.disposition-transitive {
+    color: #6A3277;
+}
+
+.disposition-informative {
+    color: #2D6672;
+}
+
+.disposition-operative {
+    color: #8F7310;
 }
 
 button span[data-icon]:before {
@@ -325,6 +337,7 @@ button span[data-icon]:before {
     padding: 0.3em;
     background: #FFF;
     box-shadow: 0.2em 0.2em 0.2em #DDD;
+    overflow: auto;
 }
 
 .widget-fieldArea .widget-label {
@@ -333,11 +346,23 @@ button span[data-icon]:before {
     text-align: right;
     margin-right: 1em;
     font-size: em;
+    position: absolute;
 }
 
 .widget-fieldArea.constraint-required > .widget-label:after {
     content: ' *';
     color: #CC0000;
+}
+
+
+.widget-inputArea {
+    overflow: auto;
+    margin-left: 15em;
+}
+
+.widget-inputArea > .description {
+    margin-bottom: 0.5em;
+    font-size: 0.8em;
 }
 
 .widget-buttonArea h3 {
@@ -346,6 +371,10 @@ button span[data-icon]:before {
 
 .widget-fieldSet + .widget-buttonArea {
     padding-left: 16.5em;
+}
+
+.widget-fieldArea + .widget-buttonArea {
+    padding-left: 15.4em;
 }
 
 .state-error {
@@ -383,9 +412,17 @@ button span[data-icon]:before {
 }
 
 
-.widget-collectionList table {
+.widget-collectionList table,
+.widget-attributeList table {
     width: 100%;
 }
+
+.widget-attributeList {
+    display: inline-block;
+    min-width: 30%;
+}
+
+
 
 .widget-collectionList > * + table {
     margin: 1em 0;
@@ -401,7 +438,8 @@ button span[data-icon]:before {
     content: ' ⇓';
 }
 
-.widget-collectionList th {
+.widget-collectionList th,
+.widget-attributeList th {
     border-bottom: 2px #F5F5F5 solid;
     background: #F5F5F5;
 }
@@ -430,10 +468,6 @@ button span[data-icon]:before {
     float: right;
 }
 
-
-h3 + .widget-menuBar {
-    margin-top: -1em;
-}
 
 .widget-menu, 
 .widget-menuBar {
@@ -539,7 +573,7 @@ td .widget-link + .widget-link {
 
 
 span[data-icon] {
-    margin-right: 0.2em;
+    margin: 0.2em;
     text-decoration: none;
 }
 
@@ -550,6 +584,11 @@ span[data-icon]:before {
     color: inherit;
     text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
     font-size: 0.9em;
+    padding-right: 10px;
+}
+
+span[data-icon]:empty:before {
+    padding-right: 0;
 }
 
 a:hover span[data-icon]:before {

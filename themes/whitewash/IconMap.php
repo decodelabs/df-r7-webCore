@@ -62,6 +62,7 @@ return [
     'network' => '&#xe032;',
     'company' => '&#xe032;',
     'carrier' => '&#xe01f;',
+    'terminal' => '&#xe054;',
     'location' => '&#xe033;',
     'search' => '&#xe034;',
     'zoom-in' => '&#xe035;',
