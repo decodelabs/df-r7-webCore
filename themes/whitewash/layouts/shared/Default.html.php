@@ -11,7 +11,7 @@ $this->view
         
         <?php 
         if($this->_context->getRequest()->hasPath()) {
-            echo $this->html->breadcrumbList()->generateFromRequest();
+            echo $this->html->breadcrumbList(true);
         } 
         ?>
     </header>

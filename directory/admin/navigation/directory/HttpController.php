@@ -13,6 +13,8 @@ use df\arch;
 class HttpController extends arch\Controller {
 
     public function indexHtmlAction() {
+        $this->arch->getBreadcrumbs();
+
         return $this->arch->newFacetController()
             // Init
             ->setInitializer(function($facetController) {
