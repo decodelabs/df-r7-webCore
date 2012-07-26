@@ -19,11 +19,9 @@ class HttpDelete extends arch\form\template\Delete {
     protected function _init() {
         $model = $this->data->getModel('user');
         
-        if(!$this->_group = $model->group->fetchByPrimary($this->request->query['group'])) {
-            $this->throwError(404, 'Group not found');
+        if(!$this->user->canAccess($model->group, 'add')) {
+            $this->throwError(401, 'Cannot delete groups');
         }
-        
-        // TODO: check access
     }
     
     protected function _getDataId() {

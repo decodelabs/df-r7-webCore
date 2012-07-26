@@ -19,6 +19,10 @@ class HttpAddKey extends arch\form\Action {
     protected function _init() {
         $model = $this->data->getModel('user');
         
+        if(!$this->user->canAccess($model->key, 'add')) {
+            $this->throwError(401, 'Cannot add role keys');
+        }
+
         if(!$this->_role = $model->role->fetchByPrimary($this->request->query['role'])) {
             $this->throwError(404, 'Role not found');
         }

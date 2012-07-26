@@ -14,11 +14,13 @@ class HttpEditKey extends HttpAddKey {
     protected function _init() {
         $model = $this->data->getModel('user');
         
+        if(!$this->user->canAccess($model->key, 'edit')) {
+            $this->throwError(401, 'Cannot edit role keys');
+        }
+
         if(!$this->_key = $model->key->fetchByPrimary($this->request->query['key'])) {
             $this->throwError(404, 'Key not found');
         }
-        
-        // TODO: check access
     }
     
     protected function _getDataId() {

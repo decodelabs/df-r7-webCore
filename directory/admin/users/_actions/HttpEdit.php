@@ -14,12 +14,14 @@ class HttpEdit extends HttpAdd {
 
     protected function _init() {
         $model = $this->data->getModel('user');
+
+        if(!$this->user->canAccess($model->client, 'edit')) {
+            $this->throwError(401, 'Cannot edit clients');
+        }
         
         if(!$this->_client = $model->client->fetchByPrimary($this->request->query['user'])) {
             $this->throwError(404, 'User not found');
         }
-        
-        // TODO: check access
     }
     
     protected function _getDataId() {
