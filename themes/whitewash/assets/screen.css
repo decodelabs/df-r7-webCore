@@ -377,6 +377,11 @@ button span[data-icon]:before {
     padding-left: 15.4em;
 }
 
+.state-disabled {
+    color: #777;
+    opacity: 0.7;
+}
+
 .state-error {
     color: red;
 }
@@ -397,6 +402,18 @@ button span[data-icon]:before {
     color: #8F7310;
 }
 
+.state-debug {
+    color: #7B8034;
+}
+
+
+a.state-disabled:link, 
+a.state-disabled:active, 
+a.state-disabled:hover, 
+a.state-disabled:visited {
+    color: #777;
+    cursor: not-allowed;
+}
 
 
 .state-lowPriority {
@@ -624,6 +641,11 @@ a:hover span[data-icon]:before {
     border-color: #F5F4EB;
 }
 
+.widget-notification.state-debug {
+    background: #E9EFC0;
+    border-color: #DFE5B8;
+}
+
 .widget-notification h4 {
     margin: 0;
 }
@@ -640,4 +662,12 @@ a:hover span[data-icon]:before {
     font-size: 0.8em;
     color: #777;
     margin: 0.2em 0 0 1.8em;
+}
+
+
+.widget-notificationList .widget-notification {
+    margin: 0 0 0.1em;
+    padding: 0.2em;
+    font-size: 0.8em;
+    border-width: 3px;
 }
