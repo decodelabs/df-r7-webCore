@@ -18,7 +18,7 @@ class Model extends axis\Model implements user\IUserModel {
     public function generateKeyring(user\IClient $client) {
         $state = $client->getAuthenticationState();
         $id = $client->getId();
-        
+
         $query = $this->role->select('id');
         
         if($state >= user\IState::BOUND && $id !== null) {
@@ -29,8 +29,10 @@ class Model extends axis\Model implements user\IUserModel {
             $clientBridge = $this->client->getUnitSchema()
                 ->getField('groups')
                 ->getBridgeUnit($this->_application);
-                
+
             $query
+                ->wherePrerequisite('minRequiredState', '<=', $state)
+
                 ->where('id', 'in', 
                     $groupBridge->select('role_id')
                         ->join()
@@ -42,12 +44,13 @@ class Model extends axis\Model implements user\IUserModel {
                 )
                     
                 ->beginOrWhereClause()
-                    ->where('state', '>=', user\IState::BOUND)
-                    ->where('state', '<=', $state)
+                    ->where('bindState', '>=', user\IState::BOUND)
+                    ->where('bindState', '<=', $state)
                     ->endClause()
                     ;
         } else {
-            $query->where('state', '=', $state);
+            $query->where('bindState', '=', $state)
+                ->where('minRequiredState', '<=', $state);
         }
         
         $query

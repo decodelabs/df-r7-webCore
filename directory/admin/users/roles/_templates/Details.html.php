@@ -25,9 +25,18 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
     $this->html->attributeList($this['role'])
         ->addField('name')
         
-        // State
-        ->addField('state', 'Bind state', function($row, $view) {
-            return user\Client::stateIdToName($row['state']);
+        // Bind state
+        ->addField('bindState', $this->_('Bind state'), function($row, $view) {
+            if($row['bindState'] !== null) {
+                return user\Client::stateIdToName($row['bindState']);
+            }
+        })
+
+        // Min required state
+        ->addField('minRequiredState', $this->_('Minimum required state'), function($row, $view) {
+            if($row['minRequiredState'] !== null) {
+                return user\Client::stateIdToName($row['minRequiredState']);
+            }
         })
         
         ->addField('priority')

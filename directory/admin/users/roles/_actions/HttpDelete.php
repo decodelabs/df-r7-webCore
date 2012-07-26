@@ -35,8 +35,15 @@ class HttpDelete extends arch\form\template\Delete {
         $container->push(
             $this->html->attributeList($this->_role)
                 ->addField('name')
-                ->addField('state', 'Bind state', function($row, $view) {
-                    return user\Client::stateIdToName($row['state']);
+                ->addField('bindState', $this->_('Bind state'), function($row, $view) {
+                    if($row['bindState'] !== null) {
+                        return user\Client::stateIdToName($row['bindState']);
+                    }
+                })
+                ->addField('minRequiredState', $this->_('Minimum required state'), function($row, $view) {
+                    if($row['minRequiredState'] !== null) {
+                        return user\Client::stateIdToName($row['minRequiredState']);
+                    }
                 })
                 ->addField('priority')
                 ->addField('groups', function($row) {
