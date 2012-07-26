@@ -8,13 +8,15 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
                     $this->uri->request('~admin/users/roles/edit?role='.$this['role']['id'], true),
                     $this->_('Edit role')
                 )
-                ->setIcon('edit'),
+                ->setIcon('edit')
+                ->addAccessLock($this['role']->getActionLock('edit')),
 
             $this->html->link(
                     $this->uri->request('~admin/users/roles/delete?role='.$this['role']['id'], true, '~admin/users/roles/'),
                     $this->_('Delete role')
                 )
-                ->setIcon('delete'),
+                ->setIcon('delete')
+                ->addAccessLock($this['role']->getActionLock('delete')),
 
             '|',
 
@@ -57,7 +59,8 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
                         $group['name']
                     )
                     ->setIcon('group')
-                    ->setDisposition('transitive');
+                    ->setDisposition('transitive')
+                    ->addAccessLock('axis://user/Group');
             }
             
             return $view->html->string(implode(', ', $output));
@@ -76,6 +79,7 @@ echo $this->html->element('section')->setId('section-roleKeys')->push(
                     $this->_('Add new key')
                 )
                 ->setIcon('add')
+                ->addAccessLock('axis://user/Key#add')
         ),
         
         
@@ -97,13 +101,15 @@ echo $this->html->element('section')->setId('section-roleKeys')->push(
                         $view->uri->request('~admin/users/roles/edit-key?key='.$row['id'], true),
                         $view->_('Edit')
                     )
-                    ->setIcon('edit'),
+                    ->setIcon('edit')
+                    ->addAccessLock('axis://user/Key#edit'),
 
                 $view->html->link(
                         $view->uri->request('~admin/users/roles/delete-key?key='.$row['id'], true),
                         $view->_('Delete')
                     )
                     ->setIcon('delete')
+                    ->addAccessLock('axis://user/Key#delete')
             );
         })
 );

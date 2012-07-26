@@ -5,7 +5,8 @@ echo $this->html->menuBar()
                 $this->uri->request('~admin/users/edit?user='.$this['client']['id'], true),
                 $this->_('Edit user')
             )
-            ->setIcon('edit'),
+            ->setIcon('edit')
+            ->addAccessLock($this['client']->getActionLock('edit')),
 
         $this->html->link(
                 $this->uri->request(
@@ -14,7 +15,8 @@ echo $this->html->menuBar()
                 ),
                 $this->_('Delete user')
             )
-            ->setIcon('delete'),
+            ->setIcon('delete')
+            ->addAccessLock($this['client']->getActionLock('delete')),
 
         '|',
 

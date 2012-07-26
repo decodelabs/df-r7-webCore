@@ -57,6 +57,7 @@ class HttpAdd extends arch\form\Action {
             
         if($this->isValid()) {
             $this->_group->save();
+            $this->user->instigateGlobalKeyringRegeneration();
             
             $this->arch->notify(
                 'group.saved', 

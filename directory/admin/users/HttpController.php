@@ -17,6 +17,10 @@ class HttpController extends arch\Controller {
     	$model = $this->data->getModel('user');
     	$view = $this->aura->getView('Index.html');
 
+        if(!$this->user->canAccess($model->client)) {
+            $this->throwError(401, 'Client data not accessible');
+        }
+
     	$view['clientList'] = $model->client->select()
 
     		->leftJoin('COUNT(group_id) as groups')
@@ -46,7 +50,9 @@ class HttpController extends arch\Controller {
     		$this->throwError(404, 'User not found');
     	}
 
-        // TODO: check access
+        if(!$this->user->canAccess($view['client'])) {
+            $this->throwError(401, 'Client not accessible');
+        }
 
     	return $view;
     }

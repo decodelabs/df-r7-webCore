@@ -5,7 +5,8 @@ echo $this->html->menuBar()
                 $this->uri->request('~admin/users/groups/add', true),
                 $this->_('Add new group')
             )
-            ->setIcon('add'),
+            ->setIcon('add')
+            ->addAccessLock('axis://user/Group#add'),
 
         '|',
 
@@ -32,13 +33,15 @@ echo $this->html->collectionList($this['groupList'])
                     $view->uri->request('~admin/users/groups/edit?group='.$row['id'], true),
                     $view->_('Edit')
                 )
-                ->setIcon('edit'),
+                ->setIcon('edit')
+                ->addAccessLock('axis://user/Group#edit'),
 
             $view->html->link(
                     $view->uri->request('~admin/users/groups/delete?group='.$row['id'], true),
                     $view->_('Delete')
                 )
                 ->setIcon('delete')
+                ->addAccessLock('axis://user/Group#delete')
         ];
     })
     ;

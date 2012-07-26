@@ -7,7 +7,8 @@ echo $this->html->menuBar()
                 $this->uri->request('~admin/users/groups/edit?group='.$this['group']['id'], true),
                 $this->_('Edit group')
             )
-            ->setIcon('edit'),
+            ->setIcon('edit')
+            ->addAccessLock($this['group']->getActionLock('edit')),
 
         $this->html->link(
                 $this->uri->request(
@@ -16,7 +17,8 @@ echo $this->html->menuBar()
                 ),
                 $this->_('Delete group')
             )
-            ->setIcon('delete'),
+            ->setIcon('delete')
+            ->addAccessLock($this['group']->getActionLock('delete')),
             
         '|',
 
@@ -43,7 +45,8 @@ echo $this->html->collectionList($this['group']->roles->fetch()->orderBy('priori
     ->addField('name', function($row, $view) {
         return $view->html->link('~admin/users/roles/details?role='.$row['id'], $row['name'])
             ->setIcon('role')
-            ->setDisposition('transitive');
+            ->setDisposition('transitive')
+            ->addAccessLock('axis://user/Role');
     })
     
     // State

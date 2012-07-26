@@ -7,7 +7,8 @@ echo $this->html->menuBar()
                 $this->uri->to('~admin/users/roles/add', true),
                 $this->_('Add new role')
             )
-            ->setIcon('add'),
+            ->setIcon('add')
+            ->addAccessLock('axis://user/Role#add'),
 
         '|',
 
@@ -50,13 +51,15 @@ echo $this->html->collectionList($this['roleList'])
                     $view->uri->request('~admin/users/roles/edit?role='.$row['id'], true),
                     $view->_('Edit') 
                 )
-                ->setIcon('edit'),
+                ->setIcon('edit')
+                ->addAccessLock('axis://user/Role#edit'),
 
             $view->html->link(
                     $view->uri->request('~admin/users/roles/delete?role='.$row['id'], true),
                     $view->_('Delete')
                 )
                 ->setIcon('delete')
+                ->addAccessLock('axis://user/Role#delete')
         ];
     })
     ;

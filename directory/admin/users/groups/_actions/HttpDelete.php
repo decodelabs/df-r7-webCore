@@ -45,5 +45,6 @@ class HttpDelete extends arch\form\template\Delete {
     
     protected function _deleteItem() {
         $this->_group->delete();
+        $this->user->instigateGlobalKeyringRegeneration();
     }
 }

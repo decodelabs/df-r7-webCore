@@ -91,6 +91,7 @@ class HttpAdd extends arch\form\Action {
             
         if($this->isValid()) {
             $this->_role->save();
+            $this->user->instigateGlobalKeyringRegeneration();
             
             $this->arch->notify(
                 'role.saved', 

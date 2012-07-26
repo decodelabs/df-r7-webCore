@@ -83,6 +83,7 @@ class HttpAddKey extends arch\form\Action {
             
         if($this->isValid()) {
             $this->_key->save();
+            $this->user->instigateGlobalKeyringRegeneration();
             
             $this->arch->notify(
                 'roleKey.saved', 

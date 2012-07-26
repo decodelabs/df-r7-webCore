@@ -5,7 +5,8 @@ echo $this->html->menuBar()
         		$this->uri->request('~admin/users/add', true),
         		$this->_('Add new user')
             )
-            ->setIcon('add'),
+            ->setIcon('add')
+            ->addAccessLock('axis://user/Client#add'),
 
         '|',
 
@@ -64,13 +65,15 @@ echo $this->html->collectionList($this['clientList'])
                     $view->uri->request('~admin/users/edit?user='.$row['id'], true),
                     $view->_('Edit')
                 )
-                ->setIcon('edit'),
+                ->setIcon('edit')
+                ->addAccessLock('axis://user/Client#edit'),
 
             $view->html->link(
                     $view->uri->request('~admin/users/delete?user='.$row['id'], true),
                     $view->_('Delete')
                 )
                 ->setIcon('delete')
+                ->addAccessLock('axis://user/Client#delete')
         ];
     })
     ;
