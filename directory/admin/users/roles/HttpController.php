@@ -11,7 +11,7 @@ class HttpController extends arch\Controller {
         $model = $this->data->getModel('user');
         $view = $this->aura->getView('Index.html');
         
-        $view['roleList'] = $this->data->select('id', 'name', 'state', 'priority')
+        $view['roleList'] = $this->data->select('id', 'name', 'bindState', 'minRequiredState', 'priority')
             ->from($model->role, 'role')
             
             ->leftJoin('COUNT(group_roles_id) as groups')
@@ -27,7 +27,7 @@ class HttpController extends arch\Controller {
             ->groupBy('role.id')
             
             ->paginate()
-                ->setOrderableFields('role.id', 'role.name', 'role.state', 'role.priority', 'groups', 'keys')
+                ->setOrderableFields('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority', 'groups', 'keys')
                 ->setDefaultOrder('role.name')
                 ->setDefaultLimit(30)
                 ->applyWith($this->request->query);

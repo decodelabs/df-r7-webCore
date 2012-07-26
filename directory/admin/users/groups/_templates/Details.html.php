@@ -47,8 +47,17 @@ echo $this->html->collectionList($this['group']->roles->fetch()->orderBy('priori
     })
     
     // State
-    ->addField('state', 'Bind state', function($row, $view) {
-        return user\Client::stateIdToName($row['state']);
+    ->addField('bindState', $this->_('Bind state'), function($row, $view) {
+        if($row['bindState'] !== null) {
+            return user\Client::stateIdToName($row['bindState']);
+        }
+    })
+
+    // Min Req State
+    ->addField('minRequiredState', $this->_('Minimum required state'), function($row, $view) {
+        if($row['minRequiredState'] !== null) {
+            return user\Client::stateIdToName($row['minRequiredState']);
+        }
     })
     
     ->addField('priority');

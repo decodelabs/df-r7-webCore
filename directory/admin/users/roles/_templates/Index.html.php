@@ -25,9 +25,18 @@ echo $this->html->collectionList($this['roleList'])
             ->setDisposition('informative');
     })
     
-    // State
-    ->addField('state', 'Bind state', function($row, $view) {
-        return user\Client::stateIdToName($row['state']);
+    // Bind state
+    ->addField('bindState', $this->_('Bind state'), function($row, $view) {
+        if($row['bindState'] !== null) {
+            return user\Client::stateIdToName($row['state']);
+        }
+    })
+
+    // Min required state
+    ->addField('minRequiredState', $this->_('Minimum required state'), function($row, $view) {
+        if($row['minRequiredState'] !== null) {
+            return user\Client::stateIdToName($row['minRequiredState']);
+        }
     })
     
     ->addField('priority')
