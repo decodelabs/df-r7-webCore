@@ -18,14 +18,14 @@ class HttpController extends arch\Controller {
         $view['groupList'] = $this->data->select('id', 'name')
             ->from($model->group, 'group')
             
-            ->leftJoin('COUNT(client_groups_id) as users')
+            ->leftJoin('COUNT(groupBridge.client) as users')
                 ->from($model->groupBridge, 'groupBridge')
-                ->on('groupBridge.group_id', '=', 'group.id')
+                ->on('groupBridge.group', '=', 'group.@primary')
                 ->endJoin()
                 
-            ->leftJoin('COUNT(role_id) as roles')
+            ->leftJoin('COUNT(roleBridge.role) as roles')
                 ->from($model->group->getBridgeUnit('roles'), 'roleBridge')
-                ->on('roleBridge.group_roles_id', '=', 'group.id')
+                ->on('roleBridge.group', '=', 'group.@primary')
                 ->endJoin()
                 
             ->groupBy('group.id')

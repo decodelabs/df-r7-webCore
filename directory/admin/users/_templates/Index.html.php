@@ -42,6 +42,9 @@ echo $this->html->collectionList($this['clientList'])
     ->addField('status', function($row, $view) {
         return $view->context->user->client->stateIdToName($row['status']);
     })
+
+    // Groups
+    ->addField('groups')
     
     // Country
     ->addField('country')

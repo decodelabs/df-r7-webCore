@@ -21,11 +21,12 @@ class HttpController extends arch\Controller {
             $this->throwError(401, 'Client data not accessible');
         }
 
+
     	$view['clientList'] = $model->client->select()
 
-    		->leftJoin('COUNT(group_id) as groups')
+    		->leftJoin('COUNT(groupBridge.group) as groups')
     			->from($model->groupBridge, 'groupBridge')
-    			->on('groupBridge.client_groups_id', '=', 'client.id')
+    			->on('groupBridge.client', '=', 'client.@primary')
     			->endJoin()
 
 			->groupBy('client.id')

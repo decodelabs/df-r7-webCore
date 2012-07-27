@@ -30,17 +30,18 @@ class Model extends axis\Model implements user\IUserModel {
                 ->getField('groups')
                 ->getBridgeUnit($this->_application);
 
+
             $query
                 ->wherePrerequisite('minRequiredState', '<=', $state)
 
                 ->where('id', 'in', 
-                    $groupBridge->select('role_id')
+                    $groupBridge->select('role')
                         ->join()
                             ->from($clientBridge, 'clientBridge')
-                            ->on('clientBridge.group_id', '=', 'group_roles_id')
+                            ->on('clientBridge.group', '=', 'group')
                             ->endJoin()
                         ->where('clientBridge.isLeader', '=', false)
-                        ->where('clientBridge.client_groups_id', '=', $id)
+                        ->where('clientBridge.client', '=', $id)
                 )
                     
                 ->beginOrWhereClause()
@@ -56,7 +57,7 @@ class Model extends axis\Model implements user\IUserModel {
         $query
             ->attach('domain', 'pattern', 'allow')
                 ->from($this->key, 'key')
-                ->on('key.role_id', '=', 'role.id')
+                ->on('key.role', '=', 'role.id')
                 ->asMany('keys')
             ->orderBy('priority ASC');
         

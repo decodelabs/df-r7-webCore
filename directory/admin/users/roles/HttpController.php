@@ -14,17 +14,17 @@ class HttpController extends arch\Controller {
         $view['roleList'] = $this->data->select('id', 'name', 'bindState', 'minRequiredState', 'priority')
             ->from($model->role, 'role')
             
-            ->leftJoin('COUNT(group_roles_id) as groups')
+            ->leftJoin('COUNT(groupBridge.group) as groups')
                 ->from($model->role->getBridgeUnit('groups'), 'groupBridge')
-                ->on('groupBridge.role_id', '=', 'role.id')
+                ->on('groupBridge.role', '=', 'role.id')
                 ->endJoin()
-               
-            ->leftJoin('COUNT(role_id) as keys')
+
+            ->leftJoin('COUNT(key.role) as keys', 'key.id as keyId')
                 ->from($model->key, 'key')
-                ->on('key.role_id', '=', 'role.id')
+                ->on('key.role', '=', 'role.id')
                 ->endJoin()
-                
-            ->groupBy('role.id')
+
+            ->groupBy('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority')
             
             ->paginate()
                 ->setOrderableFields('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority', 'groups', 'keys')
