@@ -46,11 +46,7 @@ class HttpLogin extends arch\form\Action {
                 )
                 ->setIcon('accept'),
 
-            $this->html->eventButton(
-                    $this->eventName('cancel'),
-                    $this->_('Cancel')
-                )
-                ->setIcon('cancel')
+            $this->html->cancelEventButton()
         );
     }
 
