@@ -24,12 +24,10 @@ class HttpController extends arch\Controller {
 
     	$view['clientList'] = $model->client->select()
 
-    		->leftJoin('COUNT(groupBridge.group) as groups')
+    		->correlate('COUNT(groupBridge.group) as groups')
     			->from($model->groupBridge, 'groupBridge')
     			->on('groupBridge.client', '=', 'client.@primary')
-    			->endJoin()
-
-			->groupBy('client.id')
+    			->endCorrelation()
 
 			->paginate()
 				->setOrderableFields(

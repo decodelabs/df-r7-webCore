@@ -18,18 +18,16 @@ class HttpController extends arch\Controller {
         $view['groupList'] = $this->data->select('id', 'name')
             ->from($model->group, 'group')
             
-            ->leftJoin('COUNT(groupBridge.client) as users')
+            ->correlate('COUNT(groupBridge.client) as users')
                 ->from($model->groupBridge, 'groupBridge')
                 ->on('groupBridge.group', '=', 'group.@primary')
-                ->endJoin()
+                ->endCorrelation()
                 
-            ->leftJoin('COUNT(roleBridge.role) as roles')
+            ->correlate('COUNT(roleBridge.role) as roles')
                 ->from($model->group->getBridgeUnit('roles'), 'roleBridge')
                 ->on('roleBridge.group', '=', 'group.@primary')
-                ->endJoin()
+                ->endCorrelation()
                 
-            ->groupBy('group.id')
-            
             ->paginate()
                 ->setOrderableFields('group.name', 'users', 'roles')
                 ->setDefaultOrder('group.name')
@@ -47,7 +45,7 @@ class HttpController extends arch\Controller {
         if(!$view['group'] = $model->group->fetchByPrimary($this->request->query['group'])) {
             $this->throwError(404, 'Group not found');
         }
-        
+
         return $view;
     }
 }
