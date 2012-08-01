@@ -34,15 +34,15 @@ class Model extends axis\Model implements user\IUserModel {
             $query
                 ->wherePrerequisite('minRequiredState', '<=', $state)
 
-                ->where('id', 'in', 
-                    $groupBridge->select('role')
-                        ->join()
-                            ->from($clientBridge, 'clientBridge')
-                            ->on('clientBridge.group', '=', 'group')
-                            ->endJoin()
-                        ->where('clientBridge.isLeader', '=', false)
-                        ->where('clientBridge.client', '=', $id)
-                )
+                ->whereCorrelation('id', 'in', 'role')
+                    ->from($groupBridge, 'groupBridge')
+                    ->joinConstraint()
+                        ->from($clientBridge, 'clientBridge')
+                        ->on('clientBridge.group', '=', 'group')
+                        ->endJoin()
+                    ->where('clientBridge.isLeader', '=', false)
+                    ->where('clientBridge.client', '=', $id)
+                    ->endCorrelation()
                     
                 ->beginOrWhereClause()
                     ->where('bindState', '>=', user\IState::BOUND)
@@ -62,7 +62,7 @@ class Model extends axis\Model implements user\IUserModel {
             ->orderBy('priority ASC');
         
         $output = array();
-        
+
         foreach($query as $role) {
             foreach($role['keys'] as $key) {
                 if(!isset($output[$key['domain']])) {
