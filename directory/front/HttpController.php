@@ -21,4 +21,8 @@ class HttpController extends arch\Controller {
         
         return $view;
     }
+
+    public function crossdomainXmlAction() {
+    	return $this->aura->getView('Crossdomain.xml');
+    }
 }
