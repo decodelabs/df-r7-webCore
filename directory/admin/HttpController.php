@@ -13,9 +13,9 @@ use df\arch;
 class HttpController extends arch\Controller {
 
     public function indexHtmlAction() {
-    	$w = $this->aura->getWidgetContainer();
-    	$w->addBlockMenu('directory://~admin/Index');
+    	$container = $this->aura->getWidgetContainer();
+    	$container->addBlockMenu('directory://~admin/Index');
 
-    	return $w;
+    	return $container;
     }
 }
