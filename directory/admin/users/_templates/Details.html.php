@@ -28,38 +28,38 @@ echo $this->html->menuBar()
 echo $this->html->attributeList($this['client'])
     ->addField('fullName')
     ->addField('nickName')
-    ->addField('email', function($row, $view) {
-        return $view->html->link($view->uri->mailto($row['email']), $row['email'])
+    ->addField('email', function($row) {
+        return $this->html->link($this->uri->mailto($row['email']), $row['email'])
             ->setIcon('mail')
             ->setDisposition('transitive');
     })
     
-    ->addField('status', function($row, $view) {
-        return $view->context->user->client->stateIdToName($row['status']);
+    ->addField('status', function($row) {
+        return $this->context->user->client->stateIdToName($row['status']);
     })
     
-    ->addField('country', function($row, $view) {
-        return $view->context->i18n->countries->getName($row['country']);
+    ->addField('country', function($row) {
+        return $this->context->i18n->countries->getName($row['country']);
     })
     
-    ->addField('language', function($row, $view) {
-        return $view->context->i18n->languages->getName($row['language']);
+    ->addField('language', function($row) {
+        return $this->context->i18n->languages->getName($row['language']);
     })
     
     // Join date
-    ->addField('joinDate', 'Joined', function($row, $view) {
-        return $view->format->date($row['joinDate']);
+    ->addField('joinDate', 'Joined', function($row) {
+        return $this->format->date($row['joinDate']);
     })
     
     // Login
-    ->addField('loginDate', 'Last login', function($row, $view) {
+    ->addField('loginDate', 'Last login', function($row) {
         if($row['loginDate']) {
-            return $view->format->timeSince($row['loginDate']);
+            return $this->format->timeSince($row['loginDate']);
         }
     })
     
     // Groups
-    ->addField('groups', function($row, $view) {
+    ->addField('groups', function($row) {
         $groupList = $row->groups->fetch()->orderBy('Name')->toArray();
         
         if(empty($groupList)) {
@@ -69,7 +69,7 @@ echo $this->html->attributeList($this['client'])
         $output = array();
         
         foreach($groupList as $group) {
-            $output[] = $view->html->link(
+            $output[] = $this->html->link(
                     '~admin/users/groups/details?group='.$group['id'],
                     $group['name']
                 )
@@ -77,7 +77,7 @@ echo $this->html->attributeList($this['client'])
                 ->setDisposition('transitive');
         }
         
-        return $view->html->string(implode(', ', $output));
+        return $this->html->string(implode(', ', $output));
     })
 ;
 
@@ -88,11 +88,11 @@ echo $this->html->element('h3', $this->_('Authentication adapters'));
 echo $this->html->collectionList($this['client']->authDomains->fetch())
     ->addField('adapter')
     ->addField('identity')
-    ->addField('bindDate', function($row, $view) {
-        return $view->format->date($row['bindDate']);
+    ->addField('bindDate', function($row) {
+        return $this->format->date($row['bindDate']);
     })
-    ->addField('loginDate', $this->_('Last login'), function($row, $view) {
+    ->addField('loginDate', $this->_('Last login'), function($row) {
         if($row['loginDate']) {
-            return $view->format->timeSince($row['loginDate']);
+            return $this->format->timeSince($row['loginDate']);
         }
     });

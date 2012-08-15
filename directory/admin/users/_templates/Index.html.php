@@ -25,22 +25,22 @@ echo $this->html->menuBar()
 
 echo $this->html->collectionList($this['clientList'])
 	// Name
-    ->addField('fullName', $this->_('Name'), function($row, $view) {
-        return $view->html->link('~admin/users/details?client='.$row['id'], $row['fullName'])
+    ->addField('fullName', $this->_('Name'), function($row) {
+        return $this->html->link('~admin/users/details?client='.$row['id'], $row['fullName'])
             ->setIcon('user')
             ->setDisposition('informative');
     })
     
     // Email
-    ->addField('email', function($row, $view) {
-        return $view->html->link($view->uri->mailto($row['email']), $row['email'])
+    ->addField('email', function($row) {
+        return $this->html->link($this->uri->mailto($row['email']), $row['email'])
             ->setIcon('mail')
             ->setDisposition('transitive');
     })
     
     // Status
-    ->addField('status', function($row, $view) {
-        return $view->context->user->client->stateIdToName($row['status']);
+    ->addField('status', function($row) {
+        return $this->context->user->client->stateIdToName($row['status']);
     })
 
     // Groups
@@ -50,30 +50,30 @@ echo $this->html->collectionList($this['clientList'])
     ->addField('country')
     
     // Join date
-    ->addField('joinDate', $this->_('Joined'), function($row, $view) {
-        return $view->format->date($row['joinDate']);
+    ->addField('joinDate', $this->_('Joined'), function($row) {
+        return $this->format->date($row['joinDate']);
     })
     
     // Login
-    ->addField('loginDate', $this->_('Login'), function($row, $view) {
+    ->addField('loginDate', $this->_('Login'), function($row) {
         if($row['loginDate']) {
-            return $view->format->timeSince($row['loginDate']);
+            return $this->format->timeSince($row['loginDate']);
         }
     })
     
     // Actions
-    ->addField('actions', function($row, $view) {
+    ->addField('actions', function($row) {
         return [
-            $view->html->link(
-                    $view->uri->request('~admin/users/edit?user='.$row['id'], true),
-                    $view->_('Edit')
+            $this->html->link(
+                    $this->uri->request('~admin/users/edit?user='.$row['id'], true),
+                    $this->_('Edit')
                 )
                 ->setIcon('edit')
                 ->addAccessLock('axis://user/Client#edit'),
 
-            $view->html->link(
-                    $view->uri->request('~admin/users/delete?user='.$row['id'], true),
-                    $view->_('Delete')
+            $this->html->link(
+                    $this->uri->request('~admin/users/delete?user='.$row['id'], true),
+                    $this->_('Delete')
                 )
                 ->setIcon('delete')
                 ->addAccessLock('axis://user/Client#delete')

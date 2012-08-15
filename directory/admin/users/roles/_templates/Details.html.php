@@ -28,14 +28,14 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
         ->addField('name')
         
         // Bind state
-        ->addField('bindState', $this->_('Bind state'), function($row, $view) {
+        ->addField('bindState', $this->_('Bind state'), function($row) {
             if($row['bindState'] !== null) {
                 return user\Client::stateIdToName($row['bindState']);
             }
         })
 
         // Min required state
-        ->addField('minRequiredState', $this->_('Minimum required state'), function($row, $view) {
+        ->addField('minRequiredState', $this->_('Minimum required state'), function($row) {
             if($row['minRequiredState'] !== null) {
                 return user\Client::stateIdToName($row['minRequiredState']);
             }
@@ -44,7 +44,7 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
         ->addField('priority')
         
         // Groups
-        ->addField('groups', function($row, $view) {
+        ->addField('groups', function($row) {
             $groupList = $row->groups->fetch()->orderBy('Name')->toArray();
             
             if(empty($groupList)) {
@@ -54,7 +54,7 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
             $output = array();
             
             foreach($groupList as $group) {
-                $output[] = $view->html->link(
+                $output[] = $this->html->link(
                         '~admin/users/groups/details?group='.$group['id'],
                         $group['name']
                     )
@@ -63,7 +63,7 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
                     ->addAccessLock('axis://user/Group');
             }
             
-            return $view->html->string(implode(', ', $output));
+            return $this->html->string(implode(', ', $output));
         })
 );
 
@@ -85,28 +85,28 @@ echo $this->html->element('section')->setId('section-roleKeys')->push(
         
     $this->html->collectionList($this['role']->keys->fetch()->orderBy('domain'))
         ->setErrorMessage($this->_('This role currently has no keys'))
-        ->addField('domain', function($row, $view) {
-            return $view->html->link('#', $row['domain'])
+        ->addField('domain', function($row) {
+            return $this->html->link('#', $row['domain'])
                 ->setIcon('key');
         })
         ->addField('pattern')
-        ->addField('allow', 'Policy', function($row, $view) {
+        ->addField('allow', 'Policy', function($row) {
             return $row['allow'] ? 'Allow' : 'Deny';
         })
         
         // Actions
-        ->addField('actions', function($row, $view) {
+        ->addField('actions', function($row) {
             return array(
-                $view->html->link(
-                        $view->uri->request('~admin/users/roles/edit-key?key='.$row['id'], true),
-                        $view->_('Edit')
+                $this->html->link(
+                        $this->uri->request('~admin/users/roles/edit-key?key='.$row['id'], true),
+                        $this->_('Edit')
                     )
                     ->setIcon('edit')
                     ->addAccessLock('axis://user/Key#edit'),
 
-                $view->html->link(
-                        $view->uri->request('~admin/users/roles/delete-key?key='.$row['id'], true),
-                        $view->_('Delete')
+                $this->html->link(
+                        $this->uri->request('~admin/users/roles/delete-key?key='.$row['id'], true),
+                        $this->_('Delete')
                     )
                     ->setIcon('delete')
                     ->addAccessLock('axis://user/Key#delete')

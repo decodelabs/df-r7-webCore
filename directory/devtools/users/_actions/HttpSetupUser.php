@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\_actions;
+namespace df\apex\directory\devtools\users\_actions;
 
 use df;
 use df\core;
@@ -12,7 +12,7 @@ use df\user;
 
 class HttpSetupUser extends arch\form\Action {
     
-    const DEFAULT_ACCESS = user\IState::DEV;
+    const DEFAULT_ACCESS = arch\IAccess::DEV;
     
     protected function _onSessionCreate() {
         $model = $this->data->getModel('user');

@@ -18,27 +18,27 @@ echo $this->html->element('h3', $this->_('Basic details'));
 echo $this->html->attributeList($this['menu'])
 
 	// Id
-	->addField('id', $this->_('Full ID'), function($menu, $view) {
+	->addField('id', $this->_('Full ID'), function($menu) {
 		return $menu->getId();
 	})
 
 	// Name
-	->addField('name', function($menu, $view) {
+	->addField('name', function($menu) {
 		return $menu->getDisplayName();
 	})
 
 	// Area
-	->addField('area', function($menu, $view) {
+	->addField('area', function($menu) {
 		return $menu->getId()->path->getFirst();
 	})
 
 	// Parent
-	->addField('parent', function($menu, $view) {
+	->addField('parent', function($menu) {
 		if($subId = $menu->getSubId()) {
 			$id = substr($menu->getId()->path->toString(), 0, -strlen($subId) - 1);
 
-			return $view->html->link(
-					$view->uri->request('~admin/navigation/directory/details?menu='.$id, true),
+			return $this->html->link(
+					$this->uri->request('~admin/navigation/directory/details?menu='.$id, true),
 					'Directory://'.$id
 				)
 				->setIcon('menu')
@@ -47,26 +47,26 @@ echo $this->html->attributeList($this['menu'])
 	})
 
 	// Package
-	->addField('package', $this->_('Delegate package'), function($menu, $view) {
+	->addField('package', $this->_('Delegate package'), function($menu) {
 		return $menu->getSubId();
 	})
 
 	// Delegates
-	->addField('delegates', function($menu, $view) {
+	->addField('delegates', function($menu) {
 		$delegates = $menu->getDelegates();
 
 		if(!empty($delegates)) {
-			return $view->html->bulletList($delegates)
-				->setRenderer(function($delegate, $view) {
+			return $this->html->bulletList($delegates)
+				->setRenderer(function($delegate) {
 					if($delegate->getSourceId() == 'Directory') {
-						return $view->html->link(
-								$view->uri->request('~admin/navigation/directory/details?menu='.$delegate->getId()->path->toString()),
+						return $this->html->link(
+								$this->uri->request('~admin/navigation/directory/details?menu='.$delegate->getId()->path->toString()),
 								$delegate->getId()
 							)
 							->setIcon('menu')
 							->setDisposition('informative');
 					} else {
-						return $view->html->icon('menu', $delegate->getId())
+						return $this->html->icon('menu', $delegate->getId())
 							->setTitle($delegate->getDisplayName());
 					}
 				});

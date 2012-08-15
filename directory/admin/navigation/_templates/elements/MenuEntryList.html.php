@@ -3,28 +3,28 @@ echo $this->html->collectionList($this['entryList']->getEntries())
 	->setErrorMessage($this->_('This menu has no entries'))
 
 	// Id
-	->addField('id', function($entry, $view) {
+	->addField('id', function($entry) {
 		return $entry->getId();
 	})
 
 	// Type
-	->addField('type', function($entry, $view) {
+	->addField('type', function($entry) {
 		return $entry->getType();
 	})
 
 	// Weight
-	->addField('weight', function($entry, $view) {
+	->addField('weight', function($entry) {
 		return $entry->getWeight();
 	})
 
 	// Preview
-	->addField('preview', function($entry, $view) {
+	->addField('preview', function($entry) {
 		switch($entry->getType()) {
 			case 'Link':
-				return $view->html->link($entry);
+				return $this->html->link($entry);
 
 			case 'Spacer':
-				return $view->html->element('hr');
+				return $this->html->element('hr');
 		}
 	})
 

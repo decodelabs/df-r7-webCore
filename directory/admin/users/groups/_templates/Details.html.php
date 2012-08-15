@@ -42,22 +42,22 @@ echo $this->html->collectionList($this['group']->roles->fetch()->orderBy('priori
     ->setErrorMessage($this->_('This group has no roles'))
     
     // Name
-    ->addField('name', function($row, $view) {
-        return $view->html->link('~admin/users/roles/details?role='.$row['id'], $row['name'])
+    ->addField('name', function($row) {
+        return $this->html->link('~admin/users/roles/details?role='.$row['id'], $row['name'])
             ->setIcon('role')
             ->setDisposition('transitive')
             ->addAccessLock('axis://user/Role');
     })
     
     // State
-    ->addField('bindState', $this->_('Bind state'), function($row, $view) {
+    ->addField('bindState', $this->_('Bind state'), function($row) {
         if($row['bindState'] !== null) {
             return user\Client::stateIdToName($row['bindState']);
         }
     })
 
     // Min Req State
-    ->addField('minRequiredState', $this->_('Minimum required state'), function($row, $view) {
+    ->addField('minRequiredState', $this->_('Minimum required state'), function($row) {
         if($row['minRequiredState'] !== null) {
             return user\Client::stateIdToName($row['minRequiredState']);
         }

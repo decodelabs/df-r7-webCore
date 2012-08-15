@@ -35,13 +35,13 @@ class HttpDeleteKey extends arch\form\template\Delete {
     protected function _renderItemDetails(aura\html\widget\IContainerWidget $container) {
         $container->push(
             $this->html->attributeList($this->_key)
-                ->addField('role', function($row, $view) {
+                ->addField('role', function($row) {
                     return $row['role']['name'];
                 })
                 ->addField('domain')
                 ->addField('pattern')
-                ->addField('allow', $this->_('Policy'), function($row, $view) {
-                    return $row['allow'] ? $view->_('Allow') : $view->_('Deny');
+                ->addField('allow', $this->_('Policy'), function($row) {
+                    return $row['allow'] ? $this->_('Allow') : $this->_('Deny');
                 })
         );
     }
