@@ -458,7 +458,7 @@ a.state-disabled:visited {
 .widget-collectionList th,
 .widget-attributeList th {
     border-bottom: 2px #F5F5F5 solid;
-    background: #F5F5F5;
+    background: #F8F8F8;
 }
 
 .widget-collectionList td,
@@ -471,6 +471,10 @@ a.state-disabled:visited {
 .widget-collectionList tr:nth-child(2n),
 .widget-attributeList tr:nth-child(2n) {
     background: #FBFBFB;
+}
+
+.widget-attributeList tr:nth-child(2n) th {
+    background: #F0F0F0;
 }
 
 .widget-paginator {
