@@ -20,6 +20,12 @@ class Index_WebCore extends arch\navigation\menu\Base {
     			->setIcon('user')
     			->setWeight(10),
 
+            $entryList->newLink('~devtools/mail/', 'Mail utilities')
+                ->setId('mail')
+                ->setDescription('View development mail and test active mail transports')
+                ->setIcon('mail')
+                ->setWeight(20),
+
 			$entryList->newLink('~devtools/stats', 'Application file stats')
                 ->setId('stats')
 				->setDescription('View file size, code size and spread for this site')
