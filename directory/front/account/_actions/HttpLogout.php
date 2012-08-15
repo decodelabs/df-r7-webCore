@@ -9,11 +9,10 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-use df\user;
     
 class HttpLogout extends arch\Action {
 
-    const DEFAULT_ACCESS = user\IState::ALL;
+    const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
     	$this->user->logout();

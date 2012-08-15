@@ -13,7 +13,7 @@ use df\user;
 class HttpController extends arch\Controller {
     
     const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = user\IState::ALL;
+    const DEFAULT_ACCESS = arch\IAccess::ALL;
     
     public function defaultAction() {
         $request = $this->_context->getRequest();

@@ -8,18 +8,14 @@ namespace df\apex\directory\front;
 use df;
 use df\core;
 use df\arch;
-use df\aura;
-use df\user;
 
 class HttpController extends arch\Controller {
     
 	const CHECK_ACCESS = false;
-	const DEFAULT_ACCESS = user\IState::ALL;
+	const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function indexHtmlAction() {
-        $view = $this->aura->getView('Index.html');
-        
-        return $view;
+        return $this->aura->getView('Index.html');
     }
 
     public function crossdomainXmlAction() {

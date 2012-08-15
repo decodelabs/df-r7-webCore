@@ -14,7 +14,7 @@ use df\user;
 class HttpLogin extends arch\form\Action {
 
     const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = user\IState::GUEST;
+    const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_REDIRECT = '/';
 
     protected function _init() {

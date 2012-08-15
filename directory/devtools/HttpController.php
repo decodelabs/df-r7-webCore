@@ -8,14 +8,16 @@ namespace df\apex\directory\devtools;
 use df;
 use df\core;
 use df\arch;
-use df\user;
 
 class HttpController extends arch\Controller {
     
-    const DEFAULT_ACCESS = user\IState::DEV;
+    const DEFAULT_ACCESS = arch\IAccess::DEV;
     
     public function indexHtmlAction() {
-        return $this->aura->getView('Index.html');
+        $view = $this->aura->getWidgetContainer();
+        $view->addBlockMenu('directory://~devtools/Index');
+
+        return $view;
     }
 
     public function statsHtmlAction() {

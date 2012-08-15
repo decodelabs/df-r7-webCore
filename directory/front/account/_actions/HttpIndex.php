@@ -8,13 +8,12 @@ namespace df\apex\directory\front\account\_actions;
 use df;
 use df\core;
 use df\apex;
-use df\user;
 use df\arch;
     
 class HttpIndex extends arch\Action {
 
     const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = user\IState::BOUND;
+    const DEFAULT_ACCESS = arch\IAccess::BOUND;
 
     public function execute() {
     	$client = $this->user->client;

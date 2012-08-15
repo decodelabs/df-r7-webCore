@@ -9,12 +9,11 @@ use df;
 use df\core;
 use df\arch;
 use df\aura;
-use df\user;
 
 class HttpController extends arch\Controller {
     
     const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = user\IState::ALL; 
+    const DEFAULT_ACCESS = arch\IAccess::ALL; 
     
     public function assetsAction() {
         $theme = aura\theme\Base::factory($this->request->query['theme']);
