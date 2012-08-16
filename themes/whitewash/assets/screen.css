@@ -236,14 +236,6 @@ th a {
     text-decoration: none;
 }
 
-table.widget-attributeList th {
-    width: 10em;
-}
-
-table.widget-attributeList th:after {
-    content: ':';
-}
-
 
 code, pre {
     font-family: "Courier New", Courier, Monospace;
@@ -439,6 +431,14 @@ a.state-disabled:visited {
     min-width: 30%;
 }
 
+
+.widget-attributeList th {
+    width: 10em;
+}
+
+.widget-attributeList th:after {
+    content: ':';
+}
 
 
 .widget-collectionList > * + table {
