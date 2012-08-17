@@ -305,6 +305,15 @@ button span[data-icon]:before {
 }
 
 
+
+.widget-container {
+    border: 3px #F5F5F5 solid;
+    border-radius: 0.5em;
+    padding: 0.7em;
+}
+
+
+
 .widget-form {
     overflow: auto;
     margin-bottom: 0.5em;
@@ -418,6 +427,7 @@ a.state-disabled:visited {
 .widget-attributeList {
     border: 2px #F5F5F5 solid;
     border-radius: 0.5em;
+    margin-bottom: 1em;
 }
 
 
