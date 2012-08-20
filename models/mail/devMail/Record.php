@@ -47,6 +47,6 @@ class Record extends opal\query\record\Base implements core\mail\IDevMailRecord 
     }
 
     public function toMessage() {
-        core\stub($this['body']);
+        return core\mail\Message::fromString($this['body']);
     }
 }
