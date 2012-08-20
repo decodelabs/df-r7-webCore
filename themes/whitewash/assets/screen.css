@@ -390,6 +390,12 @@ button span[data-icon]:before {
 }
 
 
+.widget-radioButtonGroup label, 
+.widget-checkboxGroup label {
+    display: block;
+}
+
+
 
 .state-disabled {
     color: #777;
