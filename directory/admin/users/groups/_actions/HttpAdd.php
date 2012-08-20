@@ -42,7 +42,7 @@ class HttpAdd extends arch\form\Action {
                 
                 
         // Roles
-        $form->push($this->getDelegate('roles')->renderFieldSet());
+        $form->push($this->getDelegate('roles')->renderFieldSet($this->_('Roles')));
 
         
         // Buttons
@@ -57,7 +57,7 @@ class HttpAdd extends arch\form\Action {
             ->validate($this->values)
             ->applyTo($this->_group);
             
-        $this->_group->roles = $this->getDelegate('roles')->getRoleIds();
+        $this->_group->roles = $this->getDelegate('roles')->apply();
             
         if($this->isValid()) {
             $this->_group->save();

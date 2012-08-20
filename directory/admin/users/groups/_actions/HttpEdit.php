@@ -29,7 +29,8 @@ class HttpEdit extends HttpAdd {
     
     protected function _setDefaultValues() {
         $this->values->name = $this->_group['name'];
-        $this->getDelegate('roles')->setRoleIds(
+
+        $this->getDelegate('roles')->setSelected(
             $this->_group->roles->selectFromBridge('role_id')->toList('role_id')
         );
     }

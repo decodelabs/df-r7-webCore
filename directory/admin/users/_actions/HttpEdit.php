@@ -37,7 +37,7 @@ class HttpEdit extends HttpAdd {
         $this->values->country = $this->_client['country'];
         $this->values->language = $this->_client['language'];
         
-        $this->getDelegate('groups')->setGroupIds(
+        $this->getDelegate('groups')->setSelected(
             $this->_client->groups->selectFromBridge('group_id')->toList('group_id')
         );
     }

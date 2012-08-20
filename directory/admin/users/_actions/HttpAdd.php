@@ -116,7 +116,7 @@ class HttpAdd extends arch\form\Action {
 
 
         // Groups
-        $form->push($this->getDelegate('groups')->renderFieldSet());
+        $form->push($this->getDelegate('groups')->renderFieldSet($this->_('Groups')));
                 
         
         // Buttons
@@ -202,7 +202,7 @@ class HttpAdd extends arch\form\Action {
             ->validate($this->values)
             ->applyTo($this->_client);
             
-        $this->_client->groups = $this->getDelegate('groups')->getGroupIds();
+        $this->_client->groups = $this->getDelegate('groups')->apply();
         
         
         if($this->_isNew) {
