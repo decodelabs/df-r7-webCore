@@ -21,8 +21,6 @@ class HttpEdit extends HttpAdd {
         if(!$this->_group = $model->group->fetchByPrimary($this->request->query['group'])) {
             $this->throwError(404, 'Group not found');
         }
-        
-        // TODO: check access
     }
     
     protected function _getDataId() {
