@@ -16,8 +16,7 @@ class HttpAdd extends arch\form\Action {
     protected $_role;
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        $this->_role = $model->role->newRecord();
+        $this->_role = $this->data->newRecord('axis://user/Role');
     }
     
     protected function _createUi() {

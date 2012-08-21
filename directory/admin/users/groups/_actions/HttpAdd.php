@@ -17,12 +17,7 @@ class HttpAdd extends arch\form\Action {
     protected $_group;
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        $this->_group = $model->group->newRecord();
-
-        if(!$this->user->canAccess($model->group, 'add')) {
-            $this->throwError(401, 'Cannot add groups');
-        }
+        $this->_group = $this->data->newRecord('axis://user/Group');
     }
     
     protected function _setupDelegates() {

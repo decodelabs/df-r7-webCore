@@ -18,13 +18,7 @@ class HttpAdd extends arch\form\Action {
     protected $_isNew = false;
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-
-        if(!$this->user->canAccess($model->client, 'add')) {
-            $this->throwError(401, 'Cannot add clients');
-        }
-
-        $this->_client = $model->client->newRecord();
+        $this->_client = $this->data->newRecord('axis://user/Client');
         $this->_isNew = true;
     }
     

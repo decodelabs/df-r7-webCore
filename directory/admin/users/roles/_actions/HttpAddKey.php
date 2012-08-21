@@ -23,10 +23,8 @@ class HttpAddKey extends arch\form\Action {
             'addKey'
         );
         
-        $this->_key = $this->data->user->key->newRecord();
+        $this->_key = $this->data->newRecord('axis://user/Key');
         $this->_key['role'] = $this->_role;
-        
-        // TODO: check access
     }
     
     protected function _getDataId() {
