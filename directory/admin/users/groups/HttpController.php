@@ -39,12 +39,12 @@ class HttpController extends arch\Controller {
     }
 
     public function detailsHtmlAction() {
-        $model = $this->data->getModel('user');
         $view = $this->aura->getView('Details.html');
-        
-        if(!$view['group'] = $model->group->fetchByPrimary($this->request->query['group'])) {
-            $this->throwError(404, 'Group not found');
-        }
+
+        $view['group'] = $this->data->fetchForAction(
+            'axis://user/Group',
+            $this->request->query['group']
+        );
 
         return $view;
     }

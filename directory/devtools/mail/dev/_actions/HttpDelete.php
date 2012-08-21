@@ -19,15 +19,11 @@ class HttpDelete extends arch\form\template\Delete {
     protected $_mail;
 
     protected function _init() {
-    	$model = $this->data->getModel('mail');
-
-    	if(!$this->user->canAccess($model->devMail, 'delete')) {
-    		$this->throwError(401, 'Cannot delete dev mail');
-    	}
-
-    	if(!$this->_mail = $model->devMail->fetchByPrimary($this->request->query['mail'])) {
-    		$this->throwError(404, 'Mail not found');
-    	}
+    	$this->_mail = $this->data->fetchForAction(
+            'axis://mail/DevMail',
+            $this->request->query['mail'],
+            'delete'
+        );
     }
 
     protected function _getDataId() {

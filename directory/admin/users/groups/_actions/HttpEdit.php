@@ -12,15 +12,11 @@ use df\arch;
 class HttpEdit extends HttpAdd {
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        
-        if(!$this->user->canAccess($model->group, 'edit')) {
-            $this->throwError(401, 'Cannot edit groups');
-        }
-
-        if(!$this->_group = $model->group->fetchByPrimary($this->request->query['group'])) {
-            $this->throwError(404, 'Group not found');
-        }
+        $this->_group = $this->data->fetchForAction(
+            'axis://user/Group',
+            $this->request->query['group'],
+            'edit'
+        );
     }
     
     protected function _getDataId() {

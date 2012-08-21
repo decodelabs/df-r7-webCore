@@ -42,16 +42,12 @@ class HttpController extends arch\Controller {
     }
 
     public function detailsHtmlAction() {
-    	$model = $this->data->getModel('user');
-    	$view = $this->aura->getView('Details.html');
+        $view = $this->aura->getView('Details.html');
 
-    	if(!$view['client'] = $model->client->fetchByPrimary($this->request->query['client'])) {
-    		$this->throwError(404, 'User not found');
-    	}
-
-        if(!$this->user->canAccess($view['client'])) {
-            $this->throwError(401, 'Client not accessible');
-        }
+        $view['client'] = $this->data->fetchForAction(
+            'axis://user/Client',
+            $this->request->query['client']
+        );
 
     	return $view;
     }

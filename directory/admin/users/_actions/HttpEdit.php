@@ -13,15 +13,11 @@ use df\arch;
 class HttpEdit extends HttpAdd {
 
     protected function _init() {
-        $model = $this->data->getModel('user');
-
-        if(!$this->user->canAccess($model->client, 'edit')) {
-            $this->throwError(401, 'Cannot edit clients');
-        }
-        
-        if(!$this->_client = $model->client->fetchByPrimary($this->request->query['user'])) {
-            $this->throwError(404, 'User not found');
-        }
+        $this->_client = $this->data->fetchForAction(
+            'axis://user/Client',
+            $this->request->query['user'],
+            'edit'
+        );
     }
     
     protected function _getDataId() {

@@ -17,17 +17,13 @@ class HttpAddKey extends arch\form\Action {
     protected $_key;
     
     protected function _init() {
-        $model = $this->data->getModel('user');
+        $this->_role = $this->data->fetchForAction(
+            'axis://user/Role',
+            $this->request->query['role'],
+            'addKey'
+        );
         
-        if(!$this->user->canAccess($model->key, 'add')) {
-            $this->throwError(401, 'Cannot add role keys');
-        }
-
-        if(!$this->_role = $model->role->fetchByPrimary($this->request->query['role'])) {
-            $this->throwError(404, 'Role not found');
-        }
-        
-        $this->_key = $model->key->newRecord();
+        $this->_key = $this->data->user->key->newRecord();
         $this->_key['role'] = $this->_role;
         
         // TODO: check access
@@ -44,6 +40,11 @@ class HttpAddKey extends arch\form\Action {
     protected function _createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role key'));
+
+        // Role
+        $fs->addFieldArea($this->_('Role'))
+            ->addTextbox('role', $this->_role['name'])
+                ->isDisabled(true);
         
         // Domain
         $fs->addFieldArea($this->_('Domain'))

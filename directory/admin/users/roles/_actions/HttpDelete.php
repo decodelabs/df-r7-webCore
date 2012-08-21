@@ -18,15 +18,11 @@ class HttpDelete extends arch\form\template\Delete {
     protected $_role;
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        
-        if(!$this->user->canAccess($model->key, 'delete')) {
-            $this->throwError(401, 'Cannot delete roles');
-        }
-
-        if(!$this->_role = $model->role->fetchByPrimary($this->request->query['role'])) {
-            $this->throwError(404, 'Role not found');
-        }
+        $this->_role = $this->data->fetchForAction(
+            'axis://user/Role',
+            $this->request->query['role'],
+            'delete'
+        );
     }
     
     protected function _getDataId() {

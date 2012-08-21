@@ -36,14 +36,12 @@ class HttpController extends arch\Controller {
     }
 
     public function detailsHtmlAction() {
-        $model = $this->data->getModel('user');
         $view = $this->aura->getView('Details.html');
-        
-        if(!$view['role'] = $model->role->fetchByPrimary($this->request->query['role'])) {
-            $this->throwError(
-                404, 'Role not found'
-            );
-        }
+
+        $view['role'] = $this->data->fetchForAction(
+            'axis://user/Role',
+            $this->request->query['role']
+        );
         
         return $view;
     }

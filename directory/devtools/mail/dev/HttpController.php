@@ -30,11 +30,11 @@ class HttpController extends arch\Controller {
 
     public function detailsHtmlAction() {
     	$view = $this->aura->getView('Details.html');
-    	$model = $this->data->getModel('mail');
 
-    	if(!$view['mail'] = $model->devMail->fetchByPrimary($this->request->query['mail'])) {
-    		$this->throwError(404, 'Email not found');
-    	}
+        $view['mail'] = $this->data->fetchForAction(
+            'axis://mail/DevMail',
+            $this->request->query['mail']
+        );
 
     	return $view;
     }

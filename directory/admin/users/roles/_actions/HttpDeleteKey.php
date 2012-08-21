@@ -17,15 +17,11 @@ class HttpDeleteKey extends arch\form\template\Delete {
     protected $_key;
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        
-        if(!$this->user->canAccess($model->key, 'delete')) {
-            $this->throwError(401, 'Cannot delete role keys');
-        }
-
-        if(!$this->_key = $model->key->fetchByPrimary($this->request->query['key'])) {
-            $this->throwError(404, 'Key not found');
-        }
+        $this->_key = $this->data->fetchForAction(
+            'axis://user/Key',
+            $this->request->query['key'],
+            'delete'
+        );
     }
     
     protected function _getDataId() {

@@ -12,15 +12,13 @@ use df\arch;
 class HttpEditKey extends HttpAddKey {
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        
-        if(!$this->user->canAccess($model->key, 'edit')) {
-            $this->throwError(401, 'Cannot edit role keys');
-        }
+        $this->_key = $this->data->fetchForAction(
+            'axis://user/Key',
+            $this->request->query['key'],
+            'edit'
+        );
 
-        if(!$this->_key = $model->key->fetchByPrimary($this->request->query['key'])) {
-            $this->throwError(404, 'Key not found');
-        }
+        $this->_role = $this->_key['role'];
     }
     
     protected function _getDataId() {

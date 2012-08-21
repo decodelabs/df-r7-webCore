@@ -12,15 +12,11 @@ use df\arch;
 class HttpEdit extends HttpAdd {
     
     protected function _init() {
-        $model = $this->data->getModel('user');
-        
-        if(!$this->user->canAccess($model->key, 'edit')) {
-            $this->throwError(401, 'Cannot edit roles');
-        }
-
-        if(!$this->_role = $model->role->fetchByPrimary($this->request->query['role'])) {
-            $this->throwError(404, 'Role not found');
-        }
+       $this->_role = $this->data->fetchForAction(
+            'axis://user/Role',
+            $this->request->query['role'],
+            'edit'
+        );
     }
     
     protected function _getDataId() {
