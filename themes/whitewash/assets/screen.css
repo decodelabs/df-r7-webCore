@@ -472,8 +472,9 @@ a.state-disabled:visited {
 }
 
 
-.widget-collectionList > * + table {
-    margin: 1em 0;
+/*.widget-collectionList > * + table {*/
+.widget-paginator + .widget-collectionList {
+    margin: 0.7em 0;
 }
 
 .widget-collectionList .link-order-active.link-order-asc:after {
