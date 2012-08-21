@@ -333,11 +333,8 @@ button span[data-icon]:before {
 }
 
 .widget-fieldArea {
-    margin: 0.5em 0;
-    border: 1px solid #DDD;
     padding: 0.3em;
     background: #FFF;
-    box-shadow: 0.2em 0.2em 0.2em #DDD;
     overflow: auto;
 }
 
@@ -657,6 +654,11 @@ a:hover span[data-icon]:before {
     margin-bottom: 1em;
     padding: 0.4em;
     border-radius: 8px;
+}
+
+.widget-inputArea > .widget-notification {
+    font-size: 0.7em;
+    padding: 0.3em;
 }
 
 .widget-notification.state-success {
