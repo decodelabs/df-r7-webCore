@@ -18,10 +18,6 @@ class GroupSelector extends arch\form\template\SearchSelectorDelegate {
             ->where('id', 'in', $ids);
     }
 
-    protected function _getResultDisplayName($result) {
-        return $result['name'];
-    }
-
     protected function _getSearchResultIdList($search, array $selected) {
         $model = $this->data->getModel('user');
 
