@@ -17,10 +17,7 @@ class HttpController extends arch\Controller {
     	$model = $this->data->getModel('user');
     	$view = $this->aura->getView('Index.html');
 
-        if(!$this->user->canAccess($model->client)) {
-            $this->throwError(401, 'Client data not accessible');
-        }
-
+        $this->data->checkAccess($model->client);
 
     	$view['clientList'] = $model->client->select()
 

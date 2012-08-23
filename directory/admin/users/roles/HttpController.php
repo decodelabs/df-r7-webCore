@@ -10,6 +10,8 @@ class HttpController extends arch\Controller {
     public function indexHtmlAction() {
         $model = $this->data->getModel('user');
         $view = $this->aura->getView('Index.html');
+
+        $this->data->checkAccess($model->role);
         
         $view['roleList'] = $this->data->select('id', 'name', 'bindState', 'minRequiredState', 'priority')
             ->from($model->role, 'role')

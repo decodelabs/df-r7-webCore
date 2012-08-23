@@ -17,11 +17,7 @@ class HttpDeleteAll extends arch\form\template\Delete {
     const ITEM_NAME = 'mailbox';
 
     protected function _init() {
-    	$model = $this->data->getModel('mail');
-
-    	if(!$this->user->canAccess($model->devMail, 'delete')) {
-    		$this->throwError(401, 'Cannot delete dev mail');
-    	}
+        $this->data->checkAccess('axis://mail/DevMail', 'delete');
     }
 
     protected function _deleteItem() {

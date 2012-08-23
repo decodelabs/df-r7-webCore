@@ -14,6 +14,8 @@ class HttpController extends arch\Controller {
     public function indexHtmlAction() {
         $model = $this->data->getModel('user');
         $view = $this->aura->getView('Index.html');
+
+        $this->data->checkAccess($model->group);
         
         $view['groupList'] = $this->data->select('id', 'name')
             ->from($model->group, 'group')
