@@ -472,6 +472,15 @@ a.state-disabled:visited {
 }
 
 
+
+.widget-attributeList td > .widget-bulletList,
+.widget-collectionList td > .widget-bulletList {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+
 /*.widget-collectionList > * + table {*/
 .widget-paginator + .widget-collectionList {
     margin: 0.7em 0;
