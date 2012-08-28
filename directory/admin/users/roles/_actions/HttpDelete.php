@@ -11,50 +11,55 @@ use df\arch;
 use df\aura;
 use df\user;
 
-class HttpDelete extends arch\form\template\Delete {
+class HttpDelete extends arch\form\template\DeleteRecord {
         
     const ITEM_NAME = 'role';
+    const ENTITY_LOCATOR = 'axis://user/Role';
     
-    protected $_role;
-    
-    protected function _init() {
-        $this->_role = $this->data->fetchForAction(
-            'axis://user/Role',
+    protected function _loadRecord() {
+        return $this->_fetchRecordForAction(
             $this->request->query['role'],
             'delete'
         );
     }
     
-    protected function _getDataId() {
-        return $this->_role['id'];
+    
+    protected function _addAttributeListFields($attributeList) {
+        $attributeList
+
+            // Name
+            ->addField('name')
+
+            // Bind state
+            ->addField('bindState', $this->_('Bind state'), function($row) {
+                if($row['bindState'] !== null) {
+                    return user\Client::stateIdToName($row['bindState']);
+                }
+            })
+
+            // Min required state
+            ->addField('minRequiredState', $this->_('Minimum required state'), function($row) {
+                if($row['minRequiredState'] !== null) {
+                    return user\Client::stateIdToName($row['minRequiredState']);
+                }
+            })
+
+            // Priority
+            ->addField('priority')
+
+            // Groups
+            ->addField('groups', function($row) {
+                return $row->groups->select()->count();
+            })
+
+            // Keys
+            ->addField('keys', function($row) {
+                return $row->keys->select()->count();
+            });
     }
     
-    protected function _renderItemDetails(aura\html\widget\IContainerWidget $container) {
-        $container->push(
-            $this->html->attributeList($this->_role)
-                ->addField('name')
-                ->addField('bindState', $this->_('Bind state'), function($row) {
-                    if($row['bindState'] !== null) {
-                        return user\Client::stateIdToName($row['bindState']);
-                    }
-                })
-                ->addField('minRequiredState', $this->_('Minimum required state'), function($row) {
-                    if($row['minRequiredState'] !== null) {
-                        return user\Client::stateIdToName($row['minRequiredState']);
-                    }
-                })
-                ->addField('priority')
-                ->addField('groups', function($row) {
-                    return $row->groups->select()->count();
-                })
-                ->addField('keys', function($row) {
-                    return $row->keys->select()->count();
-                })
-        );
-    }
-    
-    protected function _deleteItem() {
-        $this->_role->delete();
+    protected function _deleteRecord() {
+        $this->_record->delete();
         $this->user->instigateGlobalKeyringRegeneration();
     }
 }

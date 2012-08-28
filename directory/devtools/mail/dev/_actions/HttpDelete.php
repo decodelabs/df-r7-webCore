@@ -11,84 +11,73 @@ use df\apex;
 use df\arch;
 use df\aura;
     
-class HttpDelete extends arch\form\template\Delete {
+class HttpDelete extends arch\form\template\DeleteRecord {
 
 	const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'mail';
+    const ENTITY_LOCATOR = 'axis://mail/DevMail';
 
-    protected $_mail;
-
-    protected function _init() {
-    	$this->_mail = $this->data->fetchForAction(
-            'axis://mail/DevMail',
+    protected function _loadRecord() {
+    	return $this->_fetchRecordForAction(
             $this->request->query['mail'],
             'delete'
         );
     }
 
-    protected function _getDataId() {
-    	return $this->_mail['id'];
-    }
+    protected function _addAttributeListFields($attributeList) {
+    	$attributeList
 
-    protected function _renderItemDetails(aura\html\widget\IContainerWidget $container) {
-    	$container->push(
-    		$this->html->attributeList($this->_mail)
-    			// Subject
-			    ->addField('subject')
+			// Subject
+		    ->addField('subject')
 
-			    // From
-			    ->addField('from', function($mail) {
-			        if(!$from = $mail->getFromAddress()) {
-			            return null;
-			        }
+		    // From
+		    ->addField('from', function($mail) {
+		        if(!$from = $mail->getFromAddress()) {
+		            return null;
+		        }
 
-			        return $this->html->link(
-			                $this->view->uri->mailto($from->getAddress()),
-			                $from->getAddress()
-			            )
-			            ->setIcon('user')
-			            ->setDescription($from->getName());
-			    })
+		        return $this->html->link(
+		                $this->view->uri->mailto($from->getAddress()),
+		                $from->getAddress()
+		            )
+		            ->setIcon('user')
+		            ->setDescription($from->getName());
+		    })
 
-			    // To
-			    ->addField('to', function($mail) {
-			        $addresses = $mail->getToAddresses();
-			        $first = array_shift($addresses);
+		    // To
+		    ->addField('to', function($mail) {
+		        $addresses = $mail->getToAddresses();
+		        $first = array_shift($addresses);
 
-			        $output = [
-			            $this->html->link(
-			                    $this->view->uri->mailto($first->getAddress()),
-			                    $first->getAddress()
-			                )
-			                ->setIcon('user')
-			                ->setDescription($first->getName())
-			        ];
+		        $output = [
+		            $this->html->link(
+		                    $this->view->uri->mailto($first->getAddress()),
+		                    $first->getAddress()
+		                )
+		                ->setIcon('user')
+		                ->setDescription($first->getName())
+		        ];
 
-			        if(!empty($addresses)) {
-			            $output[] = $this->html->string(
-			                '<span class="state-lowPriority">'.$this->view->esc($this->_(
-			                    ' and %c% more',
-			                    ['%c%' => count($addresses)]
-			                )).'</span>'
-			            );
-			        }
+		        if(!empty($addresses)) {
+		            $output[] = $this->html->string(
+		                '<span class="state-lowPriority">'.$this->view->esc($this->_(
+		                    ' and %c% more',
+		                    ['%c%' => count($addresses)]
+		                )).'</span>'
+		            );
+		        }
 
-			        return $output;
-			    })
+		        return $output;
+		    })
 
-			    // Date
-			    ->addField('date', $this->_('Sent'), function($mail) {
-			        return $this->view->format->userDateTime($mail['date'], 'medium');
-			    })
+		    // Date
+		    ->addField('date', $this->_('Sent'), function($mail) {
+		        return $this->view->format->userDateTime($mail['date'], 'medium');
+		    })
 
-			    // Is private
-			    ->addField('isPrivate', $this->_('Private'), function($mail) {
-			        return $this->html->lockIcon($mail['isPrivate']);
-			    })
-		);
-    }
-
-    protected function _deleteItem() {
-    	$this->_mail->delete();
+		    // Is private
+		    ->addField('isPrivate', $this->_('Private'), function($mail) {
+		        return $this->html->lockIcon($mail['isPrivate']);
+		    });
     }
 }

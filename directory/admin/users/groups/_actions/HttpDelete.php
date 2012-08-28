@@ -10,39 +10,32 @@ use df\core;
 use df\arch;
 use df\aura;
 
-class HttpDelete extends arch\form\template\Delete {
+class HttpDelete extends arch\form\template\DeleteRecord {
     
     const ITEM_NAME = 'group';
+    const ENTITY_LOCATOR = 'axis://user/Group';
     
-    protected $_group;
-    
-    protected function _init() {
-        $this->_group = $this->data->fetchForAction(
-            'axis://user/Group',
+    protected function _loadRecord() {
+        return $this->_fetchRecordForAction(
             $this->request->query['group'],
             'delete'
         );
     }
     
-    protected function _getDataId() {
-        return $this->_group['id'];
+    protected function addAttributeListFields($attributeList) {
+        $attributeList
+            ->addField('name')
+            ->addField('roles', function($row) {
+                return $row->roles->select()->count();
+            })
+            ->addField('users', function($row) {
+                return $row->users->select()->count();
+            })
+            ;
     }
     
-    protected function _renderItemDetails(aura\html\widget\IContainerWidget $container) {
-        $container->push(
-            $this->html->attributeList($this->_group)
-                ->addField('name')
-                ->addField('roles', function($row) {
-                    return $row->roles->select()->count();
-                })
-                ->addField('users', function($row) {
-                    return $row->users->select()->count();
-                })
-        );
-    }
-    
-    protected function _deleteItem() {
-        $this->_group->delete();
+    protected function _deleteRecord() {
+        $this->_record->delete();
         $this->user->instigateGlobalKeyringRegeneration();
     }
 }

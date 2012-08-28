@@ -10,40 +10,40 @@ use df\core;
 use df\arch;
 use df\aura;
 
-class HttpDeleteKey extends arch\form\template\Delete {
+class HttpDeleteKey extends arch\form\template\DeleteRecord {
     
     const ITEM_NAME = 'key';
+    const ENTITY_LOCATOR = 'axis://user/Key';
     
-    protected $_key;
-    
-    protected function _init() {
-        $this->_key = $this->data->fetchForAction(
-            'axis://user/Key',
+    protected function _loadRecord() {
+        return $this->_fetchRecordForAction(
             $this->request->query['key'],
             'delete'
         );
     }
     
-    protected function _getDataId() {
-        return $this->_key['id'];
+    protected function _addAttributeListFields($attributeList) {
+        $attributeList
+
+            // Role
+            ->addField('role', function($row) {
+                return $row['role']['name'];
+            })
+
+            // Domain
+            ->addField('domain')
+
+            // Pattern
+            ->addField('pattern')
+
+            // Allow
+            ->addField('allow', $this->_('Policy'), function($row) {
+                return $row['allow'] ? $this->_('Allow') : $this->_('Deny');
+            });
     }
     
-    protected function _renderItemDetails(aura\html\widget\IContainerWidget $container) {
-        $container->push(
-            $this->html->attributeList($this->_key)
-                ->addField('role', function($row) {
-                    return $row['role']['name'];
-                })
-                ->addField('domain')
-                ->addField('pattern')
-                ->addField('allow', $this->_('Policy'), function($row) {
-                    return $row['allow'] ? $this->_('Allow') : $this->_('Deny');
-                })
-        );
-    }
-    
-    protected function _deleteItem() {
-        $this->_key->delete();
+    protected function _deleteRecord() {
+        $this->_record->delete();
         $this->user->instigateGlobalKeyringRegeneration();
     }
 }
