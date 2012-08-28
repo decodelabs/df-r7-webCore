@@ -11,24 +11,24 @@ use df\arch;
 
 class HttpAddKey extends arch\form\Action {
     
-    const DEFAULT_EVENT = 'save';
+    const ITEM_NAME = 'key';
+    const ENTITY_LOCATOR = 'axis://user/Key';
     
-    protected $_role;
-    protected $_key;
-    
-    protected function _init() {
-        $this->_role = $this->data->fetchForAction(
+    protected function _loadRecord() {
+        $role = $this->data->fetchForAction(
             'axis://user/Role',
             $this->request->query['role'],
             'addKey'
         );
         
-        $this->_key = $this->data->newRecord('axis://user/Key');
-        $this->_key['role'] = $this->_role;
+        $output = $this->data->newRecord('axis://user/Key');
+        $output['role'] = $role;
+
+        return $output;
     }
     
     protected function _getDataId() {
-        return $this->_role['id'];
+        return $this->_record->role->getRawId();
     }
     
     protected function _setDefaultValues() {
@@ -41,7 +41,7 @@ class HttpAddKey extends arch\form\Action {
 
         // Role
         $fs->addFieldArea($this->_('Role'))
-            ->addTextbox('role', $this->_role['name'])
+            ->addTextbox('role', $this->_record['role']['name'])
                 ->isDisabled(true);
         
         // Domain
@@ -66,35 +66,30 @@ class HttpAddKey extends arch\form\Action {
         $fs->push($this->html->defaultButtonGroup());
     }
 
-    protected function _onSaveEvent() {
-        $this->data->newValidator()
-            ->shouldSanitize(true)
+    protected function _addValidatorFields(core\validate\IHandler $validator) {
+        $validator
+
+            // Domain
             ->addField('domain', 'text')
                 ->setSanitizer(function($value) {
                     return strtolower($value);
                 })
                 ->isRequired(true)
                 ->end()
+
+            // Pattern
             ->addField('pattern', 'text')
                 ->isRequired(true)
                 ->end()
+
+            // Allow
             ->addField('allow', 'boolean')
                 ->isRequired(true)
-                ->end()
-            ->validate($this->values)
-            ->applyTo($this->_key);
+                ->end();
+    }
             
-        if($this->isValid()) {
-            $this->_key->save();
-            $this->user->instigateGlobalKeyringRegeneration();
-            
-            $this->arch->notify(
-                'roleKey.saved', 
-                $this->_('The key has been successfully saved'), 
-                'success'
-            );
-            
-            return $this->complete();
-        }
+    protected function _saveRecord() {
+        $this->_record->save();
+        $this->user->instigateGlobalKeyringRegeneration();
     }
 }

@@ -9,15 +9,10 @@ use df;
 use df\core;
 use df\arch;
 
-class HttpAdd extends arch\form\Action {
+class HttpAdd extends arch\form\template\EditRecord {
     
-    const DEFAULT_EVENT = 'save';
-    
-    protected $_role;
-    
-    protected function _init() {
-        $this->_role = $this->data->newRecord('axis://user/Role');
-    }
+    const ITEM_NAME = 'role';
+    const ENTITY_LOCATOR = 'axis://user/Role';
     
     protected function _createUi() {
         $form = $this->content->addForm();
@@ -67,38 +62,35 @@ class HttpAdd extends arch\form\Action {
     }
 
 
-    protected function _onSaveEvent() {
-        $this->data->newValidator()
-            ->shouldSanitize(true)
+    protected function _addValidatorFields(core\validate\IHandler $validator) {
+        $validator
+
+            // Name
             ->addField('name', 'text')
                 ->isRequired(true)
                 ->end()
+
+            // Bind state
             ->addField('bindState', 'integer')
                 ->setMin(-1)
                 ->setMax(3)
                 ->end()
+
+            // Min required state
             ->addField('minRequiredState', 'integer')
                 ->setMin(-1)
                 ->setMax(3)
                 ->end()
+
+            // Priority
             ->addField('priority', 'integer')
                 ->isRequired(true)
                 ->setMin(0)
-                ->end()
-            ->validate($this->values)
-            ->applyTo($this->_role);
+                ->end();
+    }
             
-        if($this->isValid()) {
-            $this->_role->save();
-            $this->user->instigateGlobalKeyringRegeneration();
-            
-            $this->arch->notify(
-                'role.saved', 
-                $this->_('The role has been successfully saved'), 
-                'success'
-            );
-            
-            return $this->complete();
-        }
+    protected function _saveRecord() {
+        $this->_record->save();
+        $this->user->instigateGlobalKeyringRegeneration();
     }
 }

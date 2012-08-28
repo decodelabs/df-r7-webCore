@@ -11,23 +11,20 @@ use df\arch;
 
 class HttpEditKey extends HttpAddKey {
     
-    protected function _init() {
-        $this->_key = $this->data->fetchForAction(
-            'axis://user/Key',
+    protected function _loadRecord() {
+        return $this->_fetchRecordForAction(
             $this->request->query['key'],
             'edit'
         );
-
-        $this->_role = $this->_key['role'];
     }
     
     protected function _getDataId() {
-        return $this->_key['id'];
+        return $this->_record['id'];
     }
     
     protected function _setDefaultValues() {
-        $this->values->domain = $this->_key['domain'];
-        $this->values->pattern = $this->_key['pattern'];
-        $this->values->allow = $this->_key['allow'];
+        $this->values->domain = $this->_record['domain'];
+        $this->values->pattern = $this->_record['pattern'];
+        $this->values->allow = $this->_record['allow'];
     }
 }
