@@ -26,6 +26,12 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('mail')
                 ->setWeight(20),
 
+            $entryList->newLink('~devtools/theme/', 'Theme configuration')
+                ->setId('theme')
+                ->setDescription('Change settings and define layouts for available site themes')
+                ->setIcon('theme')
+                ->setWeight(30),
+
 			$entryList->newLink('~devtools/stats', 'Application file stats')
                 ->setId('stats')
 				->setDescription('View file size, code size and spread for this site')
