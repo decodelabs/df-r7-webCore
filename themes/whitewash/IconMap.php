@@ -80,6 +80,7 @@ return [
     'backspace-on' => '&#xe03e;',
     'backspace' => '&#xe03e;',
     'menu' => '&#xe03f;',
+    'list' => '&#xe03f;',
     'catalogue' => '&#xe040;',
     'heart-empty' => '&#xe041;',
     'heart-full' => '&#xe042;',
