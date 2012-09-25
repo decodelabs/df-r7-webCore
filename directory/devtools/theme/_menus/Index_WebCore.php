@@ -13,6 +13,7 @@ use df\arch;
 class Index_WebCore extends arch\navigation\menu\Base {
 
     protected function _createEntries(arch\navigation\IEntryList $entryList) {
+    	/*
         $entryList->addEntries(
             $entryList->newLink('~devtools/theme/layouts/', 'Layout setup')
                 ->setId('layouts')
@@ -20,5 +21,6 @@ class Index_WebCore extends arch\navigation\menu\Base {
     			->setIcon('layout')
     			->setWeight(10)
 		);
+		*/
     }
 }
