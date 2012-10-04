@@ -12,14 +12,14 @@ use df\arch;
 
 class HttpController extends arch\Controller {
 
-	const DEFAULT_ACCESS = arch\IAccess::DEV;
+    const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function indexHtmlAction() {
-    	$container = $this->aura->getWidgetContainer();
+        $container = $this->aura->getWidgetContainer();
 
-    	$container->addMenuBar()->addLinks(
-    		$container->getView()->html->backLink()
-		);
+        $container->addMenuBar()->addLinks(
+            $container->getView()->html->backLink()
+        );
 
         $container->addBlockMenu('directory://~devtools/users/Index');
 

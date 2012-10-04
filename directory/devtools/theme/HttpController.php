@@ -12,7 +12,7 @@ use df\arch;
     
 class HttpController extends arch\Controller {
 
-	const DEFAULT_ACCESS = arch\IAccess::DEV;
+    const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function indexHtmlAction() {
         $view = $this->aura->getWidgetContainer();

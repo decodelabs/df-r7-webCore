@@ -16,9 +16,9 @@ class Index_WebCore extends arch\navigation\menu\Base {
         $entryList->addEntries(
             $entryList->newLink('~devtools/users/', 'User setup')
                 ->setId('users')
-    			->setDescription('Configure root user, authentication adapters and session settings')
-    			->setIcon('user')
-    			->setWeight(10),
+                ->setDescription('Configure root user, authentication adapters and session settings')
+                ->setIcon('user')
+                ->setWeight(10),
 
             $entryList->newLink('~devtools/mail/', 'Mail utilities')
                 ->setId('mail')
@@ -32,12 +32,12 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('theme')
                 ->setWeight(30),
 
-			$entryList->newLink('~devtools/stats', 'Application file stats')
+            $entryList->newLink('~devtools/stats', 'Application file stats')
                 ->setId('stats')
-				->setDescription('View file size, code size and spread for this site')
-				->setIcon('stats')
-				->setWeight(50)
-		);
+                ->setDescription('View file size, code size and spread for this site')
+                ->setIcon('stats')
+                ->setWeight(50)
+        );
 
         if($this->_context->arch->actionExists('~devtools/regenerate-test-db')) {
             $entryList->addEntry(

@@ -16,17 +16,17 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::BOUND;
 
     public function execute() {
-    	$client = $this->user->client;
+        $client = $this->user->client;
 
-    	if(!$client->isLoggedIn()) {
-    		// throw 401
+        if(!$client->isLoggedIn()) {
+            // throw 401
 
-    		return $this->http->redirect('account/login');
-    	}
+            return $this->http->redirect('account/login');
+        }
 
-    	$view = $this->aura->getView('Index.html');
-    	$view['client'] = $client;
+        $view = $this->aura->getView('Index.html');
+        $view['client'] = $client;
 
-    	return $view;
+        return $view;
     }
 }

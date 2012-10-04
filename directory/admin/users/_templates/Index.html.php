@@ -1,9 +1,9 @@
 <?php
 echo $this->html->menuBar()
-	->addLinks(
+    ->addLinks(
         $this->html->link(
-        		$this->uri->request('~admin/users/add', true),
-        		$this->_('Add new user')
+                $this->uri->request('~admin/users/add', true),
+                $this->_('Add new user')
             )
             ->setIcon('add')
             ->addAccessLock('axis://user/Client#add'),
@@ -21,10 +21,10 @@ echo $this->html->menuBar()
         '|',
 
         $this->html->backLink()
-	);
+    );
 
 echo $this->html->collectionList($this['clientList'])
-	// Name
+    // Name
     ->addField('fullName', $this->_('Name'), function($row) {
         return $this->html->link('~admin/users/details?client='.$row['id'], $row['fullName'])
             ->setIcon('user')

@@ -13,6 +13,6 @@ use df\axis;
 class Model extends axis\Model implements core\mail\IMailModel {
 
     public function storeDevMail(core\mail\IMessage $message) {
-    	return $this->devMail->store($message);
+        return $this->devMail->store($message);
     }
 }

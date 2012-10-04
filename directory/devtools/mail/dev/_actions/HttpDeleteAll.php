@@ -21,6 +21,6 @@ class HttpDeleteAll extends arch\form\template\Delete {
     }
 
     protected function _deleteItem() {
-    	$this->data->getModel('mail')->devMail->delete()->execute();
+        $this->data->getModel('mail')->devMail->delete()->execute();
     }
 }

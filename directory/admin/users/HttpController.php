@@ -14,28 +14,28 @@ use df\user;
 class HttpController extends arch\Controller {
 
     public function indexHtmlAction() {
-    	$model = $this->data->getModel('user');
-    	$view = $this->aura->getView('Index.html');
+        $model = $this->data->getModel('user');
+        $view = $this->aura->getView('Index.html');
 
         $this->data->checkAccess($model->client);
 
-    	$view['clientList'] = $model->client->select()
+        $view['clientList'] = $model->client->select()
 
-    		->correlate('COUNT(groupBridge.group) as groups')
-    			->from($model->groupBridge, 'groupBridge')
-    			->on('groupBridge.client', '=', 'client.@primary')
-    			->endCorrelation()
+            ->correlate('COUNT(groupBridge.group) as groups')
+                ->from($model->groupBridge, 'groupBridge')
+                ->on('groupBridge.client', '=', 'client.@primary')
+                ->endCorrelation()
 
-			->paginate()
-				->setOrderableFields(
-					'email', 'fullName', 'nickName', 'status', 'joinDate',
-					'loginDate', 'timezone', 'country', 'language'
-				)
-				->setDefaultOrder('fullName')
-				->setDefaultLimit(30)
-				->applyWith($this->request->query);
+            ->paginate()
+                ->setOrderableFields(
+                    'email', 'fullName', 'nickName', 'status', 'joinDate',
+                    'loginDate', 'timezone', 'country', 'language'
+                )
+                ->setDefaultOrder('fullName')
+                ->setDefaultLimit(30)
+                ->applyWith($this->request->query);
 
-		return $view;
+        return $view;
     }
 
     public function detailsHtmlAction() {
@@ -46,6 +46,6 @@ class HttpController extends arch\Controller {
             $this->request->query['client']
         );
 
-    	return $view;
+        return $view;
     }
 }

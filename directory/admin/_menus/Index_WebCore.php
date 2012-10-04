@@ -16,15 +16,15 @@ class Index_WebCore extends arch\navigation\menu\Base {
         $entryList->addEntries(
             $entryList->newLink('~admin/users/', 'User management')
                 ->setId('users')
-    			->setDescription('View, add and edit site users, set up groups and roles and create access keys')
-    			->setIcon('user')
-    			->setWeight(20),
+                ->setDescription('View, add and edit site users, set up groups and roles and create access keys')
+                ->setIcon('user')
+                ->setWeight(20),
 
-			$entryList->newLink('~admin/navigation/', 'Navigation')
+            $entryList->newLink('~admin/navigation/', 'Navigation')
                 ->setId('navigation')
-				->setDescription('Create and modify menus, generate a site map and control how users navigate your site')
-				->setIcon('link')
-				->setWeight(50)
-		);
+                ->setDescription('Create and modify menus, generate a site map and control how users navigate your site')
+                ->setIcon('link')
+                ->setWeight(50)
+        );
     }
 }

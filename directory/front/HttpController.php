@@ -11,18 +11,18 @@ use df\arch;
 
 class HttpController extends arch\Controller {
     
-	const CHECK_ACCESS = false;
-	const DEFAULT_ACCESS = arch\IAccess::ALL;
+    const CHECK_ACCESS = false;
+    const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function indexHtmlAction() {
         return $this->aura->getView('Index.html');
     }
 
     public function crossdomainXmlAction() {
-    	return $this->aura->getView('Crossdomain.xml');
+        return $this->aura->getView('Crossdomain.xml');
     }
 
     public function robotsTxtAction() {
-    	return $this->aura->getView('Robots.txt');
+        return $this->aura->getView('Robots.txt');
     }
 }

@@ -18,29 +18,29 @@ class HttpLogin extends arch\form\Action {
     const DEFAULT_REDIRECT = '/';
 
     protected function _init() {
-    	if($this->user->client->isLoggedIn()) {
-    		$this->complete();
-    		return $this->http->defaultRedirect('account/');
-    	}
+        if($this->user->client->isLoggedIn()) {
+            $this->complete();
+            return $this->http->defaultRedirect('account/');
+        }
     }
 
     protected function _createUi() {
-    	$form = $this->content->addForm();
-    	$fs = $form->addFieldSet($this->_('Sign-in'));
+        $form = $this->content->addForm();
+        $fs = $form->addFieldSet($this->_('Sign-in'));
 
-    	// Identity
-    	$fs->addFieldArea($this->_('Email address'))
-    		->addTextbox('identity', $this->values->identity)
-    			->isRequired(true);
+        // Identity
+        $fs->addFieldArea($this->_('Email address'))
+            ->addTextbox('identity', $this->values->identity)
+                ->isRequired(true);
 
-		// Password
-		$fs->addFieldArea($this->_('Password'))
-			->addPasswordTextbox('password', $this->values->password)
-				->isRequired(true);
+        // Password
+        $fs->addFieldArea($this->_('Password'))
+            ->addPasswordTextbox('password', $this->values->password)
+                ->isRequired(true);
 
-		// Buttons
-		$fs->addButtonArea()->push(
-			$this->html->eventButton(
+        // Buttons
+        $fs->addButtonArea()->push(
+            $this->html->eventButton(
                     $this->eventName('login'), 
                     $this->_('Sign in')
                 )
@@ -51,32 +51,32 @@ class HttpLogin extends arch\form\Action {
     }
 
     protected function _onLoginEvent() {
-    	if(!$this->values->identity->hasValue()) {
-    		$this->values->identity->addError('required', $this->_(
-				'Please enter your username'
-			));
-    	}
+        if(!$this->values->identity->hasValue()) {
+            $this->values->identity->addError('required', $this->_(
+                'Please enter your username'
+            ));
+        }
 
-    	if(!$this->values->password->hasValue()) {
-    		$this->values->password->addError('required', $this->_(
-    			'Please enter your password'
-			));
-    	}
+        if(!$this->values->password->hasValue()) {
+            $this->values->password->addError('required', $this->_(
+                'Please enter your password'
+            ));
+        }
 
-    	if($this->values->isValid()) {
-    		$request = new user\authentication\Request('Local');
-    		$request->setIdentity($this->values['identity']);
-    		$request->setCredential('password', $this->values['password']);
+        if($this->values->isValid()) {
+            $request = new user\authentication\Request('Local');
+            $request->setIdentity($this->values['identity']);
+            $request->setCredential('password', $this->values['password']);
 
-    		$result = $this->user->authenticate($request);
+            $result = $this->user->authenticate($request);
 
-    		if(!$result->isValid()) {
-    			$this->values->identity->addError('invalid', $this->_(
-    				'The email address or password entered was incorrect'
-				));
-    		} else {
-    			return $this->complete('account/');
-    		}
-    	}
+            if(!$result->isValid()) {
+                $this->values->identity->addError('invalid', $this->_(
+                    'The email address or password entered was incorrect'
+                ));
+            } else {
+                return $this->complete('account/');
+            }
+        }
     }
 }

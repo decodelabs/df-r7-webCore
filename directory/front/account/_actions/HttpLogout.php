@@ -15,7 +15,7 @@ class HttpLogout extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-    	$this->user->logout();
-    	return $this->http->redirect('account/login');
+        $this->user->logout();
+        return $this->http->redirect('account/login');
     }
 }

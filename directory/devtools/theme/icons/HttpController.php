@@ -15,9 +15,9 @@ class HttpController extends arch\Controller {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function indexHtmlAction() {
-    	$container = $this->aura->getWidgetContainer();
-    	$container->push('Coming soon...');
+        $container = $this->aura->getWidgetContainer();
+        $container->push('Coming soon...');
 
-    	return $container;
+        return $container;
     }
 }

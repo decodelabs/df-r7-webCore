@@ -49,22 +49,22 @@ class HttpController extends arch\Controller {
     }
 
     public function refreshAction() {
-    	arch\navigation\menu\Base::clearCache($this->_context);
+        arch\navigation\menu\Base::clearCache($this->_context);
 
         $this->arch->notify('complete', $this->_('The system menu list has been refreshed'), 'success');
 
-    	return $this->http->defaultRedirect();
+        return $this->http->defaultRedirect();
     }
 
     public function detailsHtmlAction() {
-    	$view = $this->aura->getView('Details.html');
+        $view = $this->aura->getView('Details.html');
 
-    	if(!$view['menu'] = arch\navigation\menu\Base::factory($this->_context, 'Directory://'.$this->request->query['menu'])) {
-    		$this->throwError(404, 'Menu not found');
-    	}
+        if(!$view['menu'] = arch\navigation\menu\Base::factory($this->_context, 'Directory://'.$this->request->query['menu'])) {
+            $this->throwError(404, 'Menu not found');
+        }
 
-    	$view['entryList'] = $view['menu']->generateEntries();
+        $view['entryList'] = $view['menu']->generateEntries();
 
-    	return $view;
+        return $view;
     }
 }
