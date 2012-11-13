@@ -437,6 +437,9 @@ a.state-disabled:visited {
     cursor: not-allowed;
 }
 
+.state-active {
+    font-weight: bold;
+}
 
 .state-lowPriority {
     opacity: 0.4;
