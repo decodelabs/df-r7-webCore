@@ -18,7 +18,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setId('users')
                 ->setDescription('View, add and edit site users, set up groups and roles and create access keys')
                 ->setIcon('user')
-                ->setWeight(20),
+                ->setWeight(30),
 
             $entryList->newLink('~admin/navigation/', 'Navigation')
                 ->setId('navigation')
