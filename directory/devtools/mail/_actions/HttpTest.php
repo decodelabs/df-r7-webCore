@@ -125,7 +125,6 @@ class HttpTest extends arch\form\Action {
 
     protected function _onSendEvent() {
         $this->data->newValidator()
-            ->shouldSanitize(true)
 
             // Transport
             ->addField('transport', 'text')
