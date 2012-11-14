@@ -29,7 +29,7 @@ echo $this->html->collectionList($this['roleList'])
     // Bind state
     ->addField('bindState', $this->_('Bind state'), function($row) {
         if($row['bindState'] !== null) {
-            return user\Client::stateIdToName($row['state']);
+            return user\Client::stateIdToName($row['bindState']);
         }
     })
 

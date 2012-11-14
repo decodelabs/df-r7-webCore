@@ -9,11 +9,16 @@ use df;
 use df\core;
 use df\arch;
 
-class HttpAdd extends arch\form\template\EditRecord {
+class HttpAdd extends arch\form\Action {
     
-    const ITEM_NAME = 'role';
-    const ENTITY_LOCATOR = 'axis://user/Role';
-    
+    const DEFAULT_EVENT = 'save';
+
+    protected $_role;
+
+    protected function _init() {
+        $this->_role = $this->data->newRecord('axis://user/Role');
+    }
+
     protected function _createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role details'));
@@ -62,8 +67,8 @@ class HttpAdd extends arch\form\template\EditRecord {
     }
 
 
-    protected function _addValidatorFields(core\validate\IHandler $validator) {
-        $validator
+    protected function _onSaveEvent() {
+        $this->data->newValidator()
 
             // Name
             ->addField('name', 'text')
@@ -86,11 +91,23 @@ class HttpAdd extends arch\form\template\EditRecord {
             ->addField('priority', 'integer')
                 ->isRequired(true)
                 ->setMin(0)
-                ->end();
-    }
-            
-    protected function _saveRecord() {
-        $this->_record->save();
-        $this->user->instigateGlobalKeyringRegeneration();
+                ->end()
+
+            ->validate($this->values)
+            ->applyTo($this->_role);
+
+
+        if($this->isValid()) {
+            $this->_role->save();
+            $this->user->instigateGlobalKeyringRegeneration();
+
+            $this->arch->notify(
+                'role.save',
+                $this->_('The role has been successfully saved'),
+                'success'
+            );
+
+            return $this->complete();
+        }
     }
 }

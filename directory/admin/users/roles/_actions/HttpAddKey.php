@@ -11,24 +11,25 @@ use df\arch;
 
 class HttpAddKey extends arch\form\Action {
     
-    const ITEM_NAME = 'key';
-    const ENTITY_LOCATOR = 'axis://user/Key';
-    
-    protected function _loadRecord() {
-        $role = $this->data->fetchForAction(
+    const DEFAULT_EVENT = 'save';
+
+    protected $_role;
+    protected $_key;
+
+    protected function _init() {
+        $this->_role = $this->data->fetchForAction(
             'axis://user/Role',
             $this->request->query['role'],
             'addKey'
         );
         
-        $output = $this->data->newRecord('axis://user/Key');
-        $output['role'] = $role;
-
-        return $output;
+        $this->_key = $this->data->newRecord('axis://user/Key', [
+            'role' => $this->_role
+        ]);
     }
     
     protected function _getDataId() {
-        return $this->_record->role->getRawId();
+        return $this->_role['id'];
     }
     
     protected function _setDefaultValues() {
@@ -41,7 +42,7 @@ class HttpAddKey extends arch\form\Action {
 
         // Role
         $fs->addFieldArea($this->_('Role'))
-            ->addTextbox('role', $this->_record['role']['name'])
+            ->addTextbox('role', $this->_role['name'])
                 ->isDisabled(true);
         
         // Domain
@@ -66,8 +67,8 @@ class HttpAddKey extends arch\form\Action {
         $fs->push($this->html->defaultButtonGroup());
     }
 
-    protected function _addValidatorFields(core\validate\IHandler $validator) {
-        $validator
+    protected function _onSaveEvent() {
+        $this->data->newValidator()
 
             // Domain
             ->addField('domain', 'text')
@@ -85,11 +86,23 @@ class HttpAddKey extends arch\form\Action {
             // Allow
             ->addField('allow', 'boolean')
                 ->isRequired(true)
-                ->end();
-    }
-            
-    protected function _saveRecord() {
-        $this->_record->save();
-        $this->user->instigateGlobalKeyringRegeneration();
+                ->end()
+
+            ->validate($this->values)
+            ->applyTo($this->_key);
+
+
+        if($this->isValid()) {
+            $this->_key->save();
+            $this->user->instigateGlobalKeyringRegeneration();
+
+            $this->arch->notify(
+                'key.save',
+                $this->_('The role key has been successfully saved'),
+                'success'
+            );
+
+            return $this->complete();
+        }   
     }
 }
