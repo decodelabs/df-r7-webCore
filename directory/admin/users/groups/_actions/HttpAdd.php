@@ -10,11 +10,14 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\form\template\EditRecord {
+class HttpAdd extends arch\form\Action {
     
-    const ITEM_NAME = 'group';
-    const ENTITY_LOCATOR = 'axis://user/Group';
-    
+    protected $_group;
+
+    protected function _init() {
+        $this->_group = $this->data->newRecord('axis://user/Group');
+    }
+
     protected function _setupDelegates() {
         $this->loadDelegate('roles', 'RoleSelector', '~admin/users/roles/');
     }
@@ -39,21 +42,30 @@ class HttpAdd extends arch\form\template\EditRecord {
         $form->push($this->html->defaultButtonGroup());
     }
 
-    protected function _addValidatorFields(core\validate\IHandler $validator) {
-        $validator
+    protected function _onSaveEvent() {
+        $this->data->newValidator()
 
             // Name
             ->addField('name', 'text')
                 ->isRequired(true)
-                ->end();
-    }
-    
-    protected function _prepareRecord() {
-        $this->_record['roles'] = $this->getDelegate('roles')->apply();
-    }
+                ->end()
 
-    protected function _saveRecord() {
-        $this->_record->save();
-        $this->user->instigateGlobalKeyringRegeneration();
+            ->validate($this->values)
+            ->applyTo($this->_group);
+
+
+        if($this->isValid()) {
+            $this->_group['roles'] = $this->getDelegate('roles')->apply();
+            $this->_group->save();
+            $this->user->instigateGlobalKeyringRegeneration();
+
+            $this->arch->notify(
+                'group.save',
+                $this->_('The group has been successfully saved'),
+                'success'
+            );
+
+            return $this->complete();
+        }
     }
 }

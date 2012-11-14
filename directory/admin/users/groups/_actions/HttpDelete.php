@@ -22,7 +22,7 @@ class HttpDelete extends arch\form\template\DeleteRecord {
         );
     }
     
-    protected function addAttributeListFields($attributeList) {
+    protected function _addAttributeListFields($attributeList) {
         $attributeList
             ->addField('name')
             ->addField('roles', function($row) {

@@ -11,18 +11,23 @@ use df\arch;
 
 class HttpEdit extends HttpAdd {
     
-    protected function _loadRecord() {
-        return $this->_fetchRecordForAction(
+    protected function _init() {
+        $this->_group = $this->data->fetchForAction(
+            'axis://user/Group',
             $this->request->query['group'],
             'edit'
         );
     }
+
+    protected function _getDataId() {
+        return $this->_group['id'];
+    }
     
     protected function _setDefaultValues() {
-        $this->values->name = $this->_record['name'];
+        $this->values->name = $this->_group['name'];
 
         $this->getDelegate('roles')->setSelected(
-            $this->_record->roles->selectFromBridge('role_id')->toList('role_id')
+            $this->_group->roles->selectFromBridge('role_id')->toList('role_id')
         );
     }
 }
