@@ -15,6 +15,10 @@ class HttpAdd extends EditorBase {
     protected $_showPasswordFields = true;
     protected $_auth;
 
+    protected function _init() {
+        $this->_client = $this->data->newRecord('axis://user/Client');
+    }
+
     protected function _setDefaultValues() {
         $locale = $this->i18n->getDefaultLocale();
         
@@ -27,9 +31,9 @@ class HttpAdd extends EditorBase {
     protected function _prepareRecord() {
         parent::_prepareRecord();
 
-        $this->_auth = $this->user->auth->newRecord([
+        $this->_auth = $this->data->getModel('user')->auth->newRecord([
             'adapter' => 'Local',
-            'identity' => $this->_record['email'],
+            'identity' => $this->_client['email'],
             'bindDate' => 'now'
         ]);
         
@@ -45,7 +49,7 @@ class HttpAdd extends EditorBase {
     protected function _saveRecord() {
         parent::_saveRecord();
 
-        $this->_auth['user'] = $this->_record;
+        $this->_auth['user'] = $this->_client;
         $this->_auth->save();
     }
 }

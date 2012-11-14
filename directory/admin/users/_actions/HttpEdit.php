@@ -12,28 +12,29 @@ use df\arch;
     
 class HttpEdit extends EditorBase {
 
-    protected function _loadRecord() {
-        return $this->_fetchRecordForAction(
+    protected function _init() {
+        $this->_client = $this->data->fetchForAction(
+            'axis://user/Client',
             $this->request->query['user'],
             'edit'
         );
     }
     
     protected function _getDataId() {
-        return $this->_record['id'];
+        return $this->_client['id'];
     }
     
     protected function _setDefaultValues() {
-        $this->values->email = $this->_record['email'];
-        $this->values->fullName = $this->_record['fullName'];
-        $this->values->nickName = $this->_record['nickName'];
-        $this->values->status = $this->_record['status'];
-        $this->values->timezone = $this->_record['timezone'];
-        $this->values->country = $this->_record['country'];
-        $this->values->language = $this->_record['language'];
+        $this->values->email = $this->_client['email'];
+        $this->values->fullName = $this->_client['fullName'];
+        $this->values->nickName = $this->_client['nickName'];
+        $this->values->status = $this->_client['status'];
+        $this->values->timezone = $this->_client['timezone'];
+        $this->values->country = $this->_client['country'];
+        $this->values->language = $this->_client['language'];
         
         $this->getDelegate('groups')->setSelected(
-            $this->_record->groups->selectFromBridge('group')->toList('group')
+            $this->_client->groups->selectFromBridge('group')->toList('group')
         );
     }
 
@@ -41,9 +42,9 @@ class HttpEdit extends EditorBase {
         parent::_saveRecord();
 
         $this->data->user->auth->update([
-                'identity' => $this->_record['email']
+                'identity' => $this->_client['email']
             ])
-            ->where('user', '=', $this->_record)
+            ->where('user', '=', $this->_client)
             ->where('adapter', '=', 'Local')
             ->execute();
 

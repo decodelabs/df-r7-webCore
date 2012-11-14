@@ -10,11 +10,9 @@ use df\core;
 use df\apex;
 use df\arch;
     
-abstract class EditorBase extends arch\form\template\EditRecord {
+abstract class EditorBase extends arch\form\Action {
 
-    const ITEM_NAME = 'user';
-    const ENTITY_LOCATOR = 'axis://user/Client';
-
+    protected $_client;
     protected $_showPasswordFields = false;
 
     protected function _setupDelegates() {
@@ -103,13 +101,13 @@ abstract class EditorBase extends arch\form\template\EditRecord {
     }
 
 
-    protected function _addValidatorFields(core\validate\IHandler $validator) {
-        $validator
+    protected function _onSaveEvent() {
+        $this->data->newValidator()
 
             // Email
             ->addField('email', 'email')
                 ->setCustomValidator(function($node, $value) {
-                    if($this->_record['email'] == $value) {
+                    if($this->_client['email'] == $value) {
                         return;
                     }
                         
@@ -187,15 +185,31 @@ abstract class EditorBase extends arch\form\template\EditRecord {
                     }
                 })
                 ->isRequired(true)
-                ->end();
+                ->end()
+
+            ->validate($this->values)
+            ->applyTo($this->_client);
+
+
+        if($this->isValid()) {
+            $this->_prepareRecord();
+            $this->_saveRecord();
+
+            $this->arch->notify(
+                'client.save',
+                $this->_('The user has been successfully saved'),
+                'success'
+            );
+
+            return $this->complete();
+        }
     }
 
     protected function _prepareRecord() {
-        $this->_record->groups = $this->getDelegate('groups')->apply();
+        $this->_client->groups = $this->getDelegate('groups')->apply();
     }
 
-
     protected function _saveRecord() {
-        $this->_record->save();
+        $this->_client->save();
     }
 }
