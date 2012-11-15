@@ -386,7 +386,8 @@ button span[data-icon]:before {
     min-width: 15em;
 }
 
-.widget-textarea {
+.widget-textarea,
+.widget-htmlEditor {
     min-width: 25em;
     min-height: 6em;
 }
