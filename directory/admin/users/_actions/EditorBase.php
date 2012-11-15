@@ -193,8 +193,9 @@ abstract class EditorBase extends arch\form\Action {
             ->applyTo($this->_client);
 
 
+        $this->_prepareRecord();
+        
         if($this->isValid()) {
-            $this->_prepareRecord();
             $this->_saveRecord();
 
             $this->arch->notify(

@@ -56,8 +56,10 @@ class HttpAdd extends arch\form\Action {
             ->applyTo($this->_group);
 
 
+        $this->_group['roles'] = $this->getDelegate('roles')->apply();
+
+        
         if($this->isValid()) {
-            $this->_group['roles'] = $this->getDelegate('roles')->apply();
             $this->_group->save();
             $this->user->instigateGlobalKeyringRegeneration();
 
