@@ -24,7 +24,10 @@ class HttpDelete extends arch\form\template\Delete {
             'delete'
         );
     }
-    
+
+    protected function _getDataId() {
+        return $this->_role['id'];
+    }
     
     protected function _renderItemDetails($container) {
         $container->addAttributeList($this->_role)

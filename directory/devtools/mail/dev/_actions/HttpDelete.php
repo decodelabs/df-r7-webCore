@@ -26,6 +26,10 @@ class HttpDelete extends arch\form\template\Delete {
         );
     }
 
+    protected function _getDataId() {
+        return $this->_mail['id'];
+    }
+
     protected function _renderItemDetails($container) {
         $container->addAttributeList($this->_mail)
 
