@@ -254,6 +254,12 @@ input, button, select, textarea {
 
 button {
     color: #777;
+    cursor: pointer;
+}
+
+button[disabled] {
+    color: #BBB !important;
+    cursor: default;
 }
 
 .disposition-positive {
@@ -463,7 +469,7 @@ a.state-disabled:visited {
 
 .widget-attributeList {
     display: inline-block;
-    min-width: 30%;
+    min-width: 40%;
 }
 
 
