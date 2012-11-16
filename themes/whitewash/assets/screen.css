@@ -513,6 +513,12 @@ a.state-disabled:visited {
     padding: 0.1em 0.3em;
 }
 
+.widget-collectionList td,
+.widget-collectionList th {
+    height: 2em;
+    vertical-align: middle;
+}
+
 .widget-collectionList tr:nth-child(2n),
 .widget-attributeList tr:nth-child(2n) {
     background: #FBFBFB;
