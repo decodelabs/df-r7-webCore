@@ -11,21 +11,23 @@ use df\apex;
 use df\arch;
 use df\aura;
     
-class HttpDelete extends arch\form\template\DeleteRecord {
+class HttpDelete extends arch\form\template\Delete {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'mail';
-    const ENTITY_LOCATOR = 'axis://mail/DevMail';
 
-    protected function _loadRecord() {
-        return $this->_fetchRecordForAction(
+    protected $_mail;
+
+    protected function _init() {
+        $this->_mail = $this->data->fetchForAction(
+            'axis://mail/DevMail',
             $this->request->query['mail'],
             'delete'
         );
     }
 
-    protected function _addAttributeListFields($attributeList) {
-        $attributeList
+    protected function _renderItemDetails($container) {
+        $container->addAttributeList($this->_mail)
 
             // Subject
             ->addField('subject')
@@ -79,5 +81,9 @@ class HttpDelete extends arch\form\template\DeleteRecord {
             ->addField('isPrivate', $this->_('Private'), function($mail) {
                 return $this->html->lockIcon($mail['isPrivate']);
             });
+    }
+
+    protected function _deleteItem() {
+        $this->_mail->delete();
     }
 }

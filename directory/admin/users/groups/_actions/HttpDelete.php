@@ -10,20 +10,22 @@ use df\core;
 use df\arch;
 use df\aura;
 
-class HttpDelete extends arch\form\template\DeleteRecord {
+class HttpDelete extends arch\form\template\Delete {
     
     const ITEM_NAME = 'group';
-    const ENTITY_LOCATOR = 'axis://user/Group';
     
-    protected function _loadRecord() {
-        return $this->_fetchRecordForAction(
+    protected $_group;
+
+    protected function _init() {
+        $this->_group = $this->data->fetchForAction(
+            'axis://user/Group',
             $this->request->query['group'],
             'delete'
         );
     }
     
-    protected function _addAttributeListFields($attributeList) {
-        $attributeList
+    protected function _renderItemDetails($container) {
+        $container->addAttributeList($this->_group)
             ->addField('name')
             ->addField('roles', function($row) {
                 return $row->roles->select()->count();
@@ -34,8 +36,8 @@ class HttpDelete extends arch\form\template\DeleteRecord {
             ;
     }
     
-    protected function _deleteRecord() {
-        $this->_record->delete();
+    protected function _deleteItem() {
+        $this->_group->delete();
         $this->user->instigateGlobalKeyringRegeneration();
     }
 }

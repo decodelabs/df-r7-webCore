@@ -10,20 +10,22 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class HttpDelete extends arch\form\template\DeleteRecord {
+class HttpDelete extends arch\form\template\Delete {
 
     const ITEM_NAME = 'user';
-    const ENTITY_LOCATOR = 'axis://user/Client';
 
-    protected function _loadRecord() {
-        return $this->_fetchRecordForAction(
+    protected $_user;
+
+    protected function _init() {
+        $this->_user = $this->data->fetchForAction(
+            'axis://user/Client',
             $this->request->query['user'],
             'delete'
         );
     }
 
-    protected function _addAttributeListFields($attributeList) {
-        $attributeList
+    protected function _renderItemDetails($container) {
+        $container->addAttributeList($this->_user)
             ->addField('fullName')
             ->addField('nickName')
             ->addField('email', function($row) {
@@ -42,17 +44,17 @@ class HttpDelete extends arch\form\template\DeleteRecord {
             ;
     }
 
-    protected function _deleteRecord() {
+    protected function _deleteItem() {
         $model = $this->data->getModel('user');
 
         $model->groupBridge->delete()
-            ->where('client', '=', $this->_record)
+            ->where('client', '=', $this->_user)
             ->execute();
 
         $model->auth->delete()
-            ->where('user', '=', $this->_record)
+            ->where('user', '=', $this->_user)
             ->execute();
 
-        $this->_record->delete();
+        $this->_user->delete();
     }
 }
