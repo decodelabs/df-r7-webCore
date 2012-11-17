@@ -48,14 +48,6 @@ class HttpController extends arch\Controller {
             });
     }
 
-    public function refreshAction() {
-        arch\navigation\menu\Base::clearCache($this->_context);
-
-        $this->arch->notify('complete', $this->_('The system menu list has been refreshed'), 'success');
-
-        return $this->http->defaultRedirect();
-    }
-
     public function detailsHtmlAction() {
         $view = $this->aura->getView('Details.html');
 

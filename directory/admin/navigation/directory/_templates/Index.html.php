@@ -3,7 +3,7 @@
 echo $this->html->menuBar()
     ->addLinks(
         $this->html->link(
-                $this->uri->request('~admin/navigation/directory/refresh', true),
+                $this->uri->request('~admin/navigation/refresh', true),
                 $this->_('Refresh menu list')
             )
             ->setIcon('refresh'),
