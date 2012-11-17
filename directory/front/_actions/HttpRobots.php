@@ -1,20 +1,21 @@
-<?php
+<?php 
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\front;
+namespace df\apex\directory\front\_actions;
 
 use df;
 use df\core;
+use df\apex;
 use df\arch;
-
-class HttpController extends arch\Controller {
     
+class HttpRobots extends arch\Action {
+
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function indexHtmlAction() {
-        return $this->aura->getView('Index.html');
+    public function executeAsTxt() {
+        return $this->aura->getView('Robots.txt');
     }
 }
