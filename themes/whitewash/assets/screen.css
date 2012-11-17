@@ -469,7 +469,7 @@ a.state-disabled:visited {
 
 .widget-attributeList {
     display: inline-block;
-    min-width: 40%;
+    min-width: 40em;
 }
 
 
