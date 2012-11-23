@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\arch;
 use df\aura;
+use df\neon;
 
 class HttpController extends arch\Controller {
     
@@ -20,6 +21,15 @@ class HttpController extends arch\Controller {
         
         if(!$absolutePath = $theme->findAsset($this->application, $this->request->query['file'])) {
             $this->throwError(404, 'File not found');
+        }
+
+        if(isset($this->request->query->transform)) {
+            $type = core\mime\Type::fileToMime($absolutePath);
+
+            if(substr($type, 0, 6) == 'image/') {
+                $cache = neon\raster\Cache::getInstance($this->application);
+                $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request->query['transform']);
+            }
         }
         
         return $this->http->fileResponse($absolutePath);
