@@ -23,6 +23,8 @@ class HttpController extends arch\Controller {
             $this->throwError(404, 'File not found');
         }
 
+        $type = null;
+
         if(isset($this->request->query->transform)) {
             $type = core\mime\Type::fileToMime($absolutePath);
 
@@ -32,6 +34,12 @@ class HttpController extends arch\Controller {
             }
         }
         
-        return $this->http->fileResponse($absolutePath);
+        $output = $this->http->fileResponse($absolutePath);
+
+        if($type) {
+            $output->setContentType($type);
+        }
+        
+        return $output;
     }
 }
