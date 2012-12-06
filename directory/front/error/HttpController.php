@@ -9,6 +9,8 @@ use df;
 use df\core;
 use df\arch;
 use df\user;
+use df\aura;
+use df\halo;
 
 class HttpController extends arch\Controller {
     
@@ -45,10 +47,35 @@ class HttpController extends arch\Controller {
             }
         }
         
-        core\debug()
-            ->info('error has reached the error handler!')
-            ->exception($exception)
-            ->flush();
+        $isDevelopment = $this->application->isDevelopment();
+        $view = null;
+
+        if(!$isDevelopment || isset($lastRequest->query->showErrorTemplate)) {
+            try {
+                $view = $this->aura->getView($code.'.html');
+            } catch(aura\view\ContentNotFoundException $e) {
+                try {
+                    $view = $this->aura->getView('Default.html');
+                } catch(aura\view\ContentNotFoundException $e) {
+                    $view = null;
+                }
+            }
+        }
+
+        if(!$view) {
+            core\debug()
+                ->info('error has reached the error handler!')
+                ->exception($exception)
+                ->flush();
+        }
+
+        if(!halo\protocol\http\response\HeaderCollection::isValidStatusCode($code)) {
+            $code = 500;
+        }
         
+        $view['code'] = $code;
+        $view['message'] = halo\protocol\http\response\HeaderCollection::statusCodeToMessage($code);
+
+        return $view;
     }
 }
