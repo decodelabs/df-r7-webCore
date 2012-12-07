@@ -32,9 +32,9 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('theme')
                 ->setWeight(30),
 
-            $entryList->newLink('~devtools/stats', 'Application file stats')
-                ->setId('stats')
-                ->setDescription('View file size, code size and spread for this site')
+            $entryList->newLink('~devtools/application/', 'Application utilities')
+                ->setId('application')
+                ->setDescription('View stats, generate testing and production versions etc.')
                 ->setIcon('stats')
                 ->setWeight(50)
         );
