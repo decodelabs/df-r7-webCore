@@ -50,7 +50,8 @@ class HttpController extends arch\Controller {
         $isDevelopment = $this->application->isDevelopment();
         $view = null;
 
-        if(!$isDevelopment || isset($lastRequest->query->showErrorTemplate)) {
+        if((!$isDevelopment || isset($lastRequest->query->showErrorTemplate))
+        && (!isset($lastRequest->query->showDump))) {
             try {
                 $view = $this->aura->getView($code.'.html');
             } catch(aura\view\ContentNotFoundException $e) {
