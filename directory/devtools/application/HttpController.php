@@ -8,7 +8,7 @@ namespace df\apex\directory\devtools\application;
 use df;
 use df\core;
 use df\arch;
-use df\ctrl;
+use df\halo;
 
 class HttpController extends arch\Controller {
     
@@ -63,15 +63,9 @@ class HttpController extends arch\Controller {
 
 
     public function compileAction() {
-        $builder = new ctrl\app\Builder(df\Launchpad::$loader);
-        $builder->build();
+        $view = $this->aura->getView('CompileResult.html');
+        $view['result'] = halo\process\Base::launchTask('build-app');
 
-        $this->arch->notify(
-            'builder.compile',
-            $this->_('The new version has been compiled successfully'),
-            'success'
-        );
-
-        return $this->http->defaultRedirect();
+        return $view;
     }
 }
