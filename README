@@ -1,1 +1,4 @@
 Web core package for DF r7-hydrogen
+You must also have at least the df-r7-base package installed to use this package
+
+See http://decodelabs.com for more info
