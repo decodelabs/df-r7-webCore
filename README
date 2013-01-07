@@ -1,4 +1,6 @@
 Web core package for DF r7-hydrogen
 You must also have at least the df-r7-base package installed to use this package
 
+Use this package if you want to build any kind of web app with the Decode Framework
+
 See http://decodelabs.com for more info
