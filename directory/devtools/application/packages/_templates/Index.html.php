@@ -35,6 +35,18 @@ echo $this->html->menuBar()
 
 
 
+echo $this->html->notification($this->_(
+        'Guaranteed functionality of this manager UI is dependent on connection to a proxy daemon which is not currently running'
+    ))
+    ->setDescription($this->_(
+        'As a fallback it will attempt to communicate with Git directly, however this will only work fully if your webserver '.
+        'user has been given access to the required permissions and credentials'
+    ))
+    ->setType('warning');
+
+echo $this->html->notification($this->_('For more stable package management, please see the CLI tasks available in /packages/'));
+
+
 echo $this->html->collectionList($this['packageList'])
     ->setErrorMessage($this->_('No packages could be found'))
 
