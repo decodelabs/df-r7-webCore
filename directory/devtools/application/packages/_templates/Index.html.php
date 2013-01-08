@@ -1,0 +1,120 @@
+<?php
+echo $this->html->menuBar()
+    ->addLinks(
+        $this->html->link(
+                $this->uri->request('~devtools/application/packages/add', true),
+                $this->_('Install new package')
+            )
+            ->setIcon('add')
+            ->isDisabled(true),
+
+        $this->html->link(
+                $this->uri->request('~devtools/application/packages/refresh-all', true),
+                $this->_('Refresh')
+            )
+            ->setIcon('refresh'),
+
+        $this->html->link(
+                $this->uri->request('~devtools/application/packages/update-all', true),
+                $this->_('Update all')
+            )
+            ->setIcon('download')
+            ->setDisposition('operative'),
+
+        $this->html->link(
+                $this->uri->request('~devtools/application/packages/commit-all', true),
+                $this->_('Commit all')
+            )
+            ->setIcon('upload')
+            ->setDisposition('operative'),
+
+        '|',
+
+        $this->html->backLink()
+    );
+
+
+
+echo $this->html->collectionList($this['packageList'])
+    ->setErrorMessage($this->_('No packages could be found'))
+
+    // Name
+    ->addField('location', function($package, $context) {
+        if(!$package['instance']) {
+            $context->getRowTag()->addClass('state-disabled');
+        }
+
+        return \df\core\io\Util::stripLocationFromFilePath($package['path']);
+    })
+
+    // Priority
+    ->addField('priority', function($package) {
+        if($package['name'] == 'app') {
+            return 'top';
+        } else if($package['instance']) {
+            return $package['instance']->priority;
+        }
+    })
+
+    // Changes
+    ->addField('changes', function($package, $context) {
+        if(!$package['repo']) {
+            return null;
+        }
+
+        $status = $package['repo']->getCommitStatus();
+
+        $hasChanges = false;
+        $output = array();
+
+        if($status->hasTracked()) {
+            $output[] = $this->html->icon('edit', $status->countTracked());
+            $hasChanges = true;
+        }
+
+        if($status->hasUntracked()) {
+            $output[] = $this->html->icon('plus', $status->countUntracked());
+            $hasChanges = true;
+        }
+
+        if($commits = $status->countUnpushedCommits()) {
+            $output[] = $this->html->icon('upload', $commits);
+            $hasChanges = true;
+        }
+
+        if($commits = $status->countUnpulledCommits()) {
+            $output[] = $this->html->icon('download', $commits);
+        }
+
+        $context->setStore('hasChanges', $hasChanges);
+
+        return $output;
+    })
+
+    // Actions
+    ->addField('Actions', function($package, $context) {
+        if($package['repo']) {
+            return [
+                $this->html->link(
+                        $this->uri->request('~devtools/application/packages/refresh?package='.$package['name'], true),
+                        $this->_('Refresh')
+                    )
+                    ->setIcon('refresh'),
+
+                $this->html->link(
+                        $this->uri->request('~devtools/application/packages/update?package='.$package['name'], true),
+                        $this->_('Update')
+                    )
+                    ->setIcon('download')
+                    ->setDisposition('operative'),
+
+                $this->html->link(
+                        $this->uri->request('~devtools/application/packages/commit?package='.$package['name'], true),
+                        $this->_('Commit')
+                    )
+                    ->setIcon('upload')
+                    ->setDisposition('operative')
+                    ->isDisabled(!$context->getStore('hasChanges'))
+            ];
+        }
+    }); 

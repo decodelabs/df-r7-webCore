@@ -20,11 +20,17 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('stats')
                 ->setWeight(10),
 
+            $entryList->newLink('~devtools/application/packages/', 'Packages')
+                ->setId('packages')
+                ->setDescription('Select, install and update packages for features of your site')
+                ->setIcon('package')
+                ->setWeight(20),
+
             $entryList->newLink('~devtools/application/compile', 'Compile testing / production version')
                 ->setId('compile')
                 ->setDescription('Production sites should run from a compiled production version. Build an up to date version here')
                 ->setIcon('module')
-                ->setWeight(20)
+                ->setWeight(30)
         );
     }
 }
