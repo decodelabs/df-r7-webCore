@@ -64,7 +64,7 @@ class HttpController extends arch\Controller {
 
     public function compileAction() {
         $view = $this->aura->getView('CompileResult.html');
-        $view['result'] = halo\process\Base::launchTask('build-app');
+        $view['result'] = halo\process\Base::launchTask('application/build');
 
         return $view;
     }
