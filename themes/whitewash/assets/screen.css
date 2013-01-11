@@ -55,6 +55,18 @@ h1, h2, h3, h4, h5, h6, p, ol, ul {
     margin: 1em 0 0.2em;
 }
 
+sup {
+    vertical-align: super;
+}
+
+sub {
+    vertical-align: sub;
+}
+
+sup, sub {
+    font-size: 0.8em;
+}
+
 
 
 
