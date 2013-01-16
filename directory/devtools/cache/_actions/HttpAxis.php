@@ -49,10 +49,9 @@ class HttpAxis extends arch\form\Action {
                             $this->_('Clear')
                         )
                         ->setIcon('delete');
-                })
-        );
+                }),
 
-        $form->push(
+                
             $this->html->eventButton(
                     'clear',
                     $this->_('Clear all')
