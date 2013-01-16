@@ -27,7 +27,12 @@ class Index_WebCore extends arch\navigation\menu\Base {
             $entryList->newLink('~devtools/cache/session', 'Session store')
                 ->setId('session')
                 ->setIcon('user')
-                ->setWeight(30)
+                ->setWeight(30),
+
+            $entryList->newLink('~devtools/cache/raster', 'Raster image transformations')
+                ->setId('raster')
+                ->setIcon('image')
+                ->setWeight(40)
         );
     }
 }
