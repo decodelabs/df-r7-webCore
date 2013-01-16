@@ -36,6 +36,12 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setId('application')
                 ->setDescription('View stats, generate testing and production versions etc.')
                 ->setIcon('stats')
+                ->setWeight(40),
+
+            $entryList->newLink('~devtools/cache/', 'Cache control')
+                ->setId('cache')
+                ->setDescription('Refresh, clear and view stats for most cache structure your site employs')
+                ->setIcon('toolkit')
                 ->setWeight(50)
         );
 
@@ -45,7 +51,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
                     ->setId('regenerate-db')
                     ->setDescription('Delete and regenerate the entire database with test data')
                     ->setIcon('info')
-                    ->setWeight(45)
+                    ->setWeight(35)
             );
         }
     }
