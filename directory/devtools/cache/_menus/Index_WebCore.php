@@ -16,9 +16,18 @@ class Index_WebCore extends arch\navigation\menu\Base {
         $entryList->addEntries(
             $entryList->newLink('~devtools/cache/axis', 'Axis schemas')
                 ->setId('axis')
-                ->setDescription('Axis schemas')
                 ->setIcon('database')
-                ->setWeight(10)
+                ->setWeight(10),
+
+            $entryList->newLink('~devtools/cache/menu', 'Navigation menu')
+                ->setId('menu')
+                ->setIcon('menu')
+                ->setWeight(20),
+
+            $entryList->newLink('~devtools/cache/session', 'Session store')
+                ->setId('session')
+                ->setIcon('user')
+                ->setWeight(30)
         );
     }
 }
