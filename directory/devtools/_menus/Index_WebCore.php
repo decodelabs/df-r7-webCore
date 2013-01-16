@@ -40,7 +40,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
 
             $entryList->newLink('~devtools/cache/', 'Cache control')
                 ->setId('cache')
-                ->setDescription('Refresh, clear and view stats for most cache structure your site employs')
+                ->setDescription('Refresh, clear and view stats for most cache structures your site employs')
                 ->setIcon('toolkit')
                 ->setWeight(50)
         );
