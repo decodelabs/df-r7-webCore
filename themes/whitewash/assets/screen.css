@@ -602,7 +602,8 @@ a.state-disabled:visited {
 .widget-blockMenu li {
     float: left;
     padding: 0.2em;
-    width: 33%;
+    /*width: 33%;*/
+    min-width: 25%;
     box-sizing: border-box;
 }
 
@@ -643,8 +644,14 @@ td .widget-link + .widget-link {
     display: inline-block;
     border: 4px #F8F8F8 solid;
     border-radius: 6px;
-    min-height: 7em;
+    /*min-height: 7em;*/
     padding: 0.4em;
+    min-width: 10em;
+    max-width: 18em;
+}
+
+.widget-blockLink p {
+    min-height: 4em;
 }
 
 .widget-blockMenu li .widget-blockLink {
