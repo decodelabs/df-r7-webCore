@@ -350,6 +350,10 @@ button span[data-icon]:before {
     margin-bottom: 0;
 }
 
+.widget-fieldSet > div.body > label {
+    display: block;
+}
+
 .widget-fieldArea {
     padding: 0.3em;
     background: #FFF;
