@@ -49,6 +49,7 @@ return [
     //'target-2' => '&#xe025;',
     'mail' => '&#xe026;',
     'picture' => '&#xe027;',
+    'image' => '&#xe027;',
     'profile' => '&#xe028;',
     'clipboard-empty' => '&#xe029;',
     'clipboard-full' => '&#xe02a;',
