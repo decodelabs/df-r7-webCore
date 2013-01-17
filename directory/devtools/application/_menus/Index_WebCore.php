@@ -26,7 +26,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('package')
                 ->setWeight(20),
 
-            $entryList->newLink('~devtools/application/compile', 'Compile testing / production version')
+            $entryList->newLink('~devtools/application/compile', 'Compile production version')
                 ->setId('compile')
                 ->setDescription('Production sites should run from a compiled production version. Build an up to date version here')
                 ->setIcon('module')
