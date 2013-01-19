@@ -25,7 +25,6 @@ class HttpController extends arch\Controller {
                 
             ->paginate()
                 ->setOrderableFields('group.name', 'users', 'roles')
-                ->setDefaultOrder('group.name')
                 ->applyWith($this->request->query);
             
             
