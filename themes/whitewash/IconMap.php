@@ -32,6 +32,7 @@ return [
     'settings' => '&#xe016;',
     'package' => '&#xe017;',
     'module' => '&#xe018;',
+    'project' => '&#xe018;',
     'toolkit' => '&#xe019;',
     'mobile' => '&#xe01a;',
     'dashboard' => '&#xe01b;',
