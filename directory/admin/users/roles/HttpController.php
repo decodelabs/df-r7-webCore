@@ -24,7 +24,6 @@ class HttpController extends arch\Controller {
             ->paginate()
                 ->setOrderableFields('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority', 'groups', 'keys')
                 ->setDefaultOrder('role.name')
-                ->setDefaultLimit(30)
                 ->applyWith($this->request->query);
                 
         return $view;

@@ -22,7 +22,6 @@ class HttpController extends arch\Controller {
             ->paginate()
                 ->setOrderableFields('from', 'to', 'subject', 'date', 'isPrivate')
                 ->setDefaultOrder('date DESC')
-                ->setDefaultLimit(30)
                 ->applyWith($this->request->query);
 
         return $view;

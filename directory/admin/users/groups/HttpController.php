@@ -26,7 +26,6 @@ class HttpController extends arch\Controller {
             ->paginate()
                 ->setOrderableFields('group.name', 'users', 'roles')
                 ->setDefaultOrder('group.name')
-                ->setDefaultLimit(30)
                 ->applyWith($this->request->query);
             
             

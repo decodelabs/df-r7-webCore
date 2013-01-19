@@ -29,7 +29,6 @@ class HttpController extends arch\Controller {
                     'loginDate', 'timezone', 'country', 'language'
                 )
                 ->setDefaultOrder('fullName')
-                ->setDefaultLimit(30)
                 ->applyWith($this->request->query);
 
         return $view;
