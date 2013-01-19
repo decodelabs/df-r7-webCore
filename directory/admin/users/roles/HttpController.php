@@ -16,15 +16,8 @@ class HttpController extends arch\Controller {
         $view['roleList'] = $this->data->select('id', 'name', 'bindState', 'minRequiredState', 'priority')
             ->from($model->role, 'role')
             
-            ->correlate('COUNT(groupBridge.group) as groups')
-                ->from($model->role->getBridgeUnit('groups'), 'groupBridge')
-                ->on('groupBridge.role', '=', 'role.@primary')
-                ->endCorrelation()
-
-            ->correlate('COUNT(key.role) as keys')
-                ->from($model->key, 'key')
-                ->on('key.role', '=', 'role.@primary')
-                ->endCorrelation()
+            ->countRelation('groups')
+            ->countRelation('keys')
 
             ->groupBy('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority')
             

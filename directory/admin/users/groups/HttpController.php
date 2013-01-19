@@ -20,15 +20,8 @@ class HttpController extends arch\Controller {
         $view['groupList'] = $this->data->select('id', 'name')
             ->from($model->group, 'group')
             
-            ->correlate('COUNT(groupBridge.client) as users')
-                ->from($model->groupBridge, 'groupBridge')
-                ->on('groupBridge.group', '=', 'group.@primary')
-                ->endCorrelation()
-                
-            ->correlate('COUNT(roleBridge.role) as roles')
-                ->from($model->group->getBridgeUnit('roles'), 'roleBridge')
-                ->on('roleBridge.group', '=', 'group.@primary')
-                ->endCorrelation()
+            ->countRelation('users')
+            ->countRelation('roles')
                 
             ->paginate()
                 ->setOrderableFields('group.name', 'users', 'roles')
