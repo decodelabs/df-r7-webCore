@@ -103,6 +103,15 @@ echo $this->html->collectionList($this['packageList'])
         return $output;
     })
 
+    // Commits
+    ->addField('commits', function($package) {
+        if(!$package['repo']) {
+            return null;
+        }
+
+        return $this->html->icon('star', $package['repo']->countCommits('master'));
+    })
+
     // Actions
     ->addField('Actions', function($package, $context) {
         if($package['repo']) {
