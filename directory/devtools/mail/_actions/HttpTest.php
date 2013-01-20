@@ -13,8 +13,7 @@ use df\arch;
 class HttpTest extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
-
-    protected $_defaultEvent = 'send';
+    const DEFAULT_EVENT = 'send';
 
     protected function _init() {
 

@@ -14,6 +14,7 @@ use df\neon;
 class HttpRaster extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
+    const DEFAULT_EVENT = 'refresh';
 
     protected $_cache;
 

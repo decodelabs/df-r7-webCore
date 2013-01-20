@@ -13,6 +13,7 @@ use df\arch;
 class HttpMenu extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
+    const DEFAULT_EVENT = 'refresh';
 
     protected $_cache;
 
