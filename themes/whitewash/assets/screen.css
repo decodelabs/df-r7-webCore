@@ -470,6 +470,20 @@ a.state-disabled:visited {
 
 
 
+.priority-low {
+    color: green;
+}
+
+.priority-medium {
+    color: #8F7310;
+}
+
+.priority-high {
+    color: red;
+}
+
+
+
 .widget-collectionList,
 .widget-attributeList {
     border: 2px #F5F5F5 solid;
