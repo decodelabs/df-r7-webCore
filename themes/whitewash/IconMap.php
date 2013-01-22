@@ -36,6 +36,7 @@ return [
     'toolkit' => '&#xe019;',
     'mobile' => '&#xe01a;',
     'dashboard' => '&#xe01b;',
+    'time' => '&#xe01b;',
     'node' => '&#xe01c;',
     'type' => '&#xe01c;',
     'window' => '&#xe01d;',
