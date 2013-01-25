@@ -74,7 +74,7 @@ echo $this->html->attributeList($this['client'])
                     $group['name']
                 )
                 ->setIcon('group')
-                ->setDisposition('transitive');
+                ->setDisposition('informative');
         }
         
         return $this->html->string(implode(', ', $output));

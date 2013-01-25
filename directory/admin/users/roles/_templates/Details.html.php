@@ -59,7 +59,7 @@ echo $this->html->element('section')->setId('section-roleAttributes')->push(
                         $group['name']
                     )
                     ->setIcon('group')
-                    ->setDisposition('transitive')
+                    ->setDisposition('informative')
                     ->addAccessLock('axis://user/Group');
             }
             

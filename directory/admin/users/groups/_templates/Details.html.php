@@ -45,7 +45,7 @@ echo $this->html->collectionList($this['group']->roles->fetch()->orderBy('priori
     ->addField('name', function($row) {
         return $this->html->link('~admin/users/roles/details?role='.$row['id'], $row['name'])
             ->setIcon('role')
-            ->setDisposition('transitive')
+            ->setDisposition('informative')
             ->addAccessLock('axis://user/Role');
     })
     
