@@ -1,19 +1,7 @@
 <?php
-echo $this->html->menuBar()
-    ->addLinks(
-        $this->html->link(
-                $this->uri->request('~admin/navigation/directory/edit?menu='.$this['menu']->getId()->path->toString(), true),
-                $this->_('Edit menu')
-            )
-            ->setIcon('edit'),
 
-        '|',
+echo $this->import->template('elements/Header.html');
 
-        $this->html->backLink()
-    );
-
-
-echo $this->html->element('h3', $this->_('Basic details'));
 
 echo $this->html->attributeList($this['menu'])
 
@@ -73,12 +61,3 @@ echo $this->html->attributeList($this['menu'])
         }
     })
     ;
-
-
-echo $this->html->element('h3', $this->_('Entries'));
-
-echo $this->import->template(
-        'elements/MenuEntryList.html',
-        '~admin/navigation/'
-    )
-    ->setArgs(['entryList' => $this['entryList']]);
