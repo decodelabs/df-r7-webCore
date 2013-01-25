@@ -26,7 +26,7 @@ echo $this->html->menuBar()
 echo $this->html->collectionList($this['clientList'])
     // Name
     ->addField('fullName', $this->_('Name'), function($row) {
-        return $this->html->link('~admin/users/details?client='.$row['id'], $row['fullName'])
+        return $this->html->link('~admin/users/details?user='.$row['id'], $row['fullName'])
             ->setIcon('user')
             ->setDisposition('informative');
     })

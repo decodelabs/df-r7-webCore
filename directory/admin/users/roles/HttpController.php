@@ -31,12 +31,29 @@ class HttpController extends arch\Controller {
 
     public function detailsHtmlAction() {
         $view = $this->aura->getView('Details.html');
+        $this->_fetchRole($view);
+        
+        return $view;
+    }
 
+    public function keysHtmlAction() {
+        $view = $this->aura->getView('Keys.html');
+        $this->_fetchRole($view);
+
+        $view['keyList'] = $view['role']->keys->fetch()
+            ->orderBy('domain');
+
+        return $view;
+    }
+
+    protected function _fetchRole($view) {
         $view['role'] = $this->data->fetchForAction(
             'axis://user/Role',
             $this->request->query['role']
         );
-        
+
+        $view['keyCount'] = $view['role']->keys->select()->count();
+
         return $view;
     }
 }

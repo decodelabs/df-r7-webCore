@@ -1,28 +1,6 @@
 <?php
-echo $this->html->menuBar()
-    ->addLinks(
-        $this->html->link(
-                $this->uri->request('~admin/users/edit?user='.$this['client']['id'], true),
-                $this->_('Edit user')
-            )
-            ->setIcon('edit')
-            ->addAccessLock($this['client']->getActionLock('edit')),
 
-        $this->html->link(
-                $this->uri->request(
-                    '~admin/users/delete?user='.$this['client']['id'], true,
-                    '~admin/users/'
-                ),
-                $this->_('Delete user')
-            )
-            ->setIcon('delete')
-            ->addAccessLock($this['client']->getActionLock('delete')),
-
-        '|',
-
-        $this->html->backLink()
-    );
-
+echo $this->import->template('elements/Header.html');
 
 
 echo $this->html->attributeList($this['client'])
@@ -81,18 +59,3 @@ echo $this->html->attributeList($this['client'])
     })
 ;
 
-
-echo $this->html->element('h3', $this->_('Authentication adapters'));
-
-
-echo $this->html->collectionList($this['client']->authDomains->fetch())
-    ->addField('adapter')
-    ->addField('identity')
-    ->addField('bindDate', function($row) {
-        return $this->format->date($row['bindDate']);
-    })
-    ->addField('loginDate', $this->_('Last login'), function($row) {
-        if($row['loginDate']) {
-            return $this->format->timeSince($row['loginDate']);
-        }
-    });
