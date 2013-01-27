@@ -71,16 +71,13 @@ sup, sub {
 
 
 
-
-
-
 @font-face {
-    font-family: 'Test-Font';
-    src: url('fonts/Test-Font.eot');
-    src: url('fonts/Test-Font.eot?#iefix') format('embedded-opentype'),
-        url('fonts/Test-Font.svg#Test-Font') format('svg'),
-        url('fonts/Test-Font.woff') format('woff'),
-        url('fonts/Test-Font.ttf') format('truetype');
+    font-family: 'Icomoon';
+    src: url('../shared/fonts/Icomoon.eot');
+    src: url('../shared/fonts/Icomoon.eot?#iefix') format('embedded-opentype'),
+        url('../shared/fonts/Icomoon.svg#Icomoon') format('svg'),
+        url('../shared/fonts/Icomoon.woff') format('woff'),
+        url('../shared/fonts/Icomoon.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -704,7 +701,7 @@ span[data-icon] {
 }
 
 span[data-icon]:before {
-    font-family: 'Test-Font';
+    font-family: 'Icomoon';
     content: attr(data-icon);
     speak: none;
     color: inherit;
