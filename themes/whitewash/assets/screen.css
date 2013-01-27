@@ -73,11 +73,11 @@ sup, sub {
 
 @font-face {
     font-family: 'Icomoon';
-    src: url('../shared/fonts/Icomoon.eot');
-    src: url('../shared/fonts/Icomoon.eot?#iefix') format('embedded-opentype'),
-        url('../shared/fonts/Icomoon.svg#Icomoon') format('svg'),
-        url('../shared/fonts/Icomoon.woff') format('woff'),
-        url('../shared/fonts/Icomoon.ttf') format('truetype');
+    src: url('fonts/Icomoon.eot');
+    src: url('fonts/Icomoon.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Icomoon.svg#Icomoon') format('svg'),
+        url('fonts/Icomoon.woff') format('woff'),
+        url('fonts/Icomoon.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
