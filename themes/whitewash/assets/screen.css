@@ -121,8 +121,6 @@ h3 {
     font-size: 1.5em;
     padding: 0.2em 0.3em;
     border-radius: 0.3em;
-    margin-left: -0.3em;
-    margin-right: -0.3em;
 }
 
 .layout-pageArea {
@@ -574,6 +572,51 @@ a.state-disabled:visited {
 .widget-paginator .block-links {
     float: right;
 }
+
+
+
+
+.widget-articleList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 40em;
+}
+
+.widget-articleList article {
+    margin-bottom: 1.5em;
+}
+
+.widget-articleList article header {
+    background: #F4F4F4;
+    padding: 0.4em 0.6em;
+    border-radius: 0.5em;
+}
+
+.widget-articleList article header h3 {
+    margin: 0 0 0.2em;
+    font-size: 1.2em;
+    padding: 0;
+    background: none;
+}
+
+.widget-articleList article > header p {
+    font-size: 0.7em;
+    color: #888;
+    margin: 0;
+}
+
+.widget-articleList article > section {
+    padding: 0.4em 0.6em;
+}
+
+.widget-articleList article > footer {
+    border-top: 1px #F4F4F4 solid;
+    padding-top: 0.5em;
+    font-size: 0.8em;
+    margin: 0 0.6em;
+}
+
 
 
 .widget-menu, 
