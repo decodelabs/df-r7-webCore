@@ -578,24 +578,36 @@ a.state-disabled:visited {
 
 .widget-articleList {
     list-style: none;
-    margin: 0;
+    margin: 0 0 1.5em;
     padding: 0;
     max-width: 40em;
+}
+
+.widget-articleList article > .widget-articleList {
+    margin: 0.5em 0 0 1em;
+    padding: 0.5em 0.3em;
+    background: rgba(0,0,0,0.015);
+    border-radius: 0.6em;
 }
 
 .widget-articleList article {
     margin-bottom: 1.5em;
 }
 
+.widget-articleList li:last-child article {
+    margin-bottom: 0;
+}
+
 .widget-articleList article header {
     background: #F4F4F4;
+    background: rgba(0,0,0,0.04);
     padding: 0.4em 0.6em;
     border-radius: 0.5em;
 }
 
 .widget-articleList article header h3 {
     margin: 0 0 0.2em;
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 0;
     background: none;
 }
@@ -703,7 +715,7 @@ a.state-disabled:visited {
     color: inherit;
 }
 
-td .widget-link + .widget-link {
+.widget-link + .widget-link.hasIcon {
     margin-left: 0.75em;
 }
 
