@@ -13,12 +13,12 @@ echo $this->html->collectionList($this['client']->authDomains->fetch())
 
     // Bind date
     ->addField('bindDate', function($row) {
-        return $this->format->date($row['bindDate']);
+        return $this->html->date($row['bindDate']);
     })
 
     // Login date
     ->addField('loginDate', $this->_('Last login'), function($row) {
         if($row['loginDate']) {
-            return $this->format->timeSince($row['loginDate']);
+            return $this->html->timeSince($row['loginDate']);
         }
     });

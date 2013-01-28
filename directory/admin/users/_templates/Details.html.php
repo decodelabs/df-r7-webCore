@@ -26,13 +26,13 @@ echo $this->html->attributeList($this['client'])
     
     // Join date
     ->addField('joinDate', 'Joined', function($row) {
-        return $this->format->date($row['joinDate']);
+        return $this->html->date($row['joinDate']);
     })
     
     // Login
     ->addField('loginDate', 'Last login', function($row) {
         if($row['loginDate']) {
-            return $this->format->timeSince($row['loginDate']);
+            return $this->html->timeSince($row['loginDate']);
         }
     })
     

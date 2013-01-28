@@ -48,7 +48,7 @@ echo $this->html->attributeList($this['mail'])
 
     // Date
     ->addField('date', $this->_('Sent'), function($mail) {
-        return $this->format->userDateTime($mail['date'], 'medium');
+        return $this->html->userDateTime($mail['date'], 'medium');
     })
 
     // Is private

@@ -51,13 +51,13 @@ echo $this->html->collectionList($this['clientList'])
     
     // Join date
     ->addField('joinDate', $this->_('Joined'), function($row) {
-        return $this->format->date($row['joinDate']);
+        return $this->html->date($row['joinDate']);
     })
     
     // Login
     ->addField('loginDate', $this->_('Login'), function($row) {
         if($row['loginDate']) {
-            return $this->format->timeSince($row['loginDate']);
+            return $this->html->timeSince($row['loginDate']);
         }
     })
     

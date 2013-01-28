@@ -78,7 +78,7 @@ class HttpDelete extends arch\form\template\Delete {
 
             // Date
             ->addField('date', $this->_('Sent'), function($mail) {
-                return $this->view->format->userDateTime($mail['date'], 'medium');
+                return $this->view->html->userDateTime($mail['date'], 'medium');
             })
 
             // Is private
