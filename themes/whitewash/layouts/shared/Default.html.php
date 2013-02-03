@@ -10,7 +10,7 @@ $this->view
         
         
         <?php 
-        if($this->_context->getRequest()->hasPath()) {
+        if($this->_context->request->hasPath()) {
             echo $this->html->breadcrumbList(true);
         } 
         ?>
