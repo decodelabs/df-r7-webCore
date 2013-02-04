@@ -400,6 +400,11 @@ button span[data-icon]:before {
     padding-bottom: 0.3em;
 }
 
+.widget-fieldArea > .widget-inputArea > .widget-buttonArea {
+    padding: 0.3em;
+    background-color: #FAFAFA;
+}
+
 
 .widget-textbox {
     min-width: 15em;
@@ -836,4 +841,28 @@ a:hover span[data-icon]:before {
     padding: 0.2em;
     font-size: 0.8em;
     border-width: 3px;
+}
+
+
+
+.widget-overlay {
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    padding: 2.5em;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.widget-overlay .container {
+    background: #FFF;
+    height: 87vh;
+    padding: 2em;
+    overflow: auto;
+    box-sizing: border-box;
 }
