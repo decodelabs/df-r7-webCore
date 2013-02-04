@@ -95,11 +95,11 @@ abstract class EditorBase extends arch\form\Action {
 
 
         // Groups
-        $form->push($this->getDelegate('groups')->renderFieldSet($this->_('Groups')));
+        $fs->push($this->getDelegate('groups')->renderFieldArea($this->_('Groups')));
                 
         
         // Buttons
-        $form->push($this->html->defaultButtonGroup());
+        $fs->push($this->html->defaultButtonGroup());
     }
 
 

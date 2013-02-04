@@ -37,11 +37,11 @@ class HttpAdd extends arch\form\Action {
                 
                 
         // Roles
-        $form->push($this->getDelegate('roles')->renderFieldSet($this->_('Roles')));
+        $fs->push($this->getDelegate('roles')->renderFieldArea($this->_('Roles')));
 
         
         // Buttons
-        $form->push($this->html->defaultButtonGroup());
+        $fs->push($this->html->defaultButtonGroup());
     }
 
     protected function _onSaveEvent() {
