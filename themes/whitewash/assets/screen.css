@@ -251,6 +251,10 @@ code, pre {
     font-size: 0.9em;
 }
 
+samp {
+    font-family: Monospace;
+    font-size: 0.9em;
+}
 
 section {
     margin-bottom: 1em;
@@ -305,7 +309,7 @@ button span[data-icon]:before {
     
 }
 
-.layout-header .widget-breadcrumbList {
+.widget-breadcrumbList {
     margin-bottom: 1em;
     padding: 0.4em;
     border-radius: 8px;
