@@ -49,6 +49,7 @@ return [
     'task' => '&#xe020;',
     'test' => '&#xe021;',
     'tag' => '&#xe022;',
+    'label' => '&#xe022;',
     'attribute' => '&#xe068;',
     'help' => '&#xe023;',
     //'target' => '&#xe024;',
