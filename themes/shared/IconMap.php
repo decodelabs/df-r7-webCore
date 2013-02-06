@@ -62,6 +62,7 @@ return [
     'clipboard-empty' => '&#xe029;',
     'clipboard-full' => '&#xe02a;',
     'clipboard' => '&#xe02a;',
+    'post' => '&#xe02b;',
     'file' => '&#xe02b;',
     'folder' => '&#xe02c;',
     'category' => '&#xe02c;',
