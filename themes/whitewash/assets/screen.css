@@ -475,9 +475,12 @@ a.state-disabled:visited {
 }
 
 
+.priority-trivial {
+    color: green;
+}
 
 .priority-low {
-    color: green;
+    color: #8DAD00;
 }
 
 .priority-medium {
@@ -485,6 +488,10 @@ a.state-disabled:visited {
 }
 
 .priority-high {
+    color: #BE3900;
+}
+
+.priority-critical {
     color: red;
 }
 
