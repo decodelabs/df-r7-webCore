@@ -108,6 +108,7 @@ return [
     'database' => '&#xe049;',
     'link' => '&#xe04a;',
     'unlink' => '&#xe04b;',
+    'history' => '&#xe04b;',
     'attachment' => '&#xe04c;',
     'broadcast' => '&#xe04d;',
     'cloud' => '&#xe04e;',
