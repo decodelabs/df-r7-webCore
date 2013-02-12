@@ -491,23 +491,23 @@ a.state-disabled:visited {
 
 
 .priority-trivial {
-    color: green;
+    color: green !important;
 }
 
 .priority-low {
-    color: #8DAD00;
+    color: #8DAD00 !important;
 }
 
 .priority-medium {
-    color: #8F7310;
+    color: #8F7310 !important;
 }
 
 .priority-high {
-    color: #BE3900;
+    color: #BE3900 !important;
 }
 
 .priority-critical {
-    color: red;
+    color: red !important;
 }
 
 
