@@ -345,6 +345,11 @@ button span[data-icon]:before {
 .widget-form {
     overflow: auto;
     margin-bottom: 0.5em;
+    padding: 0;
+}
+
+.widget-fieldSet:first-child {
+    margin-top: 0;
 }
 
 .widget-fieldSet,
