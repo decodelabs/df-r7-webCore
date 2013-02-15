@@ -382,7 +382,7 @@ button span[data-icon]:before {
     text-align: right;
     margin-right: 1em;
     font-size: em;
-    position: absolute;
+    /*position: absolute;*/
 }
 
 .widget-fieldArea.constraint-required > .widget-label:after {
