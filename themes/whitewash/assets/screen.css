@@ -391,7 +391,7 @@ button span[data-icon]:before {
 }
 
 
-.widget-inputArea {
+.widget-fieldArea > .widget-inputArea {
     overflow: auto;
     margin-left: 15em;
 }
