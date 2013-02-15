@@ -413,8 +413,13 @@ button span[data-icon]:before {
     padding-left: 15.4em;
 }
 
-.widget-fieldArea > .widget-fieldError {
+.widget-fieldError {
+    color: red;
     font-size: 0.9em;
+    font-style: italic;
+}
+
+.widget-fieldArea > .widget-fieldError {
     padding-left: 16.7em;
     padding-bottom: 0.3em;
 }
