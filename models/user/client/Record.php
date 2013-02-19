@@ -11,7 +11,7 @@ use df\axis;
 use df\opal;
 use df\user;
 
-class Record extends opal\query\record\Base implements user\IActiveClientDataObject {
+class Record extends opal\record\Base implements user\IActiveClientDataObject {
     
     public function getId() {
         return $this['id'];

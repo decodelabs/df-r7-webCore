@@ -7,7 +7,7 @@ use df\axis;
 use df\opal;
 use df\user;
 
-class Record extends opal\query\record\Base implements user\authentication\IDomainInfo {
+class Record extends opal\record\Base implements user\authentication\IDomainInfo {
     
     public function getIdentity() {
         return $this['identity'];

@@ -10,7 +10,7 @@ use df\core;
 use df\axis;
 use df\opal;
 
-class Record extends opal\query\record\Base implements core\mail\IDevMailRecord {
+class Record extends opal\record\Base implements core\mail\IDevMailRecord {
     
     public function getId() {
         return $this['id'];
