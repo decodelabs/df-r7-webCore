@@ -52,7 +52,7 @@ return [
     'label' => '&#xe022;',
     'attribute' => '&#xe068;',
     'help' => '&#xe023;',
-    //'target' => '&#xe024;',
+    'milestone' => '&#xe024;',
     //'target-2' => '&#xe025;',
     'mail' => '&#xe026;',
     'picture' => '&#xe027;',
