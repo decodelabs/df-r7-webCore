@@ -16,6 +16,8 @@ class UserLink extends arch\Component {
     protected $_icon = 'user';
     protected $_disposition = 'informative';
     protected $_isNullable = false;
+    protected $_useNickName = false;
+    protected $_shortenName = false;
 
     protected function _init($user=null) {
         if($user) {
@@ -63,6 +65,25 @@ class UserLink extends arch\Component {
         return $this->_isNullable;
     }
 
+// Name
+    public function shouldUseNickName($flag=null) {
+        if($flag !== null) {
+            $this->_useNickName = (bool)$flag;
+            return $this;
+        }
+
+        return $this->_useNickName;
+    }
+
+    public function shouldShortenName($flag=null) {
+        if($flag !== null) {
+            $this->_shortenName = (bool)$flag;
+            return $this;
+        }
+
+        return $this->_shortenName;
+    }
+
 // Render
     protected function _execute() {
         if($this->_user === null && $this->_isNullable) {
@@ -76,7 +97,15 @@ class UserLink extends arch\Component {
                 ->addClass('state-error');
         }
 
-        $name = $this->_user['fullName'];
+        if($this->_useNickName) {
+            $name = $this->_user['nickName'];
+        } else {
+            $name = $this->_user['fullName'];
+        }
+
+        if($this->_shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
+            $name = $matches[1].' '.ucfirst($matches[2]{0}).'.';
+        }
 
         return $this->getView()->html->link(
                 '~admin/users/details?user='.$this->_user['id'],
