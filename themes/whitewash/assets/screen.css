@@ -600,6 +600,7 @@ a.state-disabled:visited {
 
 .widget-collectionList td.field-actions a.widget-link {
     margin-left: 0;
+    font-size: 1.2em;
 }
 
 .widget-collectionList td.field-actions a.widget-link span[data-icon] + span {
