@@ -27,6 +27,10 @@ class UserLink extends arch\Component {
 
 // User
     public function setUser($user) {
+        if(is_scalar($user)) {
+            $user = ['id' => $user];
+        }
+        
         $this->_user = $user;
         return $this;
     }
@@ -90,7 +94,13 @@ class UserLink extends arch\Component {
             return null;
         }
 
-        if(!$this->_user) {
+        $id = null;
+
+        if($this->_user) {
+            $id = $this->_user['id'];
+        }
+
+        if(!$this->_user || $id === null) {
             return $this->getView()->html->link('#', 'not found')
                 ->isDisabled(true)
                 ->setIcon('error')
@@ -105,6 +115,10 @@ class UserLink extends arch\Component {
 
         if($this->_shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
             $name = $matches[1].' '.ucfirst($matches[2]{0}).'.';
+        }
+
+        if($name === null) {
+            $name = '#'.$id;
         }
 
         return $this->getView()->html->link(
