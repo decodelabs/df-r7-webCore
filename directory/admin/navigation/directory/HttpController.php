@@ -15,7 +15,7 @@ class HttpController extends arch\Controller {
     public function indexHtmlAction() {
         $this->navigation->getBreadcrumbs();
 
-        return $this->arch->newFacetController()
+        return $this->directory->newFacetController()
             // Init
             ->setInitializer(function($facetController) {
                 $area = trim($this->request->query->get('area', 'admin'), ':~');

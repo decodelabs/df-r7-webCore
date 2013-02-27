@@ -45,7 +45,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setWeight(50)
         );
 
-        if($this->_context->arch->actionExists('~devtools/regenerate-test-db')) {
+        if($this->_context->directory->actionExists('~devtools/regenerate-test-db')) {
             $entryList->addEntry(
                 $entryList->newLink('~devtools/regenerate-test-db', 'Regenerate test DB')
                     ->setId('regenerate-db')
