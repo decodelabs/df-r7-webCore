@@ -206,7 +206,7 @@ class HttpTest extends arch\form\Action {
 
             $mail->send($transport);
 
-            $this->arch->notify(
+            $this->comms->notify(
                 'testMail.sent', 
                 $this->_('The email has been successfully sent'), 
                 'success'

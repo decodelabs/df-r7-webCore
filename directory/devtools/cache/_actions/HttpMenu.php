@@ -84,7 +84,7 @@ class HttpMenu extends arch\form\Action {
         if($this->_cache->has($id)) {
             $this->_cache->remove($id);
 
-            $this->arch->notify(
+            $this->comms->notify(
                     'cache.remove',
                     $this->_('The menu cache %n% has been successfully been removed', ['%n%' => $id]),
                     'success'
@@ -98,7 +98,7 @@ class HttpMenu extends arch\form\Action {
     protected function _onClearEvent() {
         $this->_cache->clear();
 
-        $this->arch->notify(
+        $this->comms->notify(
             'cache.clear',
             $this->_('All menu caches have been cleared'),
             'success'

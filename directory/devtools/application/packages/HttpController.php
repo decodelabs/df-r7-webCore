@@ -17,7 +17,7 @@ class HttpController extends arch\Controller {
 
     public function indexHtmlAction() {
         if(!$this->application->isDevelopment()) {
-            $this->arch->notify(
+            $this->comms->notify(
                 'package.dev',
                 $this->_('The package manager can only be used from a development mode installation'),
                 'error'
@@ -37,13 +37,13 @@ class HttpController extends arch\Controller {
         $name = $this->request->query['package'];
         
         if(!$model->updateRemote($name)) {
-            $this->arch->notify(
+            $this->comms->notify(
                 'package.update',
                 $this->_('Package "%n%" could not be updated', ['%n%' => $name]),
                 'error'
             );
         } else {
-            $this->arch->notify(
+            $this->comms->notify(
                 'package.update',
                 $this->_('Package "%n%" has been successfully refreshed', ['%n%' => $name]),
                 'success'
@@ -57,7 +57,7 @@ class HttpController extends arch\Controller {
         $model = $this->data->getModel('package');
         $model->updateRemotes();
 
-        $this->arch->notify(
+        $this->comms->notify(
             'package.update',
             $this->_('All package repositories have been refreshed'),
             'success'

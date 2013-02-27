@@ -198,7 +198,7 @@ abstract class EditorBase extends arch\form\Action {
         if($this->isValid()) {
             $this->_saveRecord();
 
-            $this->arch->notify(
+            $this->comms->notify(
                 'client.save',
                 $this->_('The user has been successfully saved'),
                 'success'
