@@ -41,6 +41,7 @@ return [
     'time' => '&#xe01b;',
     'node' => '&#xe01c;',
     'type' => '&#xe01c;',
+    'subject' => '&#xe01c;',
     'window' => '&#xe01d;',
     'layout' => '&#xe01d;',
     'publish' => '&#xe01e;',
