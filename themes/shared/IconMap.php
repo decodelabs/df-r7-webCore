@@ -94,6 +94,7 @@ return [
     'menu' => '&#xe03f;',
     'list' => '&#xe03f;',
     'catalogue' => '&#xe040;',
+    'chapter' => '&#xe040;',
     'heart-empty' => '&#xe041;',
     'heart-full' => '&#xe042;',
     'heart' => '&#xe042;',
