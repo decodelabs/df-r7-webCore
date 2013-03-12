@@ -10,64 +10,12 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class UserLink extends arch\Component {
+class UserLink extends arch\component\template\RecordLink {
 
-    protected $_user;
     protected $_icon = 'user';
-    protected $_disposition = 'informative';
-    protected $_isNullable = false;
     protected $_useNickName = false;
     protected $_shortenName = false;
 
-    protected function _init($user=null) {
-        if($user) {
-            $this->setUser($user);
-        }
-    }
-
-// User
-    public function setUser($user) {
-        if(is_scalar($user)) {
-            $user = ['id' => $user];
-        }
-        
-        $this->_user = $user;
-        return $this;
-    }
-
-    public function getUser() {
-        return $this->_user;
-    }
-
-// Icon
-    public function setIcon($icon) {
-        $this->_icon = $icon;
-        return $this;
-    }
-
-    public function getIcon() {
-        return $this->_icon;
-    }
-
-// Disposition
-    public function setDisposition($disposition) {
-        $this->_disposition = $disposition;
-        return $this;
-    }
-
-    public function getDisposition() {
-        return $this->_disposition;
-    }
-
-// Nullable
-    public function isNullable($flag=null) {
-        if($flag !== null) {
-            $this->_isNullable = (bool)$flag;
-            return $this;
-        }
-
-        return $this->_isNullable;
-    }
 
 // Name
     public function shouldUseNickName($flag=null) {
@@ -88,29 +36,13 @@ class UserLink extends arch\Component {
         return $this->_shortenName;
     }
 
-// Render
-    protected function _execute() {
-        if($this->_user === null && $this->_isNullable) {
-            return null;
-        }
 
-        $id = null;
-
-        if($this->_user) {
-            $id = $this->_user['id'];
-        }
-
-        if(!$this->_user || $id === null) {
-            return $this->getView()->html->link('#', 'not found')
-                ->isDisabled(true)
-                ->setIcon('error')
-                ->addClass('state-error');
-        }
-
+// Name
+    protected function _getRecordName() {
         if($this->_useNickName) {
-            $name = $this->_user['nickName'];
+            $name = $this->_record['nickName'];
         } else {
-            $name = $this->_user['fullName'];
+            $name = $this->_record['fullName'];
         }
 
         if($this->_shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
@@ -121,11 +53,11 @@ class UserLink extends arch\Component {
             $name = '#'.$id;
         }
 
-        return $this->getView()->html->link(
-                '~admin/users/details?user='.$this->_user['id'],
-                $name
-            )
-            ->setIcon($this->_icon)
-            ->setDisposition($this->_disposition);
+        return $name;
+    }
+
+// Url
+    protected function _getRecordUrl($id) {
+        return '~admin/users/details?user='.$id;
     }
 }

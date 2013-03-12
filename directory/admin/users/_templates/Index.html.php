@@ -27,7 +27,7 @@ echo $this->html->collectionList($this['clientList'])
     // Name
     ->addField('fullName', $this->_('Name'), function($row) {
         return $this->view->import->component('UserLink', '~admin/users/')
-                    ->setUser($row);
+            ->setRecord($row);
     })
     
     // Email
