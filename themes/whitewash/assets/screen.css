@@ -381,8 +381,8 @@ button span[data-icon]:before {
     width: 14em;
     text-align: right;
     margin-right: 1em;
-    font-size: em;
-    color: #666;
+    font-size: 1em;
+    color: #333;
     /*position: absolute;*/
 }
 
@@ -430,7 +430,13 @@ button span[data-icon]:before {
     background-color: #FAFAFA;
 }
 
+.fire-block {
+    background: rgba(161,130,105,0.2);
+    padding: 0.3em;
+    border-radius: 4px;
+}
 
+.widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea,
 .widget-fieldArea > .widget-inputArea > .widget-fieldArea {
     border: 1px #EEE solid;
     border-radius: 4px;
@@ -440,14 +446,17 @@ button span[data-icon]:before {
     margin: 0.3em 0;
 }
 
+.widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea > .widget-label,
 .widget-fieldArea > .widget-inputArea > .widget-fieldArea > .widget-label {
     text-align: left;
     width: auto;
     float: none;
     clear: both;
     margin: 0;
+    font-size: 0.9em;
 }
 
+.widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea .widget-inputArea,
 .widget-fieldArea > .widget-inputArea > .widget-fieldArea .widget-inputArea {
     margin: 0.3em 0 0 0;
 }
