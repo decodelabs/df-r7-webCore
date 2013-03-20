@@ -376,12 +376,13 @@ button span[data-icon]:before {
     overflow: auto;
 }
 
-.widget-fieldArea .widget-label {
+.widget-fieldArea > .widget-label {
     float: left;
     width: 14em;
     text-align: right;
     margin-right: 1em;
     font-size: em;
+    color: #666;
     /*position: absolute;*/
 }
 
@@ -428,6 +429,29 @@ button span[data-icon]:before {
     padding: 0.3em;
     background-color: #FAFAFA;
 }
+
+
+.widget-fieldArea > .widget-inputArea > .widget-fieldArea {
+    border: 1px #EEE solid;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 0.4em;
+    margin: 0.3em 0;
+}
+
+.widget-fieldArea > .widget-inputArea > .widget-fieldArea > .widget-label {
+    text-align: left;
+    width: auto;
+    float: none;
+    clear: both;
+    margin: 0;
+}
+
+.widget-fieldArea > .widget-inputArea > .widget-fieldArea .widget-inputArea {
+    margin: 0.3em 0 0 0;
+}
+
 
 
 .widget-textbox {
