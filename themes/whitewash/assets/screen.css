@@ -357,7 +357,7 @@ button span[data-icon]:before {
     margin: 0.5em 0;
     background: #F4F4F4;
     padding: 0.8em;
-    overflow: auto;
+    /*overflow: auto;*/
     border-radius: 0.5em;
 }
 
