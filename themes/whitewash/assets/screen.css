@@ -348,6 +348,11 @@ button span[data-icon]:before {
     padding: 0;
 }
 
+.widget-form .widget-fieldSet > .body > .widget-fieldArea:target > .widget-inputArea,
+.widget-fieldArea :target {
+    outline: 2px yellow solid;
+}
+
 .widget-fieldSet:first-child {
     margin-top: 0;
 }
@@ -431,9 +436,26 @@ button span[data-icon]:before {
 }
 
 .fire-block {
-    background: rgba(161,130,105,0.2);
+    background: #EBE5E0;
     padding: 0.3em;
     border-radius: 4px;
+}
+
+.fire-block .fire-block {
+    margin-left: 1em;
+    background: #D8EBDF;
+}
+
+.fire-block .fire-block .fire-block {
+    background: #EBEBD0;
+}
+
+.fire-block .fire-block .fire-block .fire-block {
+    background: #E4E0EB;
+}
+
+.fire-block .fire-block .fire-block .fire-block .fire-block {
+    background: #EBE0E3;
 }
 
 .widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea,
