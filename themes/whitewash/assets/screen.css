@@ -230,18 +230,18 @@ dl {
     overflow: auto;
 }
 
-dd {
+dt {
     font-weight: bold;
     width: 10em;
     float: left;
     clear: left;
 }
 
-dd:after {
+dt:after {
     content: ':';
 }
 
-dt {
+dd {
     float: left;
 }
 
