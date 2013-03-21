@@ -124,6 +124,7 @@ return [
     'flag' => '&#xe053;',
     //'flag2' => '&#xe054;',
     'topic' => '&#xe054;',
+    'preview' => '&#xe055;',
     'show' => '&#xe055;',
     'hide' => '&#xe056;',
     'accept' => '&#xe057;',
