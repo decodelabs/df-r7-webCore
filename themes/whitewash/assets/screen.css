@@ -663,16 +663,45 @@ a.state-disabled:visited {
 }
 
 
-.widget-paginator {
-    overflow: auto;
+.widget-paginator:before,
+.widget-paginator:after {
+    content:"";
+    display:table;
 }
+.widget-paginator:after {
+    clear:both;
+}
+.widget-paginator {
+    zoom:1;
+    font-size: 0.9em;
+}
+
 
 .widget-paginator .block-details {
     float: left;
+    padding: 0.05em 0.4em;
+    border: 2px #EEE solid;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
 }
 
 .widget-paginator .block-links {
     float: right;
+}
+
+.widget-paginator .block-links a {
+    border: 2px #DDD solid;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 0.05em 0.4em;
+    text-decoration: none;
+}
+
+.widget-paginator .block-links a.link-selected {
+    font-weight: bold;
+    border-color: #AAA;
 }
 
 
