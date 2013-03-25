@@ -226,8 +226,11 @@ strong {
     font-weight: bold;
 }
 
+dl:before, 
+dl:after { content:""; display:table; }
+dl:after { clear:both; }
 dl {
-    overflow: auto;
+    zoom:1;
 }
 
 dt {
@@ -310,13 +313,13 @@ button span[data-icon]:before {
 
 
 
+.layout-header:before, 
+.layout-header:after { content:""; display:table; }
+.layout-header:after { clear:both; }
 .layout-header {
-    overflow: auto;
+    zoom:1;
 }
 
-.layout-header h1 {
-    
-}
 
 .widget-breadcrumbList {
     margin-bottom: 1em;
@@ -340,10 +343,11 @@ button span[data-icon]:before {
     padding: 0.7em;
 }
 
-
-
+.widget-form:before, 
+.widget-form:after { content:""; display:table; }
+.widget-form:after { clear:both; }
 .widget-form {
-    overflow: auto;
+    zoom:1;
     margin-bottom: 0.5em;
     padding: 0;
 }
@@ -362,7 +366,6 @@ button span[data-icon]:before {
     margin: 0.5em 0;
     background: #F4F4F4;
     padding: 0.8em;
-    /*overflow: auto;*/
     border-radius: 0.5em;
 }
 
@@ -375,10 +378,13 @@ button span[data-icon]:before {
     display: block;
 }
 
+.widget-fieldArea:before, 
+.widget-fieldArea:after { content:""; display:table; }
+.widget-fieldArea:after { clear:both; }
 .widget-fieldArea {
+    zoom:1;
     padding: 0.3em;
     background: #FFF;
-    overflow: auto;
 }
 
 .widget-fieldArea > .widget-label {
@@ -388,7 +394,6 @@ button span[data-icon]:before {
     margin-right: 1em;
     font-size: 1em;
     color: #333;
-    /*position: absolute;*/
 }
 
 .widget-fieldArea.constraint-required > .widget-label:after {
@@ -397,8 +402,11 @@ button span[data-icon]:before {
 }
 
 
+.widget-fieldArea > .widget-inputArea:before, 
+.widget-fieldArea > .widget-inputArea:after { content:""; display:table; }
+.widget-fieldArea > .widget-inputArea:after { clear:both; }
 .widget-fieldArea > .widget-inputArea {
-    overflow: auto;
+    zoom:1;
     margin-left: 15em;
 }
 
@@ -993,10 +1001,13 @@ a:hover span[data-icon]:before {
     z-index: 1000;
 }
 
+.widget-overlay .container:before, 
+.widget-overlay .container:after { content:""; display:table; }
+.widget-overlay .container:after { clear:both; }
 .widget-overlay .container {
+    zoom:1;
     background: #FFF;
     height: 87vh;
     padding: 2em;
-    overflow: auto;
     box-sizing: border-box;
 }
