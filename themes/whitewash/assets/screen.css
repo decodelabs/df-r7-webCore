@@ -385,13 +385,14 @@ button span[data-icon]:before {
     zoom:1;
     padding: 0.3em;
     background: #FFF;
+    font-size: 0.95em;
 }
 
 .widget-fieldArea > .widget-label {
     float: left;
     width: 14em;
     text-align: right;
-    margin-right: 1em;
+    margin: 0.2em 1em 0 0;
     font-size: 1em;
     color: #333;
 }
@@ -399,6 +400,10 @@ button span[data-icon]:before {
 .widget-fieldArea.constraint-required > .widget-label:after {
     content: ' *';
     color: #CC0000;
+}
+
+.widget-rangeSlider {
+    height: 1.1em;
 }
 
 
@@ -491,6 +496,25 @@ button span[data-icon]:before {
     margin: 0.3em 0 0 0;
 }
 
+
+.delegate-selector > .widget-inputArea > .selection {
+    float: left;
+    width: 18em;
+    padding: 0.2em 0.5em;
+    background: #FAFAFA;
+    font-size: 0.9em;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+
+.delegate-selector > .widget-inputArea > .widget-buttonArea {
+    font-size: 0.9em;
+    float: left;
+    margin: 0 0 0 1em;
+    background: none;
+    padding: 0;
+}
 
 
 .widget-textbox {
