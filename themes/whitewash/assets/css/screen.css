@@ -500,6 +500,10 @@ button span[data-icon]:before {
     margin: 0.3em 0 0 0;
 }
 
+.fire-block > .widget-fieldArea > .widget-fieldError {
+    padding-left: 0;
+}
+
 
 .delegate-selector > .widget-inputArea > .selection {
     float: left;
