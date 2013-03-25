@@ -691,7 +691,7 @@ a.state-disabled:visited {
 }
 
 .widget-paginator .block-links a {
-    border: 2px #DDD solid;
+    border: 2px #EEE solid;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
