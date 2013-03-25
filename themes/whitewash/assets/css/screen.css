@@ -534,6 +534,7 @@ button span[data-icon]:before {
 .widget-htmlEditor {
     min-width: 25em;
     min-height: 6em;
+    font-size: 0.75em;
 }
 
 
