@@ -19,4 +19,11 @@ $(function() {
             f.submit();
         }
     });
+
+    // Scroll to first error
+    if($(".widget-fieldError").length) {
+        $('html, body').animate({
+            scrollTop: $(".widget-fieldError").first().parent().offset().top
+        }, 200);
+    }
 });
