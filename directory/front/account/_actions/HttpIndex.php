@@ -12,21 +12,9 @@ use df\arch;
     
 class HttpIndex extends arch\Action {
 
-    const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::BOUND;
 
     public function execute() {
-        $client = $this->user->client;
-
-        if(!$client->isLoggedIn()) {
-            // throw 401
-
-            return $this->http->redirect('account/login');
-        }
-
-        $view = $this->aura->getView('Index.html');
-        $view['client'] = $client;
-
-        return $view;
+        return $this->aura->getView('Index.html');
     }
 }
