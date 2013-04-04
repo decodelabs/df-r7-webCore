@@ -168,6 +168,7 @@ return [
     'pointer-right' => '&#xe074;',
     'pointer-down' => '&#xe075;',
     'pointer-left' => '&#xe076;',
+    'video' => '&#xe077;',
     'play' => '&#xe077;',
     'pause' => '&#xe078;',
     'record' => '&#xe079;',
