@@ -640,6 +640,7 @@ a.state-disabled:visited {
 
 .widget-attributeList th {
     width: 10em;
+    vertical-align: top;
 }
 
 .widget-attributeList th:after {
