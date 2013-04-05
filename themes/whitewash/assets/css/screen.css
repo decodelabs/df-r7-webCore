@@ -656,6 +656,10 @@ a.state-disabled:visited {
     margin: 0;
 }
 
+td > p:last-child {
+    margin-bottom: 0;
+}
+
 
 /*.widget-collectionList > * + table {*/
 .widget-paginator + .widget-collectionList {
