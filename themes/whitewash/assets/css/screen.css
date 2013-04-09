@@ -531,12 +531,14 @@ button span[data-icon]:before {
 
 
 .widget-textbox {
-    min-width: 15em;
+    min-width: 18em;
+    width: 35%;
 }
 
 .widget-textarea,
 .widget-htmlEditor {
-    min-width: 25em;
+    min-width: 30em;
+    width: 35%;
     min-height: 6em;
     font-size: 0.75em;
 }
