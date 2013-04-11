@@ -218,11 +218,11 @@ a.disposition-transitive:active {
 
 
 
-em {
+em, i {
     font-style: italic;
 }
 
-strong {
+strong, b {
     font-weight: bold;
 }
 
