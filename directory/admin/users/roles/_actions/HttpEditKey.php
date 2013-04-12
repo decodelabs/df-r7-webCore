@@ -26,8 +26,8 @@ class HttpEditKey extends HttpAddKey {
     }
     
     protected function _setDefaultValues() {
-        $this->values->domain = $this->_key['domain'];
-        $this->values->pattern = $this->_key['pattern'];
-        $this->values->allow = $this->_key['allow'];
+        $this->values->importFrom($this->_key, [
+            'domain', 'pattern', 'allow'
+        ]);
     }
 }

@@ -25,13 +25,10 @@ class HttpEdit extends EditorBase {
     }
     
     protected function _setDefaultValues() {
-        $this->values->email = $this->_client['email'];
-        $this->values->fullName = $this->_client['fullName'];
-        $this->values->nickName = $this->_client['nickName'];
-        $this->values->status = $this->_client['status'];
-        $this->values->timezone = $this->_client['timezone'];
-        $this->values->country = $this->_client['country'];
-        $this->values->language = $this->_client['language'];
+        $this->values->importFrom($this->_client, [
+            'email', 'fullName', 'nickName', 'status',
+            'timezone', 'country', 'language'
+        ]);
         
         $this->getDelegate('groups')->setSelected(
             $this->_client->groups->selectFromBridge('group')->toList('group')
