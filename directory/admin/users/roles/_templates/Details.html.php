@@ -23,6 +23,7 @@ echo $this->html->attributeList($this['role'])
         }
     })
     
+    // Priority
     ->addField('priority')
     
     // Groups
@@ -36,13 +37,7 @@ echo $this->html->attributeList($this['role'])
         $output = array();
         
         foreach($groupList as $group) {
-            $output[] = $this->html->link(
-                    '~admin/users/groups/details?group='.$group['id'],
-                    $group['name']
-                )
-                ->setIcon('group')
-                ->setDisposition('informative')
-                ->addAccessLock('axis://user/Group');
+            $output[] = $this->import->component('GroupLink', '~admin/users/groups/', $group);
         }
         
         return $this->html->string(implode(', ', $output));

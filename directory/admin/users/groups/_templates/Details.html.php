@@ -3,21 +3,15 @@ use df\user;
 
 echo $this->html->menuBar()
     ->addLinks(
-        $this->html->link(
-                $this->uri->request('~admin/users/groups/edit?group='.$this['group']['id'], true),
-                $this->_('Edit group')
-            )
-            ->setIcon('edit')
+        // Edit
+        $this->import->component('GroupLink', '~admin/users/groups/', $this['group'], $this->_('Edit group'))
+            ->setAction('edit')
             ->addAccessLock($this['group']->getActionLock('edit')),
 
-        $this->html->link(
-                $this->uri->request(
-                    '~admin/users/groups/delete?group='.$this['group']['id'], true,
-                    '~admin/users/groups/'
-                ),
-                $this->_('Delete group')
-            )
-            ->setIcon('delete')
+        // Delete
+        $this->import->component('GroupLink', '~admin/users/groups/', $this['group'], $this->_('Delete group'))
+            ->setAction('delete')
+            ->setRedirectTo('~admin/users/groups/')
             ->addAccessLock($this['group']->getActionLock('delete')),
             
         '|',

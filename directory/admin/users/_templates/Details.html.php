@@ -47,12 +47,7 @@ echo $this->html->attributeList($this['client'])
         $output = array();
         
         foreach($groupList as $group) {
-            $output[] = $this->html->link(
-                    '~admin/users/groups/details?group='.$group['id'],
-                    $group['name']
-                )
-                ->setIcon('group')
-                ->setDisposition('informative');
+            $output[] = $this->import->component('GroupLink', '~admin/users/groups/', $group);
         }
         
         return $this->html->string(implode(', ', $output));
