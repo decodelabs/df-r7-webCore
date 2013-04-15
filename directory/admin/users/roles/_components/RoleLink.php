@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\users\groups\_components;
+namespace df\apex\directory\admin\users\roles\_components;
 
 use df;
 use df\core;

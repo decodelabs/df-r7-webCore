@@ -39,6 +39,11 @@ class HttpController extends arch\Controller {
             $this->request->query['group']
         );
 
+        $view['roleList'] = $view['group']->roles->fetch()
+            ->countRelation('groups')
+            ->countRelation('keys')
+            ->orderBy('priority');
+
         return $view;
     }
 }

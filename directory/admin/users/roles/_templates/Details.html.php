@@ -10,16 +10,16 @@ echo $this->html->attributeList($this['role'])
     //->addField('name')
     
     // Bind state
-    ->addField('bindState', $this->_('Bind state'), function($row) {
-        if($row['bindState'] !== null) {
-            return user\Client::stateIdToName($row['bindState']);
+    ->addField('bindState', $this->_('Bind state'), function($role) {
+        if($role['bindState'] !== null) {
+            return user\Client::stateIdToName($role['bindState']);
         }
     })
 
     // Min required state
-    ->addField('minRequiredState', $this->_('Minimum required state'), function($row) {
-        if($row['minRequiredState'] !== null) {
-            return user\Client::stateIdToName($row['minRequiredState']);
+    ->addField('minRequiredState', $this->_('Minimum required state'), function($role) {
+        if($role['minRequiredState'] !== null) {
+            return user\Client::stateIdToName($role['minRequiredState']);
         }
     })
     
@@ -27,8 +27,8 @@ echo $this->html->attributeList($this['role'])
     ->addField('priority')
     
     // Groups
-    ->addField('groups', function($row) {
-        $groupList = $row->groups->fetch()->orderBy('Name')->toArray();
+    ->addField('groups', function($role) {
+        $groupList = $role->groups->fetch()->orderBy('Name')->toArray();
         
         if(empty($groupList)) {
             return null;

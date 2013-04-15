@@ -12,25 +12,34 @@ use df\arch;
 class RoleSelector extends arch\form\template\SearchSelectorDelegate {
     
     protected function _fetchResultList(array $ids) {
-        $model = $this->data->getModel('user');
+        $query = $this->data->user->role->fetch()
+            ->countRelation('groups')
+            ->countRelation('keys')
+            ->where('id', 'in', $ids)
+            ->orderBy('name');
 
-        return $model->role->fetch()
-            ->where('id', 'in', $ids);
+        return $query;
+    }
+
+    protected function _getSearchResultIdList($search, array $selected) {
+        $query = $this->data->user->role->select('id')
+            ->beginWhereClause()
+                ->where('name', 'contains', $search)
+                ->orWhere('name', 'like', $search)
+                ->endClause()
+            ->where('id', '!in', $selected);
+
+        return $query->toList('id');
     }
 
     protected function _getResultDisplayName($result) {
         return $result['name'].' ('.$result['priority'].')';
     }
 
-    protected function _getSearchResultIdList($search, array $selected) {
-        $model = $this->data->getModel('user');
-        
-        return $model->role->select('id')
-            ->beginWhereClause()
-                ->where('name', 'contains', $search)
-                ->orWhere('name', 'like', $search)
-                ->endClause()
-            ->where('id', '!in', $selected)
-            ->toList('id');
+    protected function _renderCollectionList($result) {
+        return $this->view->import->component('RoleList', '~admin/users/roles/', [
+                'actions' => false
+            ])
+            ->setCollection($result);
     }
 }

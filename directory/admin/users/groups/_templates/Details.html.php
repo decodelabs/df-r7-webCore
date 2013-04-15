@@ -23,8 +23,8 @@ echo $this->html->menuBar()
 
 echo $this->html->attributeList($this['group'])
     ->addField('name')
-    ->addField('users', function($row) {
-        return $row->users->select()->count();
+    ->addField('users', function($group) {
+        return $group->users->select()->count();
     });
     
 
@@ -34,5 +34,4 @@ echo $this->html->element('h3', $this->_('Roles'));
 
 echo $this->import->component('RoleList', '~admin/users/roles/', [
         'actions' => false
-    ])
-    ->setCollection($this['group']->roles->fetch()->orderBy('priority'));
+    ]);

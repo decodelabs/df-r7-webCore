@@ -3,12 +3,12 @@
 echo $this->html->menuBar()
     ->addLinks(
         // Edit
-        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Edit role'))
+        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Edit role'))
             ->setAction('edit')
             ->addAccessLock($this['role']->getActionLock('edit')),
 
         // Delete
-        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Delete role'))
+        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Delete role'))
             ->setAction('delete')
             ->setRedirectTo('~admin/users/roles/')
             ->addAccessLock($this['role']->getActionLock('delete')),
@@ -20,10 +20,10 @@ echo $this->html->menuBar()
         '|',
 
         // Details
-        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Details')), 
+        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Details')), 
 
         // Keys
-        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Keys'))
+        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Keys'))
             ->setNote($this['keyCount'] ? '('.$this['keyCount'].')' : null)
             ->setIcon('key')
             ->setAction('keys'),
