@@ -50,7 +50,7 @@ class UserLink extends arch\component\template\RecordLink {
         }
 
         if($name === null) {
-            $name = '#'.$id;
+            $name = '#'.$this->_record['id'];
         }
 
         return $name;
