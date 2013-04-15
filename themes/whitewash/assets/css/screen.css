@@ -705,6 +705,10 @@ td > p:last-child {
     background: #F0F0F0;
 }
 
+.widget-collectionList td.field-select {
+    width: 1%;
+}
+
 .widget-collectionList td.field-actions a.widget-link {
     margin-left: 0;
     font-size: 1.2em;
