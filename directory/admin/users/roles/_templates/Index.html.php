@@ -21,9 +21,8 @@ echo $this->html->collectionList($this['roleList'])
     
     // Name
     ->addField('name', function($row) {
-        return $this->html->link('~admin/users/roles/details?role='.$row['id'], $row['name'])
-            ->setIcon('role')
-            ->setDisposition('informative');
+        return $this->import->component('RoleLink', '~admin/users/roles', $row)
+            ->setRedirectFrom($this->_urlRedirect);
     })
     
     // Bind state
@@ -47,18 +46,14 @@ echo $this->html->collectionList($this['roleList'])
     // Actions
     ->addField('actions', function($row) {
         return [
-            $this->html->link(
-                    $this->uri->request('~admin/users/roles/edit?role='.$row['id'], true),
-                    $this->_('Edit') 
-                )
-                ->setIcon('edit')
+            // Edit
+            $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Edit'))
+                ->setAction('edit')
                 ->addAccessLock('axis://user/Role#edit'),
 
-            $this->html->link(
-                    $this->uri->request('~admin/users/roles/delete?role='.$row['id'], true),
-                    $this->_('Delete')
-                )
-                ->setIcon('delete')
+            // Delete
+            $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Delete'))
+                ->setAction('delete')
                 ->addAccessLock('axis://user/Role#delete')
         ];
     })

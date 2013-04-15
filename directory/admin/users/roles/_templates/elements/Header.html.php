@@ -2,18 +2,15 @@
 
 echo $this->html->menuBar()
     ->addLinks(
-        $this->html->link(
-                $this->uri->request('~admin/users/roles/edit?role='.$this['role']['id'], true),
-                $this->_('Edit role')
-            )
-            ->setIcon('edit')
+        // Edit
+        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Edit role'))
+            ->setAction('edit')
             ->addAccessLock($this['role']->getActionLock('edit')),
 
-        $this->html->link(
-                $this->uri->request('~admin/users/roles/delete?role='.$this['role']['id'], true, '~admin/users/roles/'),
-                $this->_('Delete role')
-            )
-            ->setIcon('delete')
+        // Delete
+        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Delete role'))
+            ->setAction('delete')
+            ->setRedirectTo('~admin/users/roles/')
             ->addAccessLock($this['role']->getActionLock('delete')),
 
         '|',
@@ -22,22 +19,14 @@ echo $this->html->menuBar()
 
         '|',
 
-        $this->html->link(
-                '~admin/users/roles/details?role='.$this['role']['id'],
-                $this->_('Details'),
-                true
-            )
-            ->setIcon('details')
-            ->setDisposition('informative'),
+        // Details
+        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Details')), 
 
-        $this->html->link(
-                '~admin/users/roles/keys?role='.$this['role']['id'],
-                $this->_('Keys'),
-                true
-            )
+        // Keys
+        $this->import->component('RoleLink', '~admin/users/roles', $row, $this->_('Keys'))
             ->setNote($this['keyCount'] ? '('.$this['keyCount'].')' : null)
             ->setIcon('key')
-            ->setDisposition('informative'),
+            ->setAction('keys'),
 
         '|',
 
