@@ -13,27 +13,35 @@ use df\arch;
 class ClientSelector extends arch\form\template\SearchSelectorDelegate {
 
     protected function _fetchResultList(array $ids) {
-        $model = $this->data->getModel('user');
+        $query = $this->data->user->client->fetch()
+            ->countRelation('groups')
+            ->where('id', 'in', $ids)
+            ->orderBy('fullName ASC');
 
-        return $model->client->fetch()
-            ->where('id', 'in', $ids);
-    }
-
-    protected function _getResultDisplayName($result) {
-        return $result['fullName'];
+        return $query;
     }
 
     protected function _getSearchResultIdList($search, array $selected) {
-        $model = $this->data->getModel('user');
-
-        return $model->client->select('id')
+        $query = $this->data->user->client->select('id')
             ->beginWhereClause()
                 ->where('fullName', 'contains', $search)
                 ->orWhere('nickName', 'contains', $search)
                 ->orWhere('fullName', 'like', $search)
                 ->orWhere('nickName', 'like', $search)
                 ->endClause()
-            ->where('id', '!in', $selected)
-            ->toList('id');
+            ->where('id', '!in', $selected);
+
+        return $query->toList('id');
+    }
+
+    protected function _getResultDisplayName($result) {
+        return $result['fullName'];
+    }
+
+    protected function _renderCollectionList($result) {
+        return $this->view->import->component('UserList', '~admin/users/', [
+                'actions' => false
+            ])
+            ->setCollection($result);
     }
 }

@@ -19,14 +19,14 @@ class HttpController extends arch\Controller {
 
         $this->data->checkAccess($model->client);
 
-        $view['clientList'] = $model->client->select()
+        $view['userList'] = $model->client->select()
 
             ->countRelation('groups')
 
             ->paginate()
                 ->setOrderableFields(
                     'email', 'fullName', 'nickName', 'status', 'joinDate',
-                    'loginDate', 'timezone', 'country', 'language'
+                    'loginDate', 'timezone', 'country', 'language', 'groups'
                 )
                 ->setDefaultOrder('fullName')
                 ->applyWith($this->request->query);
