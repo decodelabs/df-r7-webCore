@@ -1055,13 +1055,10 @@ a:hover span[data-icon]:before {
     z-index: 1000;
 }
 
-.widget-overlay .container:before, 
-.widget-overlay .container:after { content:""; display:table; }
-.widget-overlay .container:after { clear:both; }
 .widget-overlay .container {
-    zoom:1;
     background: #FFF;
     height: 87vh;
     padding: 2em;
     box-sizing: border-box;
+    overflow: auto;
 }
