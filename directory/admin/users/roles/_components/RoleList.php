@@ -59,13 +59,11 @@ class RoleList extends arch\component\template\CollectionList {
             return [
                 // Edit
                 $this->view->import->component('RoleLink', '~admin/users/roles/', $role, $this->_('Edit'))
-                    ->setAction('edit')
-                    ->addAccessLock('axis://user/Role#edit'),
+                    ->setAction('edit'),
 
                 // Delete
                 $this->view->import->component('RoleLink', '~admin/users/roles/', $role, $this->_('Delete'))
                     ->setAction('delete')
-                    ->addAccessLock('axis://user/Role#delete')
             ];
         });
     }

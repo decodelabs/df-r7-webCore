@@ -73,12 +73,10 @@ class UserList extends arch\component\template\CollectionList {
         $list->addField('actions', function($client) {
             return [
                 $this->view->import->component('UserLink', '~admin/users/', $client)
-                    ->setAction('edit')
-                    ->addAccessLock('axis://user/Client#edit'),
+                    ->setAction('edit'),
 
                 $this->view->import->component('UserLink', '~admin/users/', $client)
                     ->setAction('delete')
-                    ->addAccessLock('axis://user/Client#delete')
             ];
         });
     }

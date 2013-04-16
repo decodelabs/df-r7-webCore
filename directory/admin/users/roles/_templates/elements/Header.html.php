@@ -4,14 +4,12 @@ echo $this->html->menuBar()
     ->addLinks(
         // Edit
         $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Edit role'))
-            ->setAction('edit')
-            ->addAccessLock($this['role']->getActionLock('edit')),
+            ->setAction('edit'),
 
         // Delete
         $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Delete role'))
             ->setAction('delete')
-            ->setRedirectTo('~admin/users/roles/')
-            ->addAccessLock($this['role']->getActionLock('delete')),
+            ->setRedirectTo('~admin/users/roles/'),
 
         '|',
 

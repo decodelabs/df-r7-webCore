@@ -5,14 +5,12 @@ echo $this->html->menuBar()
     ->addLinks(
         // Edit
         $this->import->component('GroupLink', '~admin/users/groups/', $this['group'], $this->_('Edit group'))
-            ->setAction('edit')
-            ->addAccessLock($this['group']->getActionLock('edit')),
+            ->setAction('edit'),
 
         // Delete
         $this->import->component('GroupLink', '~admin/users/groups/', $this['group'], $this->_('Delete group'))
             ->setAction('delete')
-            ->setRedirectTo('~admin/users/groups/')
-            ->addAccessLock($this['group']->getActionLock('delete')),
+            ->setRedirectTo('~admin/users/groups/'),
             
         '|',
 

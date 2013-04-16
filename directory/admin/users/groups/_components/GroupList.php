@@ -34,13 +34,11 @@ class GroupList extends arch\component\template\CollectionList {
             return [
                 // Edit
                 $this->view->import->component('GroupLink', '~admin/users/groups/', $group, $this->_('Edit'))
-                    ->setAction('edit')
-                    ->addAccessLock('axis://user/Group#edit'),
+                    ->setAction('edit'),
 
                 // Delete
                 $this->view->import->component('GroupLink', '~admin/users/groups/', $group, $this->_('Delete'))
-                    ->setAction('delete')
-                    ->addAccessLock('axis://user/Group#delete'),
+                    ->setAction('delete'),
             ];
         });
     }
