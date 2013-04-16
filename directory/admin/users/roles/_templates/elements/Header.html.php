@@ -20,10 +20,10 @@ echo $this->html->menuBar()
         '|',
 
         // Details
-        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Details')), 
+        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Details'), true), 
 
         // Keys
-        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Keys'))
+        $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Keys'), true)
             ->setNote($this['keyCount'] ? '('.$this['keyCount'].')' : null)
             ->setIcon('key')
             ->setAction('keys'),
