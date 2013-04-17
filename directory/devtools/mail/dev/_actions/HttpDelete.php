@@ -43,7 +43,7 @@ class HttpDelete extends arch\form\template\Delete {
                 }
 
                 return $this->html->link(
-                        $this->view->uri->mailto($from->getAddress()),
+                        $this->uri->mailto($from->getAddress()),
                         $from->getAddress()
                     )
                     ->setIcon('user')
@@ -57,7 +57,7 @@ class HttpDelete extends arch\form\template\Delete {
 
                 $output = [
                     $this->html->link(
-                            $this->view->uri->mailto($first->getAddress()),
+                            $this->uri->mailto($first->getAddress()),
                             $first->getAddress()
                         )
                         ->setIcon('user')
@@ -78,7 +78,7 @@ class HttpDelete extends arch\form\template\Delete {
 
             // Date
             ->addField('date', $this->_('Sent'), function($mail) {
-                return $this->view->html->userDateTime($mail['date'], 'medium');
+                return $this->html->userDateTime($mail['date'], 'medium');
             })
 
             // Is private

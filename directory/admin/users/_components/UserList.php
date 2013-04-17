@@ -27,7 +27,7 @@ class UserList extends arch\component\template\CollectionList {
 // Full name
     public function addFullNameField($list) {
         $list->addField('fullName', $this->_('Name'), function($client) {
-            return $this->view->import->component('UserLink', '~admin/users/', $client);
+            return $this->import->component('UserLink', '~admin/users/', $client);
         });
     }
 
@@ -35,7 +35,7 @@ class UserList extends arch\component\template\CollectionList {
 // Email
     public function addEmailField($list) {
         $list->addField('email', function($client) {
-            return $this->html->link($this->view->uri->mailto($client['email']), $client['email'])
+            return $this->html->link($this->uri->mailto($client['email']), $client['email'])
                 ->setIcon('mail')
                 ->setDisposition('transitive');
         });
@@ -72,10 +72,12 @@ class UserList extends arch\component\template\CollectionList {
     public function addActionsField($list) {
         $list->addField('actions', function($client) {
             return [
-                $this->view->import->component('UserLink', '~admin/users/', $client)
+                // Edit
+                $this->import->component('UserLink', '~admin/users/', $client)
                     ->setAction('edit'),
 
-                $this->view->import->component('UserLink', '~admin/users/', $client)
+                // Delete
+                $this->import->component('UserLink', '~admin/users/', $client)
                     ->setAction('delete')
             ];
         });

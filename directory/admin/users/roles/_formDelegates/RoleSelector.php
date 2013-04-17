@@ -37,7 +37,7 @@ class RoleSelector extends arch\form\template\SearchSelectorDelegate {
     }
 
     protected function _renderCollectionList($result) {
-        return $this->view->import->component('RoleList', '~admin/users/roles/', [
+        return $this->import->component('RoleList', '~admin/users/roles/', [
                 'actions' => false
             ])
             ->setCollection($result);

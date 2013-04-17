@@ -27,7 +27,7 @@ class RoleList extends arch\component\template\CollectionList {
 // Name
     public function addNameField($list) {
         $list->addField('name', function($role) {
-            return $this->view->import->component('RoleLink', '~admin/users/roles/', $role)
+            return $this->import->component('RoleLink', '~admin/users/roles/', $role)
                 ->setRedirectFrom($this->_urlRedirect);
         });
     }
@@ -58,11 +58,11 @@ class RoleList extends arch\component\template\CollectionList {
         $list->addField('actions', function($role) {
             return [
                 // Edit
-                $this->view->import->component('RoleLink', '~admin/users/roles/', $role, $this->_('Edit'))
+                $this->import->component('RoleLink', '~admin/users/roles/', $role, $this->_('Edit'))
                     ->setAction('edit'),
 
                 // Delete
-                $this->view->import->component('RoleLink', '~admin/users/roles/', $role, $this->_('Delete'))
+                $this->import->component('RoleLink', '~admin/users/roles/', $role, $this->_('Delete'))
                     ->setAction('delete')
             ];
         });

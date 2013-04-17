@@ -33,9 +33,7 @@ class HttpDelete extends arch\form\template\Delete {
             ->addField('fullName')
             ->addField('nickName')
             ->addField('email', function($row) {
-                return $this->html->link($this->view->uri->mailto($row['email']), $row['email'])
-                    ->setIcon('mail')
-                    ->setDisposition('transitive');
+                return $this->html->mailLink($row['email']);
             })
             
             ->addField('status', function($row) {

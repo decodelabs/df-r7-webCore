@@ -39,7 +39,7 @@ class ClientSelector extends arch\form\template\SearchSelectorDelegate {
     }
 
     protected function _renderCollectionList($result) {
-        return $this->view->import->component('UserList', '~admin/users/', [
+        return $this->import->component('UserList', '~admin/users/', [
                 'actions' => false
             ])
             ->setCollection($result);

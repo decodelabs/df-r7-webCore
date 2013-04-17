@@ -23,7 +23,7 @@ class GroupList extends arch\component\template\CollectionList {
 // Name
     public function addNameField($list) {
         $list->addField('name', function($group) {
-            return $this->view->import->component('GroupLink', '~admin/users/groups/', $group)
+            return $this->import->component('GroupLink', '~admin/users/groups/', $group)
                 ->setRedirectFrom($this->_urlRedirect);
         });
     }
@@ -33,11 +33,11 @@ class GroupList extends arch\component\template\CollectionList {
         $list->addField('actions', function($group) {
             return [
                 // Edit
-                $this->view->import->component('GroupLink', '~admin/users/groups/', $group, $this->_('Edit'))
+                $this->import->component('GroupLink', '~admin/users/groups/', $group, $this->_('Edit'))
                     ->setAction('edit'),
 
                 // Delete
-                $this->view->import->component('GroupLink', '~admin/users/groups/', $group, $this->_('Delete'))
+                $this->import->component('GroupLink', '~admin/users/groups/', $group, $this->_('Delete'))
                     ->setAction('delete'),
             ];
         });

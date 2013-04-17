@@ -33,7 +33,7 @@ class GroupSelector extends arch\form\template\SearchSelectorDelegate {
     }
 
     protected function _renderCollectionList($result) {
-        return $this->view->import->component('GroupList', '~admin/users/groups/', [
+        return $this->import->component('GroupList', '~admin/users/groups/', [
                 'actions' => false
             ])
             ->setCollection($result);

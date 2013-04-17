@@ -48,12 +48,12 @@ class HttpRaster extends arch\form\Action {
 
                 // Size
                 ->addField('size', function($file) {
-                    return $this->view->format->fileSize($file->getSize());
+                    return $this->format->fileSize($file->getSize());
                 })
 
                 // Created
                 ->addField('created', function($file) {
-                    return $this->view->html->userDateTime($file->getLastModified());
+                    return $this->html->userDateTime($file->getLastModified());
                 })
 
                 // Actions
