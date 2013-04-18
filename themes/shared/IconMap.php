@@ -46,7 +46,7 @@ return [
     'layout' => '&#xe01d;',
     'publish' => '&#xe01e;',
     'launch' => '&#xe01f;',
-    //'fire' => '&#xe020;',
+    'legacy' => '&#xe020;',
     'task' => '&#xe020;',
     'test' => '&#xe021;',
     'tag' => '&#xe022;',
