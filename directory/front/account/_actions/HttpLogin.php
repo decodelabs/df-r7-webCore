@@ -26,28 +26,12 @@ class HttpLogin extends arch\form\Action {
     }
 
     protected function _createUi() {
-        $form = $this->content->addForm();
-        $fs = $form->addFieldSet($this->_('Sign-in'));
-
-        // Identity
-        $fs->addFieldArea($this->_('Email address'))
-            ->addTextbox('identity', $this->values->identity)
-                ->isRequired(true);
-
-        // Password
-        $fs->addFieldArea($this->_('Password'))
-            ->addPasswordTextbox('password', $this->values->password)
-                ->isRequired(true);
-
-        // Buttons
-        $fs->addButtonArea()->push(
-            $this->html->eventButton(
-                    $this->eventName('login'), 
-                    $this->_('Sign in')
-                )
-                ->setIcon('accept'),
-
-            $this->html->cancelEventButton()
+        $this->content->push(
+            $this->import->component(
+                'LoginLocal', 
+                '~front/account/', 
+                $this
+            )
         );
     }
 
