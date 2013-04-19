@@ -103,7 +103,7 @@ class HttpLostPassword extends arch\form\Action {
 
             $this->comms->notify(
                 'lostPassword.send',
-                $this->_('The link has been sent to your email address - please follow its instructions in the next 48 hours'),
+                $this->_('A link has been sent to your email address with instructions on restting your password'),
                 'success'
             );
 
