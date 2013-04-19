@@ -27,6 +27,7 @@ class LoginLocal extends arch\component\template\FormUi {
             ->addPasswordTextbox('password', $this->values->password)
                 ->isRequired(true);
 
+        // Lost password
         $fs->addFieldArea()->push(
             $this->html->link(
                 $this->uri->request('account/lost-password', true), 
