@@ -19,7 +19,7 @@ class LoginLocal extends arch\component\template\FormUi {
 
         // Identity
         $fs->addFieldArea($this->_('Email address'))
-            ->addTextbox('identity', $this->values->identity)
+            ->addEmailTextbox('identity', $this->values->identity)
                 ->isRequired(true);
 
         // Password
@@ -27,6 +27,13 @@ class LoginLocal extends arch\component\template\FormUi {
             ->addPasswordTextbox('password', $this->values->password)
                 ->isRequired(true);
 
+        $fs->addFieldArea()->push(
+            $this->html->link(
+                $this->uri->request('account/lost-password', true), 
+                $this->_('Forgot your password?')
+            )
+        );
+        
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
