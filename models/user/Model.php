@@ -8,6 +8,10 @@ use df\user;
 
 class Model extends axis\Model implements user\IUserModel {
     
+    public function getClientData($id) {
+        return $this->client->fetchByPrimary($id);
+    }
+
     public function getAuthenticationDomainInfo(user\authentication\IRequest $request) {
         return $this->getUnit('auth')->fetch()
             ->where('identity', '=', $request->getIdentity())
