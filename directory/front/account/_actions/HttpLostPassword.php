@@ -22,31 +22,12 @@ class HttpLostPassword extends arch\form\Action {
     }
 
     protected function _createUi() {
-        $form = $this->content->addForm();
-        $fs = $form->addFieldSet($this->_('Password recovery'));
-
-        $fs->push(
-            $this->html->notification($this->_(
-                'Please enter your email address and you will be sent a link with instructions on resetting your password'
-            ))
-        );
-
-        // Email
-        $fs->addFieldArea($this->_('Email address'))->push(
-            $this->html->emailTextbox('email', $this->values->email)
-                ->isRequired(true)
-        );
-
-        // Buttons
-        $fs->addButtonArea()->push(
-            $this->html->eventButton(
-                    $this->eventName('update'),
-                    $this->_('Update')
-                )
-                ->setIcon('mail')
-                ->setDisposition('positive'),
-
-            $this->html->cancelEventButton()
+        $this->content->push(
+            $this->import->component(
+                'LostPassword', 
+                '~front/account/', 
+                $this
+            )
         );
     }
 

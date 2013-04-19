@@ -81,30 +81,10 @@ class HttpResetPassword extends arch\form\Action {
     }
 
     protected function _createUi() {
-        $form = $this->content->addForm();
-        $fs = $form->addFieldSet($this->_('Reset password'));
-
-
-        // Email
-        $fs->addFieldArea($this->_('Email'))->push(
-            $this->html->emailTextbox('email', $this->_key['user']['email'])
-                ->isDisabled(true)
+        $this->content->push(
+            $this->import->component('ResetPassword', '~front/account/', $this)
+                ->setArg('key', $this->_key)
         );
-
-        // New password
-        $fs->addFieldArea($this->_('New password'))->push(
-            $this->html->passwordTextbox('newPassword', $this->values->newPassword)
-                ->isRequired(true)
-        );
-
-        // Confirm password
-        $fs->addFieldArea($this->_('Confirm new password'))->push(
-            $this->html->passwordTextbox('confirmNewPassword', $this->values->confirmNewPassword)
-                ->isRequired(true)
-        );
-
-        // Buttons
-        $fs->push($this->html->defaultButtonGroup());
     }
 
     protected function _onSaveEvent() {
