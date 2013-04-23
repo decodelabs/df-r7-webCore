@@ -1,6 +1,19 @@
 <?php
 
-echo $this->import->template('elements/Header.html');
+$header = $this->import->template('elements/Header.html');
+
+if($this['hasLocalAdapter']) {
+    $header->setArg('menuEntries', [
+        $this->html->link(
+                $this->uri->request('~admin/users/change-password?user='.$this['client']['id'], true),
+                $this->_('Change password')
+            )
+            ->setIcon('edit')
+            ->setDisposition('operative')
+    ]);
+}
+
+echo $header;
 
 
 echo $this->html->attributeList($this['client'])

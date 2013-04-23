@@ -12,13 +12,25 @@ echo $this->html->collectionList($this['client']->authDomains->fetch())
     ->addField('identity')
 
     // Bind date
-    ->addField('bindDate', function($row) {
-        return $this->html->date($row['bindDate']);
+    ->addField('bindDate', function($auth) {
+        return $this->html->date($auth['bindDate']);
     })
 
     // Login date
-    ->addField('loginDate', $this->_('Last login'), function($row) {
-        if($row['loginDate']) {
-            return $this->html->timeSince($row['loginDate']);
+    ->addField('loginDate', $this->_('Last login'), function($auth) {
+        if($auth['loginDate']) {
+            return $this->html->timeSince($auth['loginDate']);
+        }
+    })
+
+    // Actions
+    ->addField('actions', function($auth) {
+        if($auth['adapter'] == 'Local') {
+            return $this->html->link(
+                    $this->uri->request('~admin/users/change-password?user='.$auth->getRawId('user'), true),
+                    $this->_('Change password')
+                )
+                ->setIcon('edit')
+                ->setDisposition('operative');
         }
     });

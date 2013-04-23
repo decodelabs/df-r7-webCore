@@ -21,6 +21,10 @@ echo $this->html->menuBar()
 
         '|',
 
+        $this['menuEntries'],
+
+        '|',
+
         $this->html->link(
                 '~admin/users/details?user='.$this['client']['id'],
                 $this->_('Details'),

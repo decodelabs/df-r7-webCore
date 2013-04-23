@@ -48,6 +48,10 @@ class HttpController extends arch\Controller {
         $view = $this->aura->getView('Details.html');
         $this->_fetchUser($view);
 
+        $view['hasLocalAdapter'] = (bool)$view['client']->authDomains->select()
+            ->where('adapter', '=', 'Local')
+            ->count();
+
         return $view;
     }
 
