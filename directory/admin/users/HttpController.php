@@ -19,10 +19,20 @@ class HttpController extends arch\Controller {
 
         $this->data->checkAccess($model->client);
 
-        $view['userList'] = $model->client->select()
+        $query = $model->client->select()
+            ->countRelation('groups');
 
-            ->countRelation('groups')
 
+        if($view['search'] = $search = $this->request->getQueryTerm('search')) {
+            $query->beginWhereClause()
+                ->where('id', '=', ltrim($search, '#'))
+                ->orWhere('fullName', 'contains', $search)
+                ->orWhere('nickName', 'contains', $search)
+                ->orWhere('email', 'contains', $search)
+                ->endClause();
+        }
+
+        $view['userList'] = $query
             ->paginate()
                 ->setOrderableFields(
                     'email', 'fullName', 'nickName', 'status', 'joinDate',
