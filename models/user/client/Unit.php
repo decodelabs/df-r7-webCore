@@ -25,6 +25,7 @@ class Unit extends axis\unit\table\Base {
             ;
             
         $schema->addField('authDomains', 'OneToMany', 'auth', 'user');
+        $schema->addField('rememberKeys', 'OneToMany', 'rememberKey', 'user');
         $schema->addIndexedField('status', 'Integer', 1)->setDefaultValue(3);
         
         $schema->addField('timezone', 'String', 32)->setDefaultValue('UTC');

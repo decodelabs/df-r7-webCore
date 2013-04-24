@@ -1,7 +1,11 @@
 <?php
-
+/**
+ * This file is part of the Decode Framework
+ * @license http://opensource.org/licenses/MIT
+ */
 namespace df\apex\models\user;
 
+use df;
 use df\core;
 use df\axis;
 use df\user;
@@ -78,5 +82,23 @@ class Model extends axis\Model implements user\IUserModel {
         }
         
         return $output;
+    }
+
+    public function generateRememberKey(user\IClient $client) {
+        return $this->rememberKey->generateKey($client);
+    }
+
+    public function hasRememberKey(user\RememberKey $key) {
+        return $this->rememberKey->hasKey($key);
+    }
+
+    public function destroyRememberKey(user\RememberKey $key) {
+        $this->rememberKey->destroyKey($key);
+        return $this;
+    }
+
+    public function purgeRememberKeys() {
+        $this->rememberKey->purge();
+        return $this;
     }
 }
