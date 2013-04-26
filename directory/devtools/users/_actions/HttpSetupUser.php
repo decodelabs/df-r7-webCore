@@ -154,8 +154,8 @@ class HttpSetupUser extends arch\form\Action {
             
             $key = $model->key->newRecord(array(
                 'role' => $role['id'],
-                'domain' => 'directory',
-                'pattern' => '~admin/*',
+                'domain' => '*',
+                'pattern' => '*',
                 'allow' => true
             ));
             
