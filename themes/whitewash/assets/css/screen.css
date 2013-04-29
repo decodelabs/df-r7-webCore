@@ -517,7 +517,8 @@ button span[data-icon]:before {
     -webkit-border-radius: 6px;
 }
 
-.widget-inputArea > .selection + .selection {
+.widget-inputArea > .selection + .selection,
+.widget-inputArea > .widget-buttonArea + .selection {
     clear: left;
 }
 
@@ -526,7 +527,8 @@ button span[data-icon]:before {
     padding: 0;
 }
 
-.delegate-selector > .widget-inputArea > .widget-buttonArea {
+.delegate-selector > .widget-inputArea > .widget-buttonArea,
+.widget-inputArea > .selection + .widget-buttonArea {
     font-size: 0.9em;
     float: left;
     margin: 0 0 0 1em;
