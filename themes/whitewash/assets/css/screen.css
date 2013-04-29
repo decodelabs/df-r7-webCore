@@ -505,8 +505,9 @@ button span[data-icon]:before {
 }
 
 
-.delegate-selector > .widget-inputArea > .selection {
+/*.delegate-selector >*/ .widget-inputArea > .selection {
     float: left;
+    margin-bottom: 0.2em;
     width: 18em;
     padding: 0.2em 0.5em;
     background: #FAFAFA;
@@ -516,7 +517,11 @@ button span[data-icon]:before {
     -webkit-border-radius: 6px;
 }
 
-.delegate-selector > .widget-inputArea > .selection ul {
+.widget-inputArea > .selection + .selection {
+    clear: left;
+}
+
+/*.delegate-selector >*/ .widget-inputArea > .selection ul {
     list-style: none;
     padding: 0;
 }
