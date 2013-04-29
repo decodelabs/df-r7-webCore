@@ -17,7 +17,7 @@ class HttpLostPassword extends arch\form\Action {
 
     protected function _init() {
         if($this->user->isLoggedIn()) {
-            return $this->http->redirect('account/');
+            return $this->http->defaultRedirect('account/');
         }
     }
 
