@@ -134,6 +134,7 @@ return [
     'thumbsDown' => '&#xe058;',
     'playlist' => '&#xe059;',
     'refresh' => '&#xe05a;',
+    'reorder' => '&#xe05a;',
     'speed-slow' => '&#xe05b;',
     'speed-medium' => '&#xe05c;',
     'speed-fast' => '&#xe05d;',
