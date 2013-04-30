@@ -61,7 +61,7 @@ class HttpLogin extends arch\form\Action {
                     'The email address or password entered was incorrect'
                 ));
             } else {
-                return $this->complete('account/');
+                return $this->complete();
             }
         }
     }
