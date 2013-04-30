@@ -73,6 +73,7 @@ return [
     'trash' => '&#xe02e;',
     //'lightning' => '&#xe02f;',
     'rss' => '&#xe030;',
+    'subscription' => '&#xe030;',
     'map' => '&#xe031;',
     'network' => '&#xe032;',
     'company' => '&#xe032;',
