@@ -63,7 +63,6 @@ return [
     'clipboard-empty' => '&#xe029;',
     'clipboard-full' => '&#xe02a;',
     'clipboard' => '&#xe02a;',
-    'report' => '&#xe02a;',
     'invoice' => '&#xe02a;',
     'post' => '&#xe02b;',
     'paper' => '&#xe02b;',
@@ -190,6 +189,7 @@ return [
     'stats' => '&#xe082;',
     'pieChart' => '&#xe083;',
     'grid' => '&#xe084;',
+    'report' => '&#xe084;',
     'transport' => '&#xe085;',
     'car' => '&#xe086;'
 ];
