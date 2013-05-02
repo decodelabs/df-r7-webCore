@@ -63,6 +63,7 @@ return [
     'clipboard-empty' => '&#xe029;',
     'clipboard-full' => '&#xe02a;',
     'clipboard' => '&#xe02a;',
+    'report' => '&#xe02a;',
     'invoice' => '&#xe02a;',
     'post' => '&#xe02b;',
     'paper' => '&#xe02b;',
