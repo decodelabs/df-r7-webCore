@@ -189,7 +189,7 @@ return [
     'stats' => '&#xe082;',
     'pieChart' => '&#xe083;',
     'grid' => '&#xe084;',
-    'report' => '&#xe084;',
+    'report' => '&#xe082;',
     'transport' => '&#xe085;',
     'car' => '&#xe086;'
 ];
