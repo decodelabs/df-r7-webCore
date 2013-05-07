@@ -33,17 +33,39 @@ class HttpController extends arch\Controller {
 
     public function detailsHtmlAction() {
         $view = $this->aura->getView('Details.html');
-
-        $view['group'] = $this->data->fetchForAction(
-            'axis://user/Group',
-            $this->request->query['group']
-        );
-
+        $this->_fetchGroup($view);
+        
         $view['roleList'] = $view['group']->roles->fetch()
             ->countRelation('groups')
             ->countRelation('keys')
             ->orderBy('priority');
 
         return $view;
+    }
+
+    public function usersHtmlAction() {
+        $view = $this->aura->getView('Users.html');
+        $this->_fetchGroup($view);
+
+        $view['userList'] = $view['group']->users->select()
+            ->countRelation('groups')
+            ->paginate()
+                ->setOrderableFields(
+                    'email', 'fullName', 'nickName', 'status', 'joinDate',
+                    'loginDate', 'timezone', 'country', 'language', 'groups'
+                )
+                ->setDefaultOrder('fullName')
+                ->applyWith($this->request->query);
+
+        return $view;
+    }
+
+    protected function _fetchGroup($view) {
+        $view['group'] = $this->data->fetchForAction(
+            'axis://user/Group',
+            $this->request->query['group']
+        );
+
+        $view['userCount'] = $view['group']->users->select()->count();
     }
 }
