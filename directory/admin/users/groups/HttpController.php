@@ -23,9 +23,7 @@ class HttpController extends arch\Controller {
             ->countRelation('users')
             ->countRelation('roles')
                 
-            ->paginate()
-                ->setOrderableFields('group.name', 'users', 'roles')
-                ->applyWith($this->request->query);
+            ->paginateWith($this->request->query);
             
             
         return $view;
@@ -49,13 +47,7 @@ class HttpController extends arch\Controller {
 
         $view['userList'] = $view['group']->users->select()
             ->countRelation('groups')
-            ->paginate()
-                ->setOrderableFields(
-                    'email', 'fullName', 'nickName', 'status', 'joinDate',
-                    'loginDate', 'timezone', 'country', 'language', 'groups'
-                )
-                ->setDefaultOrder('fullName')
-                ->applyWith($this->request->query);
+            ->paginateWith($this->request->query);
 
         return $view;
     }

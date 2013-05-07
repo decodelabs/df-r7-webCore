@@ -32,14 +32,7 @@ class HttpController extends arch\Controller {
                 ->endClause();
         }
 
-        $view['userList'] = $query
-            ->paginate()
-                ->setOrderableFields(
-                    'email', 'fullName', 'nickName', 'status', 'joinDate',
-                    'loginDate', 'timezone', 'country', 'language', 'groups'
-                )
-                ->setDefaultOrder('fullName')
-                ->applyWith($this->request->query);
+        $view['userList'] = $query->paginateWith($this->request->query);
 
         return $view;
     }

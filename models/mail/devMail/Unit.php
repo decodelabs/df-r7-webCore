@@ -22,6 +22,13 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('isPrivate', 'Boolean');
     }
 
+    public function applyPagination(opal\query\IPaginator $paginator) {
+        $paginator
+            ->setOrderableFields('from', 'to', 'subject', 'date', 'isPrivate')
+            ->setDefaultOrder('date DESC');
+
+        return $this;
+    }
 
     public function store(core\mail\IMessage $message) {
         $to = array();

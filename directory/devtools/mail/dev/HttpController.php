@@ -19,10 +19,7 @@ class HttpController extends arch\Controller {
         $model = $this->data->getModel('mail');
 
         $view['mailList'] = $model->devMail->fetch()
-            ->paginate()
-                ->setOrderableFields('from', 'to', 'subject', 'date', 'isPrivate')
-                ->setDefaultOrder('date DESC')
-                ->applyWith($this->request->query);
+            ->paginateWith($this->request->query);
 
         return $view;
     }

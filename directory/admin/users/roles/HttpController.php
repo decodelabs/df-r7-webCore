@@ -19,12 +19,7 @@ class HttpController extends arch\Controller {
             ->countRelation('groups')
             ->countRelation('keys')
 
-            ->groupBy('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority')
-            
-            ->paginate()
-                ->setOrderableFields('role.id', 'role.name', 'role.bindState', 'role.minRequiredState', 'role.priority', 'groups', 'keys')
-                ->setDefaultOrder('role.name')
-                ->applyWith($this->request->query);
+            ->paginateWith($this->request->query);
                 
         return $view;
     }

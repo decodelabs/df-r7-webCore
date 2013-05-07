@@ -8,6 +8,7 @@ namespace df\apex\models\user\client;
 use df;
 use df\core;
 use df\axis;
+use df\opal;
 
 class Unit extends axis\unit\table\Base {
     
@@ -31,5 +32,16 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('timezone', 'String', 32)->setDefaultValue('UTC');
         $schema->addField('country', 'KeyString', 2, core\string\ICase::UPPER)->setDefaultValue('GB');
         $schema->addField('language', 'KeyString', 2, core\string\ICase::LOWER)->setDefaultValue('en');
+    }
+
+    public function applyPagination(opal\query\IPaginator $paginator) {
+        $paginator
+            ->setOrderableFields(
+                'email', 'fullName', 'nickName', 'status', 'joinDate',
+                'loginDate', 'timezone', 'country', 'language'
+            )
+            ->setDefaultOrder('fullName');
+
+        return $this;
     }
 }

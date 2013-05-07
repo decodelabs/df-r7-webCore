@@ -1,9 +1,14 @@
 <?php
-
+/**
+ * This file is part of the Decode Framework
+ * @license http://opensource.org/licenses/MIT
+ */
 namespace df\apex\models\user\role;
 
+use df;
 use df\core;
 use df\axis;
+use df\opal;
 
 class Unit extends axis\unit\table\Base {
     
@@ -17,5 +22,13 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('keys', 'OneToMany', 'key', 'role');
         
         $schema->addPrimaryIndex('id');
+    }
+
+    public function applyPagination(opal\query\IPaginator $paginator) {
+        $paginator
+            ->setOrderableFields('name', 'bindState', 'minRequiredState', 'priority')
+            ->setDefaultOrder('name ASC');
+
+        return $this;
     }
 }
