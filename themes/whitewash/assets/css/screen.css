@@ -505,36 +505,43 @@ button span[data-icon]:before {
 }
 
 
-/*.delegate-selector >*/ .widget-inputArea > .selection {
-    float: left;
+.widget-selection:before,
+.widget-selection:after {
+    content:"";
+    display:table;
+}
+.widget-selection:after {
+    clear:both;
+}
+.widget-selection {
+    zoom:1;
+    width: 90%;
     margin-bottom: 0.2em;
+    font-size: 0.9em;
+}
+
+.widget-selection > .body {
+    float: left;
     width: 18em;
     padding: 0.2em 0.5em;
     background: #FAFAFA;
-    font-size: 0.9em;
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
 }
 
-.widget-inputArea > .selection + .selection,
-.widget-inputArea > .widget-buttonArea + .selection {
-    clear: left;
-}
-
-/*.delegate-selector >*/ .widget-inputArea > .selection ul {
-    list-style: none;
-    padding: 0;
-}
-
-.delegate-selector > .widget-inputArea > .widget-buttonArea,
-.widget-inputArea > .selection + .widget-buttonArea {
-    font-size: 0.9em;
+.widget-selection > .widget-buttonArea {
     float: left;
     margin: 0 0 0 1em;
     background: none;
     padding: 0;
 }
+
+.widget-selection ul {
+    list-style: none;
+    padding: 0;
+}
+
 
 
 .widget-textbox {
