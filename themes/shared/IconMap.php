@@ -154,6 +154,7 @@ return [
     'light' => '&#xe063;',
     'enter' => '&#xe064;',
     'exit' => '&#xe065;',
+    'move' => '&#xe064;',
     'exam' => '&#xe066;',
     'checkbox' => '&#xe066;',
     'checkbox-partial' => '&#xe067;',
