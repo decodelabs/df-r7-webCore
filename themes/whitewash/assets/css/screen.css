@@ -928,8 +928,9 @@ td > p:last-child {
     margin: 0;
     font-size: 1.4em;
     font-style: italic;
-    background: #B5B5B5;
+    background: #E5E5E5;
     color: #FFF;
+    text-shadow: 0 0 0.5em #888;
 }
 
 .widget-headerBar > h3 {
