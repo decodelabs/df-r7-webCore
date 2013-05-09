@@ -904,6 +904,54 @@ td > p:last-child {
 }
 
 
+.widget-headerBar {
+    border: 4px #F4F4F4 solid;
+    padding: 0.3em;
+    border-radius: 0.6em;
+    margin-bottom: 1.2em;
+}
+
+.widget-headerBar > h2 {
+    padding: 0 0.4em;
+    margin: 0 0 0.2em;
+}
+
+.widget-headerBar > h3 {
+    margin: 0;
+    font-size: 1.1em;
+    padding: 0 0 0 2em;
+    font-style: italic;
+    color: #666;
+    background: none;
+}
+
+
+.widget-headerBar > .widget-menuBar.primary {
+    margin: 0.4em 0 0;
+    border-radius: 0;
+    border: none;
+    border-top: 3px #F4F4F4 solid;
+    padding-bottom: 0;
+}
+
+.widget-headerBar > .widget-menuBar.secondary {
+    margin: 0.4em 0 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border: none;
+    border-top: 3px #F4F4F4 solid;
+    background: #FAFAFA;
+    padding-left: 2em;
+    font-size: 0.9em;
+}
+
+.widget-headerBar > .widget-menuBar.secondary a {
+    color: #666;
+}
+
+
+
+
 
 .widget-link,
 .widget-blockLink {
