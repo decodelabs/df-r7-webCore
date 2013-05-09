@@ -922,13 +922,15 @@ td > p:last-child {
 }
 
 .widget-headerBar > h2 {
-    padding: 0.2em 0.4em;
+    padding: 0.3em 0.4em;
     border-top-left-radius: 0.3em;
     border-top-right-radius: 0.3em;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     margin: 0;
     font-size: 1.4em;
     font-style: italic;
-    background: #E5E5E5;
+    background: #E0E0E0;
     color: #FFF;
     text-shadow: 0 0 0.5em #888;
 }
@@ -944,10 +946,9 @@ td > p:last-child {
 
 
 .widget-headerBar > .widget-menuBar.primary {
-    margin: 0.4em 0 0;
+    margin: 0;
     border-radius: 0;
     border: none;
-    border-top: 3px #F4F4F4 solid;
 }
 
 .widget-headerBar > .widget-menuBar.primary:first-child {
@@ -968,8 +969,7 @@ td > p:last-child {
     border: none;
     border-top: 3px #F4F4F4 solid;
     background: #FAFAFA;
-    padding-top: 0.6em;
-    padding-left: 2em;
+    padding: 0.5em 0.4em 0.3em 2em;
     /*
     font-size: 0.9em;
     */
