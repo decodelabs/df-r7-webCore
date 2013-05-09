@@ -321,11 +321,20 @@ button span[data-icon]:before {
 }
 
 
+.layout-header h1 {
+    float: left;
+}
+
 .widget-breadcrumbList {
     margin-bottom: 1em;
     padding: 0.4em;
     border-radius: 8px;
     background: #F4F4F4;
+}
+
+.layout-header .widget-breadcrumbList {
+    float: right;
+    margin-top: 1em;
 }
 
 
