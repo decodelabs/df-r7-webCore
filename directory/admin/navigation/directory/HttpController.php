@@ -41,33 +41,20 @@ class HttpController extends arch\Controller {
             
             // List
             ->addFacet('list', function($facetController) {
-                $template = $this->aura->getDirectoryTemplate('elements/List.html');
-                $template['menuList'] = $facetController['source']->loadNestedMenus($facetController['area']);
-
-                return $template;
+                $list = $facetController['source']->loadNestedMenus($facetController['area']);
+                return $this->directory->getComponent('MenuList', '~admin/navigation/directory/')
+                    ->setCollection($list);
             });
     }
 
     public function detailsHtmlAction() {
         $view = $this->aura->getView('Details.html');
-        $this->_fetchMenu($view);
 
-        return $view;
-    }
-
-    public function entriesHtmlAction() {
-        $view = $this->aura->getView('Entries.html');
-        $this->_fetchMenu($view);
-        
-        $view['entryList'] = $view['menu']->generateEntries();
-
-        return $view;
-    }
-
-    protected function _fetchMenu($view) {
         if(!$view['menu'] = arch\navigation\menu\Base::factory($this->_context, 'Directory://'.$this->request->query['menu'])) {
             $this->throwError(404, 'Menu not found');
         }
+
+        $view['entryList'] = $view['menu']->generateEntries();
 
         return $view;
     }

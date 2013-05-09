@@ -27,17 +27,10 @@ class HttpController extends arch\Controller {
     public function detailsHtmlAction() {
         $view = $this->aura->getView('Details.html');
         $this->_fetchRole($view);
-        
-        return $view;
-    }
-
-    public function keysHtmlAction() {
-        $view = $this->aura->getView('Keys.html');
-        $this->_fetchRole($view);
 
         $view['keyList'] = $view['role']->keys->fetch()
             ->orderBy('domain');
-
+        
         return $view;
     }
 
@@ -46,8 +39,6 @@ class HttpController extends arch\Controller {
             'axis://user/Role',
             $this->request->query['role']
         );
-
-        $view['keyCount'] = $view['role']->keys->select()->count();
 
         return $view;
     }

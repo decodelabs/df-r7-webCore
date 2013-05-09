@@ -1,17 +1,5 @@
 <?php
-echo $this->html->menuBar()
-    ->addLinks(
-        $this->html->link(
-                $this->uri->request('~devtools/mail/dev/delete-all', true),
-                $this->_('Delete all mail')
-            )
-            ->setIcon('delete')
-            ->addAccessLock('axis://mail/DevMail#delete'),
-
-        '|',
-
-        $this->html->backLink()
-    );
+echo $this->import->component('IndexHeaderBar', '~devtools/mail/dev/');
 
 
 echo $this->html->collectionList($this['mailList'])

@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->template('elements/Header.html');
+echo $this->import->component('DetailHeaderBar', '~admin/navigation/directory/', $this['menu']);
 
 
 echo $this->html->attributeList($this['menu'])
@@ -61,3 +61,8 @@ echo $this->html->attributeList($this['menu'])
         }
     })
     ;
+
+
+echo $this->html->element('h3', $this->_('Entries'));
+
+echo $this->import->template('elements/MenuEntryList.html', '~admin/navigation/');

@@ -58,4 +58,10 @@ class Record extends opal\record\Base implements user\IActiveClientDataObject {
         $this->loginDate = 'now';
         $this->save();
     }
+
+    public function hasLocalAuth() {
+        return (bool)$this->authDomains->select()
+            ->where('adapter', '=', 'Local')
+            ->count();
+    }
 }

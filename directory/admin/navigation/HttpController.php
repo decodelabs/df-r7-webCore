@@ -14,20 +14,7 @@ class HttpController extends arch\Controller {
 
     public function indexHtmlAction() {
         $container = $this->aura->getWidgetContainer();
-        $view = $container->getView();
-
-        $container->addMenuBar()->addLinks(
-            $view->html->link(
-                    $view->uri->request('~admin/navigation/refresh', true),
-                    $this->_('Refresh menu list')
-                )
-                ->setIcon('refresh'),
-
-            '|',
-
-            $view->html->backLink()
-        );
-
+        $container->push($this->directory->getComponent('IndexHeaderBar', '~admin/navigation/'));
         $container->addBlockMenu('directory://~admin/navigation/Index');
 
         return $container;

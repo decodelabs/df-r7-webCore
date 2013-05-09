@@ -1,7 +1,7 @@
 <?php
 
 // Header
-echo $this->import->template('elements/Header.html');
+echo $this->import->component('DetailHeaderBar', '~admin/users/groups/', $this['group']);
 
 // Users
 echo $this->html->element('h3', $this->_('Users'));

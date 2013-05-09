@@ -57,7 +57,5 @@ class HttpController extends arch\Controller {
             'axis://user/Group',
             $this->request->query['group']
         );
-
-        $view['userCount'] = $view['group']->users->select()->count();
     }
 }

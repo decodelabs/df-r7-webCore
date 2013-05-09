@@ -1,38 +1,5 @@
 <?php
-echo $this->html->menuBar()
-    ->addLinks(
-        $this->html->link(
-                $this->uri->request('~devtools/application/packages/add', true),
-                $this->_('Install new package')
-            )
-            ->setIcon('add')
-            ->isDisabled(true),
-
-        $this->html->link(
-                $this->uri->request('~devtools/application/packages/refresh-all', true),
-                $this->_('Refresh')
-            )
-            ->setIcon('refresh'),
-
-        $this->html->link(
-                $this->uri->request('~devtools/application/packages/update-all', true),
-                $this->_('Update all')
-            )
-            ->setIcon('download')
-            ->setDisposition('operative'),
-
-        $this->html->link(
-                $this->uri->request('~devtools/application/packages/commit-all', true),
-                $this->_('Commit all')
-            )
-            ->setIcon('upload')
-            ->setDisposition('operative'),
-
-        '|',
-
-        $this->html->backLink()
-    );
-
+echo $this->import->component('IndexHeaderBar', '~devtools/application/packages/');
 
 
 echo $this->html->notification($this->_(
@@ -43,8 +10,6 @@ echo $this->html->notification($this->_(
         'user has been given access to the required permissions and credentials'
     ))
     ->setType('warning');
-
-echo $this->html->notification($this->_('For more stable package management, please see the CLI tasks available in /packages/'));
 
 
 echo $this->html->collectionList($this['packageList'])

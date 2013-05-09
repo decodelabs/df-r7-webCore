@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->template('elements/Header.html');
+echo $this->import->component('DetailHeaderBar', '~admin/users/', $this['client']);
 
 echo $this->html->collectionList($this['client']->authDomains->fetch())
     ->setErrorMessage($this->_('There are no authentication entries to display'))

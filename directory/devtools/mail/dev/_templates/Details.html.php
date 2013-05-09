@@ -1,21 +1,6 @@
 <?php
-echo $this->html->menuBar()
-    ->addLinks(
-        $this->html->link(
-                $this->uri->request(
-                    '~devtools/mail/dev/delete?mail='.$this['mail']['id'], true,
-                    '~devtools/mail/dev/'
-                ),
-                $this->_('Delete email')
-            )
-            ->setIcon('delete')
-            ->addAccessLock($this['mail']->getActionLock('delete')),
 
-        '|',
-
-        $this->html->backLink()
-    );
-
+echo $this->import->component('IndexHeaderBar', '~devtools/mail/dev/', $this['mail']);
 
 echo $this->html->attributeList($this['mail'])
     

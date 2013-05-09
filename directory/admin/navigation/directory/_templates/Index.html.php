@@ -1,25 +1,12 @@
 <?php
+
 // Menu
-echo $this->html->menuBar()
-    ->addLinks(
-        $this->html->link(
-                $this->uri->request('~admin/navigation/refresh', true),
-                $this->_('Refresh menu list')
-            )
-            ->setIcon('refresh'),
-
-        '|',
-
-        $this->html->backLink()
-    );
-
+echo $this->import->component('IndexHeaderBar', '~admin/navigation/directory/');
 
 
 // Form
 $form = $this->html->form()->setMethod('get');
 $fs = $form->addFieldSet($this->_('Filter'))->push(
-    $this->html->label($this->_('Area')),
-
     $this->html->selectList(
             'area',
             $this['areaFilter'],
