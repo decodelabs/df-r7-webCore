@@ -137,6 +137,7 @@ h3 {
     background: #FFF;
     min-height: 500px;
     padding: 1em;
+    border-radius: 0.6em;
 }
 
 a {
@@ -876,7 +877,7 @@ td > p:last-child {
 
 .widget-menuBar li {
     float: left;
-    margin: 0 0.8em 0 0;
+    margin: 0 1em 0 0;
 }
 
 .widget-menuBar .widget-spacer {
@@ -916,15 +917,19 @@ td > p:last-child {
 .widget-headerBar {
     border: 4px #F4F4F4 solid;
     padding: 0.3em;
-    border-radius: 0.6em;
+    border-radius: 0.7em;
     margin-bottom: 1.2em;
 }
 
 .widget-headerBar > h2 {
-    padding: 0 0.4em;
-    margin: 0 0 0.2em;
+    padding: 0.2em 0.4em;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    margin: 0;
     font-size: 1.4em;
     font-style: italic;
+    background: #B5B5B5;
+    color: #FFF;
 }
 
 .widget-headerBar > h3 {
@@ -962,13 +967,18 @@ td > p:last-child {
     border: none;
     border-top: 3px #F4F4F4 solid;
     background: #FAFAFA;
+    padding-top: 0.6em;
     padding-left: 2em;
+    /*
     font-size: 0.9em;
+    */
 }
 
+/*
 .widget-headerBar > .widget-menuBar.secondary a {
     color: #666;
 }
+*/
 
 
 
