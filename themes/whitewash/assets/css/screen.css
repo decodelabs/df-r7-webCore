@@ -914,6 +914,8 @@ td > p:last-child {
 .widget-headerBar > h2 {
     padding: 0 0.4em;
     margin: 0 0 0.2em;
+    font-size: 1.4em;
+    font-style: italic;
 }
 
 .widget-headerBar > h3 {
