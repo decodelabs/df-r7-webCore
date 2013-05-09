@@ -931,6 +931,11 @@ td > p:last-child {
 }
 
 
+.widget-link > .body > sup {
+    margin-left: 0.2em;
+}
+
+
 
 .widget-blockLink {
     display: inline-block;
