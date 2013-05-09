@@ -322,9 +322,11 @@ button span[data-icon]:before {
 }
 
 
+/*
 .layout-header h1 {
     float: left;
 }
+*/
 
 .widget-breadcrumbList {
     margin-bottom: 1em;
@@ -333,10 +335,12 @@ button span[data-icon]:before {
     background: #F4F4F4;
 }
 
+/*
 .layout-header .widget-breadcrumbList {
     float: right;
     margin-top: 1em;
 }
+*/
 
 
 
