@@ -22,7 +22,7 @@ echo $this->html->menuBar()
         $this->import->component('GroupLink', '~admin/users/groups/', $this['group'], $this->_('Users'), true)
             ->setAction('users')
             ->setIcon('user')
-            ->setNote($this['userCount'] ? ' ('.$this['userCount'].')' : null),
+            ->setNote($this->format->counterNote($this['userCount'])),
 
         '|',
 

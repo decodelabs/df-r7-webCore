@@ -38,7 +38,7 @@ echo $this->html->menuBar()
                 $this->_('Authentication'),
                 true
             )
-            ->setNote($this['authenticationCount'] ? '('.$this['authenticationCount'].')' : null)
+            ->setNote($this->format->counterNote($this['authenticationCount']))
             ->setIcon('user')
             ->setDisposition('informative'),
 

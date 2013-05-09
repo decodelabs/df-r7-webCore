@@ -22,7 +22,7 @@ echo $this->html->menuBar()
 
         // Keys
         $this->import->component('RoleLink', '~admin/users/roles/', $this['role'], $this->_('Keys'), true)
-            ->setNote($this['keyCount'] ? '('.$this['keyCount'].')' : null)
+            ->setNote($this->format->counterNote($this['keyCount']))
             ->setIcon('key')
             ->setAction('keys'),
 
