@@ -33,6 +33,7 @@ return [
     'settings' => '&#xe016;',
     'theme' => '&#xe016;',
     'package' => '&#xe017;',
+    'book' => '&#xe017;',
     'module' => '&#xe018;',
     'project' => '&#xe018;',
     'toolkit' => '&#xe019;',
