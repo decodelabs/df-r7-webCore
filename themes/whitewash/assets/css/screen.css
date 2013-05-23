@@ -342,6 +342,12 @@ button span[data-icon]:before {
 }
 */
 
+.layout-contentArea:before, 
+.layout-contentArea:after { content:""; display:table; }
+.layout-contentArea:after { clear:both; }
+.layout-contentArea {
+    zoom:1;
+}
 
 
 .prop-na {
