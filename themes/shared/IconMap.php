@@ -157,6 +157,7 @@ return [
     'exit' => '&#xe065;',
     'move' => '&#xe064;',
     'exam' => '&#xe066;',
+    'select' => '&#xe066;',
     'checkbox' => '&#xe066;',
     'checkbox-partial' => '&#xe067;',
     'radio-checked' => '&#xe068;',
