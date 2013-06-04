@@ -101,4 +101,8 @@ class Model extends axis\Model implements user\IUserModel {
         $this->rememberKey->purge();
         return $this;
     }
+
+    public function getSessionBackend() {
+        return $this->getUnit('sessionManifest');
+    }
 }
