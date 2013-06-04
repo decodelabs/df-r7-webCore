@@ -25,7 +25,7 @@ class HttpAxis extends arch\form\Action {
     protected function _createUi() {
         $form = $this->content->addForm();
         $keys = $this->_cache->getKeys();
-        $info = axis\Unit::getUnitMetaData($keys);
+        $info = axis\Model::getUnitMetaData($keys);
 
         $form->push(
             $this->html->collectionList($info)
