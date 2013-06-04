@@ -123,6 +123,8 @@ return [
     'cloudUpload' => '&#xe050;',
     'download' => '&#xe051;',
     'upload' => '&#xe052;',
+    'import' => '&#xe051;',
+    'export' => '&#xe052;',
     'flag' => '&#xe053;',
     //'flag2' => '&#xe054;',
     'topic' => '&#xe054;',
