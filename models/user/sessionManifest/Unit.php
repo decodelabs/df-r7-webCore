@@ -232,9 +232,16 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         $this->_model->sessionData->delete()
             ->whereCorrelation('internalId', 'in', 'internalId')
                 ->from($this, 'manifest')
-                ->where('manifestaccessTime', '<', $time)
+                ->where('manifest.accessTime', '<', $time)
                 ->endCorrelation()
-            ->orWhere('sessionData.accessTime', '<', $time)
+            ->beginOrWhereClause()
+                ->where('sessionData.updateTime', '!=', null)
+                ->where('sessionData.updateTime', '<', $time)
+                ->endClause()
+            ->beginOrWhereClause()
+                ->where('sessionData.updateTime', '=', null)
+                ->where('sessionData.creationTime', '<', $time)
+                ->endClause()
             ->execute();
         
         $this->delete()
