@@ -192,6 +192,7 @@ return [
     'align-right' => '&#xe081;',
     'graph' => '&#xe082;',
     'stats' => '&#xe082;',
+    'timeSheet' => '&#xe083;',
     'pieChart' => '&#xe083;',
     'grid' => '&#xe084;',
     'report' => '&#xe082;',
