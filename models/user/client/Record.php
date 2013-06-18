@@ -13,6 +13,8 @@ use df\user;
 
 class Record extends opal\record\Base implements user\IActiveClientDataObject {
     
+    use user\TNameExtractor;
+
     public function getId() {
         return $this['id'];
     }
