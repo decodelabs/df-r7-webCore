@@ -19,6 +19,13 @@ class HttpController extends arch\Controller {
         $view = $container->getView();
 
         $container->addMenuBar()->addLinks(
+            $view->html->link(
+                    $view->uri->request('~devtools/cache/purge', true),
+                    $this->_('Purge all cache backends')
+                )
+                ->setIcon('delete')
+                ->setDisposition('negative'),
+
             $view->html->backLink()
         );
 
