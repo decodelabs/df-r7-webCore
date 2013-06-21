@@ -48,10 +48,31 @@ class HttpController extends arch\Controller {
         }
         
         $isDevelopment = $this->application->isDevelopment();
+
+        try {
+            $isAdmin = $this->user->canAccess('virtual://errors');
+        } catch(\Exception $e) {
+            $isAdmin = false;
+        }
+
+        $showTemplate = !$isDevelopment;
+
+        if($code == 500 && $isAdmin) {
+            $showTemplate = false;
+        }
+
+        if(isset($lastRequest->query->showErrorTemplate)) {
+            $showTemplate = true;
+        }
+
+        if(isset($lastRequest->query->showDump)) {
+            $showTemplate = false;
+        }
+
+
         $view = null;
 
-        if((!$isDevelopment || isset($lastRequest->query->showErrorTemplate))
-        && (!isset($lastRequest->query->showDump))) {
+        if($showTemplate) {
             try {
                 $view = $this->aura->getView($code.'.html');
             } catch(aura\view\ContentNotFoundException $e) {
