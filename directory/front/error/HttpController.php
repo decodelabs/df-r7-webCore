@@ -88,7 +88,7 @@ class HttpController extends arch\Controller {
             core\debug()
                 ->info('error has reached the error handler!')
                 ->exception($exception)
-                ->flush();
+                ->render();
         }
 
         if(!halo\protocol\http\response\HeaderCollection::isValidStatusCode($code)) {
