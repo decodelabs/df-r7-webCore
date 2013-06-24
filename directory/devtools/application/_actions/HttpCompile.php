@@ -13,6 +13,7 @@ use df\halo;
     
 class HttpCompile extends arch\form\template\Confirm {
 
+    const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'application';
 
     protected function _getMainMessage($itemName) {
