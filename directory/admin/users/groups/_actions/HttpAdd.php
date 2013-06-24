@@ -12,8 +12,6 @@ use df\arch;
 
 class HttpAdd extends arch\form\Action {
     
-    const DEFAULT_EVENT = 'save';
-
     protected $_group;
 
     protected function _init() {

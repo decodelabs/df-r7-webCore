@@ -12,8 +12,6 @@ use df\arch;
     
 class HttpChangePassword extends arch\form\Action {
 
-    const DEFAULT_EVENT = 'save';
-
     protected $_auth;
 
     protected function _init() {

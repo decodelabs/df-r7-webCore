@@ -12,8 +12,6 @@ use df\arch;
     
 abstract class EditorBase extends arch\form\Action {
 
-    const DEFAULT_EVENT = 'save';
-
     protected $_client;
     protected $_showPasswordFields = false;
 

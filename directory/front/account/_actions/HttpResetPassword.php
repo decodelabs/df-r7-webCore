@@ -13,7 +13,6 @@ use df\arch;
 class HttpResetPassword extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
-    const DEFAULT_EVENT = 'save';
 
     protected $_key;
     protected $_auth;
