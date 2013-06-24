@@ -140,6 +140,13 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
             ->execute();
     }
     
+    public function clearNamespaceForAll($namespace) {
+        $this->_model->sessionData->delete()
+            ->where('namespace', '=', $namespace)
+            ->execute();
+    }
+
+
 
 // Nodes
     public function fetchNode(user\ISessionDescriptor $descriptor, $namespace, $key) {
