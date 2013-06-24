@@ -20,9 +20,9 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('stats')
                 ->setWeight(10),
 
-            $entryList->newLink('~devtools/application/packages/', 'Packages')
-                ->setId('packages')
-                ->setDescription('Select, install and update packages for features of your site')
+            $entryList->newLink('~devtools/application/git/', 'Git packages')
+                ->setId('git-packages')
+                ->setDescription('View and update details for connected package git repositories')
                 ->setIcon('package')
                 ->setWeight(20),
 

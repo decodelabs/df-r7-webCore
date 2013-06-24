@@ -1,16 +1,5 @@
 <?php
-echo $this->import->component('IndexHeaderBar', '~devtools/application/packages/');
-
-
-echo $this->html->notification($this->_(
-        'Guaranteed functionality of this manager UI is dependent on connection to a proxy daemon which is not currently running'
-    ))
-    ->setDescription($this->_(
-        'As a fallback it will attempt to communicate with Git directly, however this will only work fully if your webserver '.
-        'user has been given access to the required permissions and credentials'
-    ))
-    ->setType('warning');
-
+echo $this->import->component('IndexHeaderBar', '~devtools/application/git/');
 
 echo $this->html->collectionList($this['packageList'])
     ->setErrorMessage($this->_('No packages could be found'))
@@ -82,25 +71,17 @@ echo $this->html->collectionList($this['packageList'])
         if($package['repo']) {
             return [
                 $this->html->link(
-                        $this->uri->request('~devtools/application/packages/refresh?package='.$package['name'], true),
+                        $this->uri->request('~devtools/application/git/refresh?package='.$package['name'], true),
                         $this->_('Refresh')
                     )
                     ->setIcon('refresh'),
 
                 $this->html->link(
-                        $this->uri->request('~devtools/application/packages/update?package='.$package['name'], true),
+                        $this->uri->request('~devtools/application/git/update?package='.$package['name'], true),
                         $this->_('Update')
                     )
                     ->setIcon('download')
-                    ->setDisposition('operative'),
-
-                $this->html->link(
-                        $this->uri->request('~devtools/application/packages/commit?package='.$package['name'], true),
-                        $this->_('Commit')
-                    )
-                    ->setIcon('upload')
                     ->setDisposition('operative')
-                    ->isDisabled(!$context->getStore('hasChanges'))
             ];
         }
     }); 

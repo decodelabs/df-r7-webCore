@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\application\packages;
+namespace df\apex\directory\devtools\application\git;
 
 use df;
 use df\core;
@@ -16,16 +16,6 @@ class HttpController extends arch\Controller {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function indexHtmlAction() {
-        if(!$this->application->isDevelopment()) {
-            $this->comms->notify(
-                'package.dev',
-                $this->_('The package manager can only be used from a development mode installation'),
-                'error'
-            );
-
-            return $this->http->defaultRedirect();
-        }
-
         $view = $this->aura->getView('Index.html');
         $view['packageList'] = $this->data->getModel('package')->getInstalledPackageList();
 
@@ -38,13 +28,13 @@ class HttpController extends arch\Controller {
         
         if(!$model->updateRemote($name)) {
             $this->comms->notify(
-                'package.update',
+                'git.update',
                 $this->_('Package "%n%" could not be updated', ['%n%' => $name]),
                 'error'
             );
         } else {
             $this->comms->notify(
-                'package.update',
+                'git.update',
                 $this->_('Package "%n%" has been successfully refreshed', ['%n%' => $name]),
                 'success'
             );
