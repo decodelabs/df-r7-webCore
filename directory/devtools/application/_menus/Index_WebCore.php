@@ -30,7 +30,13 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setId('compile')
                 ->setDescription('Production sites should run from a compiled production version. Build an up to date version here')
                 ->setIcon('module')
-                ->setWeight(30)
+                ->setWeight(30),
+
+            $entryList->newLink('~devtools/application/debug-mode', 'Debug mode')
+                ->setId('debug')
+                ->setDescription('Force debugging mode for temporary testing sessions on live sites')
+                ->setIcon('debug')
+                ->setWeight(40)
         );
     }
 }
