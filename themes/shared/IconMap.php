@@ -27,6 +27,7 @@ return [
     'group' => '&#xe010;',
     'role' => '&#xe011;',
     'access' => '&#xe012;',
+    'debug' => '&#xe012;',
     'tools' => '&#xe013;',
     'controlPanel' => '&#xe014;',
     'plugin' => '&#xe015;',
