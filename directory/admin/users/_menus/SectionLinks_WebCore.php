@@ -27,7 +27,7 @@ class SectionLinks_WebCore extends arch\navigation\menu\Base {
                 ->setWeight(1)
                 ->setDisposition('informative'),
 
-            $entryList->newLink('~admin/users/authentication?user='.$userId, 'Authentication')
+            $entryList->newLink('~admin/users/authentication?user='.$userId, 'Auth adapters')
                 ->setId('authentication')
                 ->setIcon('user')
                 ->setNote($context->format->counterNote($authenticationCount))

@@ -39,14 +39,14 @@ class HttpController extends arch\Controller {
 
     public function detailsHtmlAction() {
         $view = $this->aura->getView('Details.html');
-        $this->_fetchUser($view);
+        $this->fetchClient($view);
 
         return $view;
     }
 
     public function authenticationHtmlAction() {
         $view = $this->aura->getView('Authentication.html');
-        $this->_fetchUser($view);
+        $this->fetchClient($view);
 
         $view['authenticationList'] = $view['client']->authDomains->fetch()
             ->orderBy('adapter ASC');
@@ -54,7 +54,7 @@ class HttpController extends arch\Controller {
         return $view;
     }
 
-    protected function _fetchUser($view) {
+    public function fetchClient($view) {
         $view['client'] = $this->data->fetchForAction(
             'axis://user/Client',
             $this->request->query['user']
