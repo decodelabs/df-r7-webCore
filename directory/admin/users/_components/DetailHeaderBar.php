@@ -19,23 +19,13 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
             // Edit
-            $this->html->link(
-                    $this->uri->request('~admin/users/edit?user='.$this->_record['id'], true),
-                    $this->_('Edit user')
-                )
-                ->setIcon('edit')
-                ->addAccessLock($this->_record->getActionLock('edit')),
+            $this->import->component('UserLink', '~admin/users/', $this->_record, $this->_('Edit user'))
+                ->setAction('edit'),
 
             // Delete
-            $this->html->link(
-                    $this->uri->request(
-                        '~admin/users/delete?user='.$this->_record['id'], true,
-                        '~admin/users/'
-                    ),
-                    $this->_('Delete user')
-                )
-                ->setIcon('delete')
-                ->addAccessLock($this->_record->getActionLock('delete'))
+            $this->import->component('UserLink', '~admin/users/', $this->_record, $this->_('Delete user'))
+                ->setAction('delete')
+                ->setRedirectTo('~admin/users/')
         );
     }
 
@@ -54,28 +44,6 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
     }
 
     protected function _addSectionLinks($menu) {
-        $authenticationCount = $this->_record->authDomains->select()->count();
-
-        $menu->addLinks(
-            // Details
-            $this->html->link(
-                    '~admin/users/details?user='.$this->_record['id'],
-                    $this->_('Details'),
-                    true
-                )
-                ->setIcon('details')
-                ->setDisposition('informative'),
-
-
-            // Authentication
-            $this->html->link(
-                    '~admin/users/authentication?user='.$this->_record['id'],
-                    $this->_('Authentication'),
-                    true
-                )
-                ->setNote($this->format->counterNote($authenticationCount))
-                ->setIcon('user')
-                ->setDisposition('informative')
-        );
+        $menu->addLinks('directory://~admin/users/SectionLinks');
     }
 }
