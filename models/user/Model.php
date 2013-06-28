@@ -105,4 +105,29 @@ class Model extends axis\Model implements user\IUserModel {
     public function getSessionBackend() {
         return $this->getUnit('sessionManifest');
     }
+
+
+    public function canUserAccess($user, $lock) {
+        if(!$user instanceof user\IClient) {
+            if(!$user instanceof apex\models\user\client\Record) {
+                $user = $this->getClientData($user);
+
+                if(!$user) {
+                    return false;
+                }
+            }
+
+            $user = user\Client::factory($user);
+        }
+
+        if(!$user->getKeyringTimestamp()) {
+            $user->setKeyring($this->generateKeyring($user));
+        }
+
+        if(!$lock instanceof user\IAccessLock) {
+            $lock = $this->context->user->getAccessLock($lock);
+        }
+
+        return $user->canAccess($lock);
+    }
 }
