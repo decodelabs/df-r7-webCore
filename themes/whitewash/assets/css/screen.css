@@ -73,6 +73,9 @@ sup, sub {
     font-size: 0.75em;
 }
 
+article + article {
+    margin-top: 1em;
+}
 
 
 @font-face {
@@ -838,7 +841,7 @@ td > p:last-child {
     margin-bottom: 1.5em;
 }
 
-.widget-articleList li:last-child article {
+.widget-articleList > li:last-child > article {
     margin-bottom: 0;
 }
 
@@ -864,6 +867,11 @@ td > p:last-child {
 
 .widget-articleList article > section {
     padding: 0.4em 0.6em;
+    margin-bottom: 0.5em;
+}
+
+.widget-articleList article > section :last-child {
+    margin-bottom: 0;
 }
 
 .widget-articleList article > footer {
