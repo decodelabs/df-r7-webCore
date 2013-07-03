@@ -207,12 +207,23 @@ a.disposition-operative:active {
 
 a.disposition-transitive:link,
 a.disposition-transitive:visited {
-    color: #6A3277;
+    color: #6F5177;
 }
 
 a.disposition-transitive:hover,
 a.disposition-transitive:active {
-    color: #894099;
+    color: #906999;
+}
+
+
+a.disposition-external:link,
+a.disposition-external:visited {
+    color: #737180;
+}
+
+a.disposition-external:hover,
+a.disposition-external:active {
+    color: #9D9AAE;
 }
 
 
