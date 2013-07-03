@@ -44,15 +44,5 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('toolkit')
                 ->setWeight(50)
         );
-
-        if($this->_context->directory->actionExists('~devtools/regenerate-test-db')) {
-            $entryList->addEntry(
-                $entryList->newLink('~devtools/regenerate-test-db', 'Regenerate test DB')
-                    ->setId('regenerate-db')
-                    ->setDescription('Delete and regenerate the entire database with test data')
-                    ->setIcon('info')
-                    ->setWeight(35)
-            );
-        }
     }
 }
