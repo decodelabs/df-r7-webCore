@@ -42,8 +42,12 @@ table {
     border-spacing: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p, ol, ul {
+p, ol, ul {
     margin-bottom: 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5em;
 }
 
 * + h1,
@@ -323,6 +327,10 @@ button span[data-icon]:before {
     color: inherit !important;
 }
 
+
+.layout-readable {
+    max-width: 40em;
+}
 
 
 .layout-header:before, 
