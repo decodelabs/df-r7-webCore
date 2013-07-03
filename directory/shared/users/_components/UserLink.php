@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\users\_components;
+namespace df\apex\directory\shared\users\_components;
 
 use df;
 use df\core;
@@ -58,6 +58,8 @@ class UserLink extends arch\component\template\RecordLink {
 
 // Url
     protected function _getRecordUrl($id) {
-        return '~admin/users/details?user='.$id;
+        if($this->directory->actionExists('~/users/details')) {
+            return '~/users/details?user='.$id;
+        }
     }
 }
