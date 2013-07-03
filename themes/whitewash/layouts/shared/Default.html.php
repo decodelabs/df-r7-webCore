@@ -26,4 +26,23 @@ $this->view
     <div class="layout-contentArea">
         <?php echo $this->renderInnerContent(); ?>
     </div>
+
+    <footer>
+    <?php 
+    echo $this->html->menuBar()
+        ->addLinks(
+            $this->html->link('~admin/', $this->_('Admin control panel'))
+                ->setIcon('admin')
+                ->isActive($this->context->request->isArea('admin')),
+
+            $this->html->link('~front/', $this->_('Front end'))
+                ->setIcon('home')
+                ->isActive($this->context->request->isArea('front')),
+
+            $this->html->link('~devtools/', $this->_('Devtools'))
+                ->setIcon('debug')
+                ->isActive($this->context->request->isArea('devtools'))
+        );
+    ?>
+    </footer>
 </div>

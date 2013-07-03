@@ -369,6 +369,7 @@ button span[data-icon]:before {
 .layout-contentArea:after { clear:both; }
 .layout-contentArea {
     zoom:1;
+    min-height: 50vh;
 }
 
 
@@ -850,6 +851,7 @@ td > p:last-child {
     background: rgba(0,0,0,0.04);
     padding: 0.4em 0.6em;
     border-radius: 0.5em;
+    overflow: auto;
 }
 
 .widget-articleList article header h3 {
@@ -1202,6 +1204,15 @@ a:hover span[data-icon]:before {
     padding: 2em;
     box-sizing: border-box;
     overflow: auto;
+}
+
+
+.layout-pageArea > footer {
+    margin: 2.5em 0 0;
+}
+
+.layout-pageArea > footer > .widget-menuBar {
+    margin-bottom: 0;
 }
 
 
