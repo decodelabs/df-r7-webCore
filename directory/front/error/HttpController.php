@@ -56,7 +56,7 @@ class HttpController extends arch\Controller {
             $this->data->error->log->newRecord([
                     'code' => $code,
                     'mode' => $this->getRunMode(),
-                    'request' => $this->request->toString(),
+                    'request' => $lastRequest->toString(),
                     'message' => $exception->getMessage(),
                     'user' => $this->user->isLoggedIn() ? $this->user->client->getId() : null,
                     'production' => $this->application->isProduction()
