@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
+use df\opal;
     
 class Unit extends axis\unit\table\Base {
 
@@ -23,11 +24,23 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('request', 'String', 255);
 
+        $schema->addField('exceptionType', 'String', 255)
+            ->isNullable(true);
+
         $schema->addField('message', 'BigString', 'medium');
 
         $schema->addField('user', 'One', 'user/client')
             ->isNullable(true);
 
-        $schema->addField('production', 'Boolean');
+        $schema->addField('isProduction', 'Boolean')
+            ->setDefaultValue(true);
+    }
+
+    public function applyPagination(opal\query\IPaginator $paginator) {
+        $paginator
+            ->setOrderableFields('code', 'date', 'mode', 'request', 'user')
+            ->setDefaultOrder('date DESC');
+
+        return $this;
     }
 }

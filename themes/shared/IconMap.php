@@ -97,6 +97,7 @@ return [
     'backspace' => '&#xe03e;',
     'menu' => '&#xe03f;',
     'list' => '&#xe03f;',
+    'log' => '&#xe040;',
     'catalogue' => '&#xe040;',
     'chapter' => '&#xe040;',
     'heart-empty' => '&#xe041;',

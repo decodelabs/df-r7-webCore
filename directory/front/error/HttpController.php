@@ -57,9 +57,10 @@ class HttpController extends arch\Controller {
                     'code' => $code,
                     'mode' => $this->getRunMode(),
                     'request' => $lastRequest->toString(),
+                    'exceptionType' => get_class($exception),
                     'message' => $exception->getMessage(),
                     'user' => $this->user->isLoggedIn() ? $this->user->client->getId() : null,
-                    'production' => $this->application->isProduction()
+                    'isProduction' => $this->application->isProduction()
                 ])
                 ->save();
         } catch(\Exception $e) {

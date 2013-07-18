@@ -24,7 +24,13 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setId('navigation')
                 ->setDescription('Create and modify menus, generate a site map and control how users navigate your site')
                 ->setIcon('link')
-                ->setWeight(50)
+                ->setWeight(50),
+
+            $entryList->newLink('~admin/system/', 'System')
+                ->setId('system')
+                ->setDescription('Control system-wide settings, view logs, etc')
+                ->setIcon('controlPanel')
+                ->setWeight(60)
         );
     }
 }
