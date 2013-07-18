@@ -52,19 +52,27 @@ class HttpController extends arch\Controller {
             }
         }
 
-        try {
-            $this->data->error->log->newRecord([
-                    'code' => $code,
-                    'mode' => $this->getRunMode(),
-                    'request' => $lastRequest->toString(),
-                    'exceptionType' => get_class($exception),
-                    'message' => $exception->getMessage(),
-                    'user' => $this->user->isLoggedIn() ? $this->user->client->getId() : null,
-                    'isProduction' => $this->application->isProduction()
-                ])
-                ->save();
-        } catch(\Exception $e) {
-            core\debug()->exception($e);
+        $shouldLog = true;
+
+        if(stristr($this->http->getReferrer(), '~admin/system/error-logs')) {
+            $shouldLog = false;
+        }
+
+        if($shouldLog) {
+            try {
+                $this->data->error->log->newRecord([
+                        'code' => $code,
+                        'mode' => $this->getRunMode(),
+                        'request' => $lastRequest->toString(),
+                        'exceptionType' => get_class($exception),
+                        'message' => $exception->getMessage(),
+                        'user' => $this->user->isLoggedIn() ? $this->user->client->getId() : null,
+                        'isProduction' => $this->application->isProduction()
+                    ])
+                    ->save();
+            } catch(\Exception $e) {
+                core\debug()->exception($e);
+            }
         }
         
         $isDevelopment = $this->application->isDevelopment();
