@@ -27,6 +27,11 @@ class HttpController extends arch\Controller {
         $exception = $request->getException();
         $code = $exception->getCode();
         $lastRequest = $request->getLastRequest();
+
+        if(!halo\protocol\http\response\HeaderCollection::isValidStatusCode($code)
+        || !halo\protocol\http\response\HeaderCollection::isErrorStatusCode($code)) {
+            $code = 500;
+        }
         
         if($code === 401) {
             $client = $this->user->client;
@@ -45,6 +50,20 @@ class HttpController extends arch\Controller {
                 
                 return $this->http->redirect($redirectRequest)->isTemporary(true);
             }
+        }
+
+        try {
+            $this->data->error->log->newRecord([
+                    'code' => $code,
+                    'mode' => $this->getRunMode(),
+                    'request' => $this->request->toString(),
+                    'message' => $exception->getMessage(),
+                    'user' => $this->user->isLoggedIn() ? $this->user->client->getId() : null,
+                    'production' => $this->application->isProduction()
+                ])
+                ->save();
+        } catch(\Exception $e) {
+            core\debug()->exception($e);
         }
         
         $isDevelopment = $this->application->isDevelopment();
@@ -91,10 +110,6 @@ class HttpController extends arch\Controller {
                 ->render();
         }
 
-        if(!halo\protocol\http\response\HeaderCollection::isValidStatusCode($code)) {
-            $code = 500;
-        }
-        
         $view['code'] = $code;
         $view['message'] = halo\protocol\http\response\HeaderCollection::statusCodeToMessage($code);
 
