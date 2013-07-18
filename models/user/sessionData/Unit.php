@@ -17,7 +17,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('namespace', 'String', 255);
         $schema->addField('key', 'String', 255);
         $schema->addIndexedField('internalId', 'String', 40);
-        $schema->addField('value', 'BigString', 'huge');
+        $schema->addField('value', 'BigBinary', 'huge');
         $schema->addField('creationTime', 'Integer', 8);
         $schema->addField('updateTime', 'Integer', 8)->isNullable(true);
         
