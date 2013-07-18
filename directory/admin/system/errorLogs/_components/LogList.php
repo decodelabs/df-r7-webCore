@@ -52,7 +52,9 @@ class LogList extends arch\component\template\CollectionList {
     public function addRequestField($list) {
         $list->addField('request', function($log) {
             if($log['request']) {
-                return $this->html->link($log['request'], $this->format->shorten(explode('://', $log['request'])[1], 30));
+                $name = explode('://', $log['request'])[1];
+                return $this->html->link($log['request'], $this->format->shorten($name, 30))
+                    ->setTitle($name);
             }
         });
     }
