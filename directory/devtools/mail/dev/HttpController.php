@@ -32,6 +32,8 @@ class HttpController extends arch\Controller {
             $this->request->query['mail']
         );
 
+        $view['message'] = $view['mail']->toMessage();
+
         return $view;
     }
 }
