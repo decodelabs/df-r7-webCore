@@ -106,6 +106,10 @@ body[data-location^="~admin/"] {
     background: #E7DDD6;
 }
 
+body[data-location^="~front/"] {
+    background: #E4E7D8;
+}
+
 body[data-location^="~devtools/"] {
     background: #CBE3E7;
 }
