@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\flow;
     
 class HttpTest extends arch\form\Action {
 
@@ -20,10 +21,10 @@ class HttpTest extends arch\form\Action {
     }
 
     protected function _setDefaultValues() {
-        $this->values->transport = core\mail\transport\Base::getDefaultTransportName();
+        $this->values->transport = flow\mail\transport\Base::getDefaultTransportName();
 
-        $config = core\mail\Config::getInstance($this->getApplication());
-        $from = core\mail\Address::factory($config->getDefaultAddress());
+        $config = flow\mail\Config::getInstance($this->getApplication());
+        $from = flow\mail\Address::factory($config->getDefaultAddress());
 
         $this->values->fromName = $from->getName();
         $this->values->fromAddress = $from->getAddress();
@@ -45,7 +46,7 @@ class HttpTest extends arch\form\Action {
         // Transport
         $transportList = array();
 
-        foreach(core\mail\transport\Base::getAvailableTransports() as $name => $description) {
+        foreach(flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
             $transportList[$name] = $name.' - '.$description;
         }
 
@@ -129,7 +130,7 @@ class HttpTest extends arch\form\Action {
             ->addField('transport', 'text')
                 ->isRequired(true)
                 ->setCustomValidator(function($node, $value) {
-                    if(!core\mail\transport\Base::isValidTransport($value)) {
+                    if(!flow\mail\transport\Base::isValidTransport($value)) {
                         $node->addError('invalid', $this->_(
                             'Please enter a valid transport name'
                         ));
@@ -180,9 +181,9 @@ class HttpTest extends arch\form\Action {
 
 
         if($this->isValid()) {
-            $transport = core\mail\transport\Base::factory($this->values['transport']);
+            $transport = flow\mail\transport\Base::factory($this->values['transport']);
 
-            $mail = new core\mail\Message();
+            $mail = new flow\mail\Message();
             $mail->setFromAddress($this->values['fromAddress'], $this->values['fromName']);
             $mail->addToAddress($this->values['toAddress'], $this->values['toName']);
 

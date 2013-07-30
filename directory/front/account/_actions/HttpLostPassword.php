@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\flow;
     
 class HttpLostPassword extends arch\form\Action {
 
@@ -95,7 +96,7 @@ class HttpLostPassword extends arch\form\Action {
                 ->setLayout('Blank')
                 ->render();
 
-            $mail = new core\mail\Message();
+            $mail = new flow\mail\Message();
             $mail->setSubject($this->_('Password reset'));
             $mail->addToAddress($client['email'], $client['fullName']);
             $mail->setBodyHtml($html);

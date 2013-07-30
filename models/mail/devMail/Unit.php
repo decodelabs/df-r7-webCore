@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\axis;
 use df\opal;
+use df\flow;
 
 class Unit extends axis\unit\table\Base {
     
@@ -30,7 +31,7 @@ class Unit extends axis\unit\table\Base {
         return $this;
     }
 
-    public function store(core\mail\IMessage $message) {
+    public function store(flow\mail\IMessage $message) {
         $to = array();
 
         foreach($message->getToAddresses() as $address) {

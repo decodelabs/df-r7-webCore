@@ -9,22 +9,23 @@ use df;
 use df\core;
 use df\axis;
 use df\opal;
+use df\flow;
 
-class Record extends opal\record\Base implements core\mail\IDevMailRecord {
+class Record extends opal\record\Base implements flow\mail\IDevMailRecord {
     
     public function getId() {
         return $this['id'];
     }
     
     public function getFromAddress() {
-        return core\mail\Address::factory($this['from']);
+        return flow\mail\Address::factory($this['from']);
     }
 
     public function getToAddresses() {
         $output = array();
 
         foreach(explode(',', $this['to']) as $address) {
-            $output[] = core\mail\Address::factory($address);
+            $output[] = flow\mail\Address::factory($address);
         }
 
         return $output;
@@ -47,6 +48,6 @@ class Record extends opal\record\Base implements core\mail\IDevMailRecord {
     }
 
     public function toMessage() {
-        return core\mail\Message::fromString($this['body']);
+        return flow\mail\Message::fromString($this['body']);
     }
 }

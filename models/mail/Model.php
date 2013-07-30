@@ -9,10 +9,11 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
+use df\flow;
     
-class Model extends axis\Model implements core\mail\IMailModel {
+class Model extends axis\Model implements flow\mail\IMailModel {
 
-    public function storeDevMail(core\mail\IMessage $message) {
+    public function storeDevMail(flow\mail\IMessage $message) {
         return $this->devMail->store($message);
     }
 }
