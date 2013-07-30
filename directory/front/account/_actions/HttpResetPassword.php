@@ -19,7 +19,7 @@ class HttpResetPassword extends arch\form\Action {
 
     protected function _init() {
         if($this->user->isLoggedIn()) {
-            return $this->_notifyError('loggedIn', $this->_(
+            return $this->_flashError('loggedIn', $this->_(
                 'Passwords cannot be reset while you are logged in'
             ));
         }
@@ -30,7 +30,7 @@ class HttpResetPassword extends arch\form\Action {
             ->toRow();
 
         if(!$this->_key) {
-            return $this->_notifyError('notFound', $this->_(
+            return $this->_flashError('notFound', $this->_(
                 'The password reset key this link refers to no longer exists'
             ));
         }
@@ -40,7 +40,7 @@ class HttpResetPassword extends arch\form\Action {
         }
 
         if($this->_key->isRedeemed()) {
-            return $this->_notifyError('alreadyReset', $this->_(
+            return $this->_flashError('alreadyReset', $this->_(
                 'The password reset key this link refers to has already been redeemed'
             ));
         }
@@ -50,7 +50,7 @@ class HttpResetPassword extends arch\form\Action {
         }
 
         if($this->_key->hasExpired()) {
-            return $this->_notifyError('expired', $this->_(
+            return $this->_flashError('expired', $this->_(
                 'The password reset key this link refers to has now expired'
             ));
         }
@@ -65,9 +65,9 @@ class HttpResetPassword extends arch\form\Action {
         }
     }
 
-    protected function _notifyError($notifyKey, $message) {
-        $this->comms->notify(
-            'passwordResetKey.'.$notifyKey,
+    protected function _flashError($flashKey, $message) {
+        $this->comms->flash(
+            'passwordResetKey.'.$flashKey,
             $message,
             'error'
         );
@@ -104,7 +104,7 @@ class HttpResetPassword extends arch\form\Action {
 
             $this->data->user->passwordResetKey->deleteRecentUnusedKeys($this->_key);
 
-            $this->comms->notify(
+            $this->comms->flash(
                 'password.reset',
                 $this->_('Your password has been updated'),
                 'success'

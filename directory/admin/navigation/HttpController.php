@@ -23,7 +23,7 @@ class HttpController extends arch\Controller {
     public function refreshAction() {
         $this->navigation->clearMenuCache();
 
-        $this->comms->notify(
+        $this->comms->flash(
             'menu-cache.clear', 
             $this->_('The system menu list has been refreshed'), 
             'success'

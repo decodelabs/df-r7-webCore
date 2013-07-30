@@ -61,7 +61,7 @@ class HttpAdd extends arch\form\Action {
             $this->_group->save();
             $this->user->instigateGlobalKeyringRegeneration();
 
-            $this->comms->notify(
+            $this->comms->flash(
                 'group.save',
                 $this->_('The group has been successfully saved'),
                 'success'

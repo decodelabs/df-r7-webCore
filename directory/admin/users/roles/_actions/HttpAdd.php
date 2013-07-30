@@ -99,7 +99,7 @@ class HttpAdd extends arch\form\Action {
             $this->_role->save();
             $this->user->instigateGlobalKeyringRegeneration();
 
-            $this->comms->notify(
+            $this->comms->flash(
                 'role.save',
                 $this->_('The role has been successfully saved'),
                 'success'

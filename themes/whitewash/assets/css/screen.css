@@ -1127,48 +1127,48 @@ a:hover span[data-icon]:before {
 
 
 
-.widget-notification {
+.widget-flashMessage {
     border: 4px #F4F4F4 solid;
     margin-bottom: 1em;
     padding: 0.4em;
     border-radius: 8px;
 }
 
-.widget-inputArea > .widget-notification {
+.widget-inputArea > .widget-flashMessage {
     font-size: 0.7em;
     padding: 0.3em;
 }
 
-.widget-notification.state-success {
+.widget-flashMessage.state-success {
     background: #F7FFF4;
     border-color: #EEF5EB;
 }
 
-.widget-notification.state-error {
+.widget-flashMessage.state-error {
     background: #FFF4F4;
     border-color: #F5EBEB;
 }
 
-.widget-notification.state-info {
+.widget-flashMessage.state-info {
     background: #F4FDFF;
     border-color: #EBF3F5;
 }
 
-.widget-notification.state-warning {
+.widget-flashMessage.state-warning {
     background: #FFFEF4;
     border-color: #F5F4EB;
 }
 
-.widget-notification.state-debug {
+.widget-flashMessage.state-debug {
     background: #E9EFC0;
     border-color: #DFE5B8;
 }
 
-.widget-notification h4 {
+.widget-flashMessage h4 {
     margin: 0;
 }
 
-.widget-notification a {
+.widget-flashMessage a {
     display: block;
     padding: 0;
     margin: 0;
@@ -1176,14 +1176,14 @@ a:hover span[data-icon]:before {
     text-decoration: none;
 }
 
-.widget-notification .description {
+.widget-flashMessage .description {
     font-size: 0.8em;
     color: #777;
     margin: 0.2em 0 0 1.8em;
 }
 
 
-.widget-notificationList .widget-notification {
+.widget-flashList .widget-flashMessage {
     margin: 0 0 0.1em;
     padding: 0.2em;
     font-size: 0.8em;

@@ -101,7 +101,7 @@ class HttpLostPassword extends arch\form\Action {
             $mail->setBodyHtml($html);
             $mail->send();
 
-            $this->comms->notify(
+            $this->comms->flash(
                 'lostPassword.send',
                 $this->_('A link has been sent to your email address with instructions on resetting your password'),
                 'success'

@@ -21,7 +21,7 @@ $this->view
         ?>
     </header>
 
-    <?php echo $this->html->notificationList(); ?>
+    <?php echo $this->html->flashList(); ?>
     
     <div class="layout-contentArea">
         <?php echo $this->renderInnerContent(); ?>

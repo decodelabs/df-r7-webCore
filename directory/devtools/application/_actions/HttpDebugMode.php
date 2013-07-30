@@ -38,7 +38,7 @@ class HttpDebugMode extends arch\form\template\Confirm {
 
         if($this->_isEnabled) {
             $augmentor->removeCookieForAnyRequest($cookie);
-            $this->comms->removeQueuedNotification('global.debug');
+            $this->comms->removeQueuedFlash('global.debug');
         } else {
             $augmentor->setCookieForAnyRequest($cookie);
         }

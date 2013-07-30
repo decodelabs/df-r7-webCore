@@ -27,13 +27,13 @@ class HttpController extends arch\Controller {
         $name = $this->request->query['package'];
         
         if(!$model->updateRemote($name)) {
-            $this->comms->notify(
+            $this->comms->flash(
                 'git.update',
                 $this->_('Package "%n%" could not be updated', ['%n%' => $name]),
                 'error'
             );
         } else {
-            $this->comms->notify(
+            $this->comms->flash(
                 'git.update',
                 $this->_('Package "%n%" has been successfully refreshed', ['%n%' => $name]),
                 'success'
@@ -47,7 +47,7 @@ class HttpController extends arch\Controller {
         $model = $this->data->getModel('package');
         $model->updateRemotes();
 
-        $this->comms->notify(
+        $this->comms->flash(
             'package.update',
             $this->_('All package repositories have been refreshed'),
             'success'
