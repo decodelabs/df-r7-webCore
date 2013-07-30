@@ -3,51 +3,19 @@ use df\core;
 
 echo $this->import->component('DetailHeaderBar', '~devtools/mail/dev/', $this['mail']);
 
-echo $this->html->attributeList($this['mail'])
-    
-    // Subject
-    ->addField('subject')
+echo $this->html->flashMessage($this->_(
+    'This message was received %t% ago',
+    ['%t%' => $this->format->timeSince($this['mail']['date'])]
+));
 
-    // From
-    ->addField('from', function($mail) {
-        if(!$from = $mail->getFromAddress()) {
-            return null;
-        }
-
-        return $this->html->link(
-                $this->uri->mailto($from->getAddress()),
-                $from
-            )
-            ->setIcon('user');
-    })
-
-    // To
-    ->addField('to', function($mail) {
-        return $this->html->bulletList($mail->getToAddresses(), function($address) {
-            return $this->html->link(
-                    $this->uri->mailto($address->getAddress()),
-                    $address
-                )
-                ->setIcon('user');
-        });
-    })
-
-    // Date
-    ->addField('date', $this->_('Sent'), function($mail) {
-        return $this->html->userDateTime($mail['date'], 'medium');
-    })
-
-    // Is private
-    ->addField('isPrivate', $this->_('Private'), function($mail) {
-        return $this->html->lockIcon($mail['isPrivate']);
-    })
-    ;
-
+if($this['mail']['isPrivate']) {
+    echo $this->html->flashMessage($this->_(
+        'This message is marked as private'
+    ), 'warning');
+}
 
 
 echo $this->html->elementContentContainer(function() {
-    $parts = $this['message']->getParts();
-
     $renderer = function(array $parts) use(&$renderer) {
         $output = [];
 
@@ -77,5 +45,5 @@ echo $this->html->elementContentContainer(function() {
         return $output;
     };
 
-    return $renderer($parts);
+    return $renderer([$this['message']]);
 });
