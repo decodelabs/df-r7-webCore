@@ -700,8 +700,8 @@ a.state-disabled:visited {
 
 .widget-attributeList {
     display: inline-block;
-    min-width: 30em;
-    max-width: 55em;
+    min-width: 40em;
+    max-width: 65em;
 }
 
 
@@ -1221,6 +1221,25 @@ a:hover span[data-icon]:before {
 
 .layout-pageArea > footer > .widget-menuBar {
     margin-bottom: 0;
+}
+
+
+
+.widget-panelSet {
+    width: 100%;
+}
+
+.widget-panelSet > tbody > tr > td {
+    vertical-align: top;
+    padding: 0 1em 0 0;
+}
+
+.widget-panelSet > tbody > tr > td:last-child {
+    padding-right: 0;
+}
+
+.widget-panelSet > tbody > tr > td > .widget-attributeList {
+    display: block;
 }
 
 
