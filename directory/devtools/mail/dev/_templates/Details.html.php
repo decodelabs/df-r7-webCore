@@ -1,5 +1,7 @@
 <?php
+
 use df\core;
+use df\flow;
 
 echo $this->import->component('DetailHeaderBar', '~devtools/mail/dev/', $this['mail']);
 
@@ -20,12 +22,12 @@ echo $this->html->elementContentContainer(function() {
         $output = [];
 
         foreach($parts as $part) {
-            if($part instanceof core\mime\IMultiPart) {
+            if($part instanceof flow\mime\IMultiPart) {
                 $output[] = $this->html->container(
                     $this->html->attributeList($part->getHeaders()->toArray())->setStyle('font-size', '0.8em'),
                     $renderer($part->getParts())
                 );
-            } else if($part instanceof core\mime\IContentPart) {
+            } else if($part instanceof flow\mime\IContentPart) {
                 $content = [$this->html->attributeList($part->getHeaders()->toArray())->setStyle('font-size', '0.8em')];
 
                 switch($part->getContentType()) {
