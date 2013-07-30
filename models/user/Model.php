@@ -16,6 +16,20 @@ class Model extends axis\Model implements user\IUserModel {
         return $this->client->fetchByPrimary($id);
     }
 
+    public function getClientDataList(array $ids, array $emails=null) {
+        if(empty($ids) && empty($emails)) {
+            return [];
+        }
+
+        $query = $this->client->fetch()->where('id', 'in', $ids);
+
+        if($emails !== null) {
+            $query->orWhere('email', 'in', $emails);
+        }
+
+        return $query->toArray();
+    }
+
     public function getAuthenticationDomainInfo(user\authentication\IRequest $request) {
         return $this->getUnit('auth')->fetch()
             ->where('identity', '=', $request->getIdentity())
