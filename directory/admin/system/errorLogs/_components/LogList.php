@@ -70,7 +70,7 @@ class LogList extends arch\component\template\CollectionList {
     public function addUserField($list) {
         $list->addField('user', function($log) {
             return $this->import->component('UserLink', '~admin/users/', $log['user'])
-                ->isNullable(false)
+                ->isNullable(true)
                 ->setDisposition('transitive');
         });
     }
