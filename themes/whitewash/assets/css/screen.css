@@ -1240,6 +1240,8 @@ a:hover span[data-icon]:before {
 
 .widget-panelSet > tbody > tr > td > .widget-attributeList {
     display: block;
+    width: 100%;
+    min-width: 20em;
 }
 
 
