@@ -24,15 +24,20 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('menu')
                 ->setWeight(20),
 
+            $entryList->newLink('~devtools/cache/hooks', 'Policy hooks')
+                ->setId('hooks')
+                ->setIcon('hook')
+                ->setWeight(30),
+
             $entryList->newLink('~devtools/cache/session', 'Session store')
                 ->setId('session')
                 ->setIcon('user')
-                ->setWeight(30),
+                ->setWeight(40),
 
             $entryList->newLink('~devtools/cache/raster', 'Raster image transformations')
                 ->setId('raster')
                 ->setIcon('image')
-                ->setWeight(40)
+                ->setWeight(50)
         );
     }
 }

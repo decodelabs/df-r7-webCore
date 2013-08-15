@@ -73,7 +73,7 @@ return [
     'category' => '&#xe02c;',
     'calendar' => '&#xe02d;',
     'trash' => '&#xe02e;',
-    //'lightning' => '&#xe02f;',
+    'hook' => '&#xe02f;',
     'rss' => '&#xe030;',
     'subscription' => '&#xe030;',
     'map' => '&#xe031;',
