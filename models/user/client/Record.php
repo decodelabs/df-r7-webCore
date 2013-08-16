@@ -13,7 +13,29 @@ use df\user;
 
 class Record extends opal\record\Base implements user\IActiveClientDataObject {
     
+    const BROADCAST_HOOK_EVENTS = true;
+
     use user\TNameExtractor;
+
+    protected function _onPreUpdate($taskSet, $task) {
+        if($this->hasChanged('email')) {
+            $localTask = $taskSet->addRawQuery('updateLocalAdapter', 
+                $this->getRecordAdapter()->getModel()->auth->update([
+                        'identity' => $this['email']
+                    ])
+                    ->where('user', '=', $this['id'])
+                    ->where('adapter', '=', 'Local')
+            );
+
+            $localTask->addDependency($task);
+        }
+
+        $regenTask = $taskSet->addGenericTask($this->getRecordAdapter(), 'regenKeyring', function($task, $transaction) {
+            $task->getAdapter()->context->user->refreshClientData();
+        });
+
+        $regenTask->addDependency($task);
+    }
 
     public function getId() {
         return $this['id'];

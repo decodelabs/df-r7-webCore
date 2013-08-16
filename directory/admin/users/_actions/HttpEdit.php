@@ -34,17 +34,4 @@ class HttpEdit extends EditorBase {
             $this->_client->groups->selectFromBridge('group')->toList('group')
         );
     }
-
-    protected function _saveRecord() {
-        parent::_saveRecord();
-
-        $this->data->user->auth->update([
-                'identity' => $this->_client['email']
-            ])
-            ->where('user', '=', $this->_client)
-            ->where('adapter', '=', 'Local')
-            ->execute();
-
-        $this->user->instigateGlobalKeyringRegeneration();
-    }
 }
