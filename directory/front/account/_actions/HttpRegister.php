@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\user;
     
 class HttpRegister extends arch\form\Action {
 
@@ -75,6 +76,13 @@ class HttpRegister extends arch\form\Action {
 
         if($this->isValid()) {
             $client->save();
+
+            $request = new user\authentication\Request('Local');
+            $request->setIdentity($auth['identity']);
+            $request->setCredential('password', $this->values['password']);
+            $request->setAttribute('rememberMe', (bool)true);
+
+            $result = $this->user->authenticate($request);
 
             return $this->complete('account/');
         }
