@@ -1115,12 +1115,6 @@ span[data-icon]:before {
     padding-right: 0.4em;
 }
 
-/*
-span[data-icon]:empty:before {
-    padding-right: 0;
-}
-*/
-
 a:hover span[data-icon]:before {
     text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
 }
