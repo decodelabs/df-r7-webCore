@@ -15,4 +15,14 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
     protected function _getDefaultTitle() {
         return $this->_('Error logs');
     }
+
+    protected function _addOperativeLinks($menu) {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri->request('~admin/system/error-logs/delete-all', true),
+                    $this->_('Delete all logs')
+                )
+                ->setIcon('delete')
+        );
+    }
 }
