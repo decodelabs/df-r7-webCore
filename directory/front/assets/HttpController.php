@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\front\theme;
+namespace df\apex\directory\front\assets;
 
 use df;
 use df\core;
@@ -17,9 +17,7 @@ class HttpController extends arch\Controller {
     const DEFAULT_ACCESS = arch\IAccess::ALL; 
     
     public function downloadAction() {
-        $theme = aura\theme\Base::factory($this->request->query['theme']);
-        
-        if(!$absolutePath = $theme->findAsset($this->application, $this->request->query['file'])) {
+        if(!$absolutePath = df\Launchpad::$loader->findFile('apex/assets/'.$this->request->query['file'])) {
             $this->throwError(404, 'File not found');
         }
 
