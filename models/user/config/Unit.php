@@ -21,7 +21,7 @@ class Unit extends axis\unit\config\Base {
             'registrationEnabled' => true,
             'verifyEmail' => false,
             'loginOnRegistration' => true,
-            'registrationLandingPage' => '/account/'
+            'registrationLandingPage' => '/'
         ];
     }
 
