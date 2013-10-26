@@ -121,6 +121,28 @@ class Model extends axis\Model implements user\IUserModel {
     }
 
 
+    public function fetchClientOptions($id) {
+        return $this->option->select('key', 'data')
+            ->where('user', '=', $id)
+            ->toList('key', 'data');
+    }
+
+    public function updateClientOptions($id, array $options) {
+        $q = $this->option->batchReplace();
+
+        foreach($options as $key => $value) {
+            $q->addRow([
+                'user' => $id,
+                'key' => $key,
+                'data' => $value
+            ]);
+        }
+
+        $q->execute();
+        return $this;
+    }
+
+
     public function canUserAccess($user, $lock) {
         if(!$user instanceof user\IClient) {
             if(!$user instanceof apex\models\user\client\Record) {
