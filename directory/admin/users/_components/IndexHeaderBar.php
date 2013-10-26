@@ -27,6 +27,14 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
         );
     }
 
+    protected function _addSubOperativeLinks($menu) {
+        $menu->addLinks(
+            $this->html->link('~admin/users/settings', $this->_('Settings'))
+                ->setIcon('settings')
+                ->setDisposition('operative')
+        );
+    }
+
     protected function _addTransitiveLinks($menu) {
         $menu->addLinks(
             $this->html->link('~admin/users/groups/', $this->_('View groups'))
