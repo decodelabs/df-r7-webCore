@@ -43,7 +43,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         );
 
         // Buttons
-        $fs->push(
+        $fs->addButtonArea(
             $this->html->eventButton(
                     $this->eventName('register'), 
                     $this->_('Create account')

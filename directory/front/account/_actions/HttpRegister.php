@@ -20,6 +20,18 @@ class HttpRegister extends arch\form\Action {
         if($this->user->isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
+
+        if(!$this->data->user->config->isRegistrationEnabled()) {
+            $this->comms->flash(
+                'registration.disabled',
+                $this->_(
+                    'Registration for this site is currently disabled'
+                ),
+                'error'
+            );
+
+            return $this->http->defaultRedirect('/');
+        }
     }
 
     protected function _createUi() {
@@ -76,15 +88,29 @@ class HttpRegister extends arch\form\Action {
 
         if($this->isValid()) {
             $client->save();
+            $config = $this->data->user->config;
 
-            $request = new user\authentication\Request('Local');
-            $request->setIdentity($auth['identity']);
-            $request->setCredential('password', $this->values['password']);
-            $request->setAttribute('rememberMe', (bool)true);
+            if($config->shouldLoginOnRegistration()) {
+                $request = new user\authentication\Request('Local');
+                $request->setIdentity($auth['identity']);
+                $request->setCredential('password', $this->values['password']);
+                $request->setAttribute('rememberMe', (bool)true);
 
-            $result = $this->user->authenticate($request);
+                $result = $this->user->authenticate($request);
 
-            return $this->complete('account/');
+                return $this->complete($config->getRegistrationLandingPage());
+            } else {
+                $this->comms->flash(
+                    'registration.complete',
+                    $this->_('Your account has been successfully created'),
+                    'success'
+                );
+
+                $request = $this->directory->newRequest('account/login');
+                $request->setRedirect($this->request->getRedirectFrom(), $config->getRegistrationLandingPage());
+
+                return $this->complete($request);
+            }
         }
     }
 }
