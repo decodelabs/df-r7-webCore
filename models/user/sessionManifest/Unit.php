@@ -64,7 +64,7 @@ class Unit extends axis\unit\table\Base implements user\session\IBackend {
     }
 
     public function touchSession(user\session\IDescriptor $descriptor) {
-        $values = $descriptor->touchInfo(user\Manager::SESSION_TRANSITION_LIFETIME);
+        $values = $descriptor->touchInfo(user\session\Controller::TRANSITION_LIFETIME);
         
         $this->update($values)
             ->where('internalId', '=', $descriptor->internalId)
