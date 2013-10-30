@@ -11,7 +11,7 @@ use df\apex;
 use df\axis;
 use df\user;
 
-class Unit extends axis\unit\table\Base implements user\ISessionBackend {
+class Unit extends axis\unit\table\Base implements user\session\IBackend {
 
     protected $_lifeTime = 86400; // 24 hours
     protected $_dataTransactions = array();
@@ -42,7 +42,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
     
 
 // Descriptor
-    public function insertDescriptor(user\ISessionDescriptor $descriptor) {
+    public function insertDescriptor(user\session\IDescriptor $descriptor) {
         $this->insert($descriptor)->execute();
         return $descriptor;
     }
@@ -63,7 +63,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return $output;
     }
 
-    public function touchSession(user\ISessionDescriptor $descriptor) {
+    public function touchSession(user\session\IDescriptor $descriptor) {
         $values = $descriptor->touchInfo(user\Manager::SESSION_TRANSITION_LIFETIME);
         
         $this->update($values)
@@ -73,7 +73,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return $descriptor;
     }
 
-    public function applyTransition(user\ISessionDescriptor $descriptor) {
+    public function applyTransition(user\session\IDescriptor $descriptor) {
         $this->update([
                 'accessTime' => $descriptor->getAccessTime(),
                 'externalId' => $descriptor->getExternalId(),
@@ -86,7 +86,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return $descriptor;
     }
 
-    public function killSession(user\ISessionDescriptor $descriptor) {
+    public function killSession(user\session\IDescriptor $descriptor) {
         $id = $descriptor->getInternalId();
         
         if(isset($this->_dataTransactions[$id])) {
@@ -116,7 +116,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
     
 
 // Namespace
-    public function getNamespaceKeys(user\ISessionDescriptor $descriptor, $namespace) {
+    public function getNamespaceKeys(user\session\IDescriptor $descriptor, $namespace) {
         return $this->_model->sessionData->select('key')
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -124,7 +124,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
             ->toList('key');
     }
 
-    public function pruneNamespace(user\ISessionDescriptor $descriptor, $namespace, $age) {
+    public function pruneNamespace(user\session\IDescriptor $descriptor, $namespace, $age) {
         $this->_model->sessionData->delete()
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -133,7 +133,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
             ->execute();
     }
 
-    public function clearNamespace(user\ISessionDescriptor $descriptor, $namespace) {
+    public function clearNamespace(user\session\IDescriptor $descriptor, $namespace) {
         $this->_model->sessionData->delete()
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -149,7 +149,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
 
 
 // Nodes
-    public function fetchNode(user\ISessionDescriptor $descriptor, $namespace, $key) {
+    public function fetchNode(user\session\IDescriptor $descriptor, $namespace, $key) {
         $res = $this->_model->sessionData->select()
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -159,7 +159,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return user\session\Handler::createNode($namespace, $key, $res);
     }
 
-    public function fetchLastUpdatedNode(user\ISessionDescriptor $descriptor, $namespace) {
+    public function fetchLastUpdatedNode(user\session\IDescriptor $descriptor, $namespace) {
         $res = $this->_model->sessionData->select()
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -173,14 +173,14 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         }
     }
 
-    public function lockNode(user\ISessionDescriptor $descriptor, \stdClass $node) {
+    public function lockNode(user\session\IDescriptor $descriptor, \stdClass $node) {
         $this->_beginDataTransaction($descriptor);
         $node->isLocked = true;
         
         return $node;
     }
 
-    public function unlockNode(user\ISessionDescriptor $descriptor, \stdClass $node) {
+    public function unlockNode(user\session\IDescriptor $descriptor, \stdClass $node) {
         if($transaction = $this->_getDataTransaction($descriptor)) {
             $transaction->commit();
         }
@@ -188,7 +188,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return $node;
     }
 
-    public function updateNode(user\ISessionDescriptor $descriptor, \stdClass $node) {
+    public function updateNode(user\session\IDescriptor $descriptor, \stdClass $node) {
         if($transaction = $this->_getDataTransaction($descriptor)) {
             if(empty($node->creationTime)) {
                 $node->creationTime = time();
@@ -217,7 +217,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return $node;
     }
 
-    public function removeNode(user\ISessionDescriptor $descriptor, $namespace, $key) {
+    public function removeNode(user\session\IDescriptor $descriptor, $namespace, $key) {
         $this->_model->sessionData->delete()
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -225,7 +225,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
             ->execute();
     }
 
-    public function hasNode(user\ISessionDescriptor $descriptor, $namespace, $key) {
+    public function hasNode(user\session\IDescriptor $descriptor, $namespace, $key) {
         return (bool)$this->_model->sessionData->select('count(*) as count')
             ->where('internalId', '=', $descriptor->getInternalId())
             ->where('namespace', '=', $namespace)
@@ -258,7 +258,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return $this;
     }
 
-    protected function _getDataTransaction(user\ISessionDescriptor $descriptor) {
+    protected function _getDataTransaction(user\session\IDescriptor $descriptor) {
         $id = $descriptor->getInternalId();
         
         if(isset($this->_dataTransactions[$id])) {
@@ -268,7 +268,7 @@ class Unit extends axis\unit\table\Base implements user\ISessionBackend {
         return null;
     }
     
-    protected function _beginDataTransaction(user\ISessionDescriptor $descriptor) {
+    protected function _beginDataTransaction(user\session\IDescriptor $descriptor) {
         $id = $descriptor->getInternalId();
         
         if(isset($this->_dataTransactions[$id])) {
