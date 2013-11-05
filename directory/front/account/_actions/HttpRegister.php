@@ -16,21 +16,51 @@ class HttpRegister extends arch\form\Action {
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'register';
 
+    protected $_invite;
+
     protected function _init() {
         if($this->user->isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
 
-        if(!$this->data->user->config->isRegistrationEnabled()) {
-            $this->comms->flash(
-                'registration.disabled',
-                $this->_(
-                    'Registration for this site is currently disabled'
-                ),
-                'error'
+        if(isset($this->request->query->invite)) {
+            $this->_invite = $this->data->fetchForAction(
+                'axis://user/Invite',
+                ['key' => $this->request->query['invite']]
             );
 
-            return $this->http->defaultRedirect('/');
+            if(!$this->_invite['isActive']) {
+                $this->comms->flash(
+                    'invite.inactive',
+                    $this->_(
+                        'The invite link you have followed is no longer active'
+                    ),
+                    'error'
+                );
+
+                return $this->http->defaultRedirect('/');
+            }
+        } else {
+            if(!$this->data->user->config->isRegistrationEnabled()) {
+                $this->comms->flash(
+                    'registration.disabled',
+                    $this->_(
+                        'Registration for this site is currently disabled'
+                    ),
+                    'error'
+                );
+
+                return $this->http->defaultRedirect('/');
+            }
+        }
+    }
+
+    protected function _setDefaultValues() {
+        if($this->_invite) {
+            $this->values->fullName = $this->_invite['name'];
+            $parts = explode(' ', $this->_invite['name']);
+            $this->values->nickName = array_shift($parts);
+            $this->values->email = $this->_invite['email'];
         }
     }
 
@@ -87,7 +117,16 @@ class HttpRegister extends arch\form\Action {
         }
 
         if($this->isValid()) {
+            if($this->_invite) {
+                $client->groups->addList($this->_invite->groups->getRelatedPrimaryKeys());
+            }
+
             $client->save();
+
+            if($this->_invite) {
+                $this->data->user->invite->claim($this->_invite, $client);
+            }
+
             $config = $this->data->user->config;
 
             if($config->shouldLoginOnRegistration()) {

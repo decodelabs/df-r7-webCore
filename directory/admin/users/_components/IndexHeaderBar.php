@@ -37,12 +37,16 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
 
     protected function _addTransitiveLinks($menu) {
         $menu->addLinks(
-            $this->html->link('~admin/users/groups/', $this->_('View groups'))
+            $this->html->link('~admin/users/groups/', $this->_('Groups'))
                 ->setIcon('group')
                 ->setDisposition('transitive'),
 
-            $this->html->link('~admin/users/roles/', $this->_('View roles'))
+            $this->html->link('~admin/users/roles/', $this->_('Roles'))
                 ->setIcon('role')
+                ->setDisposition('transitive'),
+
+            $this->html->link('~admin/users/invites/', $this->_('Invites'))
+                ->setIcon('mail')
                 ->setDisposition('transitive')
         );
     }
