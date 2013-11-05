@@ -30,15 +30,13 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
     }
 
     protected function _addSubOperativeLinks($menu) {
-        if($this->request->isAction('keys')) {
-            $menu->addLinks(
-                $this->html->link(
-                        $this->uri->request('~admin/users/roles/add-key?role='.$this->_record['id'], true),
-                        $this->_('Add new key')
-                    )
-                    ->setIcon('add')
-                    ->addAccessLock('axis://user/Key#add')
-            );
-        }
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri->request('~admin/users/roles/add-key?role='.$this->_record['id'], true),
+                    $this->_('Add new key')
+                )
+                ->setIcon('add')
+                ->addAccessLock('axis://user/Key#add')
+        );
     }
 }

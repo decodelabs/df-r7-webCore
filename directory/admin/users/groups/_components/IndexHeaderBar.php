@@ -26,4 +26,16 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
                 ->addAccessLock('axis://user/Group#add')
         );
     }
+
+    protected function _addTransitiveLinks($menu) {
+        $menu->addLinks(
+            $this->html->link(
+                    '~admin/users/roles/',
+                    $this->_('View roles')
+                )
+                ->setIcon('role')
+                ->setDisposition('transitive')
+                ->addAccessLock('axis://user/Role')
+        );  
+    }
 }
