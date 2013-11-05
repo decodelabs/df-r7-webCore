@@ -111,7 +111,7 @@ abstract class EditorBase extends arch\form\Action {
                         return;
                     }
                         
-                    if($this->data->user->client->select()->where('email', '=', $value)->count()) {
+                    if($this->data->user->client->emailExists($value)) {
                         $node->addError('unique', $this->_(
                             'This email address is already in use by another account'
                         ));

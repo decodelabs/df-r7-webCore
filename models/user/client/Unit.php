@@ -14,7 +14,7 @@ class Unit extends axis\unit\table\Base {
     
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addField('id', 'AutoId', 8);
-        $schema->addUniqueField('email', 'String', 128);
+        $schema->addUniqueField('email', 'String', 255);
         $schema->addField('fullName', 'String', 255);
         $schema->addField('nickName', 'String', 128)->isNullable(true);
         $schema->addField('joinDate', 'Date');
@@ -44,5 +44,10 @@ class Unit extends axis\unit\table\Base {
             ->setDefaultOrder('fullName');
 
         return $this;
+    }
+
+
+    public function emailExists($email) {
+        return (bool)$this->select()->where('email', '=', $email)->count();
     }
 }
