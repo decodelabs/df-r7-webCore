@@ -50,4 +50,14 @@ class Unit extends axis\unit\table\Base {
     public function emailExists($email) {
         return (bool)$this->select()->where('email', '=', $email)->count();
     }
+
+    public function fetchActive() {
+        if(!$this->context->user->isLoggedIn()) {
+            return null;
+        }
+
+        return $this->fetch()
+            ->where('id', '=', $this->context->user->client->getId())
+            ->toRow();
+    }
 }
