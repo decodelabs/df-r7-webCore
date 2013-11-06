@@ -18,4 +18,15 @@ class Unit extends axis\unit\table\Base {
         $schema->addPrimaryIndex('primary', array('user', 'adapter'));
         $schema->addIndex('identity');
     }
+
+    public function fetchLocalClientAdapter() {
+        if(!$this->context->user->isLoggedIn()) {
+            return null;
+        }
+
+        return $this->fetch()
+            ->where('user', '=', $this->context->user->client->getId())
+            ->where('adapter', '=', 'Local')
+            ->toRow();
+    }
 }
