@@ -24,8 +24,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
-body {
-}
 ol, ul {
     padding-left: 1.4em;
 }
@@ -443,7 +441,7 @@ button span[data-icon]:before {
     font-size: 1em;
 }
 
-.widget-fieldArea > .widget-label {
+.widget-fieldArea > .widget-labelArea {
     float: left;
     width: 14em;
     text-align: right;
@@ -452,7 +450,7 @@ button span[data-icon]:before {
     color: #333;
 }
 
-.widget-fieldArea.constraint-required > .widget-label:after {
+.widget-fieldArea.constraint-required > .widget-labelArea > .widget-label:after {
     content: ' *';
     color: #CC0000;
 }
@@ -529,9 +527,9 @@ button span[data-icon]:before {
 .widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea,
 .widget-fieldArea > .widget-inputArea > .widget-fieldArea {
     border: 1px #EEE solid;
-    border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
     padding: 0.4em;
     margin: 0.3em 0;
 }
@@ -576,9 +574,9 @@ button span[data-icon]:before {
     width: 18em;
     padding: 0.2em 0.5em;
     background: #FAFAFA;
-    border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .widget-selection > .widget-buttonArea {
@@ -806,9 +804,9 @@ td > p:last-child {
     float: left;
     padding: 0.05em 0.4em;
     border: 2px #EEE solid;
-    border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .widget-paginator .block-links {
@@ -817,9 +815,9 @@ td > p:last-child {
 
 .widget-paginator .block-links a {
     border: 2px #EEE solid;
-    border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
     padding: 0.05em 0.4em;
     text-decoration: none;
 }
@@ -842,6 +840,7 @@ td > p:last-child {
 .widget-articleList article > .widget-articleList {
     margin: 0.5em 0 0 1em;
     padding: 0.5em 0.3em;
+    background: #EEE;
     background: rgba(0,0,0,0.015);
     border-radius: 0.6em;
 }
@@ -946,10 +945,6 @@ td > p:last-child {
 @media only screen and (max-width: 650px) {.widget-blockMenu li { width: 50%; }}
 @media only screen and (max-width: 450px) {.widget-blockMenu li { width: 100%; }}
 
-
-.widget-menu a {
-    
-}
 
 .widget-menuBar + h2 {
     margin-top: -0.5em;
@@ -1187,6 +1182,7 @@ a:hover span[data-icon]:before {
 
 
 .widget-overlay {
+    background: #999;
     background: rgba(0,0,0,0.5);
     position: fixed;
     top: 0;
