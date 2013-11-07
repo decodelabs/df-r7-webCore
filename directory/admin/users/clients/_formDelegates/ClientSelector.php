@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\users\_formDelegates;
+namespace df\apex\directory\admin\users\clients\_formDelegates;
 
 use df;
 use df\core;
@@ -39,7 +39,7 @@ class ClientSelector extends arch\form\template\SearchSelectorDelegate {
     }
 
     protected function _renderCollectionList($result) {
-        return $this->import->component('UserList', '~admin/users/', [
+        return $this->import->component('UserList', '~admin/users/clients/', [
                 'actions' => false
             ])
             ->setCollection($result);

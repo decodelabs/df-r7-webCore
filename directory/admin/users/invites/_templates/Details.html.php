@@ -15,7 +15,7 @@ echo $this->html->attributeList($this['invite'])
         return $this->html->date($invite['creationDate']);
     })
     ->addField('owner', function($invite) {
-        return $this->import->component('UserLink', '~admin/users/', $invite['owner']);
+        return $this->import->component('UserLink', '~admin/users/clients/', $invite['owner']);
     })
     ->addField('lastSent', function($invite) {
         return $this->html->userDateTime($invite['lastSent']);
@@ -36,6 +36,6 @@ echo $this->html->attributeList($this['invite'])
         return $this->html->userDateTime($invite['registrationDate']);
     })
     ->addField('user', $this->_('Registered account'), function($invite) {
-        return $this->import->component('UserLink', '~admin/users/', $invite['user'])
+        return $this->import->component('UserLink', '~admin/users/clients/', $invite['user'])
             ->isNullable(true);
     });

@@ -41,7 +41,7 @@ class InviteList extends arch\component\template\CollectionList {
     public function addNameField($list) {
         $list->addField('name', function($invite) {
             if($invite['user']) {
-                return $this->import->component('UserLink', '~admin/users/', $invite['user']);
+                return $this->import->component('UserLink', '~admin/users/clients/', $invite['user']);
             } else {
                 return $invite['name'];
             }
@@ -65,7 +65,7 @@ class InviteList extends arch\component\template\CollectionList {
 // Onwer
     public function addOwnerField($list) {
         $list->addField('owner', $this->_('Sent by'), function($invite) {
-            return $this->import->component('UserLink', '~admin/users/', $invite['owner']);
+            return $this->import->component('UserLink', '~admin/users/clients/', $invite['owner']);
         });
     }
 

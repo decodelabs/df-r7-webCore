@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->component('DetailHeaderBar', '~admin/users/', $this['client']);
+echo $this->import->component('DetailHeaderBar', '~admin/users/clients/', $this['client']);
 
 
 echo $this->html->attributeList($this['client'])
