@@ -71,6 +71,10 @@ class HttpChangePassword extends arch\form\Action {
             );
 
             return $this->complete();
+        } else {
+            $this->values->oldPassword->setValue('');
+            $this->values->newPassword->setValue('');
+            $this->values->confirmNewPassword->setValue('');
         }
     }
 }
