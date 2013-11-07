@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class Index_App extends arch\navigation\menu\Base {
+class Index_WebCore extends arch\navigation\menu\Base {
 
     protected function _createEntries(arch\navigation\IEntryList $entryList) {
         $entryList->addEntries(
