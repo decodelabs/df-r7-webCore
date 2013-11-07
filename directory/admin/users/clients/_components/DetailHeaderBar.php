@@ -41,6 +41,10 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
                     ->setDisposition('operative')
             );
         }
+
+        if($this->slot->has('subOperativeLinks')) {
+            $menu->addLinks($this->slot->getValue('subOperativeLinks'));
+        }
     }
 
     protected function _addSectionLinks($menu) {
