@@ -1,9 +1,9 @@
 <?php
 
-echo $this->import->component('IndexHeaderBar', '~admin/users/');
+echo $this->import->component('IndexHeaderBar', '~admin/users/clients/');
 
 
-echo $this->html->form('~admin/users/')->setMethod('get')->push(
+echo $this->html->form('~admin/users/clients/')->setMethod('get')->push(
     $this->html->fieldSet($this->_('Search'))->push(
         $this->html->searchTextbox('search', $this['search']),
         $this->html->submitButton(null, $this->_('Go'))
@@ -13,4 +13,4 @@ echo $this->html->form('~admin/users/')->setMethod('get')->push(
 );
 
 
-echo $this->import->component('UserList', '~admin/users/');
+echo $this->import->component('UserList', '~admin/users/clients/');

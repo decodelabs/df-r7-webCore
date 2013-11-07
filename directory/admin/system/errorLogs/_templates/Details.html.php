@@ -28,7 +28,7 @@ echo $this->html->attributeList($this['log'])
 
     // User
     ->addField('user', function($log) {
-        return $this->import->component('UserLink', '~admin/users/', $log['user'])
+        return $this->import->component('UserLink', '~admin/users/clients/', $log['user'])
             ->isNullable(false)
             ->setDisposition('transitive');
     })

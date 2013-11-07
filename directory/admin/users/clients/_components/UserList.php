@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\users\_components;
+namespace df\apex\directory\admin\users\clients\_components;
 
 use df;
 use df\core;
@@ -27,7 +27,7 @@ class UserList extends arch\component\template\CollectionList {
 // Full name
     public function addFullNameField($list) {
         $list->addField('fullName', $this->_('Name'), function($client) {
-            return $this->import->component('UserLink', '~admin/users/', $client);
+            return $this->import->component('UserLink', '~admin/users/clients/', $client);
         });
     }
 
@@ -73,11 +73,11 @@ class UserList extends arch\component\template\CollectionList {
         $list->addField('actions', function($client) {
             return [
                 // Edit
-                $this->import->component('UserLink', '~admin/users/', $client)
+                $this->import->component('UserLink', '~admin/users/clients/', $client)
                     ->setAction('edit'),
 
                 // Delete
-                $this->import->component('UserLink', '~admin/users/', $client)
+                $this->import->component('UserLink', '~admin/users/clients/', $client)
                     ->setAction('delete')
             ];
         });

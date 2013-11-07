@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->component('DetailHeaderBar', '~admin/users/', $this['client']);
+echo $this->import->component('DetailHeaderBar', '~admin/users/clients/', $this['client']);
 
 echo $this->html->collectionList($this['client']->authDomains->fetch())
     ->setErrorMessage($this->_('There are no authentication entries to display'))
@@ -27,7 +27,7 @@ echo $this->html->collectionList($this['client']->authDomains->fetch())
     ->addField('actions', function($auth) {
         if($auth['adapter'] == 'Local') {
             return $this->html->link(
-                    $this->uri->request('~admin/users/change-password?user='.$auth->getRawId('user'), true),
+                    $this->uri->request('~admin/users/clients/change-password?user='.$auth->getRawId('user'), true),
                     $this->_('Change password')
                 )
                 ->setIcon('edit')

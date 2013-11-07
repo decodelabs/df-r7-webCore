@@ -51,7 +51,7 @@ class HttpDelete extends arch\form\template\Delete {
 
             // User
             ->addField('user', function($log) {
-                return $this->import->component('UserLink', '~admin/users/', $log['user'])
+                return $this->import->component('UserLink', '~admin/users/clients/', $log['user'])
                     ->isNullable(false)
                     ->setDisposition('transitive');
             })

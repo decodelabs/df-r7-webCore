@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\users\_menus;
+namespace df\apex\directory\admin\users\clients\_menus;
 
 use df;
 use df\core;
@@ -21,13 +21,13 @@ class SectionLinks_WebCore extends arch\navigation\menu\Base {
             ->count();
 
         $entryList->addEntries(
-            $entryList->newLink('~admin/users/details?user='.$userId, 'Details')
+            $entryList->newLink('~admin/users/clients/details?user='.$userId, 'Details')
                 ->setId('details')
                 ->setIcon('details')
                 ->setWeight(1)
                 ->setDisposition('informative'),
 
-            $entryList->newLink('~admin/users/authentication?user='.$userId, 'Auth adapters')
+            $entryList->newLink('~admin/users/clients/authentication?user='.$userId, 'Auth adapters')
                 ->setId('authentication')
                 ->setIcon('user')
                 ->setNote($context->format->counterNote($authenticationCount))
