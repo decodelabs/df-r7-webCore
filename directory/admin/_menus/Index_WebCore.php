@@ -14,7 +14,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
 
     protected function _createEntries(arch\navigation\IEntryList $entryList) {
         $entryList->addEntries(
-            $entryList->newLink('~admin/users/clients/', 'User management')
+            $entryList->newLink('~admin/users/', 'User management')
                 ->setId('users')
                 ->setDescription('View, add and edit site users, set up groups and roles and create access keys')
                 ->setIcon('user')
