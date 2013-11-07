@@ -19,4 +19,28 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addPrimaryIndex('primary', ['user', 'key']);
     }
+
+    public function fetchOption($userId, $key, $default=null) {
+        $output = $this->select('data')
+            ->where('user', '=', $userId)
+            ->where('key', '=', $key)
+            ->toValue('data');
+
+        if($output === null) {
+            $output = $default;
+        }
+
+        return $output;
+    }
+
+    public function setOption($userId, $key, $value) {
+        $this->replace([
+                'user' => $userId,
+                'key' => $key,
+                'data' => $value
+            ])
+            ->execute();
+
+        return $this;
+    }
 }
