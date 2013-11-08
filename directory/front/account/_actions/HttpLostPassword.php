@@ -14,7 +14,7 @@ use df\flow;
 class HttpLostPassword extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
-    const DEFAULT_EVENT = 'update';
+    const DEFAULT_EVENT = 'send';
 
     protected function _init() {
         if($this->user->isLoggedIn()) {
@@ -32,7 +32,7 @@ class HttpLostPassword extends arch\form\Action {
         );
     }
 
-    protected function _onUpdateEvent() {
+    protected function _onSendEvent() {
         $client = null;
         $auth = null;
 

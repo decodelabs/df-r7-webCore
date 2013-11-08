@@ -31,8 +31,8 @@ class LostPassword extends arch\component\template\FormUi {
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('update'),
-                    $this->_('Update')
+                    $this->eventName('send'),
+                    $this->_('Send')
                 )
                 ->setIcon('mail')
                 ->setDisposition('positive'),
