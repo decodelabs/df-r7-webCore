@@ -51,6 +51,10 @@ class Unit extends axis\unit\table\Base {
         return (bool)$this->select()->where('email', '=', $email)->count();
     }
 
+    public function fetchByEmail($email) {
+        return $this->fetch()->where('email', '=', $email)->toRow();
+    }
+
     public function fetchActive() {
         if(!$this->context->user->isLoggedIn()) {
             return null;
