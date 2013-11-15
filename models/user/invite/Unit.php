@@ -33,6 +33,9 @@ class Unit extends axis\unit\table\Base {
         $schema->addUniqueField('user', 'One', 'user/client')
             ->isNullable(true);
 
+        $schema->addField('customData', 'DataObject')
+            ->isNullable(true);
+
         $schema->addField('lastSent', 'DateTime');
         $schema->addField('isActive', 'Boolean')
             ->setDefaultValue(true);

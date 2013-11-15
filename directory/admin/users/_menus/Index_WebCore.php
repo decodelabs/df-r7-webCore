@@ -32,6 +32,12 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('role')
                 ->setWeight(30),
 
+            $entryList->newLink('~admin/users/invites/', 'Invites')
+                ->setId('invites')
+                ->setDescription('View who has been invited to register for an account')
+                ->setIcon('mail')
+                ->setWeight(40),
+
             $entryList->newLink('~admin/users/settings', 'Settings')
                 ->setId('setting')
                 ->setDescription('Set options for registration and login')
