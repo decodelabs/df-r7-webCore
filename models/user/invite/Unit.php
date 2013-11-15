@@ -54,7 +54,7 @@ class Unit extends axis\unit\table\Base {
         return (bool)$this->select()->where('email', '=', $email)->where('isActive', '=', true)->count();
     }
 
-    public function send(Record $invite, $tempatePath=null, $templateLocation=null) {
+    public function send(Record $invite, $templatePath=null, $templateLocation=null) {
         if(!$invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has already been sent'
@@ -75,8 +75,8 @@ class Unit extends axis\unit\table\Base {
 
         $invite['isActive'] = true;
 
-        if($tempatePath === null) {
-            $tempatePath = 'messages/Invite.notification';
+        if($templatePath === null) {
+            $templatePath = 'messages/Invite.notification';
         }
 
         if($templateLocation === null) {
@@ -97,7 +97,7 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
-    public function resend(Record $invite, $tempatePath=null, $templateLocation=null) {
+    public function resend(Record $invite, $templatePath=null, $templateLocation=null) {
         if($invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has not been initialized'
@@ -120,8 +120,8 @@ class Unit extends axis\unit\table\Base {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
-        if($tempatePath === null) {
-            $tempatePath = 'messages/Invite.notification';
+        if($templatePath === null) {
+            $templatePath = 'messages/Invite.notification';
         }
 
         if($templateLocation === null) {
