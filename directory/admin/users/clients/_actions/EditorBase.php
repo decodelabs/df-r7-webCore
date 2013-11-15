@@ -180,7 +180,7 @@ abstract class EditorBase extends arch\form\Action {
                 ->setCustomValidator(function($node, $value) {
                     if(!$this->i18n->languages->isValidId($value)) {
                         $node->addError('invalid', $this->_(
-                            'Please enter a valid langauge id'
+                            'Please enter a valid language id'
                         ));
                     }
                 })
