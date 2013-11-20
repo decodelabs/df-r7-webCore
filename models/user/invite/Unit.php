@@ -143,6 +143,10 @@ class Unit extends axis\unit\table\Base {
     }
 
     public function claim(Record $invite, user\IClientDataObject $client) {
+        $this->update(['user' => null])
+            ->where('user', '=', $client->getId())
+            ->execute();
+
         $invite->registrationDate = 'now';
         $invite->user = $client->getId();
         $invite->isActive = false;
