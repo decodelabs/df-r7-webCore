@@ -12,6 +12,10 @@ use df\opal;
 
 class Record extends opal\record\Base {
     
+    public function sendAsAllowance($templatePath=null, $templateLocation=null) {
+        return $this->getRecordAdapter()->sendAsAllowance($this, $templatePath, $templateLocation);
+    }
+
     public function send($templatePath=null, $templateLocation=null) {
         return $this->getRecordAdapter()->send($this, $templatePath, $templateLocation);
     }

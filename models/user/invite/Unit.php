@@ -13,6 +13,8 @@ use df\user;
 
 class Unit extends axis\unit\table\Base {
     
+    const INVITE_OPTION = 'invite.allowance';
+
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('id', 'AutoId');
         $schema->addUniqueField('key', 'String', 64);
@@ -54,7 +56,15 @@ class Unit extends axis\unit\table\Base {
         return (bool)$this->select()->where('email', '=', $email)->where('isActive', '=', true)->count();
     }
 
+    public function sendAsAllowance(Record $invite, $templatePath=null, $templateLocation=null) {
+        return $this->_send($invite, $templatePath, $templateLocation, true);
+    }
+
     public function send(Record $invite, $templatePath=null, $templateLocation=null) {
+        return $this->_send($invite, $templatePath, $templateLocation, false);
+    }
+
+    protected function _send(Record $invite, $templatePath=null, $templateLocation=null, $allowance=false) {
         if(!$invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has already been sent'
@@ -67,12 +77,37 @@ class Unit extends axis\unit\table\Base {
             );
         }
 
-        $invite['key'] = core\string\Generator::sessionId();
-
         if(!$invite['owner']) {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
+        $ownerId = $invite->getRawId('owner');
+        $isClient = $ownerId == $this->context->user->client->getId();
+        $model = $this->getModel();
+
+        if($allowance && !($cap = $model->config->getInviteCap())) {
+            $allowance = false;
+        }
+
+        if($isClient && $allowance && $this->context->user->canAccess('virtual://unlimited-invites')) {
+            $allowance = false;
+        }
+
+        if($allowance) {
+            if($isClient) {
+                $userCap = (int)$this->context->user->getClientOption(self::INVITE_OPTION, $cap);
+            } else {
+                $userCap = (int)$model->option->fetchOption($ownerId, self::INVITE_OPTION, $cap);
+            }
+
+            if($userCap <= 0) {
+                throw new \RuntimeException(
+                    'User has no more invite allowance'
+                );
+            }
+        }
+
+        $invite['key'] = core\string\Generator::sessionId();
         $invite['isActive'] = true;
 
         if($templatePath === null) {
@@ -92,6 +127,20 @@ class Unit extends axis\unit\table\Base {
 
         $invite['lastSent'] = 'now';
         $invite->save();
+
+        if($allowance) {
+            $userCap--;
+
+            if($userCap < 0) {
+                $userCap = 0;
+            }
+
+            if($isClient) {
+                $this->context->user->setClientOption(self::INVITE_OPTION, $userCap);
+            } else {
+                $model->option->setOption($ownerId, self::INVITE_OPTION, $userCap);
+            }
+        }
 
         $this->context->policy->triggerEntityEvent($invite, 'send');
         return $invite;
@@ -157,6 +206,27 @@ class Unit extends axis\unit\table\Base {
             ->execute();
 
         $this->context->policy->triggerEntityEvent($invite, 'claim');
+        return $this;
+    }
+
+    public function getClientAllowance() {
+        $model = $this->getModel();
+        $cap = $model->config->getInviteCap();
+
+        if(!$cap || $this->context->user->canAccess('virtual://unlimited-invites')) {
+            return null;
+        }
+
+        return $this->context->user->getClientOption(self::INVITE_OPTION, $cap);
+    }
+
+
+    public function grantAllowance(array $userIds, $allowance) {
+        $this->getModel()->option->setOptionForMany($userIds, self::INVITE_OPTION, (int)$allowance);
+    }
+
+    public function grantAllAllowance($allowance) {
+        $this->getModel()->option->updateOptionForAll(self::INVITE_OPTION, (int)$allowance);
         return $this;
     }
 }

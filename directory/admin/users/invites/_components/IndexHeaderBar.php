@@ -26,4 +26,21 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
                 ->addAccessLock('axis://user/Invite#add')
         );
     }
+
+    protected function _addSubOperativeLinks($menu) {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri->request('~admin/users/invites/grant', true),
+                    $this->_('Grant allowance')
+                )
+                ->setIcon('edit'),
+
+            $this->html->link(
+                    $this->uri->request('~admin/users/settings', true),
+                    $this->_('Settings')
+                )
+                ->setIcon('settings')
+                ->setDisposition('operative')
+        );
+    }
 }

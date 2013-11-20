@@ -21,7 +21,8 @@ class Unit extends axis\unit\config\Base {
             'registrationEnabled' => true,
             'verifyEmail' => false,
             'loginOnRegistration' => true,
-            'registrationLandingPage' => '/'
+            'registrationLandingPage' => '/',
+            'inviteCap' => null
         ];
     }
 
@@ -59,5 +60,26 @@ class Unit extends axis\unit\config\Base {
 
     public function getRegistrationLandingPage() {
         return $this->values->get('registrationLandingPage', '/account/');
+    }
+
+    public function setInviteCap($cap) {
+        if(is_numeric($cap) && $cap > 0) {
+            $cap = (int)$cap;
+        } else {
+            $cap = null;
+        }
+
+        $this->values->inviteCap = $cap;
+        return $this;
+    }
+
+    public function getInviteCap() {
+        $output = $this->values['inviteCap'];
+
+        if(is_numeric($output) && $output > 0) {
+            return (int)$output;
+        } else {
+            return null;
+        }
     }
 }

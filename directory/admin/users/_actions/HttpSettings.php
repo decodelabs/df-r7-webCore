@@ -55,6 +55,14 @@ class HttpSettings extends arch\form\Action {
                 ->isRequired(true)
         );
 
+        // Invite cap
+        $fs->addFieldArea($this->_('Invite cap'))->setDescription($this->_(
+            'Cap the number of invites non-admins can send - leave empty for no limit'
+        ))->push(
+            $this->html->numberTextbox('inviteCap', $this->values->inviteCap)
+                ->setMin(1)
+        );
+
         // Buttons
         $fs->push($this->html->defaultButtonGroup());
     }
@@ -77,6 +85,11 @@ class HttpSettings extends arch\form\Action {
             // Landing
             ->addField('registrationLandingPage', 'text')
                 ->isRequired(true)
+                ->end()
+
+            // Invite cap
+            ->addField('inviteCap', 'integer')
+                ->setMin(1)
                 ->end()
 
             ->validate($this->values)
