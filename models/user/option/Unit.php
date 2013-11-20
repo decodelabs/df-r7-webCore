@@ -43,4 +43,44 @@ class Unit extends axis\unit\table\Base {
 
         return $this;
     }
+
+    public function setOptionForMany(array $userIds, $key, $value) {
+        if(empty($userIds)) {
+            return $this;
+        }
+
+        $query = $this->batchReplace();
+
+        foreach($userIds as $userId) {
+            $query->addRow([
+                'user' => $userId,
+                'key' => $key,
+                'data' => $value
+            ]);
+        }
+
+        $query->execute();
+        return $this;
+    }
+
+    public function updateOptionForMany(array $userIds, $key, $value) {
+        if(empty($userIds)) {
+            return $this;
+        }
+
+        $this->update(['data' => $value])
+            ->where('key', '=', $key)
+            ->where('user', 'in', $userIds)
+            ->execute();
+
+        return $this;
+    }
+
+    public function updateOptionForAll($key, $value) {
+        $this->update(['data' => $value])
+            ->where('key', '=', $key)
+            ->execute();
+
+        return $this;
+    }
 }
