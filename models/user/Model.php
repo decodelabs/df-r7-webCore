@@ -60,12 +60,12 @@ class Model extends axis\Model implements user\IUserModel {
                     ->from($groupBridge, 'groupBridge')
                     ->joinConstraint()
                         ->from($clientBridge, 'clientBridge')
-                        ->on('clientBridge.group', '=', 'group')
+                        ->on('clientBridge.group', '=', 'groupBridge.group')
                         ->endJoin()
                     ->where('clientBridge.isLeader', '=', false)
-                    ->where('clientBridge.client', '=', $id)
+                    ->where('clientBridge.client_id', '=', $id)
                     ->endCorrelation()
-                    
+                
                 ->beginOrWhereClause()
                     ->where('bindState', '>=', user\IState::BOUND)
                     ->where('bindState', '<=', $state)
@@ -75,6 +75,7 @@ class Model extends axis\Model implements user\IUserModel {
             $query->where('bindState', '=', $state)
                 ->where('minRequiredState', '<=', $state);
         }
+
         
         $query
             ->attach('domain', 'pattern', 'allow')
