@@ -32,8 +32,20 @@ class HttpController extends arch\Controller {
             $this->request->query['mail']
         );
 
-        $view['message'] = $view['mail']->toMessage();
+        return $view;
+    }
 
+    public function messageHtmlAction() {
+        $view = $this->aura->getView('Message.html');
+
+        $view['mail'] = $this->data->fetchForAction(
+            'axis://mail/DevMail',
+            $this->request->query['mail']
+        );
+
+        $view['message'] = $view['mail']->toMessage();
+        $view->setLayout('Blank');
+        
         return $view;
     }
 }
