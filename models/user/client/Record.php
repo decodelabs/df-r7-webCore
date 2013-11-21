@@ -18,9 +18,20 @@ class Record extends opal\record\Base implements user\IActiveClientDataObject {
     use user\TNameExtractor;
 
     protected function _onPreUpdate($taskSet, $task) {
+        $unit = $this->getRecordAdapter();
+
+        if(!$this['nickName']) {
+            $parts = explode(' ', $this['fullName'], 2);
+            $this['nickName'] = array_shift($parts);
+        }
+
+        if($this['timezone'] == 'UTC') {
+            $this['timezone'] = $unit->context->i18n->timezones->suggestForCountry($this['country']);
+        }
+
         if($this->hasChanged('email')) {
             $localTask = $taskSet->addRawQuery('updateLocalAdapter', 
-                $this->getRecordAdapter()->getModel()->auth->update([
+                $unit->getModel()->auth->update([
                         'identity' => $this['email']
                     ])
                     ->where('user', '=', $this['id'])

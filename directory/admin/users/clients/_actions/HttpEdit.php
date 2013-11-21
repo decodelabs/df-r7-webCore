@@ -33,5 +33,14 @@ class HttpEdit extends EditorBase {
         $this->getDelegate('groups')->setSelected(
             $this->_client->groups->selectFromBridge('group')->toList('group')
         );
+
+        if(!$this->values['nickName']) {
+            $parts = explode(' ', $this->values['fullName'], 2);
+            $this->values->nickName = array_shift($parts);
+        }
+
+        if($this->values['timezone'] == 'UTC') {
+            $this->values->timezone = $this->i18n->timezones->suggestForCountry($this->values['country']);
+        }
     }
 }
