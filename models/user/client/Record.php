@@ -100,4 +100,20 @@ class Record extends opal\record\Base implements user\IActiveClientDataObject {
             ->where('adapter', '=', 'Local')
             ->count();
     }
+
+
+    public function setAsDeactivated() {
+        $this['status'] = user\IState::DEACTIVATED;
+        return $this;
+    }
+
+    public function setAsPending() {
+        $this['status'] = user\IState::PENDING;
+        return $this;
+    }
+
+    public function setAsConfirmed() {
+        $this['status'] = user\IState::CONFIRMED;
+        return $this;
+    }
 }
