@@ -12,6 +12,7 @@ use df\arch;
     
 class HttpLogout extends arch\Action {
 
+    const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {

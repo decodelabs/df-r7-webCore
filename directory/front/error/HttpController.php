@@ -50,6 +50,8 @@ class HttpController extends arch\Controller {
                 
                 return $this->http->redirect($redirectRequest)->isTemporary(true);
             }
+        } else if($code == 403 && $this->user->client->isDeactivated()) {
+            return $this->aura->getView('Deactivated.html');
         }
 
         $shouldLog = true;
