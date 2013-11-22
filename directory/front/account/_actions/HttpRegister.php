@@ -55,6 +55,14 @@ class HttpRegister extends arch\form\Action {
         }
     }
 
+    protected function _getDataId() {
+        if($this->_invite) {
+            return $this->_invite['key'];
+        }
+
+        return parent::_getDataId();
+    }
+
     protected function _setDefaultValues() {
         if($this->_invite) {
             $this->values->fullName = $this->_invite['name'];
