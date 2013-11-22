@@ -43,4 +43,33 @@ class Unit extends axis\unit\table\Base {
 
         return $this;
     }
+
+    public function logException(\Exception $exception) {
+        $request = '/';
+        $user = null;
+        $application = $this->context->application;
+
+        try {
+            if($application instanceof core\application\Http) {
+                $request = $application->getContext()->request->toString();
+            }
+        } catch(\Exception $e) {}
+
+        try {
+            $user = $this->context->user->isLoggedIn() ? $this->context->user->client->getId() : null;
+        } catch(\Exception $e) {}
+
+        $this->newRecord([
+                'code' => 500,
+                'mode' => $this->context->getRunMode(),
+                'request' => $request,
+                'exceptionType' => get_class($exception),
+                'message' => $exception->getMessage(),
+                'user' => $user,
+                'isProduction' => $application->isProduction()
+            ])
+            ->save();
+
+        return $this;
+    }
 }
