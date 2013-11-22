@@ -101,6 +101,7 @@ class HttpRegister extends arch\form\Action {
             ->addField('email', 'email')
                 ->isRequired(true)
                 ->setStorageAdapter($this->data->user->client)
+                ->setUniqueErrorMessage($this->_('An account already exists with this email address'))
                 ->end()
 
             ->validate($this->values)
