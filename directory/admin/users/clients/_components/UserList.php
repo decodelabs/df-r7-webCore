@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\user;
     
 class UserList extends arch\component\template\CollectionList {
 
@@ -44,7 +45,14 @@ class UserList extends arch\component\template\CollectionList {
 
 // Status
     public function addStatusField($list) {
-        $list->addField('status', function($client) {
+        $list->addField('status', function($client, $context) {
+            if($client['status'] == user\IState::DEACTIVATED) {
+                $context->getRowTag()->addClass('state-disabled');
+                $context->getCellTag()->addClass('disposition-negative');
+            } else if($client['status'] == user\IState::PENDING) {
+                $context->getCellTag()->addClass('state-warning');
+            }
+
             return $this->user->client->stateIdToName($client['status']);
         });
     }

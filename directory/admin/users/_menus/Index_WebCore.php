@@ -38,6 +38,13 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('mail')
                 ->setWeight(40),
 
+            $entryList->newLink('~admin/users/deactivations/', 'Deactivations')
+                ->setId('deactivations')
+                ->setDescription('See who has decided to deactivate their account')
+                ->setIcon('remove')
+                ->setWeight(60)
+                ->setDisposition('neutral'),
+
             $entryList->newLink('~admin/users/settings', 'Settings')
                 ->setId('setting')
                 ->setDescription('Set options for registration and login')
