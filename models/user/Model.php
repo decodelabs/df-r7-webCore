@@ -63,7 +63,7 @@ class Model extends axis\Model implements user\IUserModel {
                         ->on('clientBridge.group', '=', 'groupBridge.group')
                         ->endJoin()
                     ->where('clientBridge.isLeader', '=', false)
-                    ->where('clientBridge.client_id', '=', $id)
+                    ->where('clientBridge.client', '=', $id)
                     ->endCorrelation()
                 
                 ->beginOrWhereClause()
@@ -83,7 +83,7 @@ class Model extends axis\Model implements user\IUserModel {
                 ->on('key.role', '=', 'role.id')
                 ->asMany('keys')
             ->orderBy('priority ASC');
-        
+
         $output = array();
 
         foreach($query as $role) {

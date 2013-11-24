@@ -27,9 +27,9 @@ class HttpEdit extends HttpAdd {
         $this->values->importFrom($this->_group, [
             'name'
         ]);
-
+        
         $this->getDelegate('roles')->setSelected(
-            $this->_group->roles->selectFromBridge('role_id')->toList('role_id')
+            $this->_group->roles->getRelatedPrimaryKeys()
         );
     }
 }
