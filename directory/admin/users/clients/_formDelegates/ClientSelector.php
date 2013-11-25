@@ -24,10 +24,8 @@ class ClientSelector extends arch\form\template\SearchSelectorDelegate {
     protected function _getSearchResultIdList($search, array $selected) {
         $query = $this->data->user->client->select('id')
             ->beginWhereClause()
-                ->where('fullName', 'contains', $search)
-                ->orWhere('nickName', 'contains', $search)
-                ->orWhere('fullName', 'like', $search)
-                ->orWhere('nickName', 'like', $search)
+                ->where('fullName', 'matches', $search)
+                ->orWhere('nickName', 'matches', $search)
                 ->endClause()
             ->where('id', '!in', $selected);
 

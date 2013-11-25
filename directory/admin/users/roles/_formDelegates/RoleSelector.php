@@ -23,10 +23,7 @@ class RoleSelector extends arch\form\template\SearchSelectorDelegate {
 
     protected function _getSearchResultIdList($search, array $selected) {
         $query = $this->data->user->role->select('id')
-            ->beginWhereClause()
-                ->where('name', 'contains', $search)
-                ->orWhere('name', 'like', $search)
-                ->endClause()
+            ->where('name', 'matches', $search)
             ->where('id', '!in', $selected);
 
         return $query->toList('id');
