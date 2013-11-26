@@ -88,6 +88,10 @@ class Record extends opal\record\Base implements user\IActiveClientDataObject {
     public function getTimezone() {
         return $this['timezone'];
     }
+
+    public function getGroupIds() {
+        return $this->groups->getRelatedPrimaryKeys();
+    }
     
     
     public function onAuthentication() {
