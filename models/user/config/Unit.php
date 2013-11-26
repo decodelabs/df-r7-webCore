@@ -22,7 +22,8 @@ class Unit extends axis\unit\config\Base {
             'verifyEmail' => false,
             'loginOnRegistration' => true,
             'registrationLandingPage' => '/',
-            'inviteCap' => null
+            'inviteCap' => null,
+            'inviteGroupCap' => []
         ];
     }
 
@@ -81,5 +82,24 @@ class Unit extends axis\unit\config\Base {
         } else {
             return null;
         }
+    }
+
+    public function setInviteGroupCap($groupId, $cap) {
+        if(is_numeric($cap) && $cap > 0) {
+            $cap = (int)$cap;
+        } else {
+            $cap = null;
+        }
+
+        $this->values->inviteGroupCap[$groupId] = $cap;
+        return $this;
+    }
+
+    public function getInviteGroupCap($groupId) {
+        return $this->values->inviteGroupCap[$groupId];
+    }
+
+    public function getInviteGroupCaps() {
+        return $this->values->inviteGroupCap->toArray();
     }
 }

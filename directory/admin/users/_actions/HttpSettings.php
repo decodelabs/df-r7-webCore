@@ -56,7 +56,7 @@ class HttpSettings extends arch\form\Action {
         );
 
         // Invite cap
-        $fs->addFieldArea($this->_('Invite cap'))->setDescription($this->_(
+        $fs->addFieldArea($this->_('Default invite cap'))->setDescription($this->_(
             'Cap the number of invites non-admins can send - leave empty for no limit'
         ))->push(
             $this->html->numberTextbox('inviteCap', $this->values->inviteCap)

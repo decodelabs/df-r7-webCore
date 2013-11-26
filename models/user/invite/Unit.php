@@ -85,22 +85,18 @@ class Unit extends axis\unit\table\Base {
         $isClient = $ownerId == $this->context->user->client->getId();
         $model = $this->getModel();
 
-        if($allowance && !($cap = $model->config->getInviteCap())) {
-            $allowance = false;
-        }
-
         if($isClient && $allowance && $this->context->user->canAccess('virtual://unlimited-invites')) {
             $allowance = false;
         }
 
         if($allowance) {
             if($isClient) {
-                $userCap = (int)$this->context->user->getClientOption(self::INVITE_OPTION, $cap);
+                $userCap = $this->getClientAllowance();
             } else {
-                $userCap = (int)$model->option->fetchOption($ownerId, self::INVITE_OPTION, $cap);
+                $userCap = $this->getUserAllowance($ownerId);
             }
 
-            if($userCap <= 0) {
+            if($userCap !== null && $userCap <= 0) {
                 throw new \RuntimeException(
                     'User has no more invite allowance'
                 );
@@ -210,19 +206,74 @@ class Unit extends axis\unit\table\Base {
     }
 
     public function getClientAllowance() {
-        $model = $this->getModel();
-        $cap = $model->config->getInviteCap();
+        $output = $this->context->user->getClientOption(self::INVITE_OPTION);
+
+        if($output !== null) {
+            return $output;
+        }
+
+        $cap = $this->getClientCap();
 
         if(!$cap || $this->context->user->canAccess('virtual://unlimited-invites')) {
             return null;
         }
 
-        return $this->context->user->getClientOption(self::INVITE_OPTION, $cap);
+        return $cap;
+    }
+
+    public function getUserAllowance($userId) {
+        $model = $this->getModel();
+        $output = $model->option->fetchOption($userId, self::INVITE_OPTION);
+
+        if($output !== null) {
+            return $output;
+        }
+
+        $cap = $this->getUserCap($userId);
+
+        if(!$cap) {
+            return null;
+        }
+
+        return $cap;
+    }
+
+    public function getClientCap() {
+        return $this->_getCap(
+            $this->context->user->client->getGroupIds()
+        );
+    }
+
+    public function getUserCap($userId) {
+        return $this->_getCap(
+            $this->_model->client->getBridgeUnit('groups')->select('group')
+                ->where('client', '=', $userId)
+                ->toList('group')
+        );
+    }
+
+    protected function _getCap(array $groupIds) {
+        $config = $this->_model->config;
+        $cap = $config->getInviteCap();
+        $groupCaps = $config->getInviteGroupCaps();
+
+        if(!empty($groupCaps)) {
+            $groupCap = 0;
+
+            foreach($groupIds as $groupId) {
+                if(isset($groupCaps[$groupId]) && $groupCaps[$groupId] > $groupCap) {
+                    $groupCap = $cap = $groupCaps[$groupId];
+                }
+            }
+        }
+
+        return $cap;
     }
 
 
     public function grantAllowance(array $userIds, $allowance) {
         $this->getModel()->option->setOptionForMany($userIds, self::INVITE_OPTION, (int)$allowance);
+        return $this;
     }
 
     public function grantAllAllowance($allowance) {
