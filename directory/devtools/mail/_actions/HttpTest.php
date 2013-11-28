@@ -205,7 +205,7 @@ class HttpTest extends arch\form\Action {
                 $mail->setBodyHtml($this->values['bodyHtml']);
             }
 
-            $mail->send($transport);
+            $transport->send($mail);
 
             $this->comms->flash(
                 'testMail.sent', 
