@@ -56,6 +56,7 @@ return [
     'tag' => '&#xe022;',
     'label' => '&#xe022;',
     'attribute' => '&#xe068;',
+    'element' => '&#xe068;',
     'help' => '&#xe023;',
     'milestone' => '&#xe024;',
     //'target-2' => '&#xe025;',
