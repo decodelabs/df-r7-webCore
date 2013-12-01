@@ -191,6 +191,7 @@ return [
     'fastForward' => '&#xe07c;',
     'first' => '&#xe07d;',
     'last' => '&#xe07e;',
+    'content' => '&#xe07f;',
     'align-left' => '&#xe07f;',
     'align-center' => '&#xe080;',
     'align-right' => '&#xe081;',
