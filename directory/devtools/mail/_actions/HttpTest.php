@@ -66,6 +66,12 @@ class HttpTest extends arch\form\Action {
                 ->setPlaceholder($this->_('Name'))
         );
 
+        // Return path
+        $fs->addFieldArea($this->_('Return path'))->push(
+            $this->html->emailTextbox('returnPath', $this->values->returnPath)
+                ->setPlaceholder($this->_('Address'))
+        );
+
 
         // To
         $fs->addFieldArea($this->_('To'))->push(
@@ -124,7 +130,7 @@ class HttpTest extends arch\form\Action {
     }
 
     protected function _onSendEvent() {
-        $this->data->newValidator()
+        $validator = $this->data->newValidator()
 
             // Transport
             ->addField('transport', 'text')
@@ -143,6 +149,10 @@ class HttpTest extends arch\form\Action {
                 ->isRequired(true)
                 ->end()
             ->addField('fromName', 'text')
+                ->end()
+
+            // Return path
+            ->addField('returnPath', 'email')
                 ->end()
 
             // To
@@ -181,28 +191,32 @@ class HttpTest extends arch\form\Action {
 
 
         if($this->isValid()) {
-            $transport = flow\mail\transport\Base::factory($this->values['transport']);
+            $transport = flow\mail\transport\Base::factory($validator['transport']);
 
             $mail = new flow\mail\Message();
-            $mail->setFromAddress($this->values['fromAddress'], $this->values['fromName']);
-            $mail->addToAddress($this->values['toAddress'], $this->values['toName']);
+            $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
+            $mail->addToAddress($validator['toAddress'], $validator['toName']);
 
-            if($this->values['ccAddress']) {
-                $mail->addCCAddress($this->values['ccAddress'], $this->values['ccName']);
+            if($validator['returnPath']) {
+                $mail->setReturnPath($validator['returnPath']);
             }
 
-            if($this->values['bccAddress']) {
-                $mail->addBCCAddress($this->values['bccAddress'], $this->values['bccAddress']);
+            if($validator['ccAddress']) {
+                $mail->addCCAddress($validator['ccAddress'], $validator['ccName']);
             }
 
-            $mail->setSubject($this->values['subject']);
-
-            if($this->values['bodyText']) {
-                $mail->setBodyText($this->values['bodyText']);
+            if($validator['bccAddress']) {
+                $mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 
-            if($this->values['bodyHtml']) {
-                $mail->setBodyHtml($this->values['bodyHtml']);
+            $mail->setSubject($validator['subject']);
+
+            if($validator['bodyText']) {
+                $mail->setBodyText($validator['bodyText']);
+            }
+
+            if($validator['bodyHtml']) {
+                $mail->setBodyHtml($validator['bodyHtml']);
             }
 
             $transport->send($mail);
