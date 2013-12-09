@@ -41,6 +41,8 @@ class HttpController extends arch\Controller {
         $view = $this->aura->getView('Details.html');
         $this->fetchClient($view);
 
+        $view['emailList'] = $this->data->user->emailVerify->fetchEmailList($view['client']);
+
         return $view;
     }
 

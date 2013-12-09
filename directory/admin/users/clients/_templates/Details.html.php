@@ -8,9 +8,14 @@ echo $this->html->attributeList($this['client'])
     ->addField('fullName')
     ->addField('nickName')
     ->addField('email', function($client) {
-        return $this->html->link($this->uri->mailto($client['email']), $client['email'])
-            ->setIcon('mail')
-            ->setDisposition('transitive');
+        return $this->html->bulletList($this['emailList'], function($verify) use($client) {
+            $output = $this->html->link($this->uri->mailto($verify['email']), $verify['email'])
+                ->setIcon($verify['verifyDate'] ? 'tick' : 'cross')
+                ->setDisposition('transitive')
+                ->addClass($verify['email'] == $client['email'] ? null : 'state-disabled');
+
+            return $output;
+        });
     })
     
     ->addField('status', function($client, $context) {
