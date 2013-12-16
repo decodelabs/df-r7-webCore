@@ -55,6 +55,21 @@ class HttpSettings extends arch\form\Action {
                 ->isRequired(true)
         );
 
+        // Check password
+        $fs->addFieldArea()->push(
+            $this->html->checkbox('checkPasswordStrength', $this->values->checkPasswordStrength, $this->_(
+                'Check password strength when users update their details'
+            ))
+        );
+
+        // Min strength
+        $fs->addFieldArea($this->_('Min password strength'))->push(
+            $this->html->numberTextbox('minPasswordStrength', $this->values->minPasswordStrength)
+                ->isRequired(true)
+                ->setStep(1)
+                ->setMin(10)
+        );
+
         // Invite cap
         $fs->addFieldArea($this->_('Default invite cap'))->setDescription($this->_(
             'Cap the number of invites non-admins can send - leave empty for no limit'
@@ -85,6 +100,16 @@ class HttpSettings extends arch\form\Action {
             // Landing
             ->addField('registrationLandingPage', 'text')
                 ->isRequired(true)
+                ->end()
+
+            // Pass check
+            ->addField('checkPasswordStrength', 'boolean')
+                ->end()
+
+            // Min strength
+            ->addField('minPasswordStrength', 'integer')
+                ->isRequired(true)
+                ->setMin(0)
                 ->end()
 
             // Invite cap

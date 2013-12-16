@@ -35,6 +35,8 @@ class HttpChangePassword extends arch\form\Action {
     }
 
     protected function _onSaveEvent() {
+        $userConfig = $this->data->user->config;
+
         $validator = $this->data->newValidator()
 
             // Old password
@@ -55,6 +57,8 @@ class HttpChangePassword extends arch\form\Action {
             ->addField('newPassword', 'password')
                 ->isRequired(true)
                 ->setMatchField('confirmNewPassword')
+                ->shouldCheckStrength($userConfig->shouldCheckPasswordStrength())
+                ->setMinStrength($userConfig->getMinPasswordStrength())
                 ->end()
 
             ->validate($this->values);

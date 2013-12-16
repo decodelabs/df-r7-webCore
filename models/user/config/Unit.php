@@ -22,6 +22,8 @@ class Unit extends axis\unit\config\Base {
             'verifyEmail' => false,
             'loginOnRegistration' => true,
             'registrationLandingPage' => '/',
+            'checkPasswordStrength' => true,
+            'minPasswordStrength' => 18,
             'inviteCap' => null,
             'inviteGroupCap' => []
         ];
@@ -62,6 +64,26 @@ class Unit extends axis\unit\config\Base {
     public function getRegistrationLandingPage() {
         return $this->values->get('registrationLandingPage', '/account/');
     }
+
+
+    public function shouldCheckPasswordStrength($flag=null) {
+        if($flag !== null) {
+            $this->values->checkPasswordStrength = (bool)$flag;
+            return $this;
+        }
+
+        return (bool)$this->values->get('checkPasswordStrength', true);
+    }
+
+    public function setMinPasswordStrength($min) {
+        $this->values->minPasswordStrength = (int)$min;
+        return $this;
+    }
+
+    public function getMinPasswordStrength() {
+        return (int)$this->values->get('minPasswordStrength', 18);
+    }
+
 
     public function setInviteCap($cap) {
         if(is_numeric($cap) && $cap > 0) {
