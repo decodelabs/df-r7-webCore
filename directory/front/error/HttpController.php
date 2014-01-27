@@ -85,7 +85,7 @@ class HttpController extends arch\Controller {
             $isAdmin = false;
         }
 
-        $showTemplate = !$isDevelopment;
+        $showTemplate = !$isDevelopment || isset($lastRequest->query->template);
 
         if($code == 500 && $isAdmin) {
             $showTemplate = false;
