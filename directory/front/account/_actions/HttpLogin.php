@@ -60,6 +60,8 @@ class HttpLogin extends arch\form\Action {
                 $this->values->identity->addError('invalid', $this->_(
                     'The email address or password entered was incorrect'
                 ));
+
+                $this->values->password->setValue('');
             } else {
                 return $this->complete();
             }
