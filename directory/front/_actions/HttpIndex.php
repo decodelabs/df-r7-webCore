@@ -14,7 +14,7 @@ class HttpIndex extends arch\Action {
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function indexHtmlAction() {
+    public function executeAsHtml() {
         return $this->aura->getView('Index.html');
     }
 }
