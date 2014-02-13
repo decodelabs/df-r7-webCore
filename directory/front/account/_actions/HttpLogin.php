@@ -18,53 +18,43 @@ class HttpLogin extends arch\form\Action {
     const DEFAULT_EVENT = 'login';
     const DEFAULT_REDIRECT = '/';
 
+    protected $_adapter;
+    protected $_config;
+
     protected function _init() {
         if($this->user->client->isLoggedIn()) {
             $this->complete();
             return $this->http->defaultRedirect('account/');
         }
+
+        $this->_config = user\authentication\Config::getInstance($this->application);
+
+        if(isset($this->request->query->adapter)) {
+            $this->_adapter = $this->request->query['adapter'];
+
+            if(!$this->_config->isAdapterEnabled($this->_adapter)) {
+                $this->_adapter = null;
+            }
+        }
+
+        if(!$this->_adapter) {
+            $this->_adapter = $this->_config->getFirstEnabledAdapter();
+        }
+
+        if(!$this->_adapter) {
+            $this->throwError(500, 'There are no enabled authentication adapters');
+        }
+    }
+
+    protected function _setupDelegates() {
+        $this->loadDelegate($this->_adapter, 'Login'.$this->_adapter, '~front/account/');
     }
 
     protected function _createUi() {
-        $this->content->push(
-            $this->import->component(
-                'LoginLocal', 
-                '~front/account/', 
-                $this
-            )
-        );
+        $this->getDelegate($this->_adapter)->renderUi();
     }
 
     protected function _onLoginEvent() {
-        if(!$this->values->identity->hasValue()) {
-            $this->values->identity->addError('required', $this->_(
-                'Please enter your username'
-            ));
-        }
-
-        if(!$this->values->password->hasValue()) {
-            $this->values->password->addError('required', $this->_(
-                'Please enter your password'
-            ));
-        }
-
-        if($this->values->isValid()) {
-            $request = new user\authentication\Request('Local');
-            $request->setIdentity($this->values['identity']);
-            $request->setCredential('password', $this->values['password']);
-            $request->setAttribute('rememberMe', (bool)$this->values['rememberMe']);
-
-            $result = $this->user->authenticate($request);
-
-            if(!$result->isValid()) {
-                $this->values->identity->addError('invalid', $this->_(
-                    'The email address or password entered was incorrect'
-                ));
-
-                $this->values->password->setValue('');
-            } else {
-                return $this->complete();
-            }
-        }
+        $this->getDelegate($this->_adapter)->handleEvent('login', func_get_args());
     }
 }

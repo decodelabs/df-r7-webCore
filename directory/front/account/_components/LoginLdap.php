@@ -11,23 +11,16 @@ use df\apex;
 use df\arch;
 use df\aura;
     
-class LoginLocal extends arch\component\template\FormUi {
+class LoginLdap extends arch\component\template\FormUi {
 
     protected function _execute() {
         $form = $this->content->addForm();
-        $fs = $form->addFieldSet($this->_('Sign-in'));
+        $fs = $form->addFieldSet($this->_('LDAP Sign-in'));
 
-        // Lost password
-        $fs->addFieldArea()->push(
-            $this->html->link(
-                $this->uri->request('account/lost-password', true), 
-                $this->_('Forgot your password?')
-            )
-        );
         
-        // Identity
-        $fs->addFieldArea($this->_('Email address'))
-            ->addEmailTextbox(
+        // Username
+        $fs->addFieldArea($this->_('Username'))
+            ->addTextbox(
                     $this->fieldName('identity'), 
                     $this->values->identity
                 )
