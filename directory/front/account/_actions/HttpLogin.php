@@ -51,6 +51,20 @@ class HttpLogin extends arch\form\Action {
     }
 
     protected function _createUi() {
+        $enabled = $this->_config->getEnabledAdapters();
+
+        if(count($enabled) > 1) {
+            $this->content->push(
+                $this->import->component(
+                    'LoginAdapterSwitcher', 
+                    '~front/account/', 
+                    $this,
+                    $enabled,
+                    $this->_adapter
+                )
+            );
+        }
+
         $this->getDelegate($this->_adapter)->renderUi();
     }
 
