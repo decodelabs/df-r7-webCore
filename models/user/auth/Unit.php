@@ -15,7 +15,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('bindDate', 'DateTime');
         $schema->addField('loginDate', 'DateTime')->isNullable(true);
         
-        $schema->addPrimaryIndex('primary', array('user', 'adapter'));
+        $schema->addPrimaryIndex('primary', ['user', 'adapter', 'identity']);
         $schema->addIndex('identity');
     }
 
