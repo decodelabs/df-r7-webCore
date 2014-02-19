@@ -12,21 +12,20 @@ use df\arch;
 class RoleSelector extends arch\form\template\SearchSelectorDelegate {
     
     protected function _fetchResultList(array $ids) {
-        $query = $this->data->user->role->fetch()
+        return $this->data->user->role->fetch()
             ->countRelation('groups')
             ->countRelation('keys')
             ->where('id', 'in', $ids)
+            ->chain([$this, 'applyDependencies'])
             ->orderBy('name');
-
-        return $query;
     }
 
     protected function _getSearchResultIdList($search, array $selected) {
-        $query = $this->data->user->role->select('id')
+        return $this->data->user->role->select('id')
             ->where('name', 'matches', $search)
-            ->where('id', '!in', $selected);
-
-        return $query->toList('id');
+            ->where('id', '!in', $selected)
+            ->chain([$this, 'applyDependencies'])
+            ->toList('id');
     }
 
     protected function _getResultDisplayName($result) {

@@ -12,20 +12,19 @@ use df\arch;
 class GroupSelector extends arch\form\template\SearchSelectorDelegate {
     
     protected function _fetchResultList(array $ids) {
-        $query = $this->data->user->group->fetch()
+        return $this->data->user->group->fetch()
             ->countRelation('users')
             ->countRelation('roles')
-            ->where('id', 'in', $ids);
-
-        return $query;
+            ->where('id', 'in', $ids)
+            ->chain([$this, 'applyDependencies']);
     }
 
     protected function _getSearchResultIdList($search, array $selected) {
-        $query = $this->data->user->group->select('id')
+        return $this->data->user->group->select('id')
             ->where('name', 'matches', $search)
-            ->where('id', '!in', $selected);
-
-        return $query->toList('id');
+            ->where('id', '!in', $selected)
+            ->chain([$this, 'applyDependencies'])
+            ->toList('id');
     }
 
     protected function _renderCollectionList($result) {
