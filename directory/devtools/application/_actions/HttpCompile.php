@@ -22,7 +22,7 @@ class HttpCompile extends arch\form\template\Confirm {
 
     protected function _apply() {
         $view = $this->aura->getView('CompileResult.html');
-        $view['result'] = halo\process\Base::launchTask('application/build', 'development');
+        $view['result'] = halo\process\Base::launchTask('application/build', null, 'development');
 
         return $view;
     }
