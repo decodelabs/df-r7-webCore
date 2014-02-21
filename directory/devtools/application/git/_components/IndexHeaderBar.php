@@ -12,6 +12,8 @@ use df\arch;
     
 class IndexHeaderBar extends arch\component\template\HeaderBar {
 
+    protected $_icon = 'package';
+
     protected function _getDefaultTitle() {
         return $this->_('Git packages');
     }

@@ -12,6 +12,8 @@ use df\arch;
     
 class DetailHeaderBar extends arch\component\template\HeaderBar {
 
+    protected $_icon = 'user';
+
     protected function _getDefaultTitle() {
         return $this->_('User: %n%', ['%n%' => $this->_record['fullName']]);
     }

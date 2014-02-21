@@ -972,10 +972,10 @@ td > p:last-child {
     border-bottom-right-radius: 3px;
     margin: 0;
     font-size: 1.4em;
-    font-style: italic;
+    /*font-style: italic;*/
     background: #E0E0E0;
-    color: #FFF;
-    text-shadow: 0 0 0.5em #888;
+    color: #666;
+    text-shadow: 0 0 0.5em #BBB;
 }
 
 .widget-headerBar > h3 {

@@ -12,6 +12,8 @@ use df\arch;
     
 class IndexHeaderBar extends arch\component\template\HeaderBar {
 
+    protected $_icon = 'remove';
+
     protected function _getDefaultTitle() {
         return $this->_('User deactivations');
     }

@@ -12,6 +12,8 @@ use df\arch;
     
 class DetailHeaderBar extends arch\component\template\HeaderBar {
 
+    protected $_icon = 'log';
+
     protected function _getDefaultTitle() {
         return $this->_('Error log: %m% %c% - %d%', [
             '%m%' => $this->_record['mode'], 
