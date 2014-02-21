@@ -975,7 +975,7 @@ td > p:last-child {
     /*font-style: italic;*/
     background: #E0E0E0;
     color: #666;
-    text-shadow: 0 0 0.5em #BBB;
+    text-shadow: 0 0 0.5em #FFF;
 }
 
 .widget-headerBar > h3 {
