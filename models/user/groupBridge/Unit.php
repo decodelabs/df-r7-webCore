@@ -7,8 +7,8 @@ use df\axis;
 
 class Unit extends axis\unit\table\ManyBridge {
     
-    protected $_dominantUnitName = 'client';
-    protected $_dominantFieldName = 'groups';
+    const DOMINANT_UNIT = 'client';
+    const DOMINANT_FIELD = 'groups';
     
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addField('isLeader', 'Boolean');
