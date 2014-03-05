@@ -71,6 +71,7 @@ return [
     'clipboard' => '&#xe02a;',
     'invoice' => '&#xe02a;',
     'post' => '&#xe02b;',
+    'document' => '&#xe07f;',
     'paper' => '&#xe02b;',
     'file' => '&#xe02b;',
     'folder' => '&#xe02c;',
