@@ -16,7 +16,7 @@ class HttpController extends arch\Controller {
         $view = $this->aura->getView('Index.html');
 
         $view['logList'] = $this->data->error->log->select()
-            ->populate('user')
+            ->populateSelect('user', 'id', 'fullName')
             ->paginateWith($this->request->query);
 
         return $view;

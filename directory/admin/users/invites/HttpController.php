@@ -18,9 +18,9 @@ class HttpController extends arch\Controller {
         $this->data->checkAccess($this->data->user->invite);
 
         $view['inviteList'] = $this->data->user->invite->select()
-            ->populate('groups')
-            ->populate('owner')
-            ->populate('user')
+            ->populateSelect('groups', 'id', 'name')
+            ->populateSelect('owner', 'id', 'fullName')
+            ->populateSelect('user', 'id', 'fullName')
             ->paginateWith($this->request->query);
 
         return $view;
