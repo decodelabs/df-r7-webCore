@@ -64,4 +64,13 @@ class Unit extends axis\unit\table\Base {
             ->where('id', '=', $this->context->user->client->getId())
             ->toRow();
     }
+
+
+
+// Query blocks
+    public function applyLinkRelationQueryBlock(opal\query\ISelectQuery $query, $relationField) {
+        $query->joinRelation($relationField, 'id as '.$relationField.'Id', 'fullName as '.$relationField.'Name')
+            ->combine($relationField.'Id as id', $relationField.'Name as fullName')
+                ->asOne($relationField);
+    }
 }

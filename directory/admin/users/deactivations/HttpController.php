@@ -16,7 +16,7 @@ class HttpController extends arch\Controller {
         $view = $this->aura->getView('Index.html');
 
         $view['deactivationList'] = $this->data->user->clientDeactivation->select()
-            ->populateSelect('user', 'id', 'fullName')
+            ->importRelationBlock('user', 'link')
             ->paginateWith($this->request->query);
 
         return $view;

@@ -19,8 +19,8 @@ class HttpController extends arch\Controller {
 
         $view['inviteList'] = $this->data->user->invite->select()
             ->populateSelect('groups', 'id', 'name')
-            ->populateSelect('owner', 'id', 'fullName')
-            ->populateSelect('user', 'id', 'fullName')
+            ->importRelationBlock('owner', 'link')
+            ->importRelationBlock('user', 'link')
             ->paginateWith($this->request->query);
 
         return $view;
