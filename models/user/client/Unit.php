@@ -68,10 +68,14 @@ class Unit extends axis\unit\table\Base {
 
 
 // Query blocks
-    public function applyLinkRelationQueryBlock(opal\query\ISelectQuery $query, $relationField) {
-        $query->leftJoinRelation($relationField, 'id as '.$relationField.'Id', 'fullName as '.$relationField.'Name')
-            ->combine($relationField.'Id as id', $relationField.'Name as fullName')
-                ->nullOn('id')
-                ->asOne($relationField);
+    public function applyLinkRelationQueryBlock(opal\query\IReadQuery $query, $relationField) {
+        if($query instanceof opal\query\ISelectQuery) {
+            $query->leftJoinRelation($relationField, 'id as '.$relationField.'Id', 'fullName as '.$relationField.'Name')
+                ->combine($relationField.'Id as id', $relationField.'Name as fullName')
+                    ->nullOn('id')
+                    ->asOne($relationField);
+        } else {
+            $query->populateSelect($relationField, 'id', 'fullName');
+        }
     }
 }
