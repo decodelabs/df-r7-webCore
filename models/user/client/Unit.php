@@ -69,8 +69,9 @@ class Unit extends axis\unit\table\Base {
 
 // Query blocks
     public function applyLinkRelationQueryBlock(opal\query\ISelectQuery $query, $relationField) {
-        $query->joinRelation($relationField, 'id as '.$relationField.'Id', 'fullName as '.$relationField.'Name')
+        $query->leftJoinRelation($relationField, 'id as '.$relationField.'Id', 'fullName as '.$relationField.'Name')
             ->combine($relationField.'Id as id', $relationField.'Name as fullName')
+                ->nullOn('id')
                 ->asOne($relationField);
     }
 }
