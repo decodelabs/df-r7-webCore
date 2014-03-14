@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\axis;
+use df\opal;
 
 class HttpController extends arch\Controller {
     
@@ -42,9 +43,13 @@ class HttpController extends arch\Controller {
         $primitives = [];
 
         foreach($view['schema']->getFields() as $name => $field) {
+            if($field instanceof opal\schema\INullPrimitiveField) {
+                continue;
+            }
+
             $primitive = $field->toPrimitive($view['unit']->getUnit(), $view['schema']);
 
-            if($primitive instanceof opal\schema\IMultiPrimitiveField) {
+            if($primitive instanceof opal\schema\IMultiFieldPrimitive) {
                 foreach($primitive->getPrimitives() as $primitive) {
                     $primitives[$primitive->getName()] = $primitive;
                 }
