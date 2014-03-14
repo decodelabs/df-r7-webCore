@@ -282,6 +282,7 @@ th a {
 code, pre {
     font-family: "Courier New", Courier, Monospace;
     font-size: 0.9em;
+    white-space: pre-wrap;
 }
 
 samp {
