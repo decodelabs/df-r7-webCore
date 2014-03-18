@@ -47,7 +47,13 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
                                     $this->_('Make backup')
                                 )
                                 ->setIcon('backup')
-                                ->setDisposition('positive')
+                                ->setDisposition('positive'),
+
+                            $this->html->link(
+                                    $this->uri->request('~devtools/models/purge-table-backups?unit='.$this->_record->getId(), true),
+                                    $this->_('Delete all backups')
+                                )
+                                ->setIcon('delete')
                         );
 
                         break;
