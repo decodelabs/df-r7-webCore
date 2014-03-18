@@ -613,6 +613,12 @@ button span[data-icon]:before {
     display: block;
 }
 
+.widget-radioButtonGroup.inline label,
+.widget-checkboxGroup.inline label {
+    display: inline-block;
+    margin-right: 1em;
+}
+
 
 
 .state-disabled {
