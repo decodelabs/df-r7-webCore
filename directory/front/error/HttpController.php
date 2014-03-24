@@ -125,6 +125,10 @@ class HttpController extends arch\Controller {
                 ->render();
         }
 
+        if($code == 404 || $code == 500) {
+            $this->application->getResponseAugmentor()->setStatusCode($code);
+        }
+
         $view['code'] = $code;
         $view['message'] = halo\protocol\http\response\HeaderCollection::statusCodeToMessage($code);
 
