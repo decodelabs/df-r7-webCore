@@ -766,6 +766,11 @@ td > p:last-child {
     vertical-align: middle;
 }
 
+.widget-collectionList tr:nth-child(2n + 1),
+.widget-attributeList tr:nth-child(2n + 1) {
+    background: #FFF;
+}
+
 .widget-collectionList tr:nth-child(2n),
 .widget-attributeList tr:nth-child(2n) {
     background: #FBFBFB;

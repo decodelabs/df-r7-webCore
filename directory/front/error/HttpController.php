@@ -62,16 +62,20 @@ class HttpController extends arch\Controller {
 
         if($shouldLog) {
             try {
-                $this->data->error->log->newRecord([
-                        'code' => $code,
-                        'mode' => $this->getRunMode(),
-                        'request' => $lastRequest->toString(),
-                        'exceptionType' => get_class($exception),
-                        'message' => $exception->getMessage(),
-                        'user' => $this->user->isLoggedIn() ? $this->user->client->getId() : null,
-                        'isProduction' => $this->application->isProduction()
-                    ])
-                    ->save();
+                switch($code) {
+                    case 401:
+                    case 403:
+                        $this->data->log->accessError($code, $lastRequest, $exception->getMessage());
+                        break;
+
+                    case 404:
+                        $this->data->log->notFound($lastRequest, $exception->getMessage());
+                        break;
+
+                    case 500:
+                        $this->data->log->exception($exception, $lastRequest->toString());
+                        break;
+                }
             } catch(\Exception $e) {
                 core\debug()->exception($e);
             }
