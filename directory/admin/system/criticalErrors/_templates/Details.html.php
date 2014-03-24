@@ -40,11 +40,9 @@ echo $this->html->attributeList($this['error'])
     ->addField('userAgent')
 
     // Frequency
-    /*
     ->addField('frequency', function($error) {
         return $this->_('This error has been seen %n% times', ['%n%' => $error->fetchFrequency()]);
     })
-    */
 
     // Exception type
     ->addField('exceptionType')
