@@ -58,10 +58,27 @@ class HttpDelete extends arch\form\template\Delete {
             ->addField('message', function($error) {
                 return $this->html->plainText($error['message']);
             })
+
+            // Frequency
+            ->addField('frequency', function($error) {
+                return [
+                    $this->_('This error has been seen %n% times', ['%n%' => $error->fetchFrequency()]), $this->html->string('<br /><br />'),
+                    $this->html->checkbox('deleteAll', $this->values->deleteAll, $this->_(
+                        'Delete all instances of this error'
+                    ))
+                ];
+            })
             ;
     }
 
     protected function _deleteItem() {
         $this->_error->delete();
+
+        if($this->values['deleteAll']) {
+            $this->data->log->notFound->delete()
+                ->where('mode', '=', $this->_error['mode'])
+                ->where('request', '=', $this->_error['request'])
+                ->execute();
+        }
     }
 }

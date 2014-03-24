@@ -49,7 +49,9 @@ echo $this->html->attributeList($this['error'])
 
     // File
     ->addField('file', function($error) {
-        return $error['file'].' : '.$error['line'];
+        if($error['file']) {
+            return $error['file'].' : '.$error['line'];
+        }
     })
     
     // Message
