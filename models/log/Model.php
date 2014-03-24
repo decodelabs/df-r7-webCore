@@ -18,6 +18,7 @@ class Model extends axis\Model {
                 'mode' => $this->context->getRunMode(),
                 'code' => $code,
                 'request' => $this->_normalizeRequest($request),
+                'userAgent' => $this->_getUserAgent(),
                 'message' => $message,
                 'user' => $this->_getUser(),
                 'isProduction' => $this->context->application->isProduction()

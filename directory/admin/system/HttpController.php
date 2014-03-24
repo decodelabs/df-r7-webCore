@@ -19,4 +19,58 @@ class HttpController extends arch\Controller {
 
         return $container;
     }
+
+    public function importLegacyAction() {
+        $count = 0;
+
+        foreach($this->data->error->log->fetch() as $log) {
+            switch($log['code']) {
+                case 401:
+                case 403:
+                    $count++;
+                    $this->data->log->accessError->newRecord([
+                            'date' => $log['date'],
+                            'mode' => $log['mode'],
+                            'code' => $log['code'],
+                            'request' => $log['request'],
+                            'message' => $log['message'],
+                            'user' => $log->getRawId('user'),
+                            'isProduction' => $log['isProduction']
+                        ])
+                        ->save();
+
+                    break;
+
+                case 404:
+                    $count++;
+                    $this->data->log->notFound->newRecord([
+                            'date' => $log['date'],
+                            'mode' => $log['mode'],
+                            'request' => $log['request'],
+                            'message' => $log['message'],
+                            'user' => $log->getRawId('user'),
+                            'isProduction' => $log['isProduction']
+                        ])
+                        ->save();
+
+                    break;
+
+                case 500:
+                    $count++;
+                    $this->data->log->criticalError->newRecord([
+                            'date' => $log['date'],
+                            'mode' => $log['mode'],
+                            'request' => $log['request'],
+                            'message' => $log['message'],
+                            'user' => $log->getRawId('user'),
+                            'isProduction' => $log['isProduction']
+                        ])
+                        ->save();
+
+                    break;
+            }
+        }
+
+        core\dump($count);
+    }
 }
