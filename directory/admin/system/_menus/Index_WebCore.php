@@ -35,14 +35,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setId('access-errors')
                 ->setDescription('See who is trying to access things they are not supposed to')
                 ->setIcon('lock')
-                ->setWeight(30),
-
-
-            $entryList->newLink('~admin/system/error-logs/', 'Error logs')
-                ->setId('errorLogs')
-                ->setDescription('View logs generated for missing content and system errors')
-                ->setIcon('log')
-                ->setWeight(50)
+                ->setWeight(30)
         );
     }
 }
