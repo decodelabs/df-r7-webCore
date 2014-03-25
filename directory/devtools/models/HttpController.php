@@ -31,13 +31,21 @@ class HttpController extends arch\Controller {
         return $view;
     }
 
+
+// Cache
+    public function cacheStatsHtmlAction() {
+        $view = $this->aura->getView('CacheStats.html');
+        $this->fetchUnit($view, 'cache');
+
+        $view['stats'] = $view['unit']->getUnit()->getCacheStats();
+        return $view;
+    }
+
+
+// Table
     public function tableDataHtmlAction() {
         $view = $this->aura->getView('TableData.html');
-        $this->fetchUnit($view);
-
-        if($view['unit']->getType() != 'table') {
-            $this->throwError(403, 'Unit is not a table');
-        }
+        $this->fetchUnit($view, 'table');
 
         $view['schema'] = $view['unit']->getSchema();
         $primitives = [];
@@ -70,19 +78,21 @@ class HttpController extends arch\Controller {
 
     public function backupsHtmlAction() {
         $view = $this->aura->getView('Backups.html');
-        $this->fetchUnit($view);
-
-        if($view['unit']->getType() != 'table') {
-            $this->throwError(403, 'Unit is not a table');
-        }
+        $this->fetchUnit($view, 'table');
 
         $view['backupList'] = $view['unit']->getBackups();
 
         return $view;
     }
 
-    public function fetchUnit($view) {
+    public function fetchUnit($view, $type=null) {
         $probe = new axis\introspector\Probe($this->application);
         $view['unit'] = $probe->inspectUnit($this->request->query['unit']);
+
+        if($type !== null) {
+            if($view['unit']->getType() != $type) {
+                $this->throwError(403, 'Unit is not a '.$type);
+            }
+        }
     }
 }

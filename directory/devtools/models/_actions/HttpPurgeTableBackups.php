@@ -24,6 +24,10 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
         if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
             $this->throwError(404, 'Unit not found');
         }
+
+        if($this->_inspector->getType() != 'table') {
+            $this->throwError(401, 'Unit not a table');
+        }
     }
 
     protected function _getDataId() {

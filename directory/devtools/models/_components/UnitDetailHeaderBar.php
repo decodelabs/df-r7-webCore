@@ -22,6 +22,17 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
 
     protected function _addOperativeLinks($menu) {
         switch($this->_record->getType()) {
+            case 'cache':
+                $menu->addLinks(
+                    $this->html->link(
+                            $this->uri->request('~devtools/models/clear-cache?unit='.$this->_record->getId(), true),
+                            $this->_('Clear cache')
+                        )
+                        ->setIcon('delete')
+                );
+
+                break;
+
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
@@ -73,6 +84,17 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
         );
 
         switch($this->_record->getType()) {
+            case 'cache':
+                $menu->addLinks(
+                    $this->html->link(
+                            '~devtools/models/cache-stats?unit='.$this->_record->getId(),
+                            $this->_('Stats')
+                        )
+                        ->setIcon('report')
+                );
+
+                break;
+
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
