@@ -48,27 +48,22 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
     }
 
     protected function _addSubOperativeLinks($menu) {
-        switch($this->_record->getType()) {
-            case 'table':
-                switch($this->request->getAction()) {
-                    case 'backups':
-                        $menu->addLinks(
-                            $this->html->link(
-                                    $this->uri->request('~devtools/models/backup-table?unit='.$this->_record->getId(), true),
-                                    $this->_('Make backup')
-                                )
-                                ->setIcon('backup')
-                                ->setDisposition('positive'),
+        switch($this->request->getAction()) {
+            case 'tableBackups':
+                $menu->addLinks(
+                    $this->html->link(
+                            $this->uri->request('~devtools/models/backup-table?unit='.$this->_record->getId(), true),
+                            $this->_('Make backup')
+                        )
+                        ->setIcon('backup')
+                        ->setDisposition('positive'),
 
-                            $this->html->link(
-                                    $this->uri->request('~devtools/models/purge-table-backups?unit='.$this->_record->getId(), true),
-                                    $this->_('Delete all backups')
-                                )
-                                ->setIcon('delete')
-                        );
-
-                        break;
-                }
+                    $this->html->link(
+                            $this->uri->request('~devtools/models/purge-table-backups?unit='.$this->_record->getId(), true),
+                            $this->_('Delete all backups')
+                        )
+                        ->setIcon('delete')
+                );
 
                 break;
         }
@@ -104,7 +99,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
                         ->setIcon('list'),
 
                     $this->html->link(
-                            '~devtools/models/backups?unit='.$this->_record->getId(),
+                            '~devtools/models/table-backups?unit='.$this->_record->getId(),
                             $this->_('Backups')
                         )
                         ->setIcon('backup')
