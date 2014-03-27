@@ -11,7 +11,8 @@ $fs = $form->addFieldSet($this->_('Filter'))->push(
             'area',
             $this['areaFilter'],
             $this['areaList']
-        ),
+        )
+        ->setNoSelectionLabel(null),
 
     $this->html->submitButton(
             null,
@@ -25,4 +26,4 @@ echo $form;
 
 
 // Collection
-echo $this['facetController']->list->renderTo($this);
+echo $this->import->component('MenuList', '~admin/navigation/directory/');
