@@ -83,6 +83,7 @@ return [
     'trash' => '&#xe02e;',
     'hook' => '&#xe02f;',
     'rss' => '&#xe030;',
+    'feed' => '&#xe030;',
     'subscription' => '&#xe030;',
     'map' => '&#xe031;',
     'network' => '&#xe032;',
