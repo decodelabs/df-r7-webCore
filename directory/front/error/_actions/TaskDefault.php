@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-use df\halo;
+use df\link;
 
 class TaskDefault extends arch\Action {
     
@@ -27,8 +27,8 @@ class TaskDefault extends arch\Action {
         $code = $exception->getCode();
         $lastRequest = $request->getLastRequest();
 
-        if(!halo\protocol\http\response\HeaderCollection::isValidStatusCode($code)
-        || !halo\protocol\http\response\HeaderCollection::isErrorStatusCode($code)) {
+        if(!link\http\response\HeaderCollection::isValidStatusCode($code)
+        || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
             $code = 500;
         }
 

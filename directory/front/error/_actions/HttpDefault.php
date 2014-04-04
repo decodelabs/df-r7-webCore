@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 use df\user;
 use df\aura;
-use df\halo;
+use df\link;
 
 class HttpDefault extends arch\Action {
     
@@ -28,8 +28,8 @@ class HttpDefault extends arch\Action {
         $code = $exception->getCode();
         $lastRequest = $request->getLastRequest();
 
-        if(!halo\protocol\http\response\HeaderCollection::isValidStatusCode($code)
-        || !halo\protocol\http\response\HeaderCollection::isErrorStatusCode($code)) {
+        if(!link\http\response\HeaderCollection::isValidStatusCode($code)
+        || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
             $code = 500;
         }
         
@@ -130,7 +130,7 @@ class HttpDefault extends arch\Action {
         }
 
         $view['code'] = $code;
-        $view['message'] = halo\protocol\http\response\HeaderCollection::statusCodeToMessage($code);
+        $view['message'] = link\http\response\HeaderCollection::statusCodeToMessage($code);
 
         return $view;
     }
