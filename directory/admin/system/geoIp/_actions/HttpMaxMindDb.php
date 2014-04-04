@@ -178,6 +178,7 @@ class HttpMaxMindDb extends arch\form\Action {
     protected function _fetchUrl($url) {
         $fileName = basename($url);
         $path = $this->application->getLocalDataStoragePath().'/geoIp';
+        core\io\Util::ensureDirExists($path);
 
         if(is_file($path.'/'.substr($fileName, 0, -3))) {
             return;
@@ -208,6 +209,8 @@ class HttpMaxMindDb extends arch\form\Action {
         if($targetPath === null) {
             $targetPath = substr($path, 0, -3);
         }
+
+        core\io\Util::ensureDirExists(dirname($targetPath));
 
         $gfp = gzopen($path, 'rb');
         $tfp = fopen($targetPath, 'wb');
