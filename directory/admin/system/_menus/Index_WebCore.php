@@ -35,7 +35,13 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setId('access-errors')
                 ->setDescription('See who is trying to access things they are not supposed to')
                 ->setIcon('lock')
-                ->setWeight(30)
+                ->setWeight(30),
+
+            $entryList->newLink('~admin/system/geo-ip/', 'Geo IP')
+                ->setId('geo-ip')
+                ->setDescription('Set up IP lookup tools to find out where your users are')
+                ->setIcon('location')
+                ->setWeight(40)
         );
     }
 }
