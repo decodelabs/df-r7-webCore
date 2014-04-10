@@ -19,6 +19,10 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         $this->_invite = $invite;
         return $this;
     }
+
+    public function getInvite() {
+        return $this->_invite;
+    }
     
     public function renderUi() {
         $parts = explode('\\', get_class($this));
