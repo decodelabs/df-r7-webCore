@@ -18,26 +18,38 @@ class RegisterLocal extends arch\component\template\FormUi {
 
         // Name
         $fs->addFieldArea($this->_('Your name'))->push(
-            $this->html->textbox('fullName', $this->values->fullName)
+            $this->html->textbox(
+                    $this->fieldName('fullName'), 
+                    $this->values->fullName
+                )
                 ->isRequired(true)
         );
 
         // Email
         $fs->addFieldArea($this->_('Email address'))->push(
-            $this->html->emailTextbox('email', $this->values->email)
+            $this->html->emailTextbox(
+                    $this->fieldName('email'), 
+                    $this->values->email
+                )
                 ->isRequired(true)
         );
 
         // Password
         $fs->addFieldArea($this->_('Password'))->push(
-            $this->html->passwordTextbox('password', $this->values->password)
+            $this->html->passwordTextbox(
+                    $this->fieldName('password'), 
+                    $this->values->password
+                )
                 ->shouldAutoComplete(false)
                 ->isRequired(true)
         );
 
         // Confirm password
         $fs->addFieldArea($this->_('Confirm password'))->push(
-            $this->html->passwordTextbox('confirmPassword', $this->values->confirmPassword)
+            $this->html->passwordTextbox(
+                    $this->fieldName('confirmPassword'), 
+                    $this->values->confirmPassword
+                )
                 ->shouldAutoComplete(false)
                 ->isRequired(true)
         );

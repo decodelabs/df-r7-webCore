@@ -63,102 +63,16 @@ class HttpRegister extends arch\form\Action {
         return parent::_getDataId();
     }
 
-    protected function _setDefaultValues() {
-        if($this->_invite) {
-            $this->values->fullName = $this->_invite['name'];
-            $parts = explode(' ', $this->_invite['name']);
-            $this->values->nickName = array_shift($parts);
-            $this->values->email = $this->_invite['email'];
-        }
+    protected function _setupDelegates() {
+        $this->loadDelegate('Local', 'RegisterLocal', '~front/account/')
+            ->setInvite($this->_invite);
     }
 
     protected function _createUi() {
-        $this->content->push(
-            $this->import->component(
-                'RegisterLocal', 
-                '~front/account/', 
-                $this
-            )
-        );
+        $this->getDelegate('Local')->renderUi();
     }
 
     protected function _onRegisterEvent() {
-        $client = $this->data->user->client->newRecord();
-        $client->joinDate = 'now';
-
-        $this->data->newValidator()
-
-            // Full name
-            ->addField('fullName', 'text')
-                ->isRequired(true)
-                ->end()
-
-            // Nick name
-            ->addField('nickName', 'text')
-                ->end()
-
-            // Email
-            ->addField('email', 'email')
-                ->isRequired(true)
-                ->setStorageAdapter($this->data->user->client)
-                ->setUniqueErrorMessage($this->_('An account already exists with this email address'))
-                ->end()
-
-            ->validate($this->values)
-            ->applyTo($client);
-
-        if($this->isValid()) {
-            $auth = $this->data->user->auth->newRecord();
-            $auth->user = $client;
-            $auth->identity = $client['email'];
-            $auth->adapter = 'Local';
-            $auth->bindDate = 'now';
-
-            $this->data->newValidator()
-                // Password
-                ->addField('password', 'password')
-                    ->setMatchField('confirmPassword')
-                    ->isRequired(true)
-                    ->end()
-
-                ->validate($this->values)
-                ->applyTo($auth);
-        }
-
-        if($this->isValid()) {
-            if($this->_invite) {
-                $client->groups->addList($this->_invite->groups->getRelatedPrimaryKeys());
-            }
-
-            $client->save();
-
-            if($this->_invite) {
-                $this->data->user->invite->claim($this->_invite, $client);
-            }
-
-            $config = $this->data->user->config;
-
-            if($config->shouldLoginOnRegistration()) {
-                $request = new user\authentication\Request('Local');
-                $request->setIdentity($auth['identity']);
-                $request->setCredential('password', $this->values['password']);
-                $request->setAttribute('rememberMe', (bool)true);
-
-                $result = $this->user->authenticate($request);
-
-                return $this->complete($config->getRegistrationLandingPage());
-            } else {
-                $this->comms->flash(
-                    'registration.complete',
-                    $this->_('Your account has been successfully created'),
-                    'success'
-                );
-
-                $request = $this->directory->newRequest('account/login');
-                $request->setRedirect($this->request->getRedirectFrom(), $config->getRegistrationLandingPage());
-
-                return $this->complete($request);
-            }
-        }
+        $this->getDelegate('Local')->handleEvent('register', func_get_args());
     }
 }
