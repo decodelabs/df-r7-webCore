@@ -24,7 +24,10 @@ class LostPassword extends arch\component\template\FormUi {
 
         // Email
         $fs->addFieldArea($this->_('Email address'))->push(
-            $this->html->emailTextbox('email', $this->values->email)
+            $this->html->emailTextbox(
+                    $this->fieldName('email'), 
+                    $this->values->email
+                )
                 ->isRequired(true)
         );
 

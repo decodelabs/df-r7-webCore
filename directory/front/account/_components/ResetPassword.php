@@ -18,19 +18,28 @@ class ResetPassword extends arch\component\template\FormUi {
 
         // Email
         $fs->addFieldArea($this->_('Email'))->push(
-            $this->html->emailTextbox('email', $this['key']['user']['email'])
+            $this->html->emailTextbox(
+                    $this->fieldName('email'), 
+                    $this['key']['user']['email']
+                )
                 ->isDisabled(true)
         );
 
         // New password
         $fs->addFieldArea($this->_('New password'))->push(
-            $this->html->passwordTextbox('newPassword', $this->values->newPassword)
+            $this->html->passwordTextbox(
+                    $this->fieldName('newPassword'), 
+                    $this->values->newPassword
+                )
                 ->isRequired(true)
         );
 
         // Confirm password
         $fs->addFieldArea($this->_('Confirm new password'))->push(
-            $this->html->passwordTextbox('confirmNewPassword', $this->values->confirmNewPassword)
+            $this->html->passwordTextbox(
+                    $this->fieldName('confirmNewPassword'), 
+                    $this->values->confirmNewPassword
+                )
                 ->isRequired(true)
         );
 

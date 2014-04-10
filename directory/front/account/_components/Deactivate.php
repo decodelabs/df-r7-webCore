@@ -24,16 +24,25 @@ class Deactivate extends arch\component\template\FormUi {
         ));
 
         $fs->addFieldArea($this->_('Why do you want to deactivate your account?'))->push(
-            $this->html->textbox('reason', $this->values->reason)
+            $this->html->textbox(
+                    $this->fieldName('reason'), 
+                    $this->values->reason
+                )
                 ->setMaxLength(255)
         );
 
         $fs->addFieldArea($this->_('What could we have done better?'))->push(
-            $this->html->textarea('comments', $this->values->comments)
+            $this->html->textarea(
+                    $this->fieldName('comments'), 
+                    $this->values->comments
+                )
         );
 
         $fs->addButtonArea(
-            $this->html->eventButton('deactivate', $this->_('Deactivate'))
+            $this->html->eventButton(
+                    $this->eventName('deactivate'), 
+                    $this->_('Deactivate')
+                )
                 ->setIcon('remove')
                 ->setDisposition('negative'),
 
