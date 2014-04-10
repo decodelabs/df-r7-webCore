@@ -15,7 +15,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
     
     protected $_invite;
 
-    public function setInvite(apex\model\user\invite\Record $invite=null) {
+    public function setInvite(apex\models\user\invite\Record $invite=null) {
         $this->_invite = $invite;
         return $this;
     }
