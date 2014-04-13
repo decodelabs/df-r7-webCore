@@ -50,6 +50,7 @@ return [
     'subject' => '&#xe01c;',
     'window' => '&#xe01d;',
     'layout' => '&#xe01d;',
+    'form' => '&#xe01e;',
     'publish' => '&#xe01e;',
     'session' => '&#xe01e;',
     'launch' => '&#xe01f;',
