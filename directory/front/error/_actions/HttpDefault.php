@@ -73,6 +73,7 @@ class HttpDefault extends arch\Action {
                         break;
 
                     case 500:
+                    case 502:
                         $this->data->log->exception($exception, $lastRequest->toString());
                         break;
                 }
