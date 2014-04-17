@@ -48,7 +48,13 @@ class Unit extends axis\unit\table\Base {
 
 
     public function emailExists($email) {
-        return (bool)$this->select()->where('email', '=', $email)->count();
+        $output = $this->select('id')->where('email', '=', $email)->toValue('id');
+
+        if($output === null) {
+            $output = false;
+        }
+
+        return $output;
     }
 
     public function fetchByEmail($email) {
