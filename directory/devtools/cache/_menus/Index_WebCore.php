@@ -24,7 +24,7 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('menu')
                 ->setWeight(20),
 
-            $entryList->newLink('~devtools/cache/hooks', 'Policy hooks')
+            $entryList->newLink('~devtools/cache/hooks', 'Event hooks')
                 ->setId('hooks')
                 ->setIcon('hook')
                 ->setWeight(30),

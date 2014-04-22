@@ -10,8 +10,9 @@ use df\core;
 use df\apex;
 use df\spur;
 use df\flow;
+use df\mesh;
     
-class EmailVerify extends core\policy\Hook {
+class EmailVerify extends mesh\event\Hook {
 
     protected static $_actionMap = [
         'axis://user/Client' => [

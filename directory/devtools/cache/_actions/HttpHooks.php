@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\mesh;
     
 class HttpHooks extends arch\form\template\Delete {
 
@@ -19,13 +20,13 @@ class HttpHooks extends arch\form\template\Delete {
     protected $_cache;
 
     protected function _init() {
-        $this->_cache = core\policy\HookCache::getInstance($this->application);
+        $this->_cache = mesh\event\HookCache::getInstance($this->application);
     }
 
     protected function _renderItemDetails($container) {
         $container->addAttributeList($this->_cache)
             ->addField('name', function($cache) {
-                return 'Policy hook cache';
+                return 'Mesh event hook cache';
             })
             ->addField('entries', function($cache) {
                 return $cache->count();

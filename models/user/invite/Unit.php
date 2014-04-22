@@ -138,7 +138,7 @@ class Unit extends axis\unit\table\Base {
             }
         }
 
-        $this->context->policy->triggerEntityEvent($invite, 'send');
+        $this->context->mesh->triggerEntityEvent($invite, 'send');
         return $invite;
     }
 
@@ -183,7 +183,7 @@ class Unit extends axis\unit\table\Base {
         $invite['lastSent'] = 'now';
         $invite->save();
 
-        $this->context->policy->triggerEntityEvent($invite, 'send');
+        $this->context->mesh->triggerEntityEvent($invite, 'send');
         return $invite;
     }
 
@@ -201,7 +201,7 @@ class Unit extends axis\unit\table\Base {
             ->where('email', '=', $invite['email'])
             ->execute();
 
-        $this->context->policy->triggerEntityEvent($invite, 'claim');
+        $this->context->mesh->triggerEntityEvent($invite, 'claim');
         return $this;
     }
 
