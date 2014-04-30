@@ -32,7 +32,7 @@ class Unit extends axis\unit\table\Base {
     }
 
     public function store(flow\mail\IMessage $message) {
-        $to = array();
+        $to = [];
 
         foreach($message->getToAddresses() as $address) {
             $to[] = (string)$address;

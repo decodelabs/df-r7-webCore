@@ -20,7 +20,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('verifyDate', 'DateTime')
             ->isNullable(true);
 
-        $schema->addPrimaryIndex('primary', array('user', 'email'));
+        $schema->addPrimaryIndex('primary', ['user', 'email']);
     }
 
     public function fetchEmailList(apex\models\user\client\Record $client) {

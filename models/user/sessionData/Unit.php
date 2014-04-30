@@ -21,6 +21,6 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('creationTime', 'Integer', 8);
         $schema->addField('updateTime', 'Integer', 8)->isNullable(true);
         
-        $schema->addPrimaryIndex('primary', array('namespace', 'key', 'internalId'));
+        $schema->addPrimaryIndex('primary', ['namespace', 'key', 'internalId']);
     }
 }

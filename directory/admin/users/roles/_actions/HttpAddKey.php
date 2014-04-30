@@ -55,10 +55,10 @@ class HttpAddKey extends arch\form\Action {
                 
         // Allow
         $fs->addFieldArea($this->_('Policy'))
-            ->addRadioButtonGroup('allow', $this->values->allow, array(
+            ->addRadioButtonGroup('allow', $this->values->allow, [
                 '1' => $this->_('Allow'),
                 '0' => $this->_('Deny')
-            ));
+            ]);
             
             
         // Buttons

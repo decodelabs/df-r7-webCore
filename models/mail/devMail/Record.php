@@ -22,7 +22,7 @@ class Record extends opal\record\Base implements flow\mail\IDevMailRecord {
     }
 
     public function getToAddresses() {
-        $output = array();
+        $output = [];
 
         foreach(explode(',', $this['to']) as $address) {
             $output[] = flow\mail\Address::factory($address);

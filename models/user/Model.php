@@ -84,12 +84,12 @@ class Model extends axis\Model implements user\IUserModel {
                 ->asMany('keys')
             ->orderBy('priority ASC');
 
-        $output = array();
+        $output = [];
 
         foreach($query as $role) {
             foreach($role['keys'] as $key) {
                 if(!isset($output[$key['domain']])) {
-                    $output[$key['domain']] = array();
+                    $output[$key['domain']] = [];
                 }
                 
                 $output[$key['domain']][$key['pattern']] = (bool)$key['allow'];

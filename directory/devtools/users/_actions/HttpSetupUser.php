@@ -128,35 +128,35 @@ class HttpSetupUser extends arch\form\Action {
         if($this->values->isValid()) {
             $model = $this->data->getModel('user');
             $client = $model->client->newRecord($this->values->toArray());
-            $auth = $model->auth->newRecord(array(
+            $auth = $model->auth->newRecord([
                 'user' => $client,
                 'adapter' => 'Local',
                 'identity' => $client['email'],
                 'password' => $this->data->hash($this->values['password'])
-            ));
+            ]);
             
-            $group = $model->group->newRecord(array(
+            $group = $model->group->newRecord([
                 'name' => 'Developers'
-            ));
+            ]);
             
             $client->groups->add($group);
             
-            $role = $model->role->newRecord(array(
+            $role = $model->role->newRecord([
                 'name' => 'Super user',
                 'minRequiredState' => user\IState::CONFIRMED,
                 'priority' => 99999
-            ));
+            ]);
             
             $group->roles->add($role);
             
             $auth->save();
             
-            $key = $model->key->newRecord(array(
+            $key = $model->key->newRecord([
                 'role' => $role['id'],
                 'domain' => '*',
                 'pattern' => '*',
                 'allow' => true
-            ));
+            ]);
             
             $key->save();
             $this->complete();

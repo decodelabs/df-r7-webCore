@@ -72,7 +72,7 @@ echo $this->html->attributeList($this['client'])
             return null;
         }
         
-        $output = array();
+        $output = [];
         
         foreach($groupList as $group) {
             $output[] = $this->import->component('GroupLink', '~admin/users/groups/', $group);

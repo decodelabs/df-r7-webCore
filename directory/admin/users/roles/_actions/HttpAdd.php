@@ -29,27 +29,27 @@ class HttpAdd extends arch\form\Action {
         // Bind state   
         $fs->addFieldArea($this->_('Bind state'))
             ->setDescription($this->_('If set, this role will apply to just-logged-in users with this state, regardless of whether they are attached to this role in any other way'))
-            ->addSelectList('bindState', $this->values->bindState, array(
+            ->addSelectList('bindState', $this->values->bindState, [
                 '' => $this->_('None'),
                 '-1' => $this->_('Deactivated'),
                 '0' => $this->_('Guest'),
                 '1' => $this->_('Pending activation'),
                 '2' => $this->_('Bound'),
                 '3' => $this->_('Bound and confirmed')
-            ));
+            ]);
 
 
         // Min required state   
         $fs->addFieldArea($this->_('Minimum required state'))
             ->setDescription($this->_('User\'s state must be equal to or higher than this value to aquire this role, no matter how they are attached to it'))
-            ->addSelectList('minRequiredState', $this->values->minRequiredState, array(
+            ->addSelectList('minRequiredState', $this->values->minRequiredState, [
                 '' => $this->_('None'),
                 '-1' => $this->_('Deactivated'),
                 '0' => $this->_('Guest'),
                 '1' => $this->_('Pending activation'),
                 '2' => $this->_('Bound'),
                 '3' => $this->_('Bound and confirmed')
-            ));
+            ]);
             
 
         // Priority

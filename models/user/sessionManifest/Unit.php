@@ -14,7 +14,7 @@ use df\user;
 class Unit extends axis\unit\table\Base implements user\session\IBackend {
 
     protected $_lifeTime = 86400; // 24 hours
-    protected $_dataTransactions = array();
+    protected $_dataTransactions = [];
 
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('internalId', 'String', 40);

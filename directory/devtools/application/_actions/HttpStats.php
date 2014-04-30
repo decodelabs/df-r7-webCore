@@ -22,21 +22,21 @@ class HttpStats extends arch\Action {
         
         foreach($packages as $name => $package) {
             $location = $package->path;
-            $blackList = array();
+            $blackList = [];
             
             switch($name) {
                 case 'app':
-                    $blackList = array(
+                    $blackList = [
                         $location.'/data',
                         $location.'/static'
-                    );
+                    ];
                     
                     break;
                     
                 case 'root':
-                    $blackList = array(
+                    $blackList = [
                         $location.'/base/libraries/core/i18n/module/cldr',
-                    );
+                    ];
                     
                     break;
             }

@@ -34,7 +34,7 @@ echo $this->html->attributeList($this['role'])
             return null;
         }
         
-        $output = array();
+        $output = [];
         
         foreach($groupList as $group) {
             $output[] = $this->import->component('GroupLink', '~admin/users/groups/', $group);
@@ -66,7 +66,7 @@ echo $this->html->collectionList($this['keyList'])
     
     // Actions
     ->addField('actions', function($row) {
-        return array(
+        return [
             $this->html->link(
                     $this->uri->request('~admin/users/roles/edit-key?key='.$row['id'], true),
                     $this->_('Edit')
@@ -80,5 +80,5 @@ echo $this->html->collectionList($this['keyList'])
                 )
                 ->setIcon('delete')
                 ->addAccessLock('axis://user/Key#delete')
-        );
+        ];
     });

@@ -43,7 +43,7 @@ class MenuList extends arch\component\template\CollectionList {
 // Packages
     public function addPackagesField($list) {
         $list->addField('packages', function($menu) {
-            $output = array();
+            $output = [];
 
             foreach($menu->getDelegates() as $delegate) {
                 $idString = $delegate->getId()->path->toString();

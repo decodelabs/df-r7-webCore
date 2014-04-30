@@ -42,13 +42,13 @@ abstract class EditorBase extends arch\form\Action {
                 
         // Status
         $fs->addFieldArea($this->_('Status'))
-            ->addSelectList('status', $this->values->status, array(
+            ->addSelectList('status', $this->values->status, [
                     -1 => $this->_('Deactivated'),
                     0 => $this->_('Guest'),
                     1 => $this->_('Pending'),
                     2 => $this->_('Bound'),
                     3 => $this->_('Confirmed')
-                ))
+                ])
                 ->isRequired(true);
         
                 

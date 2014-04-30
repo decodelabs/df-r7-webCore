@@ -31,7 +31,7 @@ echo $this->html->collectionList($this['packageList'])
         $status = $package['repo']->getCommitStatus();
 
         $hasChanges = false;
-        $output = array();
+        $output = [];
 
         if($status->hasTracked()) {
             $output[] = $this->html->icon('edit', $status->countTracked());

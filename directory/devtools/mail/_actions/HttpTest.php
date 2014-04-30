@@ -44,7 +44,7 @@ class HttpTest extends arch\form\Action {
 
 
         // Transport
-        $transportList = array();
+        $transportList = [];
 
         foreach(flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
             $transportList[$name] = $name.' - '.$description;
