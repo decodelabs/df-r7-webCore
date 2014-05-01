@@ -42,7 +42,14 @@ $this->view
             $this->html->link('~devtools/', $this->_('Devtools'))
                 ->setIcon('debug')
                 ->isActive($this->context->request->isArea('devtools'))
-        );
+        )
+        ->chainIf(!$this->context->application->isProduction(), function($menu) {
+            $menu->addLinks(
+                $this->html->link('~ui/', $this->_('UI testing'))
+                    ->setIcon('theme')
+                    ->isActive($this->context->request->isArea('ui'))
+            );
+        });
     ?>
     </footer>
 </div>
