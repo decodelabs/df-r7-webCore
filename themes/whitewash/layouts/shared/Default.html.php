@@ -1,7 +1,7 @@
 <?php
 $this->view
     ->linkCss($this->uri->themeAsset('css/screen.css'))
-    ->linkFootJs(
+    ->linkJs(
         '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', null, null, 
         'window.jQuery || document.write(\'<script src="'.$this->uri->themeAsset('js/libs/jquery-1.8.3.min.js').'"><\/script>\')'
     )
