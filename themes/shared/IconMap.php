@@ -64,7 +64,7 @@ return [
     'element' => '&#xe068;',
     'help' => '&#xe023;',
     'milestone' => '&#xe024;',
-    //'target-2' => '&#xe025;',
+    'target' => '&#xe025;',
     'mail' => '&#xe026;',
     'picture' => '&#xe027;',
     'image' => '&#xe027;',
