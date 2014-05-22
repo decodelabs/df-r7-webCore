@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\system\accessErrors;
+namespace df\apex\directory\admin\system\criticalErrors;
 
 use df;
 use df\core;
@@ -13,9 +13,9 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     
-    const DIRECTORY_TITLE = 'Access error logs';
-    const DIRECTORY_ICON = 'lock';
-    const RECORD_ADAPTER = 'axis://log/AccessError';
+    const DIRECTORY_TITLE = 'Critical error logs';
+    const DIRECTORY_ICON = 'bug';
+    const RECORD_ADAPTER = 'axis://log/CriticalError';
     const RECORD_NAME_KEY = 'date';
     const RECORD_KEY_NAME = 'error';
 
@@ -25,7 +25,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     protected $_recordListFields = [
         'date' => true,
         'mode' => true,
-        'code' => true,
         'request' => true,
         'message' => true,
         'user' => true,
@@ -37,13 +36,40 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         'date' => true,
         'user' => true,
         'mode' => true,
-        'code' => true,
+        'file' => true,
         'request' => true,
         'query' => true,
         'userAgent' => true,
+        'frequency' => true,
+        'exceptionType' => true,
         'message' => true
     ];
 
+
+// Actions
+    public function renderDetailsSectionBody($record) {
+        $output = parent::renderDetailsSectionBody($record);
+
+        if($record['stackTrace']) {
+            $trace = json_decode($record['stackTrace'], true);
+
+            $output = [
+                $output,
+                $this->html->element('h3', $this->_('Stack trace')),
+                $this->html->collectionList($trace)
+                    ->addField('file', function($call) {
+                        if($call['file']) {
+                            return $this->html->element('code', $call['file'].' : '.$call['line']);
+                        }
+                    })
+                    ->addField('signature', function($call) {
+                        return $this->html->element('code', $call['signature']);
+                    })
+            ];
+        }
+
+        return $output;
+    }
 
 // Record data
     protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
@@ -51,7 +77,26 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     protected function _describeRecord($record) {
-        return $record['mode'].' '.$record['code'].' - '.$this->format->date($record['date']);
+        return $record['mode'].' '.$this->format->date($record['date']);
+    }
+
+    public function getRecordDeleteFlags() {
+        return [
+            'allInstances' => $this->_('Delete all instances of this error')
+        ];
+    }
+
+    public function deleteRecord(opal\record\IRecord $record, array $flags=[]) {
+        $record->delete();
+
+        if($flags['allInstances']) {
+            $this->data->log->criticalError->delete()
+                ->where('exceptionType', '=', $record['exceptionType'])
+                ->where('message', '=', $record['message'])
+                ->execute();
+        }
+
+        return $this;
     }
 
 
@@ -59,13 +104,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexHeaderBarOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~admin/system/access-errors/delete-all', true),
+                    $this->uri->request('~admin/system/critical-errors/delete-all', true),
                     $this->_('Delete all errors')
                 )
                 ->setIcon('delete')
         );
     }
-
 
 // Fields
     public function describeModeField($list, $mode) {
@@ -78,18 +122,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     $this->html->element('sup', '('.($error['isProduction'] ? $this->_('production') : $this->_('testing')).')')
                         ->addClass($error['isProduction'] ? 'state-error' : 'state-warning')
                 ];
-            }
-
-            return $output;
-        });
-    }
-
-    public function describeCodeField($list, $mode) {
-        $list->addField('code', function($error) use($mode) {
-            $output = $error['code'];
-
-            if($mode != 'list') {
-                $output = $this->http->statusCodeToString($output);
             }
 
             return $output;
@@ -184,6 +216,20 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function describeUserAgentField($list) {
         $list->addField('userAgent', function($error) {
             return $this->html->element('code', $error['userAgent']);
+        });
+    }
+
+    public function describeFrequencyField($list) {
+        $list->addField('frequency', function($error) {
+            return $this->_('This error has been seen %n% times', ['%n%' => $error->fetchFrequency()]);
+        });
+    }
+
+    public function describeFileField($list) {
+        $list->addField('file', function($error) {
+            if($file = $error['file']) {
+                return $this->html->element('code', $file.' : '.$error['line']);
+            }
         });
     }
 }
