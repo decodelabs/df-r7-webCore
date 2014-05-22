@@ -49,6 +49,18 @@ class Record extends opal\record\Base implements user\IActiveClientDataObject {
         $regenTask->addDependency($task);
     }
 
+    protected function _onPreDelete($taskSet, $task) {
+        $id = $this['id'];
+        $unit = $this->getRecordAdapter();
+
+        $localTask = $taskSet->addRawQuery('deleteAuths',
+            $unit->getModel()->auth->delete()
+                ->where('user', '=', $id)
+        );
+
+        $localTask->addDependency($task);
+    }
+
     public function getId() {
         return $this['id'];
     }
