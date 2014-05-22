@@ -1,22 +1,24 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\system\_menus;
+namespace df\apex\directory\admin\system;
 
 use df;
 use df\core;
 use df\apex;
 use df\arch;
-use df\axis;
-    
-class Index_WebCore extends arch\navigation\menu\Base {
 
-    protected function _createEntries(arch\navigation\IEntryList $entryList) {
-        $criticalErrorCount = axis\Model::loadUnitFromId('log/criticalError')->select()->count();
-        $notFoundCount = axis\Model::loadUnitFromId('log/notFound')->select()->count();
-        $accessErrorCount = axis\Model::loadUnitFromId('log/accessError')->select()->count();
+class HttpScaffold extends arch\scaffold\template\AreaMenu {
+    
+    const DIRECTORY_TITLE = 'System';
+    const DIRECTORY_ICON = 'controlPanel';
+
+    public function generateIndexMenu($entryList) {
+        $criticalErrorCount = $this->data->log->criticalError->select()->count();
+        $notFoundCount = $this->data->log->notFound->select()->count();
+        $accessErrorCount = $this->data->log->accessError->select()->count();
 
         $entryList->addEntries(
             $entryList->newLink('~admin/system/critical-errors/', 'Critical errors ('.$criticalErrorCount.')')

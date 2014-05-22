@@ -58,8 +58,6 @@ class UserLink extends arch\component\template\RecordLink {
 
 // Url
     protected function _getRecordUrl($id) {
-        if($this->directory->actionExists('~/users/clients/details')) {
-            return '~/users/clients/details?user='.$id;
-        }
+        return '~/users/clients/details?user='.$id;
     }
 }

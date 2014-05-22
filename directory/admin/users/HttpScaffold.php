@@ -1,18 +1,21 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\users\_menus;
+namespace df\apex\directory\admin\users;
 
 use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
-class Index_WebCore extends arch\navigation\menu\Base {
 
-    protected function _createEntries(arch\navigation\IEntryList $entryList) {
+class HttpScaffold extends arch\scaffold\template\AreaMenu {
+    
+    const DIRECTORY_TITLE = 'User management';
+    const DIRECTORY_ICON = 'user';
+
+    public function generateIndexMenu($entryList) {
         $entryList->addEntries(
             $entryList->newLink('~admin/users/clients/', 'All users')
                 ->setId('clients')
