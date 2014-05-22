@@ -26,7 +26,7 @@ class HttpRebuildTable extends arch\form\template\Confirm {
         }
 
         if($this->_inspector->getType() != 'table') {
-            $this->throwError(401, 'Unit not a table');
+            $this->throwError(403, 'Unit not a table');
         }
     }
 
