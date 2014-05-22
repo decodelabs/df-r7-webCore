@@ -53,7 +53,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
 // Components
-    public function addIndexHeaderBarTransitiveLinks($menu, $bar) {
+    public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
                     '~admin/users/clients/',

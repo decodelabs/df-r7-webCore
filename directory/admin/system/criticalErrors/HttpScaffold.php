@@ -101,7 +101,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Components
-    public function addIndexHeaderBarOperativeLinks($menu, $bar) {
+    public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
                     $this->uri->request('~admin/system/critical-errors/delete-all', true),

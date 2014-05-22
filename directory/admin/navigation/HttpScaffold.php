@@ -25,7 +25,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
         );
     }
 
-    public function addIndexHeaderBarOperativeLinks($menu) {
+    public function addIndexOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
                     $this->uri->request('~admin/navigation/refresh', true),

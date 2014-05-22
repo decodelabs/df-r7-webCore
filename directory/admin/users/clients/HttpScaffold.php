@@ -78,7 +78,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Components
-    public function addIndexHeaderBarSubOperativeLinks($menu, $bar) {
+    public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
                     $this->uri->request('~admin/users/settings', true),
@@ -89,7 +89,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         );
     }
 
-    public function addIndexHeaderBarTransitiveLinks($menu, $bar) {
+    public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link('~admin/users/groups/', $this->_('Groups'))
                 ->setIcon('group')
@@ -105,7 +105,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         );
     }
 
-    public function addDetailsSectionHeaderBarSubOperativeLinks($menu, $bar) {
+    public function addDetailsSectionSubOperativeLinks($menu, $bar) {
         if($this->_record->hasLocalAuth()) {
             $menu->addLinks(
                 // Change password
@@ -117,16 +117,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->setDisposition('operative')
             );
         }
-
-        /*
-        if($this->slot->has('subOperativeLinks')) {
-            $menu->addLinks($this->slot->getValue('subOperativeLinks'));
-        }
-        */
     }
 
-    public function addAuthenticationSectionHeaderBarSubOperativeLinks($menu, $bar) {
-        $this->addDetailsSectionHeaderBarSubOperativeLinks($menu, $bar);
+    public function addAuthenticationSectionSubOperativeLinks($menu, $bar) {
+        $this->addDetailsSectionSubOperativeLinks($menu, $bar);
     }
 
 
