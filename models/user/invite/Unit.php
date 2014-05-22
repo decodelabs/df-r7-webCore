@@ -206,22 +206,28 @@ class Unit extends axis\unit\table\Base {
     }
 
     public function getClientAllowance() {
+        $cap = $this->getClientCap();
+
+        if(!$cap || $this->context->user->canAccess('virtual://unlimited-invites')) {
+            return null;
+        }
+        
         $output = $this->context->user->getClientOption(self::INVITE_OPTION);
 
         if($output !== null) {
             return $output;
         }
 
-        $cap = $this->getClientCap();
-
-        if(!$cap || $this->context->user->canAccess('virtual://unlimited-invites')) {
-            return null;
-        }
-
         return $cap;
     }
 
     public function getUserAllowance($userId) {
+        $cap = $this->getUserCap($userId);
+
+        if(!$cap) {
+            return null;
+        }
+
         $model = $this->getModel();
         $output = $model->option->fetchOption($userId, self::INVITE_OPTION);
 
@@ -229,22 +235,24 @@ class Unit extends axis\unit\table\Base {
             return $output;
         }
 
-        $cap = $this->getUserCap($userId);
-
-        if(!$cap) {
-            return null;
-        }
-
         return $cap;
     }
 
     public function getClientCap() {
+        if(!$this->_model->config->hasInviteCap()) {
+            return null;
+        }
+
         return $this->_getCap(
             $this->context->user->client->getGroupIds()
         );
     }
 
     public function getUserCap($userId) {
+        if(!$this->_model->config->hasInviteCap()) {
+            return null;
+        }
+
         return $this->_getCap(
             $this->_model->client->getBridgeUnit('groups')->select('group')
                 ->where('client', '=', $userId)

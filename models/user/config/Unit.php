@@ -124,4 +124,9 @@ class Unit extends axis\unit\config\Base {
     public function getInviteGroupCaps() {
         return $this->values->inviteGroupCap->toArray();
     }
+
+    public function hasInviteCap() {
+        return $this->values['inviteCap'] !== null
+            || !$this->values->inviteGroupCap->isEmpty();
+    }
 }
