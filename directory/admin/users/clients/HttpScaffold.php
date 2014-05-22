@@ -171,7 +171,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Fields
-    public function describeEmailField($list, $mode) {
+    public function defineEmailField($list, $mode) {
         if($mode == 'details') {
             $list->addField('email', function($client) {
                 $emailList = $this->data->user->emailVerify->fetchEmailList($client);
@@ -194,7 +194,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         }
     }
 
-    public function describeStatusField($list, $mode) {
+    public function defineStatusField($list, $mode) {
         $list->addField('status', function($client, $context) use($mode) {
             if($client['status'] == user\IState::DEACTIVATED) {
                 if($mode == 'list') {
@@ -210,7 +210,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeDeactivationField($list, $mode) {
+    public function defineDeactivationField($list, $mode) {
         if($mode != 'details') {
             return;
         }
@@ -240,7 +240,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeLoginDateField($list, $mode) {
+    public function defineLoginDateField($list, $mode) {
         $list->addField('loginDate', $mode == 'list' ? $this->_('Login') : $this->_('Last login'), function($client) {
             if($client['loginDate']) {
                 return $this->html->timeSince($client['loginDate']);
@@ -248,7 +248,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeCountryField($list, $mode) {
+    public function defineCountryField($list, $mode) {
         $list->addField('country', function($client) use($mode) {
             $output = $this->context->i18n->countries->getName($client['country']);
 
@@ -262,19 +262,19 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeLanguageField($list) {
+    public function defineLanguageField($list) {
         $list->addField('language', function($client) {
             return $this->context->i18n->languages->getName($client['language']);
         });
     }
 
-    public function describeTimezoneField($list) {
+    public function defineTimezoneField($list) {
         $list->addField('timezone', function($client) {
             return $this->context->i18n->timezones->getName($client['timezone']);
         });
     }
 
-    public function describeGroupsField($list, $mode) {
+    public function defineGroupsField($list, $mode) {
         $list->addField('groups', function($client) use($mode) {
             if($mode == 'list') {
                 return $client['groups'];

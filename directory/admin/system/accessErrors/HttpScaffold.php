@@ -68,7 +68,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Fields
-    public function describeModeField($list, $mode) {
+    public function defineModeField($list, $mode) {
         $list->addField('mode', function($error) use($mode) {
             $output = $error['mode'];
 
@@ -84,7 +84,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeCodeField($list, $mode) {
+    public function defineCodeField($list, $mode) {
         $list->addField('code', function($error) use($mode) {
             $output = $error['code'];
 
@@ -96,7 +96,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeRequestField($list, $mode) {
+    public function defineRequestField($list, $mode) {
         $list->addField('request', function($error) use($mode) {
             if(!$error['request']) {
                 return;
@@ -110,7 +110,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeQueryField($list) {
+    public function defineQueryField($list) {
         $list->addField('queryData', function($error) {
             if(!$error['request']) {
                 return;
@@ -122,11 +122,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 return;
             }
 
-            return $this->_describeQueryNode($query);
+            return $this->_defineQueryNode($query);
         });
     }
 
-    protected function _describeQueryNode($node) {
+    protected function _defineQueryNode($node) {
         $list = $this->html->attributeList($node);
 
         foreach($node->getKeys() as $key) {
@@ -145,7 +145,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 }
 
                 if(count($node)) {
-                    $output[] = $this->_describeQueryNode($node);
+                    $output[] = $this->_defineQueryNode($node);
                 }
 
                 return $output;
@@ -155,7 +155,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return $list;
     }
 
-    public function describeMessageField($list, $mode) {
+    public function defineMessageField($list, $mode) {
         $list->addField('message', function($error) use($mode) {
             $output = $error['message'];
 
@@ -167,7 +167,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeUserField($list) {
+    public function defineUserField($list) {
         $list->addField('user', function($error) {
             return $this->import->component('UserLink', '~admin/users/clients/', $error['user'])
                 ->isNullable(true)
@@ -175,13 +175,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function describeIsProductionField($list) {
+    public function defineIsProductionField($list) {
         $list->addField('isProduction', $this->_('Prod.'), function($error) {
             return $this->html->booleanIcon($error['isProduction']);
         });
     }
 
-    public function describeUserAgentField($list) {
+    public function defineUserAgentField($list) {
         $list->addField('userAgent', function($error) {
             return $this->html->element('code', $error['userAgent']);
         });

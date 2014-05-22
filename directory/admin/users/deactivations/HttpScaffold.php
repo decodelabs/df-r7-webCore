@@ -66,7 +66,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Fields
-    public function describeCommentsField($list) {
+    public function defineCommentsField($list) {
         $list->addField('comments', function($deactivation) {
             return $this->html->plainText($deactivation['comments']);
         });
