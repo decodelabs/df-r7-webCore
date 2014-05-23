@@ -22,7 +22,7 @@ if(window.XMLHttpRequest) {
 }
 </script>
 
-<code style="display: block; margin-bottom: 2em; border:2px solid #DDD; padding:10px; width:800px; height:400px; overflow:auto; background:#FAFAFA; border-radius: 0.7em;" id="divProgress"></code>
+<code style="display: block; margin-bottom: 2em; border:2px solid #DDD; padding:10px; width:auto; height:400px; overflow:auto; background:#FAFAFA; border-radius: 0.7em;" id="divProgress"></code>
 
 <div style="display: block;">
 <?php
