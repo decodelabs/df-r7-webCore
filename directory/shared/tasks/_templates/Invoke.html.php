@@ -22,6 +22,12 @@ if(window.XMLHttpRequest) {
 }
 </script>
 
+<?php
+echo $this->html->flashMessage($this->_(
+    'Do not browse away from this page while the task is processing otherwise you will not be able to track progress'
+), 'warning');
+?>
+
 <code style="display: block; margin-bottom: 2em; border:2px solid #DDD; padding:10px; width:auto; height:400px; overflow:auto; background:#FAFAFA; border-radius: 0.7em;" id="divProgress"></code>
 
 <div style="display: block;">
