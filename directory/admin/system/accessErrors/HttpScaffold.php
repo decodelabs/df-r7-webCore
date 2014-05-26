@@ -167,14 +167,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function defineUserField($list) {
-        $list->addField('user', function($error) {
-            return $this->import->component('UserLink', '~admin/users/clients/', $error['user'])
-                ->isNullable(true)
-                ->setDisposition('transitive');
-        });
-    }
-
     public function defineIsProductionField($list) {
         $list->addField('isProduction', $this->_('Prod.'), function($error) {
             return $this->html->booleanIcon($error['isProduction']);
