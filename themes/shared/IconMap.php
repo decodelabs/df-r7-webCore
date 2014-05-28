@@ -53,6 +53,7 @@ return [
     'form' => '&#xe01e;',
     'publish' => '&#xe01e;',
     'session' => '&#xe01e;',
+    'archive' => '&#xe01e;',
     'launch' => '&#xe01f;',
     'legacy' => '&#xe020;',
     'task' => '&#xe020;',
