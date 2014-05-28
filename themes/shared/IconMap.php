@@ -114,6 +114,7 @@ return [
     'heart-empty' => '&#xe041;',
     'heart-full' => '&#xe042;',
     'heart' => '&#xe042;',
+    'favorite' => '&#xe042;',
     'bookmark' => '&#xe042;',
     'inbox' => '&#xe043;',
     'outbox' => '&#xe044;',
