@@ -536,7 +536,8 @@ button span[data-icon]:before {
 }
 
 .widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea > .widget-label,
-.widget-fieldArea > .widget-inputArea > .widget-fieldArea > .widget-label {
+.widget-fieldArea > .widget-inputArea > .widget-fieldArea > .widget-label,
+.widget-fieldArea .widget-fieldArea .widget-labelArea {
     text-align: left;
     width: auto;
     float: none;
