@@ -537,7 +537,8 @@ button span[data-icon]:before {
 
 .widget-fieldArea > .widget-inputArea > .fire-block > .widget-fieldArea > .widget-label,
 .widget-fieldArea > .widget-inputArea > .widget-fieldArea > .widget-label,
-.widget-fieldArea .widget-fieldArea .widget-labelArea {
+.fire-block > .widget-fieldArea > .widget-labelArea,
+.fire-block > .widget-fieldSet > .body > .widget-fieldArea > .widget-labelArea {
     text-align: left;
     width: auto;
     float: none;
@@ -551,11 +552,11 @@ button span[data-icon]:before {
     margin: 0.3em 0 0 0;
 }
 
-.fire-block .widget-fieldSet .widget-labelArea {
+.fire-block > .widget-fieldSet > .body > .widget-fieldArea > .widget-labelArea {
     margin-bottom: 0.4em;
 }
 
-.fire-block .widget-fieldSet .widget-inputArea {
+.fire-block > .widget-fieldSet > .body > .widget-fieldArea > .widget-inputArea {
     margin-left: 0;
 }
 
