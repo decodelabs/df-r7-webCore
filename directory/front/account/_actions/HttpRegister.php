@@ -55,6 +55,10 @@ class HttpRegister extends arch\form\Action {
         }
     }
 
+    public function getInvite() {
+        return $this->_invite;
+    }
+
     protected function _getDataId() {
         if($this->_invite) {
             return $this->_invite['key'];
