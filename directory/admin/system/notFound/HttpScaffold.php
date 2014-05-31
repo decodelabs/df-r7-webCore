@@ -176,6 +176,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
+    public function defineUserField($list, $mode) {
+        $list->addField('user', function($error) {
+            return $this->import->component('UserLink', '~admin/users/clients/', $error['user'])
+                ->isNullable(true)
+                ->setDisposition('transitive');
+        });
+    }
+
     public function defineReferrerField($list) {
         $list->addField('referrer', function($error) {
             if($referrer = $error['referrer']) {
