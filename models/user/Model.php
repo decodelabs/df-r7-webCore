@@ -44,14 +44,8 @@ class Model extends axis\Model implements user\IUserModel {
         $query = $this->role->select('id');
         
         if($state >= user\IState::BOUND && $id !== null) {
-            $groupBridge = $this->group->getUnitSchema()
-                ->getField('roles')
-                ->getBridgeUnit($this->_application);
-                
-            $clientBridge = $this->client->getUnitSchema()
-                ->getField('groups')
-                ->getBridgeUnit($this->_application);
-
+            $groupBridge = $this->group->getBridgeUnit('roles');
+            $clientBridge = $this->client->getBridgeUnit('groups');
 
             $query
                 ->wherePrerequisite('minRequiredState', '<=', $state)
