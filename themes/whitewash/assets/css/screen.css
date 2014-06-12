@@ -619,12 +619,14 @@ button span[data-icon]:before {
 
 
 .widget-radioButtonGroup label, 
-.widget-checkboxGroup label {
+.widget-checkboxGroup label,
+.widget-checkboxList label {
     display: block;
 }
 
 .widget-radioButtonGroup.inline label,
-.widget-checkboxGroup.inline label {
+.widget-checkboxGroup.inline label,
+.widget-checkboxList.inline label {
     display: inline-block;
     margin-right: 1em;
 }
