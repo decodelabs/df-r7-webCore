@@ -20,7 +20,7 @@ class HttpTableData extends arch\Action {
         $view = $this->aura->getView('TableData.html');
         $this->controller->fetchUnit($view, 'table');
 
-        $view['schema'] = $view['unit']->getSchema();
+        $view['schema'] = $view['unit']->getTransientSchema();
         $primitives = [];
 
         foreach($view['schema']->getFields() as $name => $field) {
@@ -41,10 +41,12 @@ class HttpTableData extends arch\Action {
 
         $view['primitives'] = $primitives;
 
-        $view['rowList'] = $view['unit']->getUnit()->getUnitAdapter()->getQuerySourceAdapter()->select()
-            ->paginate()
-                ->setOrderableFields(array_keys($primitives))
-                ->applyWith($this->request->query);
+        if($view['unit']->storageExists()) {
+            $view['rowList'] = $view['unit']->getUnit()->getUnitAdapter()->getQuerySourceAdapter()->select()
+                ->paginate()
+                    ->setOrderableFields(array_keys($primitives))
+                    ->applyWith($this->request->query);
+        }
 
         return $view;
     }

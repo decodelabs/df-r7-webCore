@@ -73,6 +73,12 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
             ->addField('connection', function($inspector) {
                 return $inspector->getAdapterConnectionName();
             });
+
+        $container->push(
+            $this->html->checkbox('allClusters', $this->values->allClusters, $this->_(
+                'Delete backups in all clusters'
+            ))
+        );
     }
 
     protected function _getMainButtonText() {
@@ -84,11 +90,17 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
     }
 
     protected function _apply() {
-        $view = $this->aura->getView('UnitTaskResult.html');
-        $view['unit'] = $this->_inspector;
-        $view['title'] = $this->_('Backup purge');
-        $view['result'] = halo\process\Base::launchTask('axis/purge-table-backups?unit='.$this->_inspector->getId());
+        $validator = $this->data->newValidator()
+            ->addField('allClusters', 'boolean')
+                ->end()
+            ->validate($this->values);
 
-        return $view;
+        $task = 'axis/purge-table-backups?unit='.$this->_inspector->getId();
+
+        if($validator['allClusters']) {
+            $task .= '&allClusters';
+        }
+
+        return $this->directory->getComponent('Invoke', '~/tasks/', $task);
     }
 }

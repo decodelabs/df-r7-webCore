@@ -84,12 +84,7 @@ class HttpRebuildTable extends arch\form\template\Confirm {
     }
 
     protected function _apply() {
-        $view = $this->aura->getView('UnitTaskResult.html');
-        $view['unit'] = $this->_inspector;
-        $view['title'] = $this->_('Rebuild table');
-        $view['result'] = halo\process\Base::launchTask('axis/rebuild-table?unit='.$this->_inspector->getId());
-        axis\schema\Cache::getInstance($this->application)->clear();
-
-        return $view;
+        $task = 'axis/rebuild-table?unit='.$this->_inspector->getGlobalId();
+        return $this->directory->getComponent('Invoke', '~/tasks/', $task);
     }
 }

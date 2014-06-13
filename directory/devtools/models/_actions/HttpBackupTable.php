@@ -80,11 +80,7 @@ class HttpBackupTable extends arch\form\template\Confirm {
     }
 
     protected function _apply() {
-        $view = $this->aura->getView('UnitTaskResult.html');
-        $view['unit'] = $this->_inspector;
-        $view['title'] = $this->_('Backup table');
-        $view['result'] = halo\process\Base::launchTask('axis/backup-table?unit='.$this->_inspector->getId());
-
-        return $view;
+        $task = 'axis/backup-table?unit='.$this->_inspector->getId();
+        return $this->directory->getComponent('Invoke', '~/tasks/', $task);
     }
 }

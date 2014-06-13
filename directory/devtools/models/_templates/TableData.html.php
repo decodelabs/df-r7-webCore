@@ -4,7 +4,15 @@ use df\opal;
 
 echo $this->import->component('UnitDetailHeaderBar', '~devtools/models/', $this['unit']);
 
-$list = $this->html->collectionList($this['rowList'])
+if(null === ($rowList = $this['rowList'])) {
+    echo $this->html->flashMessage($this->_(
+        'No storage exists for this unit'
+    ), 'warning');
+
+    return;
+}
+
+$list = $this->html->collectionList($rowList)
     ->setErrorMessage($this->_('This storage unit is currently empty'));
 
 foreach($this['primitives'] as $primitive) {

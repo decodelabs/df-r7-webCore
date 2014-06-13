@@ -18,7 +18,13 @@ class HttpController extends arch\Controller {
 
     public function fetchUnit($view, $type=null) {
         $probe = new axis\introspector\Probe($this->application);
-        $view['unit'] = $probe->inspectUnit($this->request->query['unit']);
+        $unitId = $this->request->query['unit'];
+
+        if($clusterId = $this->request->query['cluster']) {
+            $unitId = $clusterId.':'.$unitId;
+        }
+
+        $view['unit'] = $probe->inspectUnit($unitId);
 
         if($type !== null) {
             if($view['unit']->getType() != $type) {

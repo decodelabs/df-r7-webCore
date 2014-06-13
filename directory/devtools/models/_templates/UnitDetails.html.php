@@ -2,6 +2,12 @@
 
 echo $this->import->component('UnitDetailHeaderBar', '~devtools/models/', $this['unit']);
 
+if(!$this['unit']->storageExists()) {
+    echo $this->html->flashMessage($this->_(
+        'No storage exists for this unit'
+    ), 'warning');
+}
+
 echo $this->html->attributeList($this['unit'])
     
     // Id
