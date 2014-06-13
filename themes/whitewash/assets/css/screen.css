@@ -989,7 +989,6 @@ td > p:last-child {
     border-radius: 0.7em;
     margin-bottom: 1.2em;
     font-size: 0.9em;
-    overflow: auto;
 }
 
 .widget-headerBar > h2 {
@@ -1051,9 +1050,17 @@ td > p:last-child {
 }
 
 .widget-headerBar > .widget-selectorArea {
-    float: right;
+    right: 5em;
+    position: absolute;
     margin-top: -2em;
-    margin-right: 2em;
+}
+
+.widget-selectorArea form {
+    margin-bottom: 0;
+}
+
+.widget-menuBar.primary + .widget-selectorArea {
+    margin-top: -2.3em;
 }
 
 .widget-headerBar > .widget-selectorArea .widget-fieldArea {
