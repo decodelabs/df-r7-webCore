@@ -79,7 +79,10 @@ class Unit extends axis\unit\table\Base {
             $query->leftJoinRelation($relationField, 'id as '.$relationField.'Id', 'fullName as '.$relationField.'Name')
                 ->combine($relationField.'Id as id', $relationField.'Name as fullName')
                     ->nullOn('id')
-                    ->asOne($relationField);
+                    ->asOne($relationField)
+                ->paginate()
+                    ->addOrderableFields($relationField.'Name')
+                    ->end();
         } else {
             $query->populateSelect($relationField, 'id', 'fullName');
         }
