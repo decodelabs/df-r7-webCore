@@ -91,7 +91,9 @@ article + article {
 
 
 
-
+html {
+    min-width: 580px;
+}
 
 body {
     font-family: "Helvetica", "Helvetica Neue", Arial, sans-serif;
@@ -987,6 +989,7 @@ td > p:last-child {
     border-radius: 0.7em;
     margin-bottom: 1.2em;
     font-size: 0.9em;
+    overflow: auto;
 }
 
 .widget-headerBar > h2 {
@@ -1047,11 +1050,15 @@ td > p:last-child {
     */
 }
 
-/*
-.widget-headerBar > .widget-menuBar.secondary a {
-    color: #666;
+.widget-headerBar > .widget-selectorArea {
+    float: right;
+    margin-top: -2em;
+    margin-right: 2em;
 }
-*/
+
+.widget-headerBar > .widget-selectorArea .widget-fieldArea {
+    background: none;
+}
 
 
 
