@@ -23,7 +23,7 @@ class HttpTest extends arch\form\Action {
     protected function _setDefaultValues() {
         $this->values->transport = flow\mail\transport\Base::getDefaultTransportName();
 
-        $config = flow\mail\Config::getInstance($this->getApplication());
+        $config = flow\mail\Config::getInstance();
         $from = flow\mail\Address::factory($config->getDefaultAddress());
 
         $this->values->fromName = $from->getName();
@@ -35,7 +35,7 @@ class HttpTest extends arch\form\Action {
             $this->values->toAddress = $client->getEmail();
         }
 
-        $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->getApplication()->getName()]);
+        $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->application->getName()]);
     }
 
     protected function _createUi() {

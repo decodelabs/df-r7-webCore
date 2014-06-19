@@ -20,7 +20,7 @@ class HttpHooks extends arch\form\template\Delete {
     protected $_cache;
 
     protected function _init() {
-        $this->_cache = mesh\event\HookCache::getInstance($this->application);
+        $this->_cache = mesh\event\HookCache::getInstance();
     }
 
     protected function _renderItemDetails($container) {

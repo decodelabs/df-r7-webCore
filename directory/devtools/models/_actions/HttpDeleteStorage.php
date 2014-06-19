@@ -21,7 +21,7 @@ class HttpDeleteStorage extends arch\form\template\Delete {
     protected $_describer;
 
     protected function _init() {
-        $probe = new axis\introspector\Probe($this->application);
+        $probe = new axis\introspector\Probe();
         $this->_unit = $probe->inspectUnit($this->request->query['unit']);
 
         if(!$this->_unit) {

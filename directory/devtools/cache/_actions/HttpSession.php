@@ -21,8 +21,8 @@ class HttpSession extends arch\form\template\Delete {
     protected $_shellCache;
 
     protected function _init() {
-        $this->_cache = user\session\Cache::getInstance($this->application);
-        $this->_shellCache = user\session\perpetuator\Shell_Cache::getInstance($this->application);
+        $this->_cache = user\session\Cache::getInstance();
+        $this->_shellCache = user\session\perpetuator\Shell_Cache::getInstance();
     }
 
     protected function _renderItemDetails($container) {

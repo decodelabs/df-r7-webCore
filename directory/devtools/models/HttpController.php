@@ -17,7 +17,7 @@ class HttpController extends arch\Controller {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function fetchUnit($view, $type=null) {
-        $probe = new axis\introspector\Probe($this->application);
+        $probe = new axis\introspector\Probe();
         $unitId = $this->request->query['unit'];
 
         if($clusterId = $this->request->query['cluster']) {

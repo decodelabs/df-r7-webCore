@@ -19,7 +19,7 @@ class HttpAxis extends arch\form\Action {
     protected $_cache;
 
     protected function _init() {
-        $this->_cache = axis\schema\Cache::getInstance($this->application);
+        $this->_cache = axis\schema\Cache::getInstance();
     }
 
     protected function _createUi() {

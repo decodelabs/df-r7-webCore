@@ -19,7 +19,7 @@ class HttpClearCache extends arch\form\template\Confirm {
     protected $_inspector;
 
     protected function _init() {
-        $probe = new axis\introspector\Probe($this->application);
+        $probe = new axis\introspector\Probe();
 
         if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
             $this->throwError(404, 'Unit not found');

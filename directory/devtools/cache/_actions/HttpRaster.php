@@ -19,7 +19,7 @@ class HttpRaster extends arch\form\Action {
     protected $_cache;
 
     protected function _init() {
-        $this->_cache = neon\raster\Cache::getInstance($this->application);
+        $this->_cache = neon\raster\Cache::getInstance();
     }
     
     protected function _createUi() {

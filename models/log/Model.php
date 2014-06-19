@@ -64,12 +64,11 @@ class Model extends axis\Model {
 
     protected function _normalizeRequest($request) {
         if($request === null) {
-            $application = $this->context->getApplication();
             $request = '/';
 
             try {
-                if($application instanceof arch\IDirectoryRequestApplication) {
-                    $request = $application->getContext()->request->toString();
+                if(df\Launchpad::$application instanceof arch\IDirectoryRequestApplication) {
+                    $request = df\Launchpad::$application->getContext()->request->toString();
                 }
             } catch(\Exception $e) {}
         }
@@ -78,10 +77,8 @@ class Model extends axis\Model {
     }
 
     protected function _getReferrer() {
-        $application = $this->context->getApplication();
-
-        if($application instanceof core\application\Http) {
-            return $application->getContext()->http->getReferrer();
+        if(df\Launchpad::$application instanceof core\application\Http) {
+            return df\Launchpad::$application->getContext()->http->getReferrer();
         }
 
         return null;
@@ -103,7 +100,7 @@ class Model extends axis\Model {
         $userAgent = null;
 
         try {
-            $application = $this->context->getApplication();
+            $application = df\Launchpad::$application;
 
             if($application instanceof core\application\Http) {
                 $userAgent = $application->getContext()->http->getUserAgent();

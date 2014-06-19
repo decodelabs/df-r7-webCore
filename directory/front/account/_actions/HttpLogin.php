@@ -27,7 +27,7 @@ class HttpLogin extends arch\form\Action {
             return $this->http->defaultRedirect('account/');
         }
 
-        $this->_config = user\authentication\Config::getInstance($this->application);
+        $this->_config = user\authentication\Config::getInstance();
 
         if(isset($this->request->query->adapter)) {
             $this->_adapter = $this->request->query['adapter'];

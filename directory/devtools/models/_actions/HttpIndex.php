@@ -18,7 +18,7 @@ class HttpIndex extends arch\Action {
 
     public function executeAsHtml() {
         $view = $this->aura->getView('Index.html');
-        $probe = new axis\introspector\Probe($this->application);
+        $probe = new axis\introspector\Probe();
         $view['unitList'] = $probe->probeUnits();
 
         return $view;

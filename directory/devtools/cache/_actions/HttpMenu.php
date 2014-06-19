@@ -18,7 +18,7 @@ class HttpMenu extends arch\form\Action {
     protected $_cache;
 
     protected function _init() {
-        $this->_cache = arch\navigation\menu\Cache::getInstance($this->application);
+        $this->_cache = arch\navigation\menu\Cache::getInstance();
     }
 
     protected function _createUi() {

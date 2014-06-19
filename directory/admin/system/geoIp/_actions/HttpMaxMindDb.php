@@ -16,7 +16,7 @@ class HttpMaxMindDb extends arch\form\Action {
     protected $_config;
 
     protected function _init() {
-        $this->_config = link\geoIp\Config::getInstance($this->application);
+        $this->_config = link\geoIp\Config::getInstance();
     }
 
     protected function _setDefaultValues() {

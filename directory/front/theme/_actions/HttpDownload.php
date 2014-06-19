@@ -19,7 +19,7 @@ class HttpDownload extends arch\Action {
     public function execute() {
         $theme = aura\theme\Base::factory($this->request->query['theme']);
         
-        if(!$absolutePath = $theme->findAsset($this->application, $this->request->query['file'])) {
+        if(!$absolutePath = $theme->findAsset($this->request->query['file'])) {
             $this->throwError(404, 'File not found');
         }
 
@@ -29,7 +29,7 @@ class HttpDownload extends arch\Action {
             $type = core\io\Type::fileToMime($absolutePath);
 
             if(substr($type, 0, 6) == 'image/') {
-                $cache = neon\raster\Cache::getInstance($this->application);
+                $cache = neon\raster\Cache::getInstance();
                 $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request->query['transform']);
             }
         }

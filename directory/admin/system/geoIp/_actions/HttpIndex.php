@@ -18,7 +18,7 @@ class HttpIndex extends arch\Action {
         $view = $this->aura->getView('Index.html');
         $handler = link\geoIp\Handler::factory();
 
-        $view['config'] = link\geoIp\Config::getInstance($this->application);
+        $view['config'] = link\geoIp\Config::getInstance();
         $view['result'] = $handler->lookup($this->http->getIp());
         $view['adapterList'] = link\geoIp\Handler::getAdapterList();
 
