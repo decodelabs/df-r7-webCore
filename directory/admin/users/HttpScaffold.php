@@ -35,11 +35,17 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                 ->setIcon('role')
                 ->setWeight(30),
 
+            $entryList->newLink('~admin/users/invite-requests/', 'Invite requests')
+                ->setId('inviteRequests')
+                ->setDescription('See who is asking to join the site')
+                ->setIcon('key')
+                ->setWeight(40),
+
             $entryList->newLink('~admin/users/invites/', 'Invites')
                 ->setId('invites')
                 ->setDescription('View who has been invited to register for an account')
                 ->setIcon('mail')
-                ->setWeight(40),
+                ->setWeight(50),
 
             $entryList->newLink('~admin/users/deactivations/', 'Deactivations')
                 ->setId('deactivations')

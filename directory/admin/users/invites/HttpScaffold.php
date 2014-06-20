@@ -63,9 +63,9 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->orWhere('client.nickName', 'matches', $search)
                 ->orWhere('client.email', 'matches', $search)
                 ->endCorrelation()
-            ->endClause()
             ->orWhere('invite.name', 'matches', $search)
-            ->orWhere('invite.email', 'matches', $search);
+            ->orWhere('invite.email', 'matches', $search)
+            ->endClause();
     }
 
 
@@ -95,6 +95,17 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 )
                 ->setIcon('settings')
                 ->setDisposition('operative')
+        );
+    }
+
+    public function addIndexTransitiveLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    '~admin/users/invite-requests/',
+                    $this->_('Invite requests')
+                )
+                ->setIcon('key')
+                ->setDisposition('transitive')
         );
     }
 
