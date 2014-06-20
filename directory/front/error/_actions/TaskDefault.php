@@ -36,15 +36,15 @@ class TaskDefault extends arch\Action {
             switch($code) {
                 case 401:
                 case 403:
-                    $this->data->log->accessError($code, $lastRequest, $exception->getMessage());
+                    $this->logs->logAccessError($code, $lastRequest, $exception->getMessage());
                     break;
                         
                 case 404:
-                    $this->data->log->notFound($lastRequest, $exception->getMessage());
+                    $this->logs->logNotFound($lastRequest, $exception->getMessage());
                     break;
 
                 case 500:
-                    $this->data->log->exception($exception, $lastRequest->toString());
+                    $this->logs->logException($exception, $lastRequest->toString());
                     break;
             }
         } catch(\Exception $e) {
