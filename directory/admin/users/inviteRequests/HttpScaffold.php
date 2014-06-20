@@ -47,6 +47,17 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
 // Components
+    public function addIndexOperativeLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->_getActionRequest('export'),
+                    $this->_('Export to csv')
+                )
+                ->setIcon('download')
+                ->setDisposition('positive')
+        );
+    }
+
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
