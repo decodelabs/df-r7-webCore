@@ -30,10 +30,6 @@ class HttpRespond extends arch\form\Action {
         return $this->_request['id'];
     }
 
-    protected function _setDefaultValues() {
-        $this->values->type = 'buyer';
-    }
-
     protected function _createUi() {
         $this->content->addAttributeList($this->_request)
             ->addField('name')
@@ -51,17 +47,13 @@ class HttpRespond extends arch\form\Action {
 
 
         $form = $this->content->addForm();
-        $fs = $form->addFieldSet($this->_('Accept request'));
+        $fs = $form->addFieldSet($this->_('Invite response'));
 
-        // Type
-        $fs->addFieldArea($this->_('Profile type'))->setDescription($this->_(
-            'By accepting this request, a personal invite will be sent for the requestee to follow and register with a profile type as specified below'
+        // Message
+        $fs->addFieldArea($this->_('Message'))->setDescription($this->_(
+            'If you enter a message below an email will be sent to the requestee'
         ))->push(
-            $this->html->radioButtonGroup('type', $this->values->type, [
-                    'buyer' => $this->_('Buyer'),
-                    'provider' => $this->_('Provider')
-                ])
-                ->isRequired(true)
+            $this->html->textarea('message', $this->values->message)
         );
 
         // Buttons
@@ -69,23 +61,6 @@ class HttpRespond extends arch\form\Action {
             $this->html->saveEventButton('accept', $this->_('Accept'))
                 ->setIcon('accept'),
 
-            $this->html->cancelEventButton()
-        );
-
-
-
-        $form = $this->content->addForm();
-        $fs = $form->addFieldSet($this->_('Deny request'));
-
-        // Message
-        $fs->addFieldArea($this->_('Message'))->setDescription($this->_(
-            'If you enter a message below an email will be sent to the requestee detailing your reasons for denying their request'
-        ))->push(
-            $this->html->textarea('message', $this->values->message)
-        );
-
-        // Buttons
-        $fs->addButtonArea(
             $this->html->saveEventButton('deny', $this->_('Deny'))
                 ->setIcon('deny')
                 ->setDisposition('negative'),
@@ -96,9 +71,7 @@ class HttpRespond extends arch\form\Action {
 
     protected function _onAcceptEvent() {
         $validator = $this->data->newValidator()
-            ->addField('type', 'enum')
-                ->setOptions(['buyer', 'provider'])
-                ->isRequired(true)
+            ->addField('message', 'text')
                 ->end()
 
             ->validate($this->values);
@@ -107,24 +80,10 @@ class HttpRespond extends arch\form\Action {
             $invite = $this->data->user->invite->newRecord([
                 'name' => $this->_request['name'], 
                 'email' => $this->_request['email'],
-                'customData' => ['profileType' => $validator['type']]
+                'message' => $validator['message']
             ]);
 
-            if($validator['type'] == 'buyer') {
-                $invite->groups = [2];
-
-                $invite->send(
-                    'emails/BuyerPersonalInvitation.html',
-                    '~front/account/'
-                );
-            } else if($validator['type'] == 'provider') {
-                $invite->groups = [3];
-
-                $invite->send(
-                    'emails/ProviderPersonalInvitation.html',
-                    '~front/account/'
-                );
-            }
+            $invite->send();
 
             $this->_request['isActive'] = false;
             $this->_request['invite'] = $invite;
@@ -153,8 +112,8 @@ class HttpRespond extends arch\form\Action {
 
             if($validator['message']) {
                 $this->comms->templateNotify(
-                    'emails/InviteRequestDeny.html',
-                    '~front/account/',
+                    'messages/InviteRequestDeny.notification',
+                    '~shared/users/invites/',
                     ['request' => $this->_request, 'message' => $validator['message']],
                     $this->_request['email']
                 );
