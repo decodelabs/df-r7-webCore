@@ -61,7 +61,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->from('axis://user/Client', 'client')
                 ->where('client.fullName', 'matches', $search)
                 ->orWhere('client.nickName', 'matches', $search)
-                ->orWhere('client.email', 'matches', $search)
+                ->endCorrelation()
+            ->orWhereCorrelation('owner', 'in', 'id')
+                ->from('axis://user/Client', 'client')
+                ->where('client.fullName', 'matches', $search)
+                ->orWhere('client.nickName', 'matches', $search)
                 ->endCorrelation()
             ->orWhere('invite.name', 'matches', $search)
             ->orWhere('invite.email', 'matches', $search)
@@ -173,12 +177,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineLastSentField($list, $mode) {
-        $list->addField('lastSent', function($invite) use($mode) {
-            if($mode == 'list') {
-                return $this->html->date($invite['lastSent']);
-            } else {
-                return $this->html->userDateTime($invite['lastSent']);
-            }
+        $list->addField('lastSent', function($invite) {
+            return $this->html->timeFromNow($invite['lastSent']);
         });
     }
 

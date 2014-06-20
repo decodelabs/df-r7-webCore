@@ -45,7 +45,10 @@ class Unit extends axis\unit\table\Base {
 
     public function applyPagination(opal\query\IPaginator $paginator) {
         $paginator
-            ->setOrderableFields('creationDate', 'owner', 'name', 'email', 'registrationDate', 'user')
+            ->setOrderableFields(
+                'creationDate', 'owner', 'name', 'email', 
+                'registrationDate', 'user', 'lastSent'
+            )
             ->setDefaultOrder('creationDate DESC');
 
         return $this;
