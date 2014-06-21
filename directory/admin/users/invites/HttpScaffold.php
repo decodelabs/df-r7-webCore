@@ -77,21 +77,28 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~admin/users/invites/send', true),
-                    $this->_('Invite new user')
+                    $this->_getActionRequest('send', [], true),
+                    $this->_('Invite user')
                 )
                 ->setIcon('add')
-                ->addAccessLock('axis://user/Invite#add')
+                ->addAccessLock('axis://user/Invite#add'),
+
+            $this->html->link(
+                    $this->_getActionRequest('grant', [], true),
+                    $this->_('Grant allowance')
+                )
+                ->setIcon('edit')
         );
     }
 
     public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~admin/users/invites/grant', true),
-                    $this->_('Grant allowance')
+                    $this->_getActionRequest('export'),
+                    $this->_('Export csv')
                 )
-                ->setIcon('edit'),
+                ->setIcon('download')
+                ->setDisposition('positive'),
 
             $this->html->link(
                     $this->uri->request('~admin/users/settings', true),
