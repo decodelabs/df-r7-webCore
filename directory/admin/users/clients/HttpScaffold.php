@@ -22,6 +22,9 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_sections = [
         'details',
+        'invites' => [
+            'icon' => 'mail'
+        ],
         'authentication' => [
             'icon' => 'lock'
         ]
@@ -70,6 +73,9 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $record = $this->getRecord();
 
         return [
+            'invites' => $this->data->user->invite->select()
+                ->where('owner', '=', $record['id'])
+                ->count(),
             'authentication' => $this->data->user->auth->select()
                 ->where('user', '=', $record)
                 ->count()
@@ -125,6 +131,19 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Sections
+    public function renderInvitesSectionBody($client) {
+        $inviteList = $this->data->user->invite->select()
+            ->where('owner', '=', $client['id'])
+            ->populateSelect('groups', 'id', 'name')
+            ->importRelationBlock('user', 'link')
+            ->paginateWith($this->request->query);
+
+        return $this->import->component('InviteList', '~admin/users/invites/', [
+                'owner' => false
+            ])
+            ->setCollection($inviteList);
+    }
+
     public function renderAuthenticationSectionBody($client) {
         $authenticationList = $client->authDomains->fetch()
             ->orderBy('adapter ASC');
