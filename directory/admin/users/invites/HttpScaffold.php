@@ -190,7 +190,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineOwnerField($list, $mode) {
-        $list->addField('owner', $this->_('Sent by'), function($invite) {
+        $list->addField('ownerName', $this->_('Sent by'), function($invite) {
             return $this->import->component('UserLink', '~admin/users/clients/', $invite['owner'])
                 ->setDisposition('transitive');
         });
