@@ -190,6 +190,27 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
+    public function ensureSent($email, Callable $generator, $templatePath=null, $templateLocation=null) {
+        $invite = $this->fetch()
+            ->where('email', '=', $email)
+            ->where('registrationDate', '=', null)
+            ->where('isActive', '=', true)
+            ->toRow();
+
+        if($invite) {
+            $this->resend($invite, $templatePath, $templateLocation);
+            return $this;
+        }
+
+        $invite = $this->newRecord([
+            'email' => $email
+        ]);
+
+        call_user_func($generator, $invite);
+        $this->send($invite, $templatePath, $templateLocation);
+        return $this;
+    }
+
     public function claim(Record $invite, user\IClientDataObject $client) {
         $this->update(['user' => null])
             ->where('user', '=', $client->getId())
