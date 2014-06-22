@@ -49,7 +49,7 @@ class Unit extends axis\unit\table\Base {
                 'creationDate', 'owner', 'name', 'email', 
                 'registrationDate', 'user', 'lastSent'
             )
-            ->setDefaultOrder('creationDate DESC');
+            ->setDefaultOrder('lastSent DESC');
 
         return $this;
     }
@@ -198,6 +198,7 @@ class Unit extends axis\unit\table\Base {
             ->toRow();
 
         if($invite) {
+            call_user_func($generator, $invite);
             $this->resend($invite, $templatePath, $templateLocation);
             return $this;
         }
