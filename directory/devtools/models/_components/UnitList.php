@@ -16,8 +16,8 @@ class UnitList extends arch\component\template\CollectionList {
         'id' => true,
         'canonicalId' => true,
         'type' => true,
-        'adapter' => true,
-        'connection' => true
+        'version' => true,
+        'actions' => true
     ];
 
 
@@ -31,28 +31,70 @@ class UnitList extends arch\component\template\CollectionList {
 // Canonical id
     public function addCanonicalIdField($list) {
         $list->addField('canonicalId', $this->_('Storage id'), function($inspector) {
-            return $inspector->getCanonicalId();
+            return $this->html->element('abbr', $id = $inspector->getCanonicalId())
+                ->setAttribute('title', $inspector->getAdapterConnectionName().'/'.$id);
         });
     }
 
 // Type
     public function addTypeField($list) {
         $list->addField('type', function($inspector) {
-            return ucfirst($inspector->getType());
+            $output = ucfirst($inspector->getType());
+
+            if($adapter = $inspector->getAdapterName()) {
+                $output = [
+                    $output, ' ',
+                    $this->html->element('sup', $adapter)
+                ];
+            }
+
+            return $output;
         });
     }
 
-// Adapter
-    public function addAdapterField($list) {
-        $list->addField('adapter', function($inspector) {
-            return $inspector->getAdapterName();
+// Version
+    public function addVersionField($list) {
+        $list->addField('version', function($inspector, $context) {
+            if(!$inspector->isSchemaBasedStorageUnit()) {
+                return;
+            }
+
+            $current = $inspector->getSchemaVersion();
+            $max = $inspector->getDefinedSchemaVersion();
+
+            if($current < $max) {
+                $output = $this->html->icon('warning', $current.' / '.$max)->addClass('state-warning');
+            } else {
+                $output = $this->html->icon('tick', $current)->addClass('disposition-positive');
+            }
+
+            return $output;
         });
     }
 
-// Connection
-    public function addConnectionField($list) {
-        $list->addField('connection', function($inspector) {
-            return $this->html->shorten($inspector->getAdapterConnectionName(), 35);
+// Actions
+    public function addActionsField($list) {
+        $list->addField('actions', function($inspector) {
+            switch($inspector->getType()) {
+                case 'cache':
+                    return [
+                        $this->html->link(
+                                $this->uri->request('~devtools/models/clear-cache?unit='.$inspector->getGlobalId(), true),
+                                $this->_('Clear cache')
+                            )
+                            ->setIcon('delete')
+                    ];
+
+                case 'table':
+                    return [
+                        $this->html->link(
+                                $this->uri->request('~devtools/models/rebuild-table?unit='.$inspector->getGlobalId(), true),
+                                $this->_('Rebuild table')
+                            )
+                            ->setIcon('refresh')
+                            ->setDisposition('operative')
+                    ];
+            }
         });
     }
 }

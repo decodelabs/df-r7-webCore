@@ -18,27 +18,40 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
         return $this->_('Data models');
     }
 
-/*
-    protected function _addOperativeLinks($menu) {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri->request('~admin/siteData/industries/add', true),
-                    $this->_('Add new industry')
-                )
-                ->setIcon('add')
-                ->addAccessLock('axis://wecommend/Industry#add')
-        );
+    protected function _addSubOperativeLinks($menu) {
+        switch($this->request->getAction()) {
+            case 'index':
+                break;
+
+            case 'backups':
+                $menu->addLinks(
+                    $this->html->link(
+                            $this->uri->request('~devtools/models/backup', true),
+                            $this->_('Create backup')
+                        )
+                        ->setIcon('backup')
+                        ->setDisposition('positive')
+                );
+
+                break;
+        }
     }
 
-    protected function _addTransitiveLinks($menu) {
+    protected function _addSectionLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    '~admin/userData/companies/',
-                    $this->_('Companies')
+                    '~devtools/models/',
+                    $this->_('Units')
                 )
-                ->setIcon('company')
-                ->setDisposition('transitive')
+                ->setIcon('unit')
+                ->setDisposition('informative'),
+
+            $this->html->link(
+                    '~devtools/models/backups',
+                    $this->_('Backups')
+                )
+                ->setIcon('backup')
+                ->setDisposition('informative')
         );
     }
-*/
 }

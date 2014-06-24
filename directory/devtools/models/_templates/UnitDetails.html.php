@@ -34,6 +34,24 @@ echo $this->html->attributeList($this['unit'])
         return $output;
     })
 
+    // Version
+    ->addField('version', function($inspector, $context) {
+        if(!$inspector->isSchemaBasedStorageUnit()) {
+            return;
+        }
+
+        $current = $inspector->getSchemaVersion();
+        $max = $inspector->getDefinedSchemaVersion();
+
+        if($current < $max) {
+            $output = $this->html->icon('warning', $current.' / '.$max)->addClass('state-warning');
+        } else {
+            $output = $this->html->icon('tick', $current)->addClass('disposition-positive');
+        }
+
+        return $output;
+    })
+
     // Adapter
     ->addField('adapter', function($inspector) {
         return $inspector->getAdapterName();
