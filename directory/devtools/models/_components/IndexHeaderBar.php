@@ -21,6 +21,15 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
     protected function _addSubOperativeLinks($menu) {
         switch($this->request->getAction()) {
             case 'index':
+                $menu->addLinks(
+                    $this->html->link(
+                            $this->uri->request('~devtools/models/update', true),
+                            $this->_('Update schemas')
+                        )
+                        ->setIcon('update')
+                        ->setDisposition('operative')
+                );
+
                 break;
 
             case 'backups':

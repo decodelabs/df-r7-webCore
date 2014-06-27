@@ -16,7 +16,11 @@ class HttpBackups extends arch\Action {
 
     public function execute() {
         $view = $this->aura->getView('Backups.html');
-
+        $path = $this->application->getSharedStoragePath().'/backup/';
+        $backups = core\io\Util::listFilesIn($path, '/^axis\-[0-9]+\.tar$/i');
+        rsort($backups);
+        
+        $view['backupList'] = $backups;
 
         return $view;
     }
