@@ -18,7 +18,7 @@ class HttpDismissCookieNotice extends arch\Action {
 
     public function execute() {
         $theme = aura\theme\Base::factory($this->context);
-        $this->http->setCookie($theme::COOKIE_NOTICE_COOKIE, 1)
+        $this->http->setCookie('cnx', 1)
             ->setExpiryDate(new core\time\Date('+2 years'));
 
         return $this->http->defaultRedirect();
