@@ -111,10 +111,6 @@ class Model extends axis\Model implements user\IUserModel {
         return $this;
     }
 
-    public function getSessionBackend() {
-        return $this->getUnit('sessionManifest');
-    }
-
 
     public function fetchClientOptions($id) {
         return $this->option->select('key', 'data')
