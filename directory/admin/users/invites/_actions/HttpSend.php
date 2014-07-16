@@ -100,6 +100,7 @@ class HttpSend extends arch\form\Action {
 
 
         if($this->isValid()) {
+            $this->_invite['isFromAdmin'] = true;
             $this->_invite->send();
 
             $this->comms->flash(
