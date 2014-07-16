@@ -35,6 +35,8 @@ class Unit extends axis\unit\table\Base {
         $schema->addUniqueField('user', 'One', 'user/client')
             ->isNullable(true);
 
+        $schema->addField('isFromAdmin', 'Boolean');
+
         $schema->addField('customData', 'DataObject')
             ->isNullable(true);
 

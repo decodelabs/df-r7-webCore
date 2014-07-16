@@ -190,9 +190,18 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineOwnerField($list, $mode) {
-        $list->addField('ownerName', $this->_('Sent by'), function($invite) {
-            return $this->import->component('UserLink', '~admin/users/clients/', $invite['owner'])
+        $list->addField('ownerName', $this->_('Sent by'), function($invite) use($mode) {
+            $output = $this->import->component('UserLink', '~admin/users/clients/', $invite['owner'])
                 ->setDisposition('transitive');
+
+            if($invite['isFromAdmin']) {
+                $output = [
+                    $output, ' ',
+                    $this->html->element('sup', '(admin)')
+                ];
+            }
+
+            return $output;
         });
     }
 
@@ -219,6 +228,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             return $this->html->bulletList($groups, function($group) {
                 return $this->import->component('GroupLink', '~admin/users/groups/', $group);
             });
+        });
+    }
+
+    public function defineUserField($list, $mode) {
+        $list->addField('userName', $this->_('Account'), function($invite) {
+            return $this->import->component('UserLink', '~admin/users/clients/', $invite['user'])
+                ->isNullable(true)
+                ->setDisposition('transitive');
         });
     }
 }
