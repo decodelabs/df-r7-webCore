@@ -101,6 +101,6 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
             $task .= '&allClusters';
         }
 
-        return $this->directory->getComponent('Invoke', '~/tasks/', $task);
+        return $this->task->initiateStream($task);
     }
 }

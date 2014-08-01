@@ -31,6 +31,6 @@ class HttpUpdate extends arch\form\template\Confirm {
 
     protected function _apply() {
         $task = 'axis/update';
-        return $this->directory->getComponent('Invoke', '~/tasks/', $task);
+        return $this->task->initiateStream($task);
     }
 }
