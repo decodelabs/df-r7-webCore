@@ -22,6 +22,6 @@ class HttpCompile extends arch\form\template\Confirm {
 
     protected function _apply() {
         $task = 'application/build';
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream($task, 'development');
     }
 }
