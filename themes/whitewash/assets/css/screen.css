@@ -287,7 +287,7 @@ code, pre {
     white-space: pre-wrap;
 }
 
-samp {
+samp, .mono {
     font-family: Monospace;
     font-size: 0.9em;
 }

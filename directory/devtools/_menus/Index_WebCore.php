@@ -32,23 +32,29 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('mail')
                 ->setWeight(30),
 
+            $entryList->newLink('~devtools/tasks/', 'Task manager')
+                ->setId('taskManager')
+                ->setDescription('Queue and schedule tasks and view logs of previously run processes')
+                ->setIcon('task')
+                ->setWeight(40),
+
             $entryList->newLink('~devtools/theme/', 'Theme configuration')
                 ->setId('theme')
                 ->setDescription('Change settings and define layouts for available site themes')
                 ->setIcon('theme')
-                ->setWeight(40),
+                ->setWeight(50),
 
             $entryList->newLink('~devtools/application/', 'Application utilities')
                 ->setId('application')
                 ->setDescription('View stats, generate testing and production versions etc.')
                 ->setIcon('stats')
-                ->setWeight(50),
+                ->setWeight(60),
 
             $entryList->newLink('~devtools/cache/', 'Cache control')
                 ->setId('cache')
                 ->setDescription('Refresh, clear and view stats for most cache structures your site employs')
                 ->setIcon('toolkit')
-                ->setWeight(60)
+                ->setWeight(70)
         );
     }
 }
