@@ -83,7 +83,7 @@ class HttpDefault extends arch\Action {
         }
         
         $isDevelopment = $this->application->isDevelopment();
-        $isDevelopment = $this->application->isTesting();
+        $isTesting = $this->application->isTesting();
 
         try {
             $isAdmin = $this->user->canAccess('virtual://errors');
