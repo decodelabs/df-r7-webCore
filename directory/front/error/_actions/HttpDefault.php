@@ -83,6 +83,7 @@ class HttpDefault extends arch\Action {
         }
         
         $isDevelopment = $this->application->isDevelopment();
+        $isDevelopment = $this->application->isTesting();
 
         try {
             $isAdmin = $this->user->canAccess('virtual://errors');
@@ -92,7 +93,7 @@ class HttpDefault extends arch\Action {
 
         $showTemplate = !$isDevelopment || isset($lastRequest->query->template);
 
-        if($code == 500 && $isAdmin) {
+        if($code == 500 && ($isAdmin || $isTesting)) {
             $showTemplate = false;
         }
 
