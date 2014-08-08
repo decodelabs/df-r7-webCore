@@ -23,21 +23,22 @@ class HttpDownload extends arch\Action {
             $this->throwError(404, 'File not found');
         }
 
-        $type = null;
+        $type = core\io\Type::fileToMime($absolutePath);
 
-        if(isset($this->request->query->transform)) {
-            $type = core\io\Type::fileToMime($absolutePath);
-
-            if(substr($type, 0, 6) == 'image/') {
-                $cache = neon\raster\Cache::getInstance();
-                $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request->query['transform']);
-            }
+        if(substr($type, 0, 6) == 'image/' && isset($this->request->query->transform)) {
+            $cache = neon\raster\Cache::getInstance();
+            $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request->query['transform']);
         }
-        
-        $output = $this->http->fileResponse($absolutePath);
 
-        if($type) {
-            $output->setContentType($type);
+        switch($type) {
+            case 'text/x-sass':
+            case 'text/x-scss':
+                $bridge = new aura\css\sass\Bridge($this->context, $absolutePath);
+                return $bridge->getHttpResponse();
+
+            default:
+                $output = $this->http->fileResponse($absolutePath);
+                $output->setContentType($type);
         }
         
         return $output;
