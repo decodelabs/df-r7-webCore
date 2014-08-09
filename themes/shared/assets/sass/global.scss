@@ -14,57 +14,59 @@ a {
     display: inline-block;
     padding: 0;
 
-    &.positive {
-        &:link, &:visited {
-            color: $positiveColor;
+    @if $linkStates == true {
+        &.positive {
+            &:link, &:visited {
+                color: $positiveColor;
+            }
+            &:hover, &:active {
+                color: lighten($positiveColor, 10%);
+            }
         }
-        &:hover, &:active {
-            color: lighten($positiveColor, 10%);
-        }
-    }
 
-    &.negative {
-        &:link, &:visited {
-            color: $negativeColor;
+        &.negative {
+            &:link, &:visited {
+                color: $negativeColor;
+            }
+            &:hover, &:active {
+                color: lighten($negativeColor, 10%);
+            }
         }
-        &:hover, &:active {
-            color: lighten($negativeColor, 10%);
-        }
-    }
 
-    &.informative {
-        &:link, &:visited {
-            color: $informativeColor;
+        &.informative {
+            &:link, &:visited {
+                color: $informativeColor;
+            }
+            &:hover, &:active {
+                color: lighten($informativeColor, 10%);
+            }
         }
-        &:hover, &:active {
-            color: lighten($informativeColor, 10%);
-        }
-    }
 
-    &.operative {
-        &:link, &:visited {
-            color: $operativeColor;
+        &.operative {
+            &:link, &:visited {
+                color: $operativeColor;
+            }
+            &:hover, &:active {
+                color: lighten($operativeColor, 10%);
+            }
         }
-        &:hover, &:active {
-            color: lighten($operativeColor, 10%);
-        }
-    }
 
-    &.transitive {
-        &:link, &:visited {
-            color: $transitiveColor;
+        &.transitive {
+            &:link, &:visited {
+                color: $transitiveColor;
+            }
+            &:hover, &:active {
+                color: lighten($transitiveColor, 10%);
+            }
         }
-        &:hover, &:active {
-            color: lighten($transitiveColor, 10%);
-        }
-    }
 
-    &.external {
-        &:link, &:visited {
-            color: #737180;
-        }
-        &:hover, &:active {
-            color: #9D9AAE;
+        &.external {
+            &:link, &:visited {
+                color: #737180;
+            }
+            &:hover, &:active {
+                color: #9D9AAE;
+            }
         }
     }
 }
