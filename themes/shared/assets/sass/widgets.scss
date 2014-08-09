@@ -32,8 +32,17 @@
 }
 
 .widget-buttonArea {
-    padding: 1em;
+    @if $cellInset == true {
+        padding: 1em;
+    } @else {
+        padding: 1em 0;
+    }
+
     font-size: 1em;
+
+    .widget-buttonGroup {
+        display: inline-block;
+    }
 }
 
 %innerLabelWidget {
