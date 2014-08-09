@@ -522,54 +522,11 @@ button {
     @include border-radius(8px);
 }
 
-
-
-
-.widget-overlay {
-    background: #999;
-    background: rgba(0,0,0,0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    width: 100vw;
-    height: 100vh;
-    padding: 2.5em;
-    box-sizing: border-box;
-    z-index: 1000;
-
-    .container {
-        background: #FFF;
-        height: 87vh;
-        padding: 2em;
-        box-sizing: border-box;
-        overflow: auto;
-    }
+.widget-flashList .widget-flashMessage {
+    font-size: 0.8em;
+    border-width: 3px;
 }
 
-
-
-
-
-.widget-panelSet {
-    width: 100%;
-
-    > tbody > tr > td {
-        vertical-align: top;
-        padding: 0 1em 0 0;
-
-        &:last-child {
-            padding-right: 0;
-        }
-
-        .widget-attributeList {
-            display: block;
-            width: 100%;
-            min-width: 20em;
-        }
-    }
-}
 
 
 
