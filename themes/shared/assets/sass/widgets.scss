@@ -231,6 +231,11 @@
     &.error {
         border-color: $errorColor;
     }
+
+    &[disabled] {
+        background: #EEE;
+        opacity: 0.8;
+    }
 }
 
 .widget-radioButtonGroup, 
