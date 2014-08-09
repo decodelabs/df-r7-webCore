@@ -190,9 +190,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $emailList = $this->data->user->emailVerify->fetchEmailList($client);
 
                 return $this->html->bulletList($emailList, function($verify) use($client) {
-                    $output = $this->html->link($this->uri->mailto($verify['email']), $verify['email'])
+                    $output = $this->html->mailLink($verify['email'])
                         ->setIcon($verify['verifyDate'] ? 'tick' : 'cross')
-                        ->setDisposition('transitive')
                         ->addClass($verify['email'] == $client['email'] ? null : 'disabled');
 
                     return $output;
@@ -200,9 +199,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             });
         } else {
             $list->addField('email', function($client) {
-                return $this->html->link($this->uri->mailto($client['email']), $client['email'])
-                    ->setIcon('mail')
-                    ->setDisposition('transitive');
+                return $this->html->mailLink($client['email']);
             });
         }
     }
