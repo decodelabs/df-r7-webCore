@@ -7,7 +7,7 @@ echo $this->html->collectionList($this['packageList'])
     // Name
     ->addField('location', function($package, $context) {
         if(!$package['instance']) {
-            $context->getRowTag()->addClass('state-disabled');
+            $context->getRowTag()->addClass('disabled');
         }
 
         return \df\core\io\Util::stripLocationFromFilePath($package['path']);

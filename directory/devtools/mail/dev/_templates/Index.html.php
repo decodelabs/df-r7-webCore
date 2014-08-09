@@ -44,7 +44,7 @@ echo $this->html->collectionList($this['mailList'])
 
         if(!empty($addresses)) {
             $output[] = $this->html->string(
-                '<span class="state-lowPriority">'.$this->esc($this->_(
+                '<span class="inactive">'.$this->esc($this->_(
                     ' and %c% more',
                     ['%c%' => count($addresses)]
                 )).'</span>'

@@ -120,7 +120,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = [
                     $output, ' ',
                     $this->html->element('sup', '('.($error['isProduction'] ? $this->_('production') : $this->_('testing')).')')
-                        ->addClass($error['isProduction'] ? 'state-error' : 'state-warning')
+                        ->addClass($error['isProduction'] ? 'error' : 'warning')
                 ];
             }
 

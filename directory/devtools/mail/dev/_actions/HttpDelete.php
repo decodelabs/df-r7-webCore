@@ -66,7 +66,7 @@ class HttpDelete extends arch\form\template\Delete {
 
                 if(!empty($addresses)) {
                     $output[] = $this->html->string(
-                        '<span class="state-lowPriority">'.$this->view->esc($this->_(
+                        '<span class="inactive">'.$this->view->esc($this->_(
                             ' and %c% more',
                             ['%c%' => count($addresses)]
                         )).'</span>'

@@ -30,7 +30,7 @@ class MenuList extends arch\component\template\CollectionList {
             return $this->html->link(
                     $this->uri->request('~admin/navigation/directory/details?menu='.$idString, true),
                     [
-                        $this->html->element('span.state-lowPriority', $path.'/'),
+                        $this->html->element('span.inactive', $path.'/'),
                         $menu->getDisplayName()
                     ]
                 )

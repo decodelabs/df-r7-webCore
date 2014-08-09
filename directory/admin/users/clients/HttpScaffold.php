@@ -193,7 +193,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     $output = $this->html->link($this->uri->mailto($verify['email']), $verify['email'])
                         ->setIcon($verify['verifyDate'] ? 'tick' : 'cross')
                         ->setDisposition('transitive')
-                        ->addClass($verify['email'] == $client['email'] ? null : 'state-disabled');
+                        ->addClass($verify['email'] == $client['email'] ? null : 'disabled');
 
                     return $output;
                 });
@@ -211,12 +211,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('status', function($client, $context) use($mode) {
             if($client['status'] == user\IState::DEACTIVATED) {
                 if($mode == 'list') {
-                    $context->getRowTag()->addClass('state-disabled');
+                    $context->getRowTag()->addClass('disabled');
                 }
 
-                $context->getCellTag()->addClass('disposition-negative');
+                $context->getCellTag()->addClass('negative');
             } else if($client['status'] == user\IState::PENDING) {
-                $context->getCellTag()->addClass('state-warning');
+                $context->getCellTag()->addClass('warning');
             }
 
             return $this->user->client->stateIdToName($client['status']);

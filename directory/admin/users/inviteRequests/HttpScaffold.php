@@ -109,18 +109,18 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineIsActiveField($list, $mode) {
         $list->addField('isActive', $this->_('Status'), function($request, $context) use($mode) {
             if($mode == 'list' && !$request['isActive']) {
-                $context->getRowTag()->addClass('state-lowPriority');
+                $context->getRowTag()->addClass('inactive');
             }
 
             if(isset($request['invite'])) {
                 return $this->html->icon('accept', $mode != 'list' ? $this->_('Accepted') : null)
-                    ->addClass('disposition-positive');
+                    ->addClass('positive');
             } else if($request['isActive']) {
                 return $this->html->icon('priority-critical', $mode != 'list' ? $this->_('Awaiting response') : null)
-                    ->addClass('state-warning');
+                    ->addClass('warning');
             } else {
                 return $this->html->icon('deny', $mode != 'list' ? $this->_('Denied') : null)
-                    ->addClass('disposition-negative');
+                    ->addClass('negative');
             }
         });
     }

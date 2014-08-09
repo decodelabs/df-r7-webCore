@@ -164,7 +164,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('creationDate', $this->_('Created'), function($invite, $context) {
             if(!$invite['isActive'] && !$invite['registrationDate']) {
-                $context->getRowTag()->addClass('state-lowPriority');
+                $context->getRowTag()->addClass('inactive');
             }
 
             return $this->import->component('InviteLink', '~admin/users/invites/', $invite, $this->format->date($invite['creationDate'], 'short'))

@@ -44,9 +44,9 @@ echo $this->html->attributeList($this['unit'])
         $max = $inspector->getDefinedSchemaVersion();
 
         if($current < $max) {
-            $output = $this->html->icon('warning', $current.' / '.$max)->addClass('state-warning');
+            $output = $this->html->icon('warning', $current.' / '.$max)->addClass('warning');
         } else {
-            $output = $this->html->icon('tick', $current)->addClass('disposition-positive');
+            $output = $this->html->icon('tick', $current)->addClass('positive');
         }
 
         return $output;
