@@ -127,6 +127,10 @@
         > .widget-inputArea {
             margin-left: 0;
         }
+
+        > .widget-fieldError {
+            padding-left: 0;
+        }
     }
 
     + .widget-buttonArea {
@@ -222,6 +226,10 @@
     background: #FFF;
     border: 1px #AAA solid;
     padding: 2px 4px;
+
+    &.error {
+        border-color: $errorColor;
+    }
 }
 
 .widget-radioButtonGroup, 
