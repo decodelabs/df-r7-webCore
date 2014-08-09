@@ -1,0 +1,125 @@
+
+.readable {
+    max-width: 40em;
+}
+
+.positive { color: $positiveColor; }
+.negative { color: $negativeColor; }
+.transitive { color: $transitiveColor; }
+.informative { color: $informativeColor; }
+.operative { color: $operativeColor; }
+
+
+a {
+    display: inline-block;
+    padding: 0;
+
+    &.positive {
+        &:link, &:visited {
+            color: $positiveColor;
+        }
+        &:hover, &:active {
+            color: lighten($positiveColor, 10%);
+        }
+    }
+
+    &.negative {
+        &:link, &:visited {
+            color: $negativeColor;
+        }
+        &:hover, &:active {
+            color: lighten($negativeColor, 10%);
+        }
+    }
+
+    &.informative {
+        &:link, &:visited {
+            color: $informativeColor;
+        }
+        &:hover, &:active {
+            color: lighten($informativeColor, 10%);
+        }
+    }
+
+    &.operative {
+        &:link, &:visited {
+            color: $operativeColor;
+        }
+        &:hover, &:active {
+            color: lighten($operativeColor, 10%);
+        }
+    }
+
+    &.transitive {
+        &:link, &:visited {
+            color: $transitiveColor;
+        }
+        &:hover, &:active {
+            color: lighten($transitiveColor, 10%);
+        }
+    }
+
+    &.external {
+        &:link, &:visited {
+            color: #737180;
+        }
+        &:hover, &:active {
+            color: #9D9AAE;
+        }
+    }
+}
+
+
+.priority-trivial { color: green !important; }
+.priority-low { color: #8DAD00 !important; }
+.priority-medium { color: #8F7310 !important; }
+.priority-high { color: #BE3900 !important; }
+.priority-critical { color: red !important; }
+
+
+.disabled {
+    color: $disabledColor;
+    opacity: 0.7;
+}
+
+a.disabled {
+    &:link, &:active, &:hover, &:visited {
+        color: #777;
+        opacity: 0.7;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+}
+
+.na {
+    color: $disabledColor;
+    opacity: 0.7;
+}
+
+.error {
+    color: $errorColor;
+}
+
+.success {
+    color: $successColor;
+}
+
+.info {
+    color: $informativeColor;
+}
+
+.warning {
+    color: $warningColor;
+}
+
+.debug {
+    color: $debugColor;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.inactive {
+    opacity: 0.4;
+}

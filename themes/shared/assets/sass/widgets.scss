@@ -1,0 +1,606 @@
+@charset "UTF-8";
+@import "compass/css3/box-sizing";
+
+// Forms
+
+.widget-form {
+    @extend %clearfix;
+    margin-bottom: 0.5em;
+    padding: 0;
+}
+
+
+.widget-fieldSet {
+    padding: 1em;
+    margin: 0.5em 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    + .widget-buttonArea {
+        padding-left: $labelWidth;
+
+        &.stacked {
+            padding-left: 0;
+        }
+    }
+}
+
+.widget-buttonArea {
+    padding: 1em;
+    font-size: 1em;
+}
+
+%innerLabelWidget {
+    text-align: left;
+    width: auto;
+    float: none;
+    clear: both;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.widget-fieldArea {
+    @extend %clearfix;
+    padding: 0.3em 0;
+    font-size: 1em;
+
+    > .widget-labelArea {
+        float: left;
+        width: $labelWidth;
+        text-align: $labelAlign;
+        margin: 0.15em 1em 0 0;
+        font-size: 1em;
+    }
+
+    &.required > .widget-labelArea > .widget-label:after {
+        content: ' *';
+        color: #CC0000;
+    }
+
+    > .widget-fieldError {
+        padding-left: $labelWidth + 1em;
+        padding-bottom: 0.3em;
+    }
+
+    > .widget-inputArea {
+        @extend %clearfix;
+        margin-left: $labelWidth + 1em;
+
+        > .description {
+            margin-bottom: 0.5em;
+            font-size: 0.8em;
+        }
+
+        > .widget-fieldArea,
+        > .fire-block > .widget-fieldArea {
+            padding: 0.4em;
+            margin: 0.3em 0;
+
+            > .widget-label {
+                @extend %innerLabelWidget;
+            }
+
+            > .widget-inputArea {
+                margin: 0.3em 0 0 0;
+            }
+        }
+
+        > .widget-flashMessage {
+            font-size: 0.9em;
+            padding: 0.3em;
+        }
+
+        > .widget-buttonArea {
+            padding: 0.3em;
+        }
+    }
+
+    &.stacked {
+        margin-top: 1em;
+
+        > .widget-labelArea {
+            width: auto;
+            float: none;
+            margin-bottom: 0.6em;
+        }
+
+        > .widget-inputArea {
+            margin-left: 0;
+        }
+    }
+
+    + .widget-buttonArea {
+        padding-left: $labelWidth + 1em;
+
+        &.stacked {
+            padding-left: 0;
+        }
+    }
+
+    &:target > .widget-inputArea,
+    & :target {
+        outline: 2px yellow solid;
+    }
+}
+
+.widget-fieldError div {
+    color: $errorColor;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.fire-block {
+    padding: 0.3em;
+
+    .fire-block {
+        margin-left: 1em;
+    }
+
+    .widget-fieldSet > .body > .widget-fieldArea {
+        > .widget-labelArea {
+            @extend %innerLabelWidget;
+            margin-bottom: 0.4em;
+        }
+
+        > .widget-inputArea {
+            margin-left: 0;
+        }
+    }
+
+    .widget-fieldArea {
+        > .widget-labelArea {
+            @extend %innerLabelWidget;
+        }
+
+        > .widget-fieldError {
+            padding-left: 0;
+        }
+    }
+}
+
+.widget-selection {
+    @extend %clearfix;
+    width: 90%;
+    margin-bottom: 0.2em;
+    font-size: 0.9em;
+
+    > .body {
+        float: left;
+        width: 18em;
+        padding: 0.2em 0.5em;
+    }
+
+    > .widget-buttonArea {
+        float: left;
+        margin: 0 0 0 1em;
+        background: none;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+}
+
+
+.widget-textbox {
+    min-width: 18em;
+    width: 35%;
+}
+
+.widget-textarea,
+.widget-htmlEditor {
+    min-width: 30em;
+    width: 35%;
+    min-height: 6em;
+    font-size: 0.85em;
+}
+
+.widget-textbox,
+.widget-textarea,
+.widget-htmlEditor {
+    background: #FFF;
+    border: 1px #AAA solid;
+    padding: 2px 4px;
+}
+
+.widget-radioButtonGroup, 
+.widget-checkboxGroup,
+.widget-checkboxList {
+    margin-bottom: 1em;
+
+    label {
+        display: block;
+        margin-bottom: 0.5em;
+    }
+
+    &.inline label {
+        display: inline-block;
+        margin-right: 1em;
+    }
+}
+
+.widget-radioButton,
+.widget-checkbox {
+    margin-right: 0.6em;
+}
+
+.widget-rangeSlider {
+    height: 1.1em;
+}
+
+
+.widget-eventButton {
+    cursor: pointer;
+
+    &[disabled] {
+        color: $disabledColor !important;
+        cursor: default;
+        opacity: 0.7;
+    }
+
+    span[data-icon]:before {
+        color: inherit !important;
+    }
+}
+
+
+
+// Lists
+.widget-collectionList,
+.widget-attributeList {
+    margin-bottom: 1em;
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        :last-child {
+            margin-bottom: 0;
+        }
+
+        > .widget-bulletList {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+    }
+}
+
+.widget-attributeList {
+    display: inline-block;
+    min-width: 40em;
+    max-width: 65em;
+
+    td, th {
+        padding: 0.25em 0.5em;
+    }
+
+    th {
+        width: $labelWidth;
+        text-align: left;
+        vertical-align: top;
+
+        @if $cellInset == false {
+            padding-left: 0;
+        }
+
+        &:after {
+            content: ':';
+        }
+    }
+}
+
+.widget-paginator + .widget-collectionList {
+    margin: 0.7em 0;
+}
+
+.widget-collectionList {
+    .link-order-active {
+        &.link-order-asc:after {
+            font-size: 0.75em;
+            content: ' ⇑'
+        }
+        &.link-order-desc:after {
+            font-size: 0.75em;
+            content: ' ⇓';
+        }
+    }
+
+    td, th {
+        padding: 0.1em 0.3em;
+        height: 2em;
+        vertical-align: middle;
+    }
+
+    td {
+        &.field-select {
+            width: 1%;
+        }
+
+        &.field-actions a.widget-link {
+            margin-left: 0;
+            font-size: 1.2em;
+
+            span[data-icon] {
+                &:before {
+                    padding-right: 0;
+                }
+
+                + span {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+
+
+.widget-paginator {
+    @extend %clearfix;
+
+    .block-details {
+        float: left;
+        padding: 0.05em 0.4em;
+    }
+
+    .block-links {
+        float: right;
+
+        a {
+            padding: 0.05em 0.4em;
+            text-decoration: none;
+
+            &.link-selected {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+
+.widget-articleList {
+    list-style: none;
+    margin: 0 0 1.5em;
+    padding: 0;
+    max-width: 40em;
+
+    article {
+        margin-bottom: 1.5em;
+
+        > .widget-articleList {
+            margin: 0.5em 0 0 1em;
+            padding: 0.5em 0.3em;
+        }
+
+        > header {
+            padding: 0.4em 0.6em;
+            @extend %clearfix;
+
+            h3 {
+                margin: 0 0 0.2em;
+                font-size: 1.2em;
+                padding: 0;
+                background: none;
+            }
+
+            p {
+                font-size: 0.9em;
+                margin: 0;
+            }
+        }
+
+        > section {
+            padding: 0.4em 0.6em;
+            margin-bottom: 0.5em;
+
+            :last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        > footer {
+            padding-top: 0.5em;
+            font-size: 0.8em;
+            margin: 0 0.6em;
+        }
+    }
+
+    > li:last-child > article {
+        margin-bottom: 0;
+    }
+}
+
+
+
+// Menus
+.widget-menu,
+.widget-menuBar,
+.widget-blockMenu {
+    ul {
+        list-style: none;
+        padding: 0;
+        overflow: auto;
+        margin: 0;
+        width: auto;
+    }
+}
+
+.widget-menu, 
+.widget-menuBar {
+    margin-bottom: 1em;
+    padding: 0.4em;
+}
+
+.widget-menu {
+    display: inline-block;
+    min-width: 20em;
+
+    li {
+        margin: 0.25em;
+    }
+}
+
+.widget-menuBar {
+    li {
+        float: left;
+        margin: 0 1em 0 0;
+    }
+
+    .widget-spacer {
+        border-left: 2px #AAA solid;
+        font-size: 0.8em;
+        box-shadow: 1px 0 2px #CCC;
+    }
+}
+
+.widget-blockMenu li {
+    float: left;
+    padding: 0.2em;
+    width: 16.6666%;
+    @include box-sizing(border-box);
+}
+
+@media only screen and (max-width: 1920px) {.widget-blockMenu li { width: 20%; }}
+@media only screen and (max-width: 1550px) {.widget-blockMenu li { width: 25%; }}
+@media only screen and (max-width: 900px) {.widget-blockMenu li { width: 33%; }}
+@media only screen and (max-width: 650px) {.widget-blockMenu li { width: 50%; }}
+@media only screen and (max-width: 450px) {.widget-blockMenu li { width: 100%; }}
+
+
+.widget-blockLink {
+    display: inline-block;
+    padding: 0.4em;
+    min-width: 10em;
+    max-width: 18em;
+
+    header {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    p {
+        min-height: 4em;
+        text-decoration: none;
+        margin: 0.5em 0;
+    }
+
+    li > .widget-blockLink {
+        width: auto;
+        max-width: none;
+        display: block;
+    }
+}
+
+
+
+// Flash messages
+.widget-flashMessage {
+    border: 1px #F4F4F4 solid;
+    margin-bottom: 1em;
+    padding: 0.4em 1em;
+
+    &.success {
+        background: rgba(desaturate(lighten($successColor, 65%), 45%), 0.65);
+        border-color: $successColor;
+    }
+
+    &.error {
+        background: rgba(desaturate(lighten($errorColor, 45%), 35%), 0.65);
+        border-color: $errorColor;
+    }
+
+    &.info {
+        background: rgba(desaturate(lighten($informativeColor, 60%), 35%), 0.65);
+        border-color: $informativeColor;
+    }
+
+    &.warning {
+        background: rgba(desaturate(lighten($warningColor, 60%), 35%), 0.65);
+        border-color: $warningColor;
+    }
+
+    &.debug {
+        background: rgba(desaturate(lighten($debugColor, 60%), 35%), 0.65);
+        border-color: $debugColor;
+    }
+
+    h4 {
+        margin: 0;
+    }
+
+    a {
+        display: block;
+        padding: 0;
+        margin: 0;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .description {
+        font-size: 0.8em;
+        color: #777;
+        margin: 0.2em 0 0 1.8em;
+    }
+}
+
+
+.widget-flashList .widget-flashMessage {
+    margin: 0 0 0.1em;
+}
+
+
+
+// Overlay
+.widget-overlay {
+    background: #999;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    padding: 2.5em;
+    box-sizing: border-box;
+    z-index: 1000;
+
+    .container {
+        background: #FFF;
+        height: 87vh;
+        padding: 2em;
+        box-sizing: border-box;
+        overflow: auto;
+    }
+}
+
+
+// Panel set
+.widget-panelSet {
+    width: 100%;
+
+    > tbody > tr > td {
+        vertical-align: top;
+        padding: 0 1em 0 0;
+
+        &:last-child {
+            padding-right: 0;
+        }
+
+        .widget-attributeList {
+            display: block;
+            width: 100%;
+            min-width: 20em;
+        }
+    }
+}

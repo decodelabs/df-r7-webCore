@@ -1,14 +1,3 @@
-<?php
-$this->view
-    ->linkCss($this->uri->themeAsset('css/screen.css'))
-    ->linkJs(
-        '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', null, null, 
-        'window.jQuery || document.write(\'<script src="'.$this->uri->themeAsset('js/libs/jquery-1.8.3.min.js').'"><\/script>\')'
-    )
-    ->linkFootJs($this->uri->themeAsset('js/main.js'))
-    ->linkFavicon($this->uri->themeAsset('favicon.ico', 'shared'))
-    ;
-?>
 <div class="layout-pageArea">
     <header class="layout-header">
         <h1><?php echo $this->html->link('/', $this->application->getName()); ?></h1>
