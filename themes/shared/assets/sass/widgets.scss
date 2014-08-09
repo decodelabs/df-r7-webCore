@@ -468,6 +468,10 @@
     padding: 0.2em;
     width: 16.6666%;
     @include box-sizing(border-box);
+
+    a {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 1920px) {.widget-blockMenu li { width: 20%; }}
