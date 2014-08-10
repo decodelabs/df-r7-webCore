@@ -50,6 +50,10 @@ body[data-location^="~devtools/"] {
     background: #CBE3E7;
 }
 
+body[data-layout="Blank"] {
+    background: #FFF !important;
+}
+
 @media only screen and (max-width: 1600px) {body { font-size: 18px; }}
 @media only screen and (max-width: 1500px) {body { font-size: 17px; }}
 @media only screen and (max-width: 1400px) {body { font-size: 16px; }}
