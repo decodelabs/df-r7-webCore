@@ -585,8 +585,12 @@
 }
 
 
-.widget-flashList .widget-flashMessage {
-    margin: 0 0 0.1em;
+.widget-flashList {
+    margin-bottom: 1em;
+    
+    .widget-flashMessage {
+        margin: 0.2em 0;
+    }
 }
 
 
