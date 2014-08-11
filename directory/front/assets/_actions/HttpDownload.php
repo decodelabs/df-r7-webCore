@@ -37,6 +37,10 @@ class HttpDownload extends arch\Action {
         if($type) {
             $output->setContentType($type);
         }
+
+        if(isset($this->request->query->attachment)) {
+            $output->setAttachmentFileName(basename($absolutePath));
+        }
         
         return $output;
     }
