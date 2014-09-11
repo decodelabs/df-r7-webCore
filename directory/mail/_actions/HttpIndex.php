@@ -45,6 +45,7 @@ class HttpIndex extends arch\Action {
             $mails[$name] = $component;
         }
 
+        ksort($mails);
         $view['mails'] = $mails;
 
         return $view;

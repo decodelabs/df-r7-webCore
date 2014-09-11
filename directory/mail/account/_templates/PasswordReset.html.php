@@ -1,3 +1,6 @@
+<?php
+$this->view->setTitle($this->_('Password reset'));
+?>
 <h4>A password reset link was recently requested on <?php echo $this->esc($this->application->getName()); ?>.</h4>
 <?php 
 echo $this->html->element('p',

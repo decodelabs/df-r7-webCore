@@ -87,20 +87,9 @@ class HttpLostPassword extends arch\form\Action {
                     'adapter' => 'Local'
                 ])
                 ->generateKey()
-                ->save()
-                ;
+                ->save();
 
-            $html = $this->aura->getView('emails/PasswordReset.html')
-                ->setArg('key', $key)
-                ->shouldRenderBase(false)
-                ->setLayout('Blank')
-                ->render();
-
-            $mail = new flow\mail\Message();
-            $mail->setSubject($this->_('Password reset'));
-            $mail->addToAddress($client['email'], $client['fullName']);
-            $mail->setBodyHtml($html);
-            $mail->send();
+            $this->comms->componentNotify('account/PasswordReset', [$key]);
 
             $this->comms->flash(
                 'lostPassword.send',

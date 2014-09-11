@@ -61,16 +61,9 @@ class EmailVerify extends mesh\event\Hook {
             $emailTask->addDependency($task);
 
             if($this->data->user->config->shouldVerifyEmail()) {
-                $this->context->comms->templateNotify(
-                    'emails/EmailVerify.html',
-                    '~front/account/',
-                    [
-                        'key' => $key,
-                        'userId' => $record['id'],
-                        'email' => $record['email'],
-                        'isNew' => $record->isNew()
-                    ],
-                    $record['email']
+                $this->context->comms->componentNotify(
+                    'account/EmailVerify',
+                    [$key, $record]
                 );
             }
         }

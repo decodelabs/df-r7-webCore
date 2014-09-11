@@ -54,13 +54,9 @@ class HttpDeactivate extends arch\form\Action {
             $this->_deactivation->user = $client;
             $this->_deactivation->save();
 
-            $this->comms->templateAdminNotify(
-                'emails/Deactivation.notification',
-                '~front/account/',
-                [
-                    'client' => $client,
-                    'deactivation' => $this->_deactivation
-                ]
+            $this->comms->componentAdminNotify(
+                'users/Deactivation',
+                [$this->_deactivation]
             );
 
             $this->user->logout();

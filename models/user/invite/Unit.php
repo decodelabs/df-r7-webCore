@@ -112,8 +112,7 @@ class Unit extends axis\unit\table\Base {
         $invite['isActive'] = true;
 
         if($rendererPath === null) {
-            $rendererPath = 'messages/Invite.notification';
-            $rendererLocation = '~shared/users/invites/';
+            $rendererPath = 'users/Invite';
         }
 
         if($rendererLocation !== null) {
@@ -176,8 +175,7 @@ class Unit extends axis\unit\table\Base {
         }
 
         if($rendererPath === null) {
-            $rendererPath = 'messages/Invite.notification';
-            $rendererLocation = '~shared/users/invites/';
+            $rendererPath = 'users/Invite';
         }
 
         if($rendererLocation !== null) {

@@ -111,11 +111,9 @@ class HttpRespond extends arch\form\Action {
             $this->_request->save();
 
             if($validator['message']) {
-                $this->comms->templateNotify(
-                    'messages/InviteRequestDeny.notification',
-                    '~shared/users/invites/',
-                    ['request' => $this->_request, 'message' => $validator['message']],
-                    $this->_request['email']
+                $this->comms->componentNotify(
+                    'users/InviteRequestDeny',
+                    [$this->_request, $validator['message']]
                 );
             }
 
