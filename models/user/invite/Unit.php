@@ -61,15 +61,15 @@ class Unit extends axis\unit\table\Base {
         return (bool)$this->select()->where('email', '=', $email)->where('isActive', '=', true)->count();
     }
 
-    public function sendAsAllowance(Record $invite, $templatePath=null, $templateLocation=null) {
-        return $this->_send($invite, $templatePath, $templateLocation, true);
+    public function sendAsAllowance(Record $invite, $rendererPath=null, $rendererLocation=null) {
+        return $this->_send($invite, $rendererPath, $rendererLocation, true);
     }
 
-    public function send(Record $invite, $templatePath=null, $templateLocation=null) {
-        return $this->_send($invite, $templatePath, $templateLocation, false);
+    public function send(Record $invite, $rendererPath=null, $rendererLocation=null) {
+        return $this->_send($invite, $rendererPath, $rendererLocation, false);
     }
 
-    protected function _send(Record $invite, $templatePath=null, $templateLocation=null, $allowance=false) {
+    protected function _send(Record $invite, $rendererPath=null, $rendererLocation=null, $allowance=false) {
         if(!$invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has already been sent'
@@ -111,20 +111,25 @@ class Unit extends axis\unit\table\Base {
         $invite['key'] = core\string\Generator::sessionId();
         $invite['isActive'] = true;
 
-        if($templatePath === null) {
-            $templatePath = 'messages/Invite.notification';
+        if($rendererPath === null) {
+            $rendererPath = 'messages/Invite.notification';
+            $rendererLocation = '~shared/users/invites/';
         }
 
-        if($templateLocation === null) {
-            $templateLocation = '~shared/users/invites/';
+        if($rendererLocation !== null) {
+            $this->context->comms->templateNotify(
+                $rendererPath,
+                $rendererLocation,
+                ['invite' => $invite],
+                $invite['email']
+            );
+        } else {
+            $this->context->comms->componentNotify(
+                $rendererPath,
+                [$invite],
+                $invite['email']
+            );
         }
-
-        $this->context->comms->templateNotify(
-            $templatePath,
-            $templateLocation,
-            ['invite' => $invite],
-            $invite['email']
-        );
 
         $invite['lastSent'] = 'now';
         $invite->save();
@@ -147,7 +152,7 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
-    public function resend(Record $invite, $templatePath=null, $templateLocation=null) {
+    public function resend(Record $invite, $rendererPath=null, $rendererLocation=null) {
         if($invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has not been initialized'
@@ -170,20 +175,25 @@ class Unit extends axis\unit\table\Base {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
-        if($templatePath === null) {
-            $templatePath = 'messages/Invite.notification';
+        if($rendererPath === null) {
+            $rendererPath = 'messages/Invite.notification';
+            $rendererLocation = '~shared/users/invites/';
         }
 
-        if($templateLocation === null) {
-            $templateLocation = '~shared/users/invites/';
+        if($rendererLocation !== null) {
+            $this->context->comms->templateNotify(
+                $rendererPath,
+                $rendererLocation,
+                ['invite' => $invite],
+                $invite['email']
+            );
+        } else {
+            $this->context->comms->componentNotify(
+                $rendererPath,
+                [$invite],
+                $invite['email']
+            );
         }
-
-        $this->context->comms->templateNotify(
-            $templatePath,
-            $templateLocation,
-            ['invite' => $invite],
-            $invite['email']
-        );
 
         $invite['lastSent'] = 'now';
         $invite->save();
@@ -192,7 +202,7 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
-    public function ensureSent($email, Callable $generator, $templatePath=null, $templateLocation=null) {
+    public function ensureSent($email, Callable $generator, $rendererPath=null, $rendererLocation=null) {
         $invite = $this->fetch()
             ->where('email', '=', $email)
             ->where('registrationDate', '=', null)
@@ -201,7 +211,7 @@ class Unit extends axis\unit\table\Base {
 
         if($invite) {
             call_user_func($generator, $invite);
-            $this->resend($invite, $templatePath, $templateLocation);
+            $this->resend($invite, $rendererPath, $rendererLocation);
             return $this;
         }
 
@@ -210,7 +220,7 @@ class Unit extends axis\unit\table\Base {
         ]);
 
         call_user_func($generator, $invite);
-        $this->send($invite, $templatePath, $templateLocation);
+        $this->send($invite, $rendererPath, $rendererLocation);
         return $this;
     }
 
