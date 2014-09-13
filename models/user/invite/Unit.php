@@ -10,6 +10,7 @@ use df\core;
 use df\axis;
 use df\opal;
 use df\user;
+use df\flow;
 
 class Unit extends axis\unit\table\Base {
     
@@ -120,13 +121,13 @@ class Unit extends axis\unit\table\Base {
                 $rendererPath,
                 $rendererLocation,
                 ['invite' => $invite],
-                $invite['email']
+                flow\mail\Address::factory($invite['email'], $invite['name'])
             );
         } else {
             $this->context->comms->componentNotify(
                 $rendererPath,
                 [$invite],
-                $invite['email']
+                flow\mail\Address::factory($invite['email'], $invite['name'])
             );
         }
 
@@ -183,13 +184,13 @@ class Unit extends axis\unit\table\Base {
                 $rendererPath,
                 $rendererLocation,
                 ['invite' => $invite],
-                $invite['email']
+                flow\mail\Address::factory($invite['email'], $invite['name'])
             );
         } else {
             $this->context->comms->componentNotify(
                 $rendererPath,
                 [$invite],
-                $invite['email']
+                flow\mail\Address::factory($invite['email'], $invite['name'])
             );
         }
 
