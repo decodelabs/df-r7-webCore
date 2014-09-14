@@ -35,6 +35,7 @@ class HttpIndex extends arch\Action {
             try {
                 $component = $this->directory->getComponent($componentName, $location);
             } catch(\Exception $e) {
+                $mails[$name] = null;
                 continue;
             }
 

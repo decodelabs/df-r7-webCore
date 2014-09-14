@@ -4,6 +4,10 @@ echo $this->html->collectionList($this['mails'])
     ->addField('name', function($mail, $context) {
         $name = $context->getKey();
 
+        if(!$mail) {
+            return $this->html->element('span.error', $this->html->icon('mail', $name));
+        }
+
         return $this->html->link(
                 '~mail/view?path='.$name,
                 $name
@@ -12,8 +16,12 @@ echo $this->html->collectionList($this['mails'])
             ->setDisposition('informative');
     })
     ->addField('description', function($mail) {
-        return $mail->getDescription();
+        if($mail) {
+            return $mail->getDescription();
+        }
     })
     ->addField('templateType', function($mail) {
-        return $mail->getTemplateType();
+        if($mail) {
+            return $mail->getTemplateType();
+        }
     });
