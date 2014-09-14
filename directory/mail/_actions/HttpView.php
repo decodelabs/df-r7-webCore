@@ -24,7 +24,7 @@ class HttpView extends arch\Action {
         $name = array_pop($parts);
         $location = '~mail/'.implode('/', $parts).'/';
 
-        $mail = $this->directory->getComponent($name, $location);
+        $mail = $this->directory->getComponent($location.$name);
 
         if(!$mail instanceof arch\IMailComponent) {
             $this->throwError(403, 'Component is not a Mail object');

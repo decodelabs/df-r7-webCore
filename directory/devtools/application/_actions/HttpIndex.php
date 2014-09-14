@@ -16,7 +16,7 @@ class HttpIndex extends arch\Action {
 
     public function executeAsHtml() {
         $container = $this->aura->getWidgetContainer();
-        $container->push($this->directory->getComponent('IndexHeaderBar', '~devtools/application/'));
+        $container->push($this->directory->getComponent('~devtools/application/IndexHeaderBar'));
         $container->addBlockMenu('directory://~devtools/application/Index');
 
         return $container;

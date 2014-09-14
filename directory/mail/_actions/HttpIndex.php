@@ -33,7 +33,7 @@ class HttpIndex extends arch\Action {
             $location = '~mail/'.implode('/', $parts).'/';
 
             try {
-                $component = $this->directory->getComponent($componentName, $location);
+                $component = $this->directory->getComponent($location.$componentName);
             } catch(\Exception $e) {
                 $mails[$name] = null;
                 continue;
