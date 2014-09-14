@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->component('DetailHeaderBar', '~admin/navigation/directory/', $this['menu']);
+echo $this->import->component('~admin/navigation/directory/DetailHeaderBar', $this['menu']);
 
 
 echo $this->html->attributeList($this['menu'])

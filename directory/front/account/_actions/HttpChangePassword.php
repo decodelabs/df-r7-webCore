@@ -26,11 +26,7 @@ class HttpChangePassword extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component(
-                'ChangePasswordLocal', 
-                '~front/account/', 
-                $this
-            )
+            $this->import->component('~front/account/ChangePasswordLocal', $this)
         );
     }
 

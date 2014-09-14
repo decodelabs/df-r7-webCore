@@ -123,14 +123,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function getRecordOperativeLinks($invite, $mode) {
         return [
             // Resend
-            $this->import->component('InviteLink', '~admin/users/invites/', $invite, $this->_('Resend invite'))
+            $this->import->component('~admin/users/invites/InviteLink', $invite, $this->_('Resend invite'))
                 ->setAction('resend')
                 ->setIcon('refresh')
                 ->setDisposition('positive')
                 ->isDisabled(!$invite['isActive'] || $invite['registrationDate']),
 
             // Deactivate
-            $this->import->component('InviteLink', '~admin/users/invites/', $invite, $this->_('Deactivate invite'))
+            $this->import->component('~admin/users/invites/InviteLink', $invite, $this->_('Deactivate invite'))
                 ->setAction('deactivate')
                 ->setIcon('remove')
                 ->setDisposition('negative')
@@ -167,7 +167,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $context->getRowTag()->addClass('inactive');
             }
 
-            return $this->import->component('InviteLink', '~admin/users/invites/', $invite, $this->format->date($invite['creationDate'], 'short'))
+            return $this->import->component('~admin/users/invites/InviteLink', $invite, $this->format->date($invite['creationDate'], 'short'))
                 ->setIcon($invite['registrationDate'] ? 'tick' : 'mail')
                 ->setDisposition($invite['registrationDate'] ? 'positive' : 'informative');
         });
@@ -176,7 +176,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineNameField($list) {
         $list->addField('name', function($invite) {
             if($invite['user']) {
-                return $this->import->component('UserLink', '~admin/users/clients/', $invite['user']);
+                return $this->import->component('~admin/users/clients/UserLink', $invite['user']);
             } else {
                 return $invite['name'];
             }
@@ -191,7 +191,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineOwnerField($list, $mode) {
         $list->addField('ownerName', $this->_('Sent by'), function($invite) use($mode) {
-            $output = $this->import->component('UserLink', '~admin/users/clients/', $invite['owner'])
+            $output = $this->import->component('~admin/users/clients/UserLink', $invite['owner'])
                 ->setDisposition('transitive');
 
             if($invite['isFromAdmin']) {
@@ -226,14 +226,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             }
 
             return $this->html->bulletList($groups, function($group) {
-                return $this->import->component('GroupLink', '~admin/users/groups/', $group);
+                return $this->import->component('~admin/users/groups/GroupLink', $group);
             });
         });
     }
 
     public function defineUserField($list, $mode) {
         $list->addField('userName', $this->_('Account'), function($invite) {
-            return $this->import->component('UserLink', '~admin/users/clients/', $invite['user'])
+            return $this->import->component('~admin/users/clients/UserLink', $invite['user'])
                 ->isNullable(true)
                 ->setDisposition('transitive');
         });

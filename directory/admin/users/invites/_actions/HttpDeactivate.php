@@ -49,7 +49,7 @@ class HttpDeactivate extends arch\form\template\Confirm {
                 })
                 ->addField('groups', function($invite) {
                     return $this->html->bulletList($invite->groups->fetch(), function($group) {
-                        return $this->import->component('GroupLink', '~admin/users/groups/', $group);
+                        return $this->import->component('~admin/users/groups/GroupLink', $group);
                     });
                 })
         );

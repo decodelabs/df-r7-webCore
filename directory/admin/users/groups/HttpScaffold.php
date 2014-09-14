@@ -76,7 +76,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             $this->html->element('h3', $this->_('Roles')),
 
-            $this->import->component('RoleList', '~admin/users/roles/', [
+            $this->import->component('~admin/users/roles/RoleList', [
                 'actions' => false
             ], $roleList)
         ];
@@ -87,7 +87,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->countRelation('groups')
             ->paginateWith($this->request->query);
 
-        return $this->import->component('UserList', '~admin/users/clients/')
+        return $this->import->component('~admin/users/clients/UserList')
             ->setCollection($userList);
     }
 
@@ -99,7 +99,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('roles', function($group) {
             return $this->html->bulletList($group->roles->select()->orderBy('name'), function($role) {
-                return $this->import->component('RoleLink', '~admin/users/roles/', $role)
+                return $this->import->component('~admin/users/roles/RoleLink', $role)
                     ->setDisposition('transitive');
             });
         });

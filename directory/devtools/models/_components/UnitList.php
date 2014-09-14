@@ -24,7 +24,7 @@ class UnitList extends arch\component\template\CollectionList {
 // Id
     public function addIdField($list) {
         $list->addField('id', function($inspector) {
-            return $this->import->component('UnitLink', '~devtools/models/', $inspector);
+            return $this->import->component('~devtools/models/UnitLink', $inspector);
         });
     }
 

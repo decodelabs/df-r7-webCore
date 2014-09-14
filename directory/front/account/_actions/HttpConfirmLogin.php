@@ -27,11 +27,7 @@ class HttpConfirmLogin extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component(
-                'ConfirmLoginLocal',
-                '~front/account/',
-                $this
-            )
+            $this->import->component('~front/account/ConfirmLoginLocal', $this)
         );
     }
 

@@ -138,7 +138,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->importRelationBlock('user', 'link')
             ->paginateWith($this->request->query);
 
-        return $this->import->component('InviteList', '~admin/users/invites/', [
+        return $this->import->component('~admin/users/invites/InviteList', [
                 'owner' => false
             ])
             ->setCollection($inviteList);
@@ -299,7 +299,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = [];
             
             foreach($groupList as $group) {
-                $output[] = $this->import->component('GroupLink', '~admin/users/groups/', $group);
+                $output[] = $this->import->component('~admin/users/groups/GroupLink', $group);
             }
             
             return $this->html->string(implode(', ', $output));

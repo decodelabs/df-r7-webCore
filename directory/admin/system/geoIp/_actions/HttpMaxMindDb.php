@@ -26,7 +26,7 @@ class HttpMaxMindDb extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component('IndexHeaderBar', '~admin/system/geo-ip/')
+            $this->import->component('~admin/system/geo-ip/IndexHeaderBar')
         );
 
         $fileList = $this->_getFileList();

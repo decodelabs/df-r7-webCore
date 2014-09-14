@@ -56,8 +56,7 @@ class HttpLogin extends arch\form\Action {
         if(count($enabled) > 1) {
             $this->content->push(
                 $this->import->component(
-                    'LoginAdapterSwitcher', 
-                    '~front/account/', 
+                    '~front/account/LoginAdapterSwitcher', 
                     $this,
                     $enabled,
                     $this->_adapter

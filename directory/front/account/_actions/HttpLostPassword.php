@@ -24,11 +24,7 @@ class HttpLostPassword extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component(
-                'LostPassword', 
-                '~front/account/', 
-                $this
-            )
+            $this->import->component('~front/account/LostPassword', $this)
         );
     }
 

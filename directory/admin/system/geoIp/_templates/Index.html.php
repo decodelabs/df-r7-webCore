@@ -1,7 +1,7 @@
 <?php
 use df\link;
 
-echo $this->import->component('IndexHeaderBar', '~admin/system/geo-ip/');
+echo $this->import->component('~admin/system/geo-ip/IndexHeaderBar');
 
 
 if(!$this['config']->isEnabled()) {

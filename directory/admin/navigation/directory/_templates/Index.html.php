@@ -1,7 +1,7 @@
 <?php
 
 // Menu
-echo $this->import->component('IndexHeaderBar', '~admin/navigation/directory/');
+echo $this->import->component('~admin/navigation/directory/IndexHeaderBar');
 
 
 // Form
@@ -26,4 +26,4 @@ echo $form;
 
 
 // Collection
-echo $this->import->component('MenuList', '~admin/navigation/directory/');
+echo $this->import->component('~admin/navigation/directory/MenuList');

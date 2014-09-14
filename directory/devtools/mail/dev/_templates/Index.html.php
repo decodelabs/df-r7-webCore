@@ -1,5 +1,5 @@
 <?php
-echo $this->import->component('IndexHeaderBar', '~devtools/mail/dev/');
+echo $this->import->component('~devtools/mail/dev/IndexHeaderBar');
 
 
 echo $this->html->collectionList($this['mailList'])

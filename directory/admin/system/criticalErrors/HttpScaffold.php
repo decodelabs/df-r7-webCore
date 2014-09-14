@@ -213,7 +213,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineUserField($list, $mode) {
         $list->addField('user', function($error) {
-            return $this->import->component('UserLink', '~admin/users/clients/', $error['user'])
+            return $this->import->component('~admin/users/clients/UserLink', $error['user'])
                 ->isNullable(true)
                 ->setDisposition('transitive');
         });

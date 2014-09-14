@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->component('IndexHeaderBar', '~devtools/models/');
+echo $this->import->component('~devtools/models/IndexHeaderBar');
 
 echo $this->html->collectionList($this['backupList'])
     ->addField('name', function($backup) {

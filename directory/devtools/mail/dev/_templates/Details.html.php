@@ -3,7 +3,7 @@
 use df\core;
 use df\flow;
 
-echo $this->import->component('DetailHeaderBar', '~devtools/mail/dev/', $this['mail']);
+echo $this->import->component('~devtools/mail/dev/DetailHeaderBar', $this['mail']);
 
 echo $this->html->flashMessage($this->_(
     'This message was received %t% ago',

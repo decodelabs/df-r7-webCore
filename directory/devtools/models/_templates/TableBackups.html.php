@@ -1,7 +1,7 @@
 <?php
 
-echo $this->import->component('UnitDetailHeaderBar', '~devtools/models/', $this['unit']);
+echo $this->import->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
 
-echo $this->import->component('StorageList', '~devtools/models/')
+echo $this->import->component('~devtools/models/StorageList')
     ->setCollection($this['backupList'])
     ->setUnitInspector($this['unit']);

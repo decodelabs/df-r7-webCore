@@ -30,7 +30,7 @@ class HttpLaunch extends arch\form\template\Confirm {
     }
 
     protected function _renderItemDetails($container) {
-        $container->push($this->import->component('TaskDetails', '~devtools/tasks/queue/')->setRecord($this->_task));
+        $container->push($this->import->component('~devtools/tasks/queue/TaskDetails')->setRecord($this->_task));
     }
 
     protected function _apply() {

@@ -1,4 +1,4 @@
 <?php
 
-echo $this->import->component('IndexHeaderBar', '~devtools/models/');
-echo $this->import->component('UnitList', '~devtools/models/');
+echo $this->import->component('~devtools/models/IndexHeaderBar');
+echo $this->import->component('~devtools/models/UnitList');

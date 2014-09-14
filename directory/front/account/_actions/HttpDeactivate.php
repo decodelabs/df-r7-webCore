@@ -23,11 +23,7 @@ class HttpDeactivate extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component(
-                'Deactivate', 
-                '~front/account/', 
-                $this
-            )
+            $this->import->component('~front/account/Deactivate', $this)
         );
     }
 

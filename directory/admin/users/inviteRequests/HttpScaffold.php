@@ -73,7 +73,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return array_merge(
             [
                 // Respond
-                $this->import->component('RequestLink', '~admin/users/invite-requests/', $request, $this->_('Respond'))
+                $this->import->component('~admin/users/invite-requests/RequestLink', $request, $this->_('Respond'))
                     ->setAction('respond')
                     ->setIcon('mail')
                     ->setDisposition('operative')
@@ -95,7 +95,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineInviteField($list, $mode) {
         $list->addField('invite', function($request) {
-            return $this->import->component('InviteLink', '~admin/users/invites/', $request['invite'])
+            return $this->import->component('~admin/users/invites/InviteLink', $request['invite'])
                 ->isNullable(true);
         });
     }

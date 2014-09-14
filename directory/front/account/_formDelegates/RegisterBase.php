@@ -29,11 +29,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         $name = array_pop($parts);
 
         $this->content->push(
-            $this->import->component(
-                $name, 
-                '~front/account/', 
-                $this
-            )
+            $this->import->component('~front/account/'.$name, $this)
         );
     }
 
