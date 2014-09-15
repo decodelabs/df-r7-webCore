@@ -83,7 +83,7 @@ class Unit extends axis\unit\table\Base {
             );
         }
 
-        if(!$invite['owner']) {
+        if(!$invite->getRawId('owner')) {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
@@ -109,7 +109,10 @@ class Unit extends axis\unit\table\Base {
             }
         }
 
-        $invite['key'] = core\string\Generator::sessionId();
+        if(!$invite['key']) {
+            $invite['key'] = core\string\Generator::sessionId();
+        }
+
         $invite['isActive'] = true;
 
         if($rendererPath === null) {

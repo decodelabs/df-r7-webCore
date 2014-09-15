@@ -12,6 +12,12 @@ use df\opal;
 
 class Record extends opal\record\Base {
     
+    protected function _onPreInsert() {
+        if(!$this['key']) {
+            $this['key'] = core\string\Generator::sessionId();
+        }
+    }
+
     public function sendAsAllowance($templatePath=null, $templateLocation=null) {
         return $this->getRecordAdapter()->sendAsAllowance($this, $templatePath, $templateLocation);
     }
