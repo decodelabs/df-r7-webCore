@@ -71,7 +71,7 @@ class Unit extends axis\unit\table\Base {
     }
 
     protected function _send(Record $invite, $rendererPath=null, $rendererLocation=null, $allowance=false) {
-        if(!$invite['lastSent']) {
+        if($invite['lastSent']) {
             throw new \RuntimeException(
                 'Invite has already been sent'
             );
