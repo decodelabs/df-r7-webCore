@@ -71,6 +71,20 @@ class Unit extends axis\unit\table\Base {
             ->toRow();
     }
 
+    public function fetchDetailsForMail($id) {
+        $output = $this->select('id', 'fullName as name', 'email')
+            ->where('id', '=', $id)
+            ->toRow();
+
+        if($output) {
+            $parts = explode(' ', $output['name'], 2);
+            $output['firstName'] = array_shift($parts);
+            $output['surname'] = array_shift($parts);
+        }
+
+        return $output;
+    }
+
 
 
 // Query blocks
