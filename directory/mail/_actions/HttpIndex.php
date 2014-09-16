@@ -32,7 +32,7 @@ class HttpIndex extends arch\Action {
             $name = array_shift($parts);
 
             if(false !== strpos($name, '/')) {
-                $path .= '*/';
+                $path .= '#/';
             }
 
             $name = $path.$name;

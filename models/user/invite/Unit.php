@@ -62,15 +62,15 @@ class Unit extends axis\unit\table\Base {
         return (bool)$this->select()->where('email', '=', $email)->where('isActive', '=', true)->count();
     }
 
-    public function sendAsAllowance(Record $invite, $rendererPath=null, $rendererLocation=null) {
-        return $this->_send($invite, $rendererPath, $rendererLocation, true);
+    public function sendAsAllowance(Record $invite, $rendererPath=null) {
+        return $this->_send($invite, $rendererPath, true);
     }
 
-    public function send(Record $invite, $rendererPath=null, $rendererLocation=null) {
-        return $this->_send($invite, $rendererPath, $rendererLocation, false);
+    public function send(Record $invite, $rendererPath=null) {
+        return $this->_send($invite, $rendererPath, false);
     }
 
-    protected function _send(Record $invite, $rendererPath=null, $rendererLocation=null, $allowance=false) {
+    protected function _send(Record $invite, $rendererPath=null, $allowance=false) {
         if($invite['lastSent']) {
             throw new \RuntimeException(
                 'Invite has already been sent'
@@ -119,10 +119,12 @@ class Unit extends axis\unit\table\Base {
             $rendererPath = 'users/Invite';
         }
 
-        if($rendererLocation !== null) {
+        $parts = explode('/', $rendererPath);
+        $name = array_pop($parts);
+
+        if(false !== strpos($name, '.')) {
             $this->context->comms->templateNotify(
                 $rendererPath,
-                $rendererLocation,
                 ['invite' => $invite],
                 flow\mail\Address::factory($invite['email'], $invite['name'])
             );
@@ -155,7 +157,7 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
-    public function resend(Record $invite, $rendererPath=null, $rendererLocation=null) {
+    public function resend(Record $invite, $rendererPath=null) {
         if($invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has not been initialized'
@@ -182,10 +184,12 @@ class Unit extends axis\unit\table\Base {
             $rendererPath = 'users/Invite';
         }
 
-        if($rendererLocation !== null) {
+        $parts = explode('/', $rendererPath);
+        $name = array_pop($parts);
+
+        if(false !== strpos($name, '.')) {
             $this->context->comms->templateNotify(
                 $rendererPath,
-                $rendererLocation,
                 ['invite' => $invite],
                 flow\mail\Address::factory($invite['email'], $invite['name'])
             );
@@ -204,7 +208,7 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
-    public function ensureSent($email, Callable $generator, $rendererPath=null, $rendererLocation=null) {
+    public function ensureSent($email, Callable $generator, $rendererPath=null) {
         $invite = $this->fetch()
             ->where('email', '=', $email)
             ->where('registrationDate', '=', null)
@@ -213,7 +217,7 @@ class Unit extends axis\unit\table\Base {
 
         if($invite) {
             call_user_func($generator, $invite);
-            $this->resend($invite, $rendererPath, $rendererLocation);
+            $this->resend($invite, $rendererPath);
             return $this;
         }
 
@@ -222,7 +226,7 @@ class Unit extends axis\unit\table\Base {
         ]);
 
         call_user_func($generator, $invite);
-        $this->send($invite, $rendererPath, $rendererLocation);
+        $this->send($invite, $rendererPath);
         return $this;
     }
 
