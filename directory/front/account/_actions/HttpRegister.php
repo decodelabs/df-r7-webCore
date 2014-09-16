@@ -68,7 +68,7 @@ class HttpRegister extends arch\form\Action {
     }
 
     protected function _setupDelegates() {
-        $this->loadDelegate('Local', 'RegisterLocal', '~front/account/')
+        $this->loadDelegate('Local', '~front/account/RegisterLocal')
             ->setInvite($this->_invite);
     }
 

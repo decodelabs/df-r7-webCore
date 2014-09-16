@@ -15,7 +15,7 @@ class HttpGrant extends arch\form\Action {
     const DEFAULT_EVENT = 'saveUsers';
 
     protected function _setupDelegates() {
-        $this->loadDelegate('users', 'UserSelector', '~/users/clients/')
+        $this->loadDelegate('users', '~/users/clients/UserSelector')
             ->isForMany(true)
             ->isRequired(true);
     }

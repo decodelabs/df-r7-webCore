@@ -16,7 +16,7 @@ abstract class EditorBase extends arch\form\Action {
     protected $_showPasswordFields = false;
 
     protected function _setupDelegates() {
-        $this->loadDelegate('groups', 'GroupSelector', '~admin/users/groups/');
+        $this->loadDelegate('groups', '~admin/users/groups/GroupSelector');
     }
     
     protected function _createUi() {

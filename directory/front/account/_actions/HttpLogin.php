@@ -47,7 +47,7 @@ class HttpLogin extends arch\form\Action {
     }
 
     protected function _setupDelegates() {
-        $this->loadDelegate($this->_adapter, 'Login'.$this->_adapter, '~front/account/');
+        $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
     }
 
     protected function _createUi() {
