@@ -27,13 +27,19 @@ class HttpIndex extends arch\Action {
         $mails = [];
 
         foreach($list as $name => $filePath) {
-            $name = str_replace('_components/', '', substr($name, 0, -4));
-            $parts = explode('/', $name);
-            $componentName = array_pop($parts);
-            $location = '~mail/'.implode('/', $parts).'/';
+            $parts = explode('_components/', substr($name, 0, -4), 2);
+            $path = array_shift($parts);
+            $name = array_shift($parts);
+
+            if(false !== strpos($name, '/')) {
+                $path .= '*/';
+            }
+
+            $name = $path.$name;
+            $path = '~mail/'.$name;
+                $component = $this->directory->getComponent($path);
 
             try {
-                $component = $this->directory->getComponent($location.$componentName);
             } catch(\Exception $e) {
                 $mails[$name] = null;
                 continue;
