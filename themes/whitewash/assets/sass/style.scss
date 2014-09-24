@@ -50,6 +50,14 @@ body[data-location^="~devtools/"] {
     background: #CBE3E7;
 }
 
+body[data-location^="~mail/"] {
+    background: #E4E4C9;
+}
+
+body[data-location^="~ui/"] {
+    background: #E4C8E6;
+}
+
 body[data-layout="Blank"] {
     background: #FFF !important;
 }
