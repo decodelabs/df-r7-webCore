@@ -36,7 +36,11 @@
             $menu->addLinks(
                 $this->html->link('~ui/', $this->_('UI testing'))
                     ->setIcon('theme')
-                    ->isActive($this->context->request->isArea('ui'))
+                    ->isActive($this->context->request->isArea('ui')),
+
+                $this->html->link('~mail/', $this->_('Mail visualisation'))
+                    ->setIcon('mail')
+                    ->isActive($this->context->request->isArea('mail'))
             );
         });
     ?>
