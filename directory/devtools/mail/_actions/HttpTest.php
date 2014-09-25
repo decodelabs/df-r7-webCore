@@ -21,7 +21,8 @@ class HttpTest extends arch\form\Action {
     }
 
     protected function _setDefaultValues() {
-        $this->values->transport = flow\mail\transport\Base::getDefaultTransportName();
+        $manager = flow\Manager::getInstance();
+        $this->values->transport = $manager->getDefaultMailTransportName();
 
         $config = flow\mail\Config::getInstance();
         $from = flow\mail\Address::factory($config->getDefaultAddress());
