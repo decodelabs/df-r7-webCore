@@ -22,12 +22,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'request', 'priority', 'creationDate', 'lastRun', 
-        'schedule', 'environmentMode', 'isLive', 'actions'
+        'schedule', 'environmentMode', 'isLive', 'isAuto', 'actions'
     ];
 
     protected $_recordDetailsFields = [
         'id', 'request', 'priority', 'creationDate',
-        'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 'environmentMode', 'isLive'
+        'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 
+        'environmentMode', 'isLive', 'isAuto'
     ];
 
 
@@ -65,6 +66,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $schedule['day'].' '.
                 $schedule['month'].' '.
                 $schedule['weekday'];
+        });
+    }
+
+    public function defineIsAutoField($list, $mode) {
+        $list->addField('isAuto', $this->_('Auto'), function($schema) {
+            return $this->html->lockIcon(!$schema['isAuto'])
+                ->addClass($schema['isAuto'] ? 'positive' : 'negative');
         });
     }
 }

@@ -162,6 +162,12 @@ class HttpAdd extends arch\form\Action {
             ->applyTo($this->_schedule);
 
         if($this->isValid()) {
+            if($this->_schedule->isNew()
+            || $this->_schedule->hasAnyChanged('minute', 'hour', 'day', 'month', 'weekday')
+            || ($this->_schedule->hasChanged('isLive') && $this->_schedule['isLive'] == false)) {
+                $this->_schedule->isAuto = false;
+            }
+
             $this->_schedule->save();
 
             $this->comms->flash(
