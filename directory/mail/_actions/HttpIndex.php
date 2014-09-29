@@ -15,10 +15,6 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function execute() {
-        if($this->application->isProduction()) {
-            $this->throwError(401, 'Dev mode only');
-        }
-
         $view = $this->aura->getView('__Index.html');
         $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/mail', 'php', function($path) {
             return false !== strpos($path, '_components');

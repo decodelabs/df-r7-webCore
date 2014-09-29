@@ -16,10 +16,6 @@ class HttpView extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        if($this->application->isProduction()) {
-            $this->throwError(401, 'Dev mode only');
-        }
-
         $mail = $this->directory->getComponent('~mail/'.$this->request->query['path']);
 
         if(!$mail instanceof arch\IMailComponent) {
