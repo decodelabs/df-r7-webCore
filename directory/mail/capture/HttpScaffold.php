@@ -137,17 +137,4 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             return $this->html->lockIcon($mail['isPrivate']);
         });
     }
-
-    public function defineEnvironmentModeField($list, $mode) {
-        $list->addField('environmentMode', $this->_('Env.'), function($mail) {
-            switch($mail['environmentMode']) {
-                case 'development':
-                    return $this->html->element('span.priority-low.inactive', 'Dev');
-                case 'testing':
-                    return $this->html->element('span.priority-medium.inactive', 'Test');
-                case 'production':
-                    return $this->html->element('span.priority-high.active', 'Prod');
-            }
-        });
-    }
 }

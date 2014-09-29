@@ -21,13 +21,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const RECORD_NAME_KEY = 'request';
 
     protected $_recordListFields = [
-        'request', 'environmentMode', 'priority', 
-        'creationDate', 'lastRun', 'schedule', 'isLive', 'actions'
+        'request', 'priority', 'creationDate', 'lastRun', 
+        'schedule', 'environmentMode', 'isLive', 'actions'
     ];
 
     protected $_recordDetailsFields = [
-        'id', 'request', 'environmentMode', 'priority', 'creationDate',
-        'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 'isLive'
+        'id', 'request', 'priority', 'creationDate',
+        'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 'environmentMode', 'isLive'
     ];
 
 

@@ -23,8 +23,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'request', 'environmentMode', 'startDate', 'endDate',
-        'status', 'actions'
+        'request', 'startDate', 'endDate',
+        'status', 'environmentMode', 'actions'
     ];
 
     protected $_recordDetailsFields = [
