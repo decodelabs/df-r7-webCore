@@ -19,6 +19,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
 
     public function generateIndexMenu($entryList) {
         $captureCount = $this->data->mail->capture->select()->count();
+        $journalCount = $this->data->mail->journal->select()->count();
 
         $entryList->addEntries(
             $entryList->newLink('~mail/capture/', 'Development mailbox')
@@ -28,17 +29,24 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                 ->setNote($this->format->counterNote($captureCount))
                 ->setWeight(10),
 
+            $entryList->newLink('~mail/journal/', 'Send logs')
+                ->setId('journal')
+                ->setDescription('Get an overview of what emails have been sent recently')
+                ->setIcon('log')
+                ->setNote($this->format->counterNote($journalCount))
+                ->setWeight(20),
+
             $entryList->newLink('~mail/templates/', 'Template visualisation')
                 ->setId('templates')
                 ->setDescription('View component based mail templates with pre-set test data')
                 ->setIcon('theme')
-                ->setWeight(20),
+                ->setWeight(30),
 
             $entryList->newLink('~mail/test', 'Test email capabilities')
                 ->setId('test')
                 ->setDescription('Try sending test emails from any of the available transports')
                 ->setIcon('test')
-                ->setWeight(30)
+                ->setWeight(40)
         );
     }
 }

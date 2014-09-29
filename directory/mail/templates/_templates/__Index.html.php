@@ -12,7 +12,7 @@ echo $this->html->collectionList($this['mails'])
                 '~mail/templates/view?path='.$name,
                 $name
             )
-            ->setIcon('mail')
+            ->setIcon('theme')
             ->setDisposition('informative');
     })
     ->addField('description', function($mail) {

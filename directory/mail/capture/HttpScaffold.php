@@ -33,7 +33,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
         $query->beginWhereClause()
             ->orWhere('subject', 'matches', $search)
-            ->orWhere('subject', 'matches', $search)
+            ->orWhere('body', 'matches', $search)
             ->endClause();
     }
 
