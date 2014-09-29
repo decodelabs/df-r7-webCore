@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\mail;
+namespace df\apex\directory\mail\templates;
 
 use df;
 use df\core;
@@ -12,17 +12,18 @@ use df\arch;
 class HttpRouter implements arch\IRouter {
     
     public function routeIn(arch\IRequest $request) {
-        if($request->eq('~mail/index')) {
+        if($request->eq('~mail/templates/index')) {
             return $request;
         }
 
         $path = $request->getPath();
         $path->shift();
+        $path->shift();
 
         $query = $request->getQuery();
         $query->path = (string)$path;
         
-        $request->setPath('~mail/view');
+        $request->setPath('~mail/templates/view');
 
         return $request;
     }
@@ -33,6 +34,6 @@ class HttpRouter implements arch\IRouter {
         }
 
         $path = $request->query['path'];
-        return new arch\Request('~mail/'.$path);
+        return new arch\Request('~mail/templates/'.$path);
     }
 }

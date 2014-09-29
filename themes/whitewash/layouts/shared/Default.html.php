@@ -24,9 +24,15 @@
                 ->setIcon('admin')
                 ->isActive($this->context->request->isArea('admin')),
 
+            /*
             $this->html->link('~front/', $this->_('Front end'))
                 ->setIcon('home')
                 ->isActive($this->context->request->isArea('front')),
+            */
+
+            $this->html->link('~mail/', $this->_('Mail centre'))
+                    ->setIcon('mail')
+                    ->isActive($this->context->request->isArea('mail')),
 
             $this->html->link('~devtools/', $this->_('Devtools'))
                 ->setIcon('debug')
@@ -36,11 +42,7 @@
             $menu->addLinks(
                 $this->html->link('~ui/', $this->_('UI testing'))
                     ->setIcon('theme')
-                    ->isActive($this->context->request->isArea('ui')),
-
-                $this->html->link('~mail/', $this->_('Mail visualisation'))
-                    ->setIcon('mail')
-                    ->isActive($this->context->request->isArea('mail'))
+                    ->isActive($this->context->request->isArea('ui'))
             );
         });
     ?>

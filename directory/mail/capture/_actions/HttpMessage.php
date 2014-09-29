@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\mail\dev\_actions;
+namespace df\apex\directory\mail\capture\_actions;
 
 use df;
 use df\core;
@@ -18,7 +18,7 @@ class HttpMessage extends arch\Action {
         $view = $this->aura->getView('Message.html');
 
         $view['mail'] = $this->data->fetchForAction(
-            'axis://mail/DevMail',
+            'axis://mail/Capture',
             $this->request->query['mail']
         );
 

@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\mail\dev\_actions;
+namespace df\apex\directory\mail\capture\_actions;
 
 use df;
 use df\core;
@@ -17,10 +17,10 @@ class HttpDeleteAll extends arch\form\template\Delete {
     const ITEM_NAME = 'mailbox';
 
     protected function _init() {
-        $this->data->checkAccess('axis://mail/DevMail', 'delete');
+        $this->data->checkAccess('axis://mail/Capture', 'delete');
     }
 
     protected function _deleteItem() {
-        $this->data->getModel('mail')->devMail->delete()->execute();
+        $this->data->getModel('mail')->capture->delete()->execute();
     }
 }

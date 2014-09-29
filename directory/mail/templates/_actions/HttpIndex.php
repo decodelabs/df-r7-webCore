@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\mail\_actions;
+namespace df\apex\directory\mail\templates\_actions;
 
 use df;
 use df\core;
@@ -33,9 +33,9 @@ class HttpIndex extends arch\Action {
 
             $name = $path.$name;
             $path = '~mail/'.$name;
-                $component = $this->directory->getComponent($path);
 
             try {
+                $component = $this->directory->getComponent($path);
             } catch(\Exception $e) {
                 $mails[$name] = null;
                 continue;

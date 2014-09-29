@@ -9,7 +9,7 @@ echo $this->html->collectionList($this['mails'])
         }
 
         return $this->html->link(
-                '~mail/view?path='.$name,
+                '~mail/templates/view?path='.$name,
                 $name
             )
             ->setIcon('mail')
