@@ -1,5 +1,6 @@
 <?php
 use df\axis;
+use df\core;
 use df\opal;
 
 echo $this->import->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
@@ -26,9 +27,14 @@ foreach($this['primitives'] as $primitive) {
         if($primitive instanceof opal\schema\Primitive_DateTime
         || $primitive instanceof opal\schema\Primitive_Timestamp) {
             return $this->html->dateTime($row[$name]);
-        } else {
-            return $this->html->shorten($row[$name], 25);
         }
+
+        if($primitive instanceof opal\schema\Primitive_Guid) {
+            return $this->html->element('abbr', 'GUID')
+                ->setAttribute('title', core\string\Uuid::factory($row[$name]));
+        }
+
+        return $this->html->shorten($row[$name], 25);
     });
 }
 
