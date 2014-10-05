@@ -11,7 +11,7 @@ use df\arch;
 
 class HttpIndex extends arch\Action {
     
-    const CHECK_ACCESS = false;
+    const CHECK_ACCESS = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsHtml() {

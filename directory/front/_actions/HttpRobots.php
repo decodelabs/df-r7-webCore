@@ -12,7 +12,7 @@ use df\arch;
     
 class HttpRobots extends arch\Action {
 
-    const CHECK_ACCESS = false;
+    const OPTIMIZE = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsTxt() {

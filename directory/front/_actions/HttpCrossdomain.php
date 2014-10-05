@@ -12,7 +12,7 @@ use df\arch;
     
 class HttpCrossdomain extends arch\Action {
 
-    const CHECK_ACCESS = false;
+    const OPTIMIZE = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsXml() {

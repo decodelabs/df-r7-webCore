@@ -13,7 +13,6 @@ use df\user;
     
 class HttpConfirmLogin extends arch\form\Action {
 
-    //const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::BOUND;
     const DEFAULT_EVENT = 'login';
     const DEFAULT_REDIRECT = '/';

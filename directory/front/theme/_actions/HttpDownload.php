@@ -13,7 +13,7 @@ use df\neon;
 
 class HttpDownload extends arch\Action {
     
-    const CHECK_ACCESS = false;
+    const OPTIMIZE = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL; 
     
     public function execute() {
