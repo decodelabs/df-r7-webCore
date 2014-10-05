@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\opal;
+use df\halo;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     
@@ -21,30 +22,43 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const RECORD_NAME_KEY = 'request';
 
     protected $_recordListFields = [
-        'request', 'priority', 'creationDate', 'lastRun', 
+        'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
         'schedule', 'environmentMode', 'isLive', 'isAuto', 'actions'
     ];
 
     protected $_recordDetailsFields = [
         'id', 'request', 'priority', 'creationDate',
-        'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 
+        'lastRun', 'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 
         'environmentMode', 'isLive', 'isAuto'
     ];
 
 
 // Components
     public function addIndexSubOperativeLinks($menu, $bar) {
+        $remote = halo\daemon\Remote::factory('TaskSpool');
+        $isRunning = $remote->isRunning();
+
         $menu->addLinks(
             $this->html->link(
+                    $this->uri->request('~devtools/tasks/schedule/nudge', true),
+                    $isRunning ?
+                        $this->_('Daemon is running') :
+                        $this->_('Launch spool daemon')
+                )
+                ->setIcon('launch')
+                ->setDisposition('positive')
+                ->isDisabled($isRunning),
+
+            $this->html->link(
                     $this->uri->request('~devtools/tasks/schedule/scan', true),
-                    $this->_('Scan for new tasks')
+                    $this->_('Scan for tasks')
                 )
                 ->setIcon('search')
                 ->setDisposition('operative'),
 
             $this->html->link(
                     $this->uri->request('~devtools/tasks/queue/spool', true),
-                    $this->_('Run spool now')
+                    $this->_('Spool now')
                 )
                 ->setIcon('launch')
                 ->setDisposition('operative')
@@ -55,6 +69,26 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineLastRunField($list, $mode) {
         $list->addField('lastRun', $this->_('Last run'), function($schedule) {
             return $this->html->timeFromNow($schedule['lastRun']);
+        });
+    }
+
+    public function defineLastTriggerField($list, $mode) {
+        $list->addField('lastTrigger', function($schedule) {
+            if(!$schedule['isLive']) {
+                return;
+            }
+            
+            return $this->html->timeFromNow(core\time\Schedule::factory($schedule)->getLast(null, 1));
+        });
+    }
+
+    public function defineNextRunField($list, $mode) {
+        $list->addField('nextRun', function($schedule) {
+            if(!$schedule['isLive']) {
+                return;
+            }
+            
+            return $this->html->timeFromNow(core\time\Schedule::factory($schedule)->getNext(null, 1));
         });
     }
 
