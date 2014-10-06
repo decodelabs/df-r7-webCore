@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\tasks\queue\_actions;
+namespace df\apex\directory\devtools\processes\queue\_actions;
 
 use df;
 use df\core;
@@ -30,7 +30,7 @@ class HttpLaunch extends arch\form\template\Confirm {
     }
 
     protected function _renderItemDetails($container) {
-        $container->push($this->import->component('~devtools/tasks/queue/TaskDetails')->setRecord($this->_task));
+        $container->push($this->import->component('~devtools/processes/queue/TaskDetails')->setRecord($this->_task));
     }
 
     protected function _apply() {

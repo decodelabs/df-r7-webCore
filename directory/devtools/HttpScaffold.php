@@ -31,9 +31,9 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                 ->setIcon('database')
                 ->setWeight(20),
 
-            $entryList->newLink('~devtools/tasks/', 'Task manager')
-                ->setId('taskManager')
-                ->setDescription('Queue and schedule tasks and view logs of previously run processes')
+            $entryList->newLink('~devtools/processes/', 'Process manager')
+                ->setId('processManager')
+                ->setDescription('Queue and schedule tasks, launch daemons and view logs of previously run processes')
                 ->setIcon('task')
                 ->setWeight(30),
 

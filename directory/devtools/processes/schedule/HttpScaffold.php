@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\tasks\schedule;
+namespace df\apex\directory\devtools\processes\schedule;
 
 use df;
 use df\core;
@@ -40,7 +40,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~devtools/tasks/schedule/nudge', true),
+                    $this->uri->request('~devtools/processes/schedule/nudge', true),
                     $isRunning ?
                         $this->_('Daemon is running') :
                         $this->_('Launch spool daemon')
@@ -50,14 +50,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->isDisabled($isRunning),
 
             $this->html->link(
-                    $this->uri->request('~devtools/tasks/schedule/scan', true),
+                    $this->uri->request('~devtools/processes/schedule/scan', true),
                     $this->_('Scan for tasks')
                 )
                 ->setIcon('search')
                 ->setDisposition('operative'),
 
             $this->html->link(
-                    $this->uri->request('~devtools/tasks/queue/spool', true),
+                    $this->uri->request('~devtools/processes/queue/spool', true),
                     $this->_('Spool now')
                 )
                 ->setIcon('launch')

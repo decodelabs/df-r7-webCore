@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\devtools\tasks\logs;
+namespace df\apex\directory\devtools\processes\logs;
 
 use df;
 use df\core;
@@ -61,7 +61,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~devtools/tasks/logs/delete-all', true),
+                    $this->uri->request('~devtools/processes/logs/delete-all', true),
                     $this->_('Delete all logs')
                 )
                 ->setIcon('delete')
