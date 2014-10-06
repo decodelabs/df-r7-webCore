@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'request', 'startDate', 'endDate',
+        'request', 'startDate', 'runTime',
         'status', 'environmentMode', 'actions'
     ];
 
     protected $_recordDetailsFields = [
-        'id', 'request', 'environmentMode', 'startDate', 'endDate',
+        'id', 'request', 'environmentMode', 'startDate', 'runTime',
         'status'
     ];
 
@@ -71,14 +71,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Fields
     public function defineStartDateField($list, $mode) {
-        $list->addField('startDate', function($log) {
-            return $this->html->customDate($log['startDate'], 'j M, H:i:s');
+        $list->addField('startDate', $this->_('Started'), function($log) {
+            return $this->html->timeFromNow($log['startDate']);
         });
     }
 
-    public function defineEndDateField($list, $mode) {
-        $list->addField('endDate', function($log) {
-            return $this->html->customDate($log['endDate'], 'j M, H:i:s');
+    public function defineRunTimeField($list, $mode) {
+        $list->addField('runTime', function($log) {
+            return $this->format->duration($log['runTime']);
         });
     }
 
