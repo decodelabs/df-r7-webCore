@@ -27,6 +27,21 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
 
+    public function fixNamesAction() {
+        $list = $this->data->mail->journal->fetch()
+            ->where('name', 'begins', 'mail/');
+
+        $count = 0;
+
+        foreach($list as $mail) {
+            $mail['name'] = '~'.$mail['name'];
+            $mail->save();
+            $count++;
+        }
+
+        core\dump($count);
+    }
+
 // Record data
     protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
         $query->importRelationBlock('user', 'link');
@@ -50,8 +65,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('name', $this->_('Template'), function($log) {
             $name = $log['name'];
 
-            if(0 === strpos($name, 'mail/')) {
-                $name = substr($name, 5);
+            if(0 === strpos($name, '~mail/')) {
+                $name = substr($name, 6);
 
                 return $this->html->link('~mail/templates/view?path='.$name, $name)
                     ->setIcon('theme')
