@@ -29,12 +29,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function fixNamesAction() {
         $list = $this->data->mail->journal->fetch()
-            ->where('name', 'begins', 'mail/');
+            ->where('name', 'begins', '~mail/');
 
         $count = 0;
 
         foreach($list as $mail) {
-            $mail['name'] = '~'.$mail['name'];
+            $mail['name'] = substr($mail['name'], 6);
             $mail->save();
             $count++;
         }
