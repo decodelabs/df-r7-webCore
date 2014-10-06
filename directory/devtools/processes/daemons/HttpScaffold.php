@@ -29,9 +29,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         'pid', 'testMode', 'automatic', 'actions'
     ];
 
+    protected $_enabled;
+
 
 // Record data
     protected function _generateRecordAdapter() {
+        $this->_enabled = core\Environment::getInstance()->canUseDaemons();
+
         $daemons = halo\daemon\Base::loadAll();
         $data = [];
 
@@ -70,7 +74,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                         $this->_('Restart daemon')
                     )
                     ->setIcon('refresh')
-                    ->setDisposition('operative'),
+                    ->setDisposition('operative')
+                    ->isDisabled(!$this->_enabled),
 
                 $this->html->link(
                         $this->uri->request('~devtools/processes/daemons/stop?daemon='.$daemon['name'], true),
@@ -78,6 +83,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     )
                     ->setIcon('remove')
                     ->setDisposition('negative')
+                    ->isDisabled(!$this->_enabled)
             ];  
         } else {
             return [
@@ -87,7 +93,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     )
                     ->setIcon('launch')
                     ->setDisposition('positive')
-                    ->isDisabled($daemon['testMode'])
+                    ->isDisabled(!$this->_enabled || $daemon['testMode'])
             ];  
         }
 
