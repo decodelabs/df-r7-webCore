@@ -67,7 +67,9 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
             if(0 === strpos($name, '~mail/')) {
                 $name = substr($name, 6);
+            }
 
+            if(substr($name, 0, 1) != '~') {
                 return $this->html->link('~mail/templates/view?path='.$name, $name)
                     ->setIcon('theme')
                     ->setDisposition('transitive');
