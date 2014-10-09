@@ -23,11 +23,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_DELETE_RECORD = false;
 
     protected $_recordListFields = [
-        'date', 'name', 'email', 'user', 'environmentMode'
+        'date', 'name', 'email', 'user', 'environmentMode', 'expireDate'
     ];
 
     protected $_recordDetailsFields = [
-        'date', 'name', 'email', 'user', 'environmentMode',
+        'date', 'name', 'email', 'user', 'environmentMode', 'expireDate',
         'objectId1', 'objectId2'
     ];
 
@@ -40,6 +40,32 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         foreach($list as $mail) {
             $mail['name'] = substr($mail['name'], 6);
+            $mail->save();
+            $count++;
+        }
+
+        core\dump($count);
+    }
+
+    public function fixDurationsAction() {
+        $list = $this->data->mail->journal->fetch();
+        $count = 0;
+
+        foreach($list as $mail) {
+            $date = $mail['date'];
+
+            try {
+                $component = $this->directory->getComponent('~mail/'.$mail['name']);
+
+                if(!$component instanceof arch\IMailComponent) {
+                    continue;
+                }
+            } catch(\Exception $e) {
+                continue;
+            }
+
+            $date = $date->modifyNew('+'.$component::JOURNAL_WEEKS.' weeks');
+            $mail->expireDate = $date;
             $mail->save();
             $count++;
         }
@@ -89,6 +115,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             return $this->import->component('~admin/users/clients/UserLink', $log['user'])
                 ->isNullable(true)
                 ->setDisposition('transitive');
+        });
+    }
+
+    public function defineExpireDateField($list, $mode) {
+        $list->addField('expireDate', $this->_('Expires'), function($log) {
+            return $this->html->timeFromNow($log['expireDate']);
         });
     }
 }
