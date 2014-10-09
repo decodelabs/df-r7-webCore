@@ -26,6 +26,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         'date', 'name', 'email', 'user', 'environmentMode'
     ];
 
+    protected $_recordDetailsFields = [
+        'date', 'name', 'email', 'user', 'environmentMode',
+        'objectId1', 'objectId2'
+    ];
+
 
     public function fixNamesAction() {
         $list = $this->data->mail->journal->fetch()
