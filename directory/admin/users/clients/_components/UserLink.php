@@ -58,6 +58,6 @@ class UserLink extends arch\component\template\RecordLink {
 
 // Url
     protected function _getRecordUrl($id) {
-        return '~/users/clients/details?user='.$id;
+        return '~admin/users/clients/details?user='.$id;
     }
 }
