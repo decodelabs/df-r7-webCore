@@ -162,7 +162,7 @@ section {
 
 
 // Layout
-.layout-pageArea {
+div.layout-pageArea {
     margin: 2em;
     background: #FFF;
     min-height: 500px;
@@ -171,6 +171,7 @@ section {
 
     .layout-header {
         @extend %clearfix;
+        margin-bottom: 1em;
     }
 
     .layout-contentArea {
@@ -191,7 +192,6 @@ section {
 
 // Breadcrumbs
 .widget-breadcrumbList {
-    margin-bottom: 1em;
     padding: 0.4em;
     @include border-radius(8px);
     background: #F4F4F4;

@@ -427,9 +427,9 @@ th {
 
 
 
-html > body *:first-child {
+html *:first-child {
   margin-top: 0;
 }
-html > body *:last-child {
+html *:last-child {
   margin-bottom: 0;
 }
