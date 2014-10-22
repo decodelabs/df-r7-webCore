@@ -66,15 +66,36 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         }
     }
 
+
+
+    public function setCompletionRedirect($request) {
+        $this->setStore('completionRedirect', $request);
+        return $this;
+    }
+
+    public function getCompletionRedirect() {
+        return $this->getStore('completionRedirect');
+    }
+
+    public function clearCompletionRedirect() {
+        $this->removeStore('completionRedirect');
+        return $this;
+    }
+
     protected function _completeRegistration(Callable $requestGenerator=null) {
+        $redirect = $this->getStore('completionRedirect');
         $config = $this->data->user->config;
+
+        if($redirect === null) {
+            $redirect = $config->getRegistrationLandingPage();
+        }
 
         if($requestGenerator && $config->shouldLoginOnRegistration()) {
             $request = $requestGenerator();
 
             if($request instanceof user\authentication\IRequest) {
                 $result = $this->user->authenticate($request);
-                return $this->complete($config->getRegistrationLandingPage());
+                return $this->complete($redirect);
             }
         }
 
@@ -85,7 +106,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         );
 
         $request = $this->directory->newRequest('account/login');
-        $request->setRedirect($this->request->getRedirectFrom(), $config->getRegistrationLandingPage());
+        $request->setRedirect($this->request->getRedirectFrom(), $redirect);
 
         return $this->complete($request);
     }

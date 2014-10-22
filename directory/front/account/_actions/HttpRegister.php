@@ -77,6 +77,6 @@ class HttpRegister extends arch\form\Action {
     }
 
     protected function _onRegisterEvent() {
-        $this->getDelegate('Local')->handleEvent('register', func_get_args());
+        return $this->getDelegate('Local')->handleEvent('register', func_get_args());
     }
 }
