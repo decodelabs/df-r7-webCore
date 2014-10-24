@@ -46,6 +46,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
 
 
     public function importAction() {
+        set_time_limit(0);
         $access = $critical = $misses = 0;
 
         foreach($this->data->log->accessError->select()->orderBy('date ASC') as $orig) {
@@ -56,7 +57,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                     'request' => $orig['request'],
                     'message' => $orig['message'],
                     'userAgent' => $this->data->user->agent->logAgent($orig['userAgent']),
-                    'userId' => (string)$orig['user'],
+                    'user' => (string)$orig['user'],
                     'isProduction' => $orig['isProduction']
                 ]);
 
@@ -88,7 +89,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                     'message' => null,
                     'userAgent' => $this->data->user->agent->logAgent($orig['userAgent']),
                     'stackTrace' => $this->data->pestControl->stackTrace->logJson($orig['stackTrace']),
-                    'userId' => (string)$orig['user'],
+                    'user' => (string)$orig['user'],
                     'isProduction' => $orig['isProduction']
                 ]);
 
@@ -114,7 +115,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                     'miss' => $miss,
                     'referrer' => $orig['referrer'],
                     'message' => $orig['message'],
-                    'userId' => (string)$orig['user'],
+                    'user' => (string)$orig['user'],
                     'isProduction' => $orig['isProduction']
                 ]);
 
@@ -122,6 +123,6 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
             $misses++;
         }
 
-        core\dump('Imported '.$access.' access logs, '.$critical.' error logs and '.$miss.' 404 logs');
+        core\dump('Imported '.$access.' access logs, '.$critical.' error logs and '.$misses.' 404 logs');
     }
 }
