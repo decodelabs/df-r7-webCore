@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'date', 'mode', 'request', 'message', 
-        'userName', 'isProduction', 'actions'
+        'user', 'isProduction', 'actions'
     ];
 
     protected $_recordDetailsFields = [
         'date', 'mode', 'request', 'message',
-        'userAgent', 'userName', 'isProduction'
+        'userAgent', 'user', 'isProduction'
     ];
 
 // Record data
@@ -142,18 +142,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
-    public function defineUserNameField($list, $mode) {
-        $list->addField('userName', $this->_('User'), function($log) {
-            $output = $log['userName'];
-
-            if($id = $log['userId']) {
-                $output = [
-                    $output, ' ',
-                    $this->html->element('sup', '(id: #'.$id.')')
-                ];
-            }
-
-            return $output;
+    public function defineUserField($list, $mode) {
+        $list->addField('user', function($log) {
+            return $this->import->component('~admin/users/clients/UserLink', $log['user'])
+                ->setDisposition('transitive')
+                ->isNullable(true);
         });
     }
 

@@ -68,6 +68,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function renderLogsSectionBody($miss) {
         $logList = $miss->missLogs->select()
             ->importRelationBlock('miss', 'list')
+            ->importRelationBlock('user', 'link')
             ->paginateWith($this->request->query);
 
         return $this->import->component('~admin/system/pestControl/misses/logs/LogList')

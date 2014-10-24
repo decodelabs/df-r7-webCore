@@ -76,6 +76,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function renderDetailsSectionBody($error) {
         $logList = $error->errorLogs->select()
             ->importRelationBlock('error', 'list')
+            ->importRelationBlock('user', 'link')
             ->paginateWith($this->request->query);
 
 
