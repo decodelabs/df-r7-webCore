@@ -49,6 +49,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
         set_time_limit(0);
         $access = $critical = $misses = 0;
 
+        /*
         foreach($this->data->log->accessError->select()->orderBy('date ASC') as $orig) {
             $new = $this->data->pestControl->accessLog->newRecord([
                     'date' => $orig['date'],
@@ -96,6 +97,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
             $new->save();
             $critical++;
         }
+        */
 
         foreach($this->data->log->notFound->select()->orderBy('date ASC') as $orig) {
             $miss = $this->data->pestControl->miss->logMiss(
