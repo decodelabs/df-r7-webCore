@@ -82,7 +82,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         return $this;
     }
 
-    protected function _completeRegistration(Callable $requestGenerator=null) {
+    protected function _completeRegistration($requestGenerator=null) {
         $redirect = $this->getStore('completionRedirect');
         $config = $this->data->user->config;
 
@@ -91,7 +91,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         }
 
         if($requestGenerator && $config->shouldLoginOnRegistration()) {
-            $request = $requestGenerator();
+            $request = core\lang\Callback::factory($requestGenerator)->invoke();
 
             if($request instanceof user\authentication\IRequest) {
                 $result = $this->user->authenticate($request);

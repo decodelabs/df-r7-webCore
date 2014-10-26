@@ -208,15 +208,17 @@ class Unit extends axis\unit\table\Base {
         return $invite;
     }
 
-    public function ensureSent($email, Callable $generator, $rendererPath=null) {
+    public function ensureSent($email, $generator, $rendererPath=null) {
         $invite = $this->fetch()
             ->where('email', '=', $email)
             ->where('registrationDate', '=', null)
             ->where('isActive', '=', true)
             ->toRow();
 
+        $generator = core\lang\Callback::factory($generator);
+
         if($invite) {
-            call_user_func($generator, $invite);
+            $generator->invoke($invite);
             $this->resend($invite, $rendererPath);
             return $this;
         }
@@ -225,7 +227,7 @@ class Unit extends axis\unit\table\Base {
             'email' => $email
         ]);
 
-        call_user_func($generator, $invite);
+        $generator->invoke($invite);
         $this->send($invite, $rendererPath);
         return $this;
     }
