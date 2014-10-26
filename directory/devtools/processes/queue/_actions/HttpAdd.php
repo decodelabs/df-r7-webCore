@@ -48,15 +48,8 @@ class HttpAdd extends arch\form\Action {
 
         // Priority
         $fs->addFieldArea($this->_('Priority'))->push(
-            $this->_('Trivial'),
-            ' ',
-            $this->html->rangeSlider('priority', $this->values->priority)
-                ->setMin(0)
-                ->setMax(4)
-                ->setStep(1)
-                ->isRequired(true),
-            ' ',
-            $this->_('Critical')
+            $this->html->prioritySlider('priority', $this->values->priority)
+                ->isRequired(true)
         );
 
         // Buttons
