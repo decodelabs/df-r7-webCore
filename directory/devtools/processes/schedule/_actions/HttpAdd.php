@@ -118,8 +118,8 @@ class HttpAdd extends arch\form\Action {
 
             // Priority
             ->addField('priority', 'enum')
+                ->setOptions(core\unit\Priority::getOptions())
                 ->isRequired(true)
-                ->setOptions(['trivial', 'low', 'medium', 'high', 'critical'])
                 ->end()
 
             // Minute
