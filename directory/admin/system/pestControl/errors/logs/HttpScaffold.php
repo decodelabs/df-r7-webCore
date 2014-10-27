@@ -81,12 +81,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
             $this->html->panelSet()
                 ->addPanel('details', 50, [
-                    $this->html->element('h3', $this->_('Log')),
+                    $this->html('h3', $this->_('Log')),
                     parent::renderDetailsSectionBody($log)
                 ])
                 ->addPanel('error', 50, function() use($log) {
                     return [
-                        $this->html->element('h3', [
+                        $this->html('h3', [
                             $this->import->component('~admin/system/pestControl/errors/ErrorLink', $log['error'], $this->_('Error'))
                                 ->setDisposition('transitive')
                         ]),
@@ -95,7 +95,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ];
                 }),
 
-            $this->html->element('h3', $this->_('Stack trace')),
+            $this->html('h3', $this->_('Stack trace')),
 
             function() use($log) {
                 if(!$trace = $log['stackTrace']) {
@@ -109,11 +109,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 return $this->html->collectionList($trace)
                     ->addField('file', function($call) {
                         if($call['file']) {
-                            return $this->html->element('code', $call['file'].' : '.$call['line']);
+                            return $this->html('code', $call['file'].' : '.$call['line']);
                         }
                     })
                     ->addField('signature', function($call) {
-                        return $this->html->element('code', $call['signature']);
+                        return $this->html('code', $call['signature']);
                     });
             }
         ];
@@ -137,7 +137,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserAgentField($list, $mode) {
         $list->addField('userAgent', function($log) {
             if($agent = $log['userAgent']) {
-                return $this->html->element('code', $agent['body']);
+                return $this->html('code', $agent['body']);
             }
         });
     }
@@ -180,7 +180,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = $this->format->shorten($output, 35, true);
             }
 
-            $output = $this->html->element('code', $output);
+            $output = $this->html('code', $output);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $request);
@@ -207,7 +207,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
                 $message = $this->format->shorten($message, 25);
 
-                return $this->html->element('samp', $message, [
+                return $this->html('samp', $message, [
                     'title' => $log['message']
                 ]);
             });
@@ -220,7 +220,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     return;
                 }
 
-                return $this->html->element('samp', $message);
+                return $this->html('samp', $message);
             });
         }
     }

@@ -197,7 +197,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             if($invite['isFromAdmin']) {
                 $output = [
                     $output, ' ',
-                    $this->html->element('sup', '(admin)')
+                    $this->html('sup', '(admin)')
                 ];
             }
 

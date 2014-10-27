@@ -24,7 +24,7 @@ echo $this->html->collectionList($this['entryList']->getEntries())
                 return $this->html->link($entry);
 
             case 'Spacer':
-                return $this->html->element('hr');
+                return $this->html('hr');
         }
     })
 

@@ -105,7 +105,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = $this->format->shorten($output, 40, true);
             }
 
-            $output = $this->html->element('code', $output);
+            $output = $this->html('code', $output);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $request);
@@ -123,7 +123,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineSeenField($list, $mode) {
         $list->addField('seen', function($error) {
-            $output = $this->html->element('span', $this->_(
+            $output = $this->html('span', $this->_(
                 [
                     'n == 1' => '%n% time',
                     '*' => '%n% times'

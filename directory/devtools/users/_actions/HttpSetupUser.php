@@ -29,7 +29,7 @@ class HttpSetupUser extends arch\form\Action {
     }
     
     protected function _createUi() {
-        $this->content->push($this->html->string(
+        $this->content->push($this->html(
                 '<p>WARNING: this form wont hold your hand, make sure you type everything properly.. it will also only work ONCE</p>'
         ));
         

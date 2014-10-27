@@ -43,7 +43,7 @@ class HttpSend extends arch\form\Action {
 
         if($this->values->email->hasError('inviteExists')) {
             $fa->push(
-                $this->html->string('<br />'),
+                $this->html('<br />'),
 
                 $this->html->checkbox('sendAnyway', $this->values->sendAnyway, $this->_(
                     'Resend invite anyway'

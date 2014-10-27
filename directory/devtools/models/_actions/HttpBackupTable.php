@@ -53,7 +53,7 @@ class HttpBackupTable extends arch\form\template\Confirm {
                 if($inspector->isVirtual()) {
                     $output = [
                         $output, ' ',
-                        $this->html->element('sup', '(virtual)')
+                        $this->html('sup', '(virtual)')
                     ];
                 }
 

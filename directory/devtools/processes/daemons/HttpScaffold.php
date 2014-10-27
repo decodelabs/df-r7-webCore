@@ -126,7 +126,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 case 'stopped': $class = 'negative'; break;
             }
 
-            return $this->html->element('span.'.$class, $this->format->name($daemon['state']));
+            return $this->html('span.'.$class, $this->format->name($daemon['state']));
         });
     }
 

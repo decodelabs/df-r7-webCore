@@ -239,11 +239,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             }
 
             $output = [
-                $this->html->element('p', $deactivation['reason'])
+                $this->html('p', $deactivation['reason'])
             ];
 
             if($deactivation['comments']) {
-                $output[] = $this->html->element('div', $this->html->plainText($deactivation['comments']));
+                $output[] = $this->html('div', $this->html->plainText($deactivation['comments']));
             }
 
             return $output;
@@ -263,7 +263,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = $this->context->i18n->countries->getName($client['country']);
 
             if($mode == 'list') {
-                $output = $this->html->element('abbr', $client['country'], [
+                $output = $this->html('abbr', $client['country'], [
                     'title' => $output
                 ]);
             }
@@ -302,7 +302,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output[] = $this->import->component('~admin/users/groups/GroupLink', $group);
             }
             
-            return $this->html->string(implode(', ', $output));
+            return $this->html(implode(', ', $output));
         });
     }
 }

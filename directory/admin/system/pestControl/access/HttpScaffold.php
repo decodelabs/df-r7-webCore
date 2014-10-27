@@ -82,7 +82,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = $this->format->shorten($output, 35, true);
             }
 
-            $output = $this->html->element('code', $output);
+            $output = $this->html('code', $output);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $request);
@@ -106,7 +106,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $message = $this->format->shorten($message, 25);
             }
 
-            $output = $this->html->element('samp', $message);
+            $output = $this->html('samp', $message);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $error['message']);
@@ -119,7 +119,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserAgentField($list, $mode) {
         $list->addField('userAgent', function($log) {
             if($agent = $log['userAgent']) {
-                return $this->html->element('code', $agent['body']);
+                return $this->html('code', $agent['body']);
             }
         });
     }

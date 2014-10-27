@@ -10,7 +10,7 @@ if(!$this['config']->isEnabled()) {
     ), 'warning');
 }
 
-echo $this->html->element('h3', $this->_('Adapters'));
+echo $this->html('h3', $this->_('Adapters'));
 
 echo $this->html->attributeList([])
     
@@ -19,19 +19,19 @@ echo $this->html->attributeList([])
         $name = $this['config']->getDefaultAdapter();
         $output = $this->format->name($name);
         $available = isset($this['adapterList'][$name]) && $this['adapterList'][$name];
-        return $this->html->element('span', $output)->addClass($available ? 'positive' : 'negative');
+        return $this->html('span', $output)->addClass($available ? 'positive' : 'negative');
     })
 
     // Available
     ->addField('availableAdapters', function() {
         return $this->html->bulletList($this['adapterList'], function($available, $context) {
             $name = $this->format->name($context->getKey());
-            return $this->html->element('span', $name)->addClass($available ? 'positive' : 'negative');
+            return $this->html('span', $name)->addClass($available ? 'positive' : 'negative');
         });
     });
 
 
-echo $this->html->element('h3', $this->_('My IP details'));
+echo $this->html('h3', $this->_('My IP details'));
 
 if($this['result']->ip->isLoopback()) {
     echo $this->html->flashMessage($this->_(

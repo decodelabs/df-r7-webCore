@@ -5,7 +5,7 @@ echo $this->html->collectionList($this['mails'])
         $name = $context->getKey();
 
         if(!$mail) {
-            return $this->html->element('span.error', $this->html->icon('mail', $name));
+            return $this->html('span.error', $this->html->icon('mail', $name));
         }
 
         return $this->html->link(

@@ -43,7 +43,7 @@ echo $this->html->collectionList($this['packages'])
         return $package->priority;
     })
     ->addField('path', function($package) {
-        return $this->html->string('<code>'.$this->esc($package->path).'</code>'); 
+        return $this->html('<code>'.$this->esc($package->path).'</code>'); 
     })
     ->addField('size', function($package, $renderContext) {
         if(!$location = $this['counter']->getLocation($this->format->slug($package->name))) {
@@ -60,7 +60,7 @@ echo $this->html->collectionList($this['packages'])
         }
 
         $phpCount = $location->getType('php')->countLines();
-        $output = $this->html->string('<abbr title="PHP">'.$this->esc($this->format->number($phpCount)).'</abbr>');
+        $output = $this->html('<abbr title="PHP">'.$this->esc($this->format->number($phpCount)).'</abbr>');
 
         if($location->countTypes() > 1) {
             $totalCount = $location->countLines();

@@ -30,7 +30,7 @@ foreach($this['primitives'] as $primitive) {
         }
 
         if($primitive instanceof opal\schema\Primitive_Guid) {
-            return $this->html->element('abbr', 'GUID')
+            return $this->html('abbr', 'GUID')
                 ->setAttribute('title', core\string\Uuid::factory($row[$name]));
         }
 

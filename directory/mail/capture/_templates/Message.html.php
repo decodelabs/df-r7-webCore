@@ -18,11 +18,11 @@ echo $this->html->elementContentContainer(function() {
 
                 switch($part->getContentType()) {
                     case 'text/plain':
-                        $content[] = $this->html->element('div', $this->html->plainText($part->getContent()));
+                        $content[] = $this->html('div', $this->html->plainText($part->getContent()));
                         break;
 
                     case 'text/html':
-                        $content[] = $this->html->element('div', $this->html->string($part->getContent()));
+                        $content[] = $this->html('div', $this->html->string($part->getContent()));
                         break;
                 }
 

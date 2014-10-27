@@ -39,7 +39,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         if($log['errorOutput']) {
             $output[] = [
-                $this->html->element('h3', $this->_('Error output')),
+                $this->html('h3', $this->_('Error output')),
                 $this->html->container($this->html->plainText($log['errorOutput']))
                     ->addClass('error mono')
             ];
@@ -47,7 +47,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         if($log['output']) {
             $output[] = [
-                $this->html->element('h3', $this->_('Standard output')),
+                $this->html('h3', $this->_('Standard output')),
                 $this->html->container($this->html->plainText($log['output']))
                     ->addClass('mono')
             ];

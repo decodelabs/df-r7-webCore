@@ -27,7 +27,7 @@ echo $this->html->attributeList($this['unit'])
         if($inspector->isVirtual()) {
             $output = [
                 $output, ' ',
-                $this->html->element('sup', '(virtual)')
+                $this->html('sup', '(virtual)')
             ];
         }
 

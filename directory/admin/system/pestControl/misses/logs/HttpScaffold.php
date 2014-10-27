@@ -82,12 +82,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
             $this->html->panelSet()
                 ->addPanel('details', 50, [
-                    $this->html->element('h3', $this->_('Log')),
+                    $this->html('h3', $this->_('Log')),
                     parent::renderDetailsSectionBody($log)
                 ])
                 ->addPanel('error', 50, function() use($log) {
                     return [
-                        $this->html->element('h3', [
+                        $this->html('h3', [
                             $this->_('Error'), ' - ',
                             $this->import->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
                                 ->setDisposition('transitive')
@@ -117,7 +117,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserAgentField($list, $mode) {
         $list->addField('userAgent', function($log) {
             if($agent = $log['userAgent']) {
-                return $this->html->element('code', $agent['body']);
+                return $this->html('code', $agent['body']);
             }
         });
     }
@@ -134,7 +134,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('referrer', function($log) {
             if(!$referrer = $log['referrer']) return;
 
-            return $this->html->link($referrer, $this->html->element('samp', $referrer))
+            return $this->html->link($referrer, $this->html('samp', $referrer))
                 ->setIcon('link');
         });
     }
@@ -169,7 +169,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = $this->format->shorten($output, 35, true);
             }
 
-            $output = $this->html->element('code', $output);
+            $output = $this->html('code', $output);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $request);
@@ -193,7 +193,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $message = $this->format->shorten($message, 25);
             }
 
-            $output = $this->html->element('samp', $message);
+            $output = $this->html('samp', $message);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $error['message']);

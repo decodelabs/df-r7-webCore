@@ -31,7 +31,7 @@ class UnitList extends arch\component\template\CollectionList {
 // Canonical id
     public function addCanonicalIdField($list) {
         $list->addField('canonicalId', $this->_('Storage id'), function($inspector) {
-            return $this->html->element('abbr', $id = $inspector->getCanonicalId())
+            return $this->html('abbr', $id = $inspector->getCanonicalId())
                 ->setAttribute('title', $inspector->getAdapterConnectionName().'/'.$id);
         });
     }
@@ -44,7 +44,7 @@ class UnitList extends arch\component\template\CollectionList {
             if($adapter = $inspector->getAdapterName()) {
                 $output = [
                     $output, ' ',
-                    $this->html->element('sup', $adapter)
+                    $this->html('sup', $adapter)
                 ];
             }
 

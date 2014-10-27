@@ -3,7 +3,7 @@ $this->view->setTitle($this->_('Password reset'));
 ?>
 <h4>A password reset link was recently requested on <?php echo $this->esc($this->application->getName()); ?>.</h4>
 <?php 
-echo $this->html->element('p',
+echo $this->html('p',
     $this->html->link('account/reset-password?user='.$this['key']->getRawId('user').'&key='.$this['key']['key'], $this->_(
         'Please follow this link to update your password.'
     ))

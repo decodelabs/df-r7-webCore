@@ -100,7 +100,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = $this->format->shorten($output, 35);
             }
 
-            $output = $this->html->element('code', $output);
+            $output = $this->html('code', $output);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $error['type']);
@@ -118,7 +118,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output = $this->format->shorten($output, 35, true);
             }
 
-            $output = $this->html->element('code', $output.' : '.$error['line']);
+            $output = $this->html('code', $output.' : '.$error['line']);
 
             if($mode == 'list') {
                 $output->setAttribute('title', $error['file']);
@@ -138,13 +138,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         }
 
         $list->addField('message', function($error) {
-            return $this->html->element('samp', $error['message']);
+            return $this->html('samp', $error['message']);
         });
     }
 
     public function defineSeenField($list, $mode) {
         $list->addField('seen', function($error) {
-            $output = $this->html->element('span', $this->_(
+            $output = $this->html('span', $this->_(
                 [
                     'n == 1' => '%n% time',
                     '*' => '%n% times'

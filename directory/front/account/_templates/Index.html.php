@@ -1,7 +1,7 @@
 <?php 
 $client = $this->context->user->client; 
 
-echo $this->html->element('p', [
+echo $this->html('p', [
     $this->html->_('Hello %n%, you last logged in %t% ago', [
         '%n%' => $client->getNickname(),
         '%t%' => $this->html->timeSince($client->getLoginDate())

@@ -110,7 +110,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ];
 
             if(!empty($addresses)) {
-                $output[] = $this->html->string(
+                $output[] = $this->html(
                     '<span class="inactive">'.$this->view->esc($this->_(
                         ' and %c% more',
                         ['%c%' => count($addresses)]

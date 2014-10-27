@@ -1,5 +1,5 @@
 <?php
-echo $this->html->element('h3', $this->_('Keys'));
+echo $this->html('h3', $this->_('Keys'));
 
 echo $this->html->collectionList($this['keyList'])
     ->setErrorMessage($this->_('This role currently has no keys'))

@@ -74,7 +74,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->orderBy('priority');
 
         return [
-            $this->html->element('h3', $this->_('Roles')),
+            $this->html('h3', $this->_('Roles')),
 
             $this->import->component('~admin/users/roles/RoleList', [
                 'actions' => false

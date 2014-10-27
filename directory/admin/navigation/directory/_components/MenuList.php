@@ -30,7 +30,7 @@ class MenuList extends arch\component\template\CollectionList {
             return $this->html->link(
                     $this->uri->request('~admin/navigation/directory/details?menu='.$idString, true),
                     [
-                        $this->html->element('span.inactive', $path.'/'),
+                        $this->html('span.inactive', $path.'/'),
                         $menu->getDisplayName()
                     ]
                 )
@@ -59,7 +59,7 @@ class MenuList extends arch\component\template\CollectionList {
                     ->setIcon('plugin');
             }
 
-            return $this->html->string(implode(', ', $output));
+            return $this->html(implode(', ', $output));
         });
     }
     

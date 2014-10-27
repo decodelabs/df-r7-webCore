@@ -63,6 +63,6 @@ echo $this->html->attributeList($this['menu'])
     ;
 
 
-echo $this->html->element('h3', $this->_('Entries'));
+echo $this->html('h3', $this->_('Entries'));
 
 echo $this->import->template('~admin/navigation/#/elements/MenuEntryList.html');

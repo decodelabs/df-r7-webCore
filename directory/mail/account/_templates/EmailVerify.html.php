@@ -8,7 +8,7 @@ if($this['user']->isNew()) { ?>
 <?php } ?>
 <p>To make sure your details are correct and we can contact you, please click the link below to verify this email address..</p>
 <?php 
-echo $this->html->element('p',
+echo $this->html('p',
     $this->html->link('account/email-verify?key='.$this['key'].'&user='.$this['user']['id'], $this->_(
         'Complete verification'
     ))->setTarget('_blank')
