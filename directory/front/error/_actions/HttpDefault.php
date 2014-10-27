@@ -18,7 +18,7 @@ class HttpDefault extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     
     public function execute() {
-        $request = $this->_context->request;
+        $request = $this->context->request;
         
         if(!$request instanceof arch\IErrorRequest) {
             $this->throwError(404, 'You shouldn\'t be here');

@@ -14,7 +14,7 @@ class HttpIndex extends arch\Action {
     
     public function executeAsHtml() {
         $view = $this->aura->getView('Index.html');
-        $source = arch\navigation\menu\source\Base::factory($this->_context, 'directory');
+        $source = arch\navigation\menu\source\Base::factory($this->context, 'directory');
         $area = trim($this->request->query->get('area', 'admin'), ':~');
 
         if(empty($area)) {

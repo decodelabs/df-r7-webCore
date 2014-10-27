@@ -4,7 +4,7 @@
         
         
         <?php 
-        if($this->_context->request->hasPath()) {
+        if($this->context->request->hasPath()) {
             echo $this->html->breadcrumbList(true);
         } 
         ?>

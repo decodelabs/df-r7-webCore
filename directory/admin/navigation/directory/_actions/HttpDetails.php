@@ -15,7 +15,7 @@ class HttpDetails extends arch\Action {
     public function executeAsHtml() {
         $view = $this->aura->getView('Details.html');
 
-        if(!$view['menu'] = arch\navigation\menu\Base::factory($this->_context, 'Directory://'.$this->request->query['menu'])) {
+        if(!$view['menu'] = arch\navigation\menu\Base::factory($this->context, 'Directory://'.$this->request->query['menu'])) {
             $this->throwError(404, 'Menu not found');
         }
 

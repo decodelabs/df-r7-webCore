@@ -13,7 +13,7 @@ use df\arch;
 class Index_WebCore extends arch\navigation\menu\Base {
 
     protected function _createEntries(arch\navigation\IEntryList $entryList) {
-        if(!$this->_context->data->getModel('user')->client->select()->count()) {
+        if(!$this->context->data->getModel('user')->client->select()->count()) {
             $entryList->addEntry(
                 $entryList->newLink('~devtools/users/setup-user', 'Add root user')
                     ->setId('setup-root')
