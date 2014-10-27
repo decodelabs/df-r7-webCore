@@ -260,7 +260,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineCountryField($list, $mode) {
         $list->addField('country', function($client) use($mode) {
-            $output = $this->context->i18n->countries->getName($client['country']);
+            $output = $this->i18n->countries->getName($client['country']);
 
             if($mode == 'list') {
                 $output = $this->html('abbr', $client['country'], [
@@ -274,13 +274,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineLanguageField($list) {
         $list->addField('language', function($client) {
-            return $this->context->i18n->languages->getName($client['language']);
+            return $this->i18n->languages->getName($client['language']);
         });
     }
 
     public function defineTimezoneField($list) {
         $list->addField('timezone', function($client) {
-            return $this->context->i18n->timezones->getName($client['timezone']);
+            return $this->i18n->timezones->getName($client['timezone']);
         });
     }
 
