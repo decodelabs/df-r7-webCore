@@ -14,10 +14,10 @@ class Theme extends aura\theme\Base {
     
     public function applyDefaultIncludes(aura\view\IView $view) {
         $view
-            ->linkCss($view->uri->themeAsset('sass/style.scss'))
+            ->linkCss('theme://sass/style.scss')
             ->linkJs('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-            ->linkJs($view->uri->themeAsset('js/main.js'))
-            ->linkFavicon($view->uri->themeAsset('favicon.ico', 'shared'))
+            ->linkJs('theme://js/main.js')
+            ->linkFavicon('theme://favicon.ico')
             ;
     }
 }

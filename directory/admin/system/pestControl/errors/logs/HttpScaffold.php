@@ -165,7 +165,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $link = false;
 
             if(substr($request, 0, 4) == 'http') {
-                $output = $this->normalizeOutputUrl($output);
+                $output = $this->uri($output);
 
                 if($mode == 'list') {
                     $output = $this->format->shorten((string)$output->getPath(), 35, true);
