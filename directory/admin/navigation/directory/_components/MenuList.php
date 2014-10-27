@@ -28,7 +28,7 @@ class MenuList extends arch\component\template\CollectionList {
             $path = implode('/', $parts);
 
             return $this->html->link(
-                    $this->uri->request('~admin/navigation/directory/details?menu='.$idString, true),
+                    $this->uri('~admin/navigation/directory/details?menu='.$idString, true),
                     [
                         $this->html('span.inactive', $path.'/'),
                         $menu->getDisplayName()
@@ -53,7 +53,7 @@ class MenuList extends arch\component\template\CollectionList {
                 }
 
                 $output[] = $this->html->link(
-                        $this->uri->request('~admin/navigation/directory/details?menu='.$idString, true),
+                        $this->uri('~admin/navigation/directory/details?menu='.$idString, true),
                         $this->format->name($subId)
                     )
                     ->setIcon('plugin');
@@ -69,7 +69,7 @@ class MenuList extends arch\component\template\CollectionList {
         $list->addField('actions', function($menu) {
             return [
                 $this->html->link(
-                        $this->uri->request('~admin/navigation/directory/edit?menu='.$menu->getId()->path->toString(), true),
+                        $this->uri('~admin/navigation/directory/edit?menu='.$menu->getId()->path->toString(), true),
                         $this->_('Edit')
                     )
                     ->setIcon('edit')

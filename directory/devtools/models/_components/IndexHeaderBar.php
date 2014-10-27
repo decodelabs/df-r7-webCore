@@ -23,7 +23,7 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
             case 'index':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri->request('~devtools/models/update', true),
+                            $this->uri('~devtools/models/update', true),
                             $this->_('Update schemas')
                         )
                         ->setIcon('update')
@@ -35,7 +35,7 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
             case 'backups':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri->request('~devtools/models/backup', true),
+                            $this->uri('~devtools/models/backup', true),
                             $this->_('Create backup')
                         )
                         ->setIcon('backup')

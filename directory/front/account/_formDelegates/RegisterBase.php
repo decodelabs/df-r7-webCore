@@ -91,7 +91,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         }
 
         if($requestGenerator && $config->shouldLoginOnRegistration()) {
-            $request = core\lang\Callback::factory($requestGenerator)->invoke();
+            $request = core\lang\Callback($requestGenerator);
 
             if($request instanceof user\authentication\IRequest) {
                 $result = $this->user->authenticate($request);

@@ -40,7 +40,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~devtools/processes/schedule/nudge', true),
+                    $this->uri('~devtools/processes/schedule/nudge', true),
                     $isRunning ?
                         $this->_('Daemon is running') :
                         $this->_('Launch spool daemon')
@@ -50,14 +50,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->isDisabled($isRunning),
 
             $this->html->link(
-                    $this->uri->request('~devtools/processes/schedule/scan', true),
+                    $this->uri('~devtools/processes/schedule/scan', true),
                     $this->_('Scan for tasks')
                 )
                 ->setIcon('search')
                 ->setDisposition('operative'),
 
             $this->html->link(
-                    $this->uri->request('~devtools/processes/queue/spool', true),
+                    $this->uri('~devtools/processes/queue/spool', true),
                     $this->_('Spool now')
                 )
                 ->setIcon('launch')

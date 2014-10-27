@@ -79,7 +79,7 @@ class UnitList extends arch\component\template\CollectionList {
                 case 'cache':
                     return [
                         $this->html->link(
-                                $this->uri->request('~devtools/models/clear-cache?unit='.$inspector->getGlobalId(), true),
+                                $this->uri('~devtools/models/clear-cache?unit='.$inspector->getGlobalId(), true),
                                 $this->_('Clear cache')
                             )
                             ->setIcon('delete')
@@ -88,7 +88,7 @@ class UnitList extends arch\component\template\CollectionList {
                 case 'table':
                     return [
                         $this->html->link(
-                                $this->uri->request('~devtools/models/rebuild-table?unit='.$inspector->getGlobalId(), true),
+                                $this->uri('~devtools/models/rebuild-table?unit='.$inspector->getGlobalId(), true),
                                 $this->_('Rebuild table')
                             )
                             ->setIcon('refresh')

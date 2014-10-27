@@ -61,7 +61,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~devtools/processes/logs/delete-all', true),
+                    $this->uri('~devtools/processes/logs/delete-all', true),
                     $this->_('Delete all logs')
                 )
                 ->setIcon('delete')

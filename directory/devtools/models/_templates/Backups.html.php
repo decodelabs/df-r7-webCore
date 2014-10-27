@@ -12,14 +12,14 @@ echo $this->html->collectionList($this['backupList'])
     ->addField('actions', function($backup) {
         return [
             $this->html->link(
-                    $this->uri->request('~devtools/models/restore-backup?backup='.$backup, true),
+                    $this->uri('~devtools/models/restore-backup?backup='.$backup, true),
                     $this->_('Restore backup')
                 )
                 ->setIcon('import')
                 ->setDisposition('operative'),
 
             $this->html->link(
-                    $this->uri->request('~devtools/models/delete-backup?backup='.$backup, true),
+                    $this->uri('~devtools/models/delete-backup?backup='.$backup, true),
                     $this->_('Delete backup')
                 )
                 ->setIcon('delete')

@@ -28,7 +28,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
     public function addIndexOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~admin/navigation/refresh', true),
+                    $this->uri('~admin/navigation/refresh', true),
                     $this->_('Refresh menu list')
                 )
                 ->setIcon('refresh')

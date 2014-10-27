@@ -22,7 +22,7 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~admin/system/critical-errors/delete-all', true),
+                    $this->uri('~admin/system/critical-errors/delete-all', true),
                     $this->_('Delete all errors')
                 )
                 ->setIcon('delete')

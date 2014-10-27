@@ -26,7 +26,7 @@ echo $this->html->attributeList($this['menu'])
             $id = substr($menu->getId()->path->toString(), 0, -strlen($subId) - 1);
 
             return $this->html->link(
-                    $this->uri->request('~admin/navigation/directory/details?menu='.$id, true),
+                    $this->uri('~admin/navigation/directory/details?menu='.$id, true),
                     'Directory://'.$id
                 )
                 ->setIcon('menu')
@@ -48,7 +48,7 @@ echo $this->html->attributeList($this['menu'])
                 ->setRenderer(function($delegate) {
                     if($delegate->getSourceId() == 'Directory') {
                         return $this->html->link(
-                                $this->uri->request('~admin/navigation/directory/details?menu='.$delegate->getId()->path->toString()),
+                                $this->uri('~admin/navigation/directory/details?menu='.$delegate->getId()->path->toString()),
                                 $delegate->getId()
                             )
                             ->setIcon('menu')

@@ -37,7 +37,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri->request('~devtools/models/clear-cache?unit='.$this->_record->getGlobalId().'&cluster='.$this->request->query['cluster'], true),
+                            $this->uri('~devtools/models/clear-cache?unit='.$this->_record->getGlobalId().'&cluster='.$this->request->query['cluster'], true),
                             $this->_('Clear cache')
                         )
                         ->setIcon('delete')
@@ -48,7 +48,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri->request('~devtools/models/rebuild-table?unit='.$this->_record->getGlobalId().'&cluster='.$this->request->query['cluster'], true),
+                            $this->uri('~devtools/models/rebuild-table?unit='.$this->_record->getGlobalId().'&cluster='.$this->request->query['cluster'], true),
                             $this->_('Rebuild table')
                         )
                         ->setIcon('refresh')
@@ -65,7 +65,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'tableBackups':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri->request('~devtools/models/backup-table?unit='.$this->_record->getId(), true),
+                            $this->uri('~devtools/models/backup-table?unit='.$this->_record->getId(), true),
                             $this->_('Make backup')
                         )
                         ->setIcon('backup')
@@ -73,7 +73,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
                         ->isDisabled(!$this->_storageExists),
 
                     $this->html->link(
-                            $this->uri->request('~devtools/models/purge-table-backups?unit='.$this->_record->getId(), true),
+                            $this->uri('~devtools/models/purge-table-backups?unit='.$this->_record->getId(), true),
                             $this->_('Delete all backups')
                         )
                         ->setIcon('delete')

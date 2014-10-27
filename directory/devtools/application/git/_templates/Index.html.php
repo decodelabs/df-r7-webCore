@@ -71,13 +71,13 @@ echo $this->html->collectionList($this['packageList'])
         if($package['repo']) {
             return [
                 $this->html->link(
-                        $this->uri->request('~devtools/application/git/refresh?package='.$package['name'], true),
+                        $this->uri('~devtools/application/git/refresh?package='.$package['name'], true),
                         $this->_('Refresh')
                     )
                     ->setIcon('refresh'),
 
                 $this->html->link(
-                        $this->uri->request('~devtools/application/git/update?package='.$package['name'], true),
+                        $this->uri('~devtools/application/git/update?package='.$package['name'], true),
                         $this->_('Update')
                     )
                     ->setIcon('download')

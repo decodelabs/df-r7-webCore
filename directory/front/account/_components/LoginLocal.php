@@ -20,7 +20,7 @@ class LoginLocal extends arch\component\template\FormUi {
         // Lost password
         $fs->addFieldArea()->push(
             $this->html->link(
-                $this->uri->request('account/lost-password', true), 
+                $this->uri('account/lost-password', true), 
                 $this->_('Forgot your password?')
             )
         );

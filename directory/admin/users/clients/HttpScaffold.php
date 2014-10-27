@@ -87,7 +87,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~admin/users/settings', true),
+                    $this->uri('~admin/users/settings', true),
                     $this->_('Settings')
                 )
                 ->setIcon('settings')
@@ -116,7 +116,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $menu->addLinks(
                 // Change password
                 $this->html->link(
-                        $this->uri->request('~admin/users/clients/change-password?user='.$this->_record['id'], true),
+                        $this->uri('~admin/users/clients/change-password?user='.$this->_record['id'], true),
                         $this->_('Change password')
                     )
                     ->setIcon('edit')
@@ -173,7 +173,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->addField('actions', function($auth) {
                 if($auth['adapter'] == 'Local') {
                     return $this->html->link(
-                            $this->uri->request('~admin/users/clients/change-password?user='.$auth->getRawId('user'), true),
+                            $this->uri('~admin/users/clients/change-password?user='.$auth->getRawId('user'), true),
                             $this->_('Change password')
                         )
                         ->setIcon('edit')

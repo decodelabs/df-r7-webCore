@@ -36,7 +36,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return array_merge(
             [
                 $this->html->link(
-                        $this->uri->request('~devtools/processes/queue/launch?task='.$task['id'], true),
+                        $this->uri('~devtools/processes/queue/launch?task='.$task['id'], true),
                         $this->_('Launch now')
                     )
                     ->setIcon('launch')
@@ -50,7 +50,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~devtools/processes/queue/spool', true),
+                    $this->uri('~devtools/processes/queue/spool', true),
                     $this->_('Run spool now')
                 )
                 ->setIcon('launch')
@@ -86,7 +86,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             }
 
             return $this->html->link(
-                    $this->uri->request('~devtools/processes/logs/?search='.$request, true),
+                    $this->uri('~devtools/processes/logs/?search='.$request, true),
                     $this->_(
                         [
                             'n == 1' => 'View 1 log',

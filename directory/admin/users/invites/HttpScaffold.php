@@ -101,7 +101,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->setDisposition('positive'),
 
             $this->html->link(
-                    $this->uri->request('~admin/users/settings', true),
+                    $this->uri('~admin/users/settings', true),
                     $this->_('Settings')
                 )
                 ->setIcon('settings')

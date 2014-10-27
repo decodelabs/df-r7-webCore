@@ -61,7 +61,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
         $output[] = $this->html->tag('iframe', [
-            'src' => $this->uri->request('~mail/capture/message?mail='.$mail['id']),
+            'src' => $this->uri('~mail/capture/message?mail='.$mail['id']),
             'seamless' => true,
             'style' => [
                 'width' => '70em',
@@ -77,7 +77,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~mail/capture/delete-all', true),
+                    $this->uri('~mail/capture/delete-all', true),
                     $this->_('Delete all mail')
                 )
                 ->setIcon('delete')

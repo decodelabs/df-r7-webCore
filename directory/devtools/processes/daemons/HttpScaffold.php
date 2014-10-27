@@ -70,7 +70,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         if($daemon['isRunning']) {
             return [
                 $this->html->link(
-                        $this->uri->request('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
+                        $this->uri('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
                         $this->_('Restart daemon')
                     )
                     ->setIcon('refresh')
@@ -78,7 +78,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->isDisabled(!$this->_enabled),
 
                 $this->html->link(
-                        $this->uri->request('~devtools/processes/daemons/stop?daemon='.$daemon['name'], true),
+                        $this->uri('~devtools/processes/daemons/stop?daemon='.$daemon['name'], true),
                         $this->_('Stop daemon')
                     )
                     ->setIcon('remove')
@@ -88,7 +88,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         } else {
             return [
                 $this->html->link(
-                        $this->uri->request('~devtools/processes/daemons/start?daemon='.$daemon['name'], true),
+                        $this->uri('~devtools/processes/daemons/start?daemon='.$daemon['name'], true),
                         $this->_('Start daemon')
                     )
                     ->setIcon('launch')

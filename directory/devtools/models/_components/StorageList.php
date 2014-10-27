@@ -86,7 +86,7 @@ class StorageList extends arch\component\template\CollectionList {
 
         $list->addField('actions', function($storage) {
             return $this->html->link(
-                    $this->uri->request('~devtools/models/delete-storage?unit='.$this->_inspector->getId().'&name='.$storage->name, true),
+                    $this->uri('~devtools/models/delete-storage?unit='.$this->_inspector->getId().'&name='.$storage->name, true),
                     $this->_('Delete storage')
                 )
                 ->setIcon('delete');

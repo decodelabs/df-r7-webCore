@@ -21,7 +21,7 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri->request('~devtools/cache/purge', true),
+                    $this->uri('~devtools/cache/purge', true),
                     $this->_('Purge all cache backends')
                 )
                 ->setIcon('delete')
