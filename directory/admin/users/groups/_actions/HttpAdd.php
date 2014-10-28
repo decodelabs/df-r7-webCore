@@ -50,11 +50,13 @@ class HttpAdd extends arch\form\Action {
                 ->isRequired(true)
                 ->end()
 
+            // Roles
+            ->addField('roles', 'delegate')
+                ->fromForm($this)
+                ->end()
+
             ->validate($this->values)
             ->applyTo($this->_group);
-
-
-        $this->_group['roles'] = $this->getDelegate('roles')->apply();
 
         
         if($this->isValid()) {

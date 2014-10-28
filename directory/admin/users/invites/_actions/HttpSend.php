@@ -64,8 +64,6 @@ class HttpSend extends arch\form\Action {
     }
 
     protected function _onSendEvent() {
-        $this->_invite->groups = $this->getDelegate('groups')->apply();
-
         $this->data->newValidator()
 
             // Name
@@ -89,6 +87,11 @@ class HttpSend extends arch\form\Action {
                     }
                 })
                 ->isRequired(true)
+                ->end()
+
+            // Groups
+            ->addField('groups', 'delegate')
+                ->fromForm($this)
                 ->end()
 
             // Message

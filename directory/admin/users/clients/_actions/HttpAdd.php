@@ -158,7 +158,7 @@ class HttpAdd extends arch\form\Action {
 
             // Groups
             ->addField('groups', 'delegate')
-                ->setDelegate($this, 'groups')
+                ->fromForm($this)
                 ->end()
 
             // Timezone

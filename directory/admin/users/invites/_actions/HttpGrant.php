@@ -61,18 +61,20 @@ class HttpGrant extends arch\form\Action {
     }
 
     protected function _onSaveUsersEvent() {
-        $userIds = $this->getDelegate('users')->apply();
-
         $validator = $this->data->newValidator()
             ->addField('allowance', 'integer')
                 ->isRequired(true)
                 ->setMin(1)
                 ->end()
 
+            ->addField('users', 'delegate')
+                ->fromForm($this)
+                ->end()
+
             ->validate($this->values);
 
         if($this->isValid()) {
-            $this->data->user->invite->grantAllowance($userIds, $validator['allowance']);
+            $this->data->user->invite->grantAllowance($validator['users'], $validator['allowance']);
             $this->user->instigateGlobalKeyringRegeneration();
 
             $this->comms->flash(
