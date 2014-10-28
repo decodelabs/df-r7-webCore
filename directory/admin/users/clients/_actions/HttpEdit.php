@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class HttpEdit extends EditorBase {
+class HttpEdit extends HttpAdd {
 
     protected function _init() {
         $this->_client = $this->data->fetchForAction(
