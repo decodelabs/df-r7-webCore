@@ -35,6 +35,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
         $query
             ->importRelationBlock('error', 'list')
+            ->importRelationBlock('user', 'link')
             ;
     }
 
@@ -65,6 +66,25 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     protected function _getSectionHeaderBarBackLinkRequest() {
         $id = $this->getRecord()->getRawId('error');
         return '~admin/system/pestControl/errors/details?error='.core\string\Uuid::factory($id);
+    }
+
+    public function addIndexSectionLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    '~admin/system/pestControl/errors/',
+                    $this->_('Errors')
+                )
+                ->setIcon('error')
+                ->setDisposition('informative'),
+
+            $this->html->link(
+                    '~admin/system/pestControl/errors/logs/',
+                    $this->_('Logs')
+                )
+                ->setIcon('log')
+                ->setDisposition('informative')
+                ->isActive(true)
+        );
     }
 
 // Sections
@@ -160,24 +180,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('request', function($log, $context) use($mode) {
             if(!$request = $log['request']) return;
             $context->getCellTag()->setStyle('word-break', 'break-all');
+            $output = $this->directory->newRequest($request);
 
-            $output = $request;
-            $link = false;
-
-            if(substr($request, 0, 4) == 'http') {
-                $output = $this->uri($output);
-
-                if($mode == 'list') {
-                    $output = $this->format->shorten((string)$output->getPath(), 35, true);
-                }
-            } else if(substr($request, 0, 9) == 'directory') {
-                $output = $this->directory->newRequest($request);
-
-                if($mode == 'list') {
-                    $output = $this->format->shorten((string)$output->getPath(), 35, true);
-                }
-            } else if($mode == 'list') {
-                $output = $this->format->shorten($output, 35, true);
+            if($mode == 'list') {
+                unset($output->query->rf, $output->query->rt);
+                $output = $this->format->shorten($output->toReadableString(), 60, true);
             }
 
             $output = $this->html('code', $output);
@@ -186,9 +193,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output->setAttribute('title', $request);
             }
 
-            if($link) {
+            if($log['mode'] == 'Http') {
                 $output = $this->html->link($request, $output)
                     ->setIcon('link')
+                    ->setDisposition('transitive')
                     ->setTarget('_blank');
             }
 

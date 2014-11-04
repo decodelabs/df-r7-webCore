@@ -21,13 +21,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
 
-    protected $_sections = [
-        'details',
-        'logs' => [
-            'icon' => 'log'
-        ]
-    ];
-
     protected $_recordListFields = [
         'id', 'mode', 'request', 
         'seen', 'lastSeen', 'actions'
@@ -65,44 +58,59 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
 // Sections
-    public function renderLogsSectionBody($miss) {
+    public function renderDetailsSectionBody($miss) {
         $logList = $miss->missLogs->select()
             ->importRelationBlock('miss', 'list')
             ->importRelationBlock('user', 'link')
             ->paginateWith($this->request->query);
 
-        return $this->import->component('~admin/system/pestControl/misses/logs/LogList')
-            ->setCollection($logList)
-            ->setUrlRedirect(true);
+        return [
+            parent::renderDetailsSectionBody($miss),
+
+            $this->import->component('~admin/system/pestControl/misses/logs/LogList')
+                ->setCollection($logList)
+                ->setUrlRedirect(true)
+        ];
     }
+
+
+// Components
+    public function addIndexSectionLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    '~admin/system/pestControl/misses/',
+                    $this->_('URLs')
+                )
+                ->setIcon('brokenLink')
+                ->setDisposition('informative')
+                ->isActive(true),
+
+            $this->html->link(
+                    '~admin/system/pestControl/misses/logs/',
+                    $this->_('Logs')
+                )
+                ->setIcon('log')
+                ->setDisposition('informative')
+        );
+    }
+
 
 // Fields
     public function defineModeField($list, $mode) {
-        $list->addField('mode', function($log) {
-            return $this->format->name($log['mode']);
+        $list->addField('mode', function($miss) {
+            return $this->format->name($miss['mode']);
         });
     }
 
     public function defineRequestField($list, $mode) {
-        $list->addField('request', function($log) use($mode) {
-            if(!$request = $log['request']) return;
-            $output = $request;
-            $link = false;
+        $list->addField('request', function($miss, $context) use($mode) {
+            if(!$request = $miss['request']) return;
+            $context->getCellTag()->setStyle('word-break', 'break-all');
+            $output = $this->directory->newRequest($request);
 
-            if(substr($request, 0, 4) == 'http') {
-                $output = $this->uri($output);
-
-                if($mode == 'list') {
-                    $output = $this->format->shorten((string)$output->getPath(), 40, true);
-                }
-            } else if(substr($request, 0, 9) == 'directory') {
-                $output = $this->directory->newRequest($request);
-
-                if($mode == 'list') {
-                    $output = $this->format->shorten((string)$output->getPath(), 40, true);
-                }
-            } else if($mode == 'list') {
-                $output = $this->format->shorten($output, 40, true);
+            if($mode == 'list') {
+                unset($output->query->rf, $output->query->rt);
+                $output = $this->format->shorten($output->toReadableString(), 60, true);
             }
 
             $output = $this->html('code', $output);
@@ -111,9 +119,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $output->setAttribute('title', $request);
             }
 
-            if($link) {
+            if($miss['mode'] == 'Http') {
                 $output = $this->html->link($request, $output)
                     ->setIcon('link')
+                    ->setDisposition('transitive')
                     ->setTarget('_blank');
             }
 

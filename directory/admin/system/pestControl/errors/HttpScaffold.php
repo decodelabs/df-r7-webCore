@@ -89,6 +89,29 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         ];
     }
 
+
+
+// Components
+    public function addIndexSectionLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    '~admin/system/pestControl/errors/',
+                    $this->_('Errors')
+                )
+                ->setIcon('error')
+                ->setDisposition('informative')
+                ->isActive(true),
+
+            $this->html->link(
+                    '~admin/system/pestControl/errors/logs/',
+                    $this->_('Logs')
+                )
+                ->setIcon('log')
+                ->setDisposition('informative')
+        );
+    }
+
+
 // Fields
     public function defineTypeField($list, $mode) {
         $list->addField('type', function($error) use($mode) {
