@@ -230,16 +230,13 @@ class HttpMaxMindDb extends arch\form\Action {
 
             // Default
             ->addField('setAsDefault', 'boolean')
-                ->end()
 
             // Enabled
             ->addField('isEnabled', 'boolean')
-                ->end()
 
             // File
             ->addField('file', 'enum')
                 ->setOptions(array_keys($this->_getFileList()))
-                ->end()
 
             ->validate($this->values);
 

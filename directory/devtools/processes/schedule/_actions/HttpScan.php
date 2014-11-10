@@ -31,7 +31,6 @@ class HttpScan extends arch\form\template\Confirm {
     protected function _apply() {
         $validator = $this->data->newValidator()
             ->addField('reset', 'boolean')
-                ->end()
             ->validate($this->values);
 
 

@@ -56,8 +56,7 @@ class HttpAdd extends arch\form\Action {
         $fs->addFieldArea($this->_('Priority'))
             ->addNumberTextbox('priority', $this->values->priority)
                 ->isRequired(true)
-                ->setMin(0)
-                ->setStep(1);
+                ->setRange(0, null, 1);
                 
                 
         // Buttons
@@ -69,27 +68,19 @@ class HttpAdd extends arch\form\Action {
         $this->data->newValidator()
 
             // Name
-            ->addField('name', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('name', 'text')
 
             // Bind state
             ->addField('bindState', 'integer')
-                ->setMin(-1)
-                ->setMax(3)
-                ->end()
+                ->setRange(-1, 3)
 
             // Min required state
             ->addField('minRequiredState', 'integer')
-                ->setMin(-1)
-                ->setMax(3)
-                ->end()
+                ->setRange(-1, 3)
 
             // Priority
-            ->addField('priority', 'integer')
-                ->isRequired(true)
+            ->addRequiredField('priority', 'integer')
                 ->setMin(0)
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_role);

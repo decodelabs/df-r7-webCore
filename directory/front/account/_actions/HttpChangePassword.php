@@ -36,8 +36,7 @@ class HttpChangePassword extends arch\form\Action {
         $validator = $this->data->newValidator()
 
             // Old password
-            ->addField('oldPassword', 'text')
-                ->isRequired(true)
+            ->addRequiredField('oldPassword', 'text')
                 ->setCustomValidator(function($node, $value, $field) {
                     $hash = $this->data->hash($value);
 
@@ -47,15 +46,12 @@ class HttpChangePassword extends arch\form\Action {
                         ));
                     }
                 })
-                ->end()
 
             // New password
-            ->addField('newPassword', 'password')
-                ->isRequired(true)
+            ->addRequiredField('newPassword', 'password')
                 ->setMatchField('confirmNewPassword')
                 ->shouldCheckStrength($userConfig->shouldCheckPasswordStrength())
                 ->setMinStrength($userConfig->getMinPasswordStrength())
-                ->end()
 
             ->validate($this->values);
 

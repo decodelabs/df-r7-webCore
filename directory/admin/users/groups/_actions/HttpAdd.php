@@ -46,14 +46,11 @@ class HttpAdd extends arch\form\Action {
         $this->data->newValidator()
 
             // Name
-            ->addField('name', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('name', 'text')
 
             // Roles
             ->addField('roles', 'delegate')
                 ->fromForm($this)
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_group);

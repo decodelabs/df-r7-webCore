@@ -90,12 +90,10 @@ class HttpResetPassword extends arch\form\Action {
         $userConfig = $this->data->user->config;
 
         $this->data->newValidator()
-            ->addField('newPassword', 'password')
-                ->isRequired(true)
+            ->addRequiredField('newPassword', 'password')
                 ->setMatchField('confirmNewPassword')
                 ->shouldCheckStrength($userConfig->shouldCheckPasswordStrength())
                 ->setMinStrength($userConfig->getMinPasswordStrength())
-                ->end()
 
             ->validate($this->values);
 

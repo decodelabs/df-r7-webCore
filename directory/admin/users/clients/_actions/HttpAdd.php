@@ -119,33 +119,19 @@ class HttpAdd extends arch\form\Action {
         $this->data->newValidator()
 
             // Email
-            ->addField('email', 'email')
-                ->setCustomValidator(function($node, $value) {
-                    if($this->_client['email'] == $value) {
-                        return;
-                    }
-                        
-                    if($this->data->user->client->emailExists($value)) {
-                        $node->addError('unique', $this->_(
-                            'This email address is already in use by another account'
-                        ));
-                    }
-                })
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('email', 'email')
+                ->setStorageAdapter('axis://user/Client')
+                ->setUniqueFilterId($this->_client['id'])
+                ->setUniqueErrorMessage($this->_('This email address is already in use by another account'))
 
             // Full name
-            ->addField('fullName', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('fullName', 'text')
 
             // Nick name
-            ->addField('nickName', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('nickName', 'text')
 
             // Status
-            ->addField('status', 'integer')
+            ->addRequiredField('status', 'integer')
                 ->setCustomValidator(function($node, $value) {
                     if($value < -1 || $value > 3) {
                         $node->addError('invalid', $this->_(
@@ -153,16 +139,13 @@ class HttpAdd extends arch\form\Action {
                         ));
                     }
                 })
-                ->isRequired(true)
-                ->end()
 
             // Groups
             ->addField('groups', 'delegate')
                 ->fromForm($this)
-                ->end()
 
             // Timezone
-            ->addField('timezone', 'text')
+            ->addRequiredField('timezone', 'text')
                 ->setSanitizer(function($value) {
                     return str_replace(' ', '/', ucwords(str_replace('/', ' ', $value)));
                 })
@@ -173,11 +156,9 @@ class HttpAdd extends arch\form\Action {
                         ));
                     }
                 })
-                ->isRequired(true)
-                ->end()
 
             // Country
-            ->addField('country', 'text')
+            ->addRequiredField('country', 'text')
                 ->setSanitizer(function($value) {
                     return strtoupper($value);
                 })
@@ -188,11 +169,9 @@ class HttpAdd extends arch\form\Action {
                         ));
                     }
                 })
-                ->isRequired(true)
-                ->end()
                 
             // Language
-            ->addField('language', 'text')
+            ->addRequiredField('language', 'text')
                 ->setSanitizer(function($value) {
                     return strtolower($value);  
                 })
@@ -203,8 +182,6 @@ class HttpAdd extends arch\form\Action {
                         ));
                     }
                 })
-                ->isRequired(true)
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_client);
@@ -218,10 +195,8 @@ class HttpAdd extends arch\form\Action {
             ]);
             
             $this->data->newValidator()
-                ->addField('password', 'password')
+                ->addRequiredField('password', 'password')
                     ->setMatchField('repeatPassword')
-                    ->isRequired(true)
-                    ->end()
                 ->validate($this->values)
                 ->applyTo($auth);
         }

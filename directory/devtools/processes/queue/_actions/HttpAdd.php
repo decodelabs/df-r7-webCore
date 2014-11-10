@@ -60,22 +60,16 @@ class HttpAdd extends arch\form\Action {
         $this->data->newValidator()
 
             // Request
-            ->addField('request', 'text')
-                ->isRequired(true)
+            ->addRequiredField('request', 'text')
                 ->setMaxLength(1024)
-                ->end()
 
             // Env
-            ->addField('environmentMode', 'enum')
+            ->addRequiredField('environmentMode', 'enum')
                 ->setOptions(['development', 'testing', 'production'])
-                ->isRequired(true)
-                ->end()
 
             // Priority
-            ->addField('priority', 'enum')
+            ->addRequiredField('priority', 'enum')
                 ->setOptions(core\unit\Priority::getOptions())
-                ->isRequired(true)
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_task);

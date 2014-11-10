@@ -72,8 +72,6 @@ class HttpRespond extends arch\form\Action {
     protected function _onAcceptEvent() {
         $validator = $this->data->newValidator()
             ->addField('message', 'text')
-                ->end()
-
             ->validate($this->values);
 
         if($this->isValid()) {
@@ -102,8 +100,6 @@ class HttpRespond extends arch\form\Action {
     protected function _onDenyEvent() {
         $validator = $this->data->newValidator()
             ->addField('message', 'text')
-                ->end()
-
             ->validate($this->values);
 
         if($this->isValid()) {

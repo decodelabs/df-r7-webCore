@@ -57,11 +57,8 @@ class HttpChangePassword extends arch\form\Action {
 
     protected function _onSaveEvent() {
         $this->data->newValidator()
-            ->addField('password', 'password')
-                ->isRequired(true)
+            ->addRequiredField('password', 'password')
                 ->setMatchField('confirmPassword')
-                ->end()
-
             ->validate($this->values);
 
         if($this->isValid()) {

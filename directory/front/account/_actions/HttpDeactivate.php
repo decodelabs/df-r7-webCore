@@ -31,13 +31,10 @@ class HttpDeactivate extends arch\form\Action {
         $this->data->newValidator()
             ->addField('reason', 'text')
                 ->setMaxLength(255)
-                ->end()
             ->addField('reasonOther', 'text')
                 ->setMaxLength(255)
                 ->setRecordName('reason')
-                ->end()
             ->addField('comments', 'text')
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_deactivation);

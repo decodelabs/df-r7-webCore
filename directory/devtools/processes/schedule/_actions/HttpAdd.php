@@ -106,50 +106,39 @@ class HttpAdd extends arch\form\Action {
         $this->data->newValidator()
 
             // Request
-            ->addField('request', 'text')
-                ->isRequired(true)
+            ->addRequiredField('request', 'text')
                 ->setMaxLength(1024)
-                ->end()
 
             // Env
             ->addField('environmentMode', 'enum')
                 ->setOptions(['development', 'testing', 'production'])
-                ->end()
 
             // Priority
-            ->addField('priority', 'enum')
+            ->addRequiredField('priority', 'enum')
                 ->setOptions(core\unit\Priority::getOptions())
-                ->isRequired(true)
-                ->end()
 
             // Minute
             ->addField('minute', 'text')
                 ->setMaxLength(128)
-                ->end()
 
             // Hour
             ->addField('hour', 'text')
                 ->setMaxLength(128)
-                ->end()
 
             // Day
             ->addField('day', 'text')
                 ->setMaxLength(128)
-                ->end()
 
             // Month
             ->addField('month', 'text')
                 ->setMaxLength(128)
-                ->end()
 
             // Weekday
             ->addField('weekday', 'text')
                 ->setMaxLength(128)
-                ->end()
 
             // Is live
             ->addField('isLive', 'boolean')
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_schedule);

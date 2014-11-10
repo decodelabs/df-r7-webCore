@@ -134,8 +134,7 @@ class HttpTest extends arch\form\Action {
         $validator = $this->data->newValidator()
 
             // Transport
-            ->addField('transport', 'text')
-                ->isRequired(true)
+            ->addRequiredField('transport', 'text')
                 ->setCustomValidator(function($node, $value) {
                     if(!flow\mail\transport\Base::isValidTransport($value)) {
                         $node->addError('invalid', $this->_(
@@ -143,49 +142,32 @@ class HttpTest extends arch\form\Action {
                         ));
                     }
                 })
-                ->end()
 
             // From
-            ->addField('fromAddress', 'email')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('fromAddress', 'email')
             ->addField('fromName', 'text')
-                ->end()
 
             // Return path
             ->addField('returnPath', 'email')
-                ->end()
 
             // To
-            ->addField('toAddress', 'email')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('toAddress', 'email')
             ->addField('toName', 'text')
-                ->end()
 
             // CC
             ->addField('ccAddress', 'email')
-                ->end()
             ->addField('ccName', 'text')
-                ->end()
 
             // BCC
             ->addField('bccAddress', 'email')
-                ->end()
             ->addField('bccName', 'text')
-                ->end()
 
             // Subject
-            ->addField('subject', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('subject', 'text')
 
             // Body
             ->addField('bodyText', 'text')
-                ->end()
             ->addField('bodyHtml', 'text')
-                ->end()
-
 
             ->validate($this->values);
 

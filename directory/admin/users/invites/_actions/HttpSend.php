@@ -67,12 +67,10 @@ class HttpSend extends arch\form\Action {
         $this->data->newValidator()
 
             // Name
-            ->addField('name', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('name', 'text')
 
             // Email
-            ->addField('email', 'email')
+            ->addRequiredField('email', 'email')
                 ->setCustomValidator(function($node, $value) {
                     if($this->data->user->client->emailExists($value)) {
                         $node->addError('userExists', $this->_(
@@ -86,17 +84,13 @@ class HttpSend extends arch\form\Action {
                         ));
                     }
                 })
-                ->isRequired(true)
-                ->end()
 
             // Groups
             ->addField('groups', 'delegate')
                 ->fromForm($this)
-                ->end()
 
             // Message
             ->addField('message', 'text')
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_invite);

@@ -69,22 +69,16 @@ class HttpAddKey extends arch\form\Action {
         $this->data->newValidator()
 
             // Domain
-            ->addField('domain', 'text')
+            ->addRequiredField('domain', 'text')
                 ->setSanitizer(function($value) {
                     return strtolower($value);
                 })
-                ->isRequired(true)
-                ->end()
 
             // Pattern
-            ->addField('pattern', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('pattern', 'text')
 
             // Allow
-            ->addField('allow', 'boolean')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('allow', 'boolean')
 
             ->validate($this->values)
             ->applyTo($this->_key);

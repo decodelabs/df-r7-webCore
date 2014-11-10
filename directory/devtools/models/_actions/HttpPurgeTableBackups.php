@@ -92,7 +92,6 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
     protected function _apply() {
         $validator = $this->data->newValidator()
             ->addField('allClusters', 'boolean')
-                ->end()
             ->validate($this->values);
 
         $task = 'axis/purge-table-backups?unit='.$this->_inspector->getId();

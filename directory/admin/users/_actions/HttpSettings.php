@@ -66,8 +66,7 @@ class HttpSettings extends arch\form\Action {
         $fs->addFieldArea($this->_('Min password strength'))->push(
             $this->html->numberTextbox('minPasswordStrength', $this->values->minPasswordStrength)
                 ->isRequired(true)
-                ->setStep(1)
-                ->setMin(10)
+                ->setRange(10, null, 1)
         );
 
         // Invite cap
@@ -87,35 +86,26 @@ class HttpSettings extends arch\form\Action {
 
             // Registration
             ->addField('registrationEnabled', 'boolean')
-                ->end()
 
             // Verify
             ->addField('verifyEmail', 'boolean')
-                ->end()
 
             // Login
             ->addField('loginOnRegistration', 'boolean')
-                ->end()
 
             // Landing
-            ->addField('registrationLandingPage', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('registrationLandingPage', 'text')
 
             // Pass check
             ->addField('checkPasswordStrength', 'boolean')
-                ->end()
 
             // Min strength
-            ->addField('minPasswordStrength', 'integer')
-                ->isRequired(true)
+            ->addRequiredField('minPasswordStrength', 'integer')
                 ->setMin(0)
-                ->end()
 
             // Invite cap
             ->addField('inviteCap', 'integer')
                 ->setMin(1)
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_config->values);

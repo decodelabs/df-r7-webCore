@@ -62,15 +62,10 @@ class HttpGrant extends arch\form\Action {
 
     protected function _onSaveUsersEvent() {
         $validator = $this->data->newValidator()
-            ->addField('allowance', 'integer')
-                ->isRequired(true)
+            ->addRequiredField('allowance', 'integer')
                 ->setMin(1)
-                ->end()
-
             ->addField('users', 'delegate')
                 ->fromForm($this)
-                ->end()
-
             ->validate($this->values);
 
         if($this->isValid()) {
@@ -89,11 +84,8 @@ class HttpGrant extends arch\form\Action {
 
     protected function _onSaveAllEvent() {
         $validator = $this->data->newValidator()
-            ->addField('allowance', 'integer')
-                ->isRequired(true)
+            ->addRequiredField('allowance', 'integer')
                 ->setMin(1)
-                ->end()
-
             ->validate($this->values);
 
         if($this->isValid()) {
