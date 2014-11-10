@@ -69,7 +69,7 @@ class HttpAdd extends arch\form\Action {
 
             // Priority
             ->addRequiredField('priority', 'enum')
-                ->setOptions(core\unit\Priority::getOptions())
+                ->setType('core/unit/Priority')
 
             ->validate($this->values)
             ->applyTo($this->_task);

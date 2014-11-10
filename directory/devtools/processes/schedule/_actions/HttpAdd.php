@@ -115,8 +115,8 @@ class HttpAdd extends arch\form\Action {
 
             // Priority
             ->addRequiredField('priority', 'enum')
-                ->setOptions(core\unit\Priority::getOptions())
-
+                ->setType('core/unit/Priority')
+                
             // Minute
             ->addField('minute', 'text')
                 ->setMaxLength(128)
