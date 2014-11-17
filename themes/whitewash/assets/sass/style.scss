@@ -316,18 +316,16 @@ button {
         }
         &:nth-child(2n) {
             background: #FBFBFB;
+
+            > th {
+                background: #F0F0F0;
+            }
         }
-    }
 
-    th {
-        border-bottom: 2px #F5F5F5 solid;
-        background: #F8F8F8;
-    }
-}
-
-.widget-attributeList {
-    tr:nth-child(2n) th {
-        background: #F0F0F0;
+        > th {
+            border-bottom: 2px #F5F5F5 solid;
+            background: #F8F8F8;
+        }
     }
 }
 
