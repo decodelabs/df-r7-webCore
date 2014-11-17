@@ -23,7 +23,7 @@
     }
 
     + .widget-buttonArea {
-        padding-left: $labelWidth;
+        padding-left: $labelWidth + 2em;
 
         &.stacked {
             padding-left: 0;
