@@ -1,7 +1,7 @@
 @mixin generateGrid($columns:$grid-columns, $gutter:$grid-gutter, $prefix:$grid-column-prefix) {
     [class*="#{$prefix}"] {
         float: left;
-        padding: $gutter*$grid-padding-ratio $gutter;
+        padding: pxToRem($gutter*$grid-padding-ratio) pxToRem($gutter);
         box-sizing: border-box;
     }
 
