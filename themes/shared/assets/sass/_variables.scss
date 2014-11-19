@@ -24,7 +24,7 @@ $cell-inset: true !default;
 /* FONTS */
 $font-base-size: 16px !default;
 $font-min-size: 8px !default;
-$font-base-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$font-base-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
 $font-scale: false !default;
 $font-scale-threshold: 1600px !default;
 $font-base-weight: normal !default;
