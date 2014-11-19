@@ -21,10 +21,6 @@
             }
         }
     }
-}
-
-@if $grid == true {
-    @include generateGrid();
 
     .#{$grid-container-prefix} {
         width: $grid-container-width;
@@ -41,6 +37,17 @@
                 vertical-align: middle;
             }
         }
-    }
 
+        &.inset {
+            width: calc(#{$grid-container-width} - #{pxToRem(2 * $gutter)});
+
+            > [class*="#{$prefix}"] {
+                padding: pxToRem($gutter*$grid-padding-ratio) 0;
+            }
+        }
+    }
+}
+
+@if $grid == true {
+    @include generateGrid();
 }
