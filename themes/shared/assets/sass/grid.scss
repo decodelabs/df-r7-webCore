@@ -1,0 +1,54 @@
+$grid: false !default;
+$grid-columns: 12 !default;
+$grid-gutter: 1.5em !default;
+$grid-padding-ratio: 1.5 !default;
+$grid-column-prefix: col !default;
+$grid-container-prefix: container;
+$grid-container-width: 1080px !default;
+
+@mixin generateGrid($columns:$grid-columns, $gutter:$grid-gutter, $prefix:$grid-column-prefix) {
+    [class*="#{$prefix}"] {
+        float: left;
+        padding: $gutter*$grid-padding-ratio $gutter;
+        box-sizing: border-box;
+    }
+
+    $total: $columns;
+
+    @if length($columns) > 1 {
+        $total: length($columns);
+    }
+        
+    @for $i from 1 through $total {
+        .#{$prefix + $i} {
+            @if length($columns) > 1 {
+                width: percentage(nth($columns, $i));
+            }
+            @else {
+                width: percentage($i / $columns);
+            }
+        }
+    }
+}
+
+@if $grid == true {
+    @include generateGrid();
+
+    .#{$grid-container-prefix} {
+        width: $grid-container-width;
+        box-sizing: border-box;
+        margin: auto;
+        @extend %clearfix;
+
+        &.balanced {
+            display: table;
+
+            [class*="#{$grid-column-prefix}"] {
+                float: none;
+                display: table-cell;
+                vertical-align: middle;
+            }
+        }
+    }
+
+}
