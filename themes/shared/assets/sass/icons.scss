@@ -1,11 +1,11 @@
-@if $iconFont != false {
+@if $icon-font-family != false {
     @font-face {
-        font-family: $iconFont;
-        src: url('../fonts/' + $iconFont + '.eot');
-        src: url('../fonts/' + $iconFont + '.eot?#iefix') format('embedded-opentype'),
-            url('../fonts/' + $iconFont + '.svg#' + $iconFont) format('svg'),
-            url('../fonts/' + $iconFont + '.woff') format('woff'),
-            url('../fonts/' + $iconFont + '.ttf') format('truetype');
+        font-family: $icon-font-family;
+        src: url('../fonts/' + $icon-font-family + '.eot');
+        src: url('../fonts/' + $icon-font-family + '.eot?#iefix') format('embedded-opentype'),
+            url('../fonts/' + $icon-font-family + '.svg#' + $icon-font-family) format('svg'),
+            url('../fonts/' + $icon-font-family + '.woff') format('woff'),
+            url('../fonts/' + $icon-font-family + '.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
@@ -15,7 +15,7 @@
         text-decoration: none;
 
         &:before {
-            font-family: $iconFont;
+            font-family: $icon-font-family;
             content: attr(data-icon);
             speak: none;
             color: inherit;

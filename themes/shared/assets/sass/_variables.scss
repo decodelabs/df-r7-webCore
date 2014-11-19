@@ -1,22 +1,34 @@
-$positiveColor: darkgreen !default;
-$negativeColor: darkred !default;
-$informativeColor: #2D6672 !default;
-$operativeColor: #8F7310 !default;
-$transitiveColor: #6F5177 !default;
-$externalColor: #6b5e6e !default;
+$positive-color: darkgreen !default;
+$negative-color: darkred !default;
+$informative-color: #2D6672 !default;
+$operative-color: #8F7310 !default;
+$transitive-color: #6F5177 !default;
+$external-color: #6b5e6e !default;
 
-$errorColor: red !default;
-$successColor: green !default;
-$warningColor: #8F7310 !default;
-$debugColor: #7B8034 !default;
+$error-color: red !default;
+$success-color: green !default;
+$warning-color: #8F7310 !default;
+$debug-color: #7B8034 !default;
 
-$disabledColor: #777 !default;
+$disabled-color: #777 !default;
+$base-text-color: #444 !default;
 
-$linkStates: true !default;
+$link-states: true !default;
 
-$labelWidth: 16em !default;
-$labelAlign: right !default;
+$label-width: 16em !default;
+$label-align: right !default;
 
-$cellInset: true !default;
+$cell-inset: true !default;
 
-$iconFont: Icomoon !default;
+
+/* FONTS */
+$font-base-size: 16px !default;
+$font-min-size: 8px !default;
+$font-base-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$font-scale: false !default;
+$font-scale-threshold: 1600px !default;
+$font-base-weight: normal !default;
+$font-antialias: true !default;
+
+/* ICONS */
+$icon-font-family: Icomoon !default;

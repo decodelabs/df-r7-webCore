@@ -23,7 +23,7 @@
     }
 
     + .widget-buttonArea {
-        padding-left: $labelWidth + 2em;
+        padding-left: $label-width + 2em;
 
         &.stacked {
             padding-left: 0;
@@ -32,7 +32,7 @@
 }
 
 .widget-buttonArea {
-    @if $cellInset == true {
+    @if $cell-inset == true {
         padding: 1em;
     } @else {
         padding: 1em 0;
@@ -66,8 +66,8 @@
 
     > .widget-labelArea {
         float: left;
-        width: $labelWidth;
-        text-align: $labelAlign;
+        width: $label-width;
+        text-align: $label-align;
         margin: 0.15em 1em 0 0;
         font-size: 1em;
     }
@@ -78,13 +78,13 @@
     }
 
     > .widget-fieldError {
-        padding-left: $labelWidth + 1em;
+        padding-left: $label-width + 1em;
         padding-bottom: 0.3em;
     }
 
     > .widget-inputArea {
         @extend %clearfix;
-        margin-left: $labelWidth + 1em;
+        margin-left: $label-width + 1em;
 
         > .description {
             margin-bottom: 0.5em;
@@ -135,7 +135,7 @@
     }
 
     + .widget-buttonArea {
-        padding-left: $labelWidth + 1em;
+        padding-left: $label-width + 1em;
 
         &.stacked {
             padding-left: 0;
@@ -149,7 +149,7 @@
 }
 
 .widget-fieldError div {
-    color: $errorColor;
+    color: $error-color;
     font-size: 0.9em;
     font-style: italic;
 }
@@ -229,7 +229,7 @@
     padding: 2px 4px;
 
     &.error {
-        border-color: $errorColor;
+        border-color: $error-color;
     }
 
     &[disabled] {
@@ -272,7 +272,7 @@
     cursor: pointer;
 
     &[disabled] {
-        color: $disabledColor !important;
+        color: $disabled-color !important;
         cursor: default;
         opacity: 0.7;
     }
@@ -316,11 +316,11 @@
     }
 
     th {
-        width: $labelWidth;
+        width: $label-width;
         text-align: left;
         vertical-align: top;
 
-        @if $cellInset == false {
+        @if $cell-inset == false {
             padding-left: 0;
         }
 
@@ -545,28 +545,28 @@
     padding: 0.4em 1em;
 
     &.success {
-        background: rgba(desaturate(lighten($successColor, 65%), 45%), 0.65);
-        border-color: $successColor;
+        background: rgba(desaturate(lighten($success-color, 65%), 45%), 0.65);
+        border-color: $success-color;
     }
 
     &.error {
-        background: rgba(desaturate(lighten($errorColor, 45%), 35%), 0.65);
-        border-color: $errorColor;
+        background: rgba(desaturate(lighten($error-color, 45%), 35%), 0.65);
+        border-color: $error-color;
     }
 
     &.info {
-        background: rgba(desaturate(lighten($informativeColor, 60%), 35%), 0.65);
-        border-color: $informativeColor;
+        background: rgba(desaturate(lighten($informative-color, 60%), 35%), 0.65);
+        border-color: $informative-color;
     }
 
     &.warning {
-        background: rgba(desaturate(lighten($warningColor, 60%), 35%), 0.65);
-        border-color: $warningColor;
+        background: rgba(desaturate(lighten($warning-color, 60%), 35%), 0.65);
+        border-color: $warning-color;
     }
 
     &.debug {
-        background: rgba(desaturate(lighten($debugColor, 60%), 35%), 0.65);
-        border-color: $debugColor;
+        background: rgba(desaturate(lighten($debug-color, 60%), 35%), 0.65);
+        border-color: $debug-color;
     }
 
     h4 {

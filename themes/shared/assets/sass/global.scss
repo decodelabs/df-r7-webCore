@@ -1,3 +1,31 @@
+html {
+    font-size: $font-base-size;
+    font-weight: $font-base-weight;
+    font-family: $font-base-family;
+    color: $base-text-color;
+
+    @if $font-antialias == true {
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+@mixin applyRelativeFontSizing($maxWidth:$font-scale-threshold) {
+    $divisions: ($font-base-size / 1px) - ($font-min-size / 1px);
+    $divisionWidth: (($maxWidth - 600px) / $divisions);
+
+    @for $i from 1 through $divisions {
+        @media only screen and (max-width: #{$maxWidth - ($i * $divisionWidth)}) {
+            html {
+                font-size: #{$font-base-size - $i};
+            }
+        }
+    }
+}
+
+@if $font-scale == true {
+    @include applyRelativeFontSizing();
+}
+
 iframe[seamless] {
     border: none;
 }
@@ -6,69 +34,69 @@ iframe[seamless] {
     max-width: 40em;
 }
 
-.positive { color: $positiveColor; }
-.negative { color: $negativeColor; }
-.transitive { color: $transitiveColor; }
-.informative { color: $informativeColor; }
-.operative { color: $operativeColor; }
+.positive { color: $positive-color; }
+.negative { color: $negative-color; }
+.transitive { color: $transitive-color; }
+.informative { color: $informative-color; }
+.operative { color: $operative-color; }
 
 
 a {
     display: inline-block;
     padding: 0;
 
-    @if $linkStates == true {
+    @if $link-states == true {
         &.positive {
             &:link, &:visited {
-                color: $positiveColor;
+                color: $positive-color;
             }
             &:hover, &:active {
-                color: lighten($positiveColor, 10%);
+                color: lighten($positive-color, 10%);
             }
         }
 
         &.negative {
             &:link, &:visited {
-                color: $negativeColor;
+                color: $negative-color;
             }
             &:hover, &:active {
-                color: lighten($negativeColor, 10%);
+                color: lighten($negative-color, 10%);
             }
         }
 
         &.informative {
             &:link, &:visited {
-                color: $informativeColor;
+                color: $informative-color;
             }
             &:hover, &:active {
-                color: lighten($informativeColor, 10%);
+                color: lighten($informative-color, 10%);
             }
         }
 
         &.operative {
             &:link, &:visited {
-                color: $operativeColor;
+                color: $operative-color;
             }
             &:hover, &:active {
-                color: lighten($operativeColor, 10%);
+                color: lighten($operative-color, 10%);
             }
         }
 
         &.transitive {
             &:link, &:visited {
-                color: $transitiveColor;
+                color: $transitive-color;
             }
             &:hover, &:active {
-                color: lighten($transitiveColor, 10%);
+                color: lighten($transitive-color, 10%);
             }
         }
 
         &.external {
             &:link, &:visited {
-                color: $externalColor;
+                color: $external-color;
             }
             &:hover, &:active {
-                color: lighten($externalColor, 10%);
+                color: lighten($external-color, 10%);
             }
         }
     }
@@ -83,7 +111,7 @@ a {
 
 
 .disabled {
-    color: $disabledColor;
+    color: $disabled-color;
     opacity: 0.7;
 }
 
@@ -101,28 +129,28 @@ a.disabled {
 }
 
 .na {
-    color: $disabledColor;
+    color: $disabled-color;
     opacity: 0.7;
 }
 
 .error {
-    color: $errorColor;
+    color: $error-color;
 }
 
 .success {
-    color: $successColor;
+    color: $success-color;
 }
 
 .info {
-    color: $informativeColor;
+    color: $informative-color;
 }
 
 .warning {
-    color: $warningColor;
+    color: $warning-color;
 }
 
 .debug {
-    color: $debugColor;
+    color: $debug-color;
 }
 
 .active {
