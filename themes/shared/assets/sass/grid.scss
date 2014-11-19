@@ -1,11 +1,3 @@
-$grid: false !default;
-$grid-columns: 12 !default;
-$grid-gutter: 1.5em !default;
-$grid-padding-ratio: 1.5 !default;
-$grid-column-prefix: col !default;
-$grid-container-prefix: container;
-$grid-container-width: 1080px !default;
-
 @mixin generateGrid($columns:$grid-columns, $gutter:$grid-gutter, $prefix:$grid-column-prefix) {
     [class*="#{$prefix}"] {
         float: left;
