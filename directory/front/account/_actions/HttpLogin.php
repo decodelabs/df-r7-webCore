@@ -68,6 +68,13 @@ class HttpLogin extends arch\form\Action {
     }
 
     protected function _onLoginEvent() {
-        $this->getDelegate($this->_adapter)->handleEvent('login', func_get_args());
+        $delegate = $this->getDelegate($this->_adapter);
+        $output = $delegate->handleEvent('login', func_get_args());
+        
+        if($delegate->isComplete()) {
+            $this->complete();
+        }
+
+        return $output;
     }
 }
