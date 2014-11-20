@@ -23,7 +23,7 @@
     }
 
     + .widget-buttonArea {
-        padding-left: $label-width + 2em;
+        padding-left: $form-label-width + 2em;
 
         &.stacked {
             padding-left: 0;
@@ -66,8 +66,8 @@
 
     > .widget-labelArea {
         float: left;
-        width: $label-width;
-        text-align: $label-align;
+        width: $form-label-width;
+        text-align: $form-label-align;
         margin: 0.15em 1em 0 0;
         font-size: 1em;
     }
@@ -78,13 +78,13 @@
     }
 
     > .widget-fieldError {
-        padding-left: $label-width + 1em;
+        padding-left: $form-label-width + 1em;
         padding-bottom: 0.3em;
     }
 
     > .widget-inputArea {
         @extend %clearfix;
-        margin-left: $label-width + 1em;
+        margin-left: $form-label-width + 1em;
 
         > .description {
             margin-bottom: 0.5em;
@@ -135,7 +135,7 @@
     }
 
     + .widget-buttonArea {
-        padding-left: $label-width + 1em;
+        padding-left: $form-label-width + 1em;
 
         &.stacked {
             padding-left: 0;
@@ -210,14 +210,14 @@
 
 
 .widget-textbox {
-    min-width: 18em;
-    width: 35%;
+    min-width: $form-input-min-width-medium;
+    width: $form-input-width;
 }
 
 .widget-textarea,
 .widget-htmlEditor {
-    min-width: 30em;
-    width: 35%;
+    min-width: $form-input-min-width-large;
+    width: $form-input-width;
     min-height: 6em;
 }
 
@@ -316,7 +316,7 @@
     }
 
     th {
-        width: $label-width;
+        width: $form-label-width;
         text-align: left;
         vertical-align: top;
 
