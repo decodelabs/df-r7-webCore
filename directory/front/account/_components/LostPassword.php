@@ -16,7 +16,7 @@ class LostPassword extends arch\component\template\FormUi {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Password recovery'));
 
-        $fs->push(
+        $fs->addFieldArea()->push(
             $this->html->flashMessage($this->_(
                 'Please enter your email address and you will be sent a link with instructions on resetting your password'
             ))
