@@ -21,7 +21,7 @@ class HttpView extends arch\Action {
         }
         
         $path = new arch\Request($this->request->query['path']);
-        $path = $path->getController().'/'.ucfirst($path->getAction()).'.html';
+        $path = '#'.$path->getController().'/'.ucfirst($path->getAction()).'.html';
 
         $view = $this->aura->getView($path);
         $context = $view->getContext();
