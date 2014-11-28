@@ -96,20 +96,17 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->isDisabled(!$this->_enabled || $daemon['testMode'])
             ];  
         }
+    }
 
-
-
-        return [
-            // Preview
-            $this->import->component('~admin/content/nodes/NodeLink', $node, $this->_('Preview'))
-                ->setAction('preview')
-                ->setDisposition('transitive')
-                ->setIcon('preview')
-                ->render()
-                ->setAttribute('target', '_blank'),
-
-            parent::getRecordOperativeLinks($node, $mode)
-        ];
+    public function addIndexSubOperativeLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri('~devtools/processes/daemons/settings', true),
+                    $this->_('Settings')
+                )
+                ->setIcon('settings')
+                ->setDisposition('operative')
+        );
     }
 
 // Fields
