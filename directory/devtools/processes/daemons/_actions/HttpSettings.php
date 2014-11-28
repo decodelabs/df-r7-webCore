@@ -39,6 +39,12 @@ class HttpSettings extends arch\form\Action {
         }
     }
 
+    protected function _getDataId() {
+        if($this->_isRecord) {
+            return $this->_config['name'];
+        }
+    }
+
     protected function _setDefaultValues() {
         $this->values->importFrom($this->_config, [
             $this->_getFieldName('isEnabled'), 
