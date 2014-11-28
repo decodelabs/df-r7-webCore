@@ -29,6 +29,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         'pid', 'testMode', 'automatic', 'actions'
     ];
 
+    protected $_recordDetailsFields = [
+        'name', 'state', 'startDate', 'statusDate', 
+        'pid', 'user', 'group', 'testMode', 'automatic'
+    ];
+
     protected $_enabled;
 
 
@@ -38,18 +43,26 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $daemons = halo\daemon\Base::loadAll();
         $data = [];
+        $settings = $this->data->daemon->settings->select()->toKeyArray('name');
 
         foreach($daemons as $name => $daemon) {
             $remote = halo\daemon\Remote::factory($daemon);
             $status = $remote->getStatusData();
 
+            $daemonSettings = isset($settings[$name]) ? 
+                $settings[$name] : 
+                $this->data->newRecord('axis://daemon/Settings')->toArray();
+
             $row = [
                 'name' => $name,
+                'isEnabled' => $daemonSettings['isEnabled'],
                 'isRunning' => $remote->isRunning(),
                 'startDate' => $status ? new core\time\Date($status['startTime']) : null,
                 'statusDate' => $status ? new core\time\Date($status['statusTime']) : null,
                 'state' => $status ? $status['state'] : 'stopped',
                 'pid' => $status ? $status['pid'] : null,
+                'user' => $daemonSettings['user'],
+                'group' => $daemonSettings['group'],
                 'testMode' => $daemon::TEST_MODE,
                 'automatic' => $daemon::AUTOMATIC,
                 '@daemon' => $daemon,
@@ -65,10 +78,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Components
     public function getRecordOperativeLinks($daemon, $mode) {
-        $output = [];
-
         if($daemon['isRunning']) {
-            return [
+            $output = [
                 $this->html->link(
                         $this->uri('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
                         $this->_('Restart daemon')
@@ -86,16 +97,26 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->isDisabled(!$this->_enabled)
             ];  
         } else {
-            return [
+            $output = [
                 $this->html->link(
                         $this->uri('~devtools/processes/daemons/start?daemon='.$daemon['name'], true),
                         $this->_('Start daemon')
                     )
                     ->setIcon('launch')
                     ->setDisposition('positive')
-                    ->isDisabled(!$this->_enabled || $daemon['testMode'])
+                    ->isDisabled(!$this->_enabled || !$daemon['isEnabled'] || $daemon['testMode'])
             ];  
         }
+
+        $output[] = $this->html->link(
+                $this->uri('~devtools/processes/daemons/settings?daemon='.$daemon['name'], true),
+                $this->_('Settings')
+            )
+            ->setIcon('settings')
+            ->setDisposition('operative')
+            ->isDisabled(!$this->_enabled || $daemon['testMode']);
+
+        return $output;
     }
 
     public function addIndexSubOperativeLinks($menu, $bar) {
@@ -112,7 +133,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Fields
     public function defineStateField($list, $mode) {
         $list->addField('state', function($daemon, $context) {
-            if(!$daemon['isRunning']) {
+            if(!$daemon['isEnabled']) {
                 $context->getRowTag()->addClass('disabled');
             }
 

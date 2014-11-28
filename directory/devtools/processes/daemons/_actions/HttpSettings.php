@@ -15,14 +15,35 @@ class HttpSettings extends arch\form\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_config;
+    protected $_isRecord = false;
+    protected $_names = [
+        'isEnabled' => 'daemonsEnabled',
+        'user' => 'daemonUser',
+        'group' => 'daemonGroup'
+    ];
 
     protected function _init() {
-        $this->_config = core\Environment::getInstance();
+        if(isset($this->request->query->daemon)) {
+            $this->_isRecord = true;
+
+            $this->_config = $this->data->fetchOrCreateForAction(
+                'axis://daemon/Settings',
+                $this->request->query['daemon'],
+                'edit',
+                function($settings) {
+                    $settings['name'] = $this->request->query['daemon'];
+                }
+            );
+        } else {
+            $this->_config = core\Environment::getInstance();
+        }
     }
 
     protected function _setDefaultValues() {
         $this->values->importFrom($this->_config, [
-            'daemonsEnabled', 'daemonUser', 'daemonGroup'
+            $this->_getFieldName('isEnabled'), 
+            $this->_getFieldName('user'), 
+            $this->_getFieldName('group')
         ]);
     }
 
@@ -32,21 +53,27 @@ class HttpSettings extends arch\form\Action {
 
         // Enabled
         $fs->addFieldArea()->push(
-            $this->html->checkbox('daemonsEnabled', $this->values->daemonsEnabled, $this->_(
-                'Allow this application to spawn deamon processes'
-            ))
+            $this->html->checkbox($this->_getFieldName('isEnabled'), $this->values->{$this->_getFieldName('isEnabled')}, 
+                $this->_isRecord ?
+                    $this->_('This daemon is enabled and can be spawned by this application') :
+                    $this->_('Allow this application to spawn deamon processes')
+            )
         );
+
+        $env = core\Environment::getInstance();
 
         // User
         $fs->addFieldArea($this->_('User'))->push(
-            $this->html->textbox('daemonUser', $this->values->daemonUser)
-                ->isRequired(true)
+            $this->html->textbox($this->_getFieldName('user'), $this->values->{$this->_getFieldName('user')})
+                ->isRequired(!$this->_isRecord)
+                ->setPlaceholder($env->getDaemonUser())
         );
 
         // Group
         $fs->addFieldArea($this->_('Group'))->push(
-            $this->html->textbox('daemonGroup', $this->values->daemonGroup)
-                ->isRequired(true)
+            $this->html->textbox($this->_getFieldName('group'), $this->values->{$this->_getFieldName('group')})
+                ->isRequired(!$this->_isRecord)
+                ->setPlaceholder($env->getDaemonGroup())
         );
 
         // Buttons
@@ -57,22 +84,24 @@ class HttpSettings extends arch\form\Action {
         $this->data->newValidator()
 
             // Enabled
-            ->addRequiredField('daemonsEnabled', 'boolean')
+            ->addRequiredField($this->_getFieldName('isEnabled'), 'boolean')
 
             // User
-            ->addRequiredField('daemonUser', 'text')
+            ->addField($this->_getFieldName('user'), 'text')
+                ->isRequired(!$this->_isRecord)
                 ->setCustomValidator(function($node, $value) {
-
+                    // TODO: test user
                 })
 
             // Group
-            ->addRequiredField('daemonGroup', 'text')
+            ->addField($this->_getFieldName('group'), 'text')
+                ->isRequired(!$this->_isRecord)
                 ->setCustomValidator(function($node, $value) {
-
+                    // TODO: test group
                 })
 
             ->validate($this->values)
-            ->applyTo($this->_config->values);
+            ->applyTo($this->_config);
 
         if($this->isValid()) {
             $this->_config->save();
@@ -85,5 +114,13 @@ class HttpSettings extends arch\form\Action {
 
             return $this->complete();
         }
+    }
+
+    protected function _getFieldName($key) {
+        if($this->_isRecord || !isset($this->_names[$key])) {
+            return $key;
+        }
+
+        return $this->_names[$key];
     }
 }
