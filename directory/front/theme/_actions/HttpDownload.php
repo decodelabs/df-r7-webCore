@@ -18,12 +18,29 @@ class HttpDownload extends arch\Action {
     
     public function execute() {
         $theme = aura\theme\Base::factory($this->request->query['theme']);
+        $assetPath = $this->request->query['file'];
+        $type = null;
+
+        $fileName = basename($assetPath);
+        $parts = explode('.', $fileName);
+
+        if(array_pop($parts) == 'map') {
+            switch(array_pop($parts)) {
+                case 'scss':
+                case 'sass':
+                    $type = 'application/x-sass-map';
+                    $assetPath = substr($assetPath, 0, -4);
+                    break;
+            }
+        }
         
-        if(!$absolutePath = $theme->findAsset($this->request->query['file'])) {
+        if(!$absolutePath = $theme->findAsset($assetPath)) {
             $this->throwError(404, 'File not found');
         }
 
-        $type = core\io\Type::fileToMime($absolutePath);
+        if(!$type) {
+            $type = core\io\Type::fileToMime($absolutePath);
+        }
 
         if(substr($type, 0, 6) == 'image/' && isset($this->request->query->transform)) {
             $cache = neon\raster\Cache::getInstance();
@@ -35,6 +52,10 @@ class HttpDownload extends arch\Action {
             case 'text/x-scss':
                 $bridge = new aura\css\sass\Bridge($this->context, $absolutePath);
                 return $bridge->getHttpResponse();
+
+            case 'application/x-sass-map':
+                $bridge = new aura\css\sass\Bridge($this->context, $absolutePath);
+                return $bridge->getMapHttpResponse();
 
             default:
                 $output = $this->http->fileResponse($absolutePath);
