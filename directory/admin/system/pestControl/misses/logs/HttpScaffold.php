@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'date', 'mode', 'request', 'message', 
-        'user', 'isProduction', 'actions'
+        'referrer', 'isProduction', 'actions'
     ];
 
     protected $_recordDetailsFields = [
@@ -151,10 +151,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineReferrerField($list, $mode) {
-        $list->addField('referrer', function($log) {
+        $list->addField('referrer', function($log) use($mode) {
             if(!$referrer = $log['referrer']) return;
 
-            return $this->html->link($referrer, $this->html('samp', $referrer))
+            return $this->html->link($referrer, $this->html('samp', $mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
                 ->setIcon('link');
         });
     }
