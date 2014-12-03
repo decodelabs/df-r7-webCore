@@ -13,6 +13,9 @@ use df\neon;
 
 class HttpApplicationImage extends arch\Action {
     
+    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    const CHECK_ACCESS = false;
+
     public function executeAsPng() {
         $theme = $this->aura->getTheme();
 
