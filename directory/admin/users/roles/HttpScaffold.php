@@ -107,6 +107,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         });
     }
 
+    public function definePriorityField($list, $mode) {
+        $list->addField('priority');
+    }
+
     public function defineGroupsField($list, $mode) {
         if($mode == 'list') {
             return false;

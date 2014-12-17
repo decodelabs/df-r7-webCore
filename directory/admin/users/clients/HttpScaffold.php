@@ -132,16 +132,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Sections
     public function renderInvitesSectionBody($client) {
-        $inviteList = $this->data->user->invite->select()
-            ->where('owner', '=', $client['id'])
-            ->populateSelect('groups', 'id', 'name')
-            ->importRelationBlock('user', 'link')
-            ->paginateWith($this->request->query);
-
-        return $this->import->component('~admin/users/invites/InviteList', [
-                'owner' => false
-            ])
-            ->setCollection($inviteList);
+        return $this->directory->getScaffold('~admin/users/invites/')
+            ->renderRecordList(
+                $this->data->user->invite->select()
+                    ->where('owner', '=', $client['id']),
+                ['owner' => false]
+            );
     }
 
     public function renderAuthenticationSectionBody($client) {

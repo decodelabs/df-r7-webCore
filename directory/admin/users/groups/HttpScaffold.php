@@ -83,12 +83,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function renderUsersSectionBody($group) {
-        $userList = $group->users->select()
-            ->countRelation('groups')
-            ->paginateWith($this->request->query);
-
-        return $this->import->component('~admin/users/clients/UserList')
-            ->setCollection($userList);
+        return $this->directory->getScaffold('~admin/users/clients/')
+            ->renderRecordList($group->users->select());
     }
 
 // Fields
