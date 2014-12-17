@@ -14,7 +14,7 @@ class HttpSetupUser extends arch\form\Action {
     
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     
-    protected function _onSessionCreate() {
+    protected function _onSessionReady() {
         $model = $this->data->getModel('user');
         
         if($model->client->select()->count()) {
