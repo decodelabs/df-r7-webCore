@@ -164,3 +164,11 @@ a.disabled {
 .hidden {
     display: none;
 }
+
+.locked {
+    color: $warning-color;
+}
+
+.unlocked {
+    color: $success-color;
+}
