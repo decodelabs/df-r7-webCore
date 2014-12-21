@@ -32,9 +32,7 @@ class HttpDebugMode extends arch\form\template\Confirm {
 
     protected function _apply() {
         $augmentor = $this->application->getResponseAugmentor();
-        $cookie = $augmentor->newCookie('debug', '1')
-            ->isHttpOnly(true)
-            ->setBaseUrl($this->application->getRouter()->getBaseUrl());
+        $cookie = $augmentor->newCookie('debug', '1', null, true);
 
         if($this->_isEnabled) {
             $augmentor->removeCookieForAnyRequest($cookie);
