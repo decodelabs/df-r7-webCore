@@ -42,14 +42,9 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
-        $query->beginWhereClause()
-            ->whereCorrelation('user', 'in', 'id')
-                ->from('axis://user/Client', 'client')
-                ->where('client.fullName', 'matches', $search)
-                ->orWhere('client.nickName', 'matches', $search)
-                ->orWhere('client.email', 'matches', $search)
-                ->endCorrelation()
-            ->endClause();
+        $query->searchFor($search, [
+            'jrl_user.fullName' => 5
+        ]);
     }
 
 // Components

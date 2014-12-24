@@ -39,14 +39,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ;
     }
 
-    public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
-        $query->beginWhereClause()
-            //->where('id', '=', ltrim($search, '#'))
-            ->orWhere('request', 'matches', $search)
-            ->orWhere('message', 'matches', $search)
-            ->endClause();
-    }
-
     public function getRecordOperativeLinks($record, $mode) {
         return array_merge(
             [

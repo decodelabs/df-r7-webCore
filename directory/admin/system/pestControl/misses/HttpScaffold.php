@@ -41,14 +41,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         );
     }
 
-    public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
-        $query->beginWhereClause()
-            //->where('id', '=', ltrim($search, '#'))
-            ->orWhere('mode', 'matches', $search)
-            ->orWhere('request', 'matches', $search)
-            ->endClause();
-    }
-
     protected function _fetchSectionItemCounts() {
         $miss = $this->getRecord();
 

@@ -16,6 +16,11 @@ class Unit extends axis\unit\table\Base {
     
     const INVITE_OPTION = 'invite.allowance';
 
+    protected static $_defaultSearchFields = [
+        'name' => 5,
+        'email' => 2
+    ];
+
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('id', 'AutoId');
         $schema->addUniqueField('key', 'String', 64);

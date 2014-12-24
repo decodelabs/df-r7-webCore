@@ -60,15 +60,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $query->countRelation('groups');
     }
 
-    public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
-        $query->beginWhereClause()
-            ->where('id', '=', ltrim($search, '#'))
-            ->orWhere('fullName', 'matches', $search)
-            ->orWhere('nickName', 'matches', $search)
-            ->orWhere('email', 'matches', $search)
-            ->endClause();
-    }
-
     protected function _fetchSectionItemCounts() {
         $record = $this->getRecord();
 

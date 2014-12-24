@@ -42,15 +42,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ;
     }
 
-    public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
-        $query->beginWhereClause()
-            //->where('id', '=', ltrim($search, '#'))
-            ->orWhere('code', '=', $search)
-            ->orWhere('request', 'matches', $search)
-            ->orWhere('message', 'matches', $search)
-            ->endClause();
-    }
-
 // Fields
     public function defineModeField($list, $mode) {
         $list->addField('mode', function($log) {

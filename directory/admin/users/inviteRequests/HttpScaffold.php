@@ -37,15 +37,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         //$query->populate('invite');
     }
 
-    public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
-        $query->beginWhereClause()
-            ->where('name', 'matches', $search)
-            ->orWhere('email', 'matches', $search)
-            ->orWhere('companyName', 'matches', $search)
-            ->orWhere('companyPosition', 'matches', $search)
-            ->endClause();
-    }
-
 // Components
     public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(

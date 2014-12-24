@@ -13,6 +13,13 @@ use df\opal;
     
 class Unit extends axis\unit\table\Base {
 
+    protected static $_defaultSearchFields = [
+        'name' => 10,
+        'email' => 2,
+        'companyName' => 5,
+        'companyPosition' => 1
+    ];
+
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('id', 'AutoId', 8);
 
