@@ -82,7 +82,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $query->searchFor($search, [
             'name' => 3,
             'email' => 1,
-            'jrl_user.fullName' => 3
+            'user|fullName' => 3
         ]);
     }
 

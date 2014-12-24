@@ -43,7 +43,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
         $query->searchFor($search, [
-            'jrl_user.fullName' => 5
+            'user|fullName' => 5
         ]);
     }
 
