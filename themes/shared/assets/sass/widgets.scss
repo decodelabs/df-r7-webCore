@@ -335,12 +335,12 @@
 }
 
 .widget-collectionList {
-    .link-order-active {
-        &.link-order-asc:after {
+    a.order.active {
+        &.asc:after {
             font-size: 0.75em;
             content: ' ⇑'
         }
-        &.link-order-desc:after {
+        &.desc:after {
             font-size: 0.75em;
             content: ' ⇓';
         }

@@ -32,10 +32,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         'invite', 'creationDate', 'isActive', 'message'
     ];
 
-// Record data
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
-        //$query->populate('invite');
-    }
 
 // Components
     public function addIndexOperativeLinks($menu, $bar) {
