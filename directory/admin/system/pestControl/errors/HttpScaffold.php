@@ -16,7 +16,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Critical errors';
     const DIRECTORY_ICON = 'error';
     const RECORD_ADAPTER = 'axis://pestControl/Error';
-    const RECORD_NAME_KEY = 'message';
+    const RECORD_NAME_FIELD = 'message';
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
 

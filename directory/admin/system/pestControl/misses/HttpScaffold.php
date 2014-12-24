@@ -17,7 +17,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_ICON = 'brokenLink';
     const RECORD_ADAPTER = 'axis://pestControl/Miss';
     const RECORD_ITEM_NAME = '404 error';
-    const RECORD_NAME_KEY = 'id';
+    const RECORD_NAME_FIELD = 'id';
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
 

@@ -18,7 +18,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_ICON = 'user';
     const RECORD_ADAPTER = 'axis://user/Client';
     const RECORD_KEY_NAME = 'user';
-    const RECORD_NAME_KEY = 'fullName';
+    const RECORD_NAME_FIELD = 'fullName';
 
     protected $_sections = [
         'details',

@@ -16,7 +16,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Invites';
     const DIRECTORY_ICON = 'mail';
     const RECORD_ADAPTER = 'axis://user/Invite';
-    const RECORD_NAME_KEY = 'email';
+    const RECORD_NAME_FIELD = 'email';
 
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;

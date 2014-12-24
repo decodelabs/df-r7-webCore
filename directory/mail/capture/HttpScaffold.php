@@ -19,7 +19,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_ICON = 'mail';
     const RECORD_ADAPTER = 'axis://mail/Capture';
     const RECORD_KEY_NAME = 'mail';
-    const RECORD_NAME_KEY = 'subject';
+    const RECORD_NAME_FIELD = 'subject';
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
 

@@ -18,8 +18,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Daemons';
     const DIRECTORY_ICON = 'launch';
     const RECORD_KEY_NAME = 'daemon';
-    const RECORD_ID_KEY = 'name';
-    const RECORD_NAME_KEY = 'name';
+    const RECORD_ID_FIELD = 'name';
+    const RECORD_NAME_FIELD = 'name';
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
     const CAN_DELETE_RECORD = false;

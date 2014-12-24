@@ -18,7 +18,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Task queue';
     const DIRECTORY_ICON = 'task';
     const RECORD_ADAPTER = 'axis://task/Queue';
-    const RECORD_NAME_KEY = 'request';
+    const RECORD_NAME_FIELD = 'request';
     const RECORD_KEY_NAME = 'task';
 
     protected $_recordListFields = [

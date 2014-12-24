@@ -17,7 +17,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_ICON = 'log';
     const RECORD_ADAPTER = 'axis://pestControl/ErrorLog';
     const RECORD_KEY_NAME = 'log';
-    const RECORD_NAME_KEY = 'date';
+    const RECORD_NAME_FIELD = 'date';
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
 

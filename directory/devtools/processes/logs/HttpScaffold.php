@@ -18,7 +18,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Spool logs';
     const DIRECTORY_ICON = 'log';
     const RECORD_ADAPTER = 'axis://task/Log';
-    const RECORD_NAME_KEY = 'request';
+    const RECORD_NAME_FIELD = 'request';
     const CAN_ADD_RECORD = false;
     const CAN_EDIT_RECORD = false;
 

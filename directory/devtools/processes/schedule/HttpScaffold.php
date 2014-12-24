@@ -19,7 +19,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Scheduled tasks';
     const DIRECTORY_ICON = 'calendar';
     const RECORD_ADAPTER = 'axis://task/Schedule';
-    const RECORD_NAME_KEY = 'request';
+    const RECORD_NAME_FIELD = 'request';
 
     protected $_recordListFields = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
