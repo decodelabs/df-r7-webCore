@@ -15,7 +15,7 @@ use df\link;
 class HttpIndex extends arch\Action {
     
     public function executeAsHtml() {
-        $view = $this->aura->getView('Index.html');
+        $view = $this->apex->view('Index.html');
         $handler = link\geoIp\Handler::factory();
 
         $view['config'] = link\geoIp\Config::getInstance();

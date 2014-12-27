@@ -17,7 +17,7 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $view = $this->aura->getView('Index.html');
+        $view = $this->apex->view('Index.html');
         $probe = new axis\introspector\Probe();
         $view['unitList'] = $probe->probeUnits();
 

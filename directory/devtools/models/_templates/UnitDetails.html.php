@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
+echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
 
 if(!$this['unit']->storageExists()) {
     echo $this->html->flashMessage($this->_(

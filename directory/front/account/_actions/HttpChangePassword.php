@@ -26,7 +26,7 @@ class HttpChangePassword extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component('~front/account/ChangePasswordLocal', $this)
+            $this->apex->component('~front/account/ChangePasswordLocal', $this)
         );
     }
 

@@ -1,4 +1,4 @@
 <?php
 
-echo $this->import->component('~devtools/models/IndexHeaderBar');
-echo $this->import->component('~devtools/models/UnitList');
+echo $this->apex->component('~devtools/models/IndexHeaderBar');
+echo $this->apex->component('~devtools/models/UnitList');

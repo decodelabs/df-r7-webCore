@@ -1,7 +1,7 @@
 <?php
 use df\link;
 
-echo $this->import->component('~admin/system/geo-ip/IndexHeaderBar');
+echo $this->apex->component('~admin/system/geo-ip/IndexHeaderBar');
 
 
 if(!$this['config']->isEnabled()) {

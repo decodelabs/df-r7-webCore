@@ -101,10 +101,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     return [
                         $this->html('h3', [
                             $this->_('Error'), ' - ',
-                            $this->import->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
+                            $this->apex->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
                                 ->setDisposition('transitive')
                         ]),
-                        $this->import->component('~admin/system/pestControl/misses/MissDetails')
+                        $this->apex->component('~admin/system/pestControl/misses/MissDetails')
                             ->setRecord($log['miss'])
                     ];
                 })
@@ -121,7 +121,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
     public function defineMissField($list, $mode) {
         $list->addField('error', function($log) {
-            return $this->import->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
+            return $this->apex->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
                 ->setDisposition('transitive');
         });
     }
@@ -136,7 +136,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineUserField($list, $mode) {
         $list->addField('user', function($log) {
-            return $this->import->component('~admin/users/clients/UserLink', $log['user'])
+            return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
                 ->setDisposition('transitive')
                 ->isNullable(true);
         });
@@ -161,7 +161,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('request', function($log, $context) use($mode) {
             if(!$request = $log['request']) return;
             $context->getCellTag()->setStyle('word-break', 'break-all');
-            $output = $this->directory->newRequest($request);
+            $output = $this->uri->directoryRequest($request);
 
             if($mode == 'list') {
                 unset($output->query->rf, $output->query->rt);

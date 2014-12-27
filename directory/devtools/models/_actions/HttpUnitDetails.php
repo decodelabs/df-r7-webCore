@@ -15,7 +15,7 @@ class HttpUnitDetails extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $view = $this->aura->getView('UnitDetails.html');
+        $view = $this->apex->view('UnitDetails.html');
         $this->controller->fetchUnit($view);
 
         return $view;

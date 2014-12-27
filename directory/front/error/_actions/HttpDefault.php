@@ -51,7 +51,7 @@ class HttpDefault extends arch\Action {
                 return $this->http->redirect($redirectRequest)->isTemporary(true);
             }
         } else if($code == 403 && $this->user->client->isDeactivated()) {
-            return $this->aura->getView('Deactivated.html');
+            return $this->apex->view('Deactivated.html');
         }
 
         $shouldLog = true;
@@ -110,10 +110,10 @@ class HttpDefault extends arch\Action {
 
         if($showTemplate) {
             try {
-                $view = $this->aura->getView($code.'.html');
+                $view = $this->apex->view($code.'.html');
             } catch(aura\view\ContentNotFoundException $e) {
                 try {
-                    $view = $this->aura->getView('Default.html');
+                    $view = $this->apex->view('Default.html');
                 } catch(aura\view\ContentNotFoundException $e) {
                     $view = null;
                 }

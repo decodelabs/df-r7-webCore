@@ -15,7 +15,7 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function execute() {
-        $view = $this->aura->getView('__Index.html');
+        $view = $this->apex->view('__Index.html');
         $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/mail', 'php', function($path) {
             return false !== strpos($path, '_components');
         });
@@ -35,7 +35,7 @@ class HttpIndex extends arch\Action {
             $path = '~mail/'.$name;
 
             try {
-                $component = $this->directory->getComponent($path);
+                $component = $this->apex->component($path);
             } catch(\Exception $e) {
                 $mails[$name] = null;
                 continue;

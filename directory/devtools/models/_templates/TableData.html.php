@@ -3,7 +3,7 @@ use df\axis;
 use df\core;
 use df\opal;
 
-echo $this->import->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
+echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
 
 if(null === ($rowList = $this['rowList'])) {
     echo $this->html->flashMessage($this->_(

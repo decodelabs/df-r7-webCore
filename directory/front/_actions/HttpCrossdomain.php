@@ -16,6 +16,6 @@ class HttpCrossdomain extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsXml() {
-        return $this->aura->getView('Crossdomain.xml');
+        return $this->apex->view('Crossdomain.xml');
     }
 }

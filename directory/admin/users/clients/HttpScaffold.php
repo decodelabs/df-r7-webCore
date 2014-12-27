@@ -123,7 +123,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Sections
     public function renderInvitesSectionBody($client) {
-        return $this->directory->getScaffold('~admin/users/invites/')
+        return $this->apex->scaffold('~admin/users/invites/')
             ->renderRecordList(
                 $this->data->user->invite->select()
                     ->where('owner', '=', $client['id']),
@@ -286,7 +286,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = [];
             
             foreach($groupList as $group) {
-                $output[] = $this->import->component('~admin/users/groups/GroupLink', $group);
+                $output[] = $this->apex->component('~admin/users/groups/GroupLink', $group);
             }
             
             return $this->html(implode(', ', $output));

@@ -55,7 +55,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $date = $mail['date'];
 
             try {
-                $component = $this->directory->getComponent('~mail/'.$mail['name']);
+                $component = $this->apex->component('~mail/'.$mail['name']);
 
                 if(!$component instanceof arch\IMailComponent) {
                     continue;
@@ -108,7 +108,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineUserField($list, $mode) {
         $list->addField('user', function($log) {
-            return $this->import->component('~admin/users/clients/UserLink', $log['user'])
+            return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
                 ->isNullable(true)
                 ->setDisposition('transitive');
         });

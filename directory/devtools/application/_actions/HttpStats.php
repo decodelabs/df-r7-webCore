@@ -47,7 +47,7 @@ class HttpStats extends arch\Action {
         
         $counter->run();
         
-        $view = $this->aura->getView('Stats.html')
+        $view = $this->apex->view('Stats.html')
             ->setArg('counter', $counter)
             ->setArg('packages', $packages);
             

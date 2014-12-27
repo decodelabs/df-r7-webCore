@@ -1,5 +1,5 @@
 <?php
-echo $this->import->component('~devtools/application/git/IndexHeaderBar');
+echo $this->apex->component('~devtools/application/git/IndexHeaderBar');
 
 echo $this->html->collectionList($this['packageList'])
     ->setErrorMessage($this->_('No packages could be found'))

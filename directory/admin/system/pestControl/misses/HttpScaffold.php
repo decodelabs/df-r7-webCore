@@ -59,7 +59,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             parent::renderDetailsSectionBody($miss),
 
-            $this->import->component('~admin/system/pestControl/misses/logs/LogList')
+            $this->apex->component('~admin/system/pestControl/misses/logs/LogList')
                 ->setCollection($logList)
                 ->setUrlRedirect(true)
         ];
@@ -98,7 +98,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('request', function($miss, $context) use($mode) {
             if(!$request = $miss['request']) return;
             $context->getCellTag()->setStyle('word-break', 'break-all');
-            $output = $this->directory->newRequest($request);
+            $output = $this->uri->directoryRequest($request);
 
             if($mode == 'list') {
                 unset($output->query->rf, $output->query->rt);

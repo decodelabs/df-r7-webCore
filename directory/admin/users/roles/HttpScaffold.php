@@ -84,7 +84,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         return [
             parent::renderDetailsSectionBody($role),
-            $this->import->template('Details.html')
+            $this->apex->template('Details.html')
                 ->setArg('keyList', $keyList)
         ];
     }
@@ -118,7 +118,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('groups', function($role) {
             return $this->html->bulletList($role->groups->fetch()->orderBy('name'), function($group) {
-                return $this->import->component('~admin/users/groups/GroupLink', $group)
+                return $this->apex->component('~admin/users/groups/GroupLink', $group)
                     ->setDisposition('transitive');
             });
         });

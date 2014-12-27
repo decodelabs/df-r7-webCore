@@ -17,8 +17,8 @@ class HttpBrowserconfig extends arch\Action {
     const CHECK_ACCESS = false;
 
     public function executeAsXml() {
-        $view = $this->aura->getView('Browserconfig.xml');
-        $theme = $this->aura->getTheme();
+        $view = $this->apex->view('Browserconfig.xml');
+        $theme = $this->apex->getTheme();
 
         $view['hasImage'] = (bool)$theme->getApplicationImagePath();
         $view['tileColor'] = $theme->getApplicationColor()->toHexString();

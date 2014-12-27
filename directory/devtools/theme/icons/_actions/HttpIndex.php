@@ -15,9 +15,9 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $container = $this->aura->getWidgetContainer();
-        $container->push('Coming soon...');
+        $view = $this->apex->newWidgetView();
+        $view->content->push('Coming soon...');
 
-        return $container;
+        return $view;
     }
 }

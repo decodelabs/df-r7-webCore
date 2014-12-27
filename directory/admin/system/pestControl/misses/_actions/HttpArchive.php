@@ -35,7 +35,7 @@ class HttpArchive extends arch\form\template\Confirm {
 
     protected function _renderItemDetails($container) {
         $container->push(
-            $this->import->component('~admin/system/pestControl/misses/MissDetails')
+            $this->apex->component('~admin/system/pestControl/misses/MissDetails')
                 ->setRecord($this->_miss)
         );
     }

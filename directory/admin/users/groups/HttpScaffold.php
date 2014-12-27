@@ -76,14 +76,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             $this->html('h3', $this->_('Roles')),
 
-            $this->import->component('~admin/users/roles/RoleList', [
+            $this->apex->component('~admin/users/roles/RoleList', [
                 'actions' => false
             ], $roleList)
         ];
     }
 
     public function renderUsersSectionBody($group) {
-        return $this->directory->getScaffold('~admin/users/clients/')
+        return $this->apex->scaffold('~admin/users/clients/')
             ->renderRecordList($group->users->select());
     }
 
@@ -95,7 +95,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('roles', function($group) {
             return $this->html->bulletList($group->roles->select()->orderBy('name'), function($role) {
-                return $this->import->component('~admin/users/roles/RoleLink', $role)
+                return $this->apex->component('~admin/users/roles/RoleLink', $role)
                     ->setDisposition('transitive');
             });
         });

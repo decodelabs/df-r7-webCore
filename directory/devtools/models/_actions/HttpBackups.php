@@ -15,7 +15,7 @@ class HttpBackups extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function execute() {
-        $view = $this->aura->getView('Backups.html');
+        $view = $this->apex->view('Backups.html');
         $path = $this->application->getSharedStoragePath().'/backup/';
         $backups = core\io\Util::listFilesIn($path, '/^axis\-[0-9]+\.tar$/i');
         rsort($backups);

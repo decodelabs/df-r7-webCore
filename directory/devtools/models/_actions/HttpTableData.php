@@ -17,7 +17,7 @@ class HttpTableData extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $view = $this->aura->getView('TableData.html');
+        $view = $this->apex->view('TableData.html');
         $this->controller->fetchUnit($view, 'table');
 
         $view['schema'] = $view['unit']->getTransientSchema();

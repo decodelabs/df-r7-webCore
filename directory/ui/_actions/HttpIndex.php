@@ -19,7 +19,7 @@ class HttpIndex extends arch\Action {
             $this->throwError(401, 'Dev mode only');
         }
 
-        $view = $this->aura->getView('__Index.html');
+        $view = $this->apex->view('__Index.html');
         $files = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/ui/_templates', 'php');
         unset($files['__Index.html.php']);
         $view['files'] = $files;

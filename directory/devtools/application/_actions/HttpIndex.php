@@ -15,10 +15,10 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $container = $this->aura->getWidgetContainer();
-        $container->push($this->directory->getComponent('~devtools/application/IndexHeaderBar'));
-        $container->addBlockMenu('directory://~devtools/application/Index');
+        $view = $this->apex->newWidgetView();
+        $view->content->push($this->apex->component('~devtools/application/IndexHeaderBar'));
+        $view->content->addBlockMenu('directory://~devtools/application/Index');
 
-        return $container;
+        return $view;
     }
 }

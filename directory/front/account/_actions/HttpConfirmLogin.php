@@ -26,7 +26,7 @@ class HttpConfirmLogin extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->import->component('~front/account/ConfirmLoginLocal', $this)
+            $this->apex->component('~front/account/ConfirmLoginLocal', $this)
         );
     }
 

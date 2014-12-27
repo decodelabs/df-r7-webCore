@@ -17,7 +17,7 @@ class HttpApplicationImage extends arch\Action {
     const CHECK_ACCESS = false;
 
     public function executeAsPng() {
-        $theme = $this->aura->getTheme();
+        $theme = $this->apex->getTheme();
 
         if(!$path = $theme->getApplicationImagePath()) {
             $this->throwError(404, 'No application image path set');

@@ -99,10 +99,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->addPanel('error', 50, function() use($log) {
                     return [
                         $this->html('h3', [
-                            $this->import->component('~admin/system/pestControl/errors/ErrorLink', $log['error'], $this->_('Error'))
+                            $this->apex->component('~admin/system/pestControl/errors/ErrorLink', $log['error'], $this->_('Error'))
                                 ->setDisposition('transitive')
                         ]),
-                        $this->import->component('~admin/system/pestControl/errors/ErrorDetails')
+                        $this->apex->component('~admin/system/pestControl/errors/ErrorDetails')
                             ->setRecord($log['error'])
                     ];
                 }),
@@ -141,7 +141,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
     public function defineErrorField($list, $mode) {
         $list->addField('error', function($log) {
-            return $this->import->component('~admin/system/pestControl/errors/ErrorLink', $log['error'])
+            return $this->apex->component('~admin/system/pestControl/errors/ErrorLink', $log['error'])
                 ->setDisposition('transitive');
         });
     }
@@ -156,7 +156,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineUserField($list, $mode) {
         $list->addField('user', function($log) {
-            return $this->import->component('~admin/users/clients/UserLink', $log['user'])
+            return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
                 ->setDisposition('transitive')
                 ->isNullable(true);
         });
@@ -172,7 +172,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $list->addField('request', function($log, $context) use($mode) {
             if(!$request = $log['request']) return;
             $context->getCellTag()->setStyle('word-break', 'break-all');
-            $output = $this->directory->newRequest($request);
+            $output = $this->uri->directoryRequest($request);
 
             if($mode == 'list') {
                 unset($output->query->rf, $output->query->rt);

@@ -15,7 +15,7 @@ class LoginLdap extends arch\form\Delegate implements arch\form\IParentUiHandler
     
     public function renderUi() {
         $this->content->push(
-            $this->import->component('~front/account/LoginLdap', $this)
+            $this->apex->component('~front/account/LoginLdap', $this)
         );
     }
 

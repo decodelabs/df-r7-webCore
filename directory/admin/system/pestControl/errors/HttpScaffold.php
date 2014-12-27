@@ -75,7 +75,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             parent::renderDetailsSectionBody($error),
             
-            $this->import->component('~admin/system/pestControl/errors/logs/LogList')
+            $this->apex->component('~admin/system/pestControl/errors/logs/LogList')
                 ->setCollection($logList)
                 ->setUrlRedirect(true)
         ];

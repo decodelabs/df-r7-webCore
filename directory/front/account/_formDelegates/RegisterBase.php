@@ -29,7 +29,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
         $name = array_pop($parts);
 
         $this->content->push(
-            $this->import->component('~front/account/'.$name, $this)
+            $this->apex->component('~front/account/'.$name, $this)
         );
     }
 
@@ -105,7 +105,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
             'success'
         );
 
-        $request = $this->directory->newRequest('account/login');
+        $request = $this->uri->directoryRequest('account/login');
         $request->setRedirect($this->request->getRedirectFrom(), $redirect);
 
         return $this->complete($request);

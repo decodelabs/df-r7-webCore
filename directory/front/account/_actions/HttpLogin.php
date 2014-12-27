@@ -55,7 +55,7 @@ class HttpLogin extends arch\form\Action {
 
         if(count($enabled) > 1) {
             $this->content->push(
-                $this->import->component(
+                $this->apex->component(
                     '~front/account/LoginAdapterSwitcher', 
                     $this,
                     $enabled,

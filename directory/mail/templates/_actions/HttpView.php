@@ -16,7 +16,7 @@ class HttpView extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $mail = $this->directory->getComponent('~mail/'.$this->request->query['path']);
+        $mail = $this->apex->component('~mail/'.$this->request->query['path']);
 
         if(!$mail instanceof arch\IMailComponent) {
             $this->throwError(403, 'Component is not a Mail object');
@@ -25,10 +25,9 @@ class HttpView extends arch\Action {
         $notification = $mail->renderPreview()->toNotification();
         $html = $notification->getBodyHtml();
 
-        $container = $this->aura->getWidgetContainer();
-        $view = $container->getView();
+        $view = $this->apex->newWidgetView();
         $view->setTheme(false);
-        $container->push($view->html->string($html));
+        $view->content->push($view->html->string($html));
         $view->shouldUseLayout(false);
         $view->setTitle($notification->getSubject());
 

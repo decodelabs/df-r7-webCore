@@ -16,6 +16,6 @@ class HttpRobots extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsTxt() {
-        return $this->aura->getView('Robots.txt');
+        return $this->apex->view('Robots.txt');
     }
 }

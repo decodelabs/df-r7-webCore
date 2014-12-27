@@ -15,7 +15,7 @@ class HttpCacheStats extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $view = $this->aura->getView('CacheStats.html');
+        $view = $this->apex->view('CacheStats.html');
         $this->controller->fetchUnit($view, 'cache');
 
         $view['stats'] = $view['unit']->getUnit()->getCacheStats();

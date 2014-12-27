@@ -15,7 +15,7 @@ class HttpMessage extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $view = $this->aura->getView('Message.html');
+        $view = $this->apex->view('Message.html');
 
         $view['mail'] = $this->data->fetchForAction(
             'axis://mail/Capture',

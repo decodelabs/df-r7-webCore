@@ -15,7 +15,7 @@ class LoginLocal extends arch\form\Delegate implements arch\form\IParentUiHandle
     
     public function renderUi() {
         $this->content->push(
-            $this->import->component('~front/account/LoginLocal', $this)
+            $this->apex->component('~front/account/LoginLocal', $this)
         );
     }
 

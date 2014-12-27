@@ -15,6 +15,6 @@ class HttpIndex extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsHtml() {
-        return $this->aura->getView('Index.html');
+        return $this->apex->view('Index.html');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-echo $this->import->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
+echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
 
 $list = $this->html->attributeList($this['stats']);
 
