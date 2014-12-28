@@ -48,8 +48,8 @@ class HttpStats extends arch\Action {
         $counter->run();
         
         $view = $this->apex->view('Stats.html')
-            ->setArg('counter', $counter)
-            ->setArg('packages', $packages);
+            ->setSlot('counter', $counter)
+            ->setSlot('packages', $packages);
             
         return $view;
     }

@@ -14,8 +14,8 @@ use df\spur;
 class CookieNotice extends Base {
     
     public function renderToHtml(aura\view\IHtmlView $view) {
-        if($view->context->getRunMode() == 'Http' && !$view->context->http->getCookie('cnx')) {
-            $view->slot->set('cookieNotice', 'elements/CookieNotice.html', '~front/');
+        if($view->context->getRunMode() == 'Http' && !$view->http->getCookie('cnx')) {
+            $view->setSlot('cookieNotice', 'elements/CookieNotice.html', '~front/');
         }
     }
 }

@@ -84,8 +84,9 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         return [
             parent::renderDetailsSectionBody($role),
-            $this->apex->template('Details.html')
-                ->setArg('keyList', $keyList)
+            $this->apex->template('Details.html', [
+                'keyList' => $keyList
+            ])
         ];
     }
 

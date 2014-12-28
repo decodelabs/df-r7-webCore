@@ -82,7 +82,7 @@ class HttpResetPassword extends arch\form\Action {
     protected function _createUi() {
         $this->content->push(
             $this->apex->component('~front/account/ResetPassword', $this)
-                ->setArg('key', $this->_key)
+                ->setSlot('key', $this->_key)
         );
     }
 
