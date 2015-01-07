@@ -39,7 +39,7 @@ class HttpGrant extends arch\form\Action {
         );
 
         $fs->push($this->getDelegate('users')->renderFieldArea($this->_('Users')));
-        $fs->push($this->html->defaultButtonGroup('saveUsers'));
+        $fs->addDefaultButtonGroup('saveUsers');
 
 
         if(!isset($this->request->query->user)) {
@@ -56,7 +56,7 @@ class HttpGrant extends arch\form\Action {
                     ->setMin(1)
             );
 
-            $fs->push($this->html->defaultButtonGroup('saveAll'));
+            $fs->addDefaultButtonGroup('saveAll');
         }
     }
 

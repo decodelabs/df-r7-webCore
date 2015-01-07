@@ -44,6 +44,6 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         );
 
         // Buttons
-        $fs->push($this->html->defaultButtonGroup());
+        $fs->addDefaultButtonGroup();
     }
 }

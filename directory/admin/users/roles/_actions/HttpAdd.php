@@ -60,7 +60,7 @@ class HttpAdd extends arch\form\Action {
                 
                 
         // Buttons
-        $fs->push($this->html->defaultButtonGroup());
+        $fs->addDefaultButtonGroup();
     }
 
 

@@ -62,7 +62,7 @@ class HttpAddKey extends arch\form\Action {
             
             
         // Buttons
-        $fs->push($this->html->defaultButtonGroup());
+        $fs->addDefaultButtonGroup();
     }
 
     protected function _onSaveEvent() {

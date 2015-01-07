@@ -44,6 +44,6 @@ class ResetPassword extends arch\component\template\FormUi {
         );
 
         // Buttons
-        $fs->push($this->html->defaultButtonGroup());
+        $fs->addDefaultButtonGroup();
     }
 }

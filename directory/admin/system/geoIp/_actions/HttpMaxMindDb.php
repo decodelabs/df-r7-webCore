@@ -117,7 +117,7 @@ class HttpMaxMindDb extends arch\form\Action {
         }
 
         // Buttons
-        $form->push($this->html->defaultButtonGroup());
+        $form->addDefaultButtonGroup();
     }
 
     protected function _getFileList() {

@@ -228,8 +228,9 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", Courier, monospace;
+  font-size: 14px;
+  font-size: 1rem;
 }
 
 /* Forms
@@ -425,6 +426,10 @@ th {
 }
 
 
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
 
 
 html *:first-child {

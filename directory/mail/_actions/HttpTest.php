@@ -127,7 +127,7 @@ class HttpTest extends arch\form\Action {
 
 
         // Buttons
-        $fs->push($this->html->defaultButtonGroup('send', $this->_('Send')));
+        $fs->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
     protected function _onSendEvent() {
