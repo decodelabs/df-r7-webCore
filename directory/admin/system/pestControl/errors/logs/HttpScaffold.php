@@ -57,22 +57,16 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     protected function _getSectionHeaderBarBackLinkRequest() {
         $id = $this->getRecord()->getRawId('error');
-        return '~admin/system/pestControl/errors/details?error='.core\string\Uuid::factory($id);
+        return '../details?error='.core\string\Uuid::factory($id);
     }
 
     public function addIndexSectionLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/system/pestControl/errors/',
-                    $this->_('Errors')
-                )
+            $this->html->link('../', $this->_('Errors'))
                 ->setIcon('error')
                 ->setDisposition('informative'),
 
-            $this->html->link(
-                    '~admin/system/pestControl/errors/logs/',
-                    $this->_('Logs')
-                )
+            $this->html->link('./', $this->_('Logs'))
                 ->setIcon('log')
                 ->setDisposition('informative')
                 ->isActive(true)
@@ -99,10 +93,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->addPanel('error', 50, function() use($log) {
                     return [
                         $this->html('h3', [
-                            $this->apex->component('~admin/system/pestControl/errors/ErrorLink', $log['error'], $this->_('Error'))
+                            $this->apex->component('../ErrorLink', $log['error'], $this->_('Error'))
                                 ->setDisposition('transitive')
                         ]),
-                        $this->apex->component('~admin/system/pestControl/errors/ErrorDetails')
+                        $this->apex->component('../ErrorDetails')
                             ->setRecord($log['error'])
                     ];
                 }),
@@ -141,7 +135,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
     public function defineErrorField($list, $mode) {
         $list->addField('error', function($log) {
-            return $this->apex->component('~admin/system/pestControl/errors/ErrorLink', $log['error'])
+            return $this->apex->component('../ErrorLink', $log['error'])
                 ->setDisposition('transitive');
         });
     }

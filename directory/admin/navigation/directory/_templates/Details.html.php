@@ -1,6 +1,6 @@
 <?php
 
-echo $this->apex->component('~admin/navigation/directory/DetailHeaderBar', $this['menu']);
+echo $this->apex->component('DetailHeaderBar', $this['menu']);
 
 
 echo $this->html->attributeList($this['menu'])
@@ -26,7 +26,7 @@ echo $this->html->attributeList($this['menu'])
             $id = substr($menu->getId()->path->toString(), 0, -strlen($subId) - 1);
 
             return $this->html->link(
-                    $this->uri('~admin/navigation/directory/details?menu='.$id, true),
+                    $this->uri('./details?menu='.$id, true),
                     'Directory://'.$id
                 )
                 ->setIcon('menu')
@@ -48,7 +48,7 @@ echo $this->html->attributeList($this['menu'])
                 ->setRenderer(function($delegate) {
                     if($delegate->getSourceId() == 'Directory') {
                         return $this->html->link(
-                                $this->uri('~admin/navigation/directory/details?menu='.$delegate->getId()->path->toString()),
+                                $this->uri('./details?menu='.$delegate->getId()->path->toString()),
                                 $delegate->getId()
                             )
                             ->setIcon('menu')
@@ -65,4 +65,4 @@ echo $this->html->attributeList($this['menu'])
 
 echo $this->html('h3', $this->_('Entries'));
 
-echo $this->apex->template('~admin/navigation/#/elements/MenuEntryList.html');
+echo $this->apex->template('../#/elements/MenuEntryList.html');

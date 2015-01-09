@@ -59,7 +59,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             parent::renderDetailsSectionBody($miss),
 
-            $this->apex->component('~admin/system/pestControl/misses/logs/LogList')
+            $this->apex->component('./logs/LogList')
                 ->setCollection($logList)
                 ->setUrlRedirect(true)
         ];
@@ -69,18 +69,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     public function addIndexSectionLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/system/pestControl/misses/',
-                    $this->_('URLs')
-                )
+            $this->html->link('./', $this->_('URLs'))
                 ->setIcon('brokenLink')
                 ->setDisposition('informative')
                 ->isActive(true),
 
-            $this->html->link(
-                    '~admin/system/pestControl/misses/logs/',
-                    $this->_('Logs')
-                )
+            $this->html->link('./logs/', $this->_('Logs'))
                 ->setIcon('log')
                 ->setDisposition('informative')
         );

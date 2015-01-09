@@ -57,22 +57,16 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     protected function _getSectionHeaderBarBackLinkRequest() {
         $id = $this->getRecord()->getRawId('miss');
-        return '~admin/system/pestControl/misses/details?miss='.core\string\Uuid::factory($id);
+        return '../details?miss='.core\string\Uuid::factory($id);
     }
 
     public function addIndexSectionLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/system/pestControl/misses/',
-                    $this->_('URLs')
-                )
+            $this->html->link('../', $this->_('URLs'))
                 ->setIcon('brokenLink')
                 ->setDisposition('informative'),
 
-            $this->html->link(
-                    '~admin/system/pestControl/misses/logs/',
-                    $this->_('Logs')
-                )
+            $this->html->link('./', $this->_('Logs'))
                 ->setIcon('log')
                 ->setDisposition('informative')
                 ->isActive(true)
@@ -101,10 +95,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     return [
                         $this->html('h3', [
                             $this->_('Error'), ' - ',
-                            $this->apex->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
+                            $this->apex->component('../MissLink', $log['miss'])
                                 ->setDisposition('transitive')
                         ]),
-                        $this->apex->component('~admin/system/pestControl/misses/MissDetails')
+                        $this->apex->component('../MissDetails')
                             ->setRecord($log['miss'])
                     ];
                 })
@@ -121,7 +115,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
     public function defineMissField($list, $mode) {
         $list->addField('error', function($log) {
-            return $this->apex->component('~admin/system/pestControl/misses/MissLink', $log['miss'])
+            return $this->apex->component('../MissLink', $log['miss'])
                 ->setDisposition('transitive');
         });
     }

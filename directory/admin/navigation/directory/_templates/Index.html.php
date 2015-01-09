@@ -1,7 +1,7 @@
 <?php
 
 // Menu
-echo $this->apex->component('~admin/navigation/directory/IndexHeaderBar');
+echo $this->apex->component('IndexHeaderBar');
 
 
 // Form
@@ -26,4 +26,4 @@ echo $form;
 
 
 // Collection
-echo $this->apex->component('~admin/navigation/directory/MenuList');
+echo $this->apex->component('MenuList');

@@ -22,7 +22,7 @@ class HttpSend extends arch\form\Action {
     }
 
     protected function _setupDelegates() {
-        $this->loadDelegate('groups', '~admin/users/groups/GroupSelector');
+        $this->loadDelegate('groups', '../groups/GroupSelector');
     }
 
     protected function _createUi() {

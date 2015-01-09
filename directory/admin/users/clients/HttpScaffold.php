@@ -78,7 +78,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('~admin/users/settings', true),
+                    $this->uri('../settings', true),
                     $this->_('Settings')
                 )
                 ->setIcon('settings')
@@ -88,15 +88,15 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link('~admin/users/groups/', $this->_('Groups'))
+            $this->html->link('../groups/', $this->_('Groups'))
                 ->setIcon('group')
                 ->setDisposition('transitive'),
 
-            $this->html->link('~admin/users/roles/', $this->_('Roles'))
+            $this->html->link('../roles/', $this->_('Roles'))
                 ->setIcon('role')
                 ->setDisposition('transitive'),
 
-            $this->html->link('~admin/users/invites/', $this->_('Invites'))
+            $this->html->link('../invites/', $this->_('Invites'))
                 ->setIcon('mail')
                 ->setDisposition('transitive')
         );
@@ -107,7 +107,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $menu->addLinks(
                 // Change password
                 $this->html->link(
-                        $this->uri('~admin/users/clients/change-password?user='.$this->_record['id'], true),
+                        $this->uri('./change-password?user='.$this->_record['id'], true),
                         $this->_('Change password')
                     )
                     ->setIcon('edit')
@@ -123,7 +123,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Sections
     public function renderInvitesSectionBody($client) {
-        return $this->apex->scaffold('~admin/users/invites/')
+        return $this->apex->scaffold('../invites/')
             ->renderRecordList(
                 $this->data->user->invite->select()
                     ->where('owner', '=', $client['id']),
@@ -160,7 +160,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->addField('actions', function($auth) {
                 if($auth['adapter'] == 'Local') {
                     return $this->html->link(
-                            $this->uri('~admin/users/clients/change-password?user='.$auth->getRawId('user'), true),
+                            $this->uri('./change-password?user='.$auth->getRawId('user'), true),
                             $this->_('Change password')
                         )
                         ->setIcon('edit')
@@ -286,7 +286,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = [];
             
             foreach($groupList as $group) {
-                $output[] = $this->apex->component('~admin/users/groups/GroupLink', $group);
+                $output[] = $this->apex->component('../groups/GroupLink', $group);
             }
             
             return $this->html(implode(', ', $output));

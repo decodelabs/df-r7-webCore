@@ -50,10 +50,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/users/clients/',
-                    $this->_('All users')
-                )
+            $this->html->link('../clients/', $this->_('All users'))
                 ->setIcon('user')
                 ->setDisposition('transitive')
         );

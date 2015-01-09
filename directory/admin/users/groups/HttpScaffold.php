@@ -55,10 +55,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/users/roles/',
-                    $this->_('View roles')
-                )
+            $this->html->link('../roles/', $this->_('View roles'))
                 ->setIcon('role')
                 ->setDisposition('transitive')
                 ->addAccessLock('axis://user/Role')
@@ -76,14 +73,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             $this->html('h3', $this->_('Roles')),
 
-            $this->apex->component('~admin/users/roles/RoleList', [
+            $this->apex->component('../roles/RoleList', [
                 'actions' => false
             ], $roleList)
         ];
     }
 
     public function renderUsersSectionBody($group) {
-        return $this->apex->scaffold('~admin/users/clients/')
+        return $this->apex->scaffold('../clients/')
             ->renderRecordList($group->users->select());
     }
 
@@ -95,7 +92,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('roles', function($group) {
             return $this->html->bulletList($group->roles->select()->orderBy('name'), function($role) {
-                return $this->apex->component('~admin/users/roles/RoleLink', $role)
+                return $this->apex->component('../roles/RoleLink', $role)
                     ->setDisposition('transitive');
             });
         });

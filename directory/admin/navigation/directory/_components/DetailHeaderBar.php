@@ -23,7 +23,7 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
 
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('~admin/navigation/directory/edit?menu='.$menuId, true),
+                    $this->uri('./edit?menu='.$menuId, true),
                     $this->_('Edit menu')
                 )
                 ->setIcon('edit')

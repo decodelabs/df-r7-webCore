@@ -17,7 +17,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
 
     public function generateIndexMenu($entryList) {
         $entryList->addEntries(
-            $entryList->newLink('~admin/navigation/directory/', 'System menus')
+            $entryList->newLink('./directory/', 'System menus')
                 ->setId('system')
                 ->setDescription('View and modify pre-defined system menus')
                 ->setIcon('menu')
@@ -28,7 +28,7 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
     public function addIndexOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('~admin/navigation/refresh', true),
+                    $this->uri('./refresh', true),
                     $this->_('Refresh menu list')
                 )
                 ->setIcon('refresh')

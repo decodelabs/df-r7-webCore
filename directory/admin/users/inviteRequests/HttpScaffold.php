@@ -48,7 +48,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    '~admin/users/invites/',
+                    '../invites/',
                     $this->_('Invites')
                 )
                 ->setIcon('mail')
@@ -60,7 +60,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return array_merge(
             [
                 // Respond
-                $this->apex->component('~admin/users/invite-requests/RequestLink', $request, $this->_('Respond'))
+                $this->apex->component('RequestLink', $request, $this->_('Respond'))
                     ->setAction('respond')
                     ->setIcon('mail')
                     ->setDisposition('operative')
@@ -82,7 +82,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineInviteField($list, $mode) {
         $list->addField('invite', function($request) {
-            return $this->apex->component('~admin/users/invites/InviteLink', $request['invite'])
+            return $this->apex->component('../invites/InviteLink', $request['invite'])
                 ->isNullable(true);
         });
     }

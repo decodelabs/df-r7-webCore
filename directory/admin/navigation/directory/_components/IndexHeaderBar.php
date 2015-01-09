@@ -21,7 +21,7 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('~admin/navigation/refresh', true),
+                    $this->uri('../refresh', true),
                     $this->_('Refresh menu list')
                 )
                 ->setIcon('refresh')

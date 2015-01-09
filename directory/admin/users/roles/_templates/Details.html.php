@@ -22,14 +22,14 @@ echo $this->html->collectionList($this['keyList'])
     ->addField('actions', function($row) {
         return [
             $this->html->link(
-                    $this->uri('~admin/users/roles/edit-key?key='.$row['id'], true),
+                    $this->uri('./edit-key?key='.$row['id'], true),
                     $this->_('Edit')
                 )
                 ->setIcon('edit')
                 ->addAccessLock('axis://user/Key#edit'),
 
             $this->html->link(
-                    $this->uri('~admin/users/roles/delete-key?key='.$row['id'], true),
+                    $this->uri('./delete-key?key='.$row['id'], true),
                     $this->_('Delete')
                 )
                 ->setIcon('delete')

@@ -13,7 +13,7 @@ use df\arch;
 class HttpRefresh extends arch\Action {
     
     public function executeAsHtml() {
-        $this->navigation->clearMenuCache();
+        $this->apex->clearMenuCache();
 
         $this->comms->flash(
             'menu-cache.clear', 

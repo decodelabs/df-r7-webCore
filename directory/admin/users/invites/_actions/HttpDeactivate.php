@@ -49,7 +49,7 @@ class HttpDeactivate extends arch\form\template\Confirm {
                 })
                 ->addField('groups', function($invite) {
                     return $this->html->bulletList($invite->groups->fetch(), function($group) {
-                        return $this->apex->component('~admin/users/groups/GroupLink', $group);
+                        return $this->apex->component('../groups/GroupLink', $group);
                     });
                 })
         );

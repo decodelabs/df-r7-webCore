@@ -26,7 +26,7 @@ class HttpMaxMindDb extends arch\form\Action {
 
     protected function _createUi() {
         $this->content->push(
-            $this->apex->component('~admin/system/geo-ip/IndexHeaderBar')
+            $this->apex->component('IndexHeaderBar')
         );
 
         $fileList = $this->_getFileList();

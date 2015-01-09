@@ -19,7 +19,7 @@ class HttpAdd extends arch\form\Action {
     }
 
     protected function _setupDelegates() {
-        $this->loadDelegate('roles', '~admin/users/roles/RoleSelector');
+        $this->loadDelegate('roles', '../roles/RoleSelector');
     }
     
     protected function _createUi() {

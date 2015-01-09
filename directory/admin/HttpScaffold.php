@@ -18,19 +18,19 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
 
     public function generateIndexMenu($entryList) {
         $entryList->addEntries(
-            $entryList->newLink('~admin/users/', 'User management')
+            $entryList->newLink('./users/', 'User management')
                 ->setId('users')
                 ->setDescription('View, add and edit site users, set up groups and roles and create access keys')
                 ->setIcon('user')
                 ->setWeight(30),
 
-            $entryList->newLink('~admin/navigation/', 'Navigation')
+            $entryList->newLink('./navigation/', 'Navigation')
                 ->setId('navigation')
                 ->setDescription('Create and modify menus, generate a site map and control how users navigate your site')
                 ->setIcon('link')
                 ->setWeight(50),
 
-            $entryList->newLink('~admin/system/', 'System')
+            $entryList->newLink('./system/', 'System')
                 ->setId('system')
                 ->setDescription('Control system-wide settings, view logs, etc')
                 ->setIcon('controlPanel')

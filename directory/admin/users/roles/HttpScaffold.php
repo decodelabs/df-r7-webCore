@@ -54,10 +54,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/users/groups/',
-                    $this->_('View groups')
-                )
+            $this->html->link('../groups/', $this->_('View groups'))
                 ->setIcon('group')
                 ->setDisposition('transitive')
                 ->addAccessLock('axis://user/Group')
@@ -68,7 +65,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $menu->addLinks(
             // Add key
             $this->html->link(
-                    $this->uri('~admin/users/roles/add-key?role='.$this->_record['id'], true),
+                    $this->uri('./add-key?role='.$this->_record['id'], true),
                     $this->_('Add new key')
                 )
                 ->setIcon('add')
@@ -119,7 +116,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('groups', function($role) {
             return $this->html->bulletList($role->groups->fetch()->orderBy('name'), function($group) {
-                return $this->apex->component('~admin/users/groups/GroupLink', $group)
+                return $this->apex->component('../groups/GroupLink', $group)
                     ->setDisposition('transitive');
             });
         });

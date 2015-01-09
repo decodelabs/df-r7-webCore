@@ -21,21 +21,21 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
         $accessErrorCount = $this->data->pestControl->accessLog->select()->count();
 
         $entryList->addEntries(
-            $entryList->newLink('~admin/system/pestControl/errors/', 'Critical errors')
+            $entryList->newLink('./errors/', 'Critical errors')
                 ->setId('errors')
                 ->setDescription('Get detailed information on critical errors encountered by users')
                 ->setIcon('error')
                 ->setNote($this->format->counterNote($criticalErrorCount))
                 ->setWeight(10),
 
-            $entryList->newLink('~admin/system/pestControl/misses/', '404 errors')
+            $entryList->newLink('./misses/', '404 errors')
                 ->setId('misses')
                 ->setDescription('View requests that users are making to files and actions that don\'t exist')
                 ->setIcon('brokenLink')
                 ->setNote($this->format->counterNote($notFoundCount))
                 ->setWeight(20),
 
-            $entryList->newLink('~admin/system/pestControl/access/', 'Access errors')
+            $entryList->newLink('./access/', 'Access errors')
                 ->setId('access')
                 ->setDescription('See who is trying to access things they are not supposed to')
                 ->setIcon('lock')

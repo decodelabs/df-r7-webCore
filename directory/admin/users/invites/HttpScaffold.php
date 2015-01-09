@@ -93,7 +93,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->setDisposition('positive'),
 
             $this->html->link(
-                    $this->uri('~admin/users/settings', true),
+                    $this->uri('../settings', true),
                     $this->_('Settings')
                 )
                 ->setIcon('settings')
@@ -104,7 +104,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    '~admin/users/invite-requests/',
+                    '../invite-requests/',
                     $this->_('Invite requests')
                 )
                 ->setIcon('key')
@@ -115,14 +115,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function getRecordOperativeLinks($invite, $mode) {
         return [
             // Resend
-            $this->apex->component('~admin/users/invites/InviteLink', $invite, $this->_('Resend invite'))
+            $this->apex->component('InviteLink', $invite, $this->_('Resend invite'))
                 ->setAction('resend')
                 ->setIcon('refresh')
                 ->setDisposition('positive')
                 ->isDisabled(!$invite['isActive'] || $invite['registrationDate']),
 
             // Deactivate
-            $this->apex->component('~admin/users/invites/InviteLink', $invite, $this->_('Deactivate invite'))
+            $this->apex->component('InviteLink', $invite, $this->_('Deactivate invite'))
                 ->setAction('deactivate')
                 ->setIcon('remove')
                 ->setDisposition('negative')
@@ -159,7 +159,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 $context->getRowTag()->addClass('inactive');
             }
 
-            return $this->apex->component('~admin/users/invites/InviteLink', $invite, $this->format->date($invite['creationDate'], 'short'))
+            return $this->apex->component('InviteLink', $invite, $this->format->date($invite['creationDate'], 'short'))
                 ->setIcon($invite['registrationDate'] ? 'tick' : 'mail')
                 ->setDisposition($invite['registrationDate'] ? 'positive' : 'informative');
         });
@@ -168,7 +168,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineNameField($list) {
         $list->addField('name', function($invite) {
             if($invite['user']) {
-                return $this->apex->component('~admin/users/clients/UserLink', $invite['user']);
+                return $this->apex->component('../clients/UserLink', $invite['user']);
             } else {
                 return $invite['name'];
             }
@@ -183,7 +183,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineOwnerField($list, $mode) {
         $list->addField('ownerName', $this->_('Sent by'), function($invite) use($mode) {
-            $output = $this->apex->component('~admin/users/clients/UserLink', $invite['owner'])
+            $output = $this->apex->component('../clients/UserLink', $invite['owner'])
                 ->setDisposition('transitive');
 
             if($invite['isFromAdmin']) {
@@ -218,14 +218,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             }
 
             return $this->html->bulletList($groups, function($group) {
-                return $this->apex->component('~admin/users/groups/GroupLink', $group);
+                return $this->apex->component('../groups/GroupLink', $group);
             });
         });
     }
 
     public function defineUserField($list, $mode) {
         $list->addField('userName', $this->_('Account'), function($invite) {
-            return $this->apex->component('~admin/users/clients/UserLink', $invite['user'])
+            return $this->apex->component('../clients/UserLink', $invite['user'])
                 ->isNullable(true)
                 ->setDisposition('transitive');
         });

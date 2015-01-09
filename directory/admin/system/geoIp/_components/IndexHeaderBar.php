@@ -22,7 +22,7 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('~admin/system/critical-errors/delete-all', true),
+                    $this->uri('./delete-all', true),
                     $this->_('Delete all errors')
                 )
                 ->setIcon('delete')
@@ -32,17 +32,11 @@ class IndexHeaderBar extends arch\component\template\HeaderBar {
 
     protected function _addSectionLinks($menu) {
         $menu->addLinks(
-            $this->html->link(
-                    '~admin/system/geo-ip/',
-                    $this->_('Details')
-                )
+            $this->html->link('./', $this->_('Details'))
                 ->setIcon('details')
                 ->setDisposition('informative'),
 
-            $this->html->link(
-                    '~admin/system/geo-ip/max-mind-db',
-                    $this->_('MaxMind DB')
-                )
+            $this->html->link('./max-mind-db', $this->_('MaxMind DB'))
                 ->setIcon('database')
                 ->setDisposition('informative')
         );

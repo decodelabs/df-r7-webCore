@@ -34,7 +34,7 @@ class HttpArchive extends arch\form\template\Confirm {
 
     protected function _renderItemDetails($container) {
         $container->push(
-            $this->apex->component('~admin/system/pestControl/misses/logs/LogDetails')
+            $this->apex->component('LogDetails')
                 ->setRecord($this->_log)
         );
     }
