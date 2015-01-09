@@ -32,7 +32,7 @@ class UnitList extends arch\component\template\CollectionList {
     public function addCanonicalIdField($list) {
         $list->addField('canonicalId', $this->_('Storage id'), function($inspector) {
             return $this->html('abbr', $id = $inspector->getCanonicalId())
-                ->setAttribute('title', $inspector->getAdapterConnectionName().'/'.$id);
+                ->setTitle($inspector->getAdapterConnectionName().'/'.$id);
         });
     }
 

@@ -176,7 +176,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = $this->html('code', $output);
 
             if($mode == 'list') {
-                $output->setAttribute('title', $request);
+                $output->setTitle($request);
             }
 
             if($log['mode'] == 'Http') {

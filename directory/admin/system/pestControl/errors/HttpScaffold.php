@@ -112,7 +112,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = $this->html('code', $output);
 
             if($mode == 'list') {
-                $output->setAttribute('title', $error['type']);
+                $output->setTitle($error['type']);
             }
 
             return $output;
@@ -130,7 +130,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = $this->html('code', $output.' : '.$error['line']);
 
             if($mode == 'list') {
-                $output->setAttribute('title', $error['file']);
+                $output->setTitle($error['file']);
             }
 
             return $output;

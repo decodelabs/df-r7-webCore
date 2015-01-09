@@ -63,7 +63,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = $this->html('code', $output);
 
             if($mode == 'list') {
-                $output->setAttribute('title', $request);
+                $output->setTitle($request);
             }
 
             if($log['mode'] == 'Http') {
@@ -88,7 +88,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $output = $this->html('samp', $message);
 
             if($mode == 'list') {
-                $output->setAttribute('title', $error['message']);
+                $output->setTitle($error['message']);
             }
 
             return $output;

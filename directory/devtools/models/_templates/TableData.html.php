@@ -31,7 +31,7 @@ foreach($this['primitives'] as $primitive) {
 
         if($primitive instanceof opal\schema\Primitive_Guid) {
             return $this->html('abbr', 'GUID')
-                ->setAttribute('title', core\string\Uuid::factory($row[$name]));
+                ->setTitle(core\string\Uuid::factory($row[$name]));
         }
 
         return $this->html->shorten($row[$name], 25);
