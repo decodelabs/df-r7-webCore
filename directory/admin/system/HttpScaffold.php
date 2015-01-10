@@ -27,7 +27,13 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                 ->setId('geo-ip')
                 ->setDescription('Set up IP lookup tools to find out where your users are')
                 ->setIcon('location')
-                ->setWeight(20)
+                ->setWeight(20),
+
+            $entryList->newLink('./menus/', 'Menus')
+                ->setId('menus')
+                ->setDescription('View and modify pre-defined system menus')
+                ->setIcon('menu')
+                ->setWeight(30)
         );
     }
 }

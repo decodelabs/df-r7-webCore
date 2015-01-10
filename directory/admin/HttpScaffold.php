@@ -24,17 +24,11 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                 ->setIcon('user')
                 ->setWeight(30),
 
-            $entryList->newLink('./navigation/', 'Navigation')
-                ->setId('navigation')
-                ->setDescription('Create and modify menus, generate a site map and control how users navigate your site')
-                ->setIcon('link')
-                ->setWeight(50),
-
             $entryList->newLink('./system/', 'System')
                 ->setId('system')
                 ->setDescription('Control system-wide settings, view logs, etc')
                 ->setIcon('controlPanel')
-                ->setWeight(60)
+                ->setWeight(50)
         );
     }
 }

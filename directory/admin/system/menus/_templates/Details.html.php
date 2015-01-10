@@ -65,4 +65,4 @@ echo $this->html->attributeList($this['menu'])
 
 echo $this->html('h3', $this->_('Entries'));
 
-echo $this->apex->template('../#/elements/MenuEntryList.html');
+echo $this->apex->template('#/elements/MenuEntryList.html');
