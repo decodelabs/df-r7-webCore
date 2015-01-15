@@ -30,6 +30,10 @@ foreach($this['primitives'] as $primitive) {
         }
 
         if($primitive instanceof opal\schema\Primitive_Guid) {
+            if($row[$name] === null) {
+                return null;
+            }
+
             return $this->html('abbr', 'GUID')
                 ->setTitle(core\string\Uuid::factory($row[$name]));
         }
