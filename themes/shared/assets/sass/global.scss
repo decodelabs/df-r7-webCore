@@ -32,6 +32,10 @@ iframe[seamless] {
 
 .readable {
     max-width: 40em;
+
+    img {
+        max-width: 100%;
+    }
 }
 
 .positive { color: $positive-color; }
