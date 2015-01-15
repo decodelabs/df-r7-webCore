@@ -76,9 +76,11 @@ class TempUploader extends arch\form\Delegate implements
 
         krsort($files);
 
-        $fa = $fs->addFieldArea($this->_showFieldLabel ? $this->_('File') : null)->push(
-            $this->html->fileUpload($this->fieldName('file'), $this->values->file)
-        );
+        $fa = $fs->addFieldArea($this->_showFieldLabel ? $this->_('File') : null)
+            ->isStacked($this->_isStacked)
+            ->push(
+                $this->html->fileUpload($this->fieldName('file'), $this->values->file)
+            );
 
         if($this->_showFieldLabel) {
             $fa->isRequired($this->_isRequired);
@@ -133,7 +135,7 @@ class TempUploader extends arch\form\Delegate implements
                 });
 
 
-            $fs->addFieldArea()->push($list);
+            $fs->addFieldArea()->isStacked($this->_isStacked)->push($list);
         }
     }
 
