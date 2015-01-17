@@ -16,7 +16,7 @@ class Unit extends axis\unit\table\Base {
     
     const INVITE_OPTION = 'invite.allowance';
 
-    protected static $_defaultSearchFields = [
+    protected $_defaultSearchFields = [
         'name' => 5,
         'email' => 2
     ];
