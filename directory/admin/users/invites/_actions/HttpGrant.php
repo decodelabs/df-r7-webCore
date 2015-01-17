@@ -32,13 +32,19 @@ class HttpGrant extends arch\form\Action {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Specific users'));
 
+        // Allowance
         $fs->addFieldArea($this->_('Set allowance to'))->push(
             $this->html->numberTextbox('allowance', $this->values->allowance)
                 ->isRequired(true)
                 ->setMin(1)
         );
 
-        $fs->push($this->getDelegate('users')->renderFieldArea($this->_('Users')));
+        // Users
+        $fs->addFieldArea($this->_('Users'))->push(
+            $this->getDelegate('users')
+        );
+
+        // Buttons
         $fs->addDefaultButtonGroup('saveUsers');
 
 

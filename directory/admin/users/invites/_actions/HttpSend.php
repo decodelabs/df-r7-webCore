@@ -57,7 +57,9 @@ class HttpSend extends arch\form\Action {
         );
 
         // Groups
-        $fs->push($this->getDelegate('groups')->renderFieldArea($this->_('Registration groups')));
+        $fs->addFieldArea($this->_('Registration groups'))->push(
+            $this->getDelegate('groups')
+        );
 
         // Buttons
         $fs->addDefaultButtonGroup('send', $this->_('Send'));

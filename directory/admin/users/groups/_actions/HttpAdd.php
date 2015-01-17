@@ -35,8 +35,9 @@ class HttpAdd extends arch\form\Action {
                 
                 
         // Roles
-        $fs->push($this->getDelegate('roles')->renderFieldArea($this->_('Roles')));
-
+        $fs->addFieldArea($this->_('Roles'))->push(
+            $this->getDelegate('roles')
+        );
         
         // Buttons
         $fs->addDefaultButtonGroup();

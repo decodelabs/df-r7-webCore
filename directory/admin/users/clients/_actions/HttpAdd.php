@@ -105,7 +105,9 @@ class HttpAdd extends arch\form\Action {
 
 
         // Groups
-        $fs->push($this->getDelegate('groups')->renderFieldArea($this->_('Groups')));
+        $fs->addFieldArea($this->_('Groups'))->push(
+            $this->getDelegate('groups')
+        );
                 
         
         // Buttons
