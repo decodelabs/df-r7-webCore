@@ -13,7 +13,6 @@ use df\user;
     
 class Unit extends axis\unit\config\Base {
 
-    const USE_TREE = true;
     const ID = 'Users';
 
     public function getDefaultValues() {
