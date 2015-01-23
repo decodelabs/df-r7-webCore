@@ -42,6 +42,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ;
     }
 
+// Components
+    public function addIndexOperativeLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
+                ->setIcon('delete')
+        );
+    }
+
 // Fields
     public function defineModeField($list, $mode) {
         $list->addField('mode', function($log) {
