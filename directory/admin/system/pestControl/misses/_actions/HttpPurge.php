@@ -13,6 +13,8 @@ use df\axis;
 use df\halo;
 
 class HttpPurge extends arch\form\template\Confirm {
+
+    const DISPOSITION = 'negative';
     
     protected function _getMainMessage($itemName) {
         return $this->_('Are you sure you want to delete all old unarchived miss logs?');
