@@ -64,6 +64,7 @@ return [
     'label' => '&#xe022;',
     'attribute' => '&#xe068;',
     'element' => '&#xe068;',
+    'step' => '&#xe068;',
     'help' => '&#xe023;',
     'milestone' => '&#xe024;',
     'target' => '&#xe025;',
