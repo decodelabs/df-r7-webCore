@@ -15,7 +15,7 @@ class CookieNotice extends Base {
     
     public function renderToHtml(aura\view\IHtmlView $view) {
         if($view->context->getRunMode() == 'Http' && !$view->http->getCookie('cnx')) {
-            $view->setSlot('cookieNotice', 'elements/CookieNotice.html', '~front/');
+            $view->setSlot('cookieNotice', $view->context->apex->template('~front/#/elements/CookieNotice.html'));
         }
     }
 }
