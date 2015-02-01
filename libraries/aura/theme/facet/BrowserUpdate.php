@@ -13,7 +13,7 @@ use df\spur;
 
 class BrowserUpdate extends Base {
     
-    public function renderToHtml(aura\view\IHtmlView $view) {
+    public function afterHtmlViewRender(aura\view\IHtmlView $view) {
         $view
             ->addFootScript(
                 'browserUpdate', 

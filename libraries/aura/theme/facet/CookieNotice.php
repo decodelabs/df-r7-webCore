@@ -13,9 +13,14 @@ use df\spur;
 
 class CookieNotice extends Base {
     
-    public function renderToHtml(aura\view\IHtmlView $view) {
-        if($view->context->getRunMode() == 'Http' && !$view->http->getCookie('cnx')) {
-            $view->setSlot('cookieNotice', $view->context->apex->template('~front/#/elements/CookieNotice.html'));
+    public function onHtmlViewLayoutRender(aura\view\IHtmlView $view, $content) {
+        if($view->context->getRunMode() != 'Http' 
+        || $view->http->getCookie('cnx')
+        || !$view->shouldRenderBase()) {
+            return;
         }
+
+        return $view->context->apex->template('~front/#/elements/CookieNotice.html')
+            ->renderTo($view)."\n".$content;
     }
 }
