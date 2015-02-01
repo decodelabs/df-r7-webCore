@@ -96,7 +96,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                         $this->html('h3', [
                             $this->_('Error'), ' - ',
                             $this->apex->component('../MissLink', $log['miss'])
-                                ->setDisposition('transitive')
                         ]),
                         $this->apex->component('../MissDetails')
                             ->setRecord($log['miss'])
@@ -115,8 +114,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
     public function defineMissField($list, $mode) {
         $list->addField('error', function($log) {
-            return $this->apex->component('../MissLink', $log['miss'])
-                ->setDisposition('transitive');
+            return $this->apex->component('../MissLink', $log['miss']);
         });
     }
 
@@ -131,7 +129,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserField($list, $mode) {
         $list->addField('user', function($log) {
             return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
-                ->setDisposition('transitive')
                 ->isNullable(true);
         });
     }

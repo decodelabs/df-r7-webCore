@@ -94,7 +94,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     return [
                         $this->html('h3', [
                             $this->apex->component('../ErrorLink', $log['error'], $this->_('Error'))
-                                ->setDisposition('transitive')
                         ]),
                         $this->apex->component('../ErrorDetails')
                             ->setRecord($log['error'])
@@ -135,8 +134,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
     public function defineErrorField($list, $mode) {
         $list->addField('error', function($log) {
-            return $this->apex->component('../ErrorLink', $log['error'])
-                ->setDisposition('transitive');
+            return $this->apex->component('../ErrorLink', $log['error']);
         });
     }
 
@@ -151,7 +149,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserField($list, $mode) {
         $list->addField('user', function($log) {
             return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
-                ->setDisposition('transitive')
                 ->isNullable(true);
         });
     }

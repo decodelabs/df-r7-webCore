@@ -183,8 +183,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineOwnerField($list, $mode) {
         $list->addField('ownerName', $this->_('Sent by'), function($invite) use($mode) {
-            $output = $this->apex->component('../clients/UserLink', $invite['owner'])
-                ->setDisposition('transitive');
+            $output = $this->apex->component('../clients/UserLink', $invite['owner']);
 
             if($invite['isFromAdmin']) {
                 $output = [
@@ -226,8 +225,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserField($list, $mode) {
         $list->addField('userName', $this->_('Account'), function($invite) {
             return $this->apex->component('../clients/UserLink', $invite['user'])
-                ->isNullable(true)
-                ->setDisposition('transitive');
+                ->isNullable(true);
         });
     }
 }

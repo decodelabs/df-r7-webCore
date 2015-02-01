@@ -114,7 +114,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineUserField($list, $mode) {
         $list->addField('user', function($log) {
             return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
-                ->setDisposition('transitive')
                 ->isNullable(true);
         });
     }

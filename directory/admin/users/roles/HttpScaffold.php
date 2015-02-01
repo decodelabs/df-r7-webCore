@@ -116,8 +116,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $list->addField('groups', function($role) {
             return $this->html->bulletList($role->groups->fetch()->orderBy('name'), function($group) {
-                return $this->apex->component('../groups/GroupLink', $group)
-                    ->setDisposition('transitive');
+                return $this->apex->component('../groups/GroupLink', $group);
             });
         });
     }
