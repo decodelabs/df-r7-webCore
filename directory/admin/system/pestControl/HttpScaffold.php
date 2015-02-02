@@ -15,6 +15,8 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
     const DIRECTORY_TITLE = 'Pest control';
     const DIRECTORY_ICON = 'bug';
 
+    protected $_router;
+
     public function generateIndexMenu($entryList) {
         $criticalErrorCount = $this->data->pestControl->errorLog->select()->count();
         $notFoundCount = $this->data->pestControl->missLog->select()->count();
@@ -49,5 +51,57 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
             $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
                 ->setIcon('delete')
         );
+    }
+
+
+// Helpers
+    public function defineRequestField($list, $mode) {
+        $list->addField('request', function($item, $context) use($mode) {
+            if(!$request = $item['request']) return;
+            $context->getCellTag()->setStyle('word-break', 'break-all');
+
+            switch($item['mode']) {
+                case 'Http':
+                    $router = $this->_getRouter();
+                    $output = $router->routeIn(new arch\Request($request));
+                    unset($output->query->rf, $output->query->rt);
+                    $title = $output->toReadableString();
+                    $url = $router->unmapLocalUrl($request);
+                    $output = (string)$request;
+                    break;
+                
+                default:
+                    $output = (string)$request;
+                    $title = null;
+                    break;
+            }
+
+            if($mode == 'list') {
+                $output = $this->format->shorten($output, 60, true);
+            }
+
+            $output = $this->html('code', $output);
+
+            if($mode == 'list' && $title !== null) {
+                $output->setTitle($title);
+            }
+
+            if($item['mode'] == 'Http') {
+                $output = $this->html->link($url, $output)
+                    ->setIcon('link')
+                    ->setDisposition('transitive')
+                    ->setTarget('_blank');
+            }
+
+            return $output;
+        });
+    }
+
+    protected function _getRouter() {
+        if(!$this->_router) {
+            $this->_router = core\application\http\Router::getInstance();
+        }
+
+        return $this->_router;
     }
 }

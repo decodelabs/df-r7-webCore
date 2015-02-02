@@ -61,20 +61,22 @@ class HttpDefault extends arch\Action {
         }
 
         if($shouldLog) {
+            $url = $this->http->request->getUrl();
+            
             try {
                 switch($code) {
                     case 401:
                     case 403:
-                        $this->logs->logAccessError($code, $lastRequest, $exception->getMessage());
+                        $this->logs->logAccessError($code, $url, $exception->getMessage());
                         break;
 
                     case 404:
-                        $this->logs->logNotFound($lastRequest, $exception->getMessage());
+                        $this->logs->logNotFound($url, $exception->getMessage());
                         break;
 
                     case 500:
                     case 502:
-                        $this->logs->logException($exception, $lastRequest->toString());
+                        $this->logs->logException($exception, $url);
                         break;
                 }
             } catch(\Exception $e) {

@@ -33,18 +33,20 @@ class TaskDefault extends arch\Action {
         }
 
         try {
+            $command = implode(' ', array_slice($_SERVER['argv'], 1));
+
             switch($code) {
                 case 401:
                 case 403:
-                    $this->logs->logAccessError($code, $lastRequest, $exception->getMessage());
+                    $this->logs->logAccessError($code, $command, $exception->getMessage());
                     break;
                         
                 case 404:
-                    $this->logs->logNotFound($lastRequest, $exception->getMessage());
+                    $this->logs->logNotFound($command, $exception->getMessage());
                     break;
 
                 case 500:
-                    $this->logs->logException($exception, $lastRequest->toString());
+                    $this->logs->logException($exception, $command);
                     break;
             }
         } catch(\Exception $e) {

@@ -58,31 +58,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineRequestField($list, $mode) {
-        $list->addField('request', function($log, $context) use($mode) {
-            if(!$request = $log['request']) return;
-            $context->getCellTag()->setStyle('word-break', 'break-all');
-            $output = $this->uri->directoryRequest($request);
-
-            if($mode == 'list') {
-                unset($output->query->rf, $output->query->rt);
-                $output = $this->format->shorten($output->toReadableString(), 60, true);
-            }
-
-            $output = $this->html('code', $output);
-
-            if($mode == 'list') {
-                $output->setTitle($request);
-            }
-
-            if($log['mode'] == 'Http') {
-                $output = $this->html->link($request, $output)
-                    ->setIcon('link')
-                    ->setDisposition('transitive')
-                    ->setTarget('_blank');
-            }
-
-            return $output;
-        });
+        return $this->apex->scaffold('../')->defineRequestField($list, $mode);
     }
 
     public function defineMessageField($list, $mode) {

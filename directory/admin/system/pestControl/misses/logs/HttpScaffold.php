@@ -22,8 +22,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'date', 'mode', 'request', 'message', 
-        'referrer', 'isProduction', 'actions'
+        'date', 'mode', 'request', 
+        'referrer', 'isBot', 'isProduction', 'actions'
     ];
 
     protected $_recordDetailsFields = [
@@ -37,6 +37,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $query
             ->importRelationBlock('miss', 'list')
             ->importRelationBlock('user', 'link')
+            ->leftJoinRelation('userAgent', 'isBot')
+            ->paginate()
+                ->addOrderableFields('isBot')
+                ->end()
             ;
     }
 
@@ -83,7 +87,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 )) :
                 $this->html->flashMessage($this->_(
                     'This log has not been archived and will be deleted on or around %d%',
-                    ['%d%' => $this->format->date($log['date']->modify('+3 months'))]
+                    ['%d%' => $this->format->date($log['date']->modify('+'.$this->data->pestControl->getPurgeThreshold()))]
                 ), 'warning'),
 
             $this->html->panelSet()
@@ -149,31 +153,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineRequestField($list, $mode) {
-        $list->addField('request', function($log, $context) use($mode) {
-            if(!$request = $log['request']) return;
-            $context->getCellTag()->setStyle('word-break', 'break-all');
-            $output = $this->uri->directoryRequest($request);
-
-            if($mode == 'list') {
-                unset($output->query->rf, $output->query->rt);
-                $output = $this->format->shorten($output->toReadableString(), 60, true);
-            }
-
-            $output = $this->html('code', $output);
-
-            if($mode == 'list') {
-                $output->setTitle($request);
-            }
-
-            if($log['mode'] == 'Http') {
-                $output = $this->html->link($request, $output)
-                    ->setIcon('link')
-                    ->setDisposition('transitive')
-                    ->setTarget('_blank');
-            }
-
-            return $output;
-        });
+        return $this->apex->scaffold('../../')->defineRequestField($list, $mode);
     }
 
     public function defineMessageField($list, $mode) {
@@ -191,6 +171,16 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             }
 
             return $output;
+        });
+    }
+
+    public function defineIsBotField($list, $mode) {
+        $list->addField('isBot', $this->_('Bot'), function($log, $context) {
+            if($log['isBot']) {
+                $context->getRowTag()->addClass('inactive');
+            }
+            
+            return $this->html->booleanIcon($log['isBot']);
         });
     }
 

@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'id', 'mode', 'request', 
-        'seen', 'lastSeen', 'actions'
+        'seen', 'lastSeen', 'bots', 'actions'
     ];
 
 // Record data
@@ -51,17 +51,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Sections
     public function renderDetailsSectionBody($miss) {
-        $logList = $miss->missLogs->select()
-            ->importRelationBlock('miss', 'list')
-            ->importRelationBlock('user', 'link')
-            ->paginateWith($this->request->query);
-
         return [
             parent::renderDetailsSectionBody($miss),
 
-            $this->apex->component('./logs/LogList')
-                ->setCollection($logList)
-                ->setUrlRedirect(true)
+            $this->apex->scaffold('./logs/')
+                ->renderRecordList($miss->missLogs->select())
         ];
     }
 
@@ -96,51 +90,27 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineRequestField($list, $mode) {
-        $list->addField('request', function($miss, $context) use($mode) {
-            if(!$request = $miss['request']) return;
-            $context->getCellTag()->setStyle('word-break', 'break-all');
-            $output = $this->uri->directoryRequest($request);
-
-            if($mode == 'list') {
-                unset($output->query->rf, $output->query->rt);
-                $output = $this->format->shorten($output->toReadableString(), 60, true);
-            }
-
-            $output = $this->html('code', $output);
-
-            if($mode == 'list') {
-                $output->setTitle($request);
-            }
-
-            if($miss['mode'] == 'Http') {
-                $output = $this->html->link($request, $output)
-                    ->setIcon('link')
-                    ->setDisposition('transitive')
-                    ->setTarget('_blank');
-            }
-
-            return $output;
-        });
+        return $this->apex->scaffold('../')->defineRequestField($list, $mode);
     }
 
     public function defineSeenField($list, $mode) {
-        $list->addField('seen', function($error) {
+        $list->addField('seen', function($miss) {
             $output = $this->html('span', $this->_(
                 [
                     'n == 1' => '%n% time',
                     '*' => '%n% times'
                 ],
-                ['%n%' => $error['seen']],
-                $error['seen']
+                ['%n%' => $miss['seen']],
+                $miss['seen']
             ));
 
-            if($error['seen'] > 100) {
+            if($miss['seen'] > 100) {
                 $output->addClass('priority-critical');
-            } else if($error['seen'] > 50) {
+            } else if($miss['seen'] > 50) {
                 $output->addClass('priority-high');
-            } else if($error['seen'] > 20) {
+            } else if($miss['seen'] > 20) {
                 $output->addClass('priority-medium');
-            } else if($error['seen'] > 5) {
+            } else if($miss['seen'] > 5) {
                 $output->addClass('priority-low');
             } else {
                 $output->addClass('priority-trivial');
@@ -151,23 +121,42 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function defineLastSeenField($list, $mode) {
-        $list->addField('lastSeen', function($error, $context) use($mode) {
-            if($mode == 'list' && $error['archiveDate']) {
+        $list->addField('lastSeen', function($miss, $context) use($mode) {
+            if($mode == 'list' && $miss['archiveDate']) {
                 $context->getRowTag()->addClass('disabled');
             }
 
-            $output = $this->html->timeFromNow($error['lastSeen']);
+            $output = $this->html->timeFromNow($miss['lastSeen']);
 
-            if($error['lastSeen']->gt('-1 day')) {
+            if($miss['lastSeen']->gt('-1 day')) {
                 $output->addClass('priority-critical');
-            } else if($error['lastSeen']->gt('-3 days')) {
+            } else if($miss['lastSeen']->gt('-3 days')) {
                 $output->addClass('priority-high');
-            } else if($error['lastSeen']->gt('-1 week')) {
+            } else if($miss['lastSeen']->gt('-1 week')) {
                 $output->addClass('priority-medium');
-            } else if($error['lastSeen']->gt('-2 weeks')) {
+            } else if($miss['lastSeen']->gt('-2 weeks')) {
                 $output->addClass('priority-low');
             } else {
                 $output->addClass('priority-trivial');
+            }
+
+            return $output;
+        });
+    }
+
+    public function defineBotsField($list, $mode) {
+        $list->addField('botPc', $this->_('Bots'), function($miss) {
+            $percent = (100 / $miss['seen']) * $miss['botsSeen'];
+            $output = $this->format->percent($percent / 100);
+
+            if($percent > 0) {
+                $output = $this->html->icon('warning', $output);
+                
+                if($percent >= 50) {
+                    $output->addClass('error');
+                } else {
+                    $output->addClass('warning');
+                }
             }
 
             return $output;
