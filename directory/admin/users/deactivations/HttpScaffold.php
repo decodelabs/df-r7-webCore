@@ -23,17 +23,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'date' => true,
-        'user' => true,
-        'reason' => true,
-        'actions' => true
+        'date', 'user', 'reason'
     ];
 
     protected $_recordDetailsFields = [
-        'user' => true,
-        'date' => true,
-        'reason' => true,
-        'comments' => true
+        'user', 'date', 'reason', 'comments'
     ];
 
 // Record data

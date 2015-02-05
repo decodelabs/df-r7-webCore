@@ -24,7 +24,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'name', 'email', 'companyName', 'companyPosition',
-        'creationDate', 'isActive', 'actions'
+        'creationDate', 'isActive'
     ];
 
     protected $_recordDetailsFields = [

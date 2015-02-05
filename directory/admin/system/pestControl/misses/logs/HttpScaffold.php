@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'date', 'mode', 'request', 
-        'referrer', 'isBot', 'isProduction', 'actions'
+        'referrer', 'isBot', 'isProduction'
     ];
 
     protected $_recordDetailsFields = [

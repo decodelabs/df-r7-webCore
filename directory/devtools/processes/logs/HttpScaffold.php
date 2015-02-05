@@ -24,7 +24,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'request', 'startDate', 'runTime',
-        'status', 'environmentMode', 'actions'
+        'status', 'environmentMode'
     ];
 
     protected $_recordDetailsFields = [

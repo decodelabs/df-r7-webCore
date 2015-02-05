@@ -22,7 +22,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'message', 'type', 'code', 'file', 'line', 
-        'seen', 'lastSeen', 'actions'
+        'seen', 'lastSeen'
     ];
 
     protected $_recordDetailsFields = [

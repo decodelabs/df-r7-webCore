@@ -26,7 +26,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'name', 'state', 'startDate', 'statusDate', 
-        'pid', 'testMode', 'automatic', 'actions'
+        'pid', 'testMode', 'automatic'
     ];
 
     protected $_recordDetailsFields = [

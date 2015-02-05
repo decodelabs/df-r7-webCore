@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordListFields = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
-        'schedule', 'environmentMode', 'isLive', 'isAuto', 'actions'
+        'schedule', 'environmentMode', 'isLive', 'isAuto'
     ];
 
     protected $_recordDetailsFields = [

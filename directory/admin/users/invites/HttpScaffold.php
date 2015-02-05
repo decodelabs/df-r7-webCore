@@ -24,27 +24,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
     protected $_recordListFields = [
-        'creationDate' => true,
-        'name' => true,
-        'email' => true,
-        'lastSent' => true,
-        'owner' => true,
-        'registrationDate' => true,
-        'groups' => true,
-        'actions' => true
+        'creationDate', 'name', 'email', 'lastSent', 
+        'owner', 'registrationDate', 'groups'
     ];
 
     protected $_recordDetailsFields = [
-        'key' => true,
-        'creationDate' => true,
-        'owner' => true,
-        'lastSent' => true,
-        'name' => true,
-        'email' => true,
-        'message' => true,
-        'groups' => true,
-        'registrationDate' => true,
-        'user' => true
+        'key', 'creationDate', 'owner', 'lastSent', 
+        'name', 'email', 'message', 'groups', 
+        'registrationDate', 'user'
     ];
 
 // Record data

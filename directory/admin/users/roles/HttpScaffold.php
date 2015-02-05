@@ -20,21 +20,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
     protected $_recordListFields = [
-        'name' => true,
-        'bindState' => true,
-        'minRequiredState' => true,
-        'priority' => true,
-        'groups' => true,
-        'keys' => true,
-        'actions' => true
+        'name', 'bindState', 'minRequiredState', 
+        'priority', 'groups', 'keys'
     ];
 
     protected $_recordDetailsFields = [
-        'name' => true,
-        'bindState' => true,
-        'minRequiredState' => true,
-        'priority' => true,
-        'groups' => true
+        'name', 'bindState', 'minRequiredState', 
+        'priority', 'groups'
     ];
 
 // Record data

@@ -22,37 +22,19 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_sections = [
         'details',
-        'invites' => [
-            'icon' => 'mail'
-        ],
-        'authentication' => [
-            'icon' => 'lock'
-        ]
+        'invites' => 'mail',
+        'authentication' => 'lock'
     ];
 
     protected $_recordListFields = [
-        'fullName' => true,
-        'email' => true,
-        'status' => true,
-        'groups' => true,
-        'country' => true,
-        'joinDate' => true,
-        'loginDate' => true,
-        'actions' => true
+        'fullName', 'email', 'status', 'groups', 
+        'country', 'joinDate', 'loginDate'
     ];
 
     protected $_recordDetailsFields = [
-        'fullName' => true,
-        'nickName' => true,
-        'email' => true,
-        'status' => true,
-        'deactivation' => true,
-        'country' => true,
-        'language' => true,
-        'timezone' => true,
-        'joinDate' => true,
-        'loginDate' => true,
-        'groups' => true
+        'fullName', 'nickName', 'email', 'status', 
+        'deactivation', 'country', 'language', 
+        'timezone', 'joinDate', 'loginDate', 'groups'
     ];
 
 // Record data

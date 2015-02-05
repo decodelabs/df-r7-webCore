@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_DELETE_RECORD = false;
 
     protected $_recordListFields = [
-        'date', 'name', 'email', 'user', 'environmentMode', 'expireDate'
+        'date', 'name', 'email', 'user', 'environmentMode', 'expireDate', 'actions' => false
     ];
 
     protected $_recordDetailsFields = [
