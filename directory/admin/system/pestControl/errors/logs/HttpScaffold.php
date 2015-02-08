@@ -27,7 +27,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
     protected $_recordDetailsFields = [
-        'date', 'mode', 'request', 'message',
+        'date', 'mode', 'request', 'referrer', 'message',
         'userAgent', 'user', 'isProduction'
     ];
 
@@ -161,6 +161,15 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     public function defineRequestField($list, $mode) {
         return $this->apex->scaffold('../../')->defineRequestField($list, $mode);
+    }
+
+    public function defineReferrerField($list, $mode) {
+        $list->addField('referrer', function($log) use($mode) {
+            if(!$referrer = $log['referrer']) return;
+
+            return $this->html->link($referrer, $this->html('samp', $mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
+                ->setIcon('link');
+        });
     }
 
     public function defineMessageField($list, $mode) {
