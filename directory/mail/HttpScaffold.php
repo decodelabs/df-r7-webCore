@@ -18,8 +18,8 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
     const HEADER_BAR = false;
 
     public function generateIndexMenu($entryList) {
-        $captureCount = $this->data->mail->capture->select()->count();
-        $journalCount = $this->data->mail->journal->select()->count();
+        $captureCount = $this->data->mail->capture->countAll();
+        $journalCount = $this->data->mail->journal->countAll();
 
         $entryList->addEntries(
             $entryList->newLink('~mail/capture/', 'Development mailbox')

@@ -18,9 +18,9 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
     protected $_router;
 
     public function generateIndexMenu($entryList) {
-        $criticalErrorCount = $this->data->pestControl->errorLog->select()->count();
-        $notFoundCount = $this->data->pestControl->missLog->select()->count();
-        $accessErrorCount = $this->data->pestControl->accessLog->select()->count();
+        $criticalErrorCount = $this->data->pestControl->errorLog->countAll();
+        $notFoundCount = $this->data->pestControl->missLog->countAll();
+        $accessErrorCount = $this->data->pestControl->accessLog->countAll();
 
         $entryList->addEntries(
             $entryList->newLink('./errors/', 'Critical errors')

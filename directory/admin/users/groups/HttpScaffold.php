@@ -37,7 +37,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $record = $this->getRecord();
 
         return [
-            'users' => $record->users->select()->count()
+            'users' => $record->users->countAll()
         ];
     }
 

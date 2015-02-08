@@ -45,7 +45,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $miss = $this->getRecord();
 
         return [
-            'logs' => $miss->missLogs->select()->count()
+            'logs' => $miss->missLogs->countAll()
         ];
     }
 

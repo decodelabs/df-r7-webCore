@@ -17,7 +17,7 @@ class HttpSetupUser extends arch\form\Action {
     protected function _onSessionReady() {
         $model = $this->data->getModel('user');
         
-        if($model->client->select()->count()) {
+        if($model->client->countAll()) {
             $this->throwError(403, 'A user has already been set up');
         }
     }

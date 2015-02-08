@@ -18,7 +18,7 @@ class HttpDeleteAll extends arch\form\template\Delete {
     protected function _renderItemDetails($container) {
         $container->addAttributeList([])
             ->addField('logs', function() {
-                return $this->data->task->log->select()->count();
+                return $this->data->task->log->countAll();
             });
     }
 

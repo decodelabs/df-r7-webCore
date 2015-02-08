@@ -51,7 +51,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $model = $this->getRecordAdapter()->getModel();
 
         return [
-            'logs' => $error->errorLogs->select()->count(),
+            'logs' => $error->errorLogs->countAll(),
             /*
             'stackTraces' => $model->stackTrace->select()
                 ->whereCorrelation('id', 'in', 'stackTrace')
