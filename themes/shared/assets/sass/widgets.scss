@@ -632,11 +632,17 @@
 // Panel set
 .widget-panelSet {
     width: 100%;
+    display: table;
 
-    > tbody > tr > td {
+    > .widget-panel {
+        display: table-cell;
         vertical-align: top;
-        padding: 0 1em 0 0;
+        padding: 0 0.5em;
+        box-sizing: border-box;
 
+        &:first-child {
+            padding-left: 0;
+        }
         &:last-child {
             padding-right: 0;
         }
