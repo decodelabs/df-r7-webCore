@@ -14,7 +14,7 @@ use df\mesh;
     
 class EmailVerify extends mesh\event\Hook {
 
-    protected static $_actionMap = [
+    protected $_events = [
         'axis://user/Client' => [
             'insert' => 'clientInsert',
             'preUpdate' => 'clientUpdate',
