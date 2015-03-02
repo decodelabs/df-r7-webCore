@@ -175,4 +175,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             return $this->html->booleanIcon($daemon['automatic']);
         });
     }
+
+    public function defineUserField($list, $mode) {
+        $list->addField('user');
+    }
 }
