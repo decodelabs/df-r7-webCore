@@ -25,7 +25,6 @@ class HttpHello extends arch\restApi\Action {
 
         return [
             'baseUrl' => $this->application->getRouter()->getBaseUrl(),
-            'secure' => $this->application->getRouter()->shouldUseHttps(),
             'actions' => $actions
         ];
     }
