@@ -14,5 +14,5 @@ echo $this->html->menu()
             ->setIcon('controlPanel'),
 
         $this->html->link('~devtools/', $this->_('Developer tools'))
-            ->setIcon('tools')
+            ->setIcon('tool')
     );
