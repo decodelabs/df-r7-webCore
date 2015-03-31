@@ -87,10 +87,9 @@ class HttpRespond extends arch\form\Action {
             $this->_request['invite'] = $invite;
             $this->_request->save();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'request.accept',
-                $this->_('An invite has been sent in response to the request'),
-                'success'
+                $this->_('An invite has been sent in response to the request')
             );
 
             return $this->complete();
@@ -113,10 +112,9 @@ class HttpRespond extends arch\form\Action {
                 );
             }
 
-            $this->comms->flash(
+            $this->comms->flashWarning(
                 'request.deny',
-                $this->_('The invite request has bene denied'),
-                'warning'
+                $this->_('The invite request has bene denied')
             );
 
             return $this->complete();

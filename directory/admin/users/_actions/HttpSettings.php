@@ -113,10 +113,9 @@ class HttpSettings extends arch\form\Action {
         if($this->isValid()) {
             $this->_config->save();
 
-            $this->comms->flash(
-                'config.saved',
-                $this->_('Your settings have been successfully updated'),
-                'success'
+            $this->comms->flashSuccess(
+                'config.save',
+                $this->_('Your settings have been successfully updated')
             );
 
             return $this->complete();

@@ -21,16 +21,14 @@ class HttpEmailVerify extends arch\Action {
         );
 
         if($result) {
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'emailVerify.success',
-                $this->_('Your email address has been successfully verified'),
-                'success'
+                $this->_('Your email address has been successfully verified')
             );
         } else {
-            $this->comms->flash(
+            $this->comms->flashError(
                 'emailVerify.fail',
-                $this->_('The verification link you followed does not appear to be valid any more!'),
-                'error'
+                $this->_('The verification link you followed does not appear to be valid any more!')
             );
         }
 

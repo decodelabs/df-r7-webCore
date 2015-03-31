@@ -99,10 +99,9 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
             }
         }
 
-        $this->comms->flash(
+        $this->comms->flashSuccess(
             'registration.complete',
-            $this->_('Your account has been successfully created'),
-            'success'
+            $this->_('Your account has been successfully created')
         );
 
         $request = $this->uri->directoryRequest('account/login');

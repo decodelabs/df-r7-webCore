@@ -102,10 +102,9 @@ class HttpSend extends arch\form\Action {
             $this->_invite['isFromAdmin'] = true;
             $this->_invite->send();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'invite.send',
-                $this->_('Your invite has been successfully sent'),
-                'success'
+                $this->_('Your invite has been successfully sent')
             );
 
             return $this->complete();

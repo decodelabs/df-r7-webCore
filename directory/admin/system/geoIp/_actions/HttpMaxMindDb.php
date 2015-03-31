@@ -255,10 +255,9 @@ class HttpMaxMindDb extends arch\form\Action {
             $this->_config->isEnabled($enabled);
             $this->_config->save();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'mmdb.settings',
-                $this->_('The MaxMind DB settings have been successfully updated'),
-                'success'
+                $this->_('The MaxMind DB settings have been successfully updated')
             );
 
             return $this->complete();

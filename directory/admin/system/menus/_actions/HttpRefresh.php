@@ -15,10 +15,9 @@ class HttpRefresh extends arch\Action {
     public function executeAsHtml() {
         $this->apex->clearMenuCache();
 
-        $this->comms->flash(
+        $this->comms->flashSuccess(
             'menu-cache.clear', 
-            $this->_('The system menu list has been refreshed'), 
-            'success'
+            $this->_('The system menu list has been refreshed')
         );
 
         return $this->http->defaultRedirect();

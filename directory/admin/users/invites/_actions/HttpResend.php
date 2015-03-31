@@ -23,10 +23,9 @@ class HttpResend extends arch\form\template\Confirm {
         );
 
         if(!$this->_invite['isActive']) {
-            $this->comms->flash(
+            $this->comms->flashError(
                 'invite.inactive',
-                $this->_('This invite is no longer active'),
-                'error'
+                $this->_('This invite is no longer active')
             );
 
             return $this->complete();

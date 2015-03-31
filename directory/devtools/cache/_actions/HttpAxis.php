@@ -78,10 +78,9 @@ class HttpAxis extends arch\form\Action {
         if($this->_cache->has($unitId)) {
             $this->_cache->remove($unitId);
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                     'cache.remove',
-                    $this->_('The schema cache %n% has been successfully been removed', ['%n%' => $unitId]),
-                    'success'
+                    $this->_('The schema cache %n% has been successfully been removed', ['%n%' => $unitId])
                 )
                 ->setDescription($this->_(
                     'The entry will not show up again here until the cache has been regenerated'
@@ -92,10 +91,9 @@ class HttpAxis extends arch\form\Action {
     protected function _onClearEvent() {
         $this->_cache->clear();
 
-        $this->comms->flash(
+        $this->comms->flashSuccess(
             'cache.clear',
-            $this->_('All schema caches have been cleared'),
-            'success'
+            $this->_('All schema caches have been cleared')
         );
 
         return $this->complete();

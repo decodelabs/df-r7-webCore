@@ -152,10 +152,9 @@ class HttpAdd extends arch\form\Action {
 
             $this->_schedule->save();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'task.schedule',
-                $this->_('The task has been successfully scheduled'),
-                'success'
+                $this->_('The task has been successfully scheduled')
             );
 
             return $this->complete();

@@ -18,10 +18,9 @@ class HttpRefreshAll extends arch\Action {
         $model = $this->data->getModel('package');
         $model->updateRemotes();
 
-        $this->comms->flash(
+        $this->comms->flashSuccess(
             'package.update',
-            $this->_('All package repositories have been refreshed'),
-            'success'
+            $this->_('All package repositories have been refreshed')
         );
 
         return $this->http->defaultRedirect();

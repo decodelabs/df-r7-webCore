@@ -211,12 +211,7 @@ class HttpAdd extends arch\form\Action {
                 $auth->save();
             }
 
-            $this->comms->flash(
-                'client.save',
-                $this->_('The user has been successfully saved'),
-                'success'
-            );
-
+            $this->comms->flashSaveSuccess('user');
             return $this->complete();
         }
     }

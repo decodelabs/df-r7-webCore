@@ -65,10 +65,9 @@ class HttpChangePassword extends arch\form\Action {
             $this->_auth->password = $this->data->hash($this->values['password']);
             $this->_auth->save();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'password.change',
-                $this->_('The user\'s password has been changed'),
-                'success'
+                $this->_('The user\'s password has been changed')
             );           
 
             return $this->complete(); 

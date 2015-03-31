@@ -20,16 +20,14 @@ class HttpRefresh extends arch\Action {
         $name = $this->request->query['package'];
         
         if(!$model->updateRemote($name)) {
-            $this->comms->flash(
+            $this->comms->flashError(
                 'git.update',
-                $this->_('Package "%n%" could not be updated', ['%n%' => $name]),
-                'error'
+                $this->_('Package "%n%" could not be updated', ['%n%' => $name])
             );
         } else {
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'git.update',
-                $this->_('Package "%n%" has been successfully refreshed', ['%n%' => $name]),
-                'success'
+                $this->_('Package "%n%" has been successfully refreshed', ['%n%' => $name])
             );
         }
 

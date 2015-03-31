@@ -66,10 +66,9 @@ class HttpResetPassword extends arch\form\Action {
     }
 
     protected function _flashError($flashKey, $message) {
-        $this->comms->flash(
+        $this->comms->flashError(
             'passwordResetKey.'.$flashKey,
-            $message,
-            'error'
+            $message
         );
 
         return $this->http->redirect('account/');
@@ -106,10 +105,9 @@ class HttpResetPassword extends arch\form\Action {
 
             $this->data->user->passwordResetKey->deleteRecentUnusedKeys($this->_key);
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'password.reset',
-                $this->_('Your password has been updated'),
-                'success'
+                $this->_('Your password has been updated')
             );
 
             return $this->complete('account/');

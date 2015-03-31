@@ -204,10 +204,9 @@ class HttpTest extends arch\form\Action {
 
             $transport->send($mail);
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'testMail.sent', 
-                $this->_('The email has been successfully sent'), 
-                'success'
+                $this->_('The email has been successfully sent')
             );
             
             return $this->complete();

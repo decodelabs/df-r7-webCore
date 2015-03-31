@@ -85,10 +85,9 @@ class HttpLostPassword extends arch\form\Action {
 
             $this->comms->componentNotify('account/PasswordReset', [$key]);
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'lostPassword.send',
-                $this->_('A link has been sent to your email address with instructions on resetting your password'),
-                'success'
+                $this->_('A link has been sent to your email address with instructions on resetting your password')
             );
 
             return $this->complete();

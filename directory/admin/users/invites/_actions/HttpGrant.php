@@ -78,10 +78,9 @@ class HttpGrant extends arch\form\Action {
             $this->data->user->invite->grantAllowance($validator['users'], $validator['allowance']);
             $this->user->instigateGlobalKeyringRegeneration();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'invite.allowance',
-                $this->_('User invite allowances have been successfully updated'),
-                'success'
+                $this->_('User invite allowances have been successfully updated')
             );
 
             return $this->complete();
@@ -98,10 +97,9 @@ class HttpGrant extends arch\form\Action {
             $this->data->user->invite->grantAllAllowance($validator['allowance']);
             $this->user->instigateGlobalKeyringRegeneration();
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                 'invite.allowance',
-                $this->_('User invite allowances have been successfully updated'),
-                'success'
+                $this->_('User invite allowances have been successfully updated')
             );
 
             return $this->complete();

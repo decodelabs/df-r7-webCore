@@ -30,24 +30,18 @@ class HttpRegister extends arch\form\Action {
             );
 
             if(!$this->_invite['isActive']) {
-                $this->comms->flash(
+                $this->comms->flashError(
                     'invite.inactive',
-                    $this->_(
-                        'The invite link you have followed is no longer active'
-                    ),
-                    'error'
+                    $this->_('The invite link you have followed is no longer active')
                 );
 
                 return $this->http->defaultRedirect('/');
             }
         } else {
             if(!$this->data->user->config->isRegistrationEnabled()) {
-                $this->comms->flash(
+                $this->comms->flashError(
                     'registration.disabled',
-                    $this->_(
-                        'Registration for this site is currently disabled'
-                    ),
-                    'error'
+                    $this->_('Registration for this site is currently disabled')
                 );
 
                 return $this->http->defaultRedirect('/');

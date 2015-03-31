@@ -91,10 +91,9 @@ class HttpRaster extends arch\form\Action {
         if($this->_cache->has($key)) {
             $this->_cache->remove($key);
 
-            $this->comms->flash(
+            $this->comms->flashSuccess(
                     'cache.remove',
-                    $this->_('The image cache has been successfully been removed'),
-                    'success'
+                    $this->_('The image cache has been successfully been removed')
                 )
                 ->setDescription($this->_(
                     'The entry will not show up again here until the cache has been regenerated'
@@ -105,10 +104,9 @@ class HttpRaster extends arch\form\Action {
     protected function _onClearEvent() {
         $this->_cache->clear();
 
-        $this->comms->flash(
+        $this->comms->flashSuccess(
             'cache.clear',
-            $this->_('All image caches have been cleared'),
-            'success'
+            $this->_('All image caches have been cleared')
         );
 
         return $this->complete();
