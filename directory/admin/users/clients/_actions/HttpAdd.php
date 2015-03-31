@@ -15,7 +15,7 @@ class HttpAdd extends arch\form\Action {
     protected $_client;
 
     protected function _init() {
-        $this->_client = $this->data->newRecord('axis://user/Client');
+        $this->_client = $this->scaffold->newRecord();
     }
 
     protected function _setupDelegates() {

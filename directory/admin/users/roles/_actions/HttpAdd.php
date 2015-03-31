@@ -14,7 +14,7 @@ class HttpAdd extends arch\form\Action {
     protected $_role;
 
     protected function _init() {
-        $this->_role = $this->data->newRecord('axis://user/Role');
+        $this->_role = $this->scaffold->newRecord();
     }
 
     protected function _createUi() {

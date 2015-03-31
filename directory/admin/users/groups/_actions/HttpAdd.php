@@ -15,7 +15,7 @@ class HttpAdd extends arch\form\Action {
     protected $_group;
 
     protected function _init() {
-        $this->_group = $this->data->newRecord('axis://user/Group');
+        $this->_group = $this->scaffold->newRecord();
     }
 
     protected function _setupDelegates() {

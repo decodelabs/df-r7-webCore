@@ -17,7 +17,7 @@ class HttpAdd extends arch\form\Action {
     protected $_task;
 
     protected function _init() {
-        $this->_task = $this->data->newRecord('axis://task/Queue');
+        $this->_task = $this->scaffold->newRecord();
     }
 
     protected function _setDefaultValues() {

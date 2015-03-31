@@ -17,9 +17,7 @@ class HttpAdd extends arch\form\Action {
     protected $_schedule;
 
     protected function _init() {
-        $this->_schedule = $this->data->newRecord(
-            'axis://task/Schedule'
-        );
+        $this->_schedule = $this->scaffold->newRecord();
     }
 
     protected function _setDefaultValues() {

@@ -18,7 +18,7 @@ class HttpSend extends arch\form\Action {
 
     protected function _init() {
         $this->data->checkAccess('axis://user/Invite', 'add');
-        $this->_invite = $this->data->newRecord('axis://user/Invite');
+        $this->_invite = $this->scaffold->newRecord();
     }
 
     protected function _setupDelegates() {
