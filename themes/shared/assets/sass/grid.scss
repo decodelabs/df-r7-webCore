@@ -3,6 +3,7 @@
         float: left;
         padding: pxToRem($gutter*$grid-padding-ratio) pxToRem($gutter);
         box-sizing: border-box;
+        min-height: 1px;
     }
 
     [class*="#{$prefix}"] {
