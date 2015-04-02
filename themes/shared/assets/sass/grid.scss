@@ -1,8 +1,12 @@
 @mixin generateGrid($columns:$grid-columns, $gutter:$grid-gutter, $prefix:$grid-column-prefix) {
-    [class*="#{$prefix}"] {
+    %#{$prefix} {
         float: left;
         padding: pxToRem($gutter*$grid-padding-ratio) pxToRem($gutter);
         box-sizing: border-box;
+    }
+
+    [class*="#{$prefix}"] {
+        @extend %#{$prefix};
     }
 
     $total: $columns;
@@ -12,13 +16,22 @@
     }
         
     @for $i from 1 through $total {
-        .#{$prefix + $i} {
+        %#{$prefix + $i}-width {
             @if length($columns) > 1 {
                 width: percentage(nth($columns, $i));
             }
             @else {
                 width: percentage($i / $columns);
             }
+        }
+
+        %#{$prefix + $i} {
+            @extend %#{$prefix};
+            @extend %#{$prefix + $i}-width;
+        }
+
+        .#{$prefix + $i} {
+            @extend %#{$prefix + $i}-width;
         }
     }
 

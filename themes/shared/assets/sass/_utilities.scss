@@ -7,5 +7,10 @@
 }
 
 @function pxToRem($px, $base:$font-base-size) {
-    @return #{($px + 0px) / $font-base-size}rem;
+    @if $rem == true {
+        @return #{($px + 0px) / $font-base-size}rem;
+    }
+    @else {
+        @return $px;
+    }
 }
