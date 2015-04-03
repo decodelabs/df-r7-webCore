@@ -582,8 +582,9 @@
         border-color: $debug-color;
     }
 
-    h4 {
+    .message {
         margin: 0;
+        font-weight: bold;
     }
 
     a {
