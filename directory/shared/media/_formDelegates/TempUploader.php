@@ -128,6 +128,7 @@ class TempUploader extends arch\form\Delegate implements
             $hasMany = !$this->_isForMany && $fileCount > 1;
 
             $list = $this->html->collectionList($files)
+                ->shouldShowHeader(false)
                 ->addField('fileName', function($file) use($hasMany) {
                     if(!$this->_isForMany) {
                         if($hasMany) {
