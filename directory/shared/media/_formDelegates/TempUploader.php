@@ -22,7 +22,9 @@ class TempUploader extends arch\form\Delegate implements
     use core\io\TAcceptTypeProcessor;
 
     protected $_showUploadButton = true;
+    protected $_fieldLabel = null;
     protected $_showFieldLabel = true;
+    protected $_maxTempFiles = 10;
 
     private $_dirChecked = false;
 
@@ -33,6 +35,15 @@ class TempUploader extends arch\form\Delegate implements
         }
 
         return $this->_showUploadButton;
+    }
+
+    public function setFieldLabel($label) {
+        $this->_fieldLabel = $label;
+        return $this;
+    }
+
+    public function getFieldLabel() {
+        return $this->_fieldLabel;
     }
 
     public function shouldShowFieldLabel($flag=null) {
@@ -76,7 +87,20 @@ class TempUploader extends arch\form\Delegate implements
 
         krsort($files);
 
-        $fa = $fs->addFieldArea($this->_showFieldLabel ? $this->_('File') : null)
+        if(!$this->_isForMany) {
+            while(count($files) > $this->_maxTempFiles) {
+                $file = array_pop($files);
+                core\io\Util::deleteFile($tempDir.'/'.$file['fileName']);
+            }
+        }
+
+        if($this->_showFieldLabel) {
+            $label = $this->_fieldLabel !== null ? $this->_fieldLabel : $this->_('File');
+        } else {
+            $label = null;
+        }
+
+        $fa = $fs->addFieldArea($label)
             ->isStacked($this->_isStacked)
             ->push(
                 $this->html->fileUpload($this->fieldName('file'), $this->values->file)
