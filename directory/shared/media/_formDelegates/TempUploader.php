@@ -182,7 +182,7 @@ class TempUploader extends arch\form\Delegate implements
 
         $tempDir = $this->_getTempDir();
 
-        foreach($uploadHandler as $file) {
+        if($file = $uploadHandler[$this->fieldName('file')]) {
             $file->upload($tempDir, $this->values->file);
 
             if($file->isSuccess()) {
