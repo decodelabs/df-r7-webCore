@@ -6,7 +6,7 @@
         min-height: 1px;
     }
 
-    [class*="#{$prefix}"] {
+    [class^="#{$prefix}"] {
         @extend %#{$prefix};
     }
 
