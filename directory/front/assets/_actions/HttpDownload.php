@@ -41,6 +41,9 @@ class HttpDownload extends arch\Action {
         if(isset($this->request->query->attachment)) {
             $output->setAttachmentFileName(basename($absolutePath));
         }
+
+        $output->getHeaders()
+            ->set('Access-Control-Allow-Origin', '*');
         
         return $output;
     }

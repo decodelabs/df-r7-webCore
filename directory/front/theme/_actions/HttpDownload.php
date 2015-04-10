@@ -61,6 +61,9 @@ class HttpDownload extends arch\Action {
                 $output = $this->http->fileResponse($absolutePath);
                 $output->setContentType($type);
         }
+
+        $output->getHeaders()
+            ->set('Access-Control-Allow-Origin', '*');
         
         return $output;
     }
