@@ -12,11 +12,7 @@ use df\arch;
 class HttpEdit extends HttpAdd {
     
     protected function _init() {
-        $this->_group = $this->data->fetchForAction(
-            'axis://user/Group',
-            $this->request->query['group'],
-            'edit'
-        );
+        $this->_group = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {

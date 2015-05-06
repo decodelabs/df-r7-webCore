@@ -15,10 +15,7 @@ class HttpEdit extends HttpAdd {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected function _init() {
-        $this->_schedule = $this->data->fetchForAction(
-            'axis://task/Schedule',
-            $this->request->query['schedule']
-        );
+        $this->_schedule = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {

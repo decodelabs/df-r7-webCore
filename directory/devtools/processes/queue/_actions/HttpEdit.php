@@ -13,11 +13,7 @@ use df\arch;
 class HttpEdit extends HttpAdd {
     
     protected function _init() {
-        $this->_task = $this->data->fetchForAction(
-            'axis://task/Queue',
-            $this->request->query['task'],
-            'edit'
-        );
+        $this->_task = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {

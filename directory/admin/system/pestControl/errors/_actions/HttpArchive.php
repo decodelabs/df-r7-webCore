@@ -18,11 +18,7 @@ class HttpArchive extends arch\form\template\Confirm {
     protected $_error;
 
     protected function _init() {
-        $this->_error = $this->data->fetchForAction(
-            $this->scaffold->getRecordAdapter(),
-            $this->request->query['error'],
-            'edit'
-        );
+        $this->_error = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {

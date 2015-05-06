@@ -19,10 +19,7 @@ class HttpLaunch extends arch\form\template\Confirm {
     protected $_task;
 
     protected function _init() {
-        $this->_task = $this->data->fetchForAction(
-            'axis://task/Queue',
-            $this->request->query['task']
-        );
+        $this->_task = $this->scaffold->getRecord();
     }
 
     protected function _getMainMessage($itemName) {

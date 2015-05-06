@@ -15,11 +15,7 @@ class HttpAddKey extends arch\form\Action {
     protected $_key;
 
     protected function _init() {
-        $this->_role = $this->data->fetchForAction(
-            'axis://user/Role',
-            $this->request->query['role'],
-            'addKey'
-        );
+        $this->_role = $this->scaffold->getRecord();
         
         $this->_key = $this->data->newRecord('axis://user/Key', [
             'role' => $this->_role

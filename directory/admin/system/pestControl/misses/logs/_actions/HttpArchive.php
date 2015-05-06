@@ -17,11 +17,7 @@ class HttpArchive extends arch\form\template\Confirm {
     protected $_log;
 
     protected function _init() {
-        $this->_log = $this->data->fetchForAction(
-            $this->scaffold->getRecordAdapter(),
-            $this->request->query['log'],
-            'edit'
-        );
+        $this->_log = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {

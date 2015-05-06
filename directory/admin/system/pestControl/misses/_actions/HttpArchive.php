@@ -18,11 +18,7 @@ class HttpArchive extends arch\form\template\Confirm {
     protected $_miss;
 
     protected function _init() {
-        $this->_miss = $this->data->fetchForAction(
-            $this->scaffold->getRecordAdapter(),
-            $this->request->query['miss'],
-            'edit'
-        );
+        $this->_miss = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {

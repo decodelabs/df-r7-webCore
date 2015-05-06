@@ -18,10 +18,7 @@ class HttpDeactivate extends arch\form\template\Confirm {
     protected $_invite;
 
     protected function _init() {
-        $this->_invite = $this->data->fetchForAction(
-            'axis://user/Invite',
-            $this->request->query['invite']
-        );
+        $this->_invite = $this->scaffold->getRecord();
 
         if(!$this->_invite['isActive']) {
             $this->comms->flashError(

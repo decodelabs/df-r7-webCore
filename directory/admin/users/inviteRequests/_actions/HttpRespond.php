@@ -15,11 +15,7 @@ class HttpRespond extends arch\form\Action {
     protected $_request;
 
     protected function _init() {
-        $this->_request = $this->data->fetchForAction(
-            'axis://user/InviteRequest',
-            $this->request->query['request'],
-            'respond'
-        );
+        $this->_request = $this->scaffold->getRecord();
 
         if(!$this->_request['isActive']) {
             $this->throwError(403, 'Request is not active');
