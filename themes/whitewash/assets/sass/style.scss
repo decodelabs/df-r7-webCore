@@ -298,12 +298,12 @@ button {
 .widget-attributeList {
     border: 2px #F5F5F5 solid;
     @include border-radius(0.5em);
-    
+
     tr {
-        &:nth-child(2n + 1) {
+        &.even {
             background: #FFF;
         }
-        &:nth-child(2n) {
+        &.odd {
             background: #FBFBFB;
 
             > th {
@@ -312,10 +312,27 @@ button {
         }
 
         > th {
-            border-bottom: 2px #F5F5F5 solid;
+            border-bottom: 2px #EEE solid;
             background: #F8F8F8;
         }
+
+        &.spacer, &.divider {
+            border-top: 2px #EEE solid;
+            border-bottom: 1px #EEE solid;
+        }
+
+        &.divider {
+            background: #FBFBFB;
+
+            &:first-child {
+                border-top: none;
+            }
+        }
     }
+}
+
+.widget-attributeList tr:last-child th {
+    border-bottom: none;
 }
 
 
