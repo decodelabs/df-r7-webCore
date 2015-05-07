@@ -121,9 +121,8 @@ class HttpAdd extends arch\form\Action {
         $this->data->newValidator()
 
             // Email
-            ->addRequiredField('email', 'email')
-                ->setStorageAdapter('axis://user/Client')
-                ->setUniqueFilterId($this->_client['id'])
+            ->addRequiredField('email')
+                ->setRecord($this->_client)
                 ->setUniqueErrorMessage($this->_('This email address is already in use by another account'))
 
             // Full name
@@ -197,7 +196,7 @@ class HttpAdd extends arch\form\Action {
             ]);
             
             $this->data->newValidator()
-                ->addRequiredField('password', 'password')
+                ->addRequiredField('password')
                     ->setMatchField('repeatPassword')
                 ->validate($this->values)
                 ->applyTo($auth);

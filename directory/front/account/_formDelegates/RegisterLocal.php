@@ -34,7 +34,7 @@ class RegisterLocal extends RegisterBase {
             ->addField('nickName', 'text')
 
             // Email
-            ->addRequiredField('email', 'email')
+            ->addRequiredField('email')
                 ->setStorageAdapter($this->data->user->client)
                 ->setUniqueErrorMessage($this->_('An account already exists with this email address'))
 
@@ -45,7 +45,7 @@ class RegisterLocal extends RegisterBase {
             $auth = $this->_createAuth($client, 'Local');
 
             $this->data->newValidator()
-                ->addRequiredField('password', 'password')
+                ->addRequiredField('password')
                     ->setMatchField('confirmPassword')
                 ->validate($this->values)
                 ->applyTo($auth);

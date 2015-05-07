@@ -72,7 +72,7 @@ class HttpSend extends arch\form\Action {
             ->addRequiredField('name', 'text')
 
             // Email
-            ->addRequiredField('email', 'email')
+            ->addRequiredField('email')
                 ->setCustomValidator(function($node, $value) {
                     if($this->data->user->client->emailExists($value)) {
                         $node->addError('userExists', $this->_(

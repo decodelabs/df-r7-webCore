@@ -33,7 +33,7 @@ class HttpLostPassword extends arch\form\Action {
         $auth = null;
 
         $this->data->newValidator()
-            ->addRequiredField('email', 'email')
+            ->addRequiredField('email')
                 ->setCustomValidator(function($node, $value, $field) use (&$client) {
                     $client = $this->data->user->client->fetch()
                         ->where('email', '=', $value)
