@@ -15,6 +15,7 @@ class Invite extends arch\component\Mail {
     const DESCRIPTION = 'User invite';
 
     protected function _prepare($invite) {
+        $this->view->setLayout('DefaultMail');
         $this->view['invite'] = $invite;
     }
 

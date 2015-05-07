@@ -15,6 +15,7 @@ class EmailVerify extends arch\component\Mail {
     const DESCRIPTION = 'Email verification request';
 
     protected function _prepare($key, $user) {
+        $this->view->setLayout('DefaultMail');
         $this->view['key'] = $key;
         $this->view['user'] = $user;
 

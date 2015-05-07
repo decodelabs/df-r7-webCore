@@ -15,6 +15,7 @@ class InviteRequestDeny extends arch\component\Mail {
     const DESCRIPTION = 'Invite request denied notification';
 
     protected function _prepare($request, $message) {
+        $this->view->setLayout('DefaultMail');
         $this->view['request'] = $request;
         $this->view['message'] = $message;
 

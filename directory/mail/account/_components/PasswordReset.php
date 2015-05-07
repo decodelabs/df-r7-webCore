@@ -16,6 +16,7 @@ class PasswordReset extends arch\component\Mail {
     const IS_PRIVATE = true;
 
     protected function _prepare($key) {
+        $this->view->setLayout('DefaultMail');
         $this->view['key'] = $key;
 
         $this->setDefaultToAddress($key['user']['email']);

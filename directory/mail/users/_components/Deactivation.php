@@ -15,6 +15,7 @@ class Deactivation extends arch\component\Mail {
     const DESCRIPTION = 'User deactivation';
 
     protected function _prepare($deactivation) {
+        $this->view->setLayout('DefaultMail');
         $this->view['deactivation'] = $deactivation;
         $this->view['client'] = $deactivation['user'];
     }

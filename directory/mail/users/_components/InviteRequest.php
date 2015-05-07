@@ -15,6 +15,7 @@ class InviteRequest extends arch\component\Mail {
     const DESCRIPTION = 'Invite request';
 
     protected function _prepare($request, $message=null) {
+        $this->view->setLayout('DefaultMail');
         $this->view['request'] = $request;
         $this->view['message'] = $message;
 
