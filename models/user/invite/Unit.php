@@ -124,22 +124,11 @@ class Unit extends axis\unit\table\Base {
             $rendererPath = 'users/Invite';
         }
 
-        $parts = explode('/', $rendererPath);
-        $name = array_pop($parts);
-
-        if(false !== strpos($name, '.')) {
-            $this->context->comms->templateNotify(
-                $rendererPath,
-                ['invite' => $invite],
-                flow\mail\Address::factory($invite['email'], $invite['name'])
-            );
-        } else {
-            $this->context->comms->componentNotify(
-                $rendererPath,
-                [$invite],
-                flow\mail\Address::factory($invite['email'], $invite['name'])
-            );
-        }
+        $this->context->comms->componentNotify(
+            $rendererPath,
+            [$invite],
+            flow\mail\Address::factory($invite['email'], $invite['name'])
+        );
 
         $invite['lastSent'] = 'now';
         $invite->save();
@@ -189,22 +178,11 @@ class Unit extends axis\unit\table\Base {
             $rendererPath = 'users/Invite';
         }
 
-        $parts = explode('/', $rendererPath);
-        $name = array_pop($parts);
-
-        if(false !== strpos($name, '.')) {
-            $this->context->comms->templateNotify(
-                $rendererPath,
-                ['invite' => $invite],
-                flow\mail\Address::factory($invite['email'], $invite['name'])
-            );
-        } else {
-            $this->context->comms->componentNotify(
-                $rendererPath,
-                [$invite],
-                flow\mail\Address::factory($invite['email'], $invite['name'])
-            );
-        }
+        $this->context->comms->componentNotify(
+            $rendererPath,
+            [$invite],
+            flow\mail\Address::factory($invite['email'], $invite['name'])
+        );
 
         $invite['lastSent'] = 'now';
         $invite->save();
