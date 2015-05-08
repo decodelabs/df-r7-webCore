@@ -142,7 +142,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->addField('actions', function($auth) {
                 if($auth['adapter'] == 'Local') {
                     return $this->html->link(
-                            $this->uri('./change-password?user='.$auth->getRawId('user'), true),
+                            $this->uri('./change-password?user='.$auth['#user'], true),
                             $this->_('Change password')
                         )
                         ->setIcon('edit')

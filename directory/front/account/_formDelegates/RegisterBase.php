@@ -56,7 +56,7 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
 
     protected function _saveClient(apex\models\user\client\Record $client) {
         if($this->_invite) {
-            $client->groups->addList($this->_invite->groups->getRelatedPrimaryKeys());
+            $client->groups->addList($this->_invite['#groups']);
         }
 
         $client->save();

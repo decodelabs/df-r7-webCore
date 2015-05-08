@@ -20,12 +20,7 @@ class HttpEdit extends HttpAdd {
     }
     
     protected function _setDefaultValues() {
-        $this->values->importFrom($this->_group, [
-            'name'
-        ]);
-        
-        $this->getDelegate('roles')->setSelected(
-            $this->_group->roles->getRelatedPrimaryKeys()
-        );
+        $this->values->importFrom($this->_group, ['name']);
+        $this->getDelegate('roles')->setSelected($this->_group['#roles']);
     }
 }

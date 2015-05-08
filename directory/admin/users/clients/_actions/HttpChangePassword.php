@@ -26,7 +26,7 @@ class HttpChangePassword extends arch\form\Action {
     }
 
     protected function _getDataId() {
-        return $this->_auth->getRawId('user');
+        return $this->_auth['#user'];
     }
 
     protected function _createUi() {

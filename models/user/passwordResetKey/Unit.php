@@ -39,7 +39,7 @@ class Unit extends axis\unit\table\Base {
 
     public function deleteRecentUnusedKeys(Record $redeemedKey) {
         $this->delete()
-            ->where('user', '=', $redeemedKey->getRawId('user'))
+            ->where('user', '=', $redeemedKey['#user'])
             ->where('resetDate', '=', null)
             ->where('adapter', '=', 'Local')
             ->execute();

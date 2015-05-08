@@ -60,7 +60,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Components
     protected function _getSectionHeaderBarBackLinkRequest() {
-        $id = $this->getRecord()->getRawId('miss');
+        $id = $this->getRecord()['#miss'];
         return '../details?miss='.core\string\Uuid::factory($id);
     }
 

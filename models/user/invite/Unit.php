@@ -88,11 +88,11 @@ class Unit extends axis\unit\table\Base {
             );
         }
 
-        if(!$invite->getRawId('owner')) {
+        if(!$invite['#owner']) {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
-        $ownerId = $invite->getRawId('owner');
+        $ownerId = $invite['#owner'];
         $isClient = $ownerId == $this->context->user->client->getId();
         $model = $this->getModel();
 

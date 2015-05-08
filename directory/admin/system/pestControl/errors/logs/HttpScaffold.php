@@ -56,7 +56,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Components
     protected function _getSectionHeaderBarBackLinkRequest() {
-        $id = $this->getRecord()->getRawId('error');
+        $id = $this->getRecord()['#error'];
         return '../details?error='.core\string\Uuid::factory($id);
     }
 
