@@ -1,7 +1,9 @@
 <?php
-$this->view
-  ->shouldRenderBase(false)
-  ->setTitle($this->getSlot('title'));
+$this->view->shouldRenderBase(false);
+
+if($this->hasSlot('title')) {
+    $this->view->setTitle($this->getSlot('title'));
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
