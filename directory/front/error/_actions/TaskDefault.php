@@ -17,15 +17,12 @@ class TaskDefault extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        $request = $this->context->request;
-        
-        if(!$request instanceof arch\IErrorRequest) {
+        if(!$exception = $this->application->getDispatchException()) {
             $this->throwError(404, 'You shouldn\'t be here');
         }
 
-        $exception = $request->getException();
         $code = $exception->getCode();
-        $lastRequest = $request->getLastRequest();
+        $lastRequest = $this->application->getDispatchRequest();
 
         if(!link\http\response\HeaderCollection::isValidStatusCode($code)
         || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
