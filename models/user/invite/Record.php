@@ -18,16 +18,28 @@ class Record extends opal\record\Base {
         }
     }
 
-    public function sendAsAllowance($templatePath=null, $templateLocation=null) {
-        return $this->getRecordAdapter()->sendAsAllowance($this, $templatePath, $templateLocation);
+    public function sendAsAllowance($rendererPath=null) {
+        return $this->getRecordAdapter()->sendAsAllowance($this, $rendererPath);
     }
 
-    public function send($templatePath=null, $templateLocation=null) {
-        return $this->getRecordAdapter()->send($this, $templatePath, $templateLocation);
+    public function forceSendAsAllowance($rendererPath=null) {
+        return $this->getRecordAdapter()->forceSendAsAllowance($this, $rendererPath);
     }
 
-    public function resend($templatePath=null, $templateLocation=null) {
-        return $this->getRecordAdapter()->resend($this, $templatePath, $templateLocation);
+    public function send($rendererPath=null) {
+        return $this->getRecordAdapter()->send($this, $rendererPath);
+    }
+
+    public function forceSend($rendererPath=null) {
+        return $this->getRecordAdapter()->forceSend($this, $rendererPath);
+    }
+
+    public function resend($rendererPath=null) {
+        return $this->getRecordAdapter()->resend($this, $rendererPath);
+    }
+
+    public function forceResend($rendererPath=null) {
+        return $this->getRecordAdapter()->forceResend($this, $rendererPath);
     }
 
     public function claim(user\IClientDataObject $client) {

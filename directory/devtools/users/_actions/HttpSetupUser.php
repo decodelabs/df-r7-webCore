@@ -127,6 +127,7 @@ class HttpSetupUser extends arch\form\Action {
     protected function _onSaveEvent() {
         if($this->values->isValid()) {
             $model = $this->data->getModel('user');
+
             $client = $model->client->newRecord($this->values->toArray());
             $auth = $model->auth->newRecord([
                 'user' => $client,

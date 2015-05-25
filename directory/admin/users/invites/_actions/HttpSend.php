@@ -61,12 +61,21 @@ class HttpSend extends arch\form\Action {
             $this->getDelegate('groups')
         );
 
+        // Force send
+        if(!$this->application->isProduction()) {
+            $fs->addFieldArea()->push(
+                $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
+                    'Force sending to recipient even in testing mode'
+                ))
+            );
+        }
+
         // Buttons
         $fs->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
     protected function _onSendEvent() {
-        $this->data->newValidator()
+        $validator = $this->data->newValidator()
 
             // Name
             ->addRequiredField('name', 'text')
@@ -94,13 +103,21 @@ class HttpSend extends arch\form\Action {
             // Message
             ->addField('message', 'text')
 
+            // Force send
+            ->addField('forceSend', 'boolean')
+
             ->validate($this->values)
-            ->applyTo($this->_invite);
+            ->applyTo($this->_invite, ['name', 'email', 'groups', 'message']);
 
 
         if($this->isValid()) {
             $this->_invite['isFromAdmin'] = true;
-            $this->_invite->send();
+
+            if($validator['forceSend']) {
+                $this->_invite->forceSend();
+            } else {
+                $this->_invite->send();
+            }
 
             $this->comms->flashSuccess(
                 'invite.send',

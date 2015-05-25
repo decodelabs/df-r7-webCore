@@ -48,6 +48,16 @@ class HttpResend extends arch\form\template\Confirm {
                     });
                 })
         );
+
+
+        // Force send
+        if(!$this->application->isProduction()) {
+            $container->addFieldArea()->push(
+                $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
+                    'Force sending to recipient even in testing mode'
+                ))
+            );
+        }
     }
 
     protected function _getMainMessage($itemName) {
@@ -63,7 +73,15 @@ class HttpResend extends arch\form\template\Confirm {
     }
 
     protected function _apply() {
-        $this->data->user->invite->resend($this->_invite);
+        $validator = $this->data->newValidator()
+            ->addField('forceSend', 'boolean')
+            ->validate($this->values);
+
+        if($validator['forceSend']) {
+            $this->data->user->invite->forceResend($this->_invite);
+        } else {
+            $this->data->user->invite->resend($this->_invite);
+        }
     }
 
     protected function _getFlashMessage() {

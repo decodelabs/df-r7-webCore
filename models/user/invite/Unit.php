@@ -71,11 +71,19 @@ class Unit extends axis\unit\table\Base {
         return $this->_send($invite, $rendererPath, true);
     }
 
+    public function forceSendAsAllowance(Record $invite, $rendererPath=null) {
+        return $this->_send($invite, $rendererPath, true, true);
+    }
+
     public function send(Record $invite, $rendererPath=null) {
         return $this->_send($invite, $rendererPath, false);
     }
 
-    protected function _send(Record $invite, $rendererPath=null, $allowance=false) {
+    public function forceSend(Record $invite, $rendererPath=null) {
+        return $this->_send($invite, $rendererPath, false, true);
+    }
+
+    protected function _send(Record $invite, $rendererPath=null, $allowance=false, $force=false) {
         if($invite['lastSent']) {
             throw new \RuntimeException(
                 'Invite has already been sent'
@@ -127,7 +135,10 @@ class Unit extends axis\unit\table\Base {
         $this->context->comms->componentNotify(
             $rendererPath,
             [$invite],
-            flow\mail\Address::factory($invite['email'], $invite['name'])
+            flow\mail\Address::factory($invite['email'], $invite['name']),
+            null,
+            false,
+            $force
         );
 
         $invite['lastSent'] = 'now';
@@ -152,6 +163,14 @@ class Unit extends axis\unit\table\Base {
     }
 
     public function resend(Record $invite, $rendererPath=null) {
+        return $this->_resend($invite, $rendererPath);
+    }
+
+    public function forceResend(Record $invite, $rendererPath=null) {
+        return $this->_resend($invite, $rendererPath, true);
+    }
+
+    protected function _resend(Record $invite, $rendererPath=null, $force=false) {
         if($invite->isNew()) {
             throw new \RuntimeException(
                 'Invite has not been initialized'
@@ -181,7 +200,10 @@ class Unit extends axis\unit\table\Base {
         $this->context->comms->componentNotify(
             $rendererPath,
             [$invite],
-            flow\mail\Address::factory($invite['email'], $invite['name'])
+            flow\mail\Address::factory($invite['email'], $invite['name']),
+            null,
+            false,
+            $force
         );
 
         $invite['lastSent'] = 'now';
