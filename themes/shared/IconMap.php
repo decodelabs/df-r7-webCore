@@ -60,6 +60,7 @@ return [
     'archive' => '&#xe01e;',
     'update' => '&#xe01e;',
     'launch' => '&#xe01f;',
+    'skillset' => '&#xe01f;',
     'legacy' => '&#xe020;',
     'task' => '&#xe020;',
     'bug' => '&#xe020;',
