@@ -432,9 +432,9 @@ q {
 }
 
 
-:first-child {
+html :first-child {
   margin-top: 0;
 }
-:last-child {
+html :last-child {
   margin-bottom: 0;
 }
