@@ -1,0 +1,42 @@
+body.modal-open {
+    overflow: hidden; 
+}
+
+#modal-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+
+    #modal-wrapper {
+        max-height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+#modal-content {
+    position: relative;
+    width: 60%;
+    min-width: 600px;
+    min-height: 400px;
+    margin: 2em auto;
+    background: #FFF;
+    z-index: 999;
+}
+
+@media only screen and (max-width: 640px) {
+    #modal-content {
+        min-width: 300px;
+        width: 95%;
+    }
+}
