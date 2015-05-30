@@ -51,7 +51,10 @@ window.dfKit = {
             $.ajax({
                 url: url,
                 type: 'GET',
-                headers: {'x-ajax-request-type' : data.requestType},
+                headers: {
+                    'x-ajax-request-type' : data.requestType,
+                    'x-ajax-request-source': data.requestSource
+                },
                 success: function(response) {
                     _this.normalizeResponse(response, data, callback);
                 }
@@ -68,7 +71,10 @@ window.dfKit = {
                 data: $.param(data.form),
                 url: url,
                 type: 'POST',
-                headers: {'x-ajax-request-type' : data.requestType},
+                headers: {
+                    'x-ajax-request-type' : data.requestType,
+                    'x-ajax-request-source': data.requestSource
+                },
                 success: function(response) {
                     _this.normalizeResponse(response, data, callback);
                 }
@@ -83,6 +89,10 @@ window.dfKit = {
 
             if(!data.requestType) {
                 data.requestType = 'ajax';
+            }
+
+            if(!data.requestSource) {
+                data.requestSource = 'ajax';
             }
 
             this._lastRequest = data;
@@ -185,6 +195,8 @@ window.dfKit = {
                 _this._initialUrl = href;
 
                 dfKit.ajax.load('#modal-content', href, {
+                    requestSource: 'modal',
+
                     formComplete: function(response) {
                         _this.close();
                     },
@@ -243,6 +255,7 @@ window.dfKit = {
 
             dfKit.ajax.load('#modal-content', href, {
                 requestType: 'ajax',
+                requestSource: 'modal',
                 formComplete: function(response) {
                     dfKit.ajax.load('#modal-content', _this._initialUrl);
                 }
@@ -274,6 +287,8 @@ window.dfKit = {
             if(!data.$element) {
                 data.$element = $form;
             }
+
+            data.requestSource = 'modal';
 
             dfKit.ajax.post($form.attr('action'), data, function(output) {
                 dfKit.ajax.handleResponse(output);
