@@ -168,7 +168,7 @@ window.dfKit = {
                 _this.close();
             });
 
-            $(document).on('click', _this.attr.container + ' a:not(.modal-close)', function(e) {
+            $(document).on('click', _this.attr.container + ' a:not(.modal-close,.local,[target])', function(e) {
                 _this.onLinkClick(e);
             });
 
