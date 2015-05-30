@@ -31,6 +31,14 @@ window.dfKit = {
         }
     },
 
+    isUrlExternal: function(url) {
+        var domain = function(url) {
+            return url.replace('http://','').replace('https://','').split('/')[0];
+        };
+
+        return domain(location.href) !== domain(url);
+    },
+
     ajax: {
         _lastRequest: null,
 
@@ -168,8 +176,10 @@ window.dfKit = {
                 _this.close();
             });
 
-            $(document).on('click', _this.attr.container + ' a:not(.modal-close,.local,[target])', function(e) {
-                _this.onLinkClick(e);
+            $(document).on('click', _this.attr.container + ' a:not(.modal-close,.local,[target],'+ _this.attr.trigger + ')', function(e) {
+                if(!dfKit.isUrlExternal($(this).attr('href'))) {
+                    _this.onLinkClick(e);
+                }
             });
 
             $(document).on('submit', _this.attr.container + ' .widget-form', function(e) {
@@ -210,37 +220,57 @@ window.dfKit = {
         open: function(html, modalClass, callback, closeCallback, callbackData) {
             var _this = this;
             _this.init();
-            _this.close();
-            _this._closeCallback = closeCallback;
 
-            $('body').addClass('modal-open');
-            var $container = $('<div id="modal-container"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
-            var $modal = $(_this.attr.content).hide().html(html);
+            var $container = $(_this.attr.container),
+                $modal,
+                builder = function() {
+                    $modal = $(_this.attr.content).hide().html(html);
+                    _this._closeCallback = closeCallback;
+                    if(modalClass) $modal.addClass(modalClass);
 
-            if(modalClass) {
-                $modal.addClass(modalClass);
+                    dfKit.call(callback, callbackData);
+                    $modal.fadeIn(200);
+                };
+
+            if($container.length) {
+                $(_this.attr.content).fadeOut(200, function() {
+                    dfKit.call(_this._closeCallback);
+                    _this._closeCallback = null;
+                    builder();
+                });
+            } else {
+                $('body').addClass('modal-open');
+                $container = $('<div id="modal-container"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
+                $(_this.attr.content).hide();
+
+                $container.fadeIn(200, function() {
+                    builder();
+                });
             }
-
-            $container.fadeIn(200, function() {
-                $modal.fadeIn(200);
-                dfKit.call(callback, callbackData);
-            });
         },
 
         close: function(callback, data) {
             var _this = this;
             _this.init();
 
-            $(_this.attr.content).fadeOut(200, function() {
-                $(_this.attr.container).fadeOut(200, function() {
-                    _this._initialUrl = null;
-                    $(this).remove();
-                    $('body').removeClass('modal-open');
-                    dfKit.call(_this._closeCallback, data);
-                    _this._closeCallback = null;
-                    dfKit.call(callback, data);
+            var callbackRunner = function() {
+                dfKit.call(_this._closeCallback, data);
+                _this._closeCallback = null;
+                dfKit.call(callback, data);
+            };
+
+            if(!$(_this.attr.container).length) {
+                callbackRunner();
+            } else {
+                $(_this.attr.content).fadeOut(200, function() {
+                    $(_this.attr.container).fadeOut(200, function() {
+                        _this._initialUrl = null;
+                        $(this).remove();
+                        $('body').removeClass('modal-open');
+                        callbackRunner();
+                    });
                 });
-            });
+            }
         },
 
         
