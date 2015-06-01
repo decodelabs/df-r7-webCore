@@ -273,7 +273,26 @@ window.dfKit = {
 
         close: function(callback, data) {
             var _this = this;
-            _this.init();
+            this.init();
+
+            if($('.widget-form', this.attr.container).length) {
+                var $form = $('.widget-form', this.attr.container).first();
+
+                dfKit.ajax.post($form.attr('action'), {
+                    form: [{name:'formEvent', value:'cancel'}],
+                    $element: $form,
+                    requestSource: 'modal',
+                    formComplete: function() {
+                        _this._close();
+                    }
+                });
+            } else {
+                this._close(callback, data);
+            }
+        },
+
+        _close: function(callback, data) {
+            var _this = this;
 
             var callbackRunner = function() {
                 dfKit.call(_this._closeCallback, data);
