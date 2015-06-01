@@ -219,7 +219,9 @@ window.dfKit = {
                         if(response.request.formEvent != 'cancel'
                         && response.forceRedirect
                         && response.redirect !== null) {
-                            return dfKit.ajax.load(_this.attr.content, response.redirect);
+                            return dfKit.ajax.load(_this.attr.content, response.redirect, {
+                                requestSource: 'modal'
+                            });
                         }
                         
                         _this.close();
@@ -341,7 +343,9 @@ window.dfKit = {
                     if(response.request.formEvent != 'cancel'
                     && response.forceRedirect
                     && response.redirect !== null) {
-                        return dfKit.ajax.load(_this.attr.content, response.redirect);
+                        return dfKit.ajax.load(_this.attr.content, response.redirect, {
+                            requestSource: 'modal'
+                        });
                     }
 
                     dfKit.ajax.load(_this.attr.content, _this._initialUrl);
