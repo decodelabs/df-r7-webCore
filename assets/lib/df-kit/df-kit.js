@@ -152,6 +152,7 @@ window.dfKit = {
         _closeCallback: null,
         _isInit: false,
         _initialUrl: null,
+        _overlayAction: 'close',
 
         init: function() {
             if(this._isInit) return;
@@ -160,17 +161,21 @@ window.dfKit = {
             $(document).on('click', this.attr.trigger, function(e) {
                 e.preventDefault();
 
-                var modalClass = $(this).data('modal-class');
-                var href = $(this).data('modal-href');
+                var modalClass = $(this).data('modal-class'),
+                    href = $(this).data('modal-href'),
+                    overlayAction = $(this).data('overlay-action');
 
                 if(!href) {
                     href = $(this).attr('href');
                 }
 
-                _this.ajax(href, modalClass);
+                _this.ajax(href, {
+                    class: modalClass,
+                    overlayAction: overlayAction
+                });
             });
 
-            $(document).on('click touchstart', _this.attr.container + ', ' + _this.attr.wrapper + ', .modal-close', function(e) {
+            $(document).on('click touchstart', '.modal-close', function(e) {
                 if(e.target != e.currentTarget) return;
                 e.preventDefault();
                 _this.close();
@@ -197,11 +202,14 @@ window.dfKit = {
             _this._isInit = true;
         },
 
-        ajax: function(href, modalClass, callback, closeCallback) {
-            var _this = this;
-            _this.init();
+        ajax: function(href, options) {
+            var _this = this,
+                callback = options.callback;
 
-            _this.open('', modalClass, function(data) {
+            _this.init();
+            options = options || {};
+
+            options.callback = function(data) {
                 _this._initialUrl = href;
 
                 dfKit.ajax.load('#modal-content', href, {
@@ -214,22 +222,36 @@ window.dfKit = {
                         dfKit.call(callback);
                     }
                 });
-            }, closeCallback);
+            };
+
+            _this.open('', options);
         },
 
-        open: function(html, modalClass, callback, closeCallback, callbackData) {
+        open: function(html, options) {
             var _this = this;
             _this.init();
+            options = options || {};
 
             var $container = $(_this.attr.container),
-                $modal,
+                $modal, $overlay,
                 builder = function() {
                     $modal = $(_this.attr.content).hide().html(html);
-                    _this._closeCallback = closeCallback;
-                    if(modalClass) $modal.addClass(modalClass);
+                    $overlay = $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
+                    _this._closeCallback = options.closeCallback;
+                    if(options.class) $modal.addClass(options.class);
 
-                    dfKit.call(callback, callbackData);
+                    dfKit.call(options.callback, options.callbackData);
                     $modal.fadeIn(200);
+
+                    switch(options.overlayAction) {
+                        case 'none':
+                            break;
+
+                        case 'close':
+                        default:
+                            $overlay.addClass('modal-close');
+                            break;
+                    }
                 };
 
             if($container.length) {
@@ -259,10 +281,14 @@ window.dfKit = {
                 dfKit.call(callback, data);
             };
 
+            $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
+
             if(!$(_this.attr.container).length) {
                 callbackRunner();
             } else {
                 $(_this.attr.content).fadeOut(200, function() {
+                    _this._overlayAction = 'close';
+
                     $(_this.attr.container).fadeOut(200, function() {
                         _this._initialUrl = null;
                         $(this).remove();
