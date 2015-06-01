@@ -107,22 +107,22 @@ window.dfKit = {
             return data;
         },
 
-        normalizeResponse: function(response, requestData, callback) {
+        normalizeResponse: function(response, request, callback) {
             if(typeof response !== 'object') {
                 response = {
                     content: response
                 };
             }
 
-            response.requestData = requestData;
+            response.request = request;
 
-            if(response.isComplete && requestData.formComplete) {
-                response.requestData.formComplete(response);
+            if(response.isComplete && request.formComplete) {
+                response.request.formComplete(response);
                 return;
             }
 
             if(response.redirect && response.redirect !== null) {
-                return this.get(response.redirect, requestData, callback);
+                return this.get(response.redirect, request, callback);
             }
 
             dfKit.call(callback, response);
@@ -133,10 +133,10 @@ window.dfKit = {
                 return;
             }
             
-            response.requestData.$element.html(response.content);
+            response.request.$element.html(response.content);
 
-            if(response.requestData.onLoad && response.requestData.onLoad !== null) {
-                response.requestData.onLoad(response);
+            if(response.request.onLoad && response.request.onLoad !== null) {
+                response.request.onLoad(response);
             }
         }
     },
@@ -212,10 +212,16 @@ window.dfKit = {
             options.callback = function(data) {
                 _this._initialUrl = href;
 
-                dfKit.ajax.load('#modal-content', href, {
+                dfKit.ajax.load(_this.attr.content, href, {
                     requestSource: 'modal',
 
                     formComplete: function(response) {
+                        if(response.request.formEvent != 'cancel'
+                        && response.forceRedirect
+                        && response.redirect !== null) {
+                            return dfKit.ajax.load(_this.attr.content, response.redirect);
+                        }
+                        
                         _this.close();
                     },
                     onLoad: function(response) {
@@ -328,11 +334,17 @@ window.dfKit = {
 
             e.preventDefault();
 
-            dfKit.ajax.load('#modal-content', href, {
+            dfKit.ajax.load(_this.attr.content, href, {
                 requestType: 'ajax',
                 requestSource: 'modal',
                 formComplete: function(response) {
-                    dfKit.ajax.load('#modal-content', _this._initialUrl);
+                    if(response.request.formEvent != 'cancel'
+                    && response.forceRedirect
+                    && response.redirect !== null) {
+                        return dfKit.ajax.load(_this.attr.content, response.redirect);
+                    }
+
+                    dfKit.ajax.load(_this.attr.content, _this._initialUrl);
                 }
             });
         },
