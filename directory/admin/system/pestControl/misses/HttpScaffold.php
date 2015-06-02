@@ -147,7 +147,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineBotsField($list, $mode) {
         $list->addField('botsSeen', $this->_('Bots'), function($miss) {
             $percent = (100 / $miss['seen']) * $miss['botsSeen'];
-            $output = $this->format->percent($percent / 100);
+            $output = $this->format->percent($percent);
 
             if($percent > 0) {
                 $output = $this->html->icon('warning', $output);
