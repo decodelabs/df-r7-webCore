@@ -9,7 +9,6 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
-use df\opal;
     
 class Unit extends axis\unit\table\Base {
 
@@ -19,6 +18,12 @@ class Unit extends axis\unit\table\Base {
         'companyName' => 5,
         'companyPosition' => 1
     ];
+
+    protected $_defaultOrderableFields = [
+        'name', 'email', 'companyName', 'companyPosition', 'creationDate', 'isActive'
+    ];
+
+    protected $_defaultOrder = 'creationDate DESC';
 
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('id', 'AutoId', 8);
@@ -40,13 +45,5 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('invite', 'One', 'user/Invite')
             ->isNullable(true);
-    }
-
-    public function applyPagination(opal\query\IPaginator $paginator) {
-        $paginator
-            ->setOrderableFields('name', 'email', 'companyName', 'companyPosition', 'creationDate', 'isActive')
-            ->setDefaultOrder('creationDate DESC');
-
-        return $this;
     }
 }

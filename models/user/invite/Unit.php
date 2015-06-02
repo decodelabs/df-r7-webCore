@@ -8,7 +8,6 @@ namespace df\apex\models\user\invite;
 use df;
 use df\core;
 use df\axis;
-use df\opal;
 use df\user;
 use df\flow;
 
@@ -20,6 +19,13 @@ class Unit extends axis\unit\table\Base {
         'name' => 5,
         'email' => 2
     ];
+
+    protected $_defaultOrderableFields = [
+        'creationDate', 'owner', 'name', 'email', 
+        'registrationDate', 'user', 'lastSent'
+    ];
+
+    protected $_defaultOrder = 'lastSent DESC';
 
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('id', 'AutoId');
@@ -49,17 +55,6 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('lastSent', 'DateTime');
         $schema->addField('isActive', 'Boolean')
             ->setDefaultValue(true);
-    }
-
-    public function applyPagination(opal\query\IPaginator $paginator) {
-        $paginator
-            ->setOrderableFields(
-                'creationDate', 'owner', 'name', 'email', 
-                'registrationDate', 'user', 'lastSent'
-            )
-            ->setDefaultOrder('lastSent DESC');
-
-        return $this;
     }
 
 

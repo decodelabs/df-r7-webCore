@@ -9,9 +9,14 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
-use df\opal;
     
 class Unit extends axis\unit\table\Base {
+
+    protected $_defaultOrderableFields = [
+        'date', 'user'
+    ];
+
+    protected $_defaultOrder = 'date DESC';
 
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addPrimaryField('id', 'AutoId');
@@ -21,13 +26,5 @@ class Unit extends axis\unit\table\Base {
             ->isNullable(true);
         $schema->addField('comments', 'BigString', 'medium')
             ->isNullable(true);
-    }
-
-    public function applyPagination(opal\query\IPaginator $paginator) {
-        $paginator
-            ->setOrderableFields('date', 'user')
-            ->setDefaultOrder('date DESC');
-
-        return $this;
     }
 }
