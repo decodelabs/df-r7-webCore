@@ -39,6 +39,12 @@ window.dfKit = {
         return domain(location.href) !== domain(url);
     },
 
+    openWindow: function(url, title, width, height) {
+        var left = (screen.width / 2) - (width / 2);
+        var top = (screen.height / 2) - (height / 2);
+        window.open(url, title, 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+height+',width='+width+',top='+top+',left='+left);
+    },
+
     ajax: {
         _lastRequest: null,
 
