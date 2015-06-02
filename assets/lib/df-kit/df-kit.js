@@ -15,6 +15,12 @@ window.dfKit = {
         this.location = $(document.body).data('location');
         this.layout = $(document.body).data('layout');
         this._isInit = true;
+
+
+
+        $(document).on('submit', '.widget-form', function(e) {
+            $(this).find('.widget-eventButton').prop('disabled', true).addClass('disabled');
+        });
     },
 
     ready: function(func) {
