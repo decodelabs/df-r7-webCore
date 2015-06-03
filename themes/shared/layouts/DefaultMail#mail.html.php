@@ -1,1 +1,1 @@
-<?php require __DIR__.'/Default.html.php'; ?>
+<?php require __DIR__.'/Default#mail.html.php'; ?>
