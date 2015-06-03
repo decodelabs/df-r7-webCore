@@ -125,40 +125,81 @@ class HttpSetupUser extends arch\form\Action {
 
 
     protected function _onSaveEvent() {
+        $validator = $this->data->newValidator()
+
+            // Email
+            ->addRequiredField('email')
+
+            // Password
+            ->addRequiredField('password', 'password')
+
+            // Full name
+            ->addRequiredField('fullName', 'text')
+
+            // Nick name
+            ->addRequiredField('nickName', 'text')
+
+            // Timezone
+            ->addRequiredField('timezone', 'text')
+                ->setSanitizer(function($value) {
+                    return str_replace(' ', '/', ucwords(str_replace('/', ' ', $value)));
+                })
+                ->setCustomValidator(function($node, $value) {
+                    if(!$this->i18n->timezones->isValidId($value)) {
+                        $node->addError('invalid', $this->_(
+                            'Please enter a valid timezone id'
+                        ));
+                    }
+                })
+
+            // Country
+            ->addRequiredField('country', 'text')
+                ->setSanitizer(function($value) {
+                    return strtoupper($value);
+                })
+                ->setCustomValidator(function($node, $value) {
+                    if(!$this->i18n->countries->isValidId($value)) {
+                        $node->addError('invalid', $this->_(
+                            'Please enter a valid country code'
+                        ));
+                    }
+                })
+                
+            // Language
+            ->addRequiredField('language', 'text')
+                ->setSanitizer(function($value) {
+                    return strtolower($value);  
+                })
+                ->setCustomValidator(function($node, $value) {
+                    if(!$this->i18n->languages->isValidId($value)) {
+                        $node->addError('invalid', $this->_(
+                            'Please enter a valid language id'
+                        ));
+                    }
+                })
+
+            ->validate($this->values);
+
         if($this->values->isValid()) {
             $model = $this->data->getModel('user');
 
-            $client = $model->client->newRecord($this->values->toArray());
+            $model->installDefaultManifest();
+
+            $client = $model->client->newRecord();
+            $validator->applyTo($client, [
+                'email', 'fullName', 'nickName', 'timezone', 'country', 'language'
+            ]);
+
             $auth = $model->auth->newRecord([
                 'user' => $client,
-                'adapter' => 'Local',
-                'identity' => $client['email'],
-                'password' => $this->data->hash($this->values['password'])
+                'adapter' => 'Local'
             ]);
+            $validator->getField('email')->setRecordName('identity');
+            $validator->applyTo($auth, ['email', 'password']);
             
-            $group = $model->group->newRecord([
-                'name' => 'Developers'
-            ]);
-            
-            $client->groups->add($group);
-            
-            $role = $model->role->newRecord([
-                'name' => 'Super user',
-                'priority' => 99999
-            ]);
-            
-            $group->roles->add($role);
-            
+            $client->groups->add('77abfc6a-bab7-c3fa-f701-e08615a46c35');
             $auth->save();
             
-            $key = $model->key->newRecord([
-                'role' => $role['id'],
-                'domain' => '*',
-                'pattern' => '*',
-                'allow' => true
-            ]);
-            
-            $key->save();
             $this->complete();
             
             return $this->http->redirect('account/login');
