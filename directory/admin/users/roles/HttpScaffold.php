@@ -20,13 +20,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
     protected $_recordListFields = [
-        'name', 'bindState', 'minRequiredState', 
-        'priority', 'groups', 'keys'
+        'name', 'signifier', 'priority', 'groups', 'keys'
     ];
 
     protected $_recordDetailsFields = [
-        'name', 'bindState', 'minRequiredState', 
-        'priority', 'groups'
+        'name', 'signifier', 'priority', 'groups'
     ];
 
 // Record data
@@ -81,24 +79,15 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Fields
-    public function defineBindStateField($list) {
-        $list->addField('bindState', $this->_('Bind state'), function($role) {
-            if($role['bindState'] !== null) {
-                return user\Client::stateIdToName($role['bindState']);
-            }
-        });
-    }
-
-    public function defineMinRequiredStateField($list) {
-        $list->addField('minRequiredState', $this->_('Min. required state'), function($role) {
-            if($role['minRequiredState'] !== null) {
-                return user\Client::stateIdToName($role['minRequiredState']);
-            }
-        });
-    }
-
     public function definePriorityField($list, $mode) {
         $list->addField('priority');
+    }
+
+    public function defineSignifierField($list, $mode) {
+        $list->addField('signifier', function($role) {
+            if(!$role['signifier']) return null;
+            return $this->html('samp', $role['signifier']);
+        });
     }
 
     public function defineGroupsField($list, $mode) {

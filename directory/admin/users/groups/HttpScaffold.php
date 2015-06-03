@@ -16,6 +16,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Groups';
     const DIRECTORY_ICON = 'group';
     const RECORD_ADAPTER = 'axis://user/Group';
+    const DEFAULT_RECORD_ACTION = 'users';
 
     protected $_sections = [
         'details',
@@ -23,7 +24,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
     protected $_recordListFields = [
-        'name', 'roles', 'users'
+        'name', 'signifier', 'roles', 'users'
     ];
 
 // Record data
@@ -60,18 +61,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 // Secions
     public function renderDetailsSectionBody($group) {
-        $roleList = $group->roles->fetch()
-            ->countRelation('groups')
-            ->countRelation('keys')
-            ->orderBy('priority');
-
-        return [
-            $this->html('h3', $this->_('Roles')),
-
-            $this->apex->component('../roles/RoleList', [
-                'actions' => false
-            ], $roleList)
-        ];
+        return $this->apex->scaffold('../roles/')
+            ->renderRecordList(
+                $group->roles->select(),
+                ['actions' => false]
+            );
     }
 
     public function renderUsersSectionBody($group) {
@@ -80,6 +74,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
 // Fields
+    public function defineSignifierField($list, $mode) {
+        $list->addField('signifier', function($group) {
+            if(!$group['signifier']) return null;
+            return $this->html('samp', $group['signifier']);
+        });
+    }
+
     public function defineRolesField($list, $mode) {
         if($mode == 'list') {
             return false;

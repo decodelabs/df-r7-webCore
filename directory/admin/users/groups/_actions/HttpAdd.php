@@ -31,8 +31,14 @@ class HttpAdd extends arch\form\Action {
         // Name
         $fs->addFieldArea($this->_('Name'))
             ->addTextbox('name', $this->values->name)
+                ->setMaxLength(64)
                 ->isRequired(true);
-                
+            
+        // Signifier
+        $fs->addFieldArea($this->_('Signifier'))->push(
+            $this->html->textbox('signifier', $this->values->signifier)
+                ->setMaxLength(32)
+        );
                 
         // Roles
         $fs->addFieldArea($this->_('Roles'))->push(
@@ -48,6 +54,11 @@ class HttpAdd extends arch\form\Action {
 
             // Name
             ->addRequiredField('name', 'text')
+                ->setMaxLength(64)
+
+            // Signifier
+            ->addField('signifier', 'text')
+                ->setMaxLength(32)
 
             // Roles
             ->addField('roles', 'delegate')

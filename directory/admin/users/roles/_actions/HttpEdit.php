@@ -21,7 +21,7 @@ class HttpEdit extends HttpAdd {
     
     protected function _setDefaultValues() {
         $this->values->importFrom($this->_role, [
-            'name', 'bindState', 'minRequiredState', 'priority'
+            'name', 'signifier', 'priority'
         ]);
     }
 }

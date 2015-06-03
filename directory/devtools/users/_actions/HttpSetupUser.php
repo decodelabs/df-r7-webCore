@@ -144,7 +144,6 @@ class HttpSetupUser extends arch\form\Action {
             
             $role = $model->role->newRecord([
                 'name' => 'Super user',
-                'minRequiredState' => user\IState::CONFIRMED,
                 'priority' => 99999
             ]);
             
