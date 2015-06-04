@@ -5,36 +5,34 @@ echo $this->html->menuBar()
     );
 
 
-$location = $this['counter']->getMergedLocation();
+$location = $this['probes']->getAll();
+$location->sortByLines();
+$list = $location->getTypes();
+$list[] = $location->getTotals();
 
-echo $this->html->attributeList($location)
-    ->addField('Files', function($location) {
-        return $this->format->number($location->countFiles());
+echo $this->html->collectionList($list)
+    ->addField('extension', function($location, $context) {
+        if($location->extension == 'TOTAL') {
+            $context->rowTag->addClass('active');
+        }
+
+        return $location->extension;
     })
-    ->addField('Lines', function($location) {
-        return $this->format->number($location->countLines());
+    ->addField('files', function($location) {
+        return $this->format->number($location->files);
     })
-    ->addField('Size', function($location) {
-        return $this->format->fileSize($location->countBytes());
+    ->addField('lines', function($location) {
+        return $this->format->number($location->lines);
     })
-    
-        
-    ->addField('phpFile', 'PHP Files', function($location) {
-        return $this->format->number($location->getType('php')->countFiles());
-    })
-    ->addField('phpLines', 'PHP Lines', function($location) {
-        return $this->format->number($location->getType('php')->countLines());
-    })
-    ->addField('phpSize', 'PHP Size', function($location) {
-        return $this->format->fileSize($location->getType('php')->countBytes());
-    })
-    ;
-    
+    ->addField('size', function($location) {
+        return $this->format->fileSize($location->bytes);
+    });
 ?>
 
 <hr />
 <h3>Packages</h3>
 <?php
+
 echo $this->html->collectionList($this['packages'])
     ->addField('name', function($package) {
         return $package->name;
@@ -46,24 +44,22 @@ echo $this->html->collectionList($this['packages'])
         return $this->html('<code>'.$this->esc($package->path).'</code>'); 
     })
     ->addField('size', function($package, $renderContext) {
-        if(!$location = $this['counter']->getLocation($this->format->slug($package->name))) {
+        if(!$location = $this['probes'][$package->name]) {
             return null;
         }
 
-        $renderContext['location'] = $location;
-        
-        return $this->format->fileSize($location->countBytes());
+        return $this->format->fileSize($location->getTotals()->bytes);
     })
     ->addField('lines', function($package, $renderContext) {
-        if(!$location = $renderContext['location']) {
+        if(!$location = $this['probes'][$package->name]) {
             return null;
         }
 
-        $phpCount = $location->getType('php')->countLines();
+        $phpCount = $location['php']->lines;
         $output = $this->html('<abbr title="PHP">'.$this->esc($this->format->number($phpCount)).'</abbr>');
 
         if($location->countTypes() > 1) {
-            $totalCount = $location->countLines();
+            $totalCount = $location->getTotals()->lines;
 
             if($totalCount > $phpCount) {
                 $output->append(' / <abbr title="Total">'.$this->esc($this->format->number($totalCount)).'</abbr>');

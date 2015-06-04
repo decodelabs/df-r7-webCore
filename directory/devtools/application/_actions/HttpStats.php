@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\flex;
 
 class HttpStats extends arch\Action {
     
@@ -16,40 +17,17 @@ class HttpStats extends arch\Action {
 
     public function executeAsHtml() {
         clearstatcache();
+
+        $scanner = new flex\code\Scanner(null, [
+            new flex\code\probe\Counter()
+        ]);
         
-        $counter = new core\io\fileStats\Counter();
-        $packages = df\Launchpad::$loader->getPackages();
-        
-        foreach($packages as $name => $package) {
-            $location = $package->path;
-            $blackList = [];
-            
-            switch($name) {
-                case 'app':
-                    $blackList = [
-                        $location.'/data',
-                        $location.'/static'
-                    ];
-                    
-                    break;
-                    
-                case 'root':
-                    $blackList = [
-                        $location.'/base/libraries/core/i18n/module/cldr',
-                    ];
-                    
-                    break;
-            }
-            
-            $counter->addLocation(new core\io\fileStats\Location($name, $location, $blackList));
-        }
-        
-        
-        $counter->run();
+        $scanner->addFrameworkPackageLocations();
+        $probes = $scanner->scan()['counter'];
         
         $view = $this->apex->view('Stats.html')
-            ->setSlot('counter', $counter)
-            ->setSlot('packages', $packages);
+            ->setSlot('probes', $probes)
+            ->setSlot('packages', df\Launchpad::$loader->getPackages());
             
         return $view;
     }
