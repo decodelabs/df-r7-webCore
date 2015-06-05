@@ -20,6 +20,7 @@ class HttpDownload extends arch\Action {
         $theme = aura\theme\Base::factory($this->request->query['theme']);
         $assetPath = $this->request->query['file'];
         $type = null;
+        $cacheAge = $this->application->isDevelopment() ? null : '30 minutes';
 
         $fileName = basename($assetPath);
         $parts = explode('.', $fileName);
@@ -64,6 +65,10 @@ class HttpDownload extends arch\Action {
 
         $output->getHeaders()
             ->set('Access-Control-Allow-Origin', '*');
+
+        if($cacheAge) {
+            $output->getHeaders()->setMaxAge($cacheAge);
+        }
         
         return $output;
     }
