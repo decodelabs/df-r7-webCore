@@ -67,7 +67,7 @@ class HttpDownload extends arch\Action {
             ->set('Access-Control-Allow-Origin', '*');
 
         if($cacheAge) {
-            $output->getHeaders()->setMaxAge($cacheAge);
+            $output->getHeaders()->setCacheExpiration($cacheAge);
         }
         
         return $output;
