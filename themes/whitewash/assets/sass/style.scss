@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 @import "_variables.scss";
-@import "#apex/themes/shared/assets/sass/all.scss";
+@import "theme://sass/shared/all.scss";
 
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
