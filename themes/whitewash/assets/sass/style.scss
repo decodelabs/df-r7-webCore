@@ -3,9 +3,6 @@
 @import "_variables.scss";
 @import "theme://sass/shared/all.scss";
 
-@import "compass/css3/border-radius";
-@import "compass/css3/box-shadow";
-
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5em;
@@ -79,7 +76,7 @@ h3 {
     background: #FAFAFA;
     font-size: 1.5em;
     padding: 0.2em 0.3em;
-    @include border-radius(0.3em);
+    border-radius: 0.3em;
 }
 
 
@@ -156,7 +153,7 @@ div.layout-pageArea {
     background: #FFF;
     min-height: 500px;
     padding: 1em;
-    @include border-radius(0.6em);
+    border-radius: 0.6em;
 
     .layout-header {
         @extend %clearfix;
@@ -182,7 +179,7 @@ div.layout-pageArea {
 // Breadcrumbs
 .widget-breadcrumbList {
     padding: 0.4em;
-    @include border-radius(8px);
+    border-radius: 8px;
     background: #F4F4F4;
 }
 
@@ -190,7 +187,7 @@ div.layout-pageArea {
 // Container
 .widget-container {
     border: 3px #F5F5F5 solid;
-    @include border-radius(0.5em);
+    border-radius: 0.5em;
     padding: 0.7em;
 }
 
@@ -210,7 +207,7 @@ div.layout-pageArea {
 .widget-fieldSet,
 .widget-buttonArea {
     background: #F4F4F4;
-    @include border-radius(0.5em);
+    border-radius: 0.5em;
     border: none;
 }
 
@@ -230,7 +227,7 @@ div.layout-pageArea {
         > .widget-fieldArea,
         > .fire-block > .widget-fieldArea {
             border: 1px #EEE solid;
-            @include border-radius(4px);
+            border-radius: 4px;
         }
     }
 }
@@ -241,7 +238,7 @@ div.layout-pageArea {
 
 .fire-block {
     background: #EBE5E0;
-    @include border-radius(4px);
+    border-radius: 4px;
 
     .fire-block {
         background: #D8EBDF;
@@ -263,7 +260,7 @@ div.layout-pageArea {
 .widget-selection {
     > .body {
         background: #FAFAFA;
-        @include border-radius(6px);
+        border-radius: 6px;
     }
 }
 
@@ -276,8 +273,8 @@ div.layout-pageArea {
 .widget-textbox,
 .widget-textarea,
 .widget-htmlEditor {
-    @include border-radius(3px);
-    @include single-box-shadow(1px, 1px, 2px, 1px, rgba(#555, 0.1), true);
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 2px 1px rgba(#555, 0.1);
 }
 
 input, select, textarea {
@@ -297,7 +294,7 @@ button {
 .widget-collectionList,
 .widget-attributeList {
     border: 2px #F5F5F5 solid;
-    @include border-radius(0.5em);
+    border-radius: 0.5em;
 
     tr {
         &.even {
@@ -342,13 +339,13 @@ button {
 
     .block-details {
         border: 2px #EEE solid;
-        @include border-radius(6px);
+        border-radius: 6px;
     }
 
     .block-links {
         a {
             border: 2px #EEE solid;
-            @include border-radius(4px);
+            border-radius: 4px;
 
             &.link-selected {
                 border-color: #AAA;
@@ -364,13 +361,13 @@ button {
         > .widget-articleList {
             background: #EEE;
             background: rgba(0,0,0,0.015);
-            @include border-radius(0.6em);
+            border-radius: 0.6em;
         }
 
         > header {
             background: #F4F4F4;
             background: rgba(0,0,0,0.04);
-            @include border-radius(0.5em);
+            border-radius: 0.5em;
 
             h3 {
                 font-size: 1em;
@@ -398,7 +395,7 @@ button {
 .widget-menu, 
 .widget-menuBar {
     border: 4px #F4F4F4 solid;
-    @include border-radius(8px);
+    border-radius: 8px;
 }
 
 .widget-menuBar {
@@ -407,7 +404,7 @@ button {
         border: 4px #F4F4F4 solid;
         margin-bottom: 1em;
         padding: 0.1em 0.3em;
-        @include border-radius(8px);
+        border-radius: 8px;
         font-size: 1.5em;
     }
 }
@@ -417,7 +414,7 @@ button {
 .widget-headerBar {
     border: 4px #F4F4F4 solid;
     padding: 0.3em;
-    @include border-radius(0.7em);
+    border-radius: 0.7em;
     margin-bottom: 1.2em;
     font-size: 0.9em;
 
@@ -447,7 +444,7 @@ button {
 
     .widget-menuBar.primary {
         margin: 0;
-        @include border-radius(0);
+        border-radius: 0;
         border: none;
 
         ul {
@@ -530,11 +527,11 @@ button {
 
 .widget-blockLink {
     border: 4px #F8F8F8 solid;
-    @include border-radius(6px);
+    border-radius: 6px;
 }
 
 .widget-flashMessage {
-    @include border-radius(8px);
+    border-radius: 8px;
 }
 
 .widget-flashList .widget-flashMessage {
@@ -544,18 +541,17 @@ button {
 
 
 
-
 progress {
     background-color: #f3f3f3;
     border: 0;
     width: 6em;
     height: 0.6em;
-    @include border-radius(9px);
+    border-radius: 9px;
     margin: 0 0.5em 0.25em 0;
 
     &::-webkit-progress-bar {
         background-color: #f3f3f3;
-        @include border-radius(9px);
+        border-radius: 9px;
     }
 
     &::-webkit-progress-value {
@@ -563,13 +559,13 @@ progress {
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cdeb8e), color-stop(100%,#a5c956));
         background: -webkit-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%);
         background: linear-gradient(to bottom,  #cdeb8e 0%,#a5c956 100%);
-        @include border-radius(9px);
+        border-radius: 9px;
     }
 
     &::-moz-progress-bar {
         background: #cdeb8e;
         background: -moz-linear-gradient(top,  #cdeb8e 0%, #a5c956 100%);
         background: linear-gradient(to bottom,  #cdeb8e 0%,#a5c956 100%);
-        @include border-radius(9px);
+        border-radius: 9px;
     }
 }

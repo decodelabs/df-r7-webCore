@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import "compass/css3/box-sizing";
 
 // Forms
 
@@ -522,7 +521,7 @@
     float: left;
     padding: 0.2em;
     width: 16.6666%;
-    @include box-sizing(border-box);
+    box-sizing: border-box;
 
     a {
         width: 100%;
