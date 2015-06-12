@@ -45,6 +45,9 @@ iframe[seamless] {
 .informative { color: $informative-color; }
 .operative { color: $operative-color; }
 
+* {
+    line-height: 1.225em;
+}
 
 a {
     display: inline-block;
