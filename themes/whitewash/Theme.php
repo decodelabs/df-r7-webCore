@@ -13,7 +13,7 @@ use df\aura;
 class Theme extends aura\theme\Base {
     
     protected $_dependencies = [
-        'jquery-2.1' => '~2.1'
+        'jquery-2.1' => 'jquery#~2.1'
     ];
 
     public function applyDefaultIncludes(aura\view\IView $view) {
