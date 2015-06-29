@@ -24,7 +24,7 @@ class HttpApplicationImage extends arch\Action {
         }
 
         $absPath = $theme->findAsset($path);
-        $type = core\io\Type::fileToMime($absPath);
+        $type = core\fs\Type::fileToMime($absPath);
 
         if(!$absPath) {
             $this->throwError(404, 'Application image '.$path.' not found');

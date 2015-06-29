@@ -122,9 +122,9 @@ class HttpMaxMindDb extends arch\form\Action {
 
     protected function _getFileList() {
         $output = [];
-        $dir = $this->application->getLocalStoragePath().'/geoIp/';
+        $dir = new core\fs\Dir($this->application->getLocalStoragePath().'/geoIp/');
 
-        foreach(core\io\Util::listFilesIn($dir) as $name) {
+        foreach($dir->scanFiles() as $name => $file) {
             if(substr($name, -5) != '.mmdb') {
                 continue;
             }
@@ -178,7 +178,7 @@ class HttpMaxMindDb extends arch\form\Action {
     protected function _fetchUrl($url) {
         $fileName = basename($url);
         $path = $this->application->getLocalStoragePath().'/geoIp';
-        core\io\Util::ensureDirExists($path);
+        core\fs\Dir::create($path);
 
         if(is_file($path.'/'.substr($fileName, 0, -3))) {
             return;
@@ -203,25 +203,8 @@ class HttpMaxMindDb extends arch\form\Action {
     }
 
     protected function _extractGz($path, $targetPath=null) {
-        // TODO: replace with proper archive lib code
-        $bufferSize = 4096; 
-
-        if($targetPath === null) {
-            $targetPath = substr($path, 0, -3);
-        }
-
-        core\io\Util::ensureDirExists(dirname($targetPath));
-
-        $gfp = gzopen($path, 'rb');
-        $tfp = fopen($targetPath, 'wb');
-
-        while(!gzeof($gfp)) {
-            fwrite($tfp, gzread($gfp, $bufferSize));
-        }
-
-        fclose($tfp);
-        gzclose($gfp);
-        unlink($path);
+        $targetPath = core\archive\Base::factory('gz')->decompressFile($path, $targetPath);
+        core\fs\File::delete($path);
         return $targetPath;
     }
 

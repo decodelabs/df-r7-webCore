@@ -40,7 +40,7 @@ class HttpDownload extends arch\Action {
         }
 
         if(!$type) {
-            $type = core\io\Type::fileToMime($absolutePath);
+            $type = core\fs\Type::fileToMime($absolutePath);
         }
 
         if(substr($type, 0, 6) == 'image/' && isset($this->request->query->transform)) {

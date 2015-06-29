@@ -59,12 +59,14 @@ class TempUploader extends arch\form\Delegate implements
         $destination = $this->getStore('tempUploadDir');
 
         if(!$this->_dirChecked) {
-            $destination = core\io\Util::generateUploadTempDir($destination);
+            $dir = core\fs\Dir::createUploadTemp($destination);
             $this->_dirChecked = true;
-            $this->setStore('tempUploadDir', $destination);
+            $this->setStore('tempUploadDir', $dir->getPath());
+
+            return $dir;
         }
 
-        return $destination;
+        return core\fs\Dir::factory($destination);
     }
 
     public function renderContainerContent(aura\html\widget\IContainerWidget $fs) {
@@ -74,15 +76,18 @@ class TempUploader extends arch\form\Delegate implements
 
         $tempDir = $this->_getTempDir();
         $files = [];
+        $i = 0;
 
-        foreach(core\io\Util::listFilesIn($tempDir) as $i => $fileName) {
-            $time = filemtime($tempDir.'/'.$fileName);
+        foreach($tempDir->scanFiles() as $fileName => $file) {
+            $time = $file->getLastModified();
 
             $files[$time.$i] = [
                 'fileName' => $fileName,
-                'size' => filesize($tempDir.'/'.$fileName),
+                'size' => $file->getSize(),
                 'time' => $time
             ];
+
+            $i++;
         }
 
         krsort($files);
@@ -90,7 +95,7 @@ class TempUploader extends arch\form\Delegate implements
         if(!$this->_isForMany) {
             while(count($files) > $this->_maxTempFiles) {
                 $file = array_pop($files);
-                core\io\Util::deleteFile($tempDir.'/'.$file['fileName']);
+                $tempDir->deleteFile($file['fileName']);
             }
         }
 
@@ -152,10 +157,10 @@ class TempUploader extends arch\form\Delegate implements
                         );
                     }
                 })
-                ->addField('size', function($file) use($tempDir) {
+                ->addField('size', function($file) {
                     return $this->format->fileSize($file['size']);
                 })
-                ->addField('time', $this->_('Uploaded'), function($file) use($tempDir) {
+                ->addField('time', $this->_('Uploaded'), function($file) {
                     return $this->format->timeFromNow($file['time']);
                 });
 
@@ -215,7 +220,7 @@ class TempUploader extends arch\form\Delegate implements
             $output = [];
 
             foreach($fileNames as $fileName) {
-                if(!is_file($tempDir.'/'.$fileName)) {
+                if(!$tempDir->hasFile($fileName)) {
                     return [];
                 }
 
@@ -248,7 +253,7 @@ class TempUploader extends arch\form\Delegate implements
 
             $tempDir = $this->_getTempDir();
 
-            if(!is_file($tempDir.'/'.$fileName)) {
+            if(!$tempDir->hasFile($fileName)) {
                 $this->values->file->addError('notFound', $this->_(
                     'Something went wrong while transferring your file - please try again'
                 ));
@@ -274,7 +279,7 @@ class TempUploader extends arch\form\Delegate implements
             $output = [];
 
             foreach($fileNames as $fileName) {
-                if(!is_file($tempDir.'/'.$fileName)) {
+                if(!$tempDir->hasFile($fileName)) {
                     $this->values->file->addError('notFound', $this->_(
                         'Something went wrong while transferring your file - please try again'
                     ));
@@ -296,9 +301,9 @@ class TempUploader extends arch\form\Delegate implements
 
     protected function _onComplete($success) {
         if($destination = $this->getStore('tempUploadDir')) {
-            core\io\Util::deleteDir($destination);
+            core\fs\Dir::delete($destination);
         }
 
-        core\io\Util::purgeUploadTempDirs();
+        core\fs\Dir::purgeUploadTemp();
     }
 }

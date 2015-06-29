@@ -47,6 +47,6 @@ class HttpDeleteBackup extends arch\form\template\Delete {
     }
 
     protected function _deleteItem() {
-        core\io\Util::deleteFile($this->_file);
+        core\fs\File::delete($this->_file);
     }
 }

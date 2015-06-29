@@ -10,7 +10,7 @@ echo $this->html->collectionList($this['packageList'])
             $context->getRowTag()->addClass('disabled');
         }
 
-        return \df\core\io\Util::stripLocationFromFilePath($package['path']);
+        return \df\core\fs\Dir::stripPathLocation($package['path']);
     })
 
     // Priority

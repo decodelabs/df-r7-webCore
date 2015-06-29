@@ -16,8 +16,12 @@ class HttpBackups extends arch\Action {
 
     public function execute() {
         $view = $this->apex->view('Backups.html');
-        $path = $this->application->getSharedStoragePath().'/backup/';
-        $backups = core\io\Util::listFilesIn($path, '/^axis\-[0-9]+\.tar$/i');
+        $dir = new core\fs\Dir($this->application->getSharedStoragePath().'/backup/');
+        
+        $backups = $dir->listFileNames(function($name) {
+            return preg_match('/^axis\-[0-9]+\.tar$/i', $name);
+        });
+
         rsort($backups);
         
         $view['backupList'] = $backups;

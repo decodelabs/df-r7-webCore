@@ -24,7 +24,7 @@ class HttpDownload extends arch\Action {
         $type = null;
 
         if(isset($this->request->query->transform)) {
-            $type = core\io\Type::fileToMime($absolutePath);
+            $type = core\fs\Type::fileToMime($absolutePath);
 
             if(substr($type, 0, 6) == 'image/') {
                 $cache = neon\raster\Cache::getInstance();
