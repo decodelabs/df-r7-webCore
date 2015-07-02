@@ -126,6 +126,11 @@
 
         > .widget-inputArea {
             margin-left: 0;
+
+            > .widget-fieldArea {
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
 
         > .widget-fieldError {
