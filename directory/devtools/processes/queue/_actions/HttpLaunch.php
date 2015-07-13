@@ -31,7 +31,7 @@ class HttpLaunch extends arch\form\template\Confirm {
     }
 
     protected function _apply() {
-        $task = 'manager/launch-queued?id='.$this->_task['id'];
+        $task = 'tasks/launch-queued?id='.$this->_task['id'];
         return $this->task->initiateStream($task);
     }
 }

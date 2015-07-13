@@ -34,7 +34,7 @@ class HttpScan extends arch\form\template\Confirm {
             ->validate($this->values);
 
 
-        $task = 'manager/scan';
+        $task = 'tasks/scan';
 
         if($validator['reset']) {
             $task .= '?reset';

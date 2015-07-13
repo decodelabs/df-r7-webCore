@@ -21,7 +21,7 @@ class HttpSpool extends arch\form\template\Confirm {
     }
 
     protected function _apply() {
-        $task = 'manager/spool';
+        $task = 'tasks/spool';
         return $this->task->initiateStream($task);
     }
 }
