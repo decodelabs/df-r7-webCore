@@ -29,7 +29,7 @@ class HttpDefault extends arch\Action {
         || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
             $code = 500;
         }
-        
+
         if($code === 401) {
             $client = $this->user->client;
             $redirectRequest = null;
@@ -45,7 +45,7 @@ class HttpDefault extends arch\Action {
                     $redirectRequest->getQuery()->rt = $lastRequest->encode();
                 }
                 
-                return $this->http->redirect($redirectRequest)->isTemporary(true);
+                return $this->http->redirect($redirectRequest);
             }
         } else if($code == 403 && $this->user->client->isDeactivated()) {
             return $this->apex->view('Deactivated.html');
