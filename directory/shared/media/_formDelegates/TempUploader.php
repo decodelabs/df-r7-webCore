@@ -109,6 +109,7 @@ class TempUploader extends arch\form\Delegate implements
             ->isStacked($this->_isStacked)
             ->push(
                 $this->html->fileUpload($this->fieldName('file'), $this->values->file)
+                    ->setAcceptTypes($this->getAcceptTypes())
             );
 
         if($this->_showFieldLabel) {
