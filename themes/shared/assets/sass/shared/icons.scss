@@ -12,7 +12,7 @@
 
     span[data-icon] {
         margin: 0.2em;
-        text-decoration: none;
+        text-decoration: none !important;
 
         &:before {
             font-family: $icon-font-family;
@@ -27,6 +27,12 @@
         &:empty:before {
             padding-right: 0.4em;
         }
+    }
+
+    a span[data-icon] {
+        line-height: 1;
+        display: inline-block;
+        text-decoration: none !important;
     }
 
     a:hover span[data-icon]:before {

@@ -382,14 +382,17 @@
         &.field-actions a.widget-link {
             margin-left: 0;
             font-size: 1.2em;
+            width: 1.2em !important;
+            height: 1.2em !important;
+            overflow: hidden;
+            visibility: hidden;
 
             span[data-icon] {
+                margin-right: 1em;
+                visibility: visible;
+
                 &:before {
                     padding-right: 0;
-                }
-
-                + span {
-                    display: none;
                 }
             }
         }
@@ -547,15 +550,19 @@
     padding: 0.4em;
     min-width: 10em;
     max-width: 18em;
+    text-decoration: none !important;
 
     header {
         font-size: 1.1em;
         font-weight: bold;
     }
 
+    &:hover header {
+        text-decoration: underline;
+    }
+
     p {
         min-height: 4em;
-        text-decoration: none;
         margin: 0.5em 0;
     }
 
