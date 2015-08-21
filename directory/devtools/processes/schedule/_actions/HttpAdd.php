@@ -141,7 +141,8 @@ class HttpAdd extends arch\form\Action {
             ->validate($this->values)
             ->applyTo($this->_schedule);
 
-        if($this->isValid()) {
+
+        return $this->complete(function() {
             if($this->_schedule->isNew()
             || $this->_schedule->hasAnyChanged('minute', 'hour', 'day', 'month', 'weekday')
             || ($this->_schedule->hasChanged('isLive') && $this->_schedule['isLive'] == false)) {
@@ -154,8 +155,6 @@ class HttpAdd extends arch\form\Action {
                 'task.schedule',
                 $this->_('The task has been successfully scheduled')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

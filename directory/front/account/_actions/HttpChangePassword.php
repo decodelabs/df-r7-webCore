@@ -58,8 +58,8 @@ class HttpChangePassword extends arch\form\Action {
         $this->values->oldPassword->setValue('');
         $this->values->newPassword->setValue('');
         $this->values->confirmNewPassword->setValue('');
-            
-        if($this->isValid()) {
+
+        return $this->complete(function() use($validator) {
             $this->_auth->password = $validator['newPassword'];
             $this->_auth->save();
             $this->user->refreshClientData();
@@ -68,8 +68,6 @@ class HttpChangePassword extends arch\form\Action {
                 'password.change',
                 $this->_('Your password has been successfully updated')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

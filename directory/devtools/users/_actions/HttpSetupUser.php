@@ -180,29 +180,30 @@ class HttpSetupUser extends arch\form\Action {
 
             ->validate($this->values);
 
-        if($this->values->isValid()) {
-            $model = $this->data->getModel('user');
 
+        return $this->complete(function() use($validator) {
+            $model = $this->data->getModel('user');
             $model->installDefaultManifest();
 
             $client = $model->client->newRecord();
+
             $validator->applyTo($client, [
-                'email', 'fullName', 'nickName', 'timezone', 'country', 'language'
+                'email', 'fullName', 'nickName', 
+                'timezone', 'country', 'language'
             ]);
 
             $auth = $model->auth->newRecord([
                 'user' => $client,
                 'adapter' => 'Local'
             ]);
+
             $validator->getField('email')->setRecordName('identity');
             $validator->applyTo($auth, ['email', 'password']);
             
             $client->groups->add('77abfc6a-bab7-c3fa-f701-e08615a46c35');
             $auth->save();
             
-            $this->complete();
-            
             return $this->http->redirect('account/login');
-        }
+        });
     }
 }

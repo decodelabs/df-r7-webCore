@@ -32,7 +32,8 @@ class LoginLocal extends arch\form\Delegate implements arch\form\IParentUiHandle
             ));
         }
 
-        if($this->values->isValid()) {
+
+        return $this->complete(function() {
             $request = new user\authentication\Request('Local');
             $request->setIdentity($this->values['identity']);
             $request->setCredential('password', $this->values['password']);
@@ -46,9 +47,8 @@ class LoginLocal extends arch\form\Delegate implements arch\form\IParentUiHandle
                 ));
 
                 $this->values->password->setValue('');
-            } else {
-                return $this->complete();
+                return false;
             }
-        }
+        });
     }
 }

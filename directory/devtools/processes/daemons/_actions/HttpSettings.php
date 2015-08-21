@@ -109,16 +109,15 @@ class HttpSettings extends arch\form\Action {
             ->validate($this->values)
             ->applyTo($this->_config);
 
-        if($this->isValid()) {
+
+        return $this->complete(function() {
             $this->_config->save();
 
             $this->comms->flashSuccess(
                 'daemonConfig.save',
                 $this->_('Your settings have been successfully saved')
             );
-
-            return $this->complete();
-        }
+        });
     }
 
     protected function _getFieldName($key) {

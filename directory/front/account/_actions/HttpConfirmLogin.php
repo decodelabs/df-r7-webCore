@@ -19,7 +19,7 @@ class HttpConfirmLogin extends arch\form\Action {
 
     protected function _init() {
         if($this->user->client->isConfirmed()) {
-            $this->complete();
+            $this->setComplete();
             return $this->http->defaultRedirect('account/');
         }
     }
@@ -37,7 +37,7 @@ class HttpConfirmLogin extends arch\form\Action {
             ));
         }
 
-        if($this->values->isValid()) {
+        return $this->complete(function() {
             $request = new user\authentication\Request('Local');
             $request->setIdentity($this->user->client->getEmail());
             $request->setCredential('password', $this->values['password']);
@@ -48,14 +48,18 @@ class HttpConfirmLogin extends arch\form\Action {
                 $this->values->password->addError('invalid', $this->_(
                     'The password entered was incorrect'
                 ));
-            } else {
-                return $this->complete('account/');
+
+                return false;
             }
-        }
+
+            return 'account/';
+        });
     }
 
     protected function _onLogoutEvent() {
-        $this->user->logout();
-        return $this->complete('account/login');
+        return $this->complete(function() {
+            $this->user->logout();
+            return 'account/login';
+        });
     }
 }

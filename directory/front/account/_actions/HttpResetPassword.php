@@ -96,7 +96,8 @@ class HttpResetPassword extends arch\form\Action {
 
             ->validate($this->values);
 
-        if($this->isValid()) {
+
+        return $this->complete(function() {
             $this->_auth->password = $this->data->hash($this->values['newPassword']);
             $this->_auth->save();
 
@@ -110,7 +111,7 @@ class HttpResetPassword extends arch\form\Action {
                 $this->_('Your password has been updated')
             );
 
-            return $this->complete('account/');
-        }
+            return 'account/';
+        });
     }
 }

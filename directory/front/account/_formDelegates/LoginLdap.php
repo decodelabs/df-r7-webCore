@@ -32,7 +32,8 @@ class LoginLdap extends arch\form\Delegate implements arch\form\IParentUiHandler
             ));
         }
 
-        if($this->values->isValid()) {
+
+        return $this->complete(function() {
             $request = new user\authentication\Request('Ldap');
             $request->setIdentity($this->values['identity']);
             $request->setCredential('password', $this->values['password']);
@@ -46,9 +47,8 @@ class LoginLdap extends arch\form\Delegate implements arch\form\IParentUiHandler
                 ));
 
                 $this->values->password->setValue('');
-            } else {
-                return $this->complete();
+                return false;
             }
-        }
+        });
     }
 }

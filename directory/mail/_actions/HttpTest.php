@@ -172,8 +172,7 @@ class HttpTest extends arch\form\Action {
             ->validate($this->values);
 
 
-
-        if($this->isValid()) {
+        return $this->complete(function() use($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
 
             $mail = new flow\mail\Message();
@@ -208,8 +207,6 @@ class HttpTest extends arch\form\Action {
                 'testMail.sent', 
                 $this->_('The email has been successfully sent')
             );
-            
-            return $this->complete();
-        }
+        });
     }
 }

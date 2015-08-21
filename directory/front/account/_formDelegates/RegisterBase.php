@@ -83,30 +83,32 @@ abstract class RegisterBase extends arch\form\Delegate implements arch\form\IPar
     }
 
     protected function _completeRegistration($requestGenerator=null) {
-        $redirect = $this->getStore('completionRedirect');
-        $config = $this->data->user->config;
+        return $this->complete(function() use($requestGenerator) {
+            $redirect = $this->getStore('completionRedirect');
+            $config = $this->data->user->config;
 
-        if($redirect === null) {
-            $redirect = $config->getRegistrationLandingPage();
-        }
-
-        if($requestGenerator && $config->shouldLoginOnRegistration()) {
-            $request = core\lang\Callback($requestGenerator);
-
-            if($request instanceof user\authentication\IRequest) {
-                $result = $this->user->authenticate($request);
-                return $this->complete($redirect);
+            if($redirect === null) {
+                $redirect = $config->getRegistrationLandingPage();
             }
-        }
 
-        $this->comms->flashSuccess(
-            'registration.complete',
-            $this->_('Your account has been successfully created')
-        );
+            $this->comms->flashSuccess(
+                'registration.complete',
+                $this->_('Your account has been successfully created')
+            );
 
-        $request = $this->uri->directoryRequest('account/login');
-        $request->setRedirect($this->request->getRedirectFrom(), $redirect);
+            if($requestGenerator && $config->shouldLoginOnRegistration()) {
+                $request = core\lang\Callback($requestGenerator);
 
-        return $this->complete($request);
+                if($request instanceof user\authentication\IRequest) {
+                    $result = $this->user->authenticate($request);
+                    return $redirect;
+                }
+            }
+
+            $request = $this->uri->directoryRequest('account/login');
+            $request->setRedirect($this->request->getRedirectFrom(), $redirect);
+
+            return $request;
+        });
     }
 }

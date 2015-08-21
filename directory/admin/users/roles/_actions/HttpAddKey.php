@@ -80,12 +80,11 @@ class HttpAddKey extends arch\form\Action {
             ->applyTo($this->_key);
 
 
-        if($this->isValid()) {
+        return $this->complete(function() {
             $this->_key->save();
             $this->user->instigateGlobalKeyringRegeneration();
 
             $this->comms->flashSaveSuccess('role key');
-            return $this->complete();
-        }   
+        });
     }
 }

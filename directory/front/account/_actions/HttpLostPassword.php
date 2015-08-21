@@ -75,7 +75,8 @@ class HttpLostPassword extends arch\form\Action {
             }
         }
 
-        if($this->isValid()) {
+
+        return $this->complete(function() use($client) {
             $key = $this->data->user->passwordResetKey->newRecord([
                     'user' => $client,
                     'adapter' => 'Local'
@@ -89,8 +90,6 @@ class HttpLostPassword extends arch\form\Action {
                 'lostPassword.send',
                 $this->_('A link has been sent to your email address with instructions on resetting your password')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

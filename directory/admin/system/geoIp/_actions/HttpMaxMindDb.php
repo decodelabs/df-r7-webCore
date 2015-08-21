@@ -223,7 +223,7 @@ class HttpMaxMindDb extends arch\form\Action {
 
             ->validate($this->values);
 
-        if($this->isValid()) {
+        return $this->complete(function() use($validator) {
             if($validator['setAsDefault']) {
                 $this->_config->setDefaultAdapter('MaxMindDb');
             }
@@ -242,8 +242,6 @@ class HttpMaxMindDb extends arch\form\Action {
                 'mmdb.settings',
                 $this->_('The MaxMind DB settings have been successfully updated')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

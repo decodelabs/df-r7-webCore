@@ -61,16 +61,14 @@ class HttpChangePassword extends arch\form\Action {
                 ->setMatchField('confirmPassword')
             ->validate($this->values);
 
-        if($this->isValid()) {
+        return $this->complete(function() {
             $this->_auth->password = $this->data->hash($this->values['password']);
             $this->_auth->save();
 
             $this->comms->flashSuccess(
                 'password.change',
                 $this->_('The user\'s password has been changed')
-            );           
-
-            return $this->complete(); 
-        }
+            );
+        });
     }
 }

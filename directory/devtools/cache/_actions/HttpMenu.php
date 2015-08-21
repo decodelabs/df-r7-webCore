@@ -95,14 +95,14 @@ class HttpMenu extends arch\form\Action {
     }
 
     protected function _onClearEvent() {
-        $this->_cache->clear();
+        return $this->complete(function() {
+            $this->_cache->clear();
 
-        $this->comms->flashSuccess(
-            'cache.clear',
-            $this->_('All menu caches have been cleared')
-        );
-
-        return $this->complete();
+            $this->comms->flashSuccess(
+                'cache.clear',
+                $this->_('All menu caches have been cleared')
+            );
+        });
     }
 
     protected function _onRefreshEvent() {}

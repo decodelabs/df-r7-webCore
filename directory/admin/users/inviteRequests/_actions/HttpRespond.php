@@ -70,7 +70,7 @@ class HttpRespond extends arch\form\Action {
             ->addField('message', 'text')
             ->validate($this->values);
 
-        if($this->isValid()) {
+        return $this->complete(function() use($validator) {
             $invite = $this->data->user->invite->newRecord([
                 'name' => $this->_request['name'], 
                 'email' => $this->_request['email'],
@@ -87,9 +87,7 @@ class HttpRespond extends arch\form\Action {
                 'request.accept',
                 $this->_('An invite has been sent in response to the request')
             );
-
-            return $this->complete();
-        }
+        });
     }
 
     protected function _onDenyEvent() {
@@ -97,7 +95,7 @@ class HttpRespond extends arch\form\Action {
             ->addField('message', 'text')
             ->validate($this->values);
 
-        if($this->isValid()) {
+        return $this->complete(function() use($validator) {
             $this->_request['isActive'] = false;
             $this->_request->save();
 
@@ -112,8 +110,6 @@ class HttpRespond extends arch\form\Action {
                 'request.deny',
                 $this->_('The invite request has bene denied')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

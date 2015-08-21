@@ -74,7 +74,8 @@ class HttpGrant extends arch\form\Action {
                 ->fromForm($this)
             ->validate($this->values);
 
-        if($this->isValid()) {
+
+        return $this->complete(function() use($validator) {
             $this->data->user->invite->grantAllowance($validator['users'], $validator['allowance']);
             $this->user->instigateGlobalKeyringRegeneration();
 
@@ -82,9 +83,7 @@ class HttpGrant extends arch\form\Action {
                 'invite.allowance',
                 $this->_('User invite allowances have been successfully updated')
             );
-
-            return $this->complete();
-        }
+        });
     }
 
     protected function _onSaveAllEvent() {
@@ -93,7 +92,8 @@ class HttpGrant extends arch\form\Action {
                 ->setMin(1)
             ->validate($this->values);
 
-        if($this->isValid()) {
+
+        return $this->complete(function() use($validator) {
             $this->data->user->invite->grantAllAllowance($validator['allowance']);
             $this->user->instigateGlobalKeyringRegeneration();
 
@@ -101,8 +101,6 @@ class HttpGrant extends arch\form\Action {
                 'invite.allowance',
                 $this->_('User invite allowances have been successfully updated')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

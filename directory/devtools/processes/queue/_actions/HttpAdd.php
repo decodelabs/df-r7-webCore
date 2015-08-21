@@ -74,15 +74,14 @@ class HttpAdd extends arch\form\Action {
             ->validate($this->values)
             ->applyTo($this->_task);
 
-        if($this->isValid()) {
+
+        return $this->complete(function() {
             $this->_task->save();
 
             $this->comms->flashSuccess(
                 'task.queue',
                 $this->_('The task has been successfully queued')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }

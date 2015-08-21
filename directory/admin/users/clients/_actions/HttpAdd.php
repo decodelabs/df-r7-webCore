@@ -117,6 +117,7 @@ class HttpAdd extends arch\form\Action {
 
     protected function _onSaveEvent() {
         $isNew = $this->_client->isNew();
+        $auth = null;
 
         $this->data->newValidator()
 
@@ -201,8 +202,8 @@ class HttpAdd extends arch\form\Action {
                 ->validate($this->values)
                 ->applyTo($auth);
         }
-        
-        if($this->isValid()) {
+
+        return $this->complete(function() use($isNew, $auth) {
             $this->_client->save();
 
             if($isNew) {
@@ -211,7 +212,6 @@ class HttpAdd extends arch\form\Action {
             }
 
             $this->comms->flashSaveSuccess('user');
-            return $this->complete();
-        }
+        });
     }
 }

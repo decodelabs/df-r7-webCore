@@ -23,7 +23,7 @@ class HttpLogin extends arch\form\Action {
 
     protected function _init() {
         if($this->user->client->isLoggedIn()) {
-            $this->complete();
+            $this->setComplete();
             return $this->http->defaultRedirect('account/');
         }
 
@@ -72,7 +72,7 @@ class HttpLogin extends arch\form\Action {
         $output = $delegate->handleEvent('login', func_get_args());
         
         if($delegate->isComplete()) {
-            $this->complete();
+            $this->setComplete();
         }
 
         return $output;

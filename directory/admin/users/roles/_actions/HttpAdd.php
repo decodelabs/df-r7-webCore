@@ -64,12 +64,11 @@ class HttpAdd extends arch\form\Action {
             ->applyTo($this->_role);
 
 
-        if($this->isValid()) {
+        return $this->complete(function() {
             $this->_role->save();
             $this->user->instigateGlobalKeyringRegeneration();
 
             $this->comms->flashSaveSuccess('role');
-            return $this->complete();
-        }
+        });
     }
 }

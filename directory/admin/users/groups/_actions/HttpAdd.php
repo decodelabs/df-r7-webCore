@@ -66,14 +66,13 @@ class HttpAdd extends arch\form\Action {
 
             ->validate($this->values)
             ->applyTo($this->_group);
+            
 
-        
-        if($this->isValid()) {
+        return $this->complete(function() {
             $this->_group->save();
             $this->user->instigateGlobalKeyringRegeneration();
 
             $this->comms->flashSaveSuccess('group');
-            return $this->complete();
-        }
+        });
     }
 }

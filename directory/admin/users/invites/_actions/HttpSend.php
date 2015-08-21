@@ -110,7 +110,7 @@ class HttpSend extends arch\form\Action {
             ->applyTo($this->_invite, ['name', 'email', 'groups', 'message']);
 
 
-        if($this->isValid()) {
+        return $this->complete(function() use($validator) {
             $this->_invite['isFromAdmin'] = true;
 
             if($validator['forceSend']) {
@@ -123,8 +123,6 @@ class HttpSend extends arch\form\Action {
                 'invite.send',
                 $this->_('Your invite has been successfully sent')
             );
-
-            return $this->complete();
-        }
+        });
     }
 }
