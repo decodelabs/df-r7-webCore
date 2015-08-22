@@ -16,11 +16,11 @@ class HttpCompile extends arch\form\template\Confirm {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'application';
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to re-compile the production version of this application?');
     }
 
-    protected function _apply() {
+    protected function apply() {
         $task = 'application/build';
         return $this->task->initiateStream($task, 'development');
     }

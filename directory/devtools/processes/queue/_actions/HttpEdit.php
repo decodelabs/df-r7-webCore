@@ -12,15 +12,15 @@ use df\arch;
 
 class HttpEdit extends HttpAdd {
     
-    protected function _init() {
+    protected function init() {
         $this->_task = $this->scaffold->getRecord();
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_task['id'];
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_task, [
             'request', 'environmentMode', 'priority'
         ]);

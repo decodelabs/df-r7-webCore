@@ -11,7 +11,7 @@ use df\arch;
 
 class HttpEditKey extends HttpAddKey {
     
-    protected function _init() {
+    protected function init() {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
             $this->request->query['key'],
@@ -21,11 +21,11 @@ class HttpEditKey extends HttpAddKey {
         $this->_role = $this->_key['role'];
     }
     
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_key['id'];
     }
     
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_key, [
             'domain', 'pattern', 'allow'
         ]);

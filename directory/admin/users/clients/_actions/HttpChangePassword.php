@@ -14,7 +14,7 @@ class HttpChangePassword extends arch\form\Action {
 
     protected $_auth;
 
-    protected function _init() {
+    protected function init() {
         $this->_auth = $this->data->fetchForAction(
             'axis://user/Auth',
             [
@@ -25,11 +25,11 @@ class HttpChangePassword extends arch\form\Action {
         );
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_auth['#user'];
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Change password'));
 
@@ -55,7 +55,7 @@ class HttpChangePassword extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
             ->addRequiredField('password')
                 ->setMatchField('confirmPassword')

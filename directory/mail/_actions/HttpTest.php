@@ -16,11 +16,11 @@ class HttpTest extends arch\form\Action {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'send';
 
-    protected function _init() {
+    protected function init() {
 
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $manager = flow\Manager::getInstance();
         $this->values->transport = $manager->getDefaultMailTransportName();
 
@@ -39,7 +39,7 @@ class HttpTest extends arch\form\Action {
         $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->application->getName()]);
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Test email'));
 
@@ -130,7 +130,7 @@ class HttpTest extends arch\form\Action {
         $fs->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
-    protected function _onSendEvent() {
+    protected function onSendEvent() {
         $validator = $this->data->newValidator()
 
             // Transport

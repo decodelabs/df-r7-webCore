@@ -14,15 +14,15 @@ class HttpSettings extends arch\form\Action {
 
     protected $_config;
 
-    protected function _init() {
+    protected function init() {
         $this->_config = $this->data->user->config;
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->import($this->_config->getConfigValues());
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Settings'));
 
@@ -80,7 +80,7 @@ class HttpSettings extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Registration

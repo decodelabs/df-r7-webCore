@@ -14,7 +14,7 @@ class HttpRespond extends arch\form\Action {
 
     protected $_request;
 
-    protected function _init() {
+    protected function init() {
         $this->_request = $this->scaffold->getRecord();
 
         if(!$this->_request['isActive']) {
@@ -22,11 +22,11 @@ class HttpRespond extends arch\form\Action {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_request['id'];
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->addAttributeList($this->_request)
             ->addField('name')
             ->addField('email', function($request) {
@@ -65,7 +65,7 @@ class HttpRespond extends arch\form\Action {
         );
     }
 
-    protected function _onAcceptEvent() {
+    protected function onAcceptEvent() {
         $validator = $this->data->newValidator()
             ->addField('message', 'text')
             ->validate($this->values);
@@ -90,7 +90,7 @@ class HttpRespond extends arch\form\Action {
         });
     }
 
-    protected function _onDenyEvent() {
+    protected function onDenyEvent() {
         $validator = $this->data->newValidator()
             ->addField('message', 'text')
             ->validate($this->values);

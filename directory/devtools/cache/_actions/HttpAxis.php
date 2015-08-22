@@ -18,11 +18,11 @@ class HttpAxis extends arch\form\Action {
 
     protected $_cache;
 
-    protected function _init() {
+    protected function init() {
         $this->_cache = axis\schema\Cache::getInstance();
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $keys = $this->_cache->getKeys();
         $info = axis\Model::getUnitMetaData($keys);
@@ -74,7 +74,7 @@ class HttpAxis extends arch\form\Action {
         );
     }
 
-    protected function _onRemoveEvent($unitId) {
+    protected function onRemoveEvent($unitId) {
         if($this->_cache->has($unitId)) {
             $this->_cache->remove($unitId);
 
@@ -88,7 +88,7 @@ class HttpAxis extends arch\form\Action {
         }
     }
 
-    protected function _onClearEvent() {
+    protected function onClearEvent() {
         return $this->complete(function() {
             $this->_cache->clear();
 
@@ -98,6 +98,4 @@ class HttpAxis extends arch\form\Action {
             );
         });
     }
-
-    protected function _onRefreshEvent() {}
 }

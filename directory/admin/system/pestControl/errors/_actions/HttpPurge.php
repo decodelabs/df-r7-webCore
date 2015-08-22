@@ -16,19 +16,16 @@ class HttpPurge extends arch\form\template\Confirm {
     
     const DISPOSITION = 'negative';
     
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to delete all old unarchived error logs?');
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Delete');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Delete'))
+            ->setIcon('delete');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'delete';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         return $this->task->initiateStream('pest-control/purge-error-logs');
     }
 }

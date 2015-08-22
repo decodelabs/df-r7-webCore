@@ -16,11 +16,11 @@ class HttpScan extends arch\form\template\Confirm {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'scan';
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to scan for new tasks now?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->push(
             $this->html->checkbox('reset', $this->values->reset, $this->_(
                 'Reset all auto tasks back to original state'
@@ -28,7 +28,7 @@ class HttpScan extends arch\form\template\Confirm {
         );
     }
 
-    protected function _apply() {
+    protected function apply() {
         $validator = $this->data->newValidator()
             ->addField('reset', 'boolean')
             ->validate($this->values);

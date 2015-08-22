@@ -14,15 +14,15 @@ class HttpEdit extends HttpAdd {
     
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    protected function _init() {
+    protected function init() {
         $this->_schedule = $this->scaffold->getRecord();
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_schedule['id'];
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_schedule, [
             'request', 'environmentMode', 'minute', 'hour',
             'day', 'month', 'weekday', 'isLive'

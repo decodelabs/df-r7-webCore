@@ -18,7 +18,7 @@ class HttpDeleteBackup extends arch\form\template\Delete {
 
     protected $_file;
 
-    protected function _init() {
+    protected function init() {
         $fileName = basename($this->request->query['backup']);
 
         if(!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
@@ -32,11 +32,11 @@ class HttpDeleteBackup extends arch\form\template\Delete {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return basename($this->_file);
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList(basename($this->_file))
             ->addField('name', function($backup) {
                 return $backup;
@@ -46,7 +46,7 @@ class HttpDeleteBackup extends arch\form\template\Delete {
             });
     }
 
-    protected function _deleteItem() {
+    protected function apply() {
         core\fs\File::delete($this->_file);
     }
 }

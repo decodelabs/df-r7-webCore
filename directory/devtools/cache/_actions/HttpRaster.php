@@ -18,11 +18,11 @@ class HttpRaster extends arch\form\Action {
 
     protected $_cache;
 
-    protected function _init() {
+    protected function init() {
         $this->_cache = neon\raster\Cache::getInstance();
     }
     
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $files = $this->_cache->getDirectFileList();
 
@@ -87,7 +87,7 @@ class HttpRaster extends arch\form\Action {
         );
     }
 
-    protected function _onRemoveEvent($key) {
+    protected function onRemoveEvent($key) {
         if($this->_cache->has($key)) {
             $this->_cache->remove($key);
 
@@ -101,7 +101,7 @@ class HttpRaster extends arch\form\Action {
         }
     }
 
-    protected function _onClearEvent() {
+    protected function onClearEvent() {
         return $this->complete(function() {
             $this->_cache->clear();
 
@@ -111,6 +111,4 @@ class HttpRaster extends arch\form\Action {
             );
         });
     }
-
-    protected function _onRefreshEvent() {}
 }

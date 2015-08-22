@@ -18,19 +18,19 @@ class HttpLaunch extends arch\form\template\Confirm {
 
     protected $_task;
 
-    protected function _init() {
+    protected function init() {
         $this->_task = $this->scaffold->getRecord();
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to launch this task now?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->push($this->apex->component('~devtools/processes/queue/TaskDetails')->setRecord($this->_task));
     }
 
-    protected function _apply() {
+    protected function apply() {
         $task = 'tasks/launch-queued?id='.$this->_task['id'];
         return $this->task->initiateStream($task);
     }

@@ -18,7 +18,7 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
     
     protected $_inspector;
 
-    protected function _init() {
+    protected function init() {
         $probe = new axis\introspector\Probe();
 
         if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
@@ -30,15 +30,15 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_inspector->getId();
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to delete all backups for this table?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_inspector)
             // Id
             ->addField('id', function($inspector) {
@@ -81,15 +81,12 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
         );
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Delete');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Delete'))
+            ->setIcon('delete');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'delete';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $validator = $this->data->newValidator()
             ->addField('allClusters', 'boolean')
             ->validate($this->values);

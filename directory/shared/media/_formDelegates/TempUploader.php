@@ -172,7 +172,7 @@ class TempUploader extends arch\form\Delegate implements
 
 
 // Result
-    protected function _onUploadEvent() {
+    protected function onUploadEvent() {
         unset($this->values->file);
 
         $uploadHandler = new link\http\upload\Handler();
@@ -233,7 +233,7 @@ class TempUploader extends arch\form\Delegate implements
     }
 
     public function apply() {
-        $this->_onUploadEvent();
+        $this->onUploadEvent();
 
         if(!$this->values->file->isValid()) {
             return null;
@@ -297,7 +297,7 @@ class TempUploader extends arch\form\Delegate implements
     }
 
     public function handleDelegateEvent($delegateId, $event, $args) {
-        $this->_onUploadEvent();
+        $this->onUploadEvent();
     }
 
     protected function _onComplete($success) {

@@ -22,7 +22,7 @@ class HttpSettings extends arch\form\Action {
         'group' => 'daemonGroup'
     ];
 
-    protected function _init() {
+    protected function init() {
         if(isset($this->request->query->daemon)) {
             $this->_isRecord = true;
 
@@ -39,13 +39,13 @@ class HttpSettings extends arch\form\Action {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         if($this->_isRecord) {
             return $this->_config['name'];
         }
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_config, [
             $this->_getFieldName('isEnabled'), 
             $this->_getFieldName('user'), 
@@ -53,7 +53,7 @@ class HttpSettings extends arch\form\Action {
         ]);
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Daemon settings'));
 
@@ -86,7 +86,7 @@ class HttpSettings extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Enabled

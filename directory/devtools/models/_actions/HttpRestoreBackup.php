@@ -16,7 +16,7 @@ class HttpRestoreBackup extends arch\form\template\Confirm {
 
     protected $_file;
 
-    protected function _init() {
+    protected function init() {
         $fileName = basename($this->request->query['backup']);
 
         if(!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
@@ -30,15 +30,15 @@ class HttpRestoreBackup extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return basename($this->_file);
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to restore this backup?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList(basename($this->_file))
             ->addField('name', function($backup) {
                 return $backup;
@@ -48,15 +48,12 @@ class HttpRestoreBackup extends arch\form\template\Confirm {
             });
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Restore');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Restore'))
+            ->setIcon('import');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'import';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $task = 'axis/restore-backup?backup='.basename($this->_file);
         return $this->task->initiateStream($task);
     }

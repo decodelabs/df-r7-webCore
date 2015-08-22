@@ -16,16 +16,16 @@ class HttpAdd extends arch\form\Action {
 
     protected $_task;
 
-    protected function _init() {
+    protected function init() {
         $this->_task = $this->scaffold->newRecord();
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->environmentMode = df\Launchpad::getEnvironmentMode();
         $this->values->priority = 'medium';
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Queued task'));
 
@@ -56,7 +56,7 @@ class HttpAdd extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Request

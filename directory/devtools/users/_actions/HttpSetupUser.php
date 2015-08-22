@@ -14,7 +14,7 @@ class HttpSetupUser extends arch\form\Action {
     
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     
-    protected function _onSessionReady() {
+    protected function initWithSession() {
         $model = $this->data->getModel('user');
         
         if($model->client->countAll()) {
@@ -22,13 +22,13 @@ class HttpSetupUser extends arch\form\Action {
         }
     }
     
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->timezone = 'Europe/London';
         $this->values->country = 'GB';
         $this->values->language = 'en';
     }
     
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push($this->html(
                 '<p>WARNING: this form wont hold your hand, make sure you type everything properly.. it will also only work ONCE</p>'
         ));
@@ -124,7 +124,7 @@ class HttpSetupUser extends arch\form\Action {
     }
 
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $validator = $this->data->newValidator()
 
             // Email

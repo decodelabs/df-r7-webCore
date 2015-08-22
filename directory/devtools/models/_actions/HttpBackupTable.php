@@ -18,7 +18,7 @@ class HttpBackupTable extends arch\form\template\Confirm {
 
     protected $_inspector;
 
-    protected function _init() {
+    protected function init() {
         $probe = new axis\introspector\Probe();
 
         if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
@@ -26,15 +26,15 @@ class HttpBackupTable extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_inspector->getId();
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to back up this table?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_inspector)
             // Id
             ->addField('id', function($inspector) {
@@ -71,15 +71,12 @@ class HttpBackupTable extends arch\form\template\Confirm {
             });
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Back up');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Back up'))
+            ->setIcon('backup');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'backup';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $task = 'axis/backup-table?unit='.$this->_inspector->getId();
         return $this->task->initiateStream($task);
     }

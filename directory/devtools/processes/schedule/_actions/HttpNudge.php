@@ -16,11 +16,11 @@ class HttpNudge extends arch\form\template\Confirm {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'spool';
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to launch the spool daemon?');
     }
 
-    protected function _apply() {
+    protected function apply() {
         $remote = halo\daemon\Remote::factory('TaskSpool');
         $remote->start();
 

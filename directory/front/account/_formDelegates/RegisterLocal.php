@@ -13,7 +13,7 @@ use df\user;
 
 class RegisterLocal extends RegisterBase {
     
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         if($this->_invite) {
             $this->values->fullName = $this->_invite['name'];
             $parts = explode(' ', $this->_invite['name']);
@@ -22,7 +22,7 @@ class RegisterLocal extends RegisterBase {
         }
     }
 
-    protected function _onRegisterEvent() {
+    protected function onRegisterEvent() {
         $client = $this->_createClient();
 
         $this->data->newValidator()

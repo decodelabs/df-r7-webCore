@@ -17,7 +17,7 @@ class HttpResetPassword extends arch\form\Action {
     protected $_key;
     protected $_auth;
 
-    protected function _init() {
+    protected function init() {
         if($this->user->isLoggedIn()) {
             return $this->_flashError('loggedIn', $this->_(
                 'Passwords cannot be reset while you are logged in'
@@ -74,18 +74,18 @@ class HttpResetPassword extends arch\form\Action {
         return $this->http->redirect('account/');
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->data->user->passwordResetKey->pruneUnusedKeys();
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push(
             $this->apex->component('~front/account/ResetPassword', $this)
                 ->setSlot('key', $this->_key)
         );
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $userConfig = $this->data->user->config;
 
         $this->data->newValidator()

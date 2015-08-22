@@ -14,15 +14,15 @@ class HttpAdd extends arch\form\Action {
     
     protected $_group;
 
-    protected function _init() {
+    protected function init() {
         $this->_group = $this->scaffold->newRecord();
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->loadDelegate('roles', '../roles/RoleSelector');
     }
     
-    protected function _createUi() {
+    protected function createUi() {
         $model = $this->data->getModel('user');
         
         $form = $this->content->addForm();
@@ -49,7 +49,7 @@ class HttpAdd extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Name

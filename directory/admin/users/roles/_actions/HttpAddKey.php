@@ -14,7 +14,7 @@ class HttpAddKey extends arch\form\Action {
     protected $_role;
     protected $_key;
 
-    protected function _init() {
+    protected function init() {
         $this->_role = $this->scaffold->getRecord();
         
         $this->_key = $this->data->newRecord('axis://user/Key', [
@@ -22,15 +22,15 @@ class HttpAddKey extends arch\form\Action {
         ]);
     }
     
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_role['id'];
     }
     
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->allow = true;
     }
     
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role key'));
 
@@ -61,7 +61,7 @@ class HttpAddKey extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Domain

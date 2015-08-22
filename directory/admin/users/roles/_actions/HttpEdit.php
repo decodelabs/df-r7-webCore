@@ -11,15 +11,15 @@ use df\arch;
 
 class HttpEdit extends HttpAdd {
     
-    protected function _init() {
+    protected function init() {
         $this->_role = $this->scaffold->getRecord();
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_role['id'];
     }
     
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_role, [
             'name', 'signifier', 'priority'
         ]);

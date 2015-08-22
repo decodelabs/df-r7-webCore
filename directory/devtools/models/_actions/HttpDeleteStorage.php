@@ -20,7 +20,7 @@ class HttpDeleteStorage extends arch\form\template\Delete {
     protected $_unit;
     protected $_describer;
 
-    protected function _init() {
+    protected function init() {
         $probe = new axis\introspector\Probe();
         $this->_unit = $probe->inspectUnit($this->request->query['unit']);
 
@@ -33,11 +33,11 @@ class HttpDeleteStorage extends arch\form\template\Delete {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_unit->getId().':'.$this->_describer->name;
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_describer)
             // Name
             ->addField('name', function($storage) {
@@ -71,7 +71,7 @@ class HttpDeleteStorage extends arch\form\template\Delete {
         ;
     }
 
-    protected function _deleteItem() {
+    protected function apply() {
         $this->_unit->getAdapter()->destroyDescribedStorage($this->_describer);
     }
 }

@@ -18,7 +18,7 @@ class HttpClearCache extends arch\form\template\Confirm {
 
     protected $_inspector;
 
-    protected function _init() {
+    protected function init() {
         $probe = new axis\introspector\Probe();
 
         if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
@@ -30,15 +30,15 @@ class HttpClearCache extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_inspector->getId();
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to clear this cache?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_inspector)
             ->addField('unit', function($inspector) {
                 return $inspector->getId();
@@ -51,15 +51,12 @@ class HttpClearCache extends arch\form\template\Confirm {
             });
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Clear');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Clear'))
+            ->setIcon('delete');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'delete';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $this->_inspector->getUnit()->clear();
     }
 }

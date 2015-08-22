@@ -18,11 +18,11 @@ class HttpDebugMode extends arch\form\template\Confirm {
 
     protected $_isEnabled;
 
-    protected function _init() {
+    protected function init() {
         $this->_isEnabled = $this->http->request->hasCookie('debug');
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         if($this->_isEnabled) {
             return $this->_('Are you sure you want to turn off debug mode?');
         } else {
@@ -30,7 +30,7 @@ class HttpDebugMode extends arch\form\template\Confirm {
         }
     }
 
-    protected function _apply() {
+    protected function apply() {
         $augmentor = $this->application->getResponseAugmentor();
         $cookie = $augmentor->newCookie('debug', '1', null, true);
 

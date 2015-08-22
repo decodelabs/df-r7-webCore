@@ -16,11 +16,11 @@ class HttpSpool extends arch\form\template\Confirm {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'spool';
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to run the task queue spool now?');
     }
 
-    protected function _apply() {
+    protected function apply() {
         $task = 'tasks/spool';
         return $this->task->initiateStream($task);
     }

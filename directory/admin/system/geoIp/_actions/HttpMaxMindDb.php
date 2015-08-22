@@ -15,16 +15,16 @@ class HttpMaxMindDb extends arch\form\Action {
     
     protected $_config;
 
-    protected function _init() {
+    protected function init() {
         $this->_config = link\geoIp\Config::getInstance();
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->isEnabled = $this->_config->isEnabled();
         $this->values->file = $this->_config->values->adapters->MaxMindDb['file'];
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push(
             $this->apex->component('IndexHeaderBar')
         );
@@ -135,7 +135,7 @@ class HttpMaxMindDb extends arch\form\Action {
         return $output;
     }
 
-    protected function _onUploadEvent() {
+    protected function onUploadEvent() {
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAllowedExtensions(['mmdb', 'gz']);
         $targetPath = null;
@@ -165,12 +165,12 @@ class HttpMaxMindDb extends arch\form\Action {
         }
     }
 
-    protected function _onFetchLiteCountryEvent() {
+    protected function onFetchLiteCountryEvent() {
         $url = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz';
         $this->_fetchUrl($url);
     }
 
-    protected function _onFetchLiteCityEvent() {
+    protected function onFetchLiteCityEvent() {
         $url = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz';
         $this->_fetchUrl($url);
     }
@@ -208,7 +208,7 @@ class HttpMaxMindDb extends arch\form\Action {
         return $targetPath;
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $validator = $this->data->newValidator()
 
             // Default

@@ -17,11 +17,11 @@ class HttpMenu extends arch\form\Action {
 
     protected $_cache;
 
-    protected function _init() {
+    protected function init() {
         $this->_cache = arch\navigation\menu\Cache::getInstance();
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $menus = arch\navigation\menu\Base::loadList($this->context, $this->_cache->getKeys());
 
@@ -80,7 +80,7 @@ class HttpMenu extends arch\form\Action {
         );
     }
 
-    protected function _onRemoveEvent($id) {
+    protected function onRemoveEvent($id) {
         if($this->_cache->has($id)) {
             $this->_cache->remove($id);
 
@@ -94,7 +94,7 @@ class HttpMenu extends arch\form\Action {
         }
     }
 
-    protected function _onClearEvent() {
+    protected function onClearEvent() {
         return $this->complete(function() {
             $this->_cache->clear();
 
@@ -104,6 +104,4 @@ class HttpMenu extends arch\form\Action {
             );
         });
     }
-
-    protected function _onRefreshEvent() {}
 }

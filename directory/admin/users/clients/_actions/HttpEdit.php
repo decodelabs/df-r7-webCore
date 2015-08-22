@@ -12,15 +12,15 @@ use df\arch;
     
 class HttpEdit extends HttpAdd {
 
-    protected function _init() {
+    protected function init() {
         $this->_client = $this->scaffold->getRecord();
     }
     
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_client['id'];
     }
     
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_client, [
             'email', 'fullName', 'nickName', 'status',
             'timezone', 'country', 'language'

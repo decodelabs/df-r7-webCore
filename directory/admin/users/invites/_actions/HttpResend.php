@@ -16,7 +16,7 @@ class HttpResend extends arch\form\template\Confirm {
 
     protected $_invite;
 
-    protected function _init() {
+    protected function init() {
         $this->_invite = $this->scaffold->getRecord();
 
         if(!$this->_invite['isActive']) {
@@ -29,7 +29,7 @@ class HttpResend extends arch\form\template\Confirm {
         }
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->push(
             $this->html->attributeList($this->_invite)
                 ->addField('creationDate', function($invite) {
@@ -60,19 +60,16 @@ class HttpResend extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to resend this invite?');
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Resend');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Resend'))
+            ->setIcon('refresh');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'refresh';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $validator = $this->data->newValidator()
             ->addField('forceSend', 'boolean')
             ->validate($this->values);
@@ -84,7 +81,7 @@ class HttpResend extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getFlashMessage() {
+    protected function getFlashMessage() {
         return $this->_('Your invite has been successfully resent');
     }
 }

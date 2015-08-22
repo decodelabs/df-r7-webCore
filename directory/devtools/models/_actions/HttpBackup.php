@@ -16,19 +16,16 @@ class HttpBackup extends arch\form\template\Confirm {
     
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to back up all data? This process may take a while!');
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Back up');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Back up'))
+            ->setIcon('backup');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'backup';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $task = 'axis/backup';
         return $this->task->initiateStream($task);
     }

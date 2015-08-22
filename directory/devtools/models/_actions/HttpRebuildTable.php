@@ -18,7 +18,7 @@ class HttpRebuildTable extends arch\form\template\Confirm {
     
     protected $_inspector;
 
-    protected function _init() {
+    protected function init() {
         $probe = new axis\introspector\Probe();
 
         if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
@@ -30,15 +30,15 @@ class HttpRebuildTable extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_inspector->getId();
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to rebuild this table?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_inspector)
             // Id
             ->addField('id', function($inspector) {
@@ -75,15 +75,12 @@ class HttpRebuildTable extends arch\form\template\Confirm {
             });
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Rebuild');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Rebuild'))
+            ->setIcon('refresh');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'refresh';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $task = 'axis/rebuild-table?unit='.$this->_inspector->getGlobalId();
         return $this->task->initiateStream($task);
     }

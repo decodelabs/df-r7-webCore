@@ -18,7 +18,7 @@ class HttpRegister extends arch\form\Action {
 
     protected $_invite;
 
-    protected function _init() {
+    protected function init() {
         if($this->user->isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
@@ -53,24 +53,24 @@ class HttpRegister extends arch\form\Action {
         return $this->_invite;
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         if($this->_invite) {
             return $this->_invite['key'];
         }
 
-        return parent::_getDataId();
+        return parent::getInstanceId();
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->loadDelegate('Local', '~front/account/RegisterLocal')
             ->setInvite($this->_invite);
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->getDelegate('Local')->renderUi();
     }
 
-    protected function _onRegisterEvent() {
+    protected function onRegisterEvent() {
         return $this->getDelegate('Local')->handleEvent('register', func_get_args());
     }
 }

@@ -16,17 +16,17 @@ class HttpAdd extends arch\form\Action {
 
     protected $_schedule;
 
-    protected function _init() {
+    protected function init() {
         $this->_schedule = $this->scaffold->newRecord();
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->environmentMode = '';
         $this->values->priority = 'medium';
         $this->values->isLive = true;
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Scheduled task'));
 
@@ -100,7 +100,7 @@ class HttpAdd extends arch\form\Action {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Request

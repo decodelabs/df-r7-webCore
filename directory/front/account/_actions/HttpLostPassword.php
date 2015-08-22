@@ -16,19 +16,19 @@ class HttpLostPassword extends arch\form\Action {
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'send';
 
-    protected function _init() {
+    protected function init() {
         if($this->user->isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push(
             $this->apex->component('~front/account/LostPassword', $this)
         );
     }
 
-    protected function _onSendEvent() {
+    protected function onSendEvent() {
         $client = null;
         $auth = null;
 

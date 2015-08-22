@@ -16,7 +16,7 @@ class HttpPurge extends arch\form\template\Delete {
     const ITEM_NAME = 'cache';
     const IS_PERMANENT = false;
 
-    protected function _deleteItem() {
+    protected function apply() {
         core\cache\Base::purgeAll();
     }
 }

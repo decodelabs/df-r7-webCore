@@ -19,7 +19,7 @@ class LoginLdap extends arch\form\Delegate implements arch\form\IParentUiHandler
         );
     }
 
-    protected function _onLoginEvent() {
+    protected function onLoginEvent() {
         if(!$this->values->identity->hasValue()) {
             $this->values->identity->addError('required', $this->_(
                 'Please enter your username'

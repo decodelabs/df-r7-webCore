@@ -16,16 +16,16 @@ class HttpSend extends arch\form\Action {
 
     protected $_invite;
 
-    protected function _init() {
+    protected function init() {
         $this->data->checkAccess('axis://user/Invite', 'add');
         $this->_invite = $this->scaffold->newRecord();
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->loadDelegate('groups', '../groups/GroupSelector');
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('User details'));
 
@@ -74,7 +74,7 @@ class HttpSend extends arch\form\Action {
         $fs->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
-    protected function _onSendEvent() {
+    protected function onSendEvent() {
         $validator = $this->data->newValidator()
 
             // Name

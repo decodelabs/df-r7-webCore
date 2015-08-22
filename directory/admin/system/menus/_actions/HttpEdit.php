@@ -15,21 +15,21 @@ class HttpEdit extends arch\form\Action {
 
     protected $_menu;
 
-    protected function _init() {
+    protected function init() {
         if(!$this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request->query['menu'])) {
             $this->throwError(404, 'Menu not found');
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_menu->getId()->path->toString();
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         core\stub('Add menu delegate selector and entry builder');
     }
 
-    protected function _createUi() {
+    protected function createUi() {
 
     }
 }

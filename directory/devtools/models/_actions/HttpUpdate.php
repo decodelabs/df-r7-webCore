@@ -17,19 +17,16 @@ class HttpUpdate extends arch\form\template\Confirm {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DISPOSITION = 'operative';
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to update schemas? This process may take a while!');
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Update');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Update'))
+            ->setIcon('update');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'update';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $task = 'axis/update';
         return $this->task->initiateStream($task);
     }

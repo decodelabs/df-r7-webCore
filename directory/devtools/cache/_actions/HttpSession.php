@@ -20,12 +20,12 @@ class HttpSession extends arch\form\template\Delete {
     protected $_cache;
     protected $_shellCache;
 
-    protected function _init() {
+    protected function init() {
         $this->_cache = user\session\Cache::getInstance();
         $this->_shellCache = user\session\perpetuator\Shell_Cache::getInstance();
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_cache)
             ->addField('name', function($cache) {
                 return 'Session storage cache';
@@ -44,7 +44,7 @@ class HttpSession extends arch\form\template\Delete {
             );
     }
 
-    protected function _deleteItem() {
+    protected function apply() {
         $this->_cache->clear();
 
         if($this->values['deleteShellPerpetuator']) {

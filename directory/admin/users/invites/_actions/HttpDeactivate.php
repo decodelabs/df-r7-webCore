@@ -17,7 +17,7 @@ class HttpDeactivate extends arch\form\template\Confirm {
 
     protected $_invite;
 
-    protected function _init() {
+    protected function init() {
         $this->_invite = $this->scaffold->getRecord();
 
         if(!$this->_invite['isActive']) {
@@ -30,7 +30,7 @@ class HttpDeactivate extends arch\form\template\Confirm {
         }
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->push(
             $this->html->attributeList($this->_invite)
                 ->addField('creationDate', function($invite) {
@@ -51,24 +51,21 @@ class HttpDeactivate extends arch\form\template\Confirm {
         );
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to deactivate this invite?');
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Deactivate');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Deactivate'))
+            ->setIcon('remove');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'remove';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $this->_invite['isActive'] = false;
         $this->_invite->save();
     }
 
-    protected function _getFlashMessage() {
+    protected function getFlashMessage() {
         return $this->_('Your invite has been successfully deactivated');
     }
 }

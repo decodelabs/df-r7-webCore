@@ -13,11 +13,11 @@ class HttpAdd extends arch\form\Action {
     
     protected $_role;
 
-    protected function _init() {
+    protected function init() {
         $this->_role = $this->scaffold->newRecord();
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role details'));
         
@@ -45,7 +45,7 @@ class HttpAdd extends arch\form\Action {
     }
 
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $this->data->newValidator()
 
             // Name

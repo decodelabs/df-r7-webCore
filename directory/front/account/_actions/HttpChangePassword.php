@@ -16,7 +16,7 @@ class HttpChangePassword extends arch\form\Action {
 
     protected $_auth;
 
-    protected function _init() {
+    protected function init() {
         $this->_auth = $this->data->user->auth->fetchLocalClientAdapter();
 
         if(!$this->_auth) {
@@ -24,13 +24,13 @@ class HttpChangePassword extends arch\form\Action {
         }
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push(
             $this->apex->component('~front/account/ChangePasswordLocal', $this)
         );
     }
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $userConfig = $this->data->user->config;
 
         $validator = $this->data->newValidator()

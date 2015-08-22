@@ -17,17 +17,17 @@ class HttpDeactivate extends arch\form\Action {
 
     protected $_deactivation;
 
-    protected function _init() {
+    protected function init() {
         $this->_deactivation = $this->data->newRecord('axis://user/ClientDeactivation');
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push(
             $this->apex->component('~front/account/Deactivate', $this)
         );
     }
 
-    protected function _onDeactivateEvent() {
+    protected function onDeactivateEvent() {
         $this->data->newValidator()
             ->addField('reason', 'text')
                 ->setMaxLength(255)

@@ -17,20 +17,20 @@ class HttpConfirmLogin extends arch\form\Action {
     const DEFAULT_EVENT = 'login';
     const DEFAULT_REDIRECT = '/';
 
-    protected function _init() {
+    protected function init() {
         if($this->user->client->isConfirmed()) {
             $this->setComplete();
             return $this->http->defaultRedirect('account/');
         }
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $this->content->push(
             $this->apex->component('~front/account/ConfirmLoginLocal', $this)
         );
     }
 
-    protected function _onLoginEvent() {
+    protected function onLoginEvent() {
         if(!$this->values->password->hasValue()) {
             $this->values->password->addError('required', $this->_(
                 'Please enter your password'
@@ -56,7 +56,7 @@ class HttpConfirmLogin extends arch\form\Action {
         });
     }
 
-    protected function _onLogoutEvent() {
+    protected function onLogoutEvent() {
         return $this->complete(function() {
             $this->user->logout();
             return 'account/login';

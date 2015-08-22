@@ -18,18 +18,18 @@ class HttpRestart extends arch\form\template\Confirm {
 
     protected $_daemon;
 
-    protected function _init() {
+    protected function init() {
         $this->_daemon = halo\daemon\Base::factory($this->request->query['daemon']);
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_(
             'Are you sure you want to restart the %n% daemon?',
             ['%n%' => $this->_daemon->getName()]
         );
     }
 
-    protected function _apply() {
+    protected function apply() {
         $task = 'daemons/remote?daemon='.$this->_daemon->getName().'&command=restart';
         return $this->task->initiateStream($task);
     }

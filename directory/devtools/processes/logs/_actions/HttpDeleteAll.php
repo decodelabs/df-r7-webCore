@@ -15,14 +15,14 @@ class HttpDeleteAll extends arch\form\template\Delete {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'log list';
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList([])
             ->addField('logs', function() {
                 return $this->data->task->log->countAll();
             });
     }
 
-    protected function _deleteItem() {
+    protected function apply() {
         $this->data->task->log->delete()->execute();
     }
 }

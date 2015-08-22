@@ -14,15 +14,15 @@ class HttpAdd extends arch\form\Action {
 
     protected $_client;
 
-    protected function _init() {
+    protected function init() {
         $this->_client = $this->scaffold->newRecord();
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->loadDelegate('groups', '../groups/GroupSelector');
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $locale = $this->i18n->getDefaultLocale();
         
         $this->values->status = 3;
@@ -31,7 +31,7 @@ class HttpAdd extends arch\form\Action {
         $this->values->timezone = $this->i18n->timezones->suggestForCountry($locale->getRegion());
     }
     
-    protected function _createUi() {
+    protected function createUi() {
         $model = $this->data->getModel('user');
         
         $form = $this->content->addForm();
@@ -115,7 +115,7 @@ class HttpAdd extends arch\form\Action {
     }
 
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $isNew = $this->_client->isNew();
         $auth = null;
 

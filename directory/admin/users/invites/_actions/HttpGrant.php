@@ -14,13 +14,13 @@ class HttpGrant extends arch\form\Action {
 
     const DEFAULT_EVENT = 'saveUsers';
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->loadDelegate('users', '../clients/UserSelector')
             ->isForMany(true)
             ->isRequired(true);
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->allowance = $this->data->user->config->getInviteCap();
 
         if(isset($this->request->query->user)) {
@@ -28,7 +28,7 @@ class HttpGrant extends arch\form\Action {
         }
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Specific users'));
 
@@ -66,7 +66,7 @@ class HttpGrant extends arch\form\Action {
         }
     }
 
-    protected function _onSaveUsersEvent() {
+    protected function onSaveUsersEvent() {
         $validator = $this->data->newValidator()
             ->addRequiredField('allowance', 'integer')
                 ->setMin(1)
@@ -86,7 +86,7 @@ class HttpGrant extends arch\form\Action {
         });
     }
 
-    protected function _onSaveAllEvent() {
+    protected function onSaveAllEvent() {
         $validator = $this->data->newValidator()
             ->addRequiredField('allowance', 'integer')
                 ->setMin(1)

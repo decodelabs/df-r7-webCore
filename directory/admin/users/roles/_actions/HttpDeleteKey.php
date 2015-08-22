@@ -16,7 +16,7 @@ class HttpDeleteKey extends arch\form\template\Delete {
     
     protected $_key;
 
-    protected function _init() {
+    protected function init() {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
             $this->request->query['key'],
@@ -24,11 +24,11 @@ class HttpDeleteKey extends arch\form\template\Delete {
         );
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_key['id'];
     }
     
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_key)
 
             // Role

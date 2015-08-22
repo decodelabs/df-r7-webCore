@@ -17,34 +17,31 @@ class HttpArchive extends arch\form\template\Confirm {
 
     protected $_miss;
 
-    protected function _init() {
+    protected function init() {
         $this->_miss = $this->scaffold->getRecord();
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_miss['id'];
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to archive this error?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->push(
             $this->apex->component('MissDetails')
                 ->setRecord($this->_miss)
         );
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Archive');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Archive'))
+            ->setIcon('remove');
     }
 
-    protected function _getMainButtonIcon() {
-        return 'remove';
-    }
-
-    protected function _apply() {
+    protected function apply() {
         $this->_miss->archiveDate = 'now';
         $this->_miss->save();
     }

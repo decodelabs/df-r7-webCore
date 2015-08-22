@@ -21,7 +21,7 @@ class HttpLogin extends arch\form\Action {
     protected $_adapter;
     protected $_config;
 
-    protected function _init() {
+    protected function init() {
         if($this->user->client->isLoggedIn()) {
             $this->setComplete();
             return $this->http->defaultRedirect('account/');
@@ -46,11 +46,11 @@ class HttpLogin extends arch\form\Action {
         }
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
     }
 
-    protected function _createUi() {
+    protected function createUi() {
         $enabled = $this->_config->getEnabledAdapters();
 
         if(count($enabled) > 1) {
@@ -67,7 +67,7 @@ class HttpLogin extends arch\form\Action {
         $this->getDelegate($this->_adapter)->renderUi();
     }
 
-    protected function _onLoginEvent() {
+    protected function onLoginEvent() {
         $delegate = $this->getDelegate($this->_adapter);
         $output = $delegate->handleEvent('login', func_get_args());
         
