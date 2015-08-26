@@ -380,12 +380,16 @@
         }
 
         &.field-actions a.widget-link {
-            margin-left: 0;
+            margin: 0 0.15em;
             font-size: 1.2em;
             width: 1.2em !important;
             height: 1.2em !important;
             overflow: hidden;
             visibility: hidden;
+
+            &:first-child {
+                margin-left: 0;
+            }
 
             span[data-icon] {
                 margin-right: 1em;
@@ -700,4 +704,10 @@
 // Breadcrumbs
 .widget-breadcrumbList {
     margin-bottom: 1em;
+}
+
+
+// General input
+input + button {
+    margin-left: 1em;
 }
