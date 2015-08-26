@@ -27,7 +27,7 @@ class Unit extends axis\unit\table\Base {
 
     protected $_defaultOrder = 'lastSent DESC';
 
-    protected function _onCreate(axis\schema\ISchema $schema) {
+    protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'AutoId');
         $schema->addUniqueField('key', 'String', 64);
 

@@ -25,7 +25,7 @@ class Unit extends axis\unit\table\Base {
 
     protected $_defaultOrder = 'creationDate DESC';
 
-    protected function _onCreate(axis\schema\ISchema $schema) {
+    protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'AutoId', 8);
 
         $schema->addField('name', 'String', 128);

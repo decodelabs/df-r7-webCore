@@ -12,7 +12,7 @@ use df\axis;
     
 class Unit extends axis\unit\table\Base {
 
-    protected function _onCreate(axis\schema\ISchema $schema) {
+    protected function createSchema($schema) {
         $schema->addField('user', 'One', 'client');
         $schema->addField('email', 'String', 255);
         $schema->addField('key', 'String', 16);
