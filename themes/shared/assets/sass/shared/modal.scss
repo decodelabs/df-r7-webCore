@@ -1,5 +1,15 @@
+body > *:not(#modal-container) {
+    transition: 250ms filter;
+    -webkit-transition: 250ms -webkit-filter;
+    -moz-transition: 250ms -moz-filter;
+}
+
 body.modal-open {
     overflow: hidden; 
+
+    > *:not(#modal-container) {
+        filter: blur(5px);
+    }
 }
 
 #modal-container {

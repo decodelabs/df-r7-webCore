@@ -165,6 +165,8 @@ window.dfKit = {
         _isInit: false,
         _initialUrl: null,
         _overlayAction: 'close',
+        _containerFadeTime: 200,
+        _contentFadeTime: 0,
 
         init: function() {
             if(this._isInit) return;
@@ -261,7 +263,7 @@ window.dfKit = {
                     if(options.class) $modal.addClass(options.class);
 
                     dfKit.call(options.callback, options.callbackData);
-                    $modal.fadeIn(200);
+                    $modal.fadeIn(_this._contentFadeTime);
 
                     switch(options.overlayAction) {
                         case 'none':
@@ -285,7 +287,7 @@ window.dfKit = {
                 $container = $('<div id="modal-container"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
                 $(_this.attr.content).hide();
 
-                $container.fadeIn(200, function() {
+                $container.fadeIn(_this._containerFadeTime, function() {
                     builder();
                 });
             }
@@ -325,10 +327,10 @@ window.dfKit = {
             if(!$(_this.attr.container).length) {
                 callbackRunner();
             } else {
-                $(_this.attr.content).fadeOut(200, function() {
+                $(_this.attr.content).fadeOut(_this._contentFadeTime, function() {
                     _this._overlayAction = 'close';
 
-                    $(_this.attr.container).fadeOut(200, function() {
+                    $(_this.attr.container).fadeOut(_this._containerFadeTime, function() {
                         _this._initialUrl = null;
                         $(this).remove();
                         $('body').removeClass('modal-open');
