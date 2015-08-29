@@ -16,16 +16,16 @@ if(typeof require == 'undefined') {
         urlArgs: cts ? 'cts=' + cts : null
     });
 
-    require(['df-kit/core'], function(core) {
-        core.baseUrl = baseUrl;
-        core.cts = cts;
-        core.init();
+    require(['require.config'], function(config) {
+        require.config(config);
 
-        var modules = document.body.getAttribute('data-require');
+        require(['df-kit/core'], function(core) {
+            core.baseUrl = baseUrl;
+            core.cts = cts;
+            core.init();
 
-        if(modules) {
-            modules = modules.split(' ');
-            require(modules);
-        }
+            var modules = document.body.getAttribute('data-require');
+            if(modules) require(modules.split(' '));
+        });
     });
 })(require);

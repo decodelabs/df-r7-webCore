@@ -1,23 +1,22 @@
-define(function() {
+define([
+    'jquery'
+], function($) {
     return {
         baseUrl: null,
         cts: null,
         location: null,
         layout: null,
-        _isInit: false,
 
         init: function() {
-            if(this._isInit) return;
-
             if(!this.cts) {
                 var viewData = document.getElementById('custom-view-data');
                 this.baseUrl = viewData.getAttribute('data-base');
                 this.cts = viewData.getAttribute('data-cts');
             }
 
-            this.location = document.body.getAttribute('location');
-            this.layout = document.body.getAttribute('layout');
-            this._isInit = true;
+            var $body = $(document.body);
+            this.location = $body.data('location');
+            this.layout = $body.data('layout');
         },
 
         call: function(callback, data) {
