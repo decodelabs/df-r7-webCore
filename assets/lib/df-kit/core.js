@@ -27,7 +27,7 @@ define([
 
         component: function(obj) {
             if(typeof obj.init == 'function') {
-                this.call(obj.init);
+                obj.init();
             }
 
             return obj;
