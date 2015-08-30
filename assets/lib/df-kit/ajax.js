@@ -101,6 +101,66 @@ define([
             if(response.request.onLoad && response.request.onLoad !== null) {
                 response.request.onLoad(response);
             }
+        },
+
+
+
+        onLinkClick: function(e, element, initialUrl) {
+            var _this = this,
+                href = $(e.target).closest('a').attr('href'),
+                data = this._lastRequest ? this._lastRequest : {};
+            if(!href) return;
+
+            e.preventDefault();
+
+            this.load(element, href, {
+                requestType: 'ajax',
+                requestSource: 'modal',
+                formComplete: function(response) {
+                    if(response.request.formEvent != 'cancel'
+                    && response.forceRedirect
+                    && response.redirect !== null) {
+                        return this.load(element, response.redirect, {
+                            requestSource: 'modal'
+                        });
+                    }
+
+                    this.load(element, initialUrl);
+                }
+            });
+        },
+
+        onFormSubmit: function(e, element) {
+            e.preventDefault();
+
+            var $form = $(e.target),
+                formEvent,
+                data = this._lastRequest ? this._lastRequest : {};
+
+            data.form = $form.serializeArray();
+            data.formEvent = null;
+
+            if(e.originalEvent && e.originalEvent.explicitOriginalTarget && e.originalEvent.explicitOriginalTarget.tagName == 'BUTTON') {
+                data.formEvent = formEvent = $(e.originalEvent.explicitOriginalTarget).val();
+            } else if(document.activeElement && document.activeElement.tagName == 'BUTTON') {
+                data.formEvent = formEvent = $(document.activeElement).val();
+            } else {
+                data.formEvent = $('#form-hidden-activeFormEvent').val();
+            }
+
+            if(formEvent) {
+                data.form.push({name:'formEvent', value:formEvent});
+            }
+
+            if(!data.$element) {
+                data.$element = element ? $(element) : $form;
+            }
+
+            data.requestSource = 'modal';
+
+            this.post($form.attr('action'), data, function(output) {
+                this.handleResponse(output);
+            });
         }
     });
 });

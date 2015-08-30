@@ -5,17 +5,14 @@ define([
 ], function($, core, ajax) {
     return core.component({
         attr: {
-            trigger: '.modal, [data-modal]',
-            container: '#modal-container',
-            wrapper: '#modal-wrapper',
-            content: '#modal-content'
+            trigger: '.pushy, [data-pushy]',
+            container: '#pushy-container',
+            content: '#pushy-content'
         },
 
         _closeCallback: null,
         _initialUrl: null,
-        _overlayAction: 'close',
-        _containerFadeTime: 200,
-        _contentFadeTime: 0,
+        _contentFadeTime: 200,
 
         init: function() {
             var _this = this;
@@ -23,33 +20,35 @@ define([
             $(document).on('click', this.attr.trigger, function(e) {
                 e.preventDefault();
 
-                var modalClass = $(this).data('modal-class'),
-                    containerClass = $(this).data('modal-container-class'),
-                    href = $(this).data('modal-href'),
-                    overlayAction = $(this).data('overlay-action');
+                var pushyClass = $(this).data('pushy-class'),
+                    href = $(this).data('pushy-href'),
+                    side = $(this).data('pushy-side');
 
                 if(!href) {
-                    href = $(this).data('modal');
+                    href = $(this).data('pushy');
                 }
                 
                 if(!href) {
                     href = $(this).attr('href');
                 }
 
+                if(!side) {
+                    side = 'right';
+                }
+
                 _this.ajax(href, {
-                    class: modalClass,
-                    containerClass: containerClass,
-                    overlayAction: overlayAction
+                    class: pushyClass,
+                    side: side
                 });
             });
 
-            $(document).on('click touchstart', '.modal-close', function(e) {
+            $(document).on('click touchstart', '.pushy-close', function(e) {
                 if(e.target != e.currentTarget) return;
                 e.preventDefault();
                 _this.close();
             });
 
-            $(document).on('click', _this.attr.container + ' a:not(.modal-close,.local,[target],'+ _this.attr.trigger + ')', function(e) {
+            $(document).on('click', _this.attr.container + ' a:not(.pushy-close,.local,[target],'+ _this.attr.trigger + ')', function(e) {
                 if(!core.isUrlExternal($(this).attr('href'))) {
                     ajax.onLinkClick(e, _this.attr.content, _this._initialUrl);
                 }
@@ -105,31 +104,25 @@ define([
         },
 
         open: function(html, options) {
-            var _this = this;
+            var _this = this,
+                $body = $(document.body);
             options = options || {};
 
             var $container = $(_this.attr.container),
-                $modal, $overlay,
                 builder = function() {
-                    $modal = $(_this.attr.content).hide().html(html);
-                    $overlay = $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
+                    $body.addClass('active');
+
+                    if(!$body.hasClass('push-'+options.side)) {
+                        $body.removeClass('push-left push-right').addClass('push-'+options.side);
+                    }
+
+                    $pushy = $(_this.attr.content).hide().html(html);
                     _this._closeCallback = options.closeCallback;
 
-                    if(options.class) $modal.addClass(options.class);
-                    if(options.containerClass) $container.addClass(options.containerClass);
+                    if(options.class) $container.addClass(options.class);
 
                     core.call(options.callback, options.callbackData);
-                    $modal.fadeIn(_this._contentFadeTime);
-
-                    switch(options.overlayAction) {
-                        case 'none':
-                            break;
-
-                        case 'close':
-                        default:
-                            $overlay.addClass('modal-close');
-                            break;
-                    }
+                    $pushy.fadeIn(_this._contentFadeTime);
                 };
 
             if($container.length) {
@@ -139,13 +132,9 @@ define([
                     builder();
                 });
             } else {
-                $('body').addClass('modal-open');
-                $container = $('<div id="modal-container"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
+                $container = $('<aside id="pushy-container"><a class="pushy-close">x</a><div id="pushy-content"></div></aside>').appendTo('body');
                 $(_this.attr.content).hide();
-
-                $container.fadeIn(_this._containerFadeTime, function() {
-                    builder();
-                });
+                builder();
             }
         },
 
@@ -177,21 +166,18 @@ define([
                 core.call(callback, data);
             };
 
-            $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
-
             if(!$(_this.attr.container).length) {
                 callbackRunner();
             } else {
-                $(_this.attr.content).fadeOut(_this._contentFadeTime, function() {
-                    _this._overlayAction = 'close';
+                var $body = $(document.body);
+                $body.removeClass('active');
 
-                    $(_this.attr.container).fadeOut(_this._containerFadeTime, function() {
-                        _this._initialUrl = null;
-                        $(this).remove();
-                        $('body').removeClass('modal-open');
-                        callbackRunner();
-                    });
-                });
+                setTimeout(function() {
+                    $body.removeClass('push-left push-right');
+                    _this._initialUrl = null;
+                    $(_this.attr.container).remove();
+                    callbackRunner();
+                }, 500);
             }
         }
     });

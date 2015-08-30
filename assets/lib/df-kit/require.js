@@ -11,6 +11,7 @@ if(typeof require == 'undefined') {
         baseUrl: baseUrl + 'assets/',
         paths: {
             'app': './app',
+            'theme': '../theme',
             'df-kit': './lib/df-kit'
         },
         urlArgs: cts ? 'cts=' + cts : null
