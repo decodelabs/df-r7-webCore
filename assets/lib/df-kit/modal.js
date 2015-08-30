@@ -5,21 +5,19 @@ define([
 ], function($, core, ajax) {
     return core.component({
         attr: {
-            trigger: '.modal',
+            trigger: '.modal, [data-modal]',
             container: '#modal-container',
             wrapper: '#modal-wrapper',
             content: '#modal-content'
         },
 
         _closeCallback: null,
-        _isInit: false,
         _initialUrl: null,
         _overlayAction: 'close',
         _containerFadeTime: 200,
         _contentFadeTime: 0,
 
         init: function() {
-            if(this._isInit) return;
             var _this = this;
 
             $(document).on('click', this.attr.trigger, function(e) {
@@ -29,6 +27,10 @@ define([
                     href = $(this).data('modal-href'),
                     overlayAction = $(this).data('overlay-action');
 
+                if(!href) {
+                    href = $(this).data('modal');
+                }
+                
                 if(!href) {
                     href = $(this).attr('href');
                 }
@@ -60,17 +62,12 @@ define([
                 $('#form-hidden-activeFormEvent').remove();
                 $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
             });
-
-
-
-            _this._isInit = true;
         },
 
         ajax: function(href, options) {
             var _this = this,
                 callback = options.callback;
 
-            _this.init();
             options = options || {};
 
             options.callback = function(data) {
@@ -101,7 +98,6 @@ define([
 
         open: function(html, options) {
             var _this = this;
-            _this.init();
             options = options || {};
 
             var $container = $(_this.attr.container),
@@ -145,7 +141,6 @@ define([
 
         close: function(callback, data) {
             var _this = this;
-            this.init();
 
             if($('.widget-form', this.attr.container).length) {
                 var $form = $('.widget-form', this.attr.container).first();
