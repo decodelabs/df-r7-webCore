@@ -24,6 +24,7 @@ define([
                 e.preventDefault();
 
                 var modalClass = $(this).data('modal-class'),
+                    containerClass = $(this).data('modal-container-class'),
                     href = $(this).data('modal-href'),
                     overlayAction = $(this).data('overlay-action');
 
@@ -37,6 +38,7 @@ define([
 
                 _this.ajax(href, {
                     class: modalClass,
+                    containerClass: containerClass,
                     overlayAction: overlayAction
                 });
             });
@@ -106,7 +108,9 @@ define([
                     $modal = $(_this.attr.content).hide().html(html);
                     $overlay = $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
                     _this._closeCallback = options.closeCallback;
+
                     if(options.class) $modal.addClass(options.class);
+                    if(options.containerClass) $container.addClass(options.containerClass);
 
                     core.call(options.callback, options.callbackData);
                     $modal.fadeIn(_this._contentFadeTime);
