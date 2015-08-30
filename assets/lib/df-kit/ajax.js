@@ -5,6 +5,26 @@ define([
     return core.component({
         _lastRequest: null,
 
+        init: function() {
+            var _this = this;
+
+            $(document).on('click', '.ajax-content .widget-eventButton', function(e) {
+                var event = $(this).val();
+                $('#form-hidden-activeFormEvent').remove();
+                $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
+            });
+
+            $(document).on('click', '.ajax-content a[href]:not([class*=\'-close\'],.local,[target],.pushy,.modal)', function(e) {
+                if(!core.isUrlExternal($(this).attr('href'))) {
+                    _this.onLinkClick(e, $(this).closest('.ajax-content'));
+                }
+            });
+
+            $(document).on('submit', '.ajax-content .widget-form', function(e) {
+                _this.onFormSubmit(e, $(this).closest('.ajax-content'));
+            });
+        },
+
         load: function(element, url, data) {
             var _this = this;
             data = data ? data : {};
@@ -58,6 +78,14 @@ define([
             data = data ? data : {};
             data.url = url;
 
+            if(!data.initialUrl) {
+                data.initialUrl = url;
+            }
+
+            if(!data.initialFormComplete && data.formComplete) {
+                data.initialFormComplete = data.formComplete;
+            }
+
             if(!data.requestType) {
                 data.requestType = 'ajax';
             }
@@ -79,9 +107,15 @@ define([
 
             response.request = request;
 
-            if(response.isComplete && request.formComplete) {
-                response.request.formComplete(response);
-                return;
+            if(response.isComplete) {
+                if(request.url == request.initialUrl
+                && request.initialFormComplete) {
+                    request.initialFormComplete(response);
+                    return;
+                } else if(request.formComplete) {
+                    request.formComplete(response);
+                    return;
+                }
             }
 
             if(response.redirect && response.redirect !== null) {
@@ -96,7 +130,9 @@ define([
                 return;
             }
             
-            response.request.$element.html(response.content);
+            response.request.$element
+                .addClass('ajax-content')
+                .html(response.content);
 
             if(response.request.onLoad && response.request.onLoad !== null) {
                 response.request.onLoad(response);
@@ -105,7 +141,7 @@ define([
 
 
 
-        onLinkClick: function(e, element, initialUrl) {
+        onLinkClick: function(e, element) {
             var _this = this,
                 href = $(e.target).closest('a').attr('href'),
                 data = this._lastRequest ? this._lastRequest : {};
@@ -115,17 +151,26 @@ define([
 
             this.load(element, href, {
                 requestType: 'ajax',
-                requestSource: 'modal',
+                requestSource: data.requestSource,
+                initialUrl: data.initialUrl,
+                initialFormComplete: data.initialFormComplete,
                 formComplete: function(response) {
+                    console.log(data.initialFormComplete);
+
                     if(response.request.formEvent != 'cancel'
                     && response.forceRedirect
                     && response.redirect !== null) {
-                        return this.load(element, response.redirect, {
-                            requestSource: 'modal'
+                        return _this.load(element, response.redirect, {
+                            requestSource: data.requestSource
                         });
                     }
 
-                    this.load(element, initialUrl);
+                    if(response.request.url == response.request.initialUrl
+                    && data.initialFormComplete) {
+                        data.initialFormComplete(response);
+                    } else {
+                        _this.load(element, response.request.initialUrl);
+                    }
                 }
             });
         },
@@ -133,7 +178,8 @@ define([
         onFormSubmit: function(e, element) {
             e.preventDefault();
 
-            var $form = $(e.target),
+            var _this = this,
+                $form = $(e.target),
                 formEvent,
                 data = this._lastRequest ? this._lastRequest : {};
 
@@ -156,10 +202,10 @@ define([
                 data.$element = element ? $(element) : $form;
             }
 
-            data.requestSource = 'modal';
+            //data.requestSource = 'modal';
 
             this.post($form.attr('action'), data, function(output) {
-                this.handleResponse(output);
+                _this.handleResponse(output);
             });
         }
     });

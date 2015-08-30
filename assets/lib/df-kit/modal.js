@@ -49,22 +49,6 @@ define([
                 _this.close();
             });
 
-            $(document).on('click', _this.attr.container + ' a:not(.modal-close,.local,[target],'+ _this.attr.trigger + ')', function(e) {
-                if(!core.isUrlExternal($(this).attr('href'))) {
-                    ajax.onLinkClick(e, _this.attr.content, _this._initialUrl);
-                }
-            });
-
-            $(document).on('submit', _this.attr.container + ' .widget-form', function(e) {
-                ajax.onFormSubmit(e, _this.attr.content);
-            });
-
-            $(document).on('click', _this.attr.container + ' .widget-eventButton', function(e) {
-                var event = $(this).val();
-                $('#form-hidden-activeFormEvent').remove();
-                $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
-            });
-
             $(document).keyup(function(e) {
                 if(e.which == 27) {
                     _this.close();
@@ -93,7 +77,7 @@ define([
                             });
                         }
                         
-                        _this.close();
+                        _this._close();
                     },
                     onLoad: function(response) {
                         core.call(callback);

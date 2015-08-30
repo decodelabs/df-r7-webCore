@@ -48,22 +48,6 @@ define([
                 _this.close();
             });
 
-            $(document).on('click', _this.attr.container + ' a:not(.pushy-close,.local,[target],'+ _this.attr.trigger + ')', function(e) {
-                if(!core.isUrlExternal($(this).attr('href'))) {
-                    ajax.onLinkClick(e, _this.attr.content, _this._initialUrl);
-                }
-            });
-
-            $(document).on('submit', _this.attr.container + ' .widget-form', function(e) {
-                ajax.onFormSubmit(e, _this.attr.content);
-            });
-
-            $(document).on('click', _this.attr.container + ' .widget-eventButton', function(e) {
-                var event = $(this).val();
-                $('#form-hidden-activeFormEvent').remove();
-                $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
-            });
-
             $(document).keyup(function(e) {
                 if(e.which == 27) {
                     _this.close();
@@ -81,18 +65,18 @@ define([
                 _this._initialUrl = href;
 
                 ajax.load(_this.attr.content, href, {
-                    requestSource: 'modal',
+                    requestSource: 'pushy',
 
                     formComplete: function(response) {
                         if(response.request.formEvent != 'cancel'
                         && response.forceRedirect
                         && response.redirect !== null) {
                             return ajax.load(_this.attr.content, response.redirect, {
-                                requestSource: 'modal'
+                                requestSource: 'pushy'
                             });
                         }
                         
-                        _this.close();
+                        _this._close();
                     },
                     onLoad: function(response) {
                         core.call(callback);
@@ -106,11 +90,12 @@ define([
         open: function(html, options) {
             var _this = this,
                 $body = $(document.body);
+
             options = options || {};
 
             var $container = $(_this.attr.container),
                 builder = function() {
-                    $body.addClass('active');
+                    $body.addClass('pushy-active');
 
                     if(!$body.hasClass('push-'+options.side)) {
                         $body.removeClass('push-left push-right').addClass('push-'+options.side);
@@ -147,7 +132,7 @@ define([
                 ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
-                    requestSource: 'modal',
+                    requestSource: 'pushy',
                     formComplete: function() {
                         _this._close();
                     }
@@ -170,7 +155,7 @@ define([
                 callbackRunner();
             } else {
                 var $body = $(document.body);
-                $body.removeClass('active');
+                $body.removeClass('pushy-active');
 
                 setTimeout(function() {
                     $body.removeClass('push-left push-right');

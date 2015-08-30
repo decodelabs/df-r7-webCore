@@ -25,7 +25,7 @@ body {
     &.push-left {
         transition: transform .25s ease-in;
 
-        &.active {
+        &.pushy-active {
             transform: translateX($pushy-width);
         }
 
@@ -41,7 +41,7 @@ body {
     &.push-right {
         transition: transform .25s ease-in;
 
-        &.active {
+        &.pushy-active {
             transform: translateX(-$pushy-width);
         }
 
