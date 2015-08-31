@@ -18,6 +18,13 @@ if(typeof require == 'undefined') {
     });
 
     require(['require.config'], function(config) {
+        if(!config.paths || !config.paths.jquery || !config.paths.underscore) {
+            throw new Error('df-kit requires jquery and underscore');
+        }
+
+        if(!config.shim) config.shim = {};
+        config.shim.underscore = {exports: '_'};
+
         require.config(config);
 
         require([

@@ -36,7 +36,7 @@ define([
                     href = $(this).attr('href');
                 }
 
-                _this.ajax(href, {
+                _this.load(href, {
                     class: modalClass,
                     containerClass: containerClass,
                     overlayAction: overlayAction
@@ -56,7 +56,7 @@ define([
             });
         },
 
-        ajax: function(href, options) {
+        load: function(href, options) {
             var _this = this,
                 callback = options.callback;
 
@@ -85,7 +85,7 @@ define([
                 });
             };
 
-            _this.open('', options);
+            _this.open('loading...', options);
         },
 
         open: function(html, options) {
