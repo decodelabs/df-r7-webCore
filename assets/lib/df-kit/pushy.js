@@ -6,8 +6,9 @@ define([
     return core.component({
         attr: {
             trigger: '.pushy, [data-pushy]',
-            container: '#pushy-container',
-            content: '#pushy-content'
+            leftContainer: '.pushy-container.push-left',
+            rightContainer: '.pushy-container.push-right',
+            content: '.pushy-content'
         },
 
         _closeCallback: null,
@@ -53,6 +54,12 @@ define([
                     _this.close();
                 }
             });
+
+            core.on('dialog.open', function(source) {
+                if(source !== 'pushy') {
+                    //_this.close();
+                }
+            });
         },
 
         ajax: function(href, options) {
@@ -83,32 +90,57 @@ define([
                 $body = $(document.body);
 
             options = options || {};
+            core.trigger('dialog.open', 'pushy');
 
-            var $container = $(_this.attr.container),
+            var $leftContainer = $(_this.attr.leftContainer),
+                $rightContainer = $(_this.attr.rightContainer),
                 builder = function() {
                     $body.addClass('pushy-active');
+                    $('.pushy-container').removeClass('pushy-active');
 
                     if(!$body.hasClass('push-'+options.side)) {
                         $body.removeClass('push-left push-right').addClass('push-'+options.side);
                     }
 
-                    $pushy = $(_this.attr.content).hide().html(html);
+                    if(options.side == 'left') {
+                        $content = $leftContainer.addClass('pushy-active').find('.pushy-content');
+                        //$rightContainer.find('.pushy-content').html('');
+                    } else {
+                        $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
+                        //$leftContainer.find('.pushy-content').html('');
+                    }
+                    
+                    $content.html(html);
+
                     _this._closeCallback = options.closeCallback;
 
-                    if(options.class) $container.addClass(options.class);
+                    if(options.class) {
+                        $leftContainer.addClass(options.class);
+                        $rightContainer.addClass(options.class);
+                    }
 
                     core.call(options.callback, options.callbackData);
-                    $pushy.fadeIn(_this._contentFadeTime);
+                    //$content.show();
+                    $content.fadeIn(_this._contentFadeTime);
                 };
 
-            if($container.length) {
-                $(_this.attr.content).fadeOut(200, function() {
-                    core.call(_this._closeCallback);
-                    _this._closeCallback = null;
-                    builder();
-                });
+            if($leftContainer.length) {
+                var $active = $(_this.attr.content, '.pushy-container.pushy-active'),
+                    runner = function() {
+                        core.call(_this._closeCallback);
+                        _this._closeCallback = null;
+                        builder();
+                    };
+
+                if($active.length && !$body.hasClass('push-'+options.side)) {
+                    runner();
+                } else {
+                    $('.pushy-content').hide();
+                    runner();
+                }
             } else {
-                $container = $('<aside id="pushy-container"><a class="pushy-close">x</a><div id="pushy-content"></div></aside>').appendTo('body');
+                $leftContainer = $('<aside class="pushy-container push-left"><a class="pushy-close">x</a><div class="pushy-content"></div></aside>').appendTo('body');
+                $rightContainer = $('<aside class="pushy-container push-right"><a class="pushy-close">x</a><div class="pushy-content"></div></aside>').appendTo('body');
                 $(_this.attr.content).hide();
                 builder();
             }
@@ -117,8 +149,8 @@ define([
         close: function(callback, data) {
             var _this = this;
 
-            if($('.widget-form', this.attr.container).length) {
-                var $form = $('.widget-form', this.attr.container).first();
+            if($('.widget-form', this.attr.content).length) {
+                var $form = $('.widget-form', this.attr.content).first();
 
                 ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],
@@ -146,7 +178,7 @@ define([
                 }
             };
 
-            if(!$(_this.attr.container).length) {
+            if(!$(_this.attr.content).length) {
                 callbackRunner();
             } else {
                 var $body = $(document.body);
@@ -154,7 +186,7 @@ define([
 
                 setTimeout(function() {
                     $body.removeClass('push-left push-right');
-                    $(_this.attr.container).remove();
+                    $('.pushy-container').remove();
                     callbackRunner();
                 }, 500);
             }

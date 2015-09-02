@@ -54,6 +54,12 @@ define([
                     _this.close();
                 }
             });
+
+            core.on('dialog.open', function(source) {
+                if(source !== 'modal') {
+                    _this.close();
+                }
+            });
         },
 
         load: function(href, options) {
@@ -81,6 +87,7 @@ define([
         open: function(html, options) {
             var _this = this;
             options = options || {};
+            core.trigger('dialog.open', 'modal');
 
             var $container = $(_this.attr.container),
                 $modal, $overlay,

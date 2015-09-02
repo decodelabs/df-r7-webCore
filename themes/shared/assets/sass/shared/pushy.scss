@@ -1,53 +1,77 @@
 $pushy-width: 25rem !default;
 
 body {
-    transition: transform .25s ease-out;
-
-    aside#pushy-container {
-        width: $pushy-width;
-        height: 100%;
-        min-height: 100vh;
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translateX(100%);
-
-        > a.pushy-close {
-            position: absolute;
-            right: 0;
-            padding: 0.6rem 0.7rem;
-            line-height: 1;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-    }
+    transition: margin-left .25s ease-out, margin-right .25s ease-out;
+    width: 100vw;
 
     &.push-left {
-        transition: transform .25s ease-in;
+        transition: margin-left .25s ease-in, margin-right .25s ease-in;
 
         &.pushy-active {
-            transform: translateX($pushy-width);
-        }
-
-        aside#pushy-container {
-            left: 0;
-            transform: translateX(-100%);
+            margin-right: -$pushy-width;
+            margin-left: $pushy-width;
         }
     }
     &.push-right {
-        transition: transform .25s ease-in;
+        transition: margin-left .25s ease-in, margin-right .25s ease-in;
 
         &.pushy-active {
-            transform: translateX(-$pushy-width);
-        }
-
-        aside#pushy-container {
-            right: 0;
-            transform: translateX(100%);
+            margin-left: -$pushy-width;
+            margin-right: $pushy-width;
         }
     }
 }
 
-#pushy-content {
-    padding: 1rem;
+aside.pushy-container {
+    width: $pushy-width;
+    height: 100%;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    transition: margin-left .25s ease-out, margin-right .25s ease-out !important;
+
+    body.push-left & {
+        transition: margin-left .25s ease-in, margin-right .25s ease-in !important;
+    }
+
+    body.push-right & {
+        transition: margin-left .25s ease-in, margin-right .25s ease-in !important;
+    }
+
+    &.push-left {
+        left: -$pushy-width;
+
+        body.push-left.pushy-active & {
+            margin-left: $pushy-width;
+        }
+        body.push-right.pushy-active & {
+            margin-left: -$pushy-width;
+        }
+    }
+
+    &.push-right {
+        right: -$pushy-width;
+
+        body.push-right.pushy-active & {
+            margin-right: $pushy-width;
+        }
+        body.push-left.pushy-active & {
+            margin-right: -$pushy-width;
+        }
+    }
+
+    > a.pushy-close {
+        position: absolute;
+        right: 0;
+        padding: 0.6rem 0.7rem;
+        line-height: 1;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    > .pushy-content {
+        padding: 1rem;
+    }
 }

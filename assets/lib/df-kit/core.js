@@ -2,8 +2,7 @@ define([
     'jquery',
     'underscore'
 ], function($, _) {
-    var core;
-    return core = {
+    var core = {
         baseUrl: null,
         cts: null,
         location: null,
@@ -263,4 +262,6 @@ define([
             }
         }
     };
+
+    return core = core.component(core);
 });
