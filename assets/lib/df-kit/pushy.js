@@ -11,8 +11,8 @@ define([
         },
 
         _closeCallback: null,
-        _initialUrl: null,
         _contentFadeTime: 200,
+        client: null,
 
         init: function() {
             var _this = this;
@@ -62,22 +62,13 @@ define([
             options = options || {};
 
             options.callback = function(data) {
-                _this._initialUrl = href;
-
-                ajax.load(_this.attr.content, href, {
-                    requestSource: 'pushy',
+                _this.client = ajax.loadElement(_this.attr.content, href, {
+                    source: 'pushy',
 
                     formComplete: function(response) {
-                        if(response.request.formEvent != 'cancel'
-                        && response.forceRedirect
-                        && response.redirect !== null) {
-                            return ajax.load(_this.attr.content, response.redirect, {
-                                requestSource: 'pushy'
-                            });
-                        }
-                        
                         _this._close();
                     },
+
                     onLoad: function(response) {
                         core.call(callback);
                     }
@@ -132,7 +123,7 @@ define([
                 ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
-                    requestSource: 'pushy',
+                    source: 'pushy',
                     formComplete: function() {
                         _this._close();
                     }
@@ -149,6 +140,10 @@ define([
                 core.call(_this._closeCallback, data);
                 _this._closeCallback = null;
                 core.call(callback, data);
+
+                if(_this.client) {
+                    _this.client.destroy();
+                }
             };
 
             if(!$(_this.attr.container).length) {
@@ -159,7 +154,6 @@ define([
 
                 setTimeout(function() {
                     $body.removeClass('push-left push-right');
-                    _this._initialUrl = null;
                     $(_this.attr.container).remove();
                     callbackRunner();
                 }, 500);

@@ -2,211 +2,291 @@ define([
     'jquery',
     'df-kit/core'
 ], function($, core) {
-    return core.component({
-        _lastRequest: null,
+    var ajax;
+    return ajax = core.component({
+        _clients: {},
 
         init: function() {
-            var _this = this;
-
             $(document).on('click', '.ajax-content .widget-eventButton', function(e) {
                 var event = $(this).val();
                 $('#form-hidden-activeFormEvent').remove();
                 $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
             });
-
-            $(document).on('click', '.ajax-content a[href]:not([class*=\'-close\'],.local,[target],.pushy,.modal)', function(e) {
-                if(!core.isUrlExternal($(this).attr('href'))) {
-                    _this.onLinkClick(e, $(this).closest('.ajax-content'));
-                }
-            });
-
-            $(document).on('submit', '.ajax-content .widget-form', function(e) {
-                _this.onFormSubmit(e, $(this).closest('.ajax-content'));
-            });
         },
 
-        load: function(element, url, data) {
-            var _this = this;
-            data = data ? data : {};
-            data.$element = $(element);
+        loadElement: function(element, url, options) {
+            var client, clientId = $(element).attr('data-ajax-client');
 
-            this.get(url, data, function(output) {
-                _this.handleResponse(output);
-            });
-        },
-
-        get: function(url, data, callback) {
-            var _this = this;
-            data = this.normalizeRequest(url, data);
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                headers: {
-                    'x-ajax-request-type' : data.requestType,
-                    'x-ajax-request-source': data.requestSource
-                },
-                success: function(response) {
-                    _this.normalizeResponse(response, data, callback);
-                }
-            }).fail(function(e) {
-                console.log('Ajax GET failed...', url, e);
-            });
-        },
-
-        post: function(url, data, callback) {
-            var _this = this;
-            data = this.normalizeRequest(url, data);
-
-            $.ajax({
-                data: $.param(data.form),
-                url: url,
-                type: 'POST',
-                headers: {
-                    'x-ajax-request-type' : data.requestType,
-                    'x-ajax-request-source': data.requestSource
-                },
-                success: function(response) {
-                    _this.normalizeResponse(response, data, callback);
-                }
-            }).fail(function(e) {
-                console.log('Ajax POST failed...', url, e);
-            });
-        },
-
-        normalizeRequest: function(url, data) {
-            data = data ? data : {};
-            data.url = url;
-
-            if(!data.initialUrl) {
-                data.initialUrl = url;
-            }
-
-            if(!data.initialFormComplete && data.formComplete) {
-                data.initialFormComplete = data.formComplete;
-            }
-
-            if(!data.requestType) {
-                data.requestType = 'ajax';
-            }
-
-            if(!data.requestSource) {
-                data.requestSource = 'ajax';
-            }
-
-            this._lastRequest = data;
-            return data;
-        },
-
-        normalizeResponse: function(response, request, callback) {
-            if(typeof response !== 'object') {
-                response = {
-                    content: response
-                };
-            }
-
-            response.request = request;
-
-            if(response.isComplete) {
-                if(request.url == request.initialUrl
-                && request.initialFormComplete) {
-                    request.initialFormComplete(response);
-                    return;
-                } else if(request.formComplete) {
-                    request.formComplete(response);
-                    return;
-                }
-            }
-
-            if(response.redirect && response.redirect !== null) {
-                return this.get(response.redirect, request, callback);
-            }
-
-            core.call(callback, response);
-        },
-
-        handleResponse: function(response) {
-            if(!response) {
-                return;
-            }
-            
-            response.request.$element
-                .addClass('ajax-content')
-                .html(response.content);
-
-            if(response.request.onLoad && response.request.onLoad !== null) {
-                response.request.onLoad(response);
-            }
-        },
-
-
-
-        onLinkClick: function(e, element) {
-            var _this = this,
-                href = $(e.target).closest('a').attr('href'),
-                data = this._lastRequest ? this._lastRequest : {};
-            if(!href) return;
-
-            e.preventDefault();
-
-            this.load(element, href, {
-                requestType: 'ajax',
-                requestSource: data.requestSource,
-                initialUrl: data.initialUrl,
-                initialFormComplete: data.initialFormComplete,
-                formComplete: function(response) {
-                    console.log(data.initialFormComplete);
-
-                    if(response.request.formEvent != 'cancel'
-                    && response.forceRedirect
-                    && response.redirect !== null) {
-                        return _this.load(element, response.redirect, {
-                            requestSource: data.requestSource
-                        });
-                    }
-
-                    if(response.request.url == response.request.initialUrl
-                    && data.initialFormComplete) {
-                        data.initialFormComplete(response);
-                    } else {
-                        _this.load(element, response.request.initialUrl);
-                    }
-                }
-            });
-        },
-
-        onFormSubmit: function(e, element) {
-            e.preventDefault();
-
-            var _this = this,
-                $form = $(e.target),
-                formEvent,
-                data = this._lastRequest ? this._lastRequest : {};
-
-            data.form = $form.serializeArray();
-            data.formEvent = null;
-
-            if(e.originalEvent && e.originalEvent.explicitOriginalTarget && e.originalEvent.explicitOriginalTarget.tagName == 'BUTTON') {
-                data.formEvent = formEvent = $(e.originalEvent.explicitOriginalTarget).val();
-            } else if(document.activeElement && document.activeElement.tagName == 'BUTTON') {
-                data.formEvent = formEvent = $(document.activeElement).val();
+            if(clientId && this._clients[clientId]) {
+                client = this._clients[clientId];
             } else {
-                data.formEvent = $('#form-hidden-activeFormEvent').val();
+                client = new this.Client(element);
+                this._clients[client.id] = client;
             }
 
-            if(formEvent) {
-                data.form.push({name:'formEvent', value:formEvent});
+            client.get(url, options);
+            return client;
+        },
+
+        get: function(url, options, callback) {
+            return this.sendRequest(
+                this.normalizeRequest('GET', url, options), 
+                callback
+            );
+        },
+
+        post: function(url, options, callback) {
+            return this.sendRequest(
+                this.normalizeRequest('POST', url, options), 
+                callback
+            );
+        },
+
+        sendRequest: function(request, callback) {
+            if(!request.method) request.method = 'GET';
+            if(!request.data) request.data = {};
+
+            if(!request.url) {
+                throw new Error('No URL defined for ajax request');
             }
 
-            if(!data.$element) {
-                data.$element = element ? $(element) : $form;
-            }
+            $.ajax({
+                url: request.url,
+                data: request.data,
+                type: request.method,
+                headers: {
+                    'x-ajax-request-type' : request.type,
+                    'x-ajax-request-source': request.source
+                },
+                success: function(response, status, xhr) {
+                    var url = xhr.getResponseHeader('X-Response-Url');
 
-            //data.requestSource = 'modal';
+                    if(url) {
+                        request.originalUrl = request.url;
+                        request.url = url;
+                    }
 
-            this.post($form.attr('action'), data, function(output) {
-                _this.handleResponse(output);
+                    if(callback) callback(response, request);
+                }
+            }).fail(function(e) {
+                this.trigger('fail', request);
+                console.log('Ajax call failed...', url, e);
             });
-        }
+        },
+
+        normalizeRequest: function(method, url, request) {
+            request || (request = {});
+            request.method = String(method).toUpperCase();
+            request.url = url;
+
+            if(!request.data) request.data = {};
+            if(!request.type) request.type = 'ajax';
+            if(!request.source) request.source = 'ajax';
+
+            return request;
+        },
+
+        Client: core.class({
+            id: null,
+            $element: null,
+            initialUrl: null,
+            requestStack: null,
+
+
+            construct: function(element) {
+                var _this = this;
+                this.clear();
+                this.id = _.uniqueId('a');
+                this.$element = $(element);
+                this.$element.attr('data-ajax-client', this.id);
+
+                this.$element.on('click', 'a[href]:not([class*=\'-close\'],.local,[target],.pushy,.modal)', function(e) {
+                    if(!core.isUrlExternal($(this).attr('href'))) {
+                        _this.onLinkClick(e);
+                    }
+                });
+
+                this.$element.on('submit', '.widget-form', function(e) {
+                    _this.onFormSubmit(e);
+                });
+            },
+
+
+            getFirstRequest: function() {
+                if(!this.requestStack.length) return null;
+                return this.requestStack[0];
+            },
+
+            getLastRequest: function() {
+                if(!this.requestStack.length) return null;
+                return this.requestStack[this.requestStack.length - 1];
+            },
+
+
+            get: function(url, options) {
+                return this.sendRequest(ajax.normalizeRequest('get', url, options));
+            },
+
+            post: function(url, options) {
+                return this.sendRequest(ajax.normalizeRequest('post', url, options));
+            },
+
+            home: function() {
+                var request = this.getFirstRequest();
+                this.requestStack = [];
+                return this.sendRequest(request);
+            },
+
+            back: function() {
+                this.requestStack.pop();
+                var request = this.getLastRequest();
+
+                if(request) {
+                    return this.sendRequest(request);
+                }
+            },
+
+            clear: function() {
+                this.requestStack = [];
+                this.initialUrl = null;
+                return this;
+            },
+
+            destroy: function() {
+                this.clear();
+                delete ajax._clients[this.id];
+            },
+
+            sendRequest: function(request, callback) {
+                var _this = this,
+                    lastRequest = this.getLastRequest();
+
+                if(!lastRequest
+                || (lastRequest.url !== request.url
+                 && lastRequest.url.replace('.ajax', '') !== request.url.replace('.ajax', ''))) {
+                    this.requestStack.push(request);
+                }
+
+                ajax.sendRequest(request, function(response, request) {
+                    response = _this.normalizeResponse(response, request);
+                    if(!this.initialUrl) this.initialUrl = request.url;
+
+                    _this.trigger('response', response);
+
+                    ajax.trigger('elementResponse', {
+                        client: this,
+                        response: response
+                    });
+
+                    if(response.isComplete) {
+                        if(response.request.formEvent !== 'cancel'
+                        && response.forceRedirect
+                        && response.redirect !== null) {
+                            return _this.get(response.redirect, response.request);
+                        }
+
+                        if(response.request.url === _this.initialUrl) {
+                            var request = _this.getFirstRequest();
+
+                            if(request && request.formComplete) {
+                                return request.formComplete(response);
+                            }
+                        }
+
+                        if(response.request.formComplete) {
+                            request.formComplete(response);
+                            return;
+                        }
+                    }
+
+                    if(response.redirect !== null) {
+                        return _this.get(response.redirect, _.clone(response.request));
+                    }
+
+                    if(typeof callback === 'function') {
+                        if(false === callback(response)) {
+                            return;
+                        }
+                    }
+
+                    _this.$element
+                        .addClass('ajax-content')
+                        .html(response.content);
+
+                    if(typeof response.request.onLoad === 'function') {
+                        response.request.onLoad(response);
+                    }
+                });
+            },
+
+            normalizeResponse: function(response, request) {
+                if(typeof response !== 'object') {
+                    response = {content: response};
+                }
+
+                response.request = request;
+                if(!response.redirect) response.redirect = null;
+
+                return response;
+            },
+
+
+
+            onLinkClick: function(e) {
+                var _this = this,
+                    url = $(e.target).closest('a').attr('href'),
+                    lastRequest = this.getLastRequest();
+                    request = {};
+
+                if(!url) return;
+                if(lastRequest) request = _.clone(lastRequest);
+
+                e.preventDefault();
+
+                request.formComplete = function(response) {
+                    
+
+                    if(response.request.url === _this.initialUrl) {
+                        var request = _this.getFirstRequest();
+
+                        if(request && request.formComplete) {
+                            return request.formComplete(response);
+                        }
+                    }
+
+                    return _this.back();
+                };
+
+                this.get(url, request);
+            },
+
+            onFormSubmit: function(e) {
+                e.preventDefault();
+
+                var _this = this,
+                    $form = $(e.target),
+                    formEvent,
+                    lastRequest = this.getLastRequest();
+                    request = {};
+
+                if(lastRequest) request = _.clone(lastRequest);
+                request.data = $form.serializeArray();
+                request.formEvent = null;
+
+                if(e.originalEvent && e.originalEvent.explicitOriginalTarget && e.originalEvent.explicitOriginalTarget.tagName == 'BUTTON') {
+                    request.formEvent = formEvent = $(e.originalEvent.explicitOriginalTarget).val();
+                } else if(document.activeElement && document.activeElement.tagName == 'BUTTON') {
+                    request.formEvent = formEvent = $(document.activeElement).val();
+                } else {
+                    request.formEvent = $('#form-hidden-activeFormEvent').val();
+                }
+
+                if(formEvent) {
+                    request.data.push({name:'formEvent', value:formEvent});
+                }
+
+                this.post($form.attr('action'), request);
+            }
+        })
     });
 });

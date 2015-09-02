@@ -12,10 +12,10 @@ define([
         },
 
         _closeCallback: null,
-        _initialUrl: null,
         _overlayAction: 'close',
         _containerFadeTime: 200,
         _contentFadeTime: 0,
+        client: null,
 
         init: function() {
             var _this = this;
@@ -63,20 +63,10 @@ define([
             options = options || {};
 
             options.callback = function(data) {
-                _this._initialUrl = href;
-
-                ajax.load(_this.attr.content, href, {
-                    requestSource: 'modal',
+                _this.client = ajax.loadElement(_this.attr.content, href, {
+                    source: 'modal',
 
                     formComplete: function(response) {
-                        if(response.request.formEvent != 'cancel'
-                        && response.forceRedirect
-                        && response.redirect !== null) {
-                            return ajax.load(_this.attr.content, response.redirect, {
-                                requestSource: 'modal'
-                            });
-                        }
-                        
                         _this._close();
                     },
                     onLoad: function(response) {
@@ -140,12 +130,10 @@ define([
                 var $form = $('.widget-form', this.attr.container).first();
 
                 ajax.post($form.attr('action'), {
-                    form: [{name:'formEvent', value:'cancel'}],
-                    $element: $form,
-                    requestSource: 'modal',
-                    formComplete: function() {
-                        _this._close();
-                    }
+                    data: [{name:'formEvent', value:'cancel'}],
+                    source: 'modal'
+                }, function() {
+                    _this._close();
                 });
             } else {
                 this._close(callback, data);
@@ -159,6 +147,10 @@ define([
                 core.call(_this._closeCallback, data);
                 _this._closeCallback = null;
                 core.call(callback, data);
+
+                if(_this.client) {
+                    _this.client.destroy();
+                }
             };
 
             $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
@@ -170,7 +162,6 @@ define([
                     _this._overlayAction = 'close';
 
                     $(_this.attr.container).fadeOut(_this._containerFadeTime, function() {
-                        _this._initialUrl = null;
                         $(this).remove();
                         $('body').removeClass('modal-open');
                         callbackRunner();

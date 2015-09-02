@@ -30,11 +30,22 @@ define([
         component: function(obj) {
             obj = _.extend(obj, this.Events);
 
-            if(typeof obj.init == 'function') {
+            if(typeof obj.init === 'function') {
                 obj.init.apply(obj);
             }
 
             return obj;
+        },
+
+        class: function(obj) {
+            var output = function() {
+                if(typeof this.construct === 'function') {
+                    this.construct.apply(this, arguments);
+                }
+            };
+
+            _.extend(output.prototype, this.Events, obj);
+            return output;
         },
 
         isUrlExternal: function(url) {
@@ -149,55 +160,103 @@ define([
             trigger: function(name) {
                 if(!this._events) return this;
                 var args = Array.prototype.slice.call(arguments, 1);
-                if(this._multiplexEvents(this, 'trigger', name, args)) return this;
-                var events = this._events[name];
-                var allEvents = this._events.all;
-                if(events) this._triggerEvents(events, args);
-                if(allEvents) this._triggerEvents(allEvents, arguments);
+
+                if(this._multiplexEvents(this, 'trigger', name, args)) {
+                    return this;
+                }
+
+                if(this._events[name]) {
+                    this._triggerEvents(this._events[name], args);
+                }
+                
+                if(this._events.all) {
+                    this._triggerEvents(this._events.all, arguments);
+                }
+                
                 return this;
             },
 
             _triggerEvents: function(events, args) {
                 var ev, i = -1, l = events.length, a1 = args[0], a2 = args[1], a3 = args[2];
-                switch (args.length) {
-                    case 0: while (++i < l) (ev = events[i]).callback.call(ev.ctx); return;
-                    case 1: while (++i < l) (ev = events[i]).callback.call(ev.ctx, a1); return;
-                    case 2: while (++i < l) (ev = events[i]).callback.call(ev.ctx, a1, a2); return;
-                    case 3: while (++i < l) (ev = events[i]).callback.call(ev.ctx, a1, a2, a3); return;
-                    default: while (++i < l) (ev = events[i]).callback.apply(ev.ctx, args); return;
+
+                switch(args.length) {
+                    case 0: 
+                        while(++i < l) {
+                            (ev = events[i]).callback.call(ev.ctx); 
+                        }
+                        return;
+
+                    case 1: 
+                        while(++i < l) {
+                            (ev = events[i]).callback.call(ev.ctx, a1); 
+                        }
+                        return;
+
+                    case 2: 
+                        while(++i < l) {
+                            (ev = events[i]).callback.call(ev.ctx, a1, a2); 
+                        }
+                        return;
+
+                    case 3: 
+                        while(++i < l) {
+                            (ev = events[i]).callback.call(ev.ctx, a1, a2, a3); 
+                        }
+                        return;
+
+                    default: 
+                        while(++i < l) {
+                            (ev = events[i]).callback.apply(ev.ctx, args); 
+                        }
+                        return;
+
                 }
             },
 
 
             listenTo: function(obj, name, callback) {
-                var listeningTo = this._listeningTo || (this._listeningTo = {});
-                var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
-                listeningTo[id] = obj;
-                if(!callback && typeof name === 'object') callback = this;
-                obj.on(name, callback, this);
-                return this;
+                return this._listen('on', obj, name, callback);
             },
 
-            listenToOne: function(obj, name, callback) {
-                var listeningTo = this._listeningTo || (this._listeningTo = {});
-                var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
+            listenOnce: function(obj, name, callback) {
+                return this._listen('once', obj, name, callback);
+            },
+
+            _listen: function(call, obj, name, callback) {
+                var listeningTo = this._listeningTo || (this._listeningTo = {}),
+                    id = obj._listenId || (obj._listenId = _.uniqueId('l'));
+
+                if(!callback && typeof name === 'object') {
+                    callback = this;
+                }
+
                 listeningTo[id] = obj;
-                if(!callback && typeof name === 'object') callback = this;
-                obj.once(name, callback, this);
+                obj[call](name, callback, this);
                 return this;
             },
 
             stopListening: function(obj, name, callback) {
                 var listeningTo = this._listeningTo;
                 if(!listeningTo) return this;
+
                 var remove = !name && !callback;
-                if(!callback && typeof name === 'object') callback = this;
-                if(obj) (listeningTo = {})[obj._listenId] = obj;
+
+                if(!callback && typeof name === 'object') {
+                    callback = this;
+                }
+
+                if(obj) {
+                    listeningTo = {};
+                    listeningTo[obj._listenId] = obj;
+                }
 
                 for(var id in listeningTo) {
                     obj = listeningTo[id];
                     obj.off(name, callback, this);
-                    if(remove || _.isEmpty(obj._events)) delete this._listenId[id];
+
+                    if(remove || _.isEmpty(obj._events)) {
+                        delete this._listenId[id];
+                    }
                 }
 
                 return this;
