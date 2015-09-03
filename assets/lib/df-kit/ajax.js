@@ -71,7 +71,7 @@ define([
                 }
             }).fail(function(e) {
                 _this.trigger('fail', request);
-                console.log('Ajax call failed...', url, e);
+                console.log('Ajax call failed...', request.url, e);
             });
         },
 
