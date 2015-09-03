@@ -216,14 +216,15 @@
 
 
 .widget-textbox {
-    min-width: $form-input-min-width-medium;
-    width: $form-input-width;
+    width: 100%;
+    max-width: $form-input-width;
 }
 
 .widget-textarea,
 .widget-htmlEditor {
-    min-width: $form-input-min-width-large;
-    width: $form-input-width;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 50rem;
     min-height: 6em;
 }
 
