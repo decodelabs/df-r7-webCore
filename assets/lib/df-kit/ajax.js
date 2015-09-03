@@ -69,7 +69,7 @@ define([
                     if(callback) callback(response, request);
                 }
             }).fail(function(e) {
-                this.trigger('fail', request);
+                _this.trigger('fail', request);
                 console.log('Ajax call failed...', url, e);
             });
         },
