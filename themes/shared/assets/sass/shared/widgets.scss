@@ -218,6 +218,7 @@
 .widget-textbox {
     width: 100%;
     max-width: $form-input-width;
+    box-sizing: border-box;
 }
 
 .widget-textarea,
