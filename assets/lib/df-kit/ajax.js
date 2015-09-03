@@ -43,6 +43,7 @@ define([
         },
 
         sendRequest: function(request, callback) {
+            var _this = this;
             if(!request.method) request.method = 'GET';
             if(!request.data) request.data = {};
 
