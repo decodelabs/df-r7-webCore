@@ -12,7 +12,8 @@ use df\arch;
 class HttpRouter implements arch\IRouter {
     
     public function routeIn(arch\IRequest $request) {
-        if($request->eq('~mail/templates/index')) {
+        if($request->eq('~mail/templates/index')
+        || $request->matches('~mail/templates/preview')) {
             return $request;
         }
 
@@ -29,7 +30,7 @@ class HttpRouter implements arch\IRouter {
     }
     
     public function routeOut(arch\IRequest $request) {
-        if(!isset($request->query->path)) {
+        if(!isset($request->query->path) || $request->isAction('preview')) {
             return $request;
         }
 

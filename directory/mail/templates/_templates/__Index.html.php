@@ -24,4 +24,14 @@ echo $this->html->collectionList($this['mails'])
         if($mail) {
             return $mail->getTemplateType();
         }
+    })
+    ->addField('actions', function($mail, $context) {
+        if($mail) {
+            return $this->html->link(
+                    $this->uri('~mail/templates/preview?path='.$context->key, true),
+                    $this->_('Send preview')
+                )
+                ->setIcon('mail')
+                ->setDisposition('positive');
+        }
     });
