@@ -28,8 +28,7 @@ if(typeof require == 'undefined') {
         require.config(config);
 
         require([
-            'df-kit/core',
-            'df-kit/modal'
+            'df-kit/core'
         ], function(core, modal) {
             core.baseUrl = baseUrl;
             core.cts = cts;
