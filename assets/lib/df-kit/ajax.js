@@ -1,9 +1,9 @@
 define([
     'jquery',
     'df-kit/core'
-], function($, core) {
+], function($, Core) {
     var ajax;
-    return ajax = core.component({
+    return ajax = Core.component({
         _clients: {},
 
         init: function() {
@@ -87,7 +87,7 @@ define([
             return request;
         },
 
-        Client: core.class({
+        Client: Core.class({
             id: null,
             $element: null,
             initialUrl: null,
@@ -102,7 +102,7 @@ define([
                 this.$element.attr('data-ajax-client', this.id);
 
                 this.$element.on('click', 'a[href]:not([class*=\'-close\'],.local,[target],.pushy,.modal)', function(e) {
-                    if(!core.isUrlExternal($(this).attr('href'))) {
+                    if(!Core.isUrlExternal($(this).attr('href'))) {
                         _this.onLinkClick(e);
                     }
                 });

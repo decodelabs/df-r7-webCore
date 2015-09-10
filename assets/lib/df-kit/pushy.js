@@ -2,8 +2,8 @@ define([
     'jquery',
     'df-kit/core',
     'df-kit/ajax'
-], function($, core, ajax) {
-    return core.component({
+], function($, Core, Ajax) {
+    return Core.component({
         attr: {
             trigger: '.pushy, [data-pushy]',
             leftContainer: '.pushy-container.push-left',
@@ -37,7 +37,7 @@ define([
                     side = 'right';
                 }
 
-                _this.ajax(href, {
+                _this.load(href, {
                     class: pushyClass,
                     side: side
                 });
@@ -55,21 +55,21 @@ define([
                 }
             });
 
-            core.on('dialog.open', function(source) {
+            Core.on('dialog.open', function(source) {
                 if(source !== 'pushy') {
                     //_this.close();
                 }
             });
         },
 
-        ajax: function(href, options) {
+        load: function(href, options) {
             var _this = this,
                 callback = options.callback;
 
             options = options || {};
 
             options.callback = function(data) {
-                _this.client = ajax.loadElement(_this.attr.content, href, {
+                _this.client = Ajax.loadElement(_this.attr.content, href, {
                     source: 'pushy',
 
                     formComplete: function(response) {
@@ -77,7 +77,7 @@ define([
                     },
 
                     onLoad: function(response) {
-                        core.call(callback);
+                        Core.call(callback);
                     }
                 });
             };
@@ -90,7 +90,7 @@ define([
                 $body = $(document.body);
 
             options = options || {};
-            core.trigger('dialog.open', 'pushy');
+            Core.trigger('dialog.open', 'pushy');
 
             var $leftContainer = $(_this.attr.leftContainer),
                 $rightContainer = $(_this.attr.rightContainer),
@@ -119,7 +119,7 @@ define([
                         $rightContainer.addClass(options.class);
                     }
 
-                    core.call(options.callback, options.callbackData);
+                    Core.call(options.callback, options.callbackData);
                     //$content.show();
                     $content.fadeIn(_this._contentFadeTime);
                 };
@@ -127,7 +127,7 @@ define([
             if($leftContainer.length) {
                 var $active = $(_this.attr.content, '.pushy-container.pushy-active'),
                     runner = function() {
-                        core.call(_this._closeCallback);
+                        Core.call(_this._closeCallback);
                         _this._closeCallback = null;
                         builder();
                     };
@@ -152,7 +152,7 @@ define([
             if($('.widget-form', this.attr.content).length) {
                 var $form = $('.widget-form', this.attr.content).first();
 
-                ajax.post($form.attr('action'), {
+                Ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
                     source: 'pushy',
@@ -169,9 +169,9 @@ define([
             var _this = this;
 
             var callbackRunner = function() {
-                core.call(_this._closeCallback, data);
+                Core.call(_this._closeCallback, data);
                 _this._closeCallback = null;
-                core.call(callback, data);
+                Core.call(callback, data);
 
                 if(_this.client) {
                     _this.client.destroy();

@@ -29,10 +29,10 @@ if(typeof require == 'undefined') {
 
         require([
             'df-kit/core'
-        ], function(core, modal) {
-            core.baseUrl = baseUrl;
-            core.cts = cts;
-            core.init();
+        ], function(Core) {
+            Core.baseUrl = baseUrl;
+            Core.cts = cts;
+            Core.init();
 
             var modules = document.body.getAttribute('data-require');
             if(modules) require(modules.split(' '));
