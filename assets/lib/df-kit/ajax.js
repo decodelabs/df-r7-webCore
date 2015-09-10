@@ -35,6 +35,13 @@ define([
             );
         },
 
+        getElement: function(slug, callback) {
+            return this.get(
+                Core.baseUrl+'nightfire/element?element='+slug,
+                null, callback
+            );
+        },
+
         post: function(url, options, callback) {
             return this.sendRequest(
                 this.normalizeRequest('POST', url, options), 
@@ -170,7 +177,10 @@ define([
 
                 ajax.sendRequest(request, function(response, request) {
                     response = _this.normalizeResponse(response, request);
-                    if(!this.initialUrl) this.initialUrl = request.url;
+
+                    if(!_this.initialUrl) {
+                        _this.initialUrl = request.url.replace('.ajax', '');
+                    }
 
                     _this.trigger('response', response);
 
@@ -183,10 +193,13 @@ define([
                         if(response.request.formEvent !== 'cancel'
                         && response.forceRedirect
                         && response.redirect !== null) {
+                            _this.trigger('form:cancel', response);
                             return _this.get(response.redirect, response.request);
                         }
 
-                        if(response.request.url === _this.initialUrl) {
+                        _this.trigger('form:complete', response);
+
+                        if(response.request.url.replace('.ajax', '') === _this.initialUrl) {
                             var request = _this.getFirstRequest();
 
                             if(request && request.formComplete) {
@@ -195,12 +208,12 @@ define([
                         }
 
                         if(response.request.formComplete) {
-                            request.formComplete(response);
-                            return;
+                            return request.formComplete(response);
                         }
                     }
 
                     if(response.redirect !== null) {
+                        _this.trigger('redirect', response);
                         return _this.get(response.redirect, _.clone(response.request));
                     }
 
@@ -245,13 +258,11 @@ define([
                 e.preventDefault();
 
                 request.formComplete = function(response) {
-                    
+                    if(response.request.url.replace('.ajax', '') === _this.initialUrl) {
+                        var firstRequest = _this.getFirstRequest();
 
-                    if(response.request.url === _this.initialUrl) {
-                        var request = _this.getFirstRequest();
-
-                        if(request && request.formComplete) {
-                            return request.formComplete(response);
+                        if(firstRequest && firstRequest.formComplete) {
+                            return firstRequest.formComplete(response);
                         }
                     }
 
