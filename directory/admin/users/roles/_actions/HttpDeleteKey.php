@@ -48,7 +48,7 @@ class HttpDeleteKey extends arch\form\template\Delete {
             });
     }
     
-    protected function _deleteRecord() {
+    protected function apply() {
         $this->_key->delete();
         $this->user->instigateGlobalKeyringRegeneration();
     }
