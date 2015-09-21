@@ -41,13 +41,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         );
     }
 
-    protected function _fetchSectionItemCounts() {
-        $miss = $this->getRecord();
-
-        return [
-            'logs' => $miss->missLogs->countAll()
-        ];
-    }
 
 // Sections
     public function renderDetailsSectionBody($miss) {

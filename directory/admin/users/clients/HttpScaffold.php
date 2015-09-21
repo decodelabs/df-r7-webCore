@@ -38,20 +38,16 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
 // Record data
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
+    protected function prepareRecordList($query, $mode) {
         $query->countRelation('groups');
     }
 
-    protected function _fetchSectionItemCounts() {
-        $record = $this->getRecord();
-
+    protected function countSectionItems($record) {
         return [
             'invites' => $this->data->user->invite->select()
                 ->where('owner', '=', $record['id'])
                 ->count(),
-            'authentication' => $this->data->user->auth->select()
-                ->where('user', '=', $record)
-                ->count()
+            'authentication' => $record->authDomains->countAll()
         ];
     }
 

@@ -32,11 +32,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
 // Record data
-    protected function _describeRecord($record) {
+    protected function describeRecord($record) {
         return $record['mode'].' '.$record['code'].' - '.$this->format->date($record['date']);
     }
 
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
+    protected function prepareRecordList($query, $mode) {
         $query
             ->importRelationBlock('user', 'link')
             ;

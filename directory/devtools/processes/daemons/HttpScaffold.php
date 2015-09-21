@@ -38,7 +38,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Record data
-    protected function _generateRecordAdapter() {
+    protected function generateRecordAdapter() {
         $this->_enabled = core\Environment::getInstance()->canUseDaemons();
 
         $daemons = halo\daemon\Base::loadAll();

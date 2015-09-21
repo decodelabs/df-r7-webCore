@@ -28,18 +28,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
 // Record data
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
+    protected function prepareRecordList($query, $mode) {
         $query
             ->countRelation('users')
             ->countRelation('roles');
-    }
-
-    protected function _fetchSectionItemCounts() {
-        $record = $this->getRecord();
-
-        return [
-            'users' => $record->users->countAll()
-        ];
     }
 
     public function deleteRecord(opal\record\IRecord $group, array $flags=[]) {

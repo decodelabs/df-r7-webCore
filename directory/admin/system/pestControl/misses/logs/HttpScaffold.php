@@ -33,7 +33,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Record data
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
+    protected function prepareRecordList($query, $mode) {
         $query
             ->importRelationBlock('miss', 'list')
             ->importRelationBlock('user', 'link')
@@ -59,7 +59,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
 // Components
-    protected function _getSectionHeaderBarBackLinkRequest() {
+    protected function getParentSectionRequest() {
         $id = $this->getRecord()['#miss'];
         return '../details?miss='.core\string\Uuid::factory($id);
     }

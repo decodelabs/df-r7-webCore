@@ -46,23 +46,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         );
     }
 
-    protected function _fetchSectionItemCounts() {
-        $error = $this->getRecord();
-        $model = $this->getRecordAdapter()->getModel();
-
-        return [
-            'logs' => $error->errorLogs->countAll(),
-            /*
-            'stackTraces' => $model->stackTrace->select()
-                ->whereCorrelation('id', 'in', 'stackTrace')
-                    ->from($model->errorLog, 'log')
-                    ->where('error', '=', $error)
-                    ->endCorrelation()
-                ->count()
-            */
-        ];
-    }
-
 
 // Sections
     public function renderDetailsSectionBody($error) {

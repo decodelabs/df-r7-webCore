@@ -31,11 +31,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
 // Record data
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
+    protected function prepareRecordList($query, $mode) {
         $query->importRelationBlock('user', 'link');
     }
 
-    public function applyRecordQuerySearch(opal\query\ISelectQuery $query, $search, $mode) {
+    protected function searchRecordList($query, $search) {
         $query->searchFor($search, [
             'user|fullName' => 5
         ]);
