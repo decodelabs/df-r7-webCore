@@ -58,7 +58,7 @@ class HttpAvatar extends arch\form\Action {
             );
 
             $this->data->media->activateVersion($version['file'], $version);
-            $this->data->interact->cache->setAvatarCacheTime();
+            $this->data->user->cache->setAvatarCacheTime();
         });
     }
 
@@ -77,7 +77,7 @@ class HttpAvatar extends arch\form\Action {
         }
 
         $this->data->media->purgeVersion($version);
-        $this->data->interact->cache->setAvatarCacheTime();
+        $this->data->user->cache->setAvatarCacheTime();
     }
 
     protected function onUploadEvent() {
@@ -86,7 +86,7 @@ class HttpAvatar extends arch\form\Action {
         return $this->complete(function() use($filePath) {
             if($filePath) {
                 $this->data->media->publishFile($filePath, 'Avatar');
-                $this->data->interact->cache->setAvatarCacheTime();
+                $this->data->user->cache->setAvatarCacheTime();
             }
 
             $this->comms->flashSaveSuccess('photo');

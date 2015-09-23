@@ -23,7 +23,7 @@ class HttpDownload extends arch\Action {
         if($id == 'default') {
             $theme = aura\theme\Base::factory($this->context);
             
-            if(!$absolutePath = $theme->findAsset($this->data->interact->config->getDefaultAvatarPath())) {
+            if(!$absolutePath = $theme->findAsset($this->data->user->avatarConfig->getDefaultAvatarPath())) {
                 $this->throwError(404, 'File not found');
             }
 
@@ -51,7 +51,7 @@ class HttpDownload extends arch\Action {
                     '[cz:'.$size.'|'.$size.']'
                 );
             } catch(\Exception $e) {
-                $url = $this->interact->getGravatarUrl(
+                $url = $this->avatar->getGravatarUrl(
                     $this->data->user->client->select('email')
                         ->where('id', '=', $id)
                         ->toValue('email'),
