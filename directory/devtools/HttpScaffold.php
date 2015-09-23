@@ -53,7 +53,13 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
                 ->setId('cache')
                 ->setDescription('Refresh, clear and view stats for most cache structures your site employs')
                 ->setIcon('toolkit')
-                ->setWeight(60)
+                ->setWeight(60),
+
+            $entryList->newLink('~devtools/media/', 'Media tools')
+                ->setId('media')
+                ->setDescription('Control where and how your media is stored and served')
+                ->setIcon('folder')
+                ->setWeight(70)
         );
     }
 }

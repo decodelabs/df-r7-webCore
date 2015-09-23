@@ -18,6 +18,12 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
 
     public function generateIndexMenu($entryList) {
         $entryList->addEntries(
+            $entryList->newLink('./media/', 'Media library')
+                ->setId('media')
+                ->setDescription('Keep control over your site\'s media files')
+                ->setIcon('folder')
+                ->setWeight(20),
+                
             $entryList->newLink('./users/', 'User management')
                 ->setId('users')
                 ->setDescription('View, add and edit site users, set up groups and roles and create access keys')
