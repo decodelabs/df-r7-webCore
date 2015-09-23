@@ -18,7 +18,7 @@ class HttpDelete extends arch\form\template\Delete {
 
     protected function init() {
         $this->_comment = $this->data->fetchForAction(
-            'axis://interact/Comment',
+            'axis://content/Comment',
             $this->request->query['comment'],
             'delete'
         );
@@ -42,6 +42,6 @@ class HttpDelete extends arch\form\template\Delete {
     }
 
     protected function apply() {
-        $this->data->interact->comment->deleteRecord($this->_comment);
+        $this->data->content->comment->deleteRecord($this->_comment);
     }
 }

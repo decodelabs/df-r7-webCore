@@ -13,5 +13,5 @@ use df\apex;
 use df\mesh;
     
 interface ICommentAwareEntity extends mesh\entity\IEntity {
-    public function getCommentNotification(apex\models\interact\comment\Record $comment);
+    public function getCommentNotification(apex\models\content\comment\Record $comment);
 }

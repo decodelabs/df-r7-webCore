@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\models\interact\comment;
+namespace df\apex\models\content\comment;
 
 use df;
 use df\core;
@@ -20,26 +20,20 @@ class Unit extends axis\unit\table\Base {
     protected $_defaultOrder = 'date ASC';
 
     protected function createSchema($schema) {
-        $schema->addField('id', 'AutoId');
+        $schema->addPrimaryField('id', 'Guid');
 
         $schema->addIndexedField('topic', 'EntityLocator');
-
         $schema->addIndexedField('date', 'DateTime');
-
         $schema->addField('owner', 'One', 'user/client');
 
         $schema->addField('body', 'BigString', 'huge');
-
         $schema->addField('format', 'String', 64);
 
         $schema->addField('root', 'ManyToOne', 'comment', 'replyTree')
             ->isNullable(true);
-
         $schema->addField('replyTree', 'OneToMany', 'comment', 'root');
-
         $schema->addField('inReplyTo', 'ManyToOne', 'comment', 'replies')
             ->isNullable(true);
-
         $schema->addField('replies', 'OneToMany', 'comment', 'inReplyTo');
 
         $schema->addIndexedField('isLive', 'Boolean')
@@ -98,7 +92,7 @@ class Unit extends axis\unit\table\Base {
 
 
 
-    public function deleteRecord(apex\models\interact\comment\Record $comment) {
+    public function deleteRecord(namespace\Record $comment) {
         if(!$comment['#root']) {
             $this->delete()
                 ->where('root', '=', $comment)

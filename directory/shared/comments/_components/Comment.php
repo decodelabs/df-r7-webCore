@@ -70,7 +70,7 @@ class Comment extends arch\component\Base {
         $template = $this->apex->template('~/comments/#/elements/List.html');
         $template['displayAsTree'] = $this->_displayAsTree;
         
-        $model = $this->data->getModel('interact');
+        $model = $this->data->getModel('content');
         $limit = 30;
 
         $query = $model->comment->fetch()

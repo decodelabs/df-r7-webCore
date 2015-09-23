@@ -1,6 +1,9 @@
 <?php
-
-namespace df\apex\models\interact\comment;
+/**
+ * This file is part of the Decode Framework
+ * @license http://opensource.org/licenses/MIT
+ */
+namespace df\apex\models\content\comment;
 
 use df\core;
 use df\axis;

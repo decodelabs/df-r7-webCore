@@ -21,7 +21,7 @@ class HttpAdd extends arch\form\Action {
             'comment'
         );
 
-        $this->_comment = $this->data->newRecord('axis://interact/Comment');
+        $this->_comment = $this->data->newRecord('axis://content/Comment');
     }
 
     protected function getInstanceId() {
@@ -110,7 +110,7 @@ class HttpAdd extends arch\form\Action {
                     if(($entity instanceof fire\interact\ICommentAwareEntity)
                     && ($notification = $entity->getCommentNotification($this->_comment))) {
                         $notification->addTo(
-                            $this->data->interact->comment->selectDistinct('owner')
+                            $this->data->content->comment->selectDistinct('owner')
                                 ->where('topic', '=', $this->_comment['topic'])
                                 ->toList('owner')
                         );

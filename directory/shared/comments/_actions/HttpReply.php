@@ -16,12 +16,12 @@ class HttpReply extends HttpAdd {
 
     protected function init() {
         $this->_parentComment = $this->data->fetchForAction(
-            'axis://interact/Comment',
+            'axis://content/Comment',
             $this->request->query['comment'],
             'reply'
         );
 
-        $this->_comment = $this->data->newRecord('axis://interact/Comment');
+        $this->_comment = $this->data->newRecord('axis://content/Comment');
     }
 
     protected function getInstanceId() {
