@@ -37,7 +37,7 @@ define([
 
         getElement: function(slug, callback) {
             return this.get(
-                Core.baseUrl+'nightfire/element?element='+slug,
+                Core.baseUrl+'content/element?element='+slug,
                 null, callback
             );
         },

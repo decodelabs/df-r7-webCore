@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\front\nightfire\_actions;
+namespace df\apex\directory\front\content\_actions;
 
 use df;
 use df\core;
