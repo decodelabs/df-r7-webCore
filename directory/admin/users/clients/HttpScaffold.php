@@ -52,54 +52,18 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
 
-// Components
-    public function addIndexSubOperativeLinks($menu, $bar) {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('../settings', true),
-                    $this->_('Settings')
-                )
-                ->setIcon('settings')
-                ->setDisposition('operative')
-        );
-    }
-
-    public function addIndexTransitiveLinks($menu, $bar) {
-        $menu->addLinks(
-            $this->html->link('../groups/', $this->_('Groups'))
-                ->setIcon('group')
-                ->setDisposition('transitive'),
-
-            $this->html->link('../roles/', $this->_('Roles'))
-                ->setIcon('role')
-                ->setDisposition('transitive'),
-
-            $this->html->link('../invites/', $this->_('Invites'))
-                ->setIcon('mail')
-                ->setDisposition('transitive')
-        );
-    }
-
-    public function addDetailsSectionSubOperativeLinks($menu, $bar) {
-        if($this->_record->hasLocalAuth()) {
-            $menu->addLinks(
-                // Change password
-                $this->html->link(
-                        $this->uri('./change-password?user='.$this->_record['id'], true),
-                        $this->_('Change password')
-                    )
-                    ->setIcon('edit')
-                    ->setDisposition('operative')
-            );
-        }
-    }
-
-    public function addAuthenticationSectionSubOperativeLinks($menu, $bar) {
-        $this->addDetailsSectionSubOperativeLinks($menu, $bar);
-    }
-
-
 // Sections
+    public function renderDetailsSectionBody($client) {
+        return $this->html->panelSet()
+            ->addPanel('details', 50, parent::renderDetailsSectionBody($client))
+            ->addPanel('avatar', 50, [
+                $this->html->image(
+                    $this->interact->getAvatarUrl($client['id'], 400), 
+                    'Avatar'
+                )
+            ]);
+    }
+
     public function renderInvitesSectionBody($client) {
         return $this->apex->scaffold('../invites/')
             ->renderRecordList(
@@ -145,6 +109,54 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                         ->setDisposition('operative');
                 }
             });
+    }
+
+
+
+// Components
+    public function addIndexSubOperativeLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri('../settings', true),
+                    $this->_('Settings')
+                )
+                ->setIcon('settings')
+                ->setDisposition('operative')
+        );
+    }
+
+    public function addIndexTransitiveLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link('../groups/', $this->_('Groups'))
+                ->setIcon('group')
+                ->setDisposition('transitive'),
+
+            $this->html->link('../roles/', $this->_('Roles'))
+                ->setIcon('role')
+                ->setDisposition('transitive'),
+
+            $this->html->link('../invites/', $this->_('Invites'))
+                ->setIcon('mail')
+                ->setDisposition('transitive')
+        );
+    }
+
+    public function addDetailsSectionSubOperativeLinks($menu, $bar) {
+        if($this->_record->hasLocalAuth()) {
+            $menu->addLinks(
+                // Change password
+                $this->html->link(
+                        $this->uri('./change-password?user='.$this->_record['id'], true),
+                        $this->_('Change password')
+                    )
+                    ->setIcon('edit')
+                    ->setDisposition('operative')
+            );
+        }
+    }
+
+    public function addAuthenticationSectionSubOperativeLinks($menu, $bar) {
+        $this->addDetailsSectionSubOperativeLinks($menu, $bar);
     }
 
 
