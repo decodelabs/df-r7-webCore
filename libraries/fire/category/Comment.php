@@ -9,10 +9,6 @@ use df;
 use df\core;
 use df\fire;
 
-if(!df\Launchpad::$loader || !df\Launchpad::$loader->hasPackage('nightfireCore')) {
-    return;
-}
-    
 class Comment extends Base {
 
     protected static $_requiredOutputTypes = ['Html'];

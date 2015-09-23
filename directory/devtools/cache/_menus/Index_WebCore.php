@@ -19,6 +19,11 @@ class Index_WebCore extends arch\navigation\menu\Base {
                 ->setIcon('database')
                 ->setWeight(10),
 
+            $entryList->newLink('~devtools/cache/nightfire', 'Nightfire blocks')
+                ->setId('nightfireBlocks')
+                ->setIcon('node')
+                ->setWeight(15),
+
             $entryList->newLink('~devtools/cache/menu', 'Navigation menu')
                 ->setId('menu')
                 ->setIcon('menu')
