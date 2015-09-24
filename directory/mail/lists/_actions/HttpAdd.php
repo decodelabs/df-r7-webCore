@@ -59,7 +59,7 @@ class HttpAdd extends arch\form\Action {
         );
 
         // Options
-        $options = $this->_manager->getListAdapterOptionFields($adapter);
+        $options = $this->_manager->getListAdapterSettingsFields($adapter);
 
         foreach($options as $option => $optionName) {
             $fs->addFieldArea($optionName)->push(
@@ -76,7 +76,7 @@ class HttpAdd extends arch\form\Action {
 
             try {
                 $source = new flow\mailingList\Source($id, $options);
-                $lists = $source->getAvailableLists();
+                $lists = $source->getListOptions();
             } catch(\Exception $e) {
                 $lists = [];
             }
@@ -103,7 +103,7 @@ class HttpAdd extends arch\form\Action {
 
         if($validator->isValid()) {
             $this->setStore('adapter', $validator['adapter']);
-            $options = $this->_manager->getListAdapterOptionFields($validator['adapter']);
+            $options = $this->_manager->getListAdapterSettingsFields($validator['adapter']);
 
             if(empty($options)) {
                 $this->setStore('options', []);
@@ -116,7 +116,7 @@ class HttpAdd extends arch\form\Action {
             return;
         }
 
-        $options = $this->_manager->getListAdapterOptionFields($adapter);
+        $options = $this->_manager->getListAdapterSettingsFields($adapter);
         $validator = $this->data->newValidator();
 
         foreach($options as $option => $name) {
