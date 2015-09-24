@@ -49,6 +49,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         $config = flow\mail\Config::getInstance();
         unset($config->values->listSources->{$id});
         $config->save();
+        flow\mailingList\Cache::getInstance()->remove('source:default');
         return $this;
     }
 
