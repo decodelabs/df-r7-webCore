@@ -22,31 +22,37 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
         $journalCount = $this->data->mail->journal->countAll();
 
         $entryList->addEntries(
+            $entryList->newLink('~mail/lists/', 'Mailing lists')
+                ->setId('lists')
+                ->setDescription('Configure mailing lists')
+                ->setIcon('list')
+                ->setWeight(10),
+
             $entryList->newLink('~mail/capture/', 'Development mailbox')
                 ->setId('capture')
                 ->setDescription('When testing, all outgoing emails are diverted to a local mailbox to avoid unwanted spam - view them here')
                 ->setIcon('mail')
                 ->setNote($this->format->counterNote($captureCount))
-                ->setWeight(10),
+                ->setWeight(20),
 
             $entryList->newLink('~mail/journal/', 'Send logs')
                 ->setId('journal')
                 ->setDescription('Get an overview of what emails have been sent recently')
                 ->setIcon('log')
                 ->setNote($this->format->counterNote($journalCount))
-                ->setWeight(20),
+                ->setWeight(30),
 
             $entryList->newLink('~mail/templates/', 'Template visualisation')
                 ->setId('templates')
                 ->setDescription('View component based mail templates with pre-set test data')
                 ->setIcon('theme')
-                ->setWeight(30),
+                ->setWeight(40),
 
             $entryList->newLink('~mail/test', 'Test email capabilities')
                 ->setId('test')
                 ->setDescription('Try sending test emails from any of the available transports')
                 ->setIcon('test')
-                ->setWeight(40)
+                ->setWeight(50)
         );
     }
 }
