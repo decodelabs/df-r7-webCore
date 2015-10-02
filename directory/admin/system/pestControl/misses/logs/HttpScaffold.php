@@ -10,9 +10,10 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\opal;
+use df\flex;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+
     const DIRECTORY_TITLE = '404 error logs';
     const DIRECTORY_ICON = 'log';
     const RECORD_ADAPTER = 'axis://pestControl/MissLog';
@@ -22,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'date', 'mode', 'request', 
+        'date', 'mode', 'request',
         'referrer', 'isBot', 'isProduction'
     ];
 
@@ -61,7 +62,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     protected function getParentSectionRequest() {
         $id = $this->getRecord()['#miss'];
-        return '../details?miss='.core\string\Uuid::factory($id);
+        return '../details?miss='.flex\Guid::factory($id);
     }
 
     public function addIndexSectionLinks($menu, $bar) {
@@ -179,7 +180,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             if($log['isBot']) {
                 $context->getRowTag()->addClass('inactive');
             }
-            
+
             return $this->html->booleanIcon($log['isBot']);
         });
     }

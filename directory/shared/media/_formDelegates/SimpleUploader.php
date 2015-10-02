@@ -11,13 +11,14 @@ use df\apex;
 use df\arch;
 use df\aura;
 use df\mesh;
+use df\flex;
 
 class SimpleUploader extends arch\form\Delegate implements
     arch\form\ISelfContainedRenderableDelegate,
     arch\form\IDependentDelegate,
     arch\form\ISelectorDelegate,
     core\io\IAcceptTypeProcessor {
-    
+
     use arch\form\TForm_SelfContainedRenderableDelegate;
     use arch\form\TForm_SelectorDelegate;
     use arch\form\TForm_ValueListSelectorDelegate;
@@ -79,7 +80,7 @@ class SimpleUploader extends arch\form\Delegate implements
     protected function init() {
         $this->_setupBucket();
     }
-    
+
     protected function loadDelegates() {
         if($this->_bucketHandler) {
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
@@ -221,6 +222,6 @@ class SimpleUploader extends arch\form\Delegate implements
     }
 
     protected function _sanitizeSelection($selection) {
-        return (string)core\string\Uuid::factory($selection);
+        return (string)flex\Guid::factory($selection);
     }
 }

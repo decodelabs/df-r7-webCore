@@ -10,9 +10,10 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\opal;
+use df\flex;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+
     const DIRECTORY_TITLE = 'Critical error logs';
     const DIRECTORY_ICON = 'log';
     const RECORD_ADAPTER = 'axis://pestControl/ErrorLog';
@@ -22,7 +23,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'date', 'mode', 'request', 'message', 
+        'date', 'mode', 'request', 'message',
         'user', 'isProduction'
     ];
 
@@ -57,7 +58,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 // Components
     protected function getParentSectionRequest() {
         $id = $this->getRecord()['#error'];
-        return '../details?error='.core\string\Uuid::factory($id);
+        return '../details?error='.flex\Guid::factory($id);
     }
 
     public function addIndexSectionLinks($menu, $bar) {

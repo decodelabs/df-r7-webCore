@@ -9,14 +9,15 @@ use df;
 use df\core;
 use df\axis;
 use df\opal;
+use df\flex;
 
 class Record extends opal\record\Base {
-    
+
     public function generateKey() {
         $unit = $this->getRecordAdapter();
 
         do {
-            $key = core\string\Generator::sessionId();
+            $key = flex\Generator::sessionId();
             $count = $unit->select()
                 ->where('key', '=', $key)
                 ->where('id', '!=', $this['id'])

@@ -9,12 +9,13 @@ use df;
 use df\core;
 use df\axis;
 use df\opal;
+use df\flex;
 
 class Record extends opal\record\Base {
-    
+
     protected function _onPreInsert() {
         if(!$this['key']) {
-            $this['key'] = core\string\Generator::sessionId();
+            $this['key'] = flex\Generator::sessionId();
         }
     }
 

@@ -10,9 +10,10 @@ use df\core;
 use df\axis;
 use df\user;
 use df\flow;
+use df\flex;
 
 class Unit extends axis\unit\table\Base {
-    
+
     const INVITE_OPTION = 'invite.allowance';
 
     protected $_defaultSearchFields = [
@@ -21,7 +22,7 @@ class Unit extends axis\unit\table\Base {
     ];
 
     protected $_defaultOrderableFields = [
-        'creationDate', 'owner', 'name', 'email', 
+        'creationDate', 'owner', 'name', 'email',
         'registrationDate', 'user', 'lastSent'
     ];
 
@@ -118,7 +119,7 @@ class Unit extends axis\unit\table\Base {
         }
 
         if(!$invite['key']) {
-            $invite['key'] = core\string\Generator::sessionId();
+            $invite['key'] = flex\Generator::sessionId();
         }
 
         $invite['isActive'] = true;
@@ -256,7 +257,7 @@ class Unit extends axis\unit\table\Base {
         if(!$cap || $this->context->user->canAccess('virtual://unlimited-invites')) {
             return null;
         }
-        
+
         $output = $this->context->user->getClientOption(self::INVITE_OPTION);
 
         if($output !== null) {

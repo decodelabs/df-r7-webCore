@@ -2,6 +2,7 @@
 use df\axis;
 use df\core;
 use df\opal;
+use df\flex;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
 
@@ -35,7 +36,7 @@ foreach($this['primitives'] as $primitive) {
             }
 
             return $this->html('abbr', 'GUID')
-                ->setTitle(core\string\Uuid::factory($row[$name]));
+                ->setTitle(flex\Guid::factory($row[$name]));
         }
 
         return $this->html->shorten($row[$name], 25);

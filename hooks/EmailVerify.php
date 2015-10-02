@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,8 @@ use df\apex;
 use df\spur;
 use df\flow;
 use df\mesh;
-    
+use df\flex;
+
 class EmailVerify extends mesh\event\Hook {
 
     protected $_events = [
@@ -46,7 +47,7 @@ class EmailVerify extends mesh\event\Hook {
                 ->toValue('key');
 
             if(!$key) {
-                $key = core\string\Generator::random(12, 16);
+                $key = flex\Generator::random(12, 16);
             }
 
             $emailTask = $taskSet->addRawQuery('verifyEmail',
