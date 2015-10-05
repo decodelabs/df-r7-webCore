@@ -13,7 +13,7 @@ use df\opal;
 use df\user;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+
     const DIRECTORY_TITLE = 'Roles';
     const DIRECTORY_ICON = 'role';
     const RECORD_ADAPTER = 'axis://user/Role';
@@ -41,6 +41,21 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return $this;
     }
 
+
+// Sections
+    public function renderDetailsSectionBody($role) {
+        $keyList = $role->keys->fetch()
+            ->orderBy('domain ASC', 'pattern ASC');
+
+        return [
+            parent::renderDetailsSectionBody($role),
+            $this->apex->template('Details.html', [
+                'keyList' => $keyList
+            ])
+        ];
+    }
+
+
 // Components
     public function addIndexTransitiveLinks($menu, $bar) {
         $menu->addLinks(
@@ -61,20 +76,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 ->setIcon('add')
                 ->addAccessLock('axis://user/Key#add')
         );
-    }
-
-
-// Sections
-    public function renderDetailsSectionBody($role) {
-        $keyList = $role->keys->fetch()
-            ->orderBy('domain');
-
-        return [
-            parent::renderDetailsSectionBody($role),
-            $this->apex->template('Details.html', [
-                'keyList' => $keyList
-            ])
-        ];
     }
 
 
