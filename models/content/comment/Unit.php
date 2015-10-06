@@ -26,7 +26,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addIndexedField('date', 'DateTime');
         $schema->addField('owner', 'One', 'user/client');
 
-        $schema->addField('body', 'BigText', 'huge');
+        $schema->addField('body', 'Text', 'huge');
         $schema->addField('format', 'Text', 64);
 
         $schema->addField('root', 'ManyToOne', 'comment', 'replyTree')

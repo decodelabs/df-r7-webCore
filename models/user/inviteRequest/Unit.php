@@ -36,7 +36,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('companyPosition', 'Text', 255)
             ->isNullable(true);
 
-        $schema->addField('message', 'BigText', 'medium')
+        $schema->addField('message', 'Text', 'medium')
             ->isNullable(true);
 
         $schema->addField('creationDate', 'Timestamp');

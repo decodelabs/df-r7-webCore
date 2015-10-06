@@ -37,7 +37,7 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('name', 'Text', 255);
         $schema->addField('email', 'Text', 255);
-        $schema->addField('message', 'BigText', 'medium')
+        $schema->addField('message', 'Text', 'medium')
             ->isNullable(true);
 
         $schema->addField('groups', 'Many', 'user/group')

@@ -24,7 +24,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('date', 'Timestamp');
         $schema->addField('reason', 'Text', 255)
             ->isNullable(true);
-        $schema->addField('comments', 'BigText', 'medium')
+        $schema->addField('comments', 'Text', 'medium')
             ->isNullable(true);
     }
 }
