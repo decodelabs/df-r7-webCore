@@ -30,14 +30,14 @@ class Unit extends axis\unit\table\Base {
 
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'AutoId');
-        $schema->addUniqueField('key', 'String', 64);
+        $schema->addUniqueField('key', 'Text', 64);
 
         $schema->addField('creationDate', 'Timestamp');
         $schema->addField('owner', 'One', 'user/client');
 
-        $schema->addField('name', 'String', 255);
-        $schema->addField('email', 'String', 255);
-        $schema->addField('message', 'BigString', 'medium')
+        $schema->addField('name', 'Text', 255);
+        $schema->addField('email', 'Text', 255);
+        $schema->addField('message', 'BigText', 'medium')
             ->isNullable(true);
 
         $schema->addField('groups', 'Many', 'user/group')

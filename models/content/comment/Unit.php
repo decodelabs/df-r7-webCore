@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -26,8 +26,8 @@ class Unit extends axis\unit\table\Base {
         $schema->addIndexedField('date', 'DateTime');
         $schema->addField('owner', 'One', 'user/client');
 
-        $schema->addField('body', 'BigString', 'huge');
-        $schema->addField('format', 'String', 64);
+        $schema->addField('body', 'BigText', 'huge');
+        $schema->addField('format', 'Text', 64);
 
         $schema->addField('root', 'ManyToOne', 'comment', 'replyTree')
             ->isNullable(true);
@@ -38,7 +38,7 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addIndexedField('isLive', 'Boolean')
             ->setDefaultValue(false);
-    }    
+    }
 
 
     public function postFor($entityLocator, $body, $user=null, $inReplyTo=null, $format='SimpleTags') {

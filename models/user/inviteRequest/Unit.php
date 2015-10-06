@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
-    
+
 class Unit extends axis\unit\table\Base {
 
     protected $_defaultSearchFields = [
@@ -28,15 +28,15 @@ class Unit extends axis\unit\table\Base {
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'AutoId', 8);
 
-        $schema->addField('name', 'String', 128);
-        $schema->addField('email', 'String', 255);
+        $schema->addField('name', 'Text', 128);
+        $schema->addField('email', 'Text', 255);
 
-        $schema->addField('companyName', 'String', 255)
+        $schema->addField('companyName', 'Text', 255)
             ->isNullable(true);
-        $schema->addField('companyPosition', 'String', 255)
+        $schema->addField('companyPosition', 'Text', 255)
             ->isNullable(true);
 
-        $schema->addField('message', 'BigString', 'medium')
+        $schema->addField('message', 'BigText', 'medium')
             ->isNullable(true);
 
         $schema->addField('creationDate', 'Timestamp');

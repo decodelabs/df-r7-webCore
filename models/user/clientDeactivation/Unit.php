@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
-    
+
 class Unit extends axis\unit\table\Base {
 
     protected $_defaultOrderableFields = [
@@ -22,9 +22,9 @@ class Unit extends axis\unit\table\Base {
         $schema->addPrimaryField('id', 'AutoId');
         $schema->addField('user', 'One', 'client');
         $schema->addField('date', 'Timestamp');
-        $schema->addField('reason', 'String', 255)
+        $schema->addField('reason', 'Text', 255)
             ->isNullable(true);
-        $schema->addField('comments', 'BigString', 'medium')
+        $schema->addField('comments', 'BigText', 'medium')
             ->isNullable(true);
     }
 }

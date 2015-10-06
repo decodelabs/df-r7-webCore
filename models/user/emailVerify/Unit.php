@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,13 +9,13 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
-    
+
 class Unit extends axis\unit\table\Base {
 
     protected function createSchema($schema) {
         $schema->addField('user', 'One', 'client');
-        $schema->addField('email', 'String', 255);
-        $schema->addField('key', 'String', 16);
+        $schema->addField('email', 'Text', 255);
+        $schema->addField('key', 'Text', 16);
         $schema->addField('creationDate', 'Timestamp');
         $schema->addField('verifyDate', 'DateTime')
             ->isNullable(true);

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\axis;
-    
+
 class Unit extends axis\unit\table\Base {
 
     protected function createSchema($schema) {
@@ -17,9 +17,9 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('user', 'One', 'user/client');
 
-        $schema->addUniqueField('key', 'String', 40);
+        $schema->addUniqueField('key', 'Text', 40);
 
-        $schema->addField('adapter', 'String', 32)
+        $schema->addField('adapter', 'Text', 32)
             ->setDefaultValue('Local');
 
         $schema->addField('creationDate', 'Timestamp');
