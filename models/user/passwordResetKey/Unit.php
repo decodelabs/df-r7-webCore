@@ -24,7 +24,7 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('creationDate', 'Timestamp');
 
-        $schema->addField('resetDate', 'DateTime')
+        $schema->addField('resetDate', 'Date:Time')
             ->isNullable(true);
     }
 

@@ -17,7 +17,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('email', 'Text', 255);
         $schema->addField('key', 'Text', 16);
         $schema->addField('creationDate', 'Timestamp');
-        $schema->addField('verifyDate', 'DateTime')
+        $schema->addField('verifyDate', 'Date:Time')
             ->isNullable(true);
 
         $schema->addPrimaryIndex('primary', ['user', 'email']);

@@ -23,7 +23,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addPrimaryField('id', 'Guid');
 
         $schema->addIndexedField('topic', 'EntityLocator');
-        $schema->addIndexedField('date', 'DateTime');
+        $schema->addIndexedField('date', 'Date:Time');
         $schema->addField('owner', 'One', 'user/client');
 
         $schema->addField('body', 'Text', 'huge');

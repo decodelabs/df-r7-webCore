@@ -43,7 +43,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('groups', 'Many', 'user/group')
             ->isNullable(true);
 
-        $schema->addField('registrationDate', 'DateTime')
+        $schema->addField('registrationDate', 'Date:Time')
             ->isNullable(true);
         $schema->addUniqueField('user', 'One', 'user/client')
             ->isNullable(true);
@@ -53,7 +53,7 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('customData', 'DataObject')
             ->isNullable(true);
 
-        $schema->addField('lastSent', 'DateTime');
+        $schema->addField('lastSent', 'Date:Time');
         $schema->addField('isActive', 'Boolean')
             ->setDefaultValue(true);
     }
