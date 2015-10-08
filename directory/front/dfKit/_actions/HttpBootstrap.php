@@ -11,11 +11,31 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpRequireConfig extends arch\Action {
+class HttpBootstrap extends arch\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsJs() {
+        $theme = $this->_getTheme();
+        $data = $this->_getRequireConfig($theme);
+
+        $output =
+            'if(typeof require == \'undefined\') { throw new Error(\'Require.js has not been loaded\'); };'."\n".
+            'define(\'require.config\', function() { return '.str_replace('\\/', '/', json_encode($data)).'; });'."\n";
+
+        $output .= file_get_contents(__DIR__.'/bootstrap.js');
+
+        $output = $this->http->stringResponse($output, 'text/javascript');
+        $output->headers
+            ->set('Access-Control-Allow-Origin', '*')
+            ->setCacheAccess('public')
+            ->canStoreCache(true)
+            ->setCacheExpiration('+1 year');
+
+        return $output;
+    }
+
+    protected function _getTheme() {
         $themeId = $this->request->query['theme'];
 
         if(!$themeId) {
@@ -29,6 +49,10 @@ class HttpRequireConfig extends arch\Action {
             $this->throwError(404, 'Theme not found');
         }
 
+        return $theme;
+    }
+
+    protected function _getRequireConfig($theme) {
         $manager = aura\theme\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
 
@@ -59,15 +83,6 @@ class HttpRequireConfig extends arch\Action {
             $data['shims'] = $shims;
         }
 
-        $output = 'define(function() { return '.str_replace('\\/', '/', json_encode($data)).'; });';
-        $output = $this->http->stringResponse($output, 'text/javascript');
-
-        $output->headers
-            ->set('Access-Control-Allow-Origin', '*')
-            ->setCacheAccess('public')
-            ->canStoreCache(true)
-            ->setCacheExpiration('+1 year');
-
-        return $output;
+        return $data;
     }
 }
