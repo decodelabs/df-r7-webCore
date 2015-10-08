@@ -5,20 +5,22 @@ if(typeof require == 'undefined') {
 (function(require) {
     var viewData = document.getElementById('custom-view-data'),
         baseUrl = viewData.getAttribute('data-base'),
-        cts = viewData.getAttribute('data-cts');
+        cts = viewData.getAttribute('data-cts'),
+        theme = document.body.getAttribute('data-theme');
 
     require.config({
         baseUrl: baseUrl + 'assets/',
         paths: {
             'app': './app',
             'theme': '../theme',
-            'df-kit': './lib/df-kit'
+            'df-kit': './lib/df-kit',
+            'df-kit-control': '../df-kit'
         },
         urlArgs: cts ? 'cts=' + cts : null
     });
 
-    require(['require.config'], function(config) {
-        if(!config.paths || !config.paths.jquery || !config.paths.underscore) {
+    require([baseUrl + 'df-kit/require-config.js?theme=' + theme], function(config) {
+        if(!config || !config.paths || !config.paths.jquery || !config.paths.underscore) {
             throw new Error('df-kit requires jquery and underscore');
         }
 
