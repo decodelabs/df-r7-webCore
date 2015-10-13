@@ -19,7 +19,11 @@
             content: attr(data-icon);
             speak: none;
             color: inherit;
-            text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
+
+            @if $icon-shadow != false {
+                text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
+            }
+
             font-size: 0.9em;
             padding-right: 0.8em;
         }
@@ -35,7 +39,9 @@
         text-decoration: none !important;
     }
 
-    a:hover span[data-icon]:before {
-        text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
+    @if $icon-shadow != false {
+        a:hover span[data-icon]:before {
+            text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
+        }
     }
 }
