@@ -24,14 +24,13 @@
         require.config(config);
 
         require([
+            'jquery',
             'df-kit/core'
         ], function(Core) {
-            Core.baseUrl = baseUrl;
-            Core.cts = cts;
-            Core.init();
-
-            var modules = document.body.getAttribute('data-require');
-            if(modules) require(modules.split(' '));
+            $(function() {
+                var modules = $('body').data('require');
+                if(modules) require(modules.split(' '));
+            });
         });
     });
 })(require);

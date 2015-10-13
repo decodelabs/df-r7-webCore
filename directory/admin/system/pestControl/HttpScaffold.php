@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpScaffold extends arch\scaffold\template\AreaMenu {
-    
+
     const DIRECTORY_TITLE = 'Pest control';
     const DIRECTORY_ICON = 'bug';
 
@@ -63,13 +63,14 @@ class HttpScaffold extends arch\scaffold\template\AreaMenu {
             switch($item['mode']) {
                 case 'Http':
                     $router = $this->_getRouter();
-                    $output = $router->routeIn(new arch\Request($request));
+                    $request = new arch\Request($request);
+                    $output = $router->routeIn($request);
                     unset($output->query->rf, $output->query->rt);
                     $title = $output->toReadableString();
-                    $url = $router->unmapLocalUrl($request);
+                    $url = $router->requestToUrl($request);
                     $output = (string)$request;
                     break;
-                
+
                 default:
                     $output = (string)$request;
                     $title = null;
