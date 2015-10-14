@@ -13,15 +13,15 @@ use df\aura;
 use df\link;
 
 class HttpDefault extends arch\Action {
-    
+
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
-    
+
     public function execute() {
         if(!$exception = $this->application->getDispatchException()) {
             $this->throwError(404, 'You shouldn\'t be here');
         }
-        
+
         $code = $exception->getCode();
         $lastRequest = $this->application->getDispatchRequest();
 
@@ -33,18 +33,25 @@ class HttpDefault extends arch\Action {
         if($code === 401) {
             $client = $this->user->client;
             $redirectRequest = null;
-            
-            if(!$client->isLoggedIn()) {
-                $redirectRequest = arch\Request::factory('account/login');
-            } else if(!$client->isConfirmed()) {
-                $redirectRequest = arch\Request::factory('account/confirm-login');
+
+            if($this->application->getRouter()->isBaseRoot()) {
+                if(!$client->isLoggedIn()) {
+                    $redirectRequest = arch\Request::factory('account/login');
+                } else if(!$client->isConfirmed()) {
+                    $redirectRequest = arch\Request::factory('account/confirm-login');
+                }
+            } else {
+                $perpetuator = $this->user->session->getPerpetuator();
+                $key = $this->data->session->stub->generateKey();
+                $perpetuator->setJoinKey($key);
+                $redirectRequest = arch\Request::factory('account/join-session?401&key='.bin2hex($key));
             }
-            
+
             if($redirectRequest !== null) {
                 if($lastRequest !== null) {
                     $redirectRequest->getQuery()->rt = $lastRequest->encode();
                 }
-                
+
                 return $this->http->redirect($redirectRequest);
             }
         } else if($code == 403 && $this->user->client->isDeactivated()) {
@@ -59,7 +66,7 @@ class HttpDefault extends arch\Action {
 
         if($shouldLog) {
             $url = $this->http->request->getUrl();
-            
+
             try {
                 switch($code) {
                     case 401:
@@ -80,7 +87,7 @@ class HttpDefault extends arch\Action {
                 core\debug()->exception($e);
             }
         }
-        
+
         $isDevelopment = $this->application->isDevelopment();
         $isTesting = $this->application->isTesting();
 
