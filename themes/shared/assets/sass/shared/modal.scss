@@ -7,7 +7,7 @@ body > *:not(#modal-container) {
 $modal-overlay-filter: blur(5px) !default;
 
 body.modal-open {
-    overflow: hidden; 
+    overflow: hidden;
 
     > *:not(#modal-container) {
         filter: $modal-overlay-filter;
@@ -26,6 +26,7 @@ body.modal-open {
     #modal-wrapper {
         max-height: 100vh;
         width: 100%;
+        max-width: 2000px;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -44,6 +45,22 @@ body.modal-open {
     margin: 2em auto;
     background: #FFF;
     z-index: 999;
+
+    &.video {
+        width: 90%;
+        min-height: 0 !important;
+        height: 0 !important;
+        padding: 0 0 56.25% 0 !important;
+        background: none;
+
+        > iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
 @media only screen and (max-width: 640px) {
