@@ -1,10 +1,13 @@
 (function(require) {
     var viewData = document.getElementById('custom-view-data'),
         baseUrl = viewData.getAttribute('data-base'),
+        rootUrl = viewData.getAttribute('data-root'),
         cts = viewData.getAttribute('data-cts');
 
+    if(!rootUrl) rootUrl = baseUrl;
+
     require.config({
-        baseUrl: baseUrl + 'assets/',
+        baseUrl: rootUrl + 'assets/',
         paths: {
             'app': './app',
             'theme': '../theme',

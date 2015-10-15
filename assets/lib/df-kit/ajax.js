@@ -30,21 +30,21 @@ define([
 
         get: function(url, options, callback) {
             return this.sendRequest(
-                this.normalizeRequest('GET', url, options), 
+                this.normalizeRequest('GET', url, options),
                 callback
             );
         },
 
         getElement: function(slug, callback) {
             return this.get(
-                Core.baseUrl+'content/element?element='+slug,
+                Core.rootUrl+'content/element?element='+slug,
                 null, callback
             );
         },
 
         post: function(url, options, callback) {
             return this.sendRequest(
-                this.normalizeRequest('POST', url, options), 
+                this.normalizeRequest('POST', url, options),
                 callback
             );
         },
