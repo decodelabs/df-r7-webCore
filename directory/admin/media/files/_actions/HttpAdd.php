@@ -33,7 +33,7 @@ class HttpAdd extends arch\form\Action {
     }
 
     protected function setDefaultValues() {
-        $this->getDelegate('owner')->setSelected(
+        $this['owner']->setSelected(
             $this->user->client->getId()
         );
     }
@@ -42,7 +42,7 @@ class HttpAdd extends arch\form\Action {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('File details'));
 
-        $this->getDelegate('upload')->renderContainerContent($fs);
+        $this['upload']->renderContainerContent($fs);
 
         if(!$this->_file->isNew()) {
             $fs[0]->push(
@@ -72,21 +72,17 @@ class HttpAdd extends arch\form\Action {
         }
 
         // Bucket
-        $fs->addFieldArea($this->_('Bucket'))->push(
-            $this->getDelegate('bucket')
-        );
+        $fs->addFieldArea($this->_('Bucket'))->push($this['bucket']);
 
         // Owner
-        $fs->addFieldArea($this->_('Owner'))->push(
-            $this->getDelegate('owner')
-        );
+        $fs->addFieldArea($this->_('Owner'))->push($this['owner']);
 
         // Buttons
         $fs->addDefaultButtonGroup();
     }
 
     protected function onSaveEvent() {
-        $filePath = $this->getDelegate('upload')->apply();
+        $filePath = $this['upload']->apply();
 
         if($filePath && $this->values['overwriteName']) {
             unset($this->values->fileName, $this->values->slug);

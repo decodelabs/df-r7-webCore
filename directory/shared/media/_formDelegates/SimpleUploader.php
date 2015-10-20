@@ -102,7 +102,7 @@ class SimpleUploader extends arch\form\Delegate implements
             return;
         }
 
-        $delegate = $this->getDelegate('upload')
+        $delegate = $this['upload']
             ->isStacked($this->_isStacked)
             ->shouldShowUploadButton($this->_showUploadButton)
             ->setFieldLabel($this->_fieldLabel)
@@ -173,7 +173,7 @@ class SimpleUploader extends arch\form\Delegate implements
             return;
         }
 
-        $delegate = $this->getDelegate('upload');
+        $delegate = $this['upload'];
         $delegate->isRequired($this->_isRequired && !$this->hasSelection());
         $delegate->values->file->clearErrors();
 

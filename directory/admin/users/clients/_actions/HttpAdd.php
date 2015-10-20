@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpAdd extends arch\form\Action {
 
     protected $_client;
@@ -24,34 +24,34 @@ class HttpAdd extends arch\form\Action {
 
     protected function setDefaultValues() {
         $locale = $this->i18n->getDefaultLocale();
-        
+
         $this->values->status = 3;
         $this->values->country = $locale->getRegion();
         $this->values->language = $locale->getLanguage();
         $this->values->timezone = $this->i18n->timezones->suggestForCountry($locale->getRegion());
     }
-    
+
     protected function createUi() {
         $model = $this->data->getModel('user');
-        
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('User details'));
-        
+
         // Email
         $fs->addFieldArea($this->_('Email'))
             ->addEmailTextbox('email', $this->values->email)
                 ->isRequired(true);
-                
+
         // Full name
         $fs->addFieldArea($this->_('Full name'))
             ->addTextbox('fullName', $this->values->fullName)
                 ->isRequired(true);
-                
+
         // Nickname
         $fs->addFieldArea($this->_('Nickname'))
             ->addTextbox('nickName', $this->values->nickName)
                 ->isRequired(true);
-                
+
         // Status
         $fs->addFieldArea($this->_('Status'))
             ->addSelectList('status', $this->values->status, [
@@ -62,14 +62,14 @@ class HttpAdd extends arch\form\Action {
                     3 => $this->_('Confirmed')
                 ])
                 ->isRequired(true);
-        
-                
+
+
         // Time zone
         $fs->addFieldArea('Timezone')
             ->addSelectList('timezone', $this->values->timezone)
                 ->setOptions($this->i18n->timezones->getList(), true)
                 ->isRequired(true);
-        
+
         // Country
         $fs->addFieldArea('Country')
             ->addSelectList(
@@ -78,7 +78,7 @@ class HttpAdd extends arch\form\Action {
                     $this->i18n->countries->getList()
                 )
                 ->isRequired(true);
-        
+
         // Language
         $fs->addFieldArea('Language')
                 ->addSelectList(
@@ -87,17 +87,17 @@ class HttpAdd extends arch\form\Action {
                     $this->i18n->languages->getList()
                 )
                 ->isRequired(true);
-                
-                
-                
+
+
+
         // Password
         if($this->_client->isNew()) {
             $fs = $form->addFieldSet($this->_('Password'));
-            
+
             $fs->addFieldArea($this->_('Password'))
                 ->addPasswordTextbox('password', $this->values->password)
                     ->isRequired(true);
-                    
+
             $fs->addFieldArea($this->_('Repeat password'))
                 ->addPasswordTextbox('repeatPassword', $this->values->repeatPassword)
                     ->isRequired(true);
@@ -105,11 +105,9 @@ class HttpAdd extends arch\form\Action {
 
 
         // Groups
-        $fs->addFieldArea($this->_('Groups'))->push(
-            $this->getDelegate('groups')
-        );
-                
-        
+        $fs->addFieldArea($this->_('Groups'))->push($this['groups']);
+
+
         // Buttons
         $fs->addDefaultButtonGroup();
     }
@@ -171,11 +169,11 @@ class HttpAdd extends arch\form\Action {
                         ));
                     }
                 })
-                
+
             // Language
             ->addRequiredField('language', 'text')
                 ->setSanitizer(function($value) {
-                    return strtolower($value);  
+                    return strtolower($value);
                 })
                 ->setCustomValidator(function($node, $value) {
                     if(!$this->i18n->languages->isValidId($value)) {
@@ -195,7 +193,7 @@ class HttpAdd extends arch\form\Action {
                 'identity' => $this->_client['email'],
                 'bindDate' => 'now'
             ]);
-            
+
             $this->data->newValidator()
                 ->addRequiredField('password')
                     ->setMatchField('repeatPassword')

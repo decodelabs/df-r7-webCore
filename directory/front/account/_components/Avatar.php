@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class Avatar extends arch\component\template\FormUi {
 
     protected function _execute($file, array $versions=null) {
@@ -47,9 +47,7 @@ class Avatar extends arch\component\template\FormUi {
         $form->setEncoding($form::ENC_MULTIPART);
 
         // Upload
-        $form->addFieldSet($this->_('Upload new avatar'))->push(
-            $this->getDelegate('upload')
-        );
+        $form->addFieldSet($this->_('Upload new avatar'))->push($this['upload']);
 
         // Buttons
         $form->addButtonArea(

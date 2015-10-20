@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,24 +9,24 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpEdit extends HttpAdd {
 
     protected function init() {
         $this->_client = $this->scaffold->getRecord();
     }
-    
+
     protected function getInstanceId() {
         return $this->_client['id'];
     }
-    
+
     protected function setDefaultValues() {
         $this->values->importFrom($this->_client, [
             'email', 'fullName', 'nickName', 'status',
             'timezone', 'country', 'language'
         ]);
-        
-        $this->getDelegate('groups')->setSelected(
+
+        $this['groups']->setSelected(
             $this->_client->groups->selectFromBridge('group')->toList('group')
         );
 

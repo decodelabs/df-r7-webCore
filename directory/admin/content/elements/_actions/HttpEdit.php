@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpEdit extends HttpAdd {
 
     protected function init() {
@@ -25,6 +25,6 @@ class HttpEdit extends HttpAdd {
             'slug', 'name'
         ]);
 
-        $this->getDelegate('body')->setSlotContent($this->_element['body']);
+        $this['body']->setSlotContent($this->_element['body']);
     }
 }

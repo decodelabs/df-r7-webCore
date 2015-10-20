@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpAdd extends arch\form\Action {
 
     protected $_element;
@@ -43,9 +43,7 @@ class HttpAdd extends arch\form\Action {
         );
 
         // Body
-        $form->addFieldSet($this->_('Body'))->push(
-            $this->getDelegate('body')
-        );
+        $form->addFieldSet($this->_('Body'))->push($this['body']);
 
         // Buttons
         $form->addDefaultButtonGroup();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\user;
-    
+
 class HttpLogin extends arch\form\Action {
 
     const CHECK_ACCESS = false;
@@ -56,7 +56,7 @@ class HttpLogin extends arch\form\Action {
         if(count($enabled) > 1) {
             $this->content->push(
                 $this->apex->component(
-                    '~front/account/LoginAdapterSwitcher', 
+                    '~front/account/LoginAdapterSwitcher',
                     $this,
                     $enabled,
                     $this->_adapter
@@ -64,13 +64,13 @@ class HttpLogin extends arch\form\Action {
             );
         }
 
-        $this->getDelegate($this->_adapter)->renderUi();
+        $this[$this->_adapter]->renderUi();
     }
 
     protected function onLoginEvent() {
-        $delegate = $this->getDelegate($this->_adapter);
+        $delegate = $this[$this->_adapter];
         $output = $delegate->handleEvent('login', func_get_args());
-        
+
         if($delegate->isComplete()) {
             $this->setComplete();
         }

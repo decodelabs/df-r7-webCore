@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\form\Action {
-    
+
     protected $_group;
 
     protected function init() {
@@ -21,30 +21,28 @@ class HttpAdd extends arch\form\Action {
     protected function loadDelegates() {
         $this->loadDelegate('roles', '../roles/RoleSelector');
     }
-    
+
     protected function createUi() {
         $model = $this->data->getModel('user');
-        
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Group details'));
-        
+
         // Name
         $fs->addFieldArea($this->_('Name'))
             ->addTextbox('name', $this->values->name)
                 ->setMaxLength(64)
                 ->isRequired(true);
-            
+
         // Signifier
         $fs->addFieldArea($this->_('Signifier'))->push(
             $this->html->textbox('signifier', $this->values->signifier)
                 ->setMaxLength(32)
         );
-                
+
         // Roles
-        $fs->addFieldArea($this->_('Roles'))->push(
-            $this->getDelegate('roles')
-        );
-        
+        $fs->addFieldArea($this->_('Roles'))->push($this['roles']);
+
         // Buttons
         $fs->addDefaultButtonGroup();
     }
@@ -66,7 +64,7 @@ class HttpAdd extends arch\form\Action {
 
             ->validate($this->values)
             ->applyTo($this->_group);
-            
+
 
         return $this->complete(function() {
             $this->_group->save();

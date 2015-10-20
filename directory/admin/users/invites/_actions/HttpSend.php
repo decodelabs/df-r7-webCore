@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpSend extends arch\form\Action {
 
     const DEFAULT_EVENT = 'send';
@@ -57,9 +57,7 @@ class HttpSend extends arch\form\Action {
         );
 
         // Groups
-        $fs->addFieldArea($this->_('Registration groups'))->push(
-            $this->getDelegate('groups')
-        );
+        $fs->addFieldArea($this->_('Registration groups'))->push($this['groups']);
 
         // Force send
         if(!$this->application->isProduction()) {

@@ -36,9 +36,7 @@ class HttpGrant extends arch\form\Action {
         );
 
         // Users
-        $fs->addFieldArea($this->_('Users'))->push(
-            $this->getDelegate('users')
-        );
+        $fs->addFieldArea($this->_('Users'))->push($this['users']);
 
         // Buttons
         $fs->addDefaultButtonGroup('saveUsers');

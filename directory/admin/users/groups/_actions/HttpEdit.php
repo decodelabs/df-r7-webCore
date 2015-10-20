@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 
 class HttpEdit extends HttpAdd {
-    
+
     protected function init() {
         $this->_group = $this->scaffold->getRecord();
     }
@@ -18,9 +18,9 @@ class HttpEdit extends HttpAdd {
     protected function getInstanceId() {
         return $this->_group['id'];
     }
-    
+
     protected function setDefaultValues() {
         $this->values->importFrom($this->_group, ['name', 'signifier']);
-        $this->getDelegate('roles')->setSelected($this->_group['#roles']);
+        $this['roles']->setSelected($this->_group['#roles']);
     }
 }

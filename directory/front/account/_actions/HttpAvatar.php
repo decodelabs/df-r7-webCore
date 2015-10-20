@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpAvatar extends arch\form\Action {
 
     const DEFAULT_EVENT = 'upload';
@@ -30,7 +30,7 @@ class HttpAvatar extends arch\form\Action {
 
     protected function createUi() {
         if($this->_file) {
-            $versions = $this->_file->versions->fetch()       
+            $versions = $this->_file->versions->fetch()
                 ->where('purgeDate', '=', null)
                 ->orderBy('creationDate DESC')
                 ->toArray();
@@ -40,7 +40,7 @@ class HttpAvatar extends arch\form\Action {
 
         $this->content->push(
             $this->apex->component(
-                '~front/account/Avatar', 
+                '~front/account/Avatar',
                 $this, $this->_file, $versions
             )
         );
@@ -81,7 +81,7 @@ class HttpAvatar extends arch\form\Action {
     }
 
     protected function onUploadEvent() {
-        $filePath = $this->getDelegate('upload')->apply();
+        $filePath = $this['upload']->apply();
 
         return $this->complete(function() use($filePath) {
             if($filePath) {

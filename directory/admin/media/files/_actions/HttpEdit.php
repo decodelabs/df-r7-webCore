@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpEdit extends HttpAdd {
-    
+
     protected function init() {
         $this->_file = $this->scaffold->getRecord();
     }
@@ -25,8 +25,8 @@ class HttpEdit extends HttpAdd {
             'slug', 'fileName'
         ]);
 
-        $this->getDelegate('bucket')->setSelected($this->_file['#bucket']);
-        $this->getDelegate('owner')->setSelected($this->_file['#owner']);
+        $this['bucket']->setSelected($this->_file['#bucket']);
+        $this['owner']->setSelected($this->_file['#owner']);
 
         $this->values->overwriteName = true;
     }

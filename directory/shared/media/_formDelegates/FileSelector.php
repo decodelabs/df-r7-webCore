@@ -185,9 +185,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             $fs = $ol->addFieldSet($this->_('Upload new file'));
 
             $fs->addFieldArea()->push(
-                $this->html->fileUpload(
-                        $this->getDelegate('upload')->fieldName('file')
-                    )
+                $this->html->fileUpload($this['upload']->fieldName('file'))
                     ->setAcceptTypes($this->_acceptTypes),
 
                 $this->html->eventButton(
@@ -230,7 +228,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             $fa->push(
                 $this->html('div.widget-selection', [
                     $this->html->hidden($this->fieldName('selected['.$id.']'), $id),
-                    
+
                     $this->html('div.body', [
                         $this->html->icon('file', $name)
                             ->addClass('informative')
@@ -250,7 +248,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
                                 ->setDisposition('operative') : null,
 
                         $this->html->eventButton(
-                                $this->eventName('remove', $id), 
+                                $this->eventName('remove', $id),
                                 $this->_('Remove')
                             )
                             ->shouldValidate(false)
@@ -269,9 +267,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
         $selected = $this->createInlineDetailsUi($fa);
         $ol = $fa->addOverlay($fa->getLabelBody().' - '.$this->_('Upload new file'));
 
-        $fs = $ol->addFieldSet($this->_('Choose your file(s)'))->push(
-            $this->getDelegate('upload')
-        );
+        $fs = $ol->addFieldSet($this->_('Choose your file(s)'))->push($this['upload']);
 
         $fs->addButtonArea()->push(
             $this->html->eventButton(
@@ -306,9 +302,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
 
         $ol = $fa->addOverlay($fa->getLabelBody().' - '.$this->_('Add new version'));
 
-        $fs = $ol->addFieldSet($this->_('Choose your file'))->push(
-            $this->getDelegate('versionUpload')
-        );
+        $fs = $ol->addFieldSet($this->_('Choose your file'))->push($this['versionUpload']);
 
         $fs->unshift(
             $this->html->fieldArea()->push(
@@ -380,7 +374,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             return;
         }
 
-        $uploadDelegate = $this->getDelegate('upload');
+        $uploadDelegate = $this['upload'];
         $result = $uploadDelegate->apply();
 
         if(empty($result)) {
@@ -427,7 +421,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
 
     protected function onUploadVersionEvent() {
         if(!$this->_bucket
-        || $this->getMode() != 'version' 
+        || $this->getMode() != 'version'
         || !$this->hasStore('versionFileId')) {
             return;
         }
@@ -438,7 +432,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             return;
         }
 
-        $uploadDelegate = $this->getDelegate('versionUpload');
+        $uploadDelegate = $this['versionUpload'];
         $result = $uploadDelegate->apply();
 
         if(empty($result)) {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\user;
-    
+
 class HttpRegister extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
@@ -67,10 +67,10 @@ class HttpRegister extends arch\form\Action {
     }
 
     protected function createUi() {
-        $this->getDelegate('Local')->renderUi();
+        $this['Local']->renderUi();
     }
 
     protected function onRegisterEvent() {
-        return $this->getDelegate('Local')->handleEvent('register', func_get_args());
+        return $this['Local']->handleEvent('register', func_get_args());
     }
 }
