@@ -12,14 +12,14 @@ use df\arch;
 use df\axis;
 
 class HttpDeleteBackup extends arch\form\template\Delete {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'backup';
 
     protected $_file;
 
     protected function init() {
-        $fileName = basename($this->request->query['backup']);
+        $fileName = basename($this->request['backup']);
 
         if(!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
             $this->throwError(403, 'Not an axis backup file');

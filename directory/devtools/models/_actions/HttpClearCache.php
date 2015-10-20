@@ -12,7 +12,7 @@ use df\arch;
 use df\axis;
 
 class HttpClearCache extends arch\form\template\Confirm {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DISPOSITION = 'negative';
 
@@ -21,7 +21,7 @@ class HttpClearCache extends arch\form\template\Confirm {
     protected function init() {
         $probe = new axis\introspector\Probe();
 
-        if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
+        if(!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
             $this->throwError(404, 'Unit not found');
         }
 

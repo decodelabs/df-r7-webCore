@@ -12,18 +12,18 @@ use df\arch;
 use df\neon;
 
 class HttpDownload extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     const OPTIMIZE = true;
 
     public function execute() {
-        if(isset($this->request->query->version)) {
+        if(isset($this->request['version'])) {
             return $this->media->fetchAndServeVersionDownload(
-                $this->request->query['version']
+                $this->request['version']
             );
         }
 
-        $id = $this->request->query['file'];
+        $id = $this->request['file'];
         $test = $this->data->media->normalizeFileId($id);
 
         if($id != $test) {

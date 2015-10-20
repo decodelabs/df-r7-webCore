@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,17 +11,17 @@ use df\apex;
 use df\arch;
 use df\aura;
 use df\fire;
-    
+
 class HttpEditSlot extends HttpAddSlot {
 
     protected function init() {
         $config = fire\Config::getInstance();
 
-        if(!$this->_layout = $config->getLayoutDefinition($this->request->query['layout'])) {
+        if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
             $this->throwError(404);
         }
 
-        if(!$this->_slot = $this->_layout->getSlot($this->request->query['slot'])) {
+        if(!$this->_slot = $this->_layout->getSlot($this->request['slot'])) {
             $this->throwError(404, 'Slot not found');
         }
     }

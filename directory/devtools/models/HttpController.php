@@ -13,14 +13,14 @@ use df\axis;
 use df\opal;
 
 class HttpController extends arch\Controller {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function fetchUnit($view, $type=null) {
         $probe = new axis\introspector\Probe();
-        $unitId = $this->request->query['unit'];
+        $unitId = $this->request['unit'];
 
-        if($clusterId = $this->request->query['cluster']) {
+        if($clusterId = $this->request['cluster']) {
             $unitId = $clusterId.':'.$unitId;
         }
 

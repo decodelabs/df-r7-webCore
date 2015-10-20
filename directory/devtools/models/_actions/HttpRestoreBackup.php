@@ -11,13 +11,13 @@ use df\apex;
 use df\arch;
 
 class HttpRestoreBackup extends arch\form\template\Confirm {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_file;
 
     protected function init() {
-        $fileName = basename($this->request->query['backup']);
+        $fileName = basename($this->request['backup']);
 
         if(!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
             $this->throwError(403, 'Not an axis backup file');

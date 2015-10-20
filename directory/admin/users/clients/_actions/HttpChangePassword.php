@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpChangePassword extends arch\form\Action {
 
     protected $_auth;
@@ -18,7 +18,7 @@ class HttpChangePassword extends arch\form\Action {
         $this->_auth = $this->data->fetchForAction(
             'axis://user/Auth',
             [
-                'user' => $this->request->query['user'],
+                'user' => $this->request['user'],
                 'adapter' => 'Local'
             ],
             'edit'

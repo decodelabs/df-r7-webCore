@@ -23,10 +23,10 @@ class HttpRegister extends arch\form\Action {
             return $this->http->defaultRedirect('account/');
         }
 
-        if(isset($this->request->query->invite)) {
+        if(isset($this->request['invite'])) {
             $this->_invite = $this->data->fetchForAction(
                 'axis://user/Invite',
-                ['key' => $this->request->query['invite']]
+                ['key' => $this->request['invite']]
             );
 
             if(!$this->_invite['isActive']) {

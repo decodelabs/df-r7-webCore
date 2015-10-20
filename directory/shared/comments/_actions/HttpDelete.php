@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -19,7 +19,7 @@ class HttpDelete extends arch\form\template\Delete {
     protected function init() {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
-            $this->request->query['comment'],
+            $this->request['comment'],
             'delete'
         );
     }

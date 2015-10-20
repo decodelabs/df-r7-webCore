@@ -13,7 +13,7 @@ use df\axis;
 use df\halo;
 
 class HttpBackupTable extends arch\form\template\Confirm {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_inspector;
@@ -21,7 +21,7 @@ class HttpBackupTable extends arch\form\template\Confirm {
     protected function init() {
         $probe = new axis\introspector\Probe();
 
-        if(!$this->_inspector = $probe->inspectUnit($this->request->query['unit'])) {
+        if(!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
             $this->throwError(404, 'Unit not found');
         }
     }

@@ -12,13 +12,13 @@ use df\aura;
 use df\neon;
 
 class HttpDownload extends arch\Action {
-    
+
     const OPTIMIZE = true;
-    const DEFAULT_ACCESS = arch\IAccess::ALL; 
-    
+    const DEFAULT_ACCESS = arch\IAccess::ALL;
+
     public function execute() {
-        $theme = aura\theme\Base::factory($this->request->query['theme']);
-        $assetPath = $this->request->query['file'];
+        $theme = aura\theme\Base::factory($this->request['theme']);
+        $assetPath = $this->request['file'];
         $type = null;
         $cacheAge = $this->application->isDevelopment() ? null : '30 minutes';
 
@@ -34,7 +34,7 @@ class HttpDownload extends arch\Action {
                     break;
             }
         }
-        
+
         if(!$absolutePath = $theme->findAsset($assetPath)) {
             $this->throwError(404, 'File not found');
         }
@@ -43,9 +43,9 @@ class HttpDownload extends arch\Action {
             $type = core\fs\Type::fileToMime($absolutePath);
         }
 
-        if(substr($type, 0, 6) == 'image/' && isset($this->request->query->transform)) {
+        if(substr($type, 0, 6) == 'image/' && isset($this->request['transform'])) {
             $cache = neon\raster\Cache::getInstance();
-            $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request->query['transform']);
+            $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request['transform']);
         }
 
         switch($type) {
@@ -69,7 +69,7 @@ class HttpDownload extends arch\Action {
         if($cacheAge) {
             $output->getHeaders()->setCacheExpiration($cacheAge);
         }
-        
+
         return $output;
     }
 }

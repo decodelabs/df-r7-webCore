@@ -11,11 +11,11 @@ use df\apex;
 use df\arch;
 
 class HttpController extends arch\Controller {
-    
+
     public function authorizeRequest() {
         $key = bin2hex($this->data->hash($this->application->getPassKey()));
 
-        if($key != $this->request->query['key']) {
+        if($key != $this->request['key']) {
             $this->throwError(403, 'Pass key is invalid', [
                 'baseUrl' => $this->application->getRouter()->getBaseUrl()
             ]);

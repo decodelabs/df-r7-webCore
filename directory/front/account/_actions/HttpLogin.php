@@ -29,8 +29,8 @@ class HttpLogin extends arch\form\Action {
 
         $this->_config = user\authentication\Config::getInstance();
 
-        if(isset($this->request->query->adapter)) {
-            $this->_adapter = $this->request->query['adapter'];
+        if(isset($this->request['adapter'])) {
+            $this->_adapter = $this->request['adapter'];
 
             if(!$this->_config->isAdapterEnabled($this->_adapter)) {
                 $this->_adapter = null;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,18 +11,18 @@ use df\apex;
 use df\arch;
 use df\aura;
 use df\neon;
-    
+
 class HttpDownload extends arch\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        $id = $this->request->query['user'];
+        $id = $this->request['user'];
         $size = $this->request->query->get('size', 400);
 
         if($id == 'default') {
             $theme = aura\theme\Base::factory($this->context);
-            
+
             if(!$absolutePath = $theme->findAsset($this->data->user->avatarConfig->getDefaultAvatarPath())) {
                 $this->throwError(404, 'File not found');
             }
@@ -33,11 +33,11 @@ class HttpDownload extends arch\Action {
                 $this->throwError(404, 'File not found');
             }
 
-            if(isset($this->request->query->size)) {
+            if(isset($this->request['size'])) {
                 $cache = neon\raster\Cache::getInstance();
                 $absolutePath = $cache->getTransformationFilePath($absolutePath, '[rs:'.$size.'|'.$size.']');
             }
-            
+
             $output = $this->http->fileResponse($absolutePath);
             $output->setContentType($type);
 
@@ -47,7 +47,7 @@ class HttpDownload extends arch\Action {
                 $version = $this->data->media->fetchSingleUserVersionForDownload($id, 'Avatar');
 
                 $url = $this->data->media->getImageUrl(
-                    $version['fileId'], 
+                    $version['fileId'],
                     '[cz:'.$size.'|'.$size.']'
                 );
             } catch(\Exception $e) {

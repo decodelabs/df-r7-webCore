@@ -12,20 +12,20 @@ use df\arch;
 use df\neon;
 
 class HttpImage extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        $transform = $this->request->query['transform'];
+        $transform = $this->request['transform'];
 
-        if(isset($this->request->query->version)) {
+        if(isset($this->request['version'])) {
             return $this->media->fetchAndServeVersionImage(
-                $this->request->query['version'], 
+                $this->request['version'],
                 $transform
             );
         }
 
-        $id = $this->request->query['file'];
+        $id = $this->request['file'];
         $test = $this->data->media->normalizeFileId($id, $transform);
 
         if($id != $test) {

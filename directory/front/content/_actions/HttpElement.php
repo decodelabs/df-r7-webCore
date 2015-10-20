@@ -11,12 +11,12 @@ use df\apex;
 use df\arch;
 
 class HttpElement extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsHtml() {
         $view = $this->apex->newWidgetView();
-        $view->content->push($view->nightfire->renderElement($this->request->query['element']));
+        $view->content->push($view->nightfire->renderElement($this->request['element']));
 
         return $view->setLayout('Blank')
             ->shouldRenderBase(false);

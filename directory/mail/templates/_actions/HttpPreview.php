@@ -12,14 +12,14 @@ use df\arch;
 use df\flow;
 
 class HttpPreview extends arch\form\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'send';
 
     protected $_mail;
 
     protected function init() {
-        $this->_mail = $this->apex->component('~mail/'.$this->request->query['path']);
+        $this->_mail = $this->apex->component('~mail/'.$this->request['path']);
 
         if(!$this->_mail instanceof arch\IMailComponent) {
             $this->throwError(403, 'Component is not a Mail object');
@@ -177,7 +177,7 @@ class HttpPreview extends arch\form\Action {
             $transport->send($mail);
 
             $this->comms->flashSuccess(
-                'testMail.sent', 
+                'testMail.sent',
                 $this->_('The email has been successfully sent')
             );
         });

@@ -12,7 +12,7 @@ use df\arch;
 use df\neon;
 
 class HttpApplicationImage extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     const CHECK_ACCESS = false;
 
@@ -30,8 +30,8 @@ class HttpApplicationImage extends arch\Action {
             $this->throwError(404, 'Application image '.$path.' not found');
         }
 
-        if(isset($this->request->query->width)) {
-            $width = $this->request->query['width'];
+        if(isset($this->request['width'])) {
+            $width = $this->request['width'];
             $height = $this->request->query->get('height', $width);
             $cache = neon\raster\Cache::getInstance();
             $absPath = $cache->getTransformationFilePath($absPath, '[rs:'.$width.'|'.$height.']');

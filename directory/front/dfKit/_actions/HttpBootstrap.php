@@ -36,7 +36,7 @@ class HttpBootstrap extends arch\Action {
     }
 
     protected function _getTheme() {
-        $themeId = $this->request->query['theme'];
+        $themeId = $this->request['theme'];
 
         if(!$themeId) {
             $config = aura\theme\Config::getInstance();

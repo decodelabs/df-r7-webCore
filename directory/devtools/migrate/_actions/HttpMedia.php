@@ -23,21 +23,21 @@ class HttpMedia extends arch\restApi\Action {
 
         try {
             $filePath = $handler->getFilePath(
-                $this->request->query['file'],
-                $this->request->query['version']
+                $this->request['file'],
+                $this->request['version']
             );
         } catch(\Exception $e) {
             return $this->throwError(404, 'Invalid version ids', [
-                'fileId' => $this->request->query['file'],
-                'versionId' => $this->request->query['version']
+                'fileId' => $this->request['file'],
+                'versionId' => $this->request['version']
             ]);
         }
 
         if(!is_file($filePath)) {
             return $this->throwError(404, 'File not found', [
                 'filePath' => $filePath,
-                'fileId' => $this->request->query['file'],
-                'versionId' => $this->request->query['version']
+                'fileId' => $this->request['file'],
+                'versionId' => $this->request['version']
             ]);
         }
 

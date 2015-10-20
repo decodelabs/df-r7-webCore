@@ -12,15 +12,15 @@ use df\arch;
 use df\aura;
 
 class HttpView extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
         if($this->application->isProduction()) {
             $this->throwError(401, 'Dev mode only');
         }
-        
-        $path = new arch\Request($this->request->query['path']);
+
+        $path = new arch\Request($this->request['path']);
         $path = '#'.$path->getController().'/'.ucfirst($path->getAction()).'.html';
 
         $view = $this->apex->view($path);
@@ -29,7 +29,7 @@ class HttpView extends arch\Action {
 
         $themeConfig = aura\theme\Config::getInstance();
         $view->setTheme($themeConfig->getThemeIdFor('front'));
-        
+
         return $view;
     }
 }

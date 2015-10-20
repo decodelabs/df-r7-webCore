@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpResetPassword extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
@@ -25,8 +25,8 @@ class HttpResetPassword extends arch\form\Action {
         }
 
         $this->_key = $this->data->user->passwordResetKey->fetch()
-            ->where('user', '=', $this->request->query['user'])
-            ->where('key', '=', $this->request->query['key'])
+            ->where('user', '=', $this->request['user'])
+            ->where('key', '=', $this->request['key'])
             ->toRow();
 
         if(!$this->_key) {

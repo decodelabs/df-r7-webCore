@@ -11,11 +11,11 @@ use df\apex;
 use df\arch;
 
 class HttpDetails extends arch\Action {
-    
+
     public function executeAsHtml() {
         $view = $this->apex->view('Details.html');
 
-        if(!$view['menu'] = arch\navigation\menu\Base::factory($this->context, 'Directory://'.$this->request->query['menu'])) {
+        if(!$view['menu'] = arch\navigation\menu\Base::factory($this->context, 'Directory://'.$this->request['menu'])) {
             $this->throwError(404, 'Menu not found');
         }
 

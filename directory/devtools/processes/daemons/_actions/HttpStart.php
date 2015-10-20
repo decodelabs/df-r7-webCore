@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\halo;
-    
+
 class HttpStart extends arch\form\template\Confirm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -19,7 +19,7 @@ class HttpStart extends arch\form\template\Confirm {
     protected $_daemon;
 
     protected function init() {
-        $this->_daemon = halo\daemon\Base::factory($this->request->query['daemon']);
+        $this->_daemon = halo\daemon\Base::factory($this->request['daemon']);
     }
 
     protected function getMainMessage() {

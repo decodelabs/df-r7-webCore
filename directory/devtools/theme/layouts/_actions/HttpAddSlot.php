@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 use df\fire;
-    
+
 class HttpAddSlot extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -22,7 +22,7 @@ class HttpAddSlot extends arch\form\Action {
     protected function init() {
         $config = fire\Config::getInstance();
 
-        if(!$this->_layout = $config->getLayoutDefinition($this->request->query['layout'])) {
+        if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
             $this->throwError(404);
         }
 

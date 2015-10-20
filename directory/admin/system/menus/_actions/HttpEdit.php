@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,13 +10,13 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\aura;
-    
+
 class HttpEdit extends arch\form\Action {
 
     protected $_menu;
 
     protected function init() {
-        if(!$this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request->query['menu'])) {
+        if(!$this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request['menu'])) {
             $this->throwError(404, 'Menu not found');
         }
     }

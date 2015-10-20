@@ -12,13 +12,13 @@ use df\arch;
 use df\spur;
 
 class HttpRefresh extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
         $model = $this->data->getModel('package');
-        $name = $this->request->query['package'];
-        
+        $name = $this->request['package'];
+
         if(!$model->updateRemote($name)) {
             $this->comms->flashError(
                 'git.update',

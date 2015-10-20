@@ -42,7 +42,7 @@ class HttpGrant extends arch\form\Action {
         $fs->addDefaultButtonGroup('saveUsers');
 
 
-        if(!isset($this->request->query->user)) {
+        if(!isset($this->request['user'])) {
             $form = $this->content->addForm();
             $fs = $form->addFieldSet($this->_('All users'));
 

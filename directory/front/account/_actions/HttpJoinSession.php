@@ -15,7 +15,7 @@ class HttpJoinSession extends arch\Action {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        if(isset($this->request->query->{'401'}) && !$this->user->isLoggedIn()) {
+        if(isset($this->request['401']) && !$this->user->isLoggedIn()) {
             $request = arch\Request::factory('account/login');
             $request->query->rf = $this->request->encode();
             return $this->http->redirect($request);
@@ -23,7 +23,7 @@ class HttpJoinSession extends arch\Action {
 
         $key = $this->data->fetchForAction(
             'axis://session/Stub',
-            hex2bin($this->request->query['key'])
+            hex2bin($this->request['key'])
         );
 
         if($key['date']->lt('-1 minute')) {

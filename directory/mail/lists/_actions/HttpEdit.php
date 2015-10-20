@@ -12,14 +12,14 @@ use df\arch;
 use df\flow;
 
 class HttpEdit extends HttpAdd {
-    
+
     protected $_id;
     protected $_source;
 
     protected function initWithSession() {
         $config = flow\mail\Config::getInstance();
         $sources = $config->getListSources();
-        $this->_id = $this->request->query['source'];
+        $this->_id = $this->request['source'];
 
         if(!isset($sources[$this->_id])) {
             $this->throwError(404, 'Source not found');

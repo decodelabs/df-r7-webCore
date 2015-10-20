@@ -11,15 +11,15 @@ use df\arch;
 use df\aura;
 
 class HttpDeleteKey extends arch\form\template\Delete {
-    
+
     const ITEM_NAME = 'key';
-    
+
     protected $_key;
 
     protected function init() {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
-            $this->request->query['key'],
+            $this->request['key'],
             'delete'
         );
     }
@@ -27,7 +27,7 @@ class HttpDeleteKey extends arch\form\template\Delete {
     protected function getInstanceId() {
         return $this->_key['id'];
     }
-    
+
     protected function createItemUi($container) {
         $container->addAttributeList($this->_key)
 
@@ -47,7 +47,7 @@ class HttpDeleteKey extends arch\form\template\Delete {
                 return $row['allow'] ? $this->_('Allow') : $this->_('Deny');
             });
     }
-    
+
     protected function apply() {
         $this->_key->delete();
         $this->user->instigateGlobalKeyringRegeneration();

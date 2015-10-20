@@ -12,11 +12,11 @@ use df\arch;
 use df\aura;
 
 class HttpView extends arch\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        $mail = $this->apex->component('~mail/'.$this->request->query['path']);
+        $mail = $this->apex->component('~mail/'.$this->request['path']);
 
         if(!$mail instanceof arch\IMailComponent) {
             $this->throwError(403, 'Component is not a Mail object');

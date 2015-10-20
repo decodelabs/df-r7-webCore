@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\fire;
-    
+
 class HttpAdd extends arch\form\Action {
 
     protected $_comment;
@@ -134,14 +134,14 @@ class HttpAdd extends arch\form\Action {
         $output = parent::onResetEvent();
 
         if($inline) {
-            return $this->http->defaultRedirect(); 
+            return $this->http->defaultRedirect();
         }
 
         return $output;
     }
 
     protected function _prepareRecord() {
-        $this->_comment->topic = $this->request->query['entity'];
+        $this->_comment->topic = $this->request['entity'];
         $this->_comment->owner = $this->user->client->getId();
     }
 }

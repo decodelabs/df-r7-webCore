@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpSettings extends arch\form\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_config;
@@ -23,15 +23,15 @@ class HttpSettings extends arch\form\Action {
     ];
 
     protected function init() {
-        if(isset($this->request->query->daemon)) {
+        if(isset($this->request['daemon'])) {
             $this->_isRecord = true;
 
             $this->_config = $this->data->fetchOrCreateForAction(
                 'axis://daemon/Settings',
-                $this->request->query['daemon'],
+                $this->request['daemon'],
                 'edit',
                 function($settings) {
-                    $settings['name'] = $this->request->query['daemon'];
+                    $settings['name'] = $this->request['daemon'];
                 }
             );
         } else {
@@ -47,8 +47,8 @@ class HttpSettings extends arch\form\Action {
 
     protected function setDefaultValues() {
         $this->values->importFrom($this->_config, [
-            $this->_getFieldName('isEnabled'), 
-            $this->_getFieldName('user'), 
+            $this->_getFieldName('isEnabled'),
+            $this->_getFieldName('user'),
             $this->_getFieldName('group')
         ]);
     }
@@ -59,7 +59,7 @@ class HttpSettings extends arch\form\Action {
 
         // Enabled
         $fs->addFieldArea()->push(
-            $this->html->checkbox($this->_getFieldName('isEnabled'), $this->values->{$this->_getFieldName('isEnabled')}, 
+            $this->html->checkbox($this->_getFieldName('isEnabled'), $this->values->{$this->_getFieldName('isEnabled')},
                 $this->_isRecord ?
                     $this->_('This daemon is enabled and can be spawned by this application') :
                     $this->_('Allow this application to spawn deamon processes')

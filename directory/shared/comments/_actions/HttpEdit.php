@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,13 +9,13 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpEdit extends HttpAdd {
 
     protected function init() {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
-            $this->request->query['comment'],
+            $this->request['comment'],
             'edit'
         );
     }

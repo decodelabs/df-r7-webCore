@@ -13,7 +13,7 @@ use df\axis;
 use df\opal;
 
 class HttpDeleteStorage extends arch\form\template\Delete {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'storage';
 
@@ -22,13 +22,13 @@ class HttpDeleteStorage extends arch\form\template\Delete {
 
     protected function init() {
         $probe = new axis\introspector\Probe();
-        $this->_unit = $probe->inspectUnit($this->request->query['unit']);
+        $this->_unit = $probe->inspectUnit($this->request['unit']);
 
         if(!$this->_unit) {
             $this->throwError(404, 'Unit not found');
         }
 
-        if(!$this->_describer = $this->_unit->describeStorage($this->request->query['name'])) {
+        if(!$this->_describer = $this->_unit->describeStorage($this->request['name'])) {
             $this->throwError(404, 'Storage not found');
         }
     }

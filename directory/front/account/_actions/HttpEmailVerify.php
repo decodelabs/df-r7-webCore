@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,15 +9,15 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpEmailVerify extends arch\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
         $result = $this->data->user->emailVerify->verify(
-            $this->request->query['user'],
-            $this->request->query['key']
+            $this->request['user'],
+            $this->request['key']
         );
 
         if($result) {

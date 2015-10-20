@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpDelete extends arch\form\template\Delete {
 
     const ITEM_NAME = 'history event';
@@ -19,7 +19,7 @@ class HttpDelete extends arch\form\template\Delete {
     protected function init() {
         $this->_history = $this->data->fetchForAction(
             'axis://content/History',
-            $this->request->query['history'],
+            $this->request['history'],
             'delete'
         );
     }
