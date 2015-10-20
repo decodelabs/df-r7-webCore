@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\form\Action {
-    
+
     protected $_file;
 
     protected function init() {
@@ -33,12 +33,6 @@ class HttpAdd extends arch\form\Action {
     }
 
     protected function setDefaultValues() {
-        if(isset($this->request->query->bucket)) {
-            $this->getDelegate('bucket')->setSelected(
-                $this->request->query['bucket']
-            );
-        }
-
         $this->getDelegate('owner')->setSelected(
             $this->user->client->getId()
         );
@@ -86,7 +80,7 @@ class HttpAdd extends arch\form\Action {
         $fs->addFieldArea($this->_('Owner'))->push(
             $this->getDelegate('owner')
         );
-        
+
         // Buttons
         $fs->addDefaultButtonGroup();
     }

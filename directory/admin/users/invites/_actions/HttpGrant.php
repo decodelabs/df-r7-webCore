@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpGrant extends arch\form\Action {
 
     const DEFAULT_EVENT = 'saveUsers';
@@ -22,10 +22,6 @@ class HttpGrant extends arch\form\Action {
 
     protected function setDefaultValues() {
         $this->values->allowance = $this->data->user->config->getInviteCap();
-
-        if(isset($this->request->query->user)) {
-            $this->getDelegate('users')->setSelected([$this->request->query['user']]);
-        }
     }
 
     protected function createUi() {
