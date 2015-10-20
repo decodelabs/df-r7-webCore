@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\aura;
-    
+
 class ConfirmLoginLocal extends arch\component\template\FormUi {
 
     protected function _execute() {
@@ -20,7 +20,7 @@ class ConfirmLoginLocal extends arch\component\template\FormUi {
         // Identity
         $fs->addFieldArea($this->_('User'))
             ->addEmailTextbox(
-                    $this->fieldName('name'), 
+                    $this->fieldName('name'),
                     $this->user->client->getFullName()
                 )
                 ->isDisabled(true);
@@ -28,7 +28,7 @@ class ConfirmLoginLocal extends arch\component\template\FormUi {
         // Password
         $fs->addFieldArea($this->_('Password'))
             ->addPasswordTextbox(
-                    $this->fieldName('password'), 
+                    $this->fieldName('password'),
                     $this->values->password
                 )
                 ->isRequired(true);
@@ -36,7 +36,7 @@ class ConfirmLoginLocal extends arch\component\template\FormUi {
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('login'), 
+                    $this->eventName('login'),
                     $this->_('Sign in')
                 )
                 ->setIcon('accept'),

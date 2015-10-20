@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class ChangePasswordLocal extends arch\component\template\FormUi {
 
     protected function _execute() {
@@ -19,7 +19,7 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         // Old password
         $fs->addFieldArea($this->_('Old password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('oldPassword'), 
+                    $this->fieldName('oldPassword'),
                     $this->values->oldPassword
                 )
                 ->isRequired(true)
@@ -28,7 +28,7 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         // New password
         $fs->addFieldArea($this->_('New password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('newPassword'), 
+                    $this->fieldName('newPassword'),
                     $this->values->newPassword
                 )
                 ->isRequired(true)
@@ -37,7 +37,7 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         // Confirm new password
         $fs->addFieldArea($this->_('Confirm new password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('confirmNewPassword'), 
+                    $this->fieldName('confirmNewPassword'),
                     $this->values->confirmNewPassword
                 )
                 ->isRequired(true)

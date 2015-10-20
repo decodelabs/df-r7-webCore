@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\aura;
-    
+
 class LoginLocal extends arch\component\template\FormUi {
 
     protected function _execute() {
@@ -20,15 +20,15 @@ class LoginLocal extends arch\component\template\FormUi {
         // Lost password
         $fs->addFieldArea()->push(
             $this->html->link(
-                $this->uri('account/lost-password', true), 
+                $this->uri('account/lost-password', true),
                 $this->_('Forgot your password?')
             )
         );
-        
+
         // Identity
         $fs->addFieldArea($this->_('Email address'))
             ->addEmailTextbox(
-                    $this->fieldName('identity'), 
+                    $this->fieldName('identity'),
                     $this->values->identity
                 )
                 ->isRequired(true);
@@ -36,7 +36,7 @@ class LoginLocal extends arch\component\template\FormUi {
         // Password
         $fs->addFieldArea($this->_('Password'))
             ->addPasswordTextbox(
-                    $this->fieldName('password'), 
+                    $this->fieldName('password'),
                     $this->values->password
                 )
                 ->isRequired(true);
@@ -44,16 +44,16 @@ class LoginLocal extends arch\component\template\FormUi {
         // Remember
         $fs->addFieldArea()->push(
             $this->html->checkbox(
-                $this->fieldName('rememberMe'), 
-                $this->values->rememberMe, 
+                $this->fieldName('rememberMe'),
+                $this->values->rememberMe,
                 $this->_('Remember me')
             )
         );
-        
+
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('login'), 
+                    $this->eventName('login'),
                     $this->_('Sign in')
                 )
                 ->setIcon('accept'),

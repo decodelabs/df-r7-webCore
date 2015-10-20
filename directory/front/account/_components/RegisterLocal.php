@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class RegisterLocal extends arch\component\template\FormUi {
 
     protected function _execute() {
@@ -19,7 +19,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         // Name
         $fs->addFieldArea($this->_('Your name'))->push(
             $this->html->textbox(
-                    $this->fieldName('fullName'), 
+                    $this->fieldName('fullName'),
                     $this->values->fullName
                 )
                 ->isRequired(true)
@@ -28,7 +28,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         // Email
         $fs->addFieldArea($this->_('Email address'))->push(
             $this->html->emailTextbox(
-                    $this->fieldName('email'), 
+                    $this->fieldName('email'),
                     $this->values->email
                 )
                 ->isRequired(true)
@@ -37,7 +37,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         // Password
         $fs->addFieldArea($this->_('Password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('password'), 
+                    $this->fieldName('password'),
                     $this->values->password
                 )
                 ->shouldAutoComplete(false)
@@ -47,7 +47,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         // Confirm password
         $fs->addFieldArea($this->_('Confirm password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('confirmPassword'), 
+                    $this->fieldName('confirmPassword'),
                     $this->values->confirmPassword
                 )
                 ->shouldAutoComplete(false)
@@ -57,7 +57,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         // Buttons
         $fs->addButtonArea(
             $this->html->eventButton(
-                    $this->eventName('register'), 
+                    $this->eventName('register'),
                     $this->_('Create account')
                 )
                 ->setIcon('accept'),

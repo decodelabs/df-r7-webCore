@@ -47,7 +47,9 @@ class Avatar extends arch\component\template\FormUi {
         $form->setEncoding($form::ENC_MULTIPART);
 
         // Upload
-        $form->addFieldSet($this->_('Upload new avatar'))->push($this['upload']);
+        $form->addFieldSet($this->_('Upload new avatar'))->push(
+            $this->getDelegate('upload')
+        );
 
         // Buttons
         $form->addButtonArea(

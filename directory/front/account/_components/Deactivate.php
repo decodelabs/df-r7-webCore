@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class Deactivate extends arch\component\template\FormUi {
 
     protected function _execute() {
@@ -25,7 +25,7 @@ class Deactivate extends arch\component\template\FormUi {
 
         $fs->addFieldArea($this->_('Why do you want to deactivate your account?'))->push(
             $this->html->textbox(
-                    $this->fieldName('reason'), 
+                    $this->fieldName('reason'),
                     $this->values->reason
                 )
                 ->setMaxLength(255)
@@ -33,14 +33,14 @@ class Deactivate extends arch\component\template\FormUi {
 
         $fs->addFieldArea($this->_('What could we have done better?'))->push(
             $this->html->textarea(
-                    $this->fieldName('comments'), 
+                    $this->fieldName('comments'),
                     $this->values->comments
                 )
         );
 
         $fs->addButtonArea(
             $this->html->eventButton(
-                    $this->eventName('deactivate'), 
+                    $this->eventName('deactivate'),
                     $this->_('Deactivate')
                 )
                 ->setIcon('remove')

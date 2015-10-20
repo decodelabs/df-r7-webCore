@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class LostPassword extends arch\component\template\FormUi {
 
     protected function _execute() {
@@ -25,7 +25,7 @@ class LostPassword extends arch\component\template\FormUi {
         // Email
         $fs->addFieldArea($this->_('Email address'))->push(
             $this->html->emailTextbox(
-                    $this->fieldName('email'), 
+                    $this->fieldName('email'),
                     $this->values->email
                 )
                 ->isRequired(true)

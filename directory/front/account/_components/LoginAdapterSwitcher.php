@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 use df\user;
-    
+
 class LoginAdapterSwitcher extends arch\component\template\FormUi {
 
     protected function _execute(array $enabled, $current) {
