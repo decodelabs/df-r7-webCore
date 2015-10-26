@@ -1,6 +1,6 @@
 <?php
 
-echo $this->html->collectionList($this['mails'])
+echo $this->html->collectionList($mails)
     ->addField('name', function($mail, $context) {
         $name = $context->getKey();
 

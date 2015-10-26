@@ -4,7 +4,7 @@ use df\link;
 echo $this->apex->component('IndexHeaderBar');
 
 
-if(!$this['config']->isEnabled()) {
+if(!$config->isEnabled()) {
     echo $this->html->flashMessage($this->_(
         'GeoIP lookup is currently disabled in config'
     ), 'warning');
@@ -13,18 +13,18 @@ if(!$this['config']->isEnabled()) {
 echo $this->html('h3', $this->_('Adapters'));
 
 echo $this->html->attributeList([])
-    
+
     // Default
-    ->addField('defaultAdapter', function() {
-        $name = $this['config']->getDefaultAdapter();
+    ->addField('defaultAdapter', function() use($config, $adapterList) {
+        $name = $config->getDefaultAdapter();
         $output = $this->format->name($name);
-        $available = isset($this['adapterList'][$name]) && $this['adapterList'][$name];
+        $available = isset($adapterList[$name]) && $adapterList[$name];
         return $this->html('span', $output)->addClass($available ? 'positive' : 'negative');
     })
 
     // Available
-    ->addField('availableAdapters', function() {
-        return $this->html->bulletList($this['adapterList'], function($available, $context) {
+    ->addField('availableAdapters', function() use($adapterList) {
+        return $this->html->bulletList($adapterList, function($available, $context) {
             $name = $this->format->name($context->getKey());
             return $this->html('span', $name)->addClass($available ? 'positive' : 'negative');
         });
@@ -33,13 +33,13 @@ echo $this->html->attributeList([])
 
 echo $this->html('h3', $this->_('My IP details'));
 
-if($this['result']->ip->isLoopback()) {
+if($result->ip->isLoopback()) {
     echo $this->html->flashMessage($this->_(
         'You are currently browsing this site on the server\'s local network, your internet IP is not available for lookup'
     ), 'warning');
 }
 
-echo $this->html->attributeList($this['result'])
+echo $this->html->attributeList($result)
     // IP
     ->addField('myIp', function($result) {
         return $result->ip;

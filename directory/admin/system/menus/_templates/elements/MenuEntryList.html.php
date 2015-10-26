@@ -1,5 +1,5 @@
 <?php
-echo $this->html->collectionList($this['entryList']->getEntries())
+echo $this->html->collectionList($entryList->getEntries())
     ->setErrorMessage($this->_('This menu has no entries'))
 
     // Id

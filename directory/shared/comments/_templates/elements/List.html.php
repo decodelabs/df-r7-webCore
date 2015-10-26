@@ -4,10 +4,10 @@ use df\mesh;
 $paginator = null;
 
 if($this->getSlot('paginate', true)) {
-    echo $paginator = (string)$this->html->paginator($this['commentList']);
+    echo $paginator = (string)$this->html->paginator($commentList);
 }
 
-echo $this->html->articleList($this['commentList'], function($comment, $context) {
+echo $this->html->articleList($commentList, function($comment, $context) use($displayAsTree) {
     $hash = 'comment-'.$comment->getUniqueId();
     $context->getCellTag()->setId($hash);
     $redir = clone $this->context->request;
@@ -18,24 +18,24 @@ echo $this->html->articleList($this['commentList'], function($comment, $context)
         $this->html('header', [
             // Avatar
             $this->html->image(
-                    $this->avatar->getAvatarUrl($comment['owner']['id'], 50), 
+                    $this->avatar->getAvatarUrl($comment['owner']['id'], 50),
                     'avatar'
                 )
                 ->setStyles('float: left; margin-right: 0.6em;'),
 
             // By
-            $this->html('h3', 
+            $this->html('h3',
                  $this->apex->component('~admin/users/clients/UserLink', $comment['owner'])
                     ->setIcon(null)
             ),
 
-            
+
             $this->html('p', [
                 // Time
                 $this->html->timeFromNow($comment['date']),
 
                 // In reply to
-                $this['displayAsTree'] || !($inReplyTo = $comment['inReplyTo']) ? null :
+                $displayAsTree || !($inReplyTo = $comment['inReplyTo']) ? null :
                 $this->html->_(' in reply to %u%', [
                         '%u%' => $this->html->link(
                         '#'.$inReplyTo->getUniqueId(),
@@ -81,7 +81,7 @@ echo $this->html->articleList($this['commentList'], function($comment, $context)
             ]);
     }
 
-    if($this['displayAsTree']) {
+    if($displayAsTree) {
         $replies = $comment->getPopulatedTreeReplies();
 
         if(!empty($replies)) {
@@ -99,7 +99,7 @@ echo $this->html->articleList($this['commentList'], function($comment, $context)
 echo $paginator;
 
 
-if($this->getSlot('showForm', false) && $this->hasSlot('entity')) {
-    $locator = mesh\entity\Locator::factory($this['entity']);
+if($this->getSlot('showForm', false) && isset($entity)) {
+    $locator = mesh\entity\Locator::factory($entity);
     echo $this->apex->form('~/comments/add?entity='.$locator);
 }

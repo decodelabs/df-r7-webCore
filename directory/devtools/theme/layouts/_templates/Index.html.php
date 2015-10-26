@@ -2,7 +2,7 @@
 echo $this->apex->component('~devtools/theme/layouts/IndexHeaderBar');
 
 
-echo $this->html->collectionList($this['layoutList'])
+echo $this->html->collectionList($layoutList)
     ->setErrorMessage($this->_('There are currently no layouts to display'))
 
     // Id

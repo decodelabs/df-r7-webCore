@@ -3,7 +3,7 @@
 use df\core;
 use df\flow;
 
-echo $this->html->elementContentContainer(function() {
+echo $this->html->elementContentContainer(function() use($message) {
     $renderer = function(array $parts) use(&$renderer) {
         $output = [];
 
@@ -28,10 +28,10 @@ echo $this->html->elementContentContainer(function() {
 
                 $output[] = $this->html->container($content);
             }
-        }        
+        }
 
         return $output;
     };
 
-    return $renderer([$this['message']]);
+    return $renderer([$message]);
 });

@@ -1,6 +1,6 @@
 <?php
 
-echo $this->html->collectionList($this['files'])
+echo $this->html->collectionList($files)
     ->addField('name', function($filePath, $context) {
         $name = substr($context->getKey(), 0, -4);
         return $this->html->link(

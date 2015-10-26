@@ -1,15 +1,15 @@
 <?php
 
-echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
+echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 
-if(!$this['unit']->storageExists()) {
+if(!$unit->storageExists()) {
     echo $this->html->flashMessage($this->_(
         'No storage exists for this unit'
     ), 'warning');
 }
 
-echo $this->html->attributeList($this['unit'])
-    
+echo $this->html->attributeList($unit)
+
     // Id
     ->addField('id', function($inspector) {
         return $inspector->getId();

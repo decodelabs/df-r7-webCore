@@ -1,9 +1,9 @@
 <?php
 
-echo $this->apex->component('DetailHeaderBar', $this['menu']);
+echo $this->apex->component('DetailHeaderBar', $menu);
 
 
-echo $this->html->attributeList($this['menu'])
+echo $this->html->attributeList($menu)
 
     // Id
     ->addField('id', $this->_('Full ID'), function($menu) {

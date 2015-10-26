@@ -4,9 +4,9 @@ use df\core;
 use df\opal;
 use df\flex;
 
-echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $this['unit']);
+echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 
-if(null === ($rowList = $this['rowList'])) {
+if(!isset($rowList)) {
     echo $this->html->flashMessage($this->_(
         'No storage exists for this unit'
     ), 'warning');
@@ -17,7 +17,7 @@ if(null === ($rowList = $this['rowList'])) {
 $list = $this->html->collectionList($rowList)
     ->setErrorMessage($this->_('This storage unit is currently empty'));
 
-foreach($this['primitives'] as $primitive) {
+foreach($primitives as $primitive) {
     $list->addField($primitive->getName(), $primitive->getName(), function($row) use($primitive) {
         $name = $primitive->getName();
 

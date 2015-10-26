@@ -1,8 +1,8 @@
 <?php
 
-echo $this->apex->component('~devtools/theme/layouts/DetailHeaderBar', $this['layout']);
+echo $this->apex->component('~devtools/theme/layouts/DetailHeaderBar', $layout);
 
-echo $this->html->collectionList($this['slotList'])
+echo $this->html->collectionList($slotList)
     ->setErrorMessage($this->_('This layout has no slots defined'))
 
     // Id
@@ -31,16 +31,16 @@ echo $this->html->collectionList($this['slotList'])
     })
 
     // Actions
-    ->addField('actions', function($slot) {
+    ->addField('actions', function($slot) use($layout) {
         return [
             $this->html->link(
-                    $this->uri('~devtools/theme/layouts/edit-slot?layout='.$this['layout']->getId().'&slot='.$slot->getId(), true),
+                    $this->uri('~devtools/theme/layouts/edit-slot?layout='.$layout->getId().'&slot='.$slot->getId(), true),
                     $this->_('Edit')
                 )
                 ->setIcon('edit'),
 
             $this->html->link(
-                    $this->uri('~devtools/theme/layouts/delete-slot?layout='.$this['layout']->getId().'&slot='.$slot->getId(), true),
+                    $this->uri('~devtools/theme/layouts/delete-slot?layout='.$layout->getId().'&slot='.$slot->getId(), true),
                     $this->_('Delete')
                 )
                 ->setIcon('delete')

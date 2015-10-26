@@ -1,7 +1,7 @@
 <?php
 echo $this->apex->component('~devtools/application/git/IndexHeaderBar');
 
-echo $this->html->collectionList($this['packageList'])
+echo $this->html->collectionList($packageList)
     ->setErrorMessage($this->_('No packages could be found'))
 
     // Name
@@ -84,4 +84,4 @@ echo $this->html->collectionList($this['packageList'])
                     ->setDisposition('operative')
             ];
         }
-    }); 
+    });

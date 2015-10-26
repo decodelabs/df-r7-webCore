@@ -1,7 +1,7 @@
 <?php
 echo $this->html('h3', $this->_('Keys'));
 
-echo $this->html->collectionList($this['keyList'])
+echo $this->html->collectionList($keyList)
     ->setErrorMessage($this->_('This role currently has no keys'))
 
     // Domain
@@ -17,7 +17,7 @@ echo $this->html->collectionList($this['keyList'])
     ->addField('allow', 'Policy', function($row) {
         return $row['allow'] ? 'Allow' : 'Deny';
     })
-    
+
     // Actions
     ->addField('actions', function($row) {
         return [

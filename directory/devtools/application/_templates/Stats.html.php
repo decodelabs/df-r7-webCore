@@ -5,7 +5,7 @@ echo $this->html->menuBar()
     );
 
 
-$location = $this['probes']->getAll();
+$location = $probes->getAll();
 $location->sortByLines();
 $list = $location->getTypes();
 $list[] = $location->getTotals();
@@ -33,7 +33,7 @@ echo $this->html->collectionList($list)
 <h3>Packages</h3>
 <?php
 
-echo $this->html->collectionList($this['packages'])
+echo $this->html->collectionList($packages)
     ->addField('name', function($package) {
         return $package->name;
     })
@@ -41,17 +41,17 @@ echo $this->html->collectionList($this['packages'])
         return $package->priority;
     })
     ->addField('path', function($package) {
-        return $this->html('<code>'.$this->esc($package->path).'</code>'); 
+        return $this->html('<code>'.$this->esc($package->path).'</code>');
     })
-    ->addField('size', function($package, $renderContext) {
-        if(!$location = $this['probes'][$package->name]) {
+    ->addField('size', function($package, $renderContext) use($probes) {
+        if(!$location = $probes[$package->name]) {
             return null;
         }
 
         return $this->format->fileSize($location->getTotals()->bytes);
     })
-    ->addField('lines', function($package, $renderContext) {
-        if(!$location = $this['probes'][$package->name]) {
+    ->addField('lines', function($package, $renderContext) use($probes) {
+        if(!$location = $probes[$package->name]) {
             return null;
         }
 

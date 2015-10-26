@@ -2,7 +2,7 @@
 
 echo $this->apex->component('~devtools/models/IndexHeaderBar');
 
-echo $this->html->collectionList($this['backupList'])
+echo $this->html->collectionList($backupList)
     ->addField('name', function($backup) {
         return $backup;
     })

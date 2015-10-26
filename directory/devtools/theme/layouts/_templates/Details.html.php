@@ -1,8 +1,8 @@
 <?php
 
-echo $this->apex->component('~devtools/theme/layouts/DetailHeaderBar', $this['layout']);
+echo $this->apex->component('~devtools/theme/layouts/DetailHeaderBar', $layout);
 
-echo $this->html->attributeList($this['layout'])
+echo $this->html->attributeList($layout)
 
     // Id
     ->addField('id', function($layout) {
