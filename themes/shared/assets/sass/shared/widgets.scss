@@ -246,7 +246,7 @@
     }
 }
 
-.widget-radioButtonGroup, 
+.widget-radioButtonGroup,
 .widget-checkboxGroup,
 .widget-checkboxList {
     margin-bottom: 1em;
@@ -321,7 +321,7 @@
         td {
             font-size: 1.4em;
             line-height: 2.2em;
-        }   
+        }
     }
 }
 
@@ -505,7 +505,7 @@
     }
 }
 
-.widget-menu, 
+.widget-menu,
 .widget-menuBar {
     margin-bottom: 1em;
     padding: 0.4em;
@@ -635,7 +635,7 @@
 
 .widget-flashList {
     margin-bottom: 1em;
-    
+
     .widget-flashMessage {
         margin: 0.2em 0;
     }
@@ -664,6 +664,12 @@
         padding: 2em;
         box-sizing: border-box;
         overflow: auto;
+
+        iframe {
+            width: 100%;
+            min-height: 70vh;
+            border: none;
+        }
     }
 }
 
