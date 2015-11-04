@@ -12,6 +12,8 @@ use df\aura;
 
 class Theme extends aura\theme\Base {
 
+    const APPLICATION_IMAGE = 'app.png';
+
     protected $_dependencies = [
         'jquery#~2.1'
     ];
