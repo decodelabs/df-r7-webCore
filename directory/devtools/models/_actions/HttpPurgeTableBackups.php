@@ -73,12 +73,6 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
             ->addField('connection', function($inspector) {
                 return $inspector->getAdapterConnectionName();
             });
-
-        $container->push(
-            $this->html->checkbox('allClusters', $this->values->allClusters, $this->_(
-                'Delete backups in all clusters'
-            ))
-        );
     }
 
     protected function customizeMainButton($button) {
@@ -87,16 +81,7 @@ class HttpPurgeTableBackups extends arch\form\template\Confirm {
     }
 
     protected function apply() {
-        $validator = $this->data->newValidator()
-            ->addField('allClusters', 'boolean')
-            ->validate($this->values);
-
         $task = 'axis/purge-table-backups?unit='.$this->_inspector->getId();
-
-        if($validator['allClusters']) {
-            $task .= '&allClusters';
-        }
-
         return $this->task->initiateStream($task);
     }
 }

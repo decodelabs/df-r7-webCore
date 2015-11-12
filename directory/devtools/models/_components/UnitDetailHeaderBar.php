@@ -37,7 +37,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/clear-cache?unit='.$this->_record->getGlobalId().'&cluster='.$this->request['cluster'], true),
+                            $this->uri('~devtools/models/clear-cache?unit='.$this->_record->getGlobalId(), true),
                             $this->_('Clear cache')
                         )
                         ->setIcon('delete')
@@ -48,7 +48,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/rebuild-table?unit='.$this->_record->getGlobalId().'&cluster='.$this->request['cluster'], true),
+                            $this->uri('~devtools/models/rebuild-table?unit='.$this->_record->getGlobalId(), true),
                             $this->_('Rebuild table')
                         )
                         ->setIcon('refresh')
@@ -86,7 +86,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
     protected function _addSectionLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    '~devtools/models/unit-details?unit='.$this->_record->getGlobalId().'&cluster='.$this->request['cluster'],
+                    '~devtools/models/unit-details?unit='.$this->_record->getGlobalId(),
                     $this->_('Details')
                 )
                 ->setIcon('details')
@@ -96,7 +96,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/cache-stats?unit='.$this->_record->getGlobalId().'&cluster='.$this->request['cluster'],
+                            '~devtools/models/cache-stats?unit='.$this->_record->getGlobalId(),
                             $this->_('Stats')
                         )
                         ->setIcon('report')
@@ -107,14 +107,14 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/table-data?unit='.$this->_record->getGlobalId().'&cluster='.$this->request['cluster'],
+                            '~devtools/models/table-data?unit='.$this->_record->getGlobalId(),
                             $this->_('Data')
                         )
                         ->setIcon('list')
                         ->isDisabled(!$this->_storageExists),
 
                     $this->html->link(
-                            '~devtools/models/table-backups?unit='.$this->_record->getGlobalId().'&cluster='.$this->request['cluster'],
+                            '~devtools/models/table-backups?unit='.$this->_record->getGlobalId(),
                             $this->_('Backups')
                         )
                         ->setIcon('backup')
@@ -122,37 +122,5 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
 
                 break;
         }
-    }
-
-    protected function _renderSelectorArea() {
-        if(!$this->_record->isStorageUnit() || !($unit = $this->data->getClusterUnit())) {
-            return;
-        }
-
-        if($unit instanceof axis\IClusterUnit) {
-            $list = $unit->getClusterOptionsList();
-        } else {
-            $list = $unit->select('@primary')
-                ->orderBy('@primary ASC')
-                ->toList('@primary', '@primary');
-        }
-
-        $form = $this->html->form()->setMethod('get');
-
-        $form->addFieldArea($this->_('Cluster'))->push(
-            $this->html->groupedSelectList('cluster', $this->request->query->cluster, [
-                'Global' => [
-                    '' => 'Global'
-                ],
-                $unit->getUnitName() => $list
-            ]),
-
-            $this->html->hidden('unit', $this->_record->getGlobalId()),
-
-            $this->html->submitButton(null, $this->_('Go'))
-                ->setDisposition('positive')
-        );
-
-        return $form;
     }
 }

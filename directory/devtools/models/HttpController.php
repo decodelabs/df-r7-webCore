@@ -20,10 +20,6 @@ class HttpController extends arch\Controller {
         $probe = new axis\introspector\Probe();
         $unitId = $this->request['unit'];
 
-        if($clusterId = $this->request['cluster']) {
-            $unitId = $clusterId.':'.$unitId;
-        }
-
         $view['unit'] = $probe->inspectUnit($unitId);
 
         if($type !== null) {
