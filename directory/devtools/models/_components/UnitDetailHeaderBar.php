@@ -37,7 +37,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/clear-cache?unit='.$this->_record->getGlobalId(), true),
+                            $this->uri('~devtools/models/clear-cache?unit='.$this->_record->getId(), true),
                             $this->_('Clear cache')
                         )
                         ->setIcon('delete')
@@ -48,7 +48,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/rebuild-table?unit='.$this->_record->getGlobalId(), true),
+                            $this->uri('~devtools/models/rebuild-table?unit='.$this->_record->getId(), true),
                             $this->_('Rebuild table')
                         )
                         ->setIcon('refresh')
@@ -86,7 +86,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
     protected function _addSectionLinks($menu) {
         $menu->addLinks(
             $this->html->link(
-                    '~devtools/models/unit-details?unit='.$this->_record->getGlobalId(),
+                    '~devtools/models/unit-details?unit='.$this->_record->getId(),
                     $this->_('Details')
                 )
                 ->setIcon('details')
@@ -96,7 +96,7 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/cache-stats?unit='.$this->_record->getGlobalId(),
+                            '~devtools/models/cache-stats?unit='.$this->_record->getId(),
                             $this->_('Stats')
                         )
                         ->setIcon('report')
@@ -107,14 +107,14 @@ class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/table-data?unit='.$this->_record->getGlobalId(),
+                            '~devtools/models/table-data?unit='.$this->_record->getId(),
                             $this->_('Data')
                         )
                         ->setIcon('list')
                         ->isDisabled(!$this->_storageExists),
 
                     $this->html->link(
-                            '~devtools/models/table-backups?unit='.$this->_record->getGlobalId(),
+                            '~devtools/models/table-backups?unit='.$this->_record->getId(),
                             $this->_('Backups')
                         )
                         ->setIcon('backup')

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class UnitList extends arch\component\template\CollectionList {
 
     protected $_fields = [
@@ -80,7 +80,7 @@ class UnitList extends arch\component\template\CollectionList {
                 case 'cache':
                     return [
                         $this->html->link(
-                                $this->uri('~devtools/models/clear-cache?unit='.$inspector->getGlobalId(), true),
+                                $this->uri('~devtools/models/clear-cache?unit='.$inspector->getId(), true),
                                 $this->_('Clear cache')
                             )
                             ->setIcon('delete')
@@ -89,7 +89,7 @@ class UnitList extends arch\component\template\CollectionList {
                 case 'table':
                     return [
                         $this->html->link(
-                                $this->uri('~devtools/models/rebuild-table?unit='.$inspector->getGlobalId(), true),
+                                $this->uri('~devtools/models/rebuild-table?unit='.$inspector->getId(), true),
                                 $this->_('Rebuild table')
                             )
                             ->setIcon('refresh')
