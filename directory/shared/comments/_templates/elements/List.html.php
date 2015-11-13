@@ -7,7 +7,8 @@ if($this->getSlot('paginate', true)) {
     echo $paginator = (string)$this->html->paginator($commentList);
 }
 
-echo $this->html->articleList($commentList, function($comment, $context) use($displayAsTree) {
+echo $this->html->articleList($commentList, function($comment, $context) {
+    $displayAsTree = $this['displayAsTree'];
     $hash = 'comment-'.$comment->getUniqueId();
     $context->getCellTag()->setId($hash);
     $redir = clone $this->context->request;
