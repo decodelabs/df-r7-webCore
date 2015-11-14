@@ -199,9 +199,18 @@ div.layout-pageArea {
 
 // Forms
 .widget-fieldSet {
-    > div.body > label {
-        display: block;
+    > div.body {
+        background: #FFF;
+        padding: 1em;
+
+        > label {
+            display: block;
+        }
     }
+}
+
+.widget-overlay .widget-inputArea > .widget-collectionList {
+    width: 100%;
 }
 
 .widget-fieldSet,
@@ -209,6 +218,14 @@ div.layout-pageArea {
     background: #F4F4F4;
     border-radius: 0.5em;
     border: none;
+
+    &.stacked {
+        padding-left: 1em !important;
+    }
+}
+
+.widget-fieldSet > .body > .widget-fieldArea.stacked:first-child {
+    margin-top: 0;
 }
 
 .widget-fieldArea {
@@ -229,6 +246,10 @@ div.layout-pageArea {
             border: 1px #EEE solid;
             border-radius: 4px;
         }
+    }
+
+    &.stacked + .widget-buttonArea {
+        margin-top: 1em;
     }
 }
 

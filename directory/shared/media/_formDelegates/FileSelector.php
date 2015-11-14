@@ -184,7 +184,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
 
             $fs = $ol->addFieldSet($this->_('Upload new file'));
 
-            $fs->addFieldArea()->push(
+            $fs->addFieldArea()->isStacked(true)->push(
                 $this->html->fileUpload($this['upload']->fieldName('file'))
                     ->setAcceptTypes($this->_acceptTypes),
 
