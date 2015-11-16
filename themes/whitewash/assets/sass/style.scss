@@ -349,6 +349,15 @@ button {
     }
 }
 
+.widget-collectionList tr {
+    &.even:hover {
+        background: darken(#FFF, 4%);
+    }
+    &.odd:hover {
+        background: darken(#FBFBFB, 2%);
+    }
+}
+
 .widget-attributeList tr:last-child th {
     border-bottom: none;
 }
