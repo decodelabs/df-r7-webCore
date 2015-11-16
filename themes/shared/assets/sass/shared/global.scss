@@ -114,6 +114,78 @@ a {
                 color: lighten($external-color, 10%);
             }
         }
+
+        &.na {
+            &:link, &:visited {
+                color: $disabled-color;
+            }
+            &:hover, &:active {
+                color: lighten($disabled-color, 10%);
+            }
+        }
+
+        &.error {
+            &:link, &:visited {
+                color: $error-color;
+            }
+            &:hover, &:active {
+                color: lighten($error-color, 10%);
+            }
+        }
+
+        &.success {
+            &:link, &:visited {
+                color: $success-color;
+            }
+            &:hover, &:active {
+                color: lighten($success-color, 10%);
+            }
+        }
+
+        &.info {
+            &:link, &:visited {
+                color: $informative-color;
+            }
+            &:hover, &:active {
+                color: lighten($informative-color, 10%);
+            }
+        }
+
+        &.warning {
+            &:link, &:visited {
+                color: $warning-color;
+            }
+            &:hover, &:active {
+                color: lighten($warning-color, 10%);
+            }
+        }
+
+        &.debug {
+            &:link, &:visited {
+                color: $debug-color;
+            }
+            &:hover, &:active {
+                color: lighten($debug-color, 10%);
+            }
+        }
+
+        &.locked {
+            &:link, &:visited {
+                color: $warning-color;
+            }
+            &:hover, &:active {
+                color: lighten($warning-color, 10%);
+            }
+        }
+
+        &.unlocked {
+            &:link, &:visited {
+                color: $success-color;
+            }
+            &:hover, &:active {
+                color: lighten($success-color, 10%);
+            }
+        }
     }
 }
 
