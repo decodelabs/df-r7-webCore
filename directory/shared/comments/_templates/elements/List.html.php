@@ -54,7 +54,7 @@ echo $this->html->articleList($commentList, function($comment, $context) {
     ]);
 
     // Body
-    yield$this->html('section', $this->html->convert($comment['body'], $comment['format']));
+    yield $this->html('section', $this->html->convert($comment['body'], $comment['format']));
 
     // Footer
     if($this->getSlot('showFooter', true)) {
