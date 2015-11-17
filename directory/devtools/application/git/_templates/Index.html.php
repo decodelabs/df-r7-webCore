@@ -29,32 +29,28 @@ echo $this->html->collectionList($packageList)
         }
 
         $status = $package['repo']->getCommitStatus();
-
         $hasChanges = false;
-        $output = [];
 
         if($status->hasTracked()) {
-            $output[] = $this->html->icon('edit', $status->countTracked());
+            yield $this->html->icon('edit', $status->countTracked());
             $hasChanges = true;
         }
 
         if($status->hasUntracked()) {
-            $output[] = $this->html->icon('plus', $status->countUntracked());
+            yield $this->html->icon('plus', $status->countUntracked());
             $hasChanges = true;
         }
 
         if($commits = $status->countUnpushedCommits()) {
-            $output[] = $this->html->icon('upload', $commits);
+            yield $this->html->icon('upload', $commits);
             $hasChanges = true;
         }
 
         if($commits = $status->countUnpulledCommits()) {
-            $output[] = $this->html->icon('download', $commits);
+            yield $this->html->icon('download', $commits);
         }
 
         $context->setStore('hasChanges', $hasChanges);
-
-        return $output;
     })
 
     // Commits

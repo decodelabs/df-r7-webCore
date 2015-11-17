@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class MenuList extends arch\component\template\CollectionList {
 
     protected $_fields = [
@@ -43,8 +43,6 @@ class MenuList extends arch\component\template\CollectionList {
 // Packages
     public function addPackagesField($list) {
         $list->addField('packages', function($menu) {
-            $output = [];
-
             foreach($menu->getDelegates() as $delegate) {
                 $idString = $delegate->getId()->path->toString();
 
@@ -52,17 +50,15 @@ class MenuList extends arch\component\template\CollectionList {
                     continue;
                 }
 
-                $output[] = $this->html->link(
+                yield $this->html->link(
                         $this->uri('./details?menu='.$idString, true),
                         $this->format->name($subId)
                     )
                     ->setIcon('plugin');
             }
-
-            return $this->html(implode(', ', $output));
         });
     }
-    
+
 
 // Actions
     public function addActionsField($list) {

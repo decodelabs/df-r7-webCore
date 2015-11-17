@@ -13,7 +13,7 @@ use df\opal;
 use df\user;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+
     const DIRECTORY_TITLE = 'Users';
     const DIRECTORY_ICON = 'user';
     const RECORD_ADAPTER = 'axis://user/Client';
@@ -27,13 +27,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
     protected $_recordListFields = [
-        'fullName', 'email', 'status', 'groups', 
+        'fullName', 'email', 'status', 'groups',
         'country', 'joinDate', 'loginDate'
     ];
 
     protected $_recordDetailsFields = [
-        'fullName', 'nickName', 'email', 'status', 
-        'deactivation', 'country', 'language', 
+        'fullName', 'nickName', 'email', 'status',
+        'deactivation', 'country', 'language',
         'timezone', 'joinDate', 'loginDate', 'groups'
     ];
 
@@ -58,7 +58,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             ->addPanel('details', 50, parent::renderDetailsSectionBody($client))
             ->addPanel('avatar', 50, [
                 $this->html->image(
-                    $this->avatar->getAvatarUrl($client['id'], 400), 
+                    $this->avatar->getAvatarUrl($client['id'], 400),
                     'Avatar'
                 )
             ]);
@@ -267,19 +267,11 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 return $client['groups'];
             }
 
-            $groupList = $client->groups->fetch()->orderBy('Name')->toArray();
-        
-            if(empty($groupList)) {
-                return null;
-            }
-            
-            $output = [];
-            
-            foreach($groupList as $group) {
-                $output[] = $this->apex->component('../groups/GroupLink', $group);
-            }
-            
-            return $this->html(implode(', ', $output));
+            $groupList = $client->groups->fetch()->orderBy('Name');
+
+            return $this->html->bulletList($groupList, function($client) {
+                return $this->apex->component('../groups/GroupLink', $group);
+            });
         });
     }
 }
