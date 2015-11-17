@@ -505,18 +505,18 @@
     }
 }
 
-.widget-menu,
 .widget-menuBar {
-    margin-bottom: 1em;
     padding: 0.4em;
+    margin-bottom: 1em;
 }
 
 .widget-menu {
     display: inline-block;
     min-width: 20em;
+    margin-bottom: 1em;
 
     li {
-        margin: 0.25em;
+        margin-bottom: 0.25em;
     }
 }
 
