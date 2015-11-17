@@ -13,7 +13,7 @@ use df\opal;
 use df\flow;
 
 class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DIRECTORY_TITLE = 'Development mailbox';
     const DIRECTORY_ICON = 'mail';
@@ -24,7 +24,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'subject', 'from', 'to', 'date', 
+        'subject', 'from', 'to', 'date',
         'isPrivate', 'environmentMode'
     ];
 
@@ -36,22 +36,20 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $mail->save();
         }
 
-        $output = [
-            $this->html->flashMessage($this->_(
-                'This message was received %t% ago',
-                ['%t%' => $this->format->timeSince($mail['date'])]
-            ))
-        ];
+        yield $this->html->flashMessage($this->_(
+            'This message was received %t% ago',
+            ['%t%' => $this->format->timeSince($mail['date'])]
+        ));
 
 
         if($mail['isPrivate']) {
-            $output[] = $this->html->flashMessage($this->_(
+            yield $this->html->flashMessage($this->_(
                 'This message is marked as private'
             ), 'warning');
         }
 
 
-        $output[] = $this->html->tag('iframe', [
+        yield $this->html->tag('iframe', [
             'src' => $this->uri('~mail/capture/message?mail='.$mail['id']),
             'seamless' => true,
             'style' => [
@@ -59,8 +57,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                 'height' => '26em'
             ]
         ]);
-
-        return $output;
     }
 
 
@@ -90,26 +86,22 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $addresses = flow\mail\Message::parseAddressList($mail['to']);
             $first = array_shift($addresses);
 
-            $output = [
-                $this->html->link(
-                        $this->uri->mailto($first->getAddress()),
-                        $first->getAddress()
-                    )
-                    ->setIcon('user')
-                    ->setDescription($first->getName())
-                    ->setDisposition('external')
-            ];
+            yield $this->html->link(
+                    $this->uri->mailto($first->getAddress()),
+                    $first->getAddress()
+                )
+                ->setIcon('user')
+                ->setDescription($first->getName())
+                ->setDisposition('external');
 
             if(!empty($addresses)) {
-                $output[] = $this->html(
+                yield $this->html(
                     '<span class="inactive">'.$this->view->esc($this->_(
                         ' and %c% more',
                         ['%c%' => count($addresses)]
                     )).'</span>'
                 );
             }
-
-            return $output;
         });
     }
 
