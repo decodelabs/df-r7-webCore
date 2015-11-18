@@ -35,7 +35,7 @@ class HttpResetPassword extends arch\form\Action {
             ));
         }
 
-        if(!$this->_key['user']) {
+        if(!$user = $this->_key['user']) {
             $this->throwError(500, 'Client not attached to key');
         }
 
@@ -55,14 +55,22 @@ class HttpResetPassword extends arch\form\Action {
             ));
         }
 
-        $this->_auth = $this->data->user->auth->fetch()
-            ->where('user', '=', $this->_key['user'])
-            ->where('adapter', '=', 'Local')
-            ->toRow();
-
-        if(!$this->_auth) {
-            $this->throwError(500, 'Local auth domain not found');
-        }
+        $this->_auth = $this->data->fetchOrCreateForAction(
+            'axis://user/Auth',
+            [
+                'user' => $user['id'],
+                'adapter' => 'Local'
+            ],
+            'edit',
+            function($auth) use($user) {
+                $auth->import([
+                    'user' => $user['id'],
+                    'adapter' => 'Local',
+                    'identity' => $user['email'],
+                    'bindDate' => 'now'
+                ]);
+            }
+        );
     }
 
     protected function _flashError($flashKey, $message) {

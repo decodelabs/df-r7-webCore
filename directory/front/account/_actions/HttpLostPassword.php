@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\flow;
-    
+
 class HttpLostPassword extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
@@ -50,6 +50,7 @@ class HttpLostPassword extends arch\form\Action {
             ;
 
         if($client) {
+            /*
             $auth = $this->data->user->auth->fetch()
                 ->where('user', '=', $client)
                 ->where('adapter', '=', 'Local')
@@ -60,6 +61,7 @@ class HttpLostPassword extends arch\form\Action {
                     'The account this email address is associated with does not use passwords'
                 ));
             }
+            */
 
             $count = $this->data->user->passwordResetKey->select()
                 ->where('user', '=', $client)

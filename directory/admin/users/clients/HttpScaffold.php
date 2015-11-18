@@ -142,7 +142,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function addDetailsSectionSubOperativeLinks($menu, $bar) {
-        if($this->_record->hasLocalAuth()) {
+        //if($this->_record->hasLocalAuth()) {
             $menu->addLinks(
                 // Change password
                 $this->html->link(
@@ -152,7 +152,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->setIcon('edit')
                     ->setDisposition('operative')
             );
-        }
+        //}
     }
 
     public function addAuthenticationSectionSubOperativeLinks($menu, $bar) {

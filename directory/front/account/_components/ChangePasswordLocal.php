@@ -17,13 +17,15 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         $fs = $form->addFieldSet($this->_('Change password'));
 
         // Old password
-        $fs->addField($this->_('Old password'))->push(
-            $this->html->passwordTextbox(
-                    $this->fieldName('oldPassword'),
-                    $this->values->oldPassword
-                )
-                ->isRequired(true)
-        );
+        if(!$this['auth']->isNew()) {
+            $fs->addField($this->_('Old password'))->push(
+                $this->html->passwordTextbox(
+                        $this->fieldName('oldPassword'),
+                        $this->values->oldPassword
+                    )
+                    ->isRequired(true)
+            );
+        }
 
         // New password
         $fs->addField($this->_('New password'))->push(

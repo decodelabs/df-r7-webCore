@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpChangePassword extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
@@ -17,16 +17,28 @@ class HttpChangePassword extends arch\form\Action {
     protected $_auth;
 
     protected function init() {
-        $this->_auth = $this->data->user->auth->fetchLocalClientAdapter();
-
-        if(!$this->_auth) {
-            $this->throwError(403, 'Local adapter not found');
-        }
+        $this->_auth = $this->data->fetchOrCreateForAction(
+            'axis://user/Auth',
+            [
+                'user' => $this->user->client->getId(),
+                'adapter' => 'Local'
+            ],
+            'edit',
+            function($auth) {
+                $auth->import([
+                    'user' => $this->user->client->getId(),
+                    'adapter' => 'Local',
+                    'identity' => $this->user->client->getEmail(),
+                    'bindDate' => 'now'
+                ]);
+            }
+        );
     }
 
     protected function createUi() {
         $this->content->push(
             $this->apex->component('~front/account/ChangePasswordLocal', $this)
+                ->setSlot('auth', $this->_auth)
         );
     }
 
@@ -36,16 +48,18 @@ class HttpChangePassword extends arch\form\Action {
         $validator = $this->data->newValidator()
 
             // Old password
-            ->addRequiredField('oldPassword', 'text')
-                ->setCustomValidator(function($node, $value, $field) {
-                    $hash = $this->data->hash($value);
+            ->chainIf(!$this->_auth->isNew(), function($validator) {
+                $validator->addRequiredField('oldPassword', 'text')
+                    ->setCustomValidator(function($node, $value, $field) {
+                        $hash = $this->data->hash($value);
 
-                    if($hash != $this->_auth['password']) {
-                        $node->addError('incorrect', $this->_(
-                            'This password is incorrect'
-                        ));
-                    }
-                })
+                        if($hash != $this->_auth['password']) {
+                            $node->addError('incorrect', $this->_(
+                                'This password is incorrect'
+                            ));
+                        }
+                    });
+            })
 
             // New password
             ->addRequiredField('newPassword', 'password')

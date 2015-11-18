@@ -15,13 +15,26 @@ class HttpChangePassword extends arch\form\Action {
     protected $_auth;
 
     protected function init() {
-        $this->_auth = $this->data->fetchForAction(
+        $this->_auth = $this->data->fetchOrCreateForAction(
             'axis://user/Auth',
             [
                 'user' => $this->request['user'],
                 'adapter' => 'Local'
             ],
-            'edit'
+            'edit',
+            function($auth) {
+                $user = $this->data->fetchForAction(
+                    'axis://user/Client',
+                    $this->request['user']
+                );
+
+                $auth->import([
+                    'user' => $user['id'],
+                    'adapter' => 'Local',
+                    'identity' => $user['email'],
+                    'bindDate' => 'now'
+                ]);
+            }
         );
     }
 
