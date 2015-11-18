@@ -2,14 +2,14 @@
 
 // Forms
 
-.widget-form {
+.w-form {
     @extend %clearfix;
     margin-bottom: 0.5em;
     padding: 0;
 }
 
 
-.widget-fieldSet {
+.w-fieldSet {
     padding: 1em;
     margin: 0.5em 0;
 
@@ -21,7 +21,7 @@
         margin-bottom: 0;
     }
 
-    + .widget-buttonArea {
+    + .w-buttonArea {
         padding-left: $form-label-width + 2em;
 
         &.stacked {
@@ -31,7 +31,7 @@
     }
 }
 
-.widget-buttonArea {
+.w-buttonArea {
     @if $cell-inset == true {
         padding: 1em;
     } @else {
@@ -40,7 +40,7 @@
 
     font-size: 1em;
 
-    .widget-buttonGroup {
+    .w-buttonGroup {
         display: inline-block;
         margin-left: 1em;
 
@@ -59,12 +59,12 @@
     font-size: 0.9em;
 }
 
-.widget-field {
+.w-field {
     @extend %clearfix;
     padding: 0.3em 0;
     font-size: 1em;
 
-    > .widget-labelArea {
+    > .w-labelArea {
         float: left;
         width: $form-label-width;
         text-align: $form-label-align;
@@ -72,17 +72,17 @@
         font-size: 1em;
     }
 
-    &.required > .widget-labelArea > .widget-label:after {
+    &.required > .w-labelArea > .w-label:after {
         content: ' *';
         color: #CC0000;
     }
 
-    > .widget-fieldError {
+    > .w-fieldError {
         padding-left: $form-label-width + 1em;
         padding-bottom: 0.3em;
     }
 
-    > .widget-inputArea {
+    > .w-inputArea {
         @extend %clearfix;
         margin-left: $form-label-width + 1em;
 
@@ -91,26 +91,26 @@
             font-size: 0.8em;
         }
 
-        > .widget-field,
-        > .fire-block > .widget-field {
+        > .w-field,
+        > .fire-block > .w-field {
             padding: 0.4em;
             margin: 0.3em 0;
 
-            > .widget-label {
+            > .w-label {
                 @extend %innerLabelWidget;
             }
 
-            > .widget-inputArea {
+            > .w-inputArea {
                 margin: 0.3em 0 0 0;
             }
         }
 
-        > .widget-flashMessage {
+        > .w-flashMessage {
             font-size: 0.9em;
             padding: 0.3em;
         }
 
-        > .widget-buttonArea {
+        > .w-buttonArea {
             padding: 0.3em;
         }
     }
@@ -118,28 +118,28 @@
     &.stacked {
         margin-top: 0.75em;
 
-        > .widget-labelArea {
+        > .w-labelArea {
             width: auto;
             float: none;
             margin-bottom: 0.6em;
             text-align: left;
         }
 
-        > .widget-inputArea {
+        > .w-inputArea {
             margin-left: 0;
 
-            > .widget-field {
+            > .w-field {
                 padding-left: 0;
                 padding-right: 0;
             }
         }
 
-        > .widget-fieldError {
+        > .w-fieldError {
             padding-left: 0;
         }
     }
 
-    + .widget-buttonArea {
+    + .w-buttonArea {
         padding-left: $form-label-width + 1em;
 
         &.stacked {
@@ -148,13 +148,13 @@
         }
     }
 
-    &:target > .widget-inputArea,
+    &:target > .w-inputArea,
     & :target {
         outline: 2px yellow solid;
     }
 }
 
-.widget-fieldError div {
+.w-fieldError div {
     color: $error-color;
     font-size: 0.9em;
     font-style: italic;
@@ -167,29 +167,29 @@
         margin-left: 1em;
     }
 
-    .widget-fieldSet > .body > .widget-field {
-        > .widget-labelArea {
+    .w-fieldSet > .body > .w-field {
+        > .w-labelArea {
             @extend %innerLabelWidget;
             margin-bottom: 0.4em;
         }
 
-        > .widget-inputArea {
+        > .w-inputArea {
             margin-left: 0;
         }
     }
 
-    .widget-field {
-        > .widget-labelArea {
+    .w-field {
+        > .w-labelArea {
             @extend %innerLabelWidget;
         }
 
-        > .widget-fieldError {
+        > .w-fieldError {
             padding-left: 0;
         }
     }
 }
 
-.widget-selection {
+.w-selection {
     @extend %clearfix;
     width: 90%;
     margin-bottom: 0.2em;
@@ -201,7 +201,7 @@
         padding: 0.2em 0.5em;
     }
 
-    > .widget-buttonArea {
+    > .w-buttonArea {
         float: left;
         margin: 0 0 0 1em;
         background: none;
@@ -215,23 +215,23 @@
 }
 
 
-.widget-textbox {
+.w-textbox {
     width: 100%;
     max-width: $form-input-width;
     box-sizing: border-box;
 }
 
-.widget-textarea,
-.widget-htmlEditor {
+.w-textarea,
+.w-htmlEditor {
     box-sizing: border-box;
     width: 100%;
     max-width: 50rem;
     min-height: 6em;
 }
 
-.widget-textbox,
-.widget-textarea,
-.widget-htmlEditor {
+.w-textbox,
+.w-textarea,
+.w-htmlEditor {
     background: #FFF;
     border: 1px #AAA solid;
     padding: 2px 4px;
@@ -246,9 +246,9 @@
     }
 }
 
-.widget-radioButtonGroup,
-.widget-checkboxGroup,
-.widget-checkboxList {
+.w-radioButtonGroup,
+.w-checkboxGroup,
+.w-checkboxList {
     margin-bottom: 1em;
 
     label {
@@ -266,17 +266,17 @@
     }
 }
 
-.widget-radioButton,
-.widget-checkbox {
+.w-radioButton,
+.w-checkbox {
     margin-right: 0.6em;
 }
 
-.widget-rangeSlider {
+.w-rangeSlider {
     height: 1.1em;
 }
 
 
-.widget-eventButton {
+.w-eventButton {
     cursor: pointer;
 
     &[disabled] {
@@ -293,8 +293,8 @@
 
 
 // Lists
-.widget-collectionList,
-.widget-attributeList {
+.w-collectionList,
+.w-attributeList {
     margin-bottom: 1em;
 
     table {
@@ -310,7 +310,7 @@
             margin-bottom: 0;
         }
 
-        > .widget-bulletList {
+        > .w-bulletList {
             list-style: none;
             padding-left: 0;
             margin: 0;
@@ -325,7 +325,7 @@
     }
 }
 
-.widget-attributeList {
+.w-attributeList {
     display: inline-block;
     min-width: 40em;
     max-width: 65em;
@@ -349,11 +349,11 @@
     }
 }
 
-.widget-paginator + .widget-collectionList {
+.w-paginator + .w-collectionList {
     margin: 0.7em 0;
 }
 
-.widget-collectionList {
+.w-collectionList {
     a.order.active {
         &.asc:after {
             font-size: 0.75em;
@@ -381,7 +381,7 @@
             padding-right: 1em;
         }
 
-        &.field-actions a.widget-link {
+        &.field-actions a.w-link {
             margin: 0 0.15em;
             font-size: 1.2em;
             width: 1.2em !important;
@@ -405,7 +405,7 @@
     }
 }
 
-.widget-inputArea > .widget-collectionList {
+.w-inputArea > .w-collectionList {
     display: inline-block;
 
     td {
@@ -415,7 +415,7 @@
 
 
 
-.widget-paginator {
+.w-paginator {
     @extend %clearfix;
 
     .block-details {
@@ -438,7 +438,7 @@
 }
 
 
-.widget-articleList {
+.w-articleList {
     list-style: none;
     margin: 0 0 1.5em;
     padding: 0;
@@ -447,7 +447,7 @@
     article {
         margin-bottom: 1.5em;
 
-        > .widget-articleList {
+        > .w-articleList {
             margin: 0.5em 0 0 1em;
             padding: 0.5em 0.3em;
         }
@@ -493,9 +493,9 @@
 
 
 // Menus
-.widget-menu,
-.widget-menuBar,
-.widget-blockMenu {
+.w-menu,
+.w-menuBar,
+.w-blockMenu {
     ul {
         list-style: none;
         padding: 0;
@@ -505,12 +505,12 @@
     }
 }
 
-.widget-menuBar {
+.w-menuBar {
     padding: 0.4em;
     margin-bottom: 1em;
 }
 
-.widget-menu {
+.w-menu {
     display: inline-block;
     min-width: 20em;
     margin-bottom: 1em;
@@ -520,20 +520,20 @@
     }
 }
 
-.widget-menuBar {
+.w-menuBar {
     li {
         float: left;
         margin: 0 1em 0 0;
     }
 
-    .widget-spacer {
+    .w-spacer {
         border-left: 2px #AAA solid;
         font-size: 0.8em;
         box-shadow: 1px 0 2px #CCC;
     }
 }
 
-.widget-blockMenu {
+.w-blockMenu {
     li {
         float: left;
         padding: 0.2em;
@@ -543,7 +543,7 @@
             width: 100%;
         }
 
-        .widget-blockLink {
+        .w-blockLink {
             width: auto;
             max-width: none;
             min-width: none;
@@ -552,15 +552,15 @@
     }
 }
 
-@media only screen and (max-width: 6000px) {.widget-blockMenu li { width: 10%; }}
-@media only screen and (max-width: 3000px) {.widget-blockMenu li { width: 15%; }}
-@media only screen and (max-width: 2200px) {.widget-blockMenu li { width: 20%; }}
-@media only screen and (max-width: 1550px) {.widget-blockMenu li { width: 25%; }}
-@media only screen and (max-width: 900px) {.widget-blockMenu li { width: 33%; }}
-@media only screen and (max-width: 650px) {.widget-blockMenu li { width: 50%; }}
-@media only screen and (max-width: 450px) {.widget-blockMenu li { width: 100%; }}
+@media only screen and (max-width: 6000px) {.w-blockMenu li { width: 10%; }}
+@media only screen and (max-width: 3000px) {.w-blockMenu li { width: 15%; }}
+@media only screen and (max-width: 2200px) {.w-blockMenu li { width: 20%; }}
+@media only screen and (max-width: 1550px) {.w-blockMenu li { width: 25%; }}
+@media only screen and (max-width: 900px) {.w-blockMenu li { width: 33%; }}
+@media only screen and (max-width: 650px) {.w-blockMenu li { width: 50%; }}
+@media only screen and (max-width: 450px) {.w-blockMenu li { width: 100%; }}
 
-.widget-blockLink {
+.w-blockLink {
     display: inline-block;
     padding: 0.4em;
     min-width: 10em;
@@ -585,7 +585,7 @@
 
 
 // Flash messages
-.widget-flashMessage {
+.w-flashMessage {
     border: 1px #F4F4F4 solid;
     margin-bottom: 1em;
     padding: 0.4em 1em;
@@ -636,10 +636,10 @@
 }
 
 
-.widget-flashList {
+.w-flashList {
     margin-bottom: 1em;
 
-    .widget-flashMessage {
+    .w-flashMessage {
         margin: 0.2em 0;
     }
 }
@@ -647,7 +647,7 @@
 
 
 // Overlay
-.widget-overlay {
+.w-overlay {
     background: #999;
     background: rgba(0,0,0,0.5);
     position: fixed;
@@ -678,11 +678,11 @@
 
 
 // Panel set
-.widget-panelSet {
+.w-panelSet {
     width: 100%;
     display: table;
 
-    > .widget-panel {
+    > .w-panel {
         display: table-cell;
         vertical-align: top;
         padding: 0 0.5em;
@@ -695,7 +695,7 @@
             padding-right: 0;
         }
 
-        .widget-attributeList {
+        .w-attributeList {
             display: block;
             width: 100%;
             min-width: 20em;
@@ -705,7 +705,7 @@
 
 
 // Star rating
-.widget-starRating {
+.w-starRating {
     [data-icon] {
         margin: 0;
     }
@@ -713,7 +713,7 @@
 
 
 // Breadcrumbs
-.widget-breadcrumbList {
+.w-breadcrumbList {
     margin-bottom: 1em;
 }
 

@@ -226,7 +226,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             $name = $this->_getResultDisplayName($result);
 
             $fa->push(
-                $this->html('div.widget-selection', [
+                $this->html('div.w-selection', [
                     $this->html->hidden($this->fieldName('selected['.$id.']'), $id),
 
                     $this->html('div.body', [

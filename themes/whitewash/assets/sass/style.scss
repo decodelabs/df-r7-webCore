@@ -168,7 +168,7 @@ div.layout-pageArea {
     > footer {
         margin: 2.5em 0 0;
 
-        > .widget-menuBar {
+        > .w-menuBar {
             margin-bottom: 0;
         }
     }
@@ -177,7 +177,7 @@ div.layout-pageArea {
 
 
 // Breadcrumbs
-.widget-breadcrumbList {
+.w-breadcrumbList {
     padding: 0.4em;
     border-radius: 8px;
     background: #F4F4F4;
@@ -185,20 +185,20 @@ div.layout-pageArea {
 
 
 // Container
-.widget-container {
+.w-container {
     border: 3px #F5F5F5 solid;
     border-radius: 0.5em;
     padding: 0.7em;
 }
 
-.widget-container + .widget-container {
+.w-container + .w-container {
     margin-top: 0.7em;
 }
 
 
 
 // Forms
-.widget-fieldSet {
+.w-fieldSet {
     > div.body {
         background: #FFF;
         padding: 1em;
@@ -209,12 +209,12 @@ div.layout-pageArea {
     }
 }
 
-.widget-overlay .widget-inputArea > .widget-collectionList {
+.w-overlay .w-inputArea > .w-collectionList {
     width: 100%;
 }
 
-.widget-fieldSet,
-.widget-buttonArea {
+.w-fieldSet,
+.w-buttonArea {
     background: #F4F4F4;
     border-radius: 0.5em;
     border: none;
@@ -224,36 +224,36 @@ div.layout-pageArea {
     }
 }
 
-.widget-fieldSet > .body > .widget-field.stacked:first-child {
+.w-fieldSet > .body > .w-field.stacked:first-child {
     margin-top: 0;
 }
 
-.widget-field {
+.w-field {
     background: #FFF;
 
-    > .widget-labelArea label {
+    > .w-labelArea label {
         color: #333;
         font-size: 0.95em;
     }
 
-    > .widget-inputArea {
-        > .widget-buttonArea {
+    > .w-inputArea {
+        > .w-buttonArea {
             background-color: #FAFAFA;
         }
 
-        > .widget-field,
-        > .fire-block > .widget-field {
+        > .w-field,
+        > .fire-block > .w-field {
             border: 1px #EEE solid;
             border-radius: 4px;
         }
     }
 
-    &.stacked + .widget-buttonArea {
+    &.stacked + .w-buttonArea {
         margin-top: 1em;
     }
 }
 
-.widget-buttonArea h3 {
+.w-buttonArea h3 {
     margin: 0;
 }
 
@@ -278,22 +278,22 @@ div.layout-pageArea {
     }
 }
 
-.widget-selection {
+.w-selection {
     > .body {
         background: #FAFAFA;
         border-radius: 6px;
     }
 }
 
-.widget-radioButtonLabel,
-.widget-checkboxLabel {
+.w-radioButtonLabel,
+.w-checkboxLabel {
     font-size: 0.9em;
 }
 
 
-.widget-textbox,
-.widget-textarea,
-.widget-htmlEditor {
+.w-textbox,
+.w-textarea,
+.w-htmlEditor {
     border-radius: 3px;
     box-shadow: inset 1px 1px 2px 1px rgba(#555, 0.1);
 }
@@ -312,8 +312,8 @@ button {
 
 
 // Lists
-.widget-collectionList,
-.widget-attributeList {
+.w-collectionList,
+.w-attributeList {
     border: 2px #F5F5F5 solid;
     border-radius: 0.5em;
 
@@ -349,7 +349,7 @@ button {
     }
 }
 
-.widget-collectionList tr {
+.w-collectionList tr {
     &.even:hover {
         background: darken(#FFF, 4%);
     }
@@ -358,13 +358,13 @@ button {
     }
 }
 
-.widget-attributeList tr:last-child th {
+.w-attributeList tr:last-child th {
     border-bottom: none;
 }
 
 
 
-.widget-paginator {
+.w-paginator {
     font-size: 0.9em;
 
     .block-details {
@@ -387,9 +387,9 @@ button {
 
 
 
-.widget-articleList {
+.w-articleList {
     article {
-        > .widget-articleList {
+        > .w-articleList {
             background: #EEE;
             background: rgba(0,0,0,0.015);
             border-radius: 0.6em;
@@ -423,17 +423,17 @@ button {
 
 
 
-.widget-menu,
-.widget-menuBar {
+.w-menu,
+.w-menuBar {
     border: 4px #F4F4F4 solid;
     border-radius: 8px;
 }
 
-.widget-menu {
+.w-menu {
     padding: 0.5em;
 }
 
-.widget-menuBar {
+.w-menuBar {
     + h2 {
         margin-top: -0.5em;
         border: 4px #F4F4F4 solid;
@@ -446,7 +446,7 @@ button {
 
 
 
-.widget-headerBar {
+.w-headerBar {
     border: 4px #F4F4F4 solid;
     padding: 0.3em;
     border-radius: 0.7em;
@@ -477,7 +477,7 @@ button {
         background: none;
     }
 
-    .widget-menuBar.primary {
+    .w-menuBar.primary {
         margin: 0;
         border-radius: 0;
         border: none;
@@ -497,12 +497,12 @@ button {
             padding-bottom: 0;
         }
 
-        + .widget-selectorArea {
+        + .w-selectorArea {
             margin-top: -2.3em;
         }
     }
 
-    > .widget-menuBar.secondary {
+    > .w-menuBar.secondary {
         margin: 0;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
@@ -512,7 +512,7 @@ button {
         padding: 0.5em 0.4em 0.3em 2em;
     }
 
-    > .widget-selectorArea {
+    > .w-selectorArea {
         right: 5em;
         position: absolute;
         margin-top: -2.2em;
@@ -521,7 +521,7 @@ button {
             margin-bottom: 0;
         }
 
-        .widget-field {
+        .w-field {
             background: none;
         }
     }
@@ -530,8 +530,8 @@ button {
 
 
 
-.widget-link,
-.widget-blockLink {
+.w-link,
+.w-blockLink {
     text-decoration: none;
 
     &:link, &:visited {
@@ -543,27 +543,27 @@ button {
     }
 }
 
-.widget-link {
+.w-link {
     > sup {
         margin-left: 0.2em;
     }
 
-    + .widget-link.hasIcon {
+    + .w-link.hasIcon {
         margin-left: 0.75em;
     }
 }
 
 
-.widget-blockLink {
+.w-blockLink {
     border: 4px #F8F8F8 solid;
     border-radius: 6px;
 }
 
-.widget-flashMessage {
+.w-flashMessage {
     border-radius: 8px;
 }
 
-.widget-flashList .widget-flashMessage {
+.w-flashList .w-flashMessage {
     font-size: 0.8em;
 }
 
