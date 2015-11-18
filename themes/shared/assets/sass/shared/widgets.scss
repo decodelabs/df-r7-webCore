@@ -552,7 +552,9 @@
     }
 }
 
-@media only screen and (max-width: 1920px) {.widget-blockMenu li { width: 20%; }}
+@media only screen and (max-width: 6000px) {.widget-blockMenu li { width: 10%; }}
+@media only screen and (max-width: 3000px) {.widget-blockMenu li { width: 15%; }}
+@media only screen and (max-width: 2200px) {.widget-blockMenu li { width: 20%; }}
 @media only screen and (max-width: 1550px) {.widget-blockMenu li { width: 25%; }}
 @media only screen and (max-width: 900px) {.widget-blockMenu li { width: 33%; }}
 @media only screen and (max-width: 650px) {.widget-blockMenu li { width: 50%; }}
