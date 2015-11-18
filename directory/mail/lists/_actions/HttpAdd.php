@@ -12,7 +12,7 @@ use df\arch;
 use df\flow;
 
 class HttpAdd extends arch\form\Action {
-    
+
     protected $_manager;
 
     protected function init() {
@@ -32,7 +32,7 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Mailing list adapter'));
 
         // Adapter
-        $fs->addFieldArea($this->_('Adapter'))->push(
+        $fs->addField($this->_('Adapter'))->push(
             $this->html->selectList('adapter', $this->values->adapter, $this->_manager->getAvailableListAdapters())
                 ->isRequired(true)
         );
@@ -47,13 +47,13 @@ class HttpAdd extends arch\form\Action {
 
         // Adapter
         $adapter = $this->getStore('adapter');
-        $fs->addFieldArea($this->_('Adapter'))->push(
+        $fs->addField($this->_('Adapter'))->push(
             $this->html->textbox('adapter', $adapter)
                 ->isDisabled(true)
         );
 
         // Id
-        $fs->addFieldArea($this->_('Id'))->push(
+        $fs->addField($this->_('Id'))->push(
             $this->html->textbox('id', $this->values->id)
                 ->isRequired(true)
         );
@@ -62,7 +62,7 @@ class HttpAdd extends arch\form\Action {
         $options = $this->_manager->getListAdapterSettingsFields($adapter);
 
         foreach($options as $option => $optionName) {
-            $fs->addFieldArea($optionName)->push(
+            $fs->addField($optionName)->push(
                 $this->html->autoField($option, $optionName, $this->values)
             );
         }
@@ -81,12 +81,12 @@ class HttpAdd extends arch\form\Action {
                 $lists = [];
             }
 
-            $fs->addFieldArea($this->_('Primary list'))->push(
+            $fs->addField($this->_('Primary list'))->push(
                 $this->html->selectList('primaryList', $this->values->primaryList, $lists)
             );
         }
 
-        
+
         // Buttons
         if(!$this->hasStore('options')) {
             $fs->addDefaultButtonGroup('setOptions', $this->_('Update'));
@@ -165,11 +165,11 @@ class HttpAdd extends arch\form\Action {
             ->addField('primaryList', 'text')
             ->validate($this->values);
 
-        
+
         return $this->complete(function() use($adapter, $options, $validator) {
             $options = array_merge(
-                ['adapter' => $adapter], 
-                $options, 
+                ['adapter' => $adapter],
+                $options,
                 ['primaryList' => $validator['primaryList']]
             );
 

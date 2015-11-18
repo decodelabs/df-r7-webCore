@@ -38,22 +38,22 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('User details'));
 
         // Email
-        $fs->addFieldArea($this->_('Email'))
+        $fs->addField($this->_('Email'))
             ->addEmailTextbox('email', $this->values->email)
                 ->isRequired(true);
 
         // Full name
-        $fs->addFieldArea($this->_('Full name'))
+        $fs->addField($this->_('Full name'))
             ->addTextbox('fullName', $this->values->fullName)
                 ->isRequired(true);
 
         // Nickname
-        $fs->addFieldArea($this->_('Nickname'))
+        $fs->addField($this->_('Nickname'))
             ->addTextbox('nickName', $this->values->nickName)
                 ->isRequired(true);
 
         // Status
-        $fs->addFieldArea($this->_('Status'))
+        $fs->addField($this->_('Status'))
             ->addSelectList('status', $this->values->status, [
                     -1 => $this->_('Deactivated'),
                     0 => $this->_('Guest'),
@@ -65,13 +65,13 @@ class HttpAdd extends arch\form\Action {
 
 
         // Time zone
-        $fs->addFieldArea('Timezone')
+        $fs->addField('Timezone')
             ->addSelectList('timezone', $this->values->timezone)
                 ->setOptions($this->i18n->timezones->getList(), true)
                 ->isRequired(true);
 
         // Country
-        $fs->addFieldArea('Country')
+        $fs->addField('Country')
             ->addSelectList(
                     'country',
                     $this->values->country,
@@ -80,7 +80,7 @@ class HttpAdd extends arch\form\Action {
                 ->isRequired(true);
 
         // Language
-        $fs->addFieldArea('Language')
+        $fs->addField('Language')
                 ->addSelectList(
                     'language',
                     $this->values->language,
@@ -94,18 +94,18 @@ class HttpAdd extends arch\form\Action {
         if($this->_client->isNew()) {
             $fs = $form->addFieldSet($this->_('Password'));
 
-            $fs->addFieldArea($this->_('Password'))
+            $fs->addField($this->_('Password'))
                 ->addPasswordTextbox('password', $this->values->password)
                     ->isRequired(true);
 
-            $fs->addFieldArea($this->_('Repeat password'))
+            $fs->addField($this->_('Repeat password'))
                 ->addPasswordTextbox('repeatPassword', $this->values->repeatPassword)
                     ->isRequired(true);
         }
 
 
         // Groups
-        $fs->addFieldArea($this->_('Groups'))->push($this['groups']);
+        $fs->addField($this->_('Groups'))->push($this['groups']);
 
 
         // Buttons

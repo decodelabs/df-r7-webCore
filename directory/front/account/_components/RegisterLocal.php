@@ -17,7 +17,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         $fs = $form->addFieldSet($this->_('Register an account'));
 
         // Name
-        $fs->addFieldArea($this->_('Your name'))->push(
+        $fs->addField($this->_('Your name'))->push(
             $this->html->textbox(
                     $this->fieldName('fullName'),
                     $this->values->fullName
@@ -26,7 +26,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         );
 
         // Email
-        $fs->addFieldArea($this->_('Email address'))->push(
+        $fs->addField($this->_('Email address'))->push(
             $this->html->emailTextbox(
                     $this->fieldName('email'),
                     $this->values->email
@@ -35,7 +35,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         );
 
         // Password
-        $fs->addFieldArea($this->_('Password'))->push(
+        $fs->addField($this->_('Password'))->push(
             $this->html->passwordTextbox(
                     $this->fieldName('password'),
                     $this->values->password
@@ -45,7 +45,7 @@ class RegisterLocal extends arch\component\template\FormUi {
         );
 
         // Confirm password
-        $fs->addFieldArea($this->_('Confirm password'))->push(
+        $fs->addField($this->_('Confirm password'))->push(
             $this->html->passwordTextbox(
                     $this->fieldName('confirmPassword'),
                     $this->values->confirmPassword

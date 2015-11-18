@@ -13,7 +13,7 @@ use df\neon;
 use df\halo;
 
 class HttpTransfer extends arch\form\Action {
-    
+
     const DEFAULT_EVENT = 'transfer';
 
     protected function createUi() {
@@ -25,8 +25,8 @@ class HttpTransfer extends arch\form\Action {
         unset($handlerList[$current->getName()]);
 
         if(!empty($handlerList)) {
-            $fs->addFieldArea()->addFlashMessage(
-                    $this->_('Are you sure you want to transfer your media library? This process can take a LONG time and some files may not be available during transfer'), 
+            $fs->addField()->addFlashMessage(
+                    $this->_('Are you sure you want to transfer your media library? This process can take a LONG time and some files may not be available during transfer'),
                     'warning'
                 )
                 ->setDescription($this->_(
@@ -35,13 +35,13 @@ class HttpTransfer extends arch\form\Action {
         }
 
         // From
-        $fs->addFieldArea($this->_('From'))->push(
+        $fs->addField($this->_('From'))->push(
             $this->html->textbox('from', $current->getDisplayName())
                 ->isDisabled(true)
         );
 
         // To
-        $fa = $fs->addFieldArea($this->_('To'));
+        $fa = $fs->addField($this->_('To'));
 
         if(empty($handlerList)) {
             $fa->addFlashMessage($this->_(
@@ -59,7 +59,7 @@ class HttpTransfer extends arch\form\Action {
         );
 
         // Delete
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('deleteSource', $this->values->deleteSource, $this->_(
                 'Delete files from source once transferred'
             ))

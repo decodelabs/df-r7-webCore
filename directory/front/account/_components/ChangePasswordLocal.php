@@ -17,7 +17,7 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         $fs = $form->addFieldSet($this->_('Change password'));
 
         // Old password
-        $fs->addFieldArea($this->_('Old password'))->push(
+        $fs->addField($this->_('Old password'))->push(
             $this->html->passwordTextbox(
                     $this->fieldName('oldPassword'),
                     $this->values->oldPassword
@@ -26,7 +26,7 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         );
 
         // New password
-        $fs->addFieldArea($this->_('New password'))->push(
+        $fs->addField($this->_('New password'))->push(
             $this->html->passwordTextbox(
                     $this->fieldName('newPassword'),
                     $this->values->newPassword
@@ -35,7 +35,7 @@ class ChangePasswordLocal extends arch\component\template\FormUi {
         );
 
         // Confirm new password
-        $fs->addFieldArea($this->_('Confirm new password'))->push(
+        $fs->addField($this->_('Confirm new password'))->push(
             $this->html->passwordTextbox(
                     $this->fieldName('confirmNewPassword'),
                     $this->values->confirmNewPassword

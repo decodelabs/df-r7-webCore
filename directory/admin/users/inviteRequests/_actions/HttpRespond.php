@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpRespond extends arch\form\Action {
 
     protected $_request;
@@ -46,7 +46,7 @@ class HttpRespond extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Invite response'));
 
         // Message
-        $fs->addFieldArea($this->_('Message'))->setDescription($this->_(
+        $fs->addField($this->_('Message'))->setDescription($this->_(
             'If you enter a message below an email will be sent to the requestee'
         ))->push(
             $this->html->textarea('message', $this->values->message)
@@ -72,7 +72,7 @@ class HttpRespond extends arch\form\Action {
 
         return $this->complete(function() use($validator) {
             $invite = $this->data->user->invite->newRecord([
-                'name' => $this->_request['name'], 
+                'name' => $this->_request['name'],
                 'email' => $this->_request['email'],
                 'message' => $validator['message']
             ]);

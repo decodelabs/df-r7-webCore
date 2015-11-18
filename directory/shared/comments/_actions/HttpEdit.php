@@ -32,7 +32,7 @@ class HttpEdit extends HttpAdd {
 
     protected function _renderHistory($fs) {
         if($replyTo = $this->_comment['inReplyTo']) {
-            $fs->addFieldArea($this->_('Reply to'))
+            $fs->addField($this->_('Reply to'))
                 ->addTemplate('~/comments/#/elements/List.html', [
                         'commentList' => [$replyTo],
                         'showFooter' => false

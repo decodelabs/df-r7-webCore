@@ -61,7 +61,7 @@ class HttpAdd extends arch\form\Action {
             if($this->_comment->isNew()) {
                 $fs->addHidden('isLive', true);
             } else {
-                $fs->addFieldArea()->push(
+                $fs->addField()->push(
                     $this->html->checkbox(
                             'isLive',
                             $this->values->isLive,
@@ -71,7 +71,7 @@ class HttpAdd extends arch\form\Action {
             }
 
             // Body
-            $fs->addFieldArea($this->_('Body'))->push(
+            $fs->addField($this->_('Body'))->push(
                 $this->html->textarea('body', $this->values->body)
                     ->isRequired(true)
             );

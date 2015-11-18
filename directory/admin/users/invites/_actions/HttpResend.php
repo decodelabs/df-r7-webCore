@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpResend extends arch\form\template\Confirm {
 
     const ITEM_NAME = 'invite';
@@ -52,7 +52,7 @@ class HttpResend extends arch\form\template\Confirm {
 
         // Force send
         if(!$this->application->isProduction()) {
-            $container->addFieldArea()->push(
+            $container->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'
                 ))

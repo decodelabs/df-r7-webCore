@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpEdit extends arch\form\Action {
-    
+
     protected $_version;
 
     protected function init() {
@@ -33,14 +33,14 @@ class HttpEdit extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Version details'));
 
         // Filename
-        $fs->addFieldArea($this->_('File name'))->push(
+        $fs->addField($this->_('File name'))->push(
             $this->html->textbox('fileName', $this->values->fileName)
                 ->isRequired(true)
                 ->setMaxLength(1024)
         );
 
         // Content type
-        $fs->addFieldArea($this->_('Content type'))->push(
+        $fs->addField($this->_('Content type'))->push(
             $this->html->textbox('contentType', $this->values->contentType)
                 ->isRequired(true)
                 ->setMaxLength(128)

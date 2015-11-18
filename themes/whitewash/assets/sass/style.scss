@@ -224,11 +224,11 @@ div.layout-pageArea {
     }
 }
 
-.widget-fieldSet > .body > .widget-fieldArea.stacked:first-child {
+.widget-fieldSet > .body > .widget-field.stacked:first-child {
     margin-top: 0;
 }
 
-.widget-fieldArea {
+.widget-field {
     background: #FFF;
 
     > .widget-labelArea label {
@@ -241,8 +241,8 @@ div.layout-pageArea {
             background-color: #FAFAFA;
         }
 
-        > .widget-fieldArea,
-        > .fire-block > .widget-fieldArea {
+        > .widget-field,
+        > .fire-block > .widget-field {
             border: 1px #EEE solid;
             border-radius: 4px;
         }
@@ -517,7 +517,7 @@ button {
             margin-bottom: 0;
         }
 
-        .widget-fieldArea {
+        .widget-field {
             background: none;
         }
     }

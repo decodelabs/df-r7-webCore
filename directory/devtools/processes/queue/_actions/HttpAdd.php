@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\form\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_task;
@@ -30,14 +30,14 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Queued task'));
 
         // Request
-        $fs->addFieldArea($this->_('Request'))->push(
+        $fs->addField($this->_('Request'))->push(
             $this->html->textbox('request', $this->values->request)
                 ->isRequired(true)
                 ->setMaxLength(1024)
         );
 
         // Environment mode
-        $fs->addFieldArea($this->_('Environment mode'))->push(
+        $fs->addField($this->_('Environment mode'))->push(
             $this->html->radioButtonGroup('environmentMode', $this->values->environmentMode, [
                     'development' => $this->_('Development'),
                     'testing' => $this->_('Testing'),
@@ -47,7 +47,7 @@ class HttpAdd extends arch\form\Action {
         );
 
         // Priority
-        $fs->addFieldArea($this->_('Priority'))->push(
+        $fs->addField($this->_('Priority'))->push(
             $this->html->prioritySlider('priority', $this->values->priority)
                 ->isRequired(true)
         );

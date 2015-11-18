@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpSettings extends arch\form\Action {
 
     protected $_config;
@@ -27,28 +27,28 @@ class HttpSettings extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Settings'));
 
         // Registration
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('registrationEnabled', $this->values->registrationEnabled, $this->_(
                 'Allow new users to register accounts'
             ))
         );
 
         // Verify
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('verifyEmail', $this->values->verifyEmail, $this->_(
                 'Verify email address of new registrations'
             ))
         );
 
         // Login on registration
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('loginOnRegistration', $this->values->loginOnRegistration, $this->_(
                 'Automatically log in new users upon completion of registration'
             ))
         );
 
         // Landing
-        $fs->addFieldArea($this->_('Registration landing page'))->setDescription($this->_(
+        $fs->addField($this->_('Registration landing page'))->setDescription($this->_(
             'Redirect to this request when logging in for the first time (internal request format)'
         ))->push(
             $this->html->textbox('registrationLandingPage', $this->values->registrationLandingPage)
@@ -56,21 +56,21 @@ class HttpSettings extends arch\form\Action {
         );
 
         // Check password
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('checkPasswordStrength', $this->values->checkPasswordStrength, $this->_(
                 'Check password strength when users update their details'
             ))
         );
 
         // Min strength
-        $fs->addFieldArea($this->_('Min password strength'))->push(
+        $fs->addField($this->_('Min password strength'))->push(
             $this->html->numberTextbox('minPasswordStrength', $this->values->minPasswordStrength)
                 ->isRequired(true)
                 ->setRange(10, null, 1)
         );
 
         // Invite cap
-        $fs->addFieldArea($this->_('Default invite cap'))->push(
+        $fs->addField($this->_('Default invite cap'))->push(
             $this->html->numberTextbox('inviteCap', $this->values->inviteCap)
                 ->setMin(1)
                 ->setPlaceholder($this->_('No limit'))

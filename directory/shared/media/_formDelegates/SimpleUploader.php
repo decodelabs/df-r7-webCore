@@ -116,7 +116,7 @@ class SimpleUploader extends arch\form\Delegate implements
             ->toArray();
 
         if(!empty($files)) {
-            $fa = $fs->addFieldArea(/*$this->_([
+            $fa = $fs->addField(/*$this->_([
                 'n <> 1' => 'Published files',
                 'n = 1' => 'Published file'
             ], null, count($files))*/);

@@ -56,13 +56,13 @@ class HttpPreview extends arch\form\Action {
         }
 
 
-        $fs->addFieldArea($this->_('Transport'))->push(
+        $fs->addField($this->_('Transport'))->push(
             $this->html->radioButtonGroup('transport', $this->values->transport, $transportList)
                 ->isRequired(true)
         );
 
         // From
-        $fs->addFieldArea($this->_('From'))->push(
+        $fs->addField($this->_('From'))->push(
             $this->html->emailTextbox('fromAddress', $this->values->fromAddress)
                 ->isRequired(true)
                 ->setPlaceholder($this->_('Address')),
@@ -72,14 +72,14 @@ class HttpPreview extends arch\form\Action {
         );
 
         // Return path
-        $fs->addFieldArea($this->_('Return path'))->push(
+        $fs->addField($this->_('Return path'))->push(
             $this->html->emailTextbox('returnPath', $this->values->returnPath)
                 ->setPlaceholder($this->_('Address'))
         );
 
 
         // To
-        $fs->addFieldArea($this->_('To'))->push(
+        $fs->addField($this->_('To'))->push(
             $this->html->emailTextbox('toAddress', $this->values->toAddress)
                 ->isRequired(true)
                 ->setPlaceholder($this->_('Address')),
@@ -90,7 +90,7 @@ class HttpPreview extends arch\form\Action {
 
 
         // CC
-        $fs->addFieldArea($this->_('CC'))->push(
+        $fs->addField($this->_('CC'))->push(
             $this->html->emailTextbox('ccAddress', $this->values->ccAddress)
                 ->setPlaceholder($this->_('Address')),
 
@@ -100,7 +100,7 @@ class HttpPreview extends arch\form\Action {
 
 
         // BCC
-        $fs->addFieldArea($this->_('BCC'))->push(
+        $fs->addField($this->_('BCC'))->push(
             $this->html->emailTextbox('bccAddress', $this->values->bccAddress)
                 ->setPlaceholder($this->_('Address')),
 

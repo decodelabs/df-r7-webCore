@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\form\Action {
-    
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_schedule;
@@ -31,14 +31,14 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Scheduled task'));
 
         // Request
-        $fs->addFieldArea($this->_('Request'))->push(
+        $fs->addField($this->_('Request'))->push(
             $this->html->textbox('request', $this->values->request)
                 ->isRequired(true)
                 ->setMaxLength(1024)
         );
 
         // Environment mode
-        $fs->addFieldArea($this->_('Environment mode'))->push(
+        $fs->addField($this->_('Environment mode'))->push(
             $this->html->radioButtonGroup('environmentMode', $this->values->environmentMode, [
                     '' => $this->_('Active at run time'),
                     'development' => $this->_('Development'),
@@ -49,48 +49,48 @@ class HttpAdd extends arch\form\Action {
         );
 
         // Priority
-        $fs->addFieldArea($this->_('Priority'))->push(
+        $fs->addField($this->_('Priority'))->push(
             $this->html->prioritySlider('priority', $this->values->priority)
                 ->isRequired(true)
         );
 
         // Minute
-        $fs->addFieldArea($this->_('Minute'))->push(
+        $fs->addField($this->_('Minute'))->push(
             $this->html->textbox('minute', $this->values->minute)
                 ->setMaxLength(128)
                 ->setPlaceholder('*')
         );
 
         // Hour
-        $fs->addFieldArea($this->_('Hour'))->push(
+        $fs->addField($this->_('Hour'))->push(
             $this->html->textbox('hour', $this->values->hour)
                 ->setMaxLength(128)
                 ->setPlaceholder('*')
         );
 
         // Day
-        $fs->addFieldArea($this->_('Day'))->push(
+        $fs->addField($this->_('Day'))->push(
             $this->html->textbox('day', $this->values->day)
                 ->setMaxLength(128)
                 ->setPlaceholder('*')
         );
 
         // Month
-        $fs->addFieldArea($this->_('Month'))->push(
+        $fs->addField($this->_('Month'))->push(
             $this->html->textbox('month', $this->values->month)
                 ->setMaxLength(128)
                 ->setPlaceholder('*')
         );
 
         // Weekday
-        $fs->addFieldArea($this->_('Day of week'))->push(
+        $fs->addField($this->_('Day of week'))->push(
             $this->html->textbox('weekday', $this->values->weekday)
                 ->setMaxLength(128)
                 ->setPlaceholder('*')
         );
 
         // Is live
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('isLive', $this->values->isLive, $this->_(
                 'This scheduled task is live and will be queued at spool time'
             ))
@@ -114,7 +114,7 @@ class HttpAdd extends arch\form\Action {
             // Priority
             ->addRequiredField('priority', 'enum')
                 ->setType('core/unit/Priority')
-                
+
             // Minute
             ->addField('minute', 'text')
                 ->setMaxLength(128)

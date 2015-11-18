@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\form\Action {
-    
+
     protected $_bucket;
 
     protected function init() {
@@ -23,26 +23,26 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Bucket details'));
 
         // Name
-        $fs->addFieldArea($this->_('Name'))->push(
+        $fs->addField($this->_('Name'))->push(
             $this->html->textbox('name', $this->values->name)
                 ->setMaxLength(128)
                 ->isRequired(true)
         );
-        
+
         // Slug
-        $fs->addFieldArea($this->_('Slug'))->push(
+        $fs->addField($this->_('Slug'))->push(
             $this->html->textbox('slug', $this->values->slug)
                 ->setPlaceholder($this->_('Auto-generate from name'))
         );
 
         // Context 1
-        $fs->addFieldArea($this->_('Context 1'))->push(
+        $fs->addField($this->_('Context 1'))->push(
             $this->html->textbox('context1', $this->values->context1)
                 ->setPlaceholder('axis://model/Unit')
         );
 
         // Context 2
-        $fs->addFieldArea($this->_('Context 2'))->push(
+        $fs->addField($this->_('Context 2'))->push(
             $this->html->textbox('context2', $this->values->context2)
                 ->setPlaceholder('axis://model/Unit')
         );

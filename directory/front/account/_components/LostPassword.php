@@ -16,14 +16,14 @@ class LostPassword extends arch\component\template\FormUi {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Password recovery'));
 
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->flashMessage($this->_(
                 'Please enter your email address and you will be sent a link with instructions on resetting your password'
             ))
         );
 
         // Email
-        $fs->addFieldArea($this->_('Email address'))->push(
+        $fs->addField($this->_('Email address'))->push(
             $this->html->emailTextbox(
                     $this->fieldName('email'),
                     $this->values->email

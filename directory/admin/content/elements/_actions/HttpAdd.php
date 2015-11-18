@@ -31,13 +31,13 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Element details'));
 
         // Name
-        $fs->addFieldArea($this->_('Name'))->push(
+        $fs->addField($this->_('Name'))->push(
             $this->html->textbox('name', $this->values->name)
                 ->isRequired(true)
         );
 
         // Slug
-        $fs->addFieldArea($this->_('Slug'))->push(
+        $fs->addField($this->_('Slug'))->push(
             $this->html->textbox('slug', $this->values->slug)
                 ->setPlaceholder($this->_('Auto-generate from name'))
         );

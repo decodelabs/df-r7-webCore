@@ -46,7 +46,7 @@ class HttpReorderSlots extends arch\form\Action {
     protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Slot order'));
-        $fa = $fs->addFieldArea();
+        $fa = $fs->addField();
 
         foreach($this->values->slots as $i => $slotNode) {
             if(!$slot = $this->_layout->getSlot($slotNode['id'])) {

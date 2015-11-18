@@ -16,7 +16,7 @@ class Avatar extends arch\component\template\FormUi {
         if(!empty($versions)) {
             $form = $this->content->addForm();
             $fs = $form->addFieldSet($this->_('Select existing avatar'));
-            $fa = $fs->addFieldArea($this->_('Your images'));
+            $fa = $fs->addField($this->_('Your images'));
             $activeId = $file['#activeVersion'];
 
             foreach($versions as $version) {

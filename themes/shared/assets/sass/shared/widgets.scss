@@ -59,7 +59,7 @@
     font-size: 0.9em;
 }
 
-.widget-fieldArea {
+.widget-field {
     @extend %clearfix;
     padding: 0.3em 0;
     font-size: 1em;
@@ -91,8 +91,8 @@
             font-size: 0.8em;
         }
 
-        > .widget-fieldArea,
-        > .fire-block > .widget-fieldArea {
+        > .widget-field,
+        > .fire-block > .widget-field {
             padding: 0.4em;
             margin: 0.3em 0;
 
@@ -128,7 +128,7 @@
         > .widget-inputArea {
             margin-left: 0;
 
-            > .widget-fieldArea {
+            > .widget-field {
                 padding-left: 0;
                 padding-right: 0;
             }
@@ -167,7 +167,7 @@
         margin-left: 1em;
     }
 
-    .widget-fieldSet > .body > .widget-fieldArea {
+    .widget-fieldSet > .body > .widget-field {
         > .widget-labelArea {
             @extend %innerLabelWidget;
             margin-bottom: 0.4em;
@@ -178,7 +178,7 @@
         }
     }
 
-    .widget-fieldArea {
+    .widget-field {
         > .widget-labelArea {
             @extend %innerLabelWidget;
         }

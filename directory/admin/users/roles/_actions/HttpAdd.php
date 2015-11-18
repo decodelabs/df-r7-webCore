@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 
 class HttpAdd extends arch\form\Action {
-    
+
     protected $_role;
 
     protected function init() {
@@ -20,26 +20,26 @@ class HttpAdd extends arch\form\Action {
     protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role details'));
-        
+
         // Name
-        $fs->addFieldArea($this->_('Name'))
+        $fs->addField($this->_('Name'))
             ->addTextbox('name', $this->values->name)
                 ->setMaxLength(64)
                 ->isRequired(true);
 
         // Signifier
-        $fs->addFieldArea($this->_('Signifier'))->push(
+        $fs->addField($this->_('Signifier'))->push(
             $this->html->textbox('signifier', $this->values->signifier)
                 ->setMaxLength(32)
         );
-             
+
         // Priority
-        $fs->addFieldArea($this->_('Priority'))
+        $fs->addField($this->_('Priority'))
             ->addNumberTextbox('priority', $this->values->priority)
                 ->isRequired(true)
                 ->setRange(0, null, 1);
-                
-                
+
+
         // Buttons
         $fs->addDefaultButtonGroup();
     }

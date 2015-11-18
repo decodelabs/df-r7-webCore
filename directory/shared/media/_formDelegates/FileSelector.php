@@ -184,7 +184,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
 
             $fs = $ol->addFieldSet($this->_('Upload new file'));
 
-            $fs->addFieldArea()->isStacked(true)->push(
+            $fs->addField()->isStacked(true)->push(
                 $this->html->fileUpload($this['upload']->fieldName('file'))
                     ->setAcceptTypes($this->_acceptTypes),
 
@@ -218,7 +218,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             return;
         }
 
-        $fa = $fs->addFieldArea($this->_('Selected'));
+        $fa = $fs->addField($this->_('Selected'));
         $fa->addClass('delegate-selector');
 
         foreach($selected as $result) {
@@ -259,7 +259,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
         }
     }
 
-    protected function createOverlayUploaderUi(aura\html\widget\FieldArea $fa) {
+    protected function createOverlayUploaderUi(aura\html\widget\Field $fa) {
         if(!$this->_bucket) {
             return;
         }
@@ -282,7 +282,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
         );
     }
 
-    protected function createOverlayVersionUi(aura\html\widget\FieldArea $fa) {
+    protected function createOverlayVersionUi(aura\html\widget\Field $fa) {
         if(!$this->_bucket) {
             return;
         }
@@ -305,7 +305,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
         $fs = $ol->addFieldSet($this->_('Choose your file'))->push($this['versionUpload']);
 
         $fs->unshift(
-            $this->html->fieldArea()->push(
+            $this->html->field()->push(
                 $this->html->flashMessage($this->_(
                     'This will replace your current file with the one you upload in all places this file is used'
                 ))->setDescription($this->_(
@@ -314,7 +314,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             )
         );
 
-        $fs->addFieldArea($this->_('Current file'))->push(
+        $fs->addField($this->_('Current file'))->push(
             $this->html->icon('file', $file['fileName'])
                 ->addClass('informative')
                 ->setTitle($file['slug']),
@@ -322,7 +322,7 @@ class FileSelector extends arch\form\template\SelectorDelegate implements core\i
             $this->html('em', $this->format->fileSize($file['fileSize']))
         );
 
-        $fs->addFieldArea($this->_('Notes'))->push(
+        $fs->addField($this->_('Notes'))->push(
             $this->html->textarea($this->fieldName('notes'), $this->values->notes)
         );
 

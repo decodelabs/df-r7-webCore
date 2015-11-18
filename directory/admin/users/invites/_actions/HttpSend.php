@@ -30,13 +30,13 @@ class HttpSend extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('User details'));
 
         // Name
-        $fs->addFieldArea($this->_('Name'))->push(
+        $fs->addField($this->_('Name'))->push(
             $this->html->textbox('name', $this->values->name)
                 ->isRequired(true)
         );
 
         // Email
-        $fa = $fs->addFieldArea($this->_('Email address'))->push(
+        $fa = $fs->addField($this->_('Email address'))->push(
             $this->html->emailTextbox('email', $this->values->email)
                 ->isRequired(true)
         );
@@ -52,16 +52,16 @@ class HttpSend extends arch\form\Action {
         }
 
         // Message
-        $fs->addFieldArea($this->_('Message'))->push(
+        $fs->addField($this->_('Message'))->push(
             $this->html->textarea('message', $this->values->message)
         );
 
         // Groups
-        $fs->addFieldArea($this->_('Registration groups'))->push($this['groups']);
+        $fs->addField($this->_('Registration groups'))->push($this['groups']);
 
         // Force send
         if(!$this->application->isProduction()) {
-            $fs->addFieldArea()->push(
+            $fs->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'
                 ))

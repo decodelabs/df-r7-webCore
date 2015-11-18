@@ -58,7 +58,7 @@ class HttpSettings extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Daemon settings'));
 
         // Enabled
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox($this->_getFieldName('isEnabled'), $this->values->{$this->_getFieldName('isEnabled')},
                 $this->_isRecord ?
                     $this->_('This daemon is enabled and can be spawned by this application') :
@@ -69,14 +69,14 @@ class HttpSettings extends arch\form\Action {
         $env = core\Environment::getInstance();
 
         // User
-        $fs->addFieldArea($this->_('User'))->push(
+        $fs->addField($this->_('User'))->push(
             $this->html->textbox($this->_getFieldName('user'), $this->values->{$this->_getFieldName('user')})
                 ->isRequired(!$this->_isRecord)
                 ->setPlaceholder($env->getDaemonUser())
         );
 
         // Group
-        $fs->addFieldArea($this->_('Group'))->push(
+        $fs->addField($this->_('Group'))->push(
             $this->html->textbox($this->_getFieldName('group'), $this->values->{$this->_getFieldName('group')})
                 ->isRequired(!$this->_isRecord)
                 ->setPlaceholder($env->getDaemonGroup())

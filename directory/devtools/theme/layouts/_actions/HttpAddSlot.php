@@ -38,39 +38,39 @@ class HttpAddSlot extends arch\form\Action {
         $detailsFs = $form->addFieldSet($this->_('Slot details'));
 
         // Layout
-        $detailsFs->addFieldArea($this->_('Layout'))->push(
+        $detailsFs->addField($this->_('Layout'))->push(
             $this->html->textbox('layout', $this->_layout->getName())
                 ->isDisabled(true)
         );
 
         // Id
-        $detailsFs->addFieldArea($this->_('Id'))->push(
+        $detailsFs->addField($this->_('Id'))->push(
             $this->html->textbox('id', $this->values->id)
                 ->isRequired(true)
                 ->isReadOnly($this->_slot->isPrimary())
         );
 
         // Name
-        $detailsFs->addFieldArea($this->_('Name'))->push(
+        $detailsFs->addField($this->_('Name'))->push(
             $this->html->textbox('name', $this->values->name)
                 ->isRequired(true)
         );
 
         // Min blocks
-        $detailsFs->addFieldArea($this->_('Min blocks'))->push(
+        $detailsFs->addField($this->_('Min blocks'))->push(
             $this->html->numberTextbox('minBlocks', $this->values->minBlocks)
                 ->setRange(0, null, 1)
         );
 
         // Max blocks
-        $detailsFs->addFieldArea($this->_('Max blocks'))->push(
+        $detailsFs->addField($this->_('Max blocks'))->push(
             $this->html->numberTextbox('maxBlocks', $this->values->maxBlocks)
                 ->setRange(1, null, 1)
         );
 
 
         // Block types
-        $detailsFs->addFieldArea($this->_('Block category'))->push(
+        $detailsFs->addField($this->_('Block category'))->push(
             // TODO: add block type selector
             $this->html->flashMessage('Block type selector coming soon...', 'debug')
         );

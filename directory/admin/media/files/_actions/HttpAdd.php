@@ -55,13 +55,13 @@ class HttpAdd extends arch\form\Action {
         }
 
         // Slug
-        $fs->addFieldArea($this->_('Slug'))->push(
+        $fs->addField($this->_('Slug'))->push(
             $this->html->textbox('slug', $this->values->slug)
                 ->setPlaceholder($this->_('Auto-generate from file name'))
         );
 
         // File name
-        $fa = $fs->addFieldArea($this->_('File name'))->push(
+        $fa = $fs->addField($this->_('File name'))->push(
             $this->html->textbox('fileName', $this->values->fileName)
                 ->isRequired(!$this->_file->isNew())
                 ->setMaxLength(1024)
@@ -72,10 +72,10 @@ class HttpAdd extends arch\form\Action {
         }
 
         // Bucket
-        $fs->addFieldArea($this->_('Bucket'))->push($this['bucket']);
+        $fs->addField($this->_('Bucket'))->push($this['bucket']);
 
         // Owner
-        $fs->addFieldArea($this->_('Owner'))->push($this['owner']);
+        $fs->addField($this->_('Owner'))->push($this['owner']);
 
         // Buttons
         $fs->addDefaultButtonGroup();

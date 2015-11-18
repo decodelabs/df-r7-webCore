@@ -29,7 +29,7 @@ class HttpReply extends HttpAdd {
     }
 
     protected function _renderHistory($fs) {
-        $fs->addFieldArea($this->_('Reply to'))
+        $fs->addField($this->_('Reply to'))
             ->addTemplate('~/comments/#/elements/List.html', [
                     'commentList' => [$this->_parentComment],
                     'showFooter' => false

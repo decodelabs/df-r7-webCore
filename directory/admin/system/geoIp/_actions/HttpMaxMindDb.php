@@ -12,7 +12,7 @@ use df\arch;
 use df\link;
 
 class HttpMaxMindDb extends arch\form\Action {
-    
+
     protected $_config;
 
     protected function init() {
@@ -37,7 +37,7 @@ class HttpMaxMindDb extends arch\form\Action {
 
         // Set as default
         if($this->_config->getDefaultAdapter() != 'MaxMindDb') {
-            $fs->addFieldArea()->push(
+            $fs->addField()->push(
                 $this->html->checkbox('setAsDefault', $this->values->setAsDefault, $this->_(
                     'Make this the default Geo IP adapter'
                 ))
@@ -45,7 +45,7 @@ class HttpMaxMindDb extends arch\form\Action {
         }
 
         // Enabled
-        $fs->addFieldArea($this->_('Geo IP usage'))->push(
+        $fs->addField($this->_('Geo IP usage'))->push(
             $this->html->radioButtonGroup('isEnabled', $this->values->isEnabled, [
                     '1' => $this->_('Enabled'),
                     '0' => $this->_('Disabled')
@@ -60,7 +60,7 @@ class HttpMaxMindDb extends arch\form\Action {
 
 
         $fs = $form->addFieldSet($this->_('Databases'));
-        $fa = $fs->addFieldArea($this->_('File'));
+        $fa = $fs->addField($this->_('File'));
 
         if(empty($fileList)) {
             $fa->addFlashMessage($this->_(
@@ -73,7 +73,7 @@ class HttpMaxMindDb extends arch\form\Action {
             );
         }
 
-        $fs->addFieldArea($this->_('Upload file'))->setDescription($this->_(
+        $fs->addField($this->_('Upload file'))->setDescription($this->_(
             '.mmdb or .mmdb.gz files only please'
         ))->push(
             $this->html->fileUpload('upload', $this->values->upload),
@@ -86,7 +86,7 @@ class HttpMaxMindDb extends arch\form\Action {
         $hasLiteCity = isset($fileList['GeoLite2-City.mmdb']);
 
         if(!$hasLiteCountry || !$hasLiteCity) {
-            $fa = $fs->addFieldArea($this->_('Fetch free databases'))
+            $fa = $fs->addField($this->_('Fetch free databases'))
                 ->setErrorContainer($this->values->fetch);
 
             $fa->addFlashMessage($this->_(
@@ -196,7 +196,7 @@ class HttpMaxMindDb extends arch\form\Action {
                 return;
             }
         }
-        
+
         $targetPath = $this->_extractGz($path.'/'.$fileName);
         $this->values->file = basename($targetPath);
         $this->values->isEnabled = true;

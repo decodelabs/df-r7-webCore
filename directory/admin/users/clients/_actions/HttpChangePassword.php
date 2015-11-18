@@ -34,19 +34,19 @@ class HttpChangePassword extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Change password'));
 
         // User
-        $fs->addFieldArea($this->_('User'))->push(
+        $fs->addField($this->_('User'))->push(
             $this->html->textbox('user', $this->_auth['user']['fullName'])
                 ->isDisabled(true)
         );
 
         // New password
-        $fs->addFieldArea($this->_('Password'))->push(
+        $fs->addField($this->_('Password'))->push(
             $this->html->passwordTextbox('password', $this->values->password)
                 ->isRequired(true)
         );
 
         // Confirm password
-        $fs->addFieldArea($this->_('Confirm password'))->push(
+        $fs->addField($this->_('Confirm password'))->push(
             $this->html->passwordTextbox('confirmPassword', $this->values->confirmPassword)
                 ->isRequired(true)
         );

@@ -29,19 +29,19 @@ class HttpAdd extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Group details'));
 
         // Name
-        $fs->addFieldArea($this->_('Name'))
+        $fs->addField($this->_('Name'))
             ->addTextbox('name', $this->values->name)
                 ->setMaxLength(64)
                 ->isRequired(true);
 
         // Signifier
-        $fs->addFieldArea($this->_('Signifier'))->push(
+        $fs->addField($this->_('Signifier'))->push(
             $this->html->textbox('signifier', $this->values->signifier)
                 ->setMaxLength(32)
         );
 
         // Roles
-        $fs->addFieldArea($this->_('Roles'))->push($this['roles']);
+        $fs->addField($this->_('Roles'))->push($this['roles']);
 
         // Buttons
         $fs->addDefaultButtonGroup();

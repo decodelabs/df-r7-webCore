@@ -19,7 +19,7 @@ class LoginLdap extends arch\component\template\FormUi {
 
 
         // Username
-        $fs->addFieldArea($this->_('Username'))
+        $fs->addField($this->_('Username'))
             ->addTextbox(
                     $this->fieldName('identity'),
                     $this->values->identity
@@ -27,7 +27,7 @@ class LoginLdap extends arch\component\template\FormUi {
                 ->isRequired(true);
 
         // Password
-        $fs->addFieldArea($this->_('Password'))
+        $fs->addField($this->_('Password'))
             ->addPasswordTextbox(
                     $this->fieldName('password'),
                     $this->values->password
@@ -35,7 +35,7 @@ class LoginLdap extends arch\component\template\FormUi {
                 ->isRequired(true);
 
         // Remember
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox(
                 $this->fieldName('rememberMe'),
                 $this->values->rememberMe,

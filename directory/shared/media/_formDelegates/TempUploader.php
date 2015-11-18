@@ -12,11 +12,11 @@ use df\arch;
 use df\aura;
 use df\link;
 
-class TempUploader extends arch\form\Delegate implements 
+class TempUploader extends arch\form\Delegate implements
     arch\form\ISelfContainedRenderableDelegate,
     arch\form\ISelectionProviderDelegate,
     core\io\IAcceptTypeProcessor {
-    
+
     use arch\form\TForm_SelfContainedRenderableDelegate;
     use arch\form\TForm_SelectorDelegate;
     use core\io\TAcceptTypeProcessor;
@@ -105,7 +105,7 @@ class TempUploader extends arch\form\Delegate implements
             $label = null;
         }
 
-        $fa = $fs->addFieldArea($label)
+        $fa = $fs->addField($label)
             ->isStacked($this->_isStacked)
             ->push(
                 $this->html->fileUpload($this->fieldName('file'), $this->values->file)
@@ -166,7 +166,7 @@ class TempUploader extends arch\form\Delegate implements
                 });
 
 
-            $fs->addFieldArea()->isStacked($this->_isStacked)->push($list);
+            $fs->addField()->isStacked($this->_isStacked)->push($list);
         }
     }
 

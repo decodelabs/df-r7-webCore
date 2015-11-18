@@ -29,14 +29,14 @@ class HttpGrant extends arch\form\Action {
         $fs = $form->addFieldSet($this->_('Specific users'));
 
         // Allowance
-        $fs->addFieldArea($this->_('Set allowance to'))->push(
+        $fs->addField($this->_('Set allowance to'))->push(
             $this->html->numberTextbox('allowance', $this->values->allowance)
                 ->isRequired(true)
                 ->setMin(1)
         );
 
         // Users
-        $fs->addFieldArea($this->_('Users'))->push($this['users']);
+        $fs->addField($this->_('Users'))->push($this['users']);
 
         // Buttons
         $fs->addDefaultButtonGroup('saveUsers');
@@ -50,7 +50,7 @@ class HttpGrant extends arch\form\Action {
                 'Please note, this action will only affect users who have initiated their invite allowance upon sending their first invitation'
             ));
 
-            $fs->addFieldArea($this->_('Reset allowance to'))->push(
+            $fs->addField($this->_('Reset allowance to'))->push(
                 $this->html->numberTextbox('allowance', $this->values->allowance)
                     ->isRequired(true)
                     ->setMin(1)

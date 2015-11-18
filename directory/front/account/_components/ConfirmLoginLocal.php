@@ -18,7 +18,7 @@ class ConfirmLoginLocal extends arch\component\template\FormUi {
         $fs = $form->addFieldSet($this->_('Confirm password'));
 
         // Identity
-        $fs->addFieldArea($this->_('User'))
+        $fs->addField($this->_('User'))
             ->addEmailTextbox(
                     $this->fieldName('name'),
                     $this->user->client->getFullName()
@@ -26,7 +26,7 @@ class ConfirmLoginLocal extends arch\component\template\FormUi {
                 ->isDisabled(true);
 
         // Password
-        $fs->addFieldArea($this->_('Password'))
+        $fs->addField($this->_('Password'))
             ->addPasswordTextbox(
                     $this->fieldName('password'),
                     $this->values->password

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 use df\fire;
-    
+
 class HttpAdd extends arch\form\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -27,7 +27,7 @@ class HttpAdd extends arch\form\Action {
         $detailsFs = $form->addFieldSet($this->_('Layout details'));
 
         // Id
-        $detailsFs->addFieldArea($this->_('Id'))->push(
+        $detailsFs->addField($this->_('Id'))->push(
             $this->html->textbox('id', $this->values->id)
                 ->setPattern('[A-Z][a-zA-Z0-9]*')
                 ->isRequired(!$this->_layout->isStatic())
@@ -35,13 +35,13 @@ class HttpAdd extends arch\form\Action {
         );
 
         // Name
-        $detailsFs->addFieldArea($this->_('Name'))->push(
+        $detailsFs->addField($this->_('Name'))->push(
             $this->html->textbox('name', $this->values->name)
                 ->isRequired(true)
         );
 
         // Areas
-        $detailsFs->addFieldArea($this->_('Areas'))->setDescription($this->_(
+        $detailsFs->addField($this->_('Areas'))->setDescription($this->_(
             'Separate with commas, leave blank for all'
         ))
         ->push(
