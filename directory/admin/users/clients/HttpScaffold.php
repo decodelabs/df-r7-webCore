@@ -269,7 +269,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
             $groupList = $client->groups->fetch()->orderBy('Name');
 
-            return $this->html->bulletList($groupList, function($client) {
+            return $this->html->bulletList($groupList, function($group) {
                 return $this->apex->component('../groups/GroupLink', $group);
             });
         });
