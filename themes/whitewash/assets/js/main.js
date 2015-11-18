@@ -5,25 +5,25 @@ $(function() {
             var s = $('#form-hidden-activeFormEvent');
             var f = $(this).parents('form');
             var event = $(this).attr('data-formevent');
-            
+
             if(!s.length && event != 'default') {
                 f.prepend('<input type="hidden" id="form-hidden-activeFormEvent" name="formEvent" />');
                 s = $('#form-hidden-activeFormEvent');
             }
-            
+
             if(s.length) {
                 s.val(event);
             }
-            
+
             e.preventDefault();
             f.submit();
         }
     });
 
     // Scroll to first error
-    if($(".widget-fieldError").length) {
+    if($(".w-fieldError").length) {
         $('html, body').animate({
-            scrollTop: $(".widget-fieldError").first().parent().offset().top
+            scrollTop: $(".w-fieldError").first().parent().offset().top
         }, 200);
     }
 });

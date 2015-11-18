@@ -28,7 +28,7 @@ define([
                 if(!href) {
                     href = $(this).data('pushy');
                 }
-                
+
                 if(!href) {
                     href = $(this).attr('href');
                 }
@@ -109,7 +109,7 @@ define([
                         $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
                         //$leftContainer.find('.pushy-content').html('');
                     }
-                    
+
                     $content.html(html);
 
                     _this._closeCallback = options.closeCallback;
@@ -149,8 +149,8 @@ define([
         close: function(callback, data) {
             var _this = this;
 
-            if($('.widget-form', this.attr.content).length) {
-                var $form = $('.widget-form', this.attr.content).first();
+            if($('.w-form', this.attr.content).length) {
+                var $form = $('.w-form', this.attr.content).first();
 
                 Ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],

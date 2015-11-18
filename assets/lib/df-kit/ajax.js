@@ -7,7 +7,7 @@ define([
         _clients: {},
 
         init: function() {
-            $(document).on('click', '.ajax-content .widget-eventButton', function(e) {
+            $(document).on('click', '.ajax-content .w-eventButton', function(e) {
                 var event = $(this).val();
                 $('#form-hidden-activeFormEvent').remove();
                 $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
@@ -114,7 +114,7 @@ define([
                     }
                 });
 
-                this.$element.on('submit', '.widget-form', function(e) {
+                this.$element.on('submit', '.w-form', function(e) {
                     _this.onFormSubmit(e);
                 });
             },

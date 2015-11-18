@@ -31,7 +31,7 @@ define([
                 if(!href) {
                     href = $(this).data('modal');
                 }
-                
+
                 if(!href) {
                     href = $(this).attr('href');
                 }
@@ -133,8 +133,8 @@ define([
         close: function(callback, data) {
             var _this = this;
 
-            if($('.widget-form', this.attr.container).length) {
-                var $form = $('.widget-form', this.attr.container).first();
+            if($('.w-form', this.attr.container).length) {
+                var $form = $('.w-form', this.attr.container).first();
 
                 Ajax.post($form.attr('action'), {
                     data: [{name:'formEvent', value:'cancel'}],
