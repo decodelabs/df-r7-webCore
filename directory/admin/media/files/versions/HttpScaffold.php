@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'File versions';
     const DIRECTORY_ICON = 'list';
     const RECORD_ADAPTER = 'axis://media/Version';
@@ -26,7 +26,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
     protected $_recordDetailsFields = [
-        'number', 'fileName', 'fileSize', 'contentType', 'hash', 
+        'number', 'fileName', 'fileSize', 'contentType', 'hash',
         'file', 'owner', 'purgeDate', 'creationDate'
     ];
 
@@ -96,7 +96,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $this->html->link('../', $this->_('All files'))
                 ->setIcon('file')
                 ->setDisposition('transitive')
-        );  
+        );
     }
 
     protected function getParentSectionRequest() {

@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-class UnitDetailHeaderBar extends arch\component\template\HeaderBar {
+class UnitDetailHeaderBar extends arch\component\HeaderBar {
 
     protected $_icon = 'unit';
     protected $_storageExists = false;

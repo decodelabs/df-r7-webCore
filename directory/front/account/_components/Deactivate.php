@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class Deactivate extends arch\component\template\FormUi {
+class Deactivate extends arch\component\FormUi {
 
     protected function _execute() {
         $form = $this->content->addForm();

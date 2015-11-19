@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class Avatar extends arch\component\template\FormUi {
+class Avatar extends arch\component\FormUi {
 
     protected function _execute($file, array $versions=null) {
         if(!empty($versions)) {

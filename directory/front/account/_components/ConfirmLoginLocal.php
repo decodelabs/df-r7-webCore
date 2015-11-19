@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class ConfirmLoginLocal extends arch\component\template\FormUi {
+class ConfirmLoginLocal extends arch\component\FormUi {
 
     protected function _execute() {
         $form = $this->content->addForm();

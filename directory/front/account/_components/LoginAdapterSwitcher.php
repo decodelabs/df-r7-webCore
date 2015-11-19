@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\user;
 
-class LoginAdapterSwitcher extends arch\component\template\FormUi {
+class LoginAdapterSwitcher extends arch\component\FormUi {
 
     protected function _execute(array $enabled, $current) {
         $menu = $this->content->addMenuBar();

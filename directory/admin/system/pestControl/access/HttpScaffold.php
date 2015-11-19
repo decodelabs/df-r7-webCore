@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'Access errors';
     const DIRECTORY_ICON = 'lock';
     const RECORD_ADAPTER = 'axis://pestControl/AccessLog';

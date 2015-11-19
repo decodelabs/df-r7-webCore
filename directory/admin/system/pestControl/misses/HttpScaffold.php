@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = '404 errors';
     const DIRECTORY_ICON = 'brokenLink';
     const RECORD_ADAPTER = 'axis://pestControl/Miss';
@@ -22,7 +22,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'id', 'mode', 'request', 
+        'id', 'mode', 'request',
         'seen', 'lastSeen', 'bots'
     ];
 
@@ -144,7 +144,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
             if($percent > 0) {
                 $output = $this->html->icon('warning', $output);
-                
+
                 if($percent >= 50) {
                     $output->addClass('error');
                 } else {

@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class LostPassword extends arch\component\template\FormUi {
+class LostPassword extends arch\component\FormUi {
 
     protected function _execute() {
         $form = $this->content->addForm();

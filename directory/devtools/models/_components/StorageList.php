@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\axis;
-    
-class StorageList extends arch\component\template\CollectionList {
+
+class StorageList extends arch\component\CollectionList {
 
     protected $_fields = [
         'name' => true,

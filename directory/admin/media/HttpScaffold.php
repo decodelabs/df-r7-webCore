@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'Media buckets';
     const DIRECTORY_ICON = 'database';
     const RECORD_ADAPTER = 'axis://media/Bucket';
@@ -48,7 +48,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $this->html->link('./files/', $this->_('All files'))
                 ->setIcon('file')
                 ->setDisposition('transitive')
-        );  
+        );
     }
 
     public function addFilesSectionTransitiveLinks($menu, $bar) {
@@ -60,7 +60,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('./files/add?bucket='.$bucket['id'], true), 
+                    $this->uri('./files/add?bucket='.$bucket['id'], true),
                     $this->_('Add file')
                 )
                 ->setIcon('add')

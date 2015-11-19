@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,8 +9,8 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
-class HistoryList extends arch\component\template\CollectionList {
+
+class HistoryList extends arch\component\CollectionList {
 
     protected $_fields = [
         'user' => true,

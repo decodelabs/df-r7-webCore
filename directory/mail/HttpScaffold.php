@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\template\AreaMenu {
-    
+class HttpScaffold extends arch\scaffold\AreaMenu {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DIRECTORY_TITLE = 'Mail';
     const DIRECTORY_ICON = 'mail';

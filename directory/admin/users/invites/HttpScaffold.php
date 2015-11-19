@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'Invites';
     const DIRECTORY_ICON = 'mail';
     const RECORD_ADAPTER = 'axis://user/Invite';
@@ -24,13 +24,13 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
     protected $_recordListFields = [
-        'creationDate', 'name', 'email', 'lastSent', 
+        'creationDate', 'name', 'email', 'lastSent',
         'owner', 'registrationDate', 'groups'
     ];
 
     protected $_recordDetailsFields = [
-        'key', 'creationDate', 'owner', 'lastSent', 
-        'name', 'email', 'message', 'groups', 
+        'key', 'creationDate', 'owner', 'lastSent',
+        'name', 'email', 'message', 'groups',
         'registrationDate', 'user'
     ];
 

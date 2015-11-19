@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class UnitList extends arch\component\template\CollectionList {
+class UnitList extends arch\component\CollectionList {
 
     protected $_fields = [
         'id' => true,

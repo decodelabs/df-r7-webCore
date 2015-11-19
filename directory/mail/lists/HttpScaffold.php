@@ -12,11 +12,11 @@ use df\arch;
 use df\flow;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DIRECTORY_TITLE = 'Mailing lists';
-    const DIRECTORY_ICON = 'list';  
+    const DIRECTORY_ICON = 'list';
     const RECORD_KEY_NAME = 'source';
     const RECORD_NAME_FIELD = 'id';
 

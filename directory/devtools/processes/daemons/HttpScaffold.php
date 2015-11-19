@@ -12,8 +12,8 @@ use df\arch;
 use df\halo;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DIRECTORY_TITLE = 'Daemons';
     const DIRECTORY_ICON = 'launch';
@@ -25,12 +25,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_DELETE_RECORD = false;
 
     protected $_recordListFields = [
-        'name', 'state', 'startDate', 'statusDate', 
+        'name', 'state', 'startDate', 'statusDate',
         'pid', 'testMode', 'automatic'
     ];
 
     protected $_recordDetailsFields = [
-        'name', 'state', 'startDate', 'statusDate', 
+        'name', 'state', 'startDate', 'statusDate',
         'pid', 'user', 'group', 'testMode', 'automatic'
     ];
 
@@ -49,8 +49,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             $remote = halo\daemon\Remote::factory($daemon);
             $status = $remote->getStatusData();
 
-            $daemonSettings = isset($settings[$name]) ? 
-                $settings[$name] : 
+            $daemonSettings = isset($settings[$name]) ?
+                $settings[$name] :
                 $this->data->newRecord('axis://daemon/Settings')->toArray();
 
             $row = [
@@ -95,7 +95,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->setIcon('remove')
                     ->setDisposition('negative')
                     ->isDisabled(!$this->_enabled)
-            ];  
+            ];
         } else {
             $output = [
                 $this->html->link(
@@ -105,7 +105,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
                     ->setIcon('launch')
                     ->setDisposition('positive')
                     ->isDisabled(!$this->_enabled || !$daemon['isEnabled'] || $daemon['testMode'])
-            ];  
+            ];
         }
 
         $output[] = $this->html->link(

@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'Files';
     const DIRECTORY_ICON = 'file';
     const RECORD_ADAPTER = 'axis://media/File';
@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
     protected $_recordListFields = [
-        'fileName', 'bucket', 'slug', 'fileSize', 'owner', 
+        'fileName', 'bucket', 'slug', 'fileSize', 'owner',
         'creationDate', 'version'
     ];
 
     protected $_recordDetailsFields = [
-        'slug', 'url', 'bucket', 'fileName', 'fileSize', 'owner', 
+        'slug', 'url', 'bucket', 'fileName', 'fileSize', 'owner',
         'hash', 'creationDate'
     ];
 
@@ -92,7 +92,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function defineSlugField($list, $mode) {
         $list->addField('slug', function($file) {
             return $this->html->link(
-                    $this->media->getDownloadUrl($file['id']), 
+                    $this->media->getDownloadUrl($file['id']),
                     $this->html('samp', $file['slug'])
                 )
                 ->setIcon('download');

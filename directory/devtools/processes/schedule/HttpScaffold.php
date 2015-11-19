@@ -12,8 +12,8 @@ use df\arch;
 use df\opal;
 use df\halo;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     const DIRECTORY_TITLE = 'Scheduled tasks';
@@ -28,7 +28,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_recordDetailsFields = [
         'id', 'request', 'priority', 'creationDate',
-        'lastRun', 'lastRun', 'minute', 'hour', 'day', 'month', 'weekday', 
+        'lastRun', 'lastRun', 'minute', 'hour', 'day', 'month', 'weekday',
         'environmentMode', 'isLive', 'isAuto'
     ];
 
@@ -77,7 +77,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             if(!$schedule['isLive']) {
                 return;
             }
-            
+
             return $this->html->timeFromNow(core\time\Schedule::factory($schedule)->getLast(null, 1));
         });
     }
@@ -87,14 +87,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
             if(!$schedule['isLive']) {
                 return;
             }
-            
+
             return $this->html->timeFromNow(core\time\Schedule::factory($schedule)->getNext(null, 1));
         });
     }
 
     public function defineScheduleField($list, $mode) {
         $list->addField('schedule', function($schedule) {
-            return 
+            return
                 $schedule['minute'].' '.
                 $schedule['hour'].' '.
                 $schedule['day'].' '.

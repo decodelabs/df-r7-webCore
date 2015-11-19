@@ -12,7 +12,7 @@ use df\arch;
 use df\opal;
 use df\user;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
+class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DIRECTORY_TITLE = 'Roles';
     const DIRECTORY_ICON = 'role';

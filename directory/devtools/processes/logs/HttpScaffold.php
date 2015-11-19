@@ -11,10 +11,10 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
-    
+
     const DIRECTORY_TITLE = 'Spool logs';
     const DIRECTORY_ICON = 'log';
     const RECORD_ADAPTER = 'axis://task/Log';

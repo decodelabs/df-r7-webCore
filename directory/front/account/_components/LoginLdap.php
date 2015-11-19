@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class LoginLdap extends arch\component\template\FormUi {
+class LoginLdap extends arch\component\FormUi {
 
     protected function _execute() {
         $form = $this->content->addForm();

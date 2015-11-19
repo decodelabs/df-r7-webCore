@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class RegisterLocal extends arch\component\template\FormUi {
+class RegisterLocal extends arch\component\FormUi {
 
     protected function _execute() {
         $form = $this->content->addForm();

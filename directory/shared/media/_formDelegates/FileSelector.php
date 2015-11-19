@@ -16,7 +16,7 @@ use df\mesh;
 class FileSelector extends arch\form\template\SelectorDelegate implements core\io\IAcceptTypeProcessor {
 
     use core\io\TAcceptTypeProcessor;
-    use arch\form\TMediaBucketAwareSelector;
+    use arch\form\TForm_MediaBucketAwareSelector;
 
     protected static $_defaultModes = [
         'details' => 'createInlineDetailsUi',

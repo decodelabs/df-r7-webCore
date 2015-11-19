@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class MenuList extends arch\component\template\CollectionList {
+class MenuList extends arch\component\CollectionList {
 
     protected $_fields = [
         'name' => true,

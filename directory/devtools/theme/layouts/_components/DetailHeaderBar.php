@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,11 +9,11 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
-class DetailHeaderBar extends arch\component\template\HeaderBar {
+
+class DetailHeaderBar extends arch\component\HeaderBar {
 
     protected $_icon = 'layout';
-    
+
     protected function _getDefaultTitle() {
         return $this->_('Layout: %n%', ['%n%' => $this->_record->getId()]);
     }

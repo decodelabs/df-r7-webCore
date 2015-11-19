@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'Critical errors';
     const DIRECTORY_ICON = 'error';
     const RECORD_ADAPTER = 'axis://pestControl/Error';
@@ -21,12 +21,12 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const CAN_EDIT_RECORD = false;
 
     protected $_recordListFields = [
-        'message', 'type', 'code', 'file', 'line', 
+        'message', 'type', 'code', 'file', 'line',
         'seen', 'lastSeen'
     ];
 
     protected $_recordDetailsFields = [
-        'id', 'type', 'file', 'line', 'code', 'message', 
+        'id', 'type', 'file', 'line', 'code', 'message',
         'seen', 'lastSeen'
     ];
 
@@ -57,7 +57,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         return [
             parent::renderDetailsSectionBody($error),
-            
+
             $this->apex->component('./logs/LogList')
                 ->setCollection($logList)
                 ->setUrlRedirect(true)

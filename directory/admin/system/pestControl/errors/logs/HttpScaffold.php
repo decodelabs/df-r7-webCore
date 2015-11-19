@@ -12,7 +12,7 @@ use df\arch;
 use df\opal;
 use df\flex;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
+class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DIRECTORY_TITLE = 'Critical error logs';
     const DIRECTORY_ICON = 'log';

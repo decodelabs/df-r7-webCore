@@ -23,7 +23,7 @@ class SimpleUploader extends arch\form\Delegate implements
     use arch\form\TForm_SelectorDelegate;
     use arch\form\TForm_ValueListSelectorDelegate;
     use arch\form\TForm_DependentDelegate;
-    use arch\form\TMediaBucketAwareSelector;
+    use arch\form\TForm_MediaBucketAwareSelector;
     use core\io\TAcceptTypeProcessor;
 
     protected $_showUploadButton = true;

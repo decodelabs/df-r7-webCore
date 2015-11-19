@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'User deactivations';
     const DIRECTORY_ICON = 'remove';
     const RECORD_ADAPTER = 'axis://user/ClientDeactivation';

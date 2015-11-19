@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,8 +9,8 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
-class UserLink extends arch\component\template\RecordLink {
+
+class UserLink extends arch\component\RecordLink {
 
     protected $_icon = 'user';
     protected $_useNickName = false;

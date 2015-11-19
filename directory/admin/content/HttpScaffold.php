@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\template\AreaMenu {
-    
+class HttpScaffold extends arch\scaffold\AreaMenu {
+
     const DIRECTORY_TITLE = 'Published content';
     const DIRECTORY_ICON = 'content';
 

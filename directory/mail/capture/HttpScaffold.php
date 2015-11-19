@@ -12,7 +12,7 @@ use df\arch;
 use df\opal;
 use df\flow;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
+class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DIRECTORY_TITLE = 'Development mailbox';
