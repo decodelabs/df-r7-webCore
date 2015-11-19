@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpAdd extends arch\form\Action {
+class HttpAdd extends arch\action\Form {
 
     protected $_manager;
 

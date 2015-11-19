@@ -12,7 +12,7 @@ use df\arch;
 use df\axis;
 use df\halo;
 
-class HttpPurgeTableBackups extends arch\form\template\Confirm {
+class HttpPurgeTableBackups extends arch\action\ConfirmForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

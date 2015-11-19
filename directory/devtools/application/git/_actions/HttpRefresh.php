@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\spur;
 
-class HttpRefresh extends arch\Action {
+class HttpRefresh extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

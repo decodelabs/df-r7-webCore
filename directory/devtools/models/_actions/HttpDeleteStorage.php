@@ -12,7 +12,7 @@ use df\arch;
 use df\axis;
 use df\opal;
 
-class HttpDeleteStorage extends arch\form\template\Delete {
+class HttpDeleteStorage extends arch\action\DeleteForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'storage';

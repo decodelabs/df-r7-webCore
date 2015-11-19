@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpMessage extends arch\Action {
-    
+class HttpMessage extends arch\action\Base {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {

@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpChangePassword extends arch\form\Action {
+class HttpChangePassword extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 

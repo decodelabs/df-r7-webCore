@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpPurge extends arch\form\Action {
-    
+class HttpPurge extends arch\action\Form {
+
     const DEFAULT_EVENT = 'purge';
 
     protected $_version;

@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class HttpLogin extends arch\form\Action {
+class HttpLogin extends arch\action\Form {
 
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::GUEST;

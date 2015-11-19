@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpDeleteBackup extends arch\form\template\Delete {
+class HttpDeleteBackup extends arch\action\DeleteForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'backup';

@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-class HttpAddSlot extends arch\form\Action {
+class HttpAddSlot extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

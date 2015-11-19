@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpBootstrap extends arch\Action {
+class HttpBootstrap extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 

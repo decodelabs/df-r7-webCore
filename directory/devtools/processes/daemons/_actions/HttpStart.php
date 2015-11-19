@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\halo;
 
-class HttpStart extends arch\form\template\Confirm {
+class HttpStart extends arch\action\ConfirmForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'daemon';

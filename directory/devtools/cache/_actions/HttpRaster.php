@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\neon;
-    
-class HttpRaster extends arch\form\Action {
+
+class HttpRaster extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'refresh';
@@ -21,7 +21,7 @@ class HttpRaster extends arch\form\Action {
     protected function init() {
         $this->_cache = neon\raster\Cache::getInstance();
     }
-    
+
     protected function createUi() {
         $form = $this->content->addForm();
         $files = $this->_cache->getDirectFileList();
@@ -65,7 +65,7 @@ class HttpRaster extends arch\form\Action {
                         ->setIcon('delete');
                 }),
 
-                
+
             $this->html->eventButton(
                     'clear',
                     $this->_('Clear all')

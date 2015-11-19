@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpEdit extends arch\form\Action {
+class HttpEdit extends arch\action\Form {
 
     protected $_menu;
 

@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-class HttpIndex extends arch\Action {
-    
+class HttpIndex extends arch\action\Base {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {

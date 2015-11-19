@@ -12,8 +12,8 @@ use df\arch;
 use df\axis;
 use df\halo;
 
-class HttpUpdate extends arch\form\template\Confirm {
-    
+class HttpUpdate extends arch\action\ConfirmForm {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DISPOSITION = 'operative';
 

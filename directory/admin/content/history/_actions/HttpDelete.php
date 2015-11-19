@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDelete extends arch\form\template\Delete {
+class HttpDelete extends arch\action\DeleteForm {
 
     const ITEM_NAME = 'history event';
 

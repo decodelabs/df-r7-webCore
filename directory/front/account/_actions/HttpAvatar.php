@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAvatar extends arch\form\Action {
+class HttpAvatar extends arch\action\Form {
 
     const DEFAULT_EVENT = 'upload';
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;

@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpSend extends arch\form\Action {
+class HttpSend extends arch\action\Form {
 
     const DEFAULT_EVENT = 'send';
 

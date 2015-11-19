@@ -12,7 +12,7 @@ use df\user;
 use df\aura;
 use df\link;
 
-class HttpDefault extends arch\Action {
+class HttpDefault extends arch\action\Base {
 
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;

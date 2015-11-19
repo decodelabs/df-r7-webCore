@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-class HttpDeleteSlot extends arch\form\template\Delete {
+class HttpDeleteSlot extends arch\action\DeleteForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'slot';

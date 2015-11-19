@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,8 +9,8 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
-class HttpLogout extends arch\Action {
+
+class HttpLogout extends arch\action\Base {
 
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;

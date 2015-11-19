@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class HttpRegister extends arch\form\Action {
+class HttpRegister extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'register';

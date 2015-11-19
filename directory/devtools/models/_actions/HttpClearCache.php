@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpClearCache extends arch\form\template\Confirm {
+class HttpClearCache extends arch\action\ConfirmForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DISPOSITION = 'negative';

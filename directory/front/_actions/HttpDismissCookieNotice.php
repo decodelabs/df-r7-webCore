@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpDismissCookieNotice extends arch\Action {
+class HttpDismissCookieNotice extends arch\action\Base {
 
     const OPTIMIZE = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL;

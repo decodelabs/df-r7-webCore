@@ -12,8 +12,8 @@ use df\arch;
 use df\axis;
 use df\halo;
 
-class HttpBackup extends arch\form\template\Confirm {
-    
+class HttpBackup extends arch\action\ConfirmForm {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected function getMainMessage() {

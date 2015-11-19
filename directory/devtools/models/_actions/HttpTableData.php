@@ -12,8 +12,8 @@ use df\arch;
 use df\axis;
 use df\opal;
 
-class HttpTableData extends arch\Action {
-    
+class HttpTableData extends arch\action\Base {
+
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {

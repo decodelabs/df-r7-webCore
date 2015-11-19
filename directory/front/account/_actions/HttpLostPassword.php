@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpLostPassword extends arch\form\Action {
+class HttpLostPassword extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'send';

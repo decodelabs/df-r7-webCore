@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\arch;
 
-class HttpAddKey extends arch\form\Action {
+class HttpAddKey extends arch\action\Form {
 
     protected $_role;
     protected $_key;

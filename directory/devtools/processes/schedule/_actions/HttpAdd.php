@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\form\Action {
+class HttpAdd extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpActivate extends arch\form\Action {
-    
+class HttpActivate extends arch\action\Form {
+
     const DEFAULT_EVENT = 'activate';
 
     protected $_version;

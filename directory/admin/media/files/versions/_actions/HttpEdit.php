@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpEdit extends arch\form\Action {
+class HttpEdit extends arch\action\Form {
 
     protected $_version;
 

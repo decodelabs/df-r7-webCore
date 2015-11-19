@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpIndex extends arch\Action {
-    
+class HttpIndex extends arch\action\Base {
+
     public function executeAsHtml() {
         $view = $this->apex->view('Index.html');
         $source = arch\navigation\menu\source\Base::factory($this->context, 'directory');

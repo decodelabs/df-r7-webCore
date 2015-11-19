@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class HttpDownload extends arch\Action {
+class HttpDownload extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     const OPTIMIZE = true;

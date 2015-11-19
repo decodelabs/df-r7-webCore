@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class LoginLdap extends arch\form\Delegate implements arch\form\IParentUiHandlerDelegate {
-    
+class LoginLdap extends arch\action\form\Delegate implements arch\action\IParentUiHandlerDelegate {
+
     public function renderUi() {
         $this->content->push(
             $this->apex->component('~front/account/LoginLdap', $this)

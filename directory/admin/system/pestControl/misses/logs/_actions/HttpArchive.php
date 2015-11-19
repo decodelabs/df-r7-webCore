@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpArchive extends arch\form\template\Confirm {
-    
+class HttpArchive extends arch\action\ConfirmForm {
+
     const ITEM_NAME = 'log';
 
     protected $_log;

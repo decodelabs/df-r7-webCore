@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpHello extends arch\restApi\Action {
+class HttpHello extends arch\action\RestApi {
 
     public function executeGet() {
         $actions = [];

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDeactivate extends arch\form\Action {
+class HttpDeactivate extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
     const DEFAULT_EVENT = 'deactivate';

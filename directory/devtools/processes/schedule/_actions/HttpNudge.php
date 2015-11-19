@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\halo;
-    
-class HttpNudge extends arch\form\template\Confirm {
+
+class HttpNudge extends arch\action\ConfirmForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'spool';

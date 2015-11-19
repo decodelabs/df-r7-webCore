@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\link;
 
-class HttpMaxMindDb extends arch\form\Action {
+class HttpMaxMindDb extends arch\action\Form {
 
     protected $_config;
 

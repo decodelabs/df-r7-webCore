@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class HttpImage extends arch\Action {
+class HttpImage extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 

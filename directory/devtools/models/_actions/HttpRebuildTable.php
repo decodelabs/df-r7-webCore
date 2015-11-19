@@ -12,7 +12,7 @@ use df\arch;
 use df\axis;
 use df\halo;
 
-class HttpRebuildTable extends arch\form\template\Confirm {
+class HttpRebuildTable extends arch\action\ConfirmForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

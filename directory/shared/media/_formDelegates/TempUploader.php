@@ -12,13 +12,13 @@ use df\arch;
 use df\aura;
 use df\link;
 
-class TempUploader extends arch\form\Delegate implements
-    arch\form\ISelfContainedRenderableDelegate,
-    arch\form\ISelectionProviderDelegate,
+class TempUploader extends arch\action\form\Delegate implements
+    arch\action\ISelfContainedRenderableDelegate,
+    arch\action\ISelectionProviderDelegate,
     core\io\IAcceptTypeProcessor {
 
-    use arch\form\TForm_SelfContainedRenderableDelegate;
-    use arch\form\TForm_SelectorDelegate;
+    use arch\action\TForm_SelfContainedRenderableDelegate;
+    use arch\action\TForm_SelectorDelegate;
     use core\io\TAcceptTypeProcessor;
 
     protected $_showUploadButton = true;

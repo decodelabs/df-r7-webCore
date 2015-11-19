@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpView extends arch\Action {
+class HttpView extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

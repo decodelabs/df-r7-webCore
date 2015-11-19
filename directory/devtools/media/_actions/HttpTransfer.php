@@ -12,7 +12,7 @@ use df\arch;
 use df\neon;
 use df\halo;
 
-class HttpTransfer extends arch\form\Action {
+class HttpTransfer extends arch\action\Form {
 
     const DEFAULT_EVENT = 'transfer';
 

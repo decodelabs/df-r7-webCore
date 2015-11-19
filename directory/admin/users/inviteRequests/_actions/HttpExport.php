@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\flex;
 
-class HttpExport extends arch\Action {
-    
+class HttpExport extends arch\action\Base {
+
     public function execute() {
         return $this->http->csvGenerator('Invite requests ('.$this->format->date('now').').csv', function($builder) {
             $q = $this->data->user->inviteRequest->select()

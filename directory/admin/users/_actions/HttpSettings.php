@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpSettings extends arch\form\Action {
+class HttpSettings extends arch\action\Form {
 
     protected $_config;
 

@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 use df\aura;
 
-class HttpDeleteKey extends arch\form\template\Delete {
+class HttpDeleteKey extends arch\action\DeleteForm {
 
     const ITEM_NAME = 'key';
 

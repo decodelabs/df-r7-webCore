@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpMedia extends arch\restApi\Action {
+class HttpMedia extends arch\action\RestApi {
 
     public function executeGet() {
         $handler = $this->data->media->getMediaHandler();

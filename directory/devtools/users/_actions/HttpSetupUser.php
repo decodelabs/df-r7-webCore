@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 use df\user;
 
-class HttpSetupUser extends arch\form\Action {
+class HttpSetupUser extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 

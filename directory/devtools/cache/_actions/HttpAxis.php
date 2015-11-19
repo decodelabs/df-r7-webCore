@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpAxis extends arch\form\Action {
+class HttpAxis extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'refresh';
@@ -52,7 +52,7 @@ class HttpAxis extends arch\form\Action {
                         ->setIcon('delete');
                 }),
 
-                
+
             $this->html->eventButton(
                     'clear',
                     $this->_('Clear all')

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,8 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\halo;
-    
-class HttpDebugMode extends arch\form\template\Confirm {
+
+class HttpDebugMode extends arch\action\ConfirmForm {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'application';

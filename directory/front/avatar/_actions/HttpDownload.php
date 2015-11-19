@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-class HttpDownload extends arch\Action {
+class HttpDownload extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 

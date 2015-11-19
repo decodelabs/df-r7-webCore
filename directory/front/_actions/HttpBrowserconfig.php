@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class HttpBrowserconfig extends arch\Action {
-    
+class HttpBrowserconfig extends arch\action\Base {
+
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     const CHECK_ACCESS = false;
 

@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDetails extends arch\Action {
+class HttpDetails extends arch\action\Base {
 
     public function executeAsHtml() {
         $view = $this->apex->view('Details.html');

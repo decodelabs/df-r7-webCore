@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpResend extends arch\form\template\Confirm {
+class HttpResend extends arch\action\ConfirmForm {
 
     const ITEM_NAME = 'invite';
 

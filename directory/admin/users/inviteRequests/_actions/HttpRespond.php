@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpRespond extends arch\form\Action {
+class HttpRespond extends arch\action\Form {
 
     protected $_request;
 

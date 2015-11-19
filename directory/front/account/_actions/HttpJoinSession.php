@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpJoinSession extends arch\Action {
+class HttpJoinSession extends arch\action\Base {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 

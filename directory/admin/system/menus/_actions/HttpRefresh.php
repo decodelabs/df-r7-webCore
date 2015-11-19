@@ -10,13 +10,13 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpRefresh extends arch\Action {
-    
+class HttpRefresh extends arch\action\Base {
+
     public function executeAsHtml() {
         $this->apex->clearMenuCache();
 
         $this->comms->flashSuccess(
-            'menu-cache.clear', 
+            'menu-cache.clear',
             $this->_('The system menu list has been refreshed')
         );
 

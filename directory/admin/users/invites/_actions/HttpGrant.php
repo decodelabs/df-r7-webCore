@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpGrant extends arch\form\Action {
+class HttpGrant extends arch\action\Form {
 
     const DEFAULT_EVENT = 'saveUsers';
 

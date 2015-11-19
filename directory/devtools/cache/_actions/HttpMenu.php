@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,8 +9,8 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
-class HttpMenu extends arch\form\Action {
+
+class HttpMenu extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'refresh';

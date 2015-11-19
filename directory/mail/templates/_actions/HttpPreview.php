@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpPreview extends arch\form\Action {
+class HttpPreview extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'send';

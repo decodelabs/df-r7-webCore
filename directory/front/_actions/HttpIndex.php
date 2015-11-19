@@ -9,8 +9,8 @@ use df;
 use df\core;
 use df\arch;
 
-class HttpIndex extends arch\Action {
-    
+class HttpIndex extends arch\action\Base {
+
     const CHECK_ACCESS = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 

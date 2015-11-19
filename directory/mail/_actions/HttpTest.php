@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpTest extends arch\form\Action {
+class HttpTest extends arch\action\Form {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'send';
