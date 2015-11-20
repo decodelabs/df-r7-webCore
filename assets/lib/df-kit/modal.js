@@ -63,10 +63,11 @@ define([
         },
 
         load: function(href, options) {
+            options = options || {};
+
             var _this = this,
                 callback = options.callback;
 
-            options = options || {};
 
             options.callback = function(data) {
                 _this.client = Ajax.loadElement(_this.attr.content, href, {
