@@ -32,7 +32,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-    public function fixNamesAction() {
+    public function fixNamesNode() {
         $list = $this->data->mail->journal->fetch()
             ->where('name', 'begins', '~mail/');
 
@@ -47,7 +47,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         core\dump($count);
     }
 
-    public function fixDurationsAction() {
+    public function fixDurationsNode() {
         $list = $this->data->mail->journal->fetch();
         $count = 0;
 

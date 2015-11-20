@@ -13,10 +13,10 @@ use df\aura;
 use df\opal;
 use df\mesh;
 
-class FileSelector extends arch\action\form\SelectorDelegate implements core\io\IAcceptTypeProcessor {
+class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IAcceptTypeProcessor {
 
     use core\io\TAcceptTypeProcessor;
-    use arch\action\TForm_MediaBucketAwareSelector;
+    use arch\node\TForm_MediaBucketAwareSelector;
 
     protected static $_defaultModes = [
         'details' => 'createInlineDetailsUi',

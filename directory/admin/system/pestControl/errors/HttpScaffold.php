@@ -36,7 +36,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         return array_merge(
             [
                 $this->html->link(
-                        $this->_getRecordActionRequest($record, 'archive', null, true),
+                        $this->_getRecordNodeRequest($record, 'archive', null, true),
                         $this->_('Archive '.$this->getRecordItemName())
                     )
                     ->setIcon('remove')

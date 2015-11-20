@@ -19,7 +19,7 @@ class IndexHeaderBar extends arch\component\HeaderBar {
     }
 
     protected function _addSubOperativeLinks($menu) {
-        switch($this->request->getAction()) {
+        switch($this->request->getNode()) {
             case 'index':
                 $menu->addLinks(
                     $this->html->link(

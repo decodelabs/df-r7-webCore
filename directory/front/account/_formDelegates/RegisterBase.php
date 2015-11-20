@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-abstract class RegisterBase extends arch\action\form\Delegate implements arch\action\IParentUiHandlerDelegate {
+abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
 
     protected $_invite;
 

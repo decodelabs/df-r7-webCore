@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class LoginLdap extends arch\action\form\Delegate implements arch\action\IParentUiHandlerDelegate {
+class LoginLdap extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
 
     public function renderUi() {
         $this->content->push(

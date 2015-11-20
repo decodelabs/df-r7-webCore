@@ -16,7 +16,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const DIRECTORY_TITLE = 'Media buckets';
     const DIRECTORY_ICON = 'database';
     const RECORD_ADAPTER = 'axis://media/Bucket';
-    const DEFAULT_RECORD_ACTION = 'files';
+    const DEFAULT_RECORD_NODE = 'files';
 
     protected $_sections = [
         'details',

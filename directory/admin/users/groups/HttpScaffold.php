@@ -16,7 +16,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const DIRECTORY_TITLE = 'Groups';
     const DIRECTORY_ICON = 'group';
     const RECORD_ADAPTER = 'axis://user/Group';
-    const DEFAULT_RECORD_ACTION = 'users';
+    const DEFAULT_RECORD_NODE = 'users';
 
     protected $_sections = [
         'details',

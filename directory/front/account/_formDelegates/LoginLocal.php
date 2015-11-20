@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class LoginLocal extends arch\action\form\Delegate implements arch\action\IParentUiHandlerDelegate {
+class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
 
     public function renderUi() {
         $this->content->push(

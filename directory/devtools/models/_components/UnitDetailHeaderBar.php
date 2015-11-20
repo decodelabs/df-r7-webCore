@@ -61,7 +61,7 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar {
     }
 
     protected function _addSubOperativeLinks($menu) {
-        switch($this->request->getAction()) {
+        switch($this->request->getNode()) {
             case 'tableBackups':
                 $menu->addLinks(
                     $this->html->link(

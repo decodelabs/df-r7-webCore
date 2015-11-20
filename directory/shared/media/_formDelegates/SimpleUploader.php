@@ -13,17 +13,17 @@ use df\aura;
 use df\mesh;
 use df\flex;
 
-class SimpleUploader extends arch\action\form\Delegate implements
-    arch\action\ISelfContainedRenderableDelegate,
-    arch\action\IDependentDelegate,
-    arch\action\ISelectorDelegate,
+class SimpleUploader extends arch\node\form\Delegate implements
+    arch\node\ISelfContainedRenderableDelegate,
+    arch\node\IDependentDelegate,
+    arch\node\ISelectorDelegate,
     core\io\IAcceptTypeProcessor {
 
-    use arch\action\TForm_SelfContainedRenderableDelegate;
-    use arch\action\TForm_SelectorDelegate;
-    use arch\action\TForm_ValueListSelectorDelegate;
-    use arch\action\TForm_DependentDelegate;
-    use arch\action\TForm_MediaBucketAwareSelector;
+    use arch\node\TForm_SelfContainedRenderableDelegate;
+    use arch\node\TForm_SelectorDelegate;
+    use arch\node\TForm_ValueListSelectorDelegate;
+    use arch\node\TForm_DependentDelegate;
+    use arch\node\TForm_MediaBucketAwareSelector;
     use core\io\TAcceptTypeProcessor;
 
     protected $_showUploadButton = true;
@@ -125,7 +125,7 @@ class SimpleUploader extends arch\action\form\Delegate implements
             //$fa->isRequired($this->_isRequired);
             $fa->addClass('delegate-selector');
 
-            if($this instanceof arch\action\IDependentDelegate) {
+            if($this instanceof arch\node\IDependentDelegate) {
                 $messages = $this->getDependencyMessages();
 
                 if(!empty($messages)) {

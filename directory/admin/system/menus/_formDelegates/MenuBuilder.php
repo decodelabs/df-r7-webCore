@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class MenuBuilder extends arch\action\form\Delegate {
+class MenuBuilder extends arch\node\form\Delegate {
 
 
 }

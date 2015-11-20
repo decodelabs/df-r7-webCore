@@ -40,7 +40,7 @@ class DetailHeaderBar extends arch\component\HeaderBar {
     }
 
     protected function _addSubOperativeLinks($menu) {
-        if($this->request->isAction('slots')) {
+        if($this->request->isNode('slots')) {
             $layoutId = $this->_record->getId();
 
             $menu->addLinks(

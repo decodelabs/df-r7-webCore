@@ -71,20 +71,20 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         return [
             // Activate
             $this->apex->component('VersionLink', $version, $this->_('Activate'))
-                ->setAction('activate')
+                ->setNode('activate')
                 ->setDisposition('positive')
                 ->setIcon('accept')
                 ->isDisabled($version['isActive'] || $isPurged),
 
             // Edit
             $this->apex->component('VersionLink', $version, $this->_('Edit'))
-                ->setAction('edit')
+                ->setNode('edit')
                 ->setIcon('edit')
                 ->isDisabled($isPurged),
 
             // Purge
             $this->apex->component('VersionLink', $version, $this->_('Purge'))
-                ->setAction('purge')
+                ->setNode('purge')
                 ->setIcon('delete')
                 ->setDisposition('negative')
                 ->isDisabled($version['isActive'] || $isPurged),

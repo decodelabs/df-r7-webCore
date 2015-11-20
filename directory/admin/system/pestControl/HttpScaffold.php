@@ -32,7 +32,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
 
             $entryList->newLink('./misses/', '404 errors')
                 ->setId('misses')
-                ->setDescription('View requests that users are making to files and actions that don\'t exist')
+                ->setDescription('View requests that users are making to files and nodes that don\'t exist')
                 ->setIcon('brokenLink')
                 ->setNote($this->format->counterNote($notFoundCount))
                 ->setWeight(20),

@@ -37,7 +37,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->_getActionRequest('export'),
+                    $this->_getNodeRequest('export'),
                     $this->_('Export to csv')
                 )
                 ->setIcon('download')
@@ -61,7 +61,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             [
                 // Respond
                 $this->apex->component('RequestLink', $request, $this->_('Respond'))
-                    ->setAction('respond')
+                    ->setNode('respond')
                     ->setIcon('mail')
                     ->setDisposition('operative')
                     ->isDisabled(!$request['isActive'])

@@ -56,14 +56,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     public function addIndexOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->_getActionRequest('send', [], true),
+                    $this->_getNodeRequest('send', [], true),
                     $this->_('Invite user')
                 )
                 ->setIcon('add')
                 ->addAccessLock('axis://user/Invite#add'),
 
             $this->html->link(
-                    $this->_getActionRequest('grant', [], true),
+                    $this->_getNodeRequest('grant', [], true),
                     $this->_('Grant allowance')
                 )
                 ->setIcon('edit')
@@ -73,7 +73,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     public function addIndexSubOperativeLinks($menu, $bar) {
         $menu->addLinks(
             $this->html->link(
-                    $this->_getActionRequest('export'),
+                    $this->_getNodeRequest('export'),
                     $this->_('Export csv')
                 )
                 ->setIcon('download')
@@ -103,14 +103,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         return [
             // Resend
             $this->apex->component('InviteLink', $invite, $this->_('Resend invite'))
-                ->setAction('resend')
+                ->setNode('resend')
                 ->setIcon('refresh')
                 ->setDisposition('positive')
                 ->isDisabled(!$invite['isActive'] || $invite['registrationDate']),
 
             // Deactivate
             $this->apex->component('InviteLink', $invite, $this->_('Deactivate invite'))
-                ->setAction('deactivate')
+                ->setNode('deactivate')
                 ->setIcon('remove')
                 ->setDisposition('negative')
                 ->isDisabled(!$invite['isActive'])
