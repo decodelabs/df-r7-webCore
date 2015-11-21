@@ -24,7 +24,8 @@ body.modal-open {
     z-index: 998;
 
     #modal-wrapper {
-        max-height: 100vh;
+        //max-height: 100vh;
+        max-height: 100%;
         width: 100%;
         max-width: 2000px;
         position: fixed;
