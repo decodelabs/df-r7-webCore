@@ -21,6 +21,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const RECORD_ADAPTER = 'axis://task/Schedule';
     const RECORD_NAME_FIELD = 'request';
 
+    protected $_sections = [
+        'details',
+        'logs' => 'log'
+    ];
+
     protected $_recordListFields = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
         'schedule', 'environmentMode', 'isLive', 'isAuto'
@@ -33,7 +38,48 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
+// Record data
+    protected function countSectionItems($schedule) {
+        return [
+            'logs' => $this->data->task->log->select()
+                ->where('request', 'begins', $this->_normalizeRequest($schedule['request']))
+                ->count()
+        ];
+    }
+
+
+// Sections
+    public function renderLogsSectionBody($schedule) {
+        return $this->apex->scaffold('../logs/')
+            ->renderRecordList(
+                $this->data->task->log->select()
+                    ->where('request', 'begins', $this->_normalizeRequest($schedule['request']))
+            );
+    }
+
+    protected function _normalizeRequest($request) {
+        $request = arch\Request::factory($request);
+        return (string)$request->path;
+    }
+
+
 // Components
+    public function getRecordOperativeLinks($record, $mode) {
+        return array_merge(
+            [
+                $this->html->link(
+                        $this->_getRecordNodeRequest($record, 'launch', null, true),
+                        $this->_('Launch '.$this->getRecordItemName())
+                    )
+                    ->setIcon('launch')
+                    ->setDisposition('positive')
+            ],
+            parent::getRecordOperativeLinks($record, $mode)
+        );
+    }
+
+
+
     public function addIndexSubOperativeLinks($menu, $bar) {
         $remote = halo\daemon\Remote::factory('TaskSpool');
         $isRunning = $remote->isRunning();
