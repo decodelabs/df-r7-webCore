@@ -46,6 +46,14 @@ class HttpLogin extends arch\node\Form {
         }
     }
 
+    public function getAdapter() {
+        return $this->_adapter;
+    }
+
+    public function getConfig() {
+        return $this->_config;
+    }
+
     protected function loadDelegates() {
         $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
     }
@@ -54,17 +62,32 @@ class HttpLogin extends arch\node\Form {
         $enabled = $this->_config->getEnabledAdapters();
 
         if(count($enabled) > 1) {
-            $this->content->push(
-                $this->apex->component(
-                    '~front/account/LoginAdapterSwitcher',
-                    $this,
-                    $enabled,
-                    $this->_adapter
-                )
-            );
+            $this->_renderSwitcher($enabled);
         }
 
         $this[$this->_adapter]->renderUi();
+    }
+
+    protected function _renderSwitcher(array $enabled) {
+        $menu = $this->content->addMenuBar();
+
+        foreach($enabled as $adapterName => $options) {
+            $class = 'df\\user\\authentication\\adapter\\'.$adapterName;
+
+            if(!class_exists($class)) {
+                continue;
+            }
+
+            $name = $class::getDisplayName();
+
+            $menu->addLink(
+                $this->html->link(
+                        $this->view->uri->query(['adapter' => $adapterName]),
+                        $name
+                    )
+                    ->isActive($adapterName == $this->_adapter)
+            );
+        }
     }
 
     protected function onLoginEvent() {

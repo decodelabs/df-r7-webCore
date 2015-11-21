@@ -12,7 +12,7 @@ use df\arch;
 use df\user;
 
 class RegisterLocal extends RegisterBase {
-    
+
     protected function setDefaultValues() {
         if($this->_invite) {
             $this->values->fullName = $this->_invite['name'];
@@ -20,6 +20,60 @@ class RegisterLocal extends RegisterBase {
             $this->values->nickName = array_shift($parts);
             $this->values->email = $this->_invite['email'];
         }
+    }
+
+    protected function createUi() {
+        $form = $this->content->addForm();
+        $fs = $form->addFieldSet($this->_('Register an account'));
+
+        // Name
+        $fs->addField($this->_('Your name'))->push(
+            $this->html->textbox(
+                    $this->fieldName('fullName'),
+                    $this->values->fullName
+                )
+                ->isRequired(true)
+        );
+
+        // Email
+        $fs->addField($this->_('Email address'))->push(
+            $this->html->emailTextbox(
+                    $this->fieldName('email'),
+                    $this->values->email
+                )
+                ->isRequired(true)
+        );
+
+        // Password
+        $fs->addField($this->_('Password'))->push(
+            $this->html->passwordTextbox(
+                    $this->fieldName('password'),
+                    $this->values->password
+                )
+                ->shouldAutoComplete(false)
+                ->isRequired(true)
+        );
+
+        // Confirm password
+        $fs->addField($this->_('Confirm password'))->push(
+            $this->html->passwordTextbox(
+                    $this->fieldName('confirmPassword'),
+                    $this->values->confirmPassword
+                )
+                ->shouldAutoComplete(false)
+                ->isRequired(true)
+        );
+
+        // Buttons
+        $fs->addButtonArea(
+            $this->html->eventButton(
+                    $this->eventName('register'),
+                    $this->_('Create account')
+                )
+                ->setIcon('accept'),
+
+            $this->html->cancelEventButton()
+        );
     }
 
     protected function onRegisterEvent() {

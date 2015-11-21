@@ -23,8 +23,34 @@ class HttpLostPassword extends arch\node\Form {
     }
 
     protected function createUi() {
-        $this->content->push(
-            $this->apex->component('~front/account/LostPassword', $this)
+        $form = $this->content->addForm();
+        $fs = $form->addFieldSet($this->_('Password recovery'));
+
+        $fs->addField()->push(
+            $this->html->flashMessage($this->_(
+                'Please enter your email address and you will be sent a link with instructions on resetting your password'
+            ))
+        );
+
+        // Email
+        $fs->addField($this->_('Email address'))->push(
+            $this->html->emailTextbox(
+                    $this->fieldName('email'),
+                    $this->values->email
+                )
+                ->isRequired(true)
+        );
+
+        // Buttons
+        $fs->addButtonArea()->push(
+            $this->html->eventButton(
+                    $this->eventName('send'),
+                    $this->_('Send')
+                )
+                ->setIcon('mail')
+                ->setDisposition('positive'),
+
+            $this->html->cancelEventButton()
         );
     }
 

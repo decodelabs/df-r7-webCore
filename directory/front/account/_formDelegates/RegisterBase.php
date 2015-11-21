@@ -13,6 +13,8 @@ use df\user;
 
 abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
 
+    use arch\node\TForm_ParentUiHandlerDelegate;
+
     protected $_invite;
 
     public function setInvite(apex\models\user\invite\Record $invite=null) {
@@ -24,7 +26,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         return $this->_invite;
     }
 
-    public function renderUi() {
+    protected function createUi() {
         $parts = explode('\\', get_class($this));
         $name = array_pop($parts);
 

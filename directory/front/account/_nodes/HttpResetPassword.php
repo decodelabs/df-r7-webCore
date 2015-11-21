@@ -73,6 +73,10 @@ class HttpResetPassword extends arch\node\Form {
         );
     }
 
+    public function getKey() {
+        return $this->_key;
+    }
+
     protected function _flashError($flashKey, $message) {
         $this->comms->flashError(
             'passwordResetKey.'.$flashKey,
@@ -87,10 +91,38 @@ class HttpResetPassword extends arch\node\Form {
     }
 
     protected function createUi() {
-        $this->content->push(
-            $this->apex->component('~front/account/ResetPassword', $this)
-                ->setSlot('key', $this->_key)
+        $form = $this->content->addForm();
+        $fs = $form->addFieldSet($this->_('Reset password'));
+
+        // Email
+        $fs->addField($this->_('Email'))->push(
+            $this->html->emailTextbox(
+                    $this->fieldName('email'),
+                    $this->_key['user']['email']
+                )
+                ->isDisabled(true)
         );
+
+        // New password
+        $fs->addField($this->_('New password'))->push(
+            $this->html->passwordTextbox(
+                    $this->fieldName('newPassword'),
+                    $this->values->newPassword
+                )
+                ->isRequired(true)
+        );
+
+        // Confirm password
+        $fs->addField($this->_('Confirm new password'))->push(
+            $this->html->passwordTextbox(
+                    $this->fieldName('confirmNewPassword'),
+                    $this->values->confirmNewPassword
+                )
+                ->isRequired(true)
+        );
+
+        // Buttons
+        $fs->addDefaultButtonGroup();
     }
 
     protected function onSaveEvent() {

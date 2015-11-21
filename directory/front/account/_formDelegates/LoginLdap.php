@@ -13,9 +13,47 @@ use df\user;
 
 class LoginLdap extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
 
-    public function renderUi() {
-        $this->content->push(
-            $this->apex->component('~front/account/LoginLdap', $this)
+    use arch\node\TForm_ParentUiHandlerDelegate;
+
+    protected function createUi() {
+        $form = $this->content->addForm();
+        $fs = $form->addFieldSet($this->_('LDAP Sign-in'));
+
+
+        // Username
+        $fs->addField($this->_('Username'))
+            ->addTextbox(
+                    $this->fieldName('identity'),
+                    $this->values->identity
+                )
+                ->isRequired(true);
+
+        // Password
+        $fs->addField($this->_('Password'))
+            ->addPasswordTextbox(
+                    $this->fieldName('password'),
+                    $this->values->password
+                )
+                ->isRequired(true);
+
+        // Remember
+        $fs->addField()->push(
+            $this->html->checkbox(
+                $this->fieldName('rememberMe'),
+                $this->values->rememberMe,
+                $this->_('Remember me')
+            )
+        );
+
+        // Buttons
+        $fs->addButtonArea()->push(
+            $this->html->eventButton(
+                    $this->eventName('login'),
+                    $this->_('Sign in')
+                )
+                ->setIcon('accept'),
+
+            $this->html->cancelEventButton()
         );
     }
 
