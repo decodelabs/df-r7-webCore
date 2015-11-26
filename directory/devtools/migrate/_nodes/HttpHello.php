@@ -15,7 +15,7 @@ class HttpHello extends arch\node\RestApi {
     public function executeGet() {
         $nodes = [];
 
-        foreach(df\Launchpad::$loader->lookupClassList('apex/directory/devtools/migrate/_actions') as $name => $class) {
+        foreach(df\Launchpad::$loader->lookupClassList('apex/directory/devtools/migrate/_nodes') as $name => $class) {
             if(0 !== strpos($name, 'Http')) {
                 continue;
             }
