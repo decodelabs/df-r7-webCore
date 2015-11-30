@@ -7,10 +7,10 @@ define([
         _clients: {},
 
         init: function() {
-            $(document).on('click', '.ajax-content .w-eventButton', function(e) {
-                var event = $(this).val();
-                $('#form-hidden-activeFormEvent').remove();
-                $(this).closest('form').append('<input type="hidden" name="formEvent" id="form-hidden-activeFormEvent" value="'+event+'" />');
+            $(document).on('click', '.ajax-content button', function(e) {
+                var event = $(this).val(), name = $(this).attr('name');
+                $('#form-activeButton').remove();
+                $(this).closest('form').append('<input type="hidden" name="'+name+'" id="form-activeButton" value="'+event+'" />');
             });
         },
 
@@ -307,7 +307,7 @@ define([
                 } else if(document.activeElement && document.activeElement.tagName == 'BUTTON') {
                     $trigger = $(document.activeElement);
                 } else {
-                    request.formEvent = $('#form-hidden-activeFormEvent').val();
+                    $trigger = $('#form-activeButton');
                 }
 
                 if($trigger) {
