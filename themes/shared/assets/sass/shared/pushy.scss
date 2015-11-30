@@ -31,6 +31,7 @@ aside.pushy-container {
     margin-left: 0;
     margin-right: 0;
     transition: margin-left .25s ease-out, margin-right .25s ease-out !important;
+    overflow: auto;
 
     body.push-left & {
         transition: margin-left .25s ease-in, margin-right .25s ease-in !important;
