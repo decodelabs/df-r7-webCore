@@ -11,7 +11,7 @@ use df\opal;
 use df\user;
 
 class Record extends opal\record\Base {
-    
+
     public function getUniqueId() {
         return md5($this['id'].':'.$this['date']->toTimestamp());
     }
@@ -39,14 +39,14 @@ class Record extends opal\record\Base {
             $tree = $this->replyTree->toArray();
         }
 
-        $treeIndex = [$this['id'] => $this];
+        $treeIndex = [(string)$this['id'] => $this];
 
         foreach($tree as $node) {
-            $treeIndex[$node['id']] = $node;
+            $treeIndex[(string)$node['id']] = $node;
         }
 
         foreach($treeIndex as $node) {
-            $id = $node['#inReplyTo'];
+            $id = (string)$node['#inReplyTo'];
 
             if(isset($treeIndex[$id])) {
                 $treeIndex[$id]->replies->populate($node);

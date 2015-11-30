@@ -29,11 +29,13 @@ class HttpReply extends HttpAdd {
     }
 
     protected function _renderHistory($fs) {
-        $fs->addField($this->_('Reply to'))
-            ->addTemplate('~/comments/#/elements/List.html', [
+        $fs->addField($this->_('Reply to'))->push(
+            $this->apex->template('~/comments/#/elements/List.html', [
                     'commentList' => [$this->_parentComment],
                     'showFooter' => false
-                ]);
+                ])
+                ->setRenderTarget($this->view)
+        );
     }
 
     protected function _prepareRecord() {

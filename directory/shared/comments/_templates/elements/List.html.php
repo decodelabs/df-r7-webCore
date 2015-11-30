@@ -84,7 +84,7 @@ echo $this->html->articleList($commentList, function($comment, $context) {
         $replies = $comment->getPopulatedTreeReplies();
 
         if(!empty($replies)) {
-            yield $this->html->template('~/comments/#/elements/List.html', [
+            yield $this->apex->template('~/comments/#/elements/List.html', [
                 'commentList' => $replies,
                 'paginate' => false,
                 'displayAsTree' => true
