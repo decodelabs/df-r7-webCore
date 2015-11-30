@@ -314,7 +314,7 @@ define([
                     var triggerName = $trigger.attr('name'),
                         triggerVal = $trigger.val();
 
-                    if($trigger.hasClass('w-eventButton')) {
+                    if(triggerName == 'formEvent') {
                         request.formEvent = formEvent = triggerVal;
                     } else {
                         request.data.push({name:triggerName, value:triggerVal});
