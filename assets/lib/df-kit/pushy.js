@@ -147,11 +147,9 @@ define([
         },
 
         close: function(callback, data) {
-            var _this = this;
+            var _this = this, $form = $('.w-form:has(.w-eventButton)', this.attr.content).first();
 
-            if($('.w-form', this.attr.content).length) {
-                var $form = $('.w-form', this.attr.content).first();
-
+            if($form.length) {
                 Ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
