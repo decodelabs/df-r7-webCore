@@ -203,18 +203,34 @@ define([
                             var request = _this.getFirstRequest();
 
                             if(request && request.formComplete) {
-                                return request.formComplete(response);
+                                request.formComplete(response);
+
+                                if(response.reload === true) {
+                                    location.reload();
+                                } else {
+                                    return;
+                                }
                             }
                         }
 
                         if(response.request.formComplete) {
-                            return request.formComplete(response);
+                            request.formComplete(response);
+
+                            if(response.reload === true) {
+                                location.reload();
+                            } else {
+                                return;
+                            }
                         }
                     }
 
                     if(response.redirect !== null) {
                         _this.trigger('redirect', response);
                         return _this.get(response.redirect, _.clone(response.request));
+                    }
+
+                    if(response.reload === true) {
+                        location.reload();
                     }
 
                     if(typeof callback === 'function') {
@@ -278,19 +294,31 @@ define([
                 var _this = this,
                     $form = $(e.target),
                     formEvent,
-                    lastRequest = this.getLastRequest();
-                    request = {};
+                    lastRequest = this.getLastRequest(),
+                    request = {},
+                    $trigger;
 
                 if(lastRequest) request = _.clone(lastRequest);
                 request.data = $form.serializeArray();
                 request.formEvent = null;
 
                 if(e.originalEvent && e.originalEvent.explicitOriginalTarget && e.originalEvent.explicitOriginalTarget.tagName == 'BUTTON') {
-                    request.formEvent = formEvent = $(e.originalEvent.explicitOriginalTarget).val();
+                    $trigger = $(e.originalEvent.explicitOriginalTarget);
                 } else if(document.activeElement && document.activeElement.tagName == 'BUTTON') {
-                    request.formEvent = formEvent = $(document.activeElement).val();
+                    $trigger = $(document.activeElement);
                 } else {
                     request.formEvent = $('#form-hidden-activeFormEvent').val();
+                }
+
+                if($trigger) {
+                    var triggerName = $trigger.attr('name'),
+                        triggerVal = $trigger.val();
+
+                    if($trigger.hasClass('w-eventButton')) {
+                        request.formEvent = formEvent = triggerVal;
+                    } else {
+                        request.data.push({name:triggerName, value:triggerVal});
+                    }
                 }
 
                 if(formEvent) {
