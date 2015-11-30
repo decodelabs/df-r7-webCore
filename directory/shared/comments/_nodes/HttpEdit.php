@@ -32,11 +32,12 @@ class HttpEdit extends HttpAdd {
 
     protected function _renderHistory($fs) {
         if($replyTo = $this->_comment['inReplyTo']) {
-            $fs->addField($this->_('Reply to'))
-                ->addTemplate('~/comments/#/elements/List.html', [
-                        'commentList' => [$replyTo],
-                        'showFooter' => false
-                    ]);
+            $fs->addField($this->_('Reply to'))->push(
+                $this->apex->template('~/comments/#/elements/List.html', [
+                    'commentList' => [$replyTo],
+                    'showFooter' => false
+                ])
+            );
         }
     }
 
