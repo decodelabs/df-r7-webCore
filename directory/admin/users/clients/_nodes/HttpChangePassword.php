@@ -75,7 +75,7 @@ class HttpChangePassword extends arch\node\Form {
             ->validate($this->values);
 
         return $this->complete(function() {
-            $this->_auth->password = $this->data->hash($this->values['password']);
+            $this->_auth->password = $this->user->password->hash($this->values['password']);
             $this->_auth->save();
 
             $this->comms->flashSuccess(

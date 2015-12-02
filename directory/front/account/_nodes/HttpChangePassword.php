@@ -85,7 +85,7 @@ class HttpChangePassword extends arch\node\Form {
             ->chainIf(!$this->_auth->isNew(), function($validator) {
                 $validator->addRequiredField('oldPassword', 'text')
                     ->setCustomValidator(function($node, $value, $field) {
-                        $hash = $this->data->hash($value);
+                        $hash = $this->user->password->hash($value);
 
                         if($hash != $this->_auth['password']) {
                             $node->addError('incorrect', $this->_(
