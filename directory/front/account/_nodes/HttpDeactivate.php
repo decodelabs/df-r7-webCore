@@ -84,7 +84,7 @@ class HttpDeactivate extends arch\node\Form {
                 [$this->_deactivation]
             );
 
-            $this->user->logout();
+            $this->user->auth->unbind();
             return $this->http->redirect('account/login');
         }
     }

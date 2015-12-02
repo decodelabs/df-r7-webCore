@@ -65,11 +65,11 @@ class HttpConfirmLogin extends arch\node\Form {
         }
 
         return $this->complete(function() {
-            $request = new user\authentication\Request('Local');
-            $request->setIdentity($this->user->client->getEmail());
-            $request->setCredential('password', $this->values['password']);
-
-            $result = $this->user->authenticate($request);
+            $result = $this->user->auth->bind(
+                $this->user->auth->newRequest('Local')
+                    ->setIdentity($this->user->client->getEmail())
+                    ->setCredential('password', $this->values['password'])
+            );
 
             if(!$result->isValid()) {
                 $this->values->password->addError('invalid', $this->_(
@@ -85,7 +85,7 @@ class HttpConfirmLogin extends arch\node\Form {
 
     protected function onLogoutEvent() {
         return $this->complete(function() {
-            $this->user->logout();
+            $this->user->auth->unbind();
             return 'account/login';
         });
     }

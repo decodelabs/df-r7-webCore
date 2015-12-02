@@ -102,7 +102,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
                 $request = core\lang\Callback($requestGenerator);
 
                 if($request instanceof user\authentication\IRequest) {
-                    $result = $this->user->authenticate($request);
+                    $result = $this->user->auth->bind($request);
                     return $redirect;
                 }
             }

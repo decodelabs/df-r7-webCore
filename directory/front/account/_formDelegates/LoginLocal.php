@@ -79,12 +79,12 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
 
 
         return $this->complete(function() {
-            $request = new user\authentication\Request('Local');
-            $request->setIdentity($this->values['identity']);
-            $request->setCredential('password', $this->values['password']);
-            $request->setAttribute('rememberMe', (bool)$this->values['rememberMe']);
-
-            $result = $this->user->authenticate($request);
+            $result = $this->user->auth->bind(
+                $this->user->auth->newRequest('Local')
+                    ->setIdentity($this->values['identity'])
+                    ->setCredential('password', $this->values['password'])
+                    ->setAttribute('rememberMe', (bool)$this->values['rememberMe'])
+            );
 
             if(!$result->isValid()) {
                 $this->values->identity->addError('invalid', $this->_(
