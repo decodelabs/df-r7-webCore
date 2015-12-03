@@ -32,13 +32,10 @@
 }
 
 .w-buttonArea {
-    @if $cell-inset == true {
-        padding: 1em;
-    } @else {
-        padding: 1em 0;
-    }
-
     font-size: 1em;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
 
     .w-buttonGroup {
         display: inline-block;
@@ -59,17 +56,38 @@
     font-size: 0.9em;
 }
 
-.w-field {
+
+.w-field, .w-field.floated {
     @extend %clearfix;
-    padding: 0.3em 0;
+    margin: 0 0 1em;
     font-size: 1em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    width: 100%;
+
+    &:target > .w-inputArea,
+    & :target {
+        outline: 2px yellow solid;
+    }
 
     > .w-labelArea {
         float: left;
         width: $form-label-width;
+        flex: 0 0 $form-label-width;
         text-align: $form-label-align;
-        margin: 0.15em 1em 0 0;
+        margin: 0;
         font-size: 1em;
+        max-width: 40%;
+        padding-right: 1em;
+        box-sizing: border-box;
+        height: auto;
+
+        > .w-label {
+            display: block;
+            padding: 0.15em 0;
+        }
     }
 
     &.required > .w-labelArea > .w-label:after {
@@ -77,14 +95,31 @@
         color: #CC0000;
     }
 
+    &.error:before {
+        order: -2;
+        content: ' ';
+        height: 1px;
+        width: $form-label-width;
+        flex: 0 0 $form-label-width;
+        text-align: $form-label-align;
+        margin: 0;
+        font-size: 1em;
+        max-width: 40%;
+        padding-right: 1em;
+        box-sizing: border-box;
+    }
+
     > .w-fieldError {
-        padding-left: $form-label-width + 1em;
-        padding-bottom: 0.3em;
+        order: -1;
+        flex: 0 1 60%;
+        margin-bottom: 0.2em;
     }
 
     > .w-inputArea {
         @extend %clearfix;
-        margin-left: $form-label-width + 1em;
+        width: 60%;
+        flex: 1 1 1px;
+        float: left;
 
         > .description {
             margin-bottom: 0.5em;
@@ -115,42 +150,50 @@
         }
     }
 
-    &.stacked {
-        margin-top: 0.75em;
+    + .w-buttonArea {
+        padding-left: 0 !important;
 
-        > .w-labelArea {
-            width: auto;
-            float: none;
-            margin-bottom: 0.6em;
-            text-align: left;
+        &:before {
+            content: ' ';
+            display: block;
+            width: $form-label-width;
+            max-width: 40%;
+            height: 100%;
         }
+    }
+}
 
-        > .w-inputArea {
-            margin-left: 0;
+.stacked .w-field, .w-field.stacked {
+    display: block;
 
-            > .w-field {
-                padding-left: 0;
-                padding-right: 0;
-            }
+    &:before {
+        display: none !important;
+    }
+
+    > .w-labelArea {
+        float: none;
+        width: auto;
+        text-align: left;
+        margin-bottom: 0.4em;
+        max-width: none;
+    }
+
+    > .w-fieldError {
+        margin: -0.4em 0 0.4em 0;
+
+        &:before {
+            display: none;
         }
+    }
 
-        > .w-fieldError {
-            padding-left: 0;
-        }
+    > .w-inputArea {
+        width: 100%;
     }
 
     + .w-buttonArea {
-        padding-left: $form-label-width + 1em;
-
-        &.stacked {
-            padding-left: 0;
-            padding-right: 0;
+        &:before {
+            display: none;
         }
-    }
-
-    &:target > .w-inputArea,
-    & :target {
-        outline: 2px yellow solid;
     }
 }
 
@@ -206,6 +249,7 @@
         margin: 0 0 0 1em;
         background: none;
         padding: 0;
+        width: auto;
     }
 
     ul {

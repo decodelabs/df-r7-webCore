@@ -224,6 +224,10 @@ div.layout-pageArea {
     }
 }
 
+.w-buttonArea {
+    padding: 1em;
+}
+
 .w-fieldSet > .body > .w-field.stacked:first-child {
     margin-top: 0;
 }
@@ -246,10 +250,6 @@ div.layout-pageArea {
             border: 1px #EEE solid;
             border-radius: 4px;
         }
-    }
-
-    &.stacked + .w-buttonArea {
-        margin-top: 1em;
     }
 }
 
