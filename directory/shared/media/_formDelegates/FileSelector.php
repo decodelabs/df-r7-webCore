@@ -182,9 +182,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
                 $form->setEncoding($form::ENC_MULTIPART);
             }
 
-            $fs = $ol->addFieldSet($this->_('Upload new file'));
+            $fs = $ol->addFieldSet($this->_('Upload new file'))->addClass('stacked');
 
-            $fs->addField()->isStacked(true)->push(
+            $fs->addField()->push(
                 $this->html->fileUpload($this['upload']->fieldName('file'))
                     ->setAcceptTypes($this->_acceptTypes),
 

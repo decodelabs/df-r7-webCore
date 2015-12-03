@@ -22,11 +22,21 @@
     }
 
     + .w-buttonArea {
-        padding-left: $form-label-width + 2em;
+        margin-top: 2em;
+        &:before {
+            content: ' ';
+            display: block;
+            width: $form-label-width;
+            max-width: 40%;
+            height: 100%;
+        }
+    }
+}
 
-        &.stacked {
-            padding-left: 0;
-            padding-right: 0;
+.stacked .w-fieldSet, .w-fieldSet.stacked {
+    + .w-buttonArea {
+        &:before {
+            display: none;
         }
     }
 }
@@ -37,8 +47,13 @@
     width: 100%;
     box-sizing: border-box;
 
+    :last-child {
+        margin-right: 0;
+    }
+
     > button {
         margin-right: 0.7em;
+
     }
 
     .w-buttonGroup {
@@ -61,7 +76,7 @@
 }
 
 
-.w-field, .w-field.floated {
+.w-field {
     @extend %clearfix;
     margin: 0 0 1em;
     font-size: 1em;
@@ -92,11 +107,19 @@
             display: block;
             padding: 0.15em 0;
         }
+
+        &.empty {
+            .w-label {
+                display: none;
+            }
+        }
     }
 
-    &.required > .w-labelArea > .w-label:after {
-        content: ' *';
-        color: #CC0000;
+    &.required > .w-labelArea {
+        > .w-label:after {
+            content: ' *';
+            color: #CC0000;
+        }
     }
 
     &.error:before {
@@ -132,8 +155,8 @@
 
         > .w-field,
         > .fire-block > .w-field {
-            padding: 0.4em;
-            margin: 0.3em 0;
+            //padding: 0.4em;
+            //margin: 0.3em 0;
 
             > .w-label {
                 @extend %innerLabelWidget;
@@ -155,7 +178,7 @@
     }
 
     + .w-buttonArea {
-        padding-left: 0 !important;
+        margin-top: 2em;
 
         &:before {
             content: ' ';
@@ -180,6 +203,16 @@
         text-align: left;
         margin-bottom: 0.4em;
         max-width: none;
+
+        &.empty {
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+
+            label {
+                padding: 0;
+            }
+        }
     }
 
     > .w-fieldError {
@@ -197,6 +230,31 @@
     + .w-buttonArea {
         &:before {
             display: none;
+        }
+    }
+}
+
+.w-field.floated, .floated .w-field {
+    display: flex;
+
+    &.error:before {
+        display: block !important;
+    }
+
+    > .w-labelArea {
+        float: left;
+        width: $form-label-width;
+        margin: 0;
+        max-width: 40%;
+    }
+
+    > .w-inputArea {
+        width: 60%;
+    }
+
+    + .w-buttonArea {
+        &:before {
+            display: block;
         }
     }
 }

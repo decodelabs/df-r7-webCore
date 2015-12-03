@@ -207,6 +207,12 @@ div.layout-pageArea {
             display: block;
         }
     }
+
+    + .w-buttonArea {
+        &:before {
+            margin-right: 1em;
+        }
+    }
 }
 
 .w-overlay .w-inputArea > .w-collectionList {
@@ -226,6 +232,10 @@ div.layout-pageArea {
 
 .w-buttonArea {
     padding: 1em;
+
+    h3 {
+        margin: 0;
+    }
 }
 
 .w-fieldSet > .body > .w-field.stacked:first-child {
@@ -251,11 +261,12 @@ div.layout-pageArea {
             border-radius: 4px;
         }
     }
+
+    + .w-buttonArea:before {
+        margin-left: -1em;
+    }
 }
 
-.w-buttonArea h3 {
-    margin: 0;
-}
 
 .fire-block {
     background: #EBE5E0;

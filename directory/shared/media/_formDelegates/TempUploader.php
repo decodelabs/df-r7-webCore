@@ -106,7 +106,6 @@ class TempUploader extends arch\node\form\Delegate implements
         }
 
         $fa = $fs->addField($label)
-            ->isStacked($this->_isStacked)
             ->push(
                 $this->html->fileUpload($this->fieldName('file'), $this->values->file)
                     ->setAcceptTypes($this->getAcceptTypes())
@@ -166,7 +165,7 @@ class TempUploader extends arch\node\form\Delegate implements
                 });
 
 
-            $fs->addField()->isStacked($this->_isStacked)->push($list);
+            $fs->addField()->push($list);
         }
     }
 

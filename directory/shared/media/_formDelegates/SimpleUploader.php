@@ -103,7 +103,6 @@ class SimpleUploader extends arch\node\form\Delegate implements
         }
 
         $delegate = $this['upload']
-            ->isStacked($this->_isStacked)
             ->shouldShowUploadButton($this->_showUploadButton)
             ->setFieldLabel($this->_fieldLabel)
             ->shouldShowFieldLabel($this->_showFieldLabel);
