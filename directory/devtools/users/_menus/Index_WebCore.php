@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,10 +9,10 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class Index_WebCore extends arch\navigation\menu\Base {
 
-    protected function _createEntries(arch\navigation\IEntryList $entryList) {
+    protected function createEntries($entryList) {
         if(!$this->context->data->getModel('user')->client->countAll()) {
             $entryList->addEntry(
                 $entryList->newLink('~devtools/users/setup-user', 'Add root user')
