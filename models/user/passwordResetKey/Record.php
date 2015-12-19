@@ -14,7 +14,7 @@ use df\flex;
 class Record extends opal\record\Base {
 
     public function generateKey() {
-        $unit = $this->getRecordAdapter();
+        $unit = $this->getAdapter();
 
         do {
             $key = flex\Generator::sessionId();
