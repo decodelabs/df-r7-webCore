@@ -83,7 +83,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 )) :
                 $this->html->flashMessage($this->_(
                     'This log has not been archived and will be deleted on or around %d%',
-                    ['%d%' => $this->format->date($log['date']->modify('+'.$this->data->pestControl->getPurgeThreshold()))]
+                    ['%d%' => $this->format->date($log['date']->modifyNew('+'.$this->data->pestControl->getPurgeThreshold()))]
                 ), 'warning'),
 
             $this->html->panelSet()
