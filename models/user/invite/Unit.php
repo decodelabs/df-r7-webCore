@@ -148,7 +148,7 @@ class Unit extends axis\unit\table\Base {
             }
 
             if($isClient) {
-                $this->context->user->setClientOption(self::INVITE_OPTION, $userCap);
+                $this->context->user->options->set(self::INVITE_OPTION, $userCap);
             } else {
                 $model->option->setOption($ownerId, self::INVITE_OPTION, $userCap);
             }
@@ -258,7 +258,7 @@ class Unit extends axis\unit\table\Base {
             return null;
         }
 
-        $output = $this->context->user->getClientOption(self::INVITE_OPTION);
+        $output = $this->context->user->options->get(self::INVITE_OPTION);
 
         if($output !== null) {
             return $output;
