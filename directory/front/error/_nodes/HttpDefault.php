@@ -41,9 +41,8 @@ class HttpDefault extends arch\node\Base {
                     $redirectRequest = arch\Request::factory('account/confirm-login');
                 }
             } else {
-                $perpetuator = $this->user->session->getPerpetuator();
                 $key = $this->data->session->stub->generateKey();
-                $perpetuator->setJoinKey($key);
+                $this->user->session->perpetuator->setJoinKey($key);
                 $redirectRequest = arch\Request::factory('account/join-session?401&key='.bin2hex($key));
             }
 
