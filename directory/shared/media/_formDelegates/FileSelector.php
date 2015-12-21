@@ -26,6 +26,22 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
     ];
 
 
+    protected $_ownerId;
+
+// Owner
+    public function setOwnerId($id) {
+        $this->_ownerId = $id;
+        return $this;
+    }
+
+    public function getOwnerId() {
+        if($this->_ownerId !== null) {
+            return $this->_ownerId;
+        } else {
+            return $this->user->client->getId();
+        }
+    }
+
 
 // Form
     protected function init() {
@@ -384,7 +400,10 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $result = (array)$result;
 
         foreach($result as $filePath) {
-            $file = $this->data->media->publishFile($filePath, $this->_bucket);
+            $file = $this->data->media->publishFile($filePath, $this->_bucket, [
+                'owner' => $this->getOwnerId()
+            ]);
+
             $this->addSelected($file['id']);
         }
 
@@ -443,7 +462,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             return;
         }
 
-        $version = $this->data->media->publishVersion($file, $result);
+        $version = $this->data->media->publishVersion($file, $result, [
+            'owner' => $this->getOwnerId()
+        ]);
 
         $this->setMode('details');
         $uploadDelegate->setComplete();
