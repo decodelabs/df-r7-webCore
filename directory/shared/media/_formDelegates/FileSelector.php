@@ -404,7 +404,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
                 'owner' => $this->getOwnerId()
             ]);
 
-            $this->addSelected($file['id']);
+            $this->addSelected((string)$file['id']);
         }
 
         $this->setMode('details');
