@@ -15,11 +15,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DIRECTORY_TITLE = 'Task queue';
-    const DIRECTORY_ICON = 'task';
-    const RECORD_ADAPTER = 'axis://task/Queue';
-    const RECORD_NAME_FIELD = 'request';
-    const RECORD_KEY_NAME = 'task';
+    const TITLE = 'Task queue';
+    const ICON = 'task';
+    const ADAPTER = 'axis://task/Queue';
+    const NAME_FIELD = 'request';
+    const KEY_NAME = 'task';
 
     protected $_recordListFields = [
         'request', 'priority', 'queueDate',

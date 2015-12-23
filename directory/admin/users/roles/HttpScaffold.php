@@ -14,9 +14,9 @@ use df\user;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Roles';
-    const DIRECTORY_ICON = 'role';
-    const RECORD_ADAPTER = 'axis://user/Role';
+    const TITLE = 'Roles';
+    const ICON = 'role';
+    const ADAPTER = 'axis://user/Role';
 
 
     protected $_recordListFields = [

@@ -15,14 +15,14 @@ use df\opal;
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DIRECTORY_TITLE = 'Daemons';
-    const DIRECTORY_ICON = 'launch';
-    const RECORD_KEY_NAME = 'daemon';
-    const RECORD_ID_FIELD = 'name';
-    const RECORD_NAME_FIELD = 'name';
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
-    const CAN_DELETE_RECORD = false;
+    const TITLE = 'Daemons';
+    const ICON = 'launch';
+    const KEY_NAME = 'daemon';
+    const ID_FIELD = 'name';
+    const NAME_FIELD = 'name';
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
+    const CAN_DELETE = false;
 
     protected $_recordListFields = [
         'name', 'state', 'startDate', 'statusDate',

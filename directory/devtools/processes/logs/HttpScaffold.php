@@ -15,12 +15,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DIRECTORY_TITLE = 'Spool logs';
-    const DIRECTORY_ICON = 'log';
-    const RECORD_ADAPTER = 'axis://task/Log';
-    const RECORD_NAME_FIELD = 'request';
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
+    const TITLE = 'Spool logs';
+    const ICON = 'log';
+    const ADAPTER = 'axis://task/Log';
+    const NAME_FIELD = 'request';
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
 
     protected $_recordListFields = [
         'request', 'startDate', 'runTime',

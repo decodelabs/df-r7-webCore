@@ -13,10 +13,10 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Elements';
-    const DIRECTORY_ICON = 'element';
-    const RECORD_ADAPTER = 'axis://content/Element';
-    const RECORD_NAME_FIELD = 'slug';
+    const TITLE = 'Elements';
+    const ICON = 'element';
+    const ADAPTER = 'axis://content/Element';
+    const NAME_FIELD = 'slug';
 
     protected $_sections = [
         'details',

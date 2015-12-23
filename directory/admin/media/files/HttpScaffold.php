@@ -13,9 +13,9 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Files';
-    const DIRECTORY_ICON = 'file';
-    const RECORD_ADAPTER = 'axis://media/File';
+    const TITLE = 'Files';
+    const ICON = 'file';
+    const ADAPTER = 'axis://media/File';
 
     protected $_sections = [
         'details',

@@ -12,8 +12,8 @@ use df\arch;
 
 class HttpScaffold extends arch\scaffold\AreaMenu {
 
-    const DIRECTORY_TITLE = 'Admin';
-    const DIRECTORY_ICON = 'admin';
+    const TITLE = 'Admin';
+    const ICON = 'admin';
     const HEADER_BAR = false;
 
     public function generateIndexMenu($entryList) {

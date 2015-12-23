@@ -13,13 +13,13 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Access errors';
-    const DIRECTORY_ICON = 'lock';
-    const RECORD_ADAPTER = 'axis://pestControl/AccessLog';
-    const RECORD_NAME_FIELD = 'date';
-    const RECORD_KEY_NAME = 'log';
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
+    const TITLE = 'Access errors';
+    const ICON = 'lock';
+    const ADAPTER = 'axis://pestControl/AccessLog';
+    const NAME_FIELD = 'date';
+    const KEY_NAME = 'log';
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
 
     protected $_recordListFields = [
         'date', 'mode', 'code', 'request', 'message',

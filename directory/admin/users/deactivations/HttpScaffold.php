@@ -13,14 +13,14 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'User deactivations';
-    const DIRECTORY_ICON = 'remove';
-    const RECORD_ADAPTER = 'axis://user/ClientDeactivation';
-    const RECORD_KEY_NAME = 'deactivation';
-    const RECORD_NAME_FIELD = 'date';
+    const TITLE = 'User deactivations';
+    const ICON = 'remove';
+    const ADAPTER = 'axis://user/ClientDeactivation';
+    const KEY_NAME = 'deactivation';
+    const NAME_FIELD = 'date';
 
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
 
     protected $_recordListFields = [
         'date', 'user', 'reason'

@@ -15,13 +15,13 @@ use df\flow;
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DIRECTORY_TITLE = 'Development mailbox';
-    const DIRECTORY_ICON = 'mail';
-    const RECORD_ADAPTER = 'axis://mail/Capture';
-    const RECORD_KEY_NAME = 'mail';
-    const RECORD_NAME_FIELD = 'subject';
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
+    const TITLE = 'Development mailbox';
+    const ICON = 'mail';
+    const ADAPTER = 'axis://mail/Capture';
+    const KEY_NAME = 'mail';
+    const NAME_FIELD = 'subject';
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
 
     protected $_recordListFields = [
         'subject', 'from', 'to', 'date',

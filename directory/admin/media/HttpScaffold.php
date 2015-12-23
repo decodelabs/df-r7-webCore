@@ -13,10 +13,10 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Media buckets';
-    const DIRECTORY_ICON = 'database';
-    const RECORD_ADAPTER = 'axis://media/Bucket';
-    const DEFAULT_RECORD_NODE = 'files';
+    const TITLE = 'Media buckets';
+    const ICON = 'database';
+    const ADAPTER = 'axis://media/Bucket';
+    const DEFAULT_SECTION = 'files';
 
     protected $_sections = [
         'details',

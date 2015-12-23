@@ -14,8 +14,8 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DIRECTORY_TITLE = 'Process manager';
-    const DIRECTORY_ICON = 'task';
+    const TITLE = 'Process manager';
+    const ICON = 'task';
 
     public function generateIndexMenu($entryList) {
         $entryList->addEntries(

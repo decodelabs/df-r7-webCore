@@ -13,14 +13,14 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Invite requests';
-    const DIRECTORY_ICON = 'key';
-    const RECORD_ADAPTER = 'axis://user/InviteRequest';
-    const RECORD_KEY_NAME = 'request';
-    const RECORD_ITEM_NAME = 'Invite request';
+    const TITLE = 'Invite requests';
+    const ICON = 'key';
+    const ADAPTER = 'axis://user/InviteRequest';
+    const KEY_NAME = 'request';
+    const ITEM_NAME = 'Invite request';
 
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
 
     protected $_recordListFields = [
         'name', 'email', 'companyName', 'companyPosition',

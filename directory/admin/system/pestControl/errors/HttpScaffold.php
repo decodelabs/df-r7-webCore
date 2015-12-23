@@ -13,12 +13,12 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Critical errors';
-    const DIRECTORY_ICON = 'error';
-    const RECORD_ADAPTER = 'axis://pestControl/Error';
-    const RECORD_NAME_FIELD = 'message';
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
+    const TITLE = 'Critical errors';
+    const ICON = 'error';
+    const ADAPTER = 'axis://pestControl/Error';
+    const NAME_FIELD = 'message';
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
 
     protected $_recordListFields = [
         'message', 'type', 'code', 'file', 'line',

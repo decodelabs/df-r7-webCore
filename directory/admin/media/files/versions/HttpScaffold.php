@@ -13,12 +13,12 @@ use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'File versions';
-    const DIRECTORY_ICON = 'list';
-    const RECORD_ADAPTER = 'axis://media/Version';
+    const TITLE = 'File versions';
+    const ICON = 'list';
+    const ADAPTER = 'axis://media/Version';
 
-    const CAN_ADD_RECORD = false;
-    const CAN_DELETE_RECORD = false;
+    const CAN_ADD = false;
+    const CAN_DELETE = false;
 
     protected $_recordListFields = [
         'number', 'fileName', 'file', 'fileSize', 'contentType', 'hash',

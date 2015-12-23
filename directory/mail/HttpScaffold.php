@@ -13,8 +13,8 @@ use df\arch;
 class HttpScaffold extends arch\scaffold\AreaMenu {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DIRECTORY_TITLE = 'Mail';
-    const DIRECTORY_ICON = 'mail';
+    const TITLE = 'Mail';
+    const ICON = 'mail';
     const HEADER_BAR = false;
 
     public function generateIndexMenu($entryList) {

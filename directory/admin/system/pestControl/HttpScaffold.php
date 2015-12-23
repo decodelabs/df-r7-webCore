@@ -12,8 +12,8 @@ use df\arch;
 
 class HttpScaffold extends arch\scaffold\AreaMenu {
 
-    const DIRECTORY_TITLE = 'Pest control';
-    const DIRECTORY_ICON = 'bug';
+    const TITLE = 'Pest control';
+    const ICON = 'bug';
 
     protected $_router;
 

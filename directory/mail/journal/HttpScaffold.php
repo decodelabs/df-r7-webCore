@@ -14,13 +14,13 @@ use df\opal;
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DIRECTORY_TITLE = 'Send logs';
-    const DIRECTORY_ICON = 'log';
-    const RECORD_ADAPTER = 'axis://mail/Journal';
-    const RECORD_NAME_FIELD = 'date';
-    const CAN_ADD_RECORD = false;
-    const CAN_EDIT_RECORD = false;
-    const CAN_DELETE_RECORD = false;
+    const TITLE = 'Send logs';
+    const ICON = 'log';
+    const ADAPTER = 'axis://mail/Journal';
+    const NAME_FIELD = 'date';
+    const CAN_ADD = false;
+    const CAN_EDIT = false;
+    const CAN_DELETE = false;
 
     protected $_recordListFields = [
         'date', 'name', 'email', 'user', 'environmentMode', 'expireDate', 'actions' => false

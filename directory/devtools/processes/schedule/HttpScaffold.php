@@ -16,10 +16,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DIRECTORY_TITLE = 'Scheduled tasks';
-    const DIRECTORY_ICON = 'calendar';
-    const RECORD_ADAPTER = 'axis://task/Schedule';
-    const RECORD_NAME_FIELD = 'request';
+    const TITLE = 'Scheduled tasks';
+    const ICON = 'calendar';
+    const ADAPTER = 'axis://task/Schedule';
+    const NAME_FIELD = 'request';
 
     protected $_sections = [
         'details',

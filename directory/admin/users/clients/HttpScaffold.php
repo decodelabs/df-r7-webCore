@@ -14,11 +14,11 @@ use df\user;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Users';
-    const DIRECTORY_ICON = 'user';
-    const RECORD_ADAPTER = 'axis://user/Client';
-    const RECORD_KEY_NAME = 'user';
-    const RECORD_NAME_FIELD = 'fullName';
+    const TITLE = 'Users';
+    const ICON = 'user';
+    const ADAPTER = 'axis://user/Client';
+    const KEY_NAME = 'user';
+    const NAME_FIELD = 'fullName';
 
     protected $_sections = [
         'details',
