@@ -13,7 +13,7 @@ use df\flex;
 
 class Record extends opal\record\Base {
 
-    protected function _onPreInsert() {
+    protected function onPreInsert() {
         if(!$this['key']) {
             $this['key'] = flex\Generator::sessionId();
         }

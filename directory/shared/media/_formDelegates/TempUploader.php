@@ -299,7 +299,7 @@ class TempUploader extends arch\node\form\Delegate implements
         $this->onUploadEvent();
     }
 
-    protected function _onComplete($success) {
+    protected function onComplete($success) {
         if($destination = $this->getStore('tempUploadDir')) {
             core\fs\Dir::delete($destination);
         }
