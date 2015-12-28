@@ -30,6 +30,20 @@ class SimpleUploader extends arch\node\form\Delegate implements
     protected $_fieldLabel = null;
     protected $_showFieldLabel = true;
     protected $_limit = null;
+    protected $_ownerId;
+
+    public function setOwnerId($id) {
+        $this->_ownerId = $id;
+        return $this;
+    }
+
+    public function getOwnerId() {
+        if($this->_ownerId !== null) {
+            return $this->_ownerId;
+        } else {
+            return $this->user->client->getId();
+        }
+    }
 
     public function shouldShowUploadButton($flag=null) {
         if($flag !== null) {
@@ -178,7 +192,9 @@ class SimpleUploader extends arch\node\form\Delegate implements
 
         if(!$this->_isForMany) {
             if($filePath = $delegate->apply()) {
-                $file = $this->data->media->publishFile($filePath, $this->_bucket);
+                $file = $this->data->media->publishFile($filePath, $this->_bucket, [
+                    'owner' => $this->getOwnerId()
+                ]);
                 $this->setSelected($file['id']);
             }
         } else {
@@ -187,7 +203,10 @@ class SimpleUploader extends arch\node\form\Delegate implements
 
             if(!empty($filePaths)) {
                 foreach($filePaths as $filePath) {
-                    $file = $this->data->media->publishFile($filePath, $this->_bucket);
+                    $file = $this->data->media->publishFile($filePath, $this->_bucket, [
+                        'owner' => $this->getOwnerId()
+                    ]);
+
                     $ids[] = $file['id'];
                 }
             }
