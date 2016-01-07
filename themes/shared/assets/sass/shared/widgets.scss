@@ -491,24 +491,28 @@ button.text {
             padding-right: 1em;
         }
 
-        &.field-actions a.w-link {
-            margin: 0 0.15em;
-            font-size: 1.2em;
-            width: 1.2em !important;
-            height: 1.2em !important;
-            overflow: hidden;
-            visibility: hidden;
+        &.field-actions {
+            white-space: nowrap;
 
-            &:first-child {
-                margin-left: 0;
-            }
+            a.w-link {
+                margin: 0 0.15em;
+                font-size: 1.2em;
+                width: 1.2em !important;
+                height: 1.2em !important;
+                overflow: hidden;
+                visibility: hidden;
 
-            span[data-icon] {
-                margin-right: 1em;
-                visibility: visible;
+                &:first-child {
+                    margin-left: 0;
+                }
 
-                &:before {
-                    padding-right: 0;
+                span[data-icon] {
+                    margin-right: 1em;
+                    visibility: visible;
+
+                    &:before {
+                        padding-right: 0;
+                    }
                 }
             }
         }
