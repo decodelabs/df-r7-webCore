@@ -140,6 +140,7 @@
         order: -1;
         flex: 0 1 60%;
         margin-bottom: 0.2em;
+        min-width: calc(100% - #{$form-label-width});
     }
 
     > .w-inputArea {
