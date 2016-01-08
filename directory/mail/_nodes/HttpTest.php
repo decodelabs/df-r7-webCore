@@ -21,6 +21,9 @@ class HttpTest extends arch\node\Form {
     }
 
     protected function setDefaultValues() {
+        $this->setStore('type', 'custom');
+        $this->values->type = 'custom';
+
         $manager = flow\Manager::getInstance();
         $this->values->transport = $manager->getDefaultMailTransportName();
 
@@ -35,8 +38,6 @@ class HttpTest extends arch\node\Form {
             $this->values->toName = $client->getFullName();
             $this->values->toAddress = $client->getEmail();
         }
-
-        $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->application->getName()]);
     }
 
     protected function createUi() {
@@ -105,32 +106,109 @@ class HttpTest extends arch\node\Form {
         );
 
 
-        // Subject
-        $fs->addField($this->_('Subject'))->push(
-            $this->html->textbox('subject', $this->values->subject)
-                ->isRequired(true)
+        $fs = $form->addFieldSet($this->_('Email body'));
+        $type = $this->getStore('type');
+
+        // Type
+        $fs->addField($this->_('Email type'))->push(
+            $this->html->selectList('type', $this->values->type, [
+                    'component' => $this->_('Pre-generated preview component'),
+                    'custom' => $this->_('Custom text / html')
+                ])
+                ->isRequired(true),
+
+            $this->html->eventButton('selectType', $this->_('Select'))
+                ->setIcon('tick')
+                ->setDisposition('positive')
+                ->shouldValidate(false)
         );
 
+        if($type == 'component') {
+            // Component
+            $fs->addField($this->_('Component'))->push(
+                $this->html->selectList('component', $this->values->component, array_keys($this->_getTemplateList()), true)
+                    ->isRequired(true)
+            );
+        } else if($type == 'custom') {
+            // Subject
+            $fs->addField($this->_('Subject'))->push(
+                $this->html->textbox('subject', $this->values->subject)
+                    ->isRequired(true)
+            );
 
+            // Body text
+            $fs->addField($this->_('Body text'))->push(
+                $this->html->textarea('bodyText', $this->values->bodyText)
+                    ->setPlaceholder($this->_('Plain text'))
+            );
 
-        // Body text
-        $fs->addField($this->_('Body text'))->push(
-            $this->html->textarea('bodyText', $this->values->bodyText)
-                ->setPlaceholder($this->_('Plain text'))
-        );
-
-        // Body html
-        $fs->addField($this->_('Body HTML'))->push(
-            $this->html->textarea('bodyHtml', $this->values->bodyHtml)
-                ->setPlaceholder($this->_('HTML source'))
-        );
+            // Body html
+            $fs->addField($this->_('Body HTML'))->push(
+                $this->html->textarea('bodyHtml', $this->values->bodyHtml)
+                    ->setPlaceholder($this->_('HTML source'))
+            );
+        }
 
 
         // Buttons
-        $fs->addDefaultButtonGroup('send', $this->_('Send'));
+        $form->addDefaultButtonGroup('send', $this->_('Send'));
+    }
+
+    protected function _getTemplateList() {
+        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/mail', 'php', function($path) {
+            return false !== strpos($path, '_components');
+        });
+
+        $mails = [];
+
+        foreach($list as $name => $filePath) {
+            $parts = explode('_components/', substr($name, 0, -4), 2);
+            $path = array_shift($parts);
+            $name = array_shift($parts);
+
+            if(false !== strpos($name, '/')) {
+                $path .= '#/';
+            }
+
+            $name = $path.$name;
+            $path = '~mail/'.$name;
+
+            try {
+                $component = $this->apex->component($path);
+            } catch(\Exception $e) {
+                $mails[$name] = null;
+                continue;
+            }
+
+            if(!$component instanceof arch\IMailComponent) {
+                continue;
+            }
+
+            $mails[$name] = $component;
+        }
+
+        ksort($mails);
+        return $mails;
+    }
+
+    protected function onSelectTypeEvent() {
+        $validator = $this->data->newValidator()
+            ->addRequiredField('type', 'enum')
+                ->setOptions(['component', 'custom'])
+            ->validate($this->values);
+
+        if($validator->isValid()) {
+            $this->setStore('type', $validator['type']);
+
+            if($validator['type'] == 'custom' && !strlen($this->values['subject'])) {
+                $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->application->getName()]);
+            }
+        }
     }
 
     protected function onSendEvent() {
+        $this->onSelectTypeEvent();
+
         $validator = $this->data->newValidator()
 
             // Transport
@@ -160,8 +238,68 @@ class HttpTest extends arch\node\Form {
 
             // BCC
             ->addField('bccAddress', 'email')
-            ->addField('bccName', 'text')
+            ->addField('bccName', 'text');
 
+
+        switch($this->getStore('type')) {
+            case 'component':
+                return $this->_sendComponent($validator);
+
+            case 'custom':
+                return $this->_sendCustom($validator);
+
+            default:
+                return;
+        }
+    }
+
+    protected function _sendComponent($validator) {
+        $validator
+
+            // Component
+            ->addRequiredField('component', 'text')
+            ->validate($this->values);
+
+        return $this->complete(function() use($validator) {
+            $transport = flow\mail\transport\Base::factory($validator['transport']);
+            $component = $this->apex->component('~mail/'.$validator['component']);
+            $notification = $component->renderPreview()->toNotification();
+
+            $mail = new flow\mail\Message();
+            $mail->setSubject($notification->getSubject());
+
+            if($notification->getBodyType() == flow\INotification::TEXT) {
+                $mail->setBodyText((string)$notification->getBody());
+            } else {
+                $mail->setBodyHtml($notification->getBodyHtml());
+            }
+
+            $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
+            $mail->addToAddress($validator['toAddress'], $validator['toName']);
+
+            if($validator['returnPath']) {
+                $mail->setReturnPath($validator['returnPath']);
+            }
+
+            if($validator['ccAddress']) {
+                $mail->addCCAddress($validator['ccAddress'], $validator['ccName']);
+            }
+
+            if($validator['bccAddress']) {
+                $mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
+            }
+
+            $transport->send($mail);
+
+            $this->comms->flashSuccess(
+                'testMail.sent',
+                $this->_('The email has been successfully sent')
+            );
+        });
+    }
+
+    protected function _sendCustom($validator) {
+        $validator
             // Subject
             ->addRequiredField('subject', 'text')
 
@@ -170,7 +308,6 @@ class HttpTest extends arch\node\Form {
             ->addField('bodyHtml', 'text')
 
             ->validate($this->values);
-
 
         return $this->complete(function() use($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
