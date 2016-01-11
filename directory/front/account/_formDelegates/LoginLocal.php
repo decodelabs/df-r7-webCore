@@ -19,13 +19,18 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Sign-in'));
 
-        // Lost password
-        $fs->addField()->push(
-            $this->html->link(
-                $this->uri('account/lost-password', true),
-                $this->_('Forgot your password?')
-            )
-        );
+        // Register
+        if($this->data->user->config->isRegistrationEnabled()) {
+            $fs->addField()->push(
+                $this->html('p', [
+                    $this->_('Not signed up yet?'), ' ',
+                    $this->html->link(
+                        $this->uri('account/register'),
+                        $this->_('Register now...')
+                    )
+                ])
+            );
+        }
 
         // Identity
         $fs->addField($this->_('Email address'))
@@ -60,7 +65,14 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
                 )
                 ->setIcon('accept'),
 
-            $this->html->cancelEventButton()
+            $this->html->cancelEventButton(),
+
+            $this->html->buttonGroup(
+                $this->html->link(
+                    $this->uri('account/lost-password', true),
+                    $this->_('Forgot your password?')
+                )
+            )
         );
     }
 
