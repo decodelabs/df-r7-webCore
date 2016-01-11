@@ -703,8 +703,9 @@ button.text {
 .w-flashMessage {
     border: 1px #F4F4F4 solid;
     margin-bottom: 1em;
-    padding: 0.4em 1em;
+    padding: 0.4em 1em 0.4em 3em;
     display: block !important;
+    position: relative;
 
     &.success {
         background: rgba(desaturate(lighten($success-color, 65%), 45%), 0.65);
@@ -731,6 +732,17 @@ button.text {
         border-color: $debug-color;
     }
 
+    > span[data-icon] {
+        float: left;
+        position: absolute;
+        font-size: 1.2em;
+        height: 1em;
+        left: 0.8em;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
     .message {
         margin: 0;
         font-weight: bold;
@@ -739,7 +751,7 @@ button.text {
     .description {
         font-size: 0.8em;
         color: #777;
-        margin: 0.2em 0 0 2.5em;
+        margin: 0.2em 0 0;
     }
 }
 
