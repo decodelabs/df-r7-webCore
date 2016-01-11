@@ -704,6 +704,7 @@ button.text {
     border: 1px #F4F4F4 solid;
     margin-bottom: 1em;
     padding: 0.4em 1em;
+    display: block !important;
 
     &.success {
         background: rgba(desaturate(lighten($success-color, 65%), 45%), 0.65);
@@ -735,19 +736,15 @@ button.text {
         font-weight: bold;
     }
 
-    a {
-        display: block;
-        padding: 0;
-        margin: 0;
-        color: inherit !important;
-        text-decoration: none !important;
-    }
-
     .description {
         font-size: 0.8em;
         color: #777;
-        margin: 0.2em 0 0 1.8em;
+        margin: 0.2em 0 0 2.5em;
     }
+}
+
+a.w-flashMessage {
+    text-decoration: none !important;
 }
 
 
