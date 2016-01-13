@@ -199,10 +199,11 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             }
 
             $fs = $ol->addFieldSet($this->_('Upload new file'))->addClass('stacked');
+            $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
 
             $fs->addField()->push(
                 $this->html->fileUpload($this['upload']->fieldName('file'))
-                    ->setAcceptTypes($this->_acceptTypes),
+                    ->setAcceptTypes($accept),
 
                 $this->html->eventButton(
                         $this->eventName('beginUpload'),
