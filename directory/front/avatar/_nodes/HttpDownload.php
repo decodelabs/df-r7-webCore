@@ -60,7 +60,9 @@ class HttpDownload extends arch\node\Base {
 
             }
 
-            return $this->http->redirect($url)->isAlternativeContent(true);
+            $output = $this->http->redirect($url)->isAlternativeContent(true);
+            $output->headers->setCacheExpiration('15 minutes');
+            return $output;
         }
     }
 }
