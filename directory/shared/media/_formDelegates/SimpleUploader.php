@@ -116,6 +116,8 @@ class SimpleUploader extends arch\node\form\Delegate implements
             return;
         }
 
+        $hasNew = (bool)$this['upload']->getUploadedFileNames();
+
         $files = $this->data->media->file->select('id as fileId', 'creationDate')
             ->joinRelation('activeVersion', 'fileName', 'fileSize')
             ->where('file.id', 'in', (array)$this->getSelected())
@@ -171,7 +173,8 @@ class SimpleUploader extends arch\node\form\Delegate implements
                 ->addField('uploaded', function($file) {
                     return $this->html->timeFromNow($file['creationDate']);
                 })
-                ->addClass('uploaded');
+                ->addClass('uploaded')
+                ->addClass($hasNew ? 'original' : null);
         }
 
 

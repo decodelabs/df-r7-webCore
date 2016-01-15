@@ -99,6 +99,48 @@ class TempUploader extends arch\node\form\Delegate implements
             }
         }
 
+        $fileCount = count($files);
+
+        if($fileCount) {
+            $hasMany = !$this->_isForMany && $fileCount > 1;
+
+            $list = $this->html->collectionList($files)
+                ->shouldShowHeader(false)
+                ->addField('name', function($file) use($hasMany) {
+                    if(!$this->_isForMany) {
+                        if($hasMany) {
+                            return $this->html->radioButton(
+                                $this->fieldName('selectUpload'),
+                                $this->values->selectUpload,
+                                $file['fileName'],
+                                $file['fileName']
+                            );
+                        } else {
+                            return [
+                                $file['fileName'],
+                                $this->html->hidden($this->fieldName('selectUpload'), $file['fileName'])
+                            ];
+                        }
+                    } else {
+                        return $this->html->checkbox(
+                            $this->fieldName('selectUpload['.$file['fileName'].']'),
+                            $this->values->selectUpload->{$file['fileName']},
+                            $file['fileName']
+                        );
+                    }
+                })
+                ->addField('size', function($file) {
+                    return $this->format->fileSize($file['size']);
+                })
+                ->addField('uploaded', $this->_('Uploaded'), function($file) {
+                    return $this->format->timeFromNow($file['time']);
+                })
+                ->addClass('uploaded temp');
+
+
+            $fs->addField()->push($list);
+        }
+
         if($this->_showFieldLabel) {
             $label = $this->_fieldLabel !== null ? $this->_fieldLabel : $this->_('File');
         } else {
@@ -125,47 +167,6 @@ class TempUploader extends arch\node\form\Delegate implements
                     ->setDisposition('positive')
                     ->shouldValidate(false)
             );
-        }
-
-        $fileCount = count($files);
-
-        if($fileCount) {
-            $hasMany = !$this->_isForMany && $fileCount > 1;
-
-            $list = $this->html->collectionList($files)
-                ->shouldShowHeader(false)
-                ->addField('fileName', function($file) use($hasMany) {
-                    if(!$this->_isForMany) {
-                        if($hasMany) {
-                            return $this->html->radioButton(
-                                $this->fieldName('selectUpload'),
-                                $this->values->selectUpload,
-                                $file['fileName'],
-                                $file['fileName']
-                            );
-                        } else {
-                            return [
-                                $file['fileName'],
-                                $this->html->hidden($this->fieldName('selectUpload'), $file['fileName'])
-                            ];
-                        }
-                    } else {
-                        return $this->html->checkbox(
-                            $this->fieldName('selectUpload['.$file['fileName'].']'),
-                            $this->values->selectUpload->{$file['fileName']},
-                            $file['fileName']
-                        );
-                    }
-                })
-                ->addField('size', function($file) {
-                    return $this->format->fileSize($file['size']);
-                })
-                ->addField('time', $this->_('Uploaded'), function($file) {
-                    return $this->format->timeFromNow($file['time']);
-                });
-
-
-            $fs->addField()->push($list);
         }
     }
 
