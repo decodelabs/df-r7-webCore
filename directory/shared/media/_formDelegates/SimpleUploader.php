@@ -146,6 +146,32 @@ class SimpleUploader extends arch\node\form\Delegate implements
                 $fa->push($this->html->fieldError($messages));
             }
 
+            $fa->addCollectionList($files)
+                ->shouldShowHeader(false)
+                ->addField('name', function($file) {
+                    $id = (string)$file['fileId'];
+
+                    if(!$this->_isForMany) {
+                        return [
+                            $this->html('label', $file['fileName']),
+                            $this->html->hidden($this->fieldName('selected'), $id)
+                        ];
+                    } else {
+                        return $this->html->checkbox(
+                            $this->fieldName('selected[]'),
+                            $this->values->selected->contains($id),
+                            $file['fileName'],
+                            $id
+                        );
+                    }
+                })
+                ->addField('size', function($file) {
+                    return $this->format->fileSize($file['fileSize']);
+                })
+                ->addField('uploaded', function($file) {
+                    return $this->html->timeFromNow($file['creationDate']);
+                })
+                ->addClass('uploaded');
         }
 
 
