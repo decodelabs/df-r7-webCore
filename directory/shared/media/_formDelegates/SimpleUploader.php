@@ -116,13 +116,6 @@ class SimpleUploader extends arch\node\form\Delegate implements
             return;
         }
 
-        $delegate = $this['upload']
-            ->shouldShowUploadButton($this->_showUploadButton)
-            ->setFieldLabel($this->_fieldLabel)
-            ->shouldShowFieldLabel($this->_showFieldLabel);
-
-        $delegate->renderContainerContent($fs);
-
         $files = $this->data->media->file->select('id as fileId', 'creationDate')
             ->joinRelation('activeVersion', 'fileName', 'fileSize')
             ->where('file.id', 'in', (array)$this->getSelected())
@@ -180,6 +173,13 @@ class SimpleUploader extends arch\node\form\Delegate implements
                 })
                 ->addClass('uploaded');
         }
+
+        $delegate = $this['upload']
+            ->shouldShowUploadButton($this->_showUploadButton)
+            ->setFieldLabel($this->_fieldLabel)
+            ->shouldShowFieldLabel($this->_showFieldLabel);
+
+        $delegate->renderContainerContent($fs);
     }
 
     public function apply() {
