@@ -177,7 +177,8 @@ class SimpleUploader extends arch\node\form\Delegate implements
                 })
                 ->addField('uploaded', function($file) {
                     return $this->html->timeFromNow($file['creationDate']);
-                });
+                })
+                ->addClass('uploaded');
         }
     }
 
