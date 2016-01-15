@@ -116,6 +116,8 @@ class SimpleUploader extends arch\node\form\Delegate implements
             return;
         }
 
+        $fs->push('oi');
+
         $files = $this->data->media->file->select('id as fileId', 'creationDate')
             ->joinRelation('activeVersion', 'fileName', 'fileSize')
             ->where('file.id', 'in', (array)$this->getSelected())
