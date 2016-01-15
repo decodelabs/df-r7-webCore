@@ -174,6 +174,7 @@ class SimpleUploader extends arch\node\form\Delegate implements
                 ->addClass('uploaded');
         }
 
+
         $delegate = $this['upload']
             ->shouldShowUploadButton($this->_showUploadButton)
             ->setFieldLabel($this->_fieldLabel)
