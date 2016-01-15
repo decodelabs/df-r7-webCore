@@ -125,7 +125,7 @@ class HttpAvatar extends arch\node\Form {
                 $this->data->user->cache->setAvatarCacheTime();
             }
 
-            $this->comms->flashSaveSuccess('photo');
+            $this->comms->flash('avatar.save', $this->_('Your avatar has been successfully updated'), 'success');
         });
     }
 
