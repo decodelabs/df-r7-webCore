@@ -172,7 +172,7 @@ class TempUploader extends arch\node\form\Delegate implements
     }
 
     protected function _getWidgetId() {
-        return str_replace('.', '_', 'tu-'.$this->getDelegateId());
+        return $this->format->slug('tu-'.$this->getDelegateId());
     }
 
 
