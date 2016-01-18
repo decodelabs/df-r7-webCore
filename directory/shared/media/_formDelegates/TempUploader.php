@@ -151,6 +151,7 @@ class TempUploader extends arch\node\form\Delegate implements
             ->push(
                 $this->html->fileUpload($this->fieldName('file'), $this->values->file)
                     ->setAcceptTypes($this->getAcceptTypes())
+                    ->setId($this->_getWidgetId())
             );
 
         if($this->_showFieldLabel) {
@@ -170,6 +171,10 @@ class TempUploader extends arch\node\form\Delegate implements
         }
     }
 
+    protected function _getWidgetId() {
+        return str_replace('.', '_', 'tu-'.$this->getDelegateId());
+    }
+
 
 // Result
     protected function onUploadEvent() {
@@ -179,7 +184,7 @@ class TempUploader extends arch\node\form\Delegate implements
         $uploadHandler->setAcceptTypes($this->_acceptTypes);
 
         if(!count($uploadHandler)) {
-            return;
+            return $this->http->redirect('#'.$this->_getWidgetId());
         }
 
         if(!$this->_isForMany) {
@@ -199,6 +204,8 @@ class TempUploader extends arch\node\form\Delegate implements
                 }
             }
         }
+
+        return $this->http->redirect('#'.$this->_getWidgetId());
     }
 
     public function getUploadedFileNames() {
