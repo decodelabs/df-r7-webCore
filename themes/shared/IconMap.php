@@ -46,6 +46,7 @@ return [
     'unit' => '&#xe018;',
     'project' => '&#xe018;',
     'toolkit' => '&#xe019;',
+    'education' => '&#xe019;',
     'mobile' => '&#xe01a;',
     'dashboard' => '&#xe01b;',
     'time' => '&#xe01b;',
