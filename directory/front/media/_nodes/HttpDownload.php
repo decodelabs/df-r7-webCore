@@ -33,6 +33,6 @@ class HttpDownload extends arch\node\Base {
                 ->isPermanent(true);
         }
 
-        return $this->media->fetchAndServeDownload($id);
+        return $this->media->fetchAndServeDownload($id, isset($this->request->query->embed));
     }
 }

@@ -6,7 +6,7 @@ use df\core;
 use df\arch;
 
 class HttpRouter implements arch\IRouter {
-    
+
     public function routeIn(arch\IRequest $request) {
         $parts = explode('[', $request->path->pop(), 2);
         $id = rtrim(array_shift($parts), '-|');
@@ -25,7 +25,7 @@ class HttpRouter implements arch\IRouter {
 
         return $request;
     }
-    
+
     public function routeOut(arch\IRequest $request) {
         $query = $request->getQuery();
 
@@ -50,7 +50,8 @@ class HttpRouter implements arch\IRouter {
             $request->path->setBasename($last);
         }
 
-        $request->setQuery(null);
+        unset($query->file, $query->version, $query->transform);
+        //$request->setQuery(null);
         return $request;
     }
 }

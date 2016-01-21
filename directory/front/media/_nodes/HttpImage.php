@@ -38,7 +38,7 @@ class HttpImage extends arch\node\Base {
         }
 
         return $this->media->fetchAndServeImage(
-            $id, $transform
+            $id, $transform, isset($this->request->query->embed)
         );
     }
 }
