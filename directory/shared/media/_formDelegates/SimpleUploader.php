@@ -173,6 +173,13 @@ class SimpleUploader extends arch\node\form\Delegate implements
                 ->addField('uploaded', function($file) {
                     return $this->html->timeFromNow($file['creationDate']);
                 })
+                ->addField('actions', function($file) {
+                    yield $this->html->link(
+                            $this->media->getDownloadUrl($file['fileId']),
+                            $this->_('Download')
+                        )
+                        ->setIcon('download');
+                })
                 ->addClass('uploaded')
                 ->addClass($hasNew ? 'original' : null);
         }
