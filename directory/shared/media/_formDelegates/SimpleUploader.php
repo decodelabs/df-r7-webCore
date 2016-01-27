@@ -179,6 +179,14 @@ class SimpleUploader extends arch\node\form\Delegate implements
                             $this->_('Download')
                         )
                         ->setIcon('download');
+
+                    yield $this->html->eventButton(
+                            $this->eventName('removeFile', $file['fileId']),
+                            $this->_('Remove')
+                        )
+                        ->setDisposition('negative')
+                        ->setIcon('cross')
+                        ->shouldValidate(false);
                 })
                 ->addClass('uploaded')
                 ->addClass($hasNew ? 'original' : null);
@@ -249,6 +257,16 @@ class SimpleUploader extends arch\node\form\Delegate implements
         }
 
         return $this->getSelected();
+    }
+
+    public function onRemoveFileEvent($id) {
+        if($this->_isForMany) {
+            unset($this->values->selected->{$id});
+        } else {
+            if($this->values['selected'] == $id) {
+                unset($this->values->selected);
+            }
+        }
     }
 
     protected function _sanitizeSelection($selection) {
