@@ -23,8 +23,14 @@
 
     + .w-buttonArea {
         margin-top: 2em;
+
         &:before {
-            content: ' ';
+            /* IE8 hack to ensure buttons are floated */
+            content: '---';
+            float: left;
+            color: transparent !important;
+            visibility: hidden !important;
+
             display: block;
             width: $form-label-width;
             max-width: 40%;
@@ -201,7 +207,12 @@
         margin-top: 2em;
 
         &:before {
-            content: ' ';
+            /* IE8 hack to ensure buttons are floated */
+            content: '---';
+            float: left;
+            color: transparent !important;
+            visibility: hidden !important;
+
             display: block;
             width: $form-label-width;
             max-width: 40%;
