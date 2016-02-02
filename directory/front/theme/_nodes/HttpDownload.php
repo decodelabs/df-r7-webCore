@@ -63,8 +63,9 @@ class HttpDownload extends arch\node\Base {
                 $output->setContentType($type);
         }
 
-        $output->getHeaders()
-            ->set('Access-Control-Allow-Origin', '*');
+        $output->setFileName(basename($absolutePath))
+            ->getHeaders()
+                ->set('Access-Control-Allow-Origin', '*');
 
         if($cacheAge) {
             $output->getHeaders()->setCacheExpiration($cacheAge);

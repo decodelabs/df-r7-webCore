@@ -38,12 +38,9 @@ class HttpDownload extends arch\node\Base {
             $output->setContentType($type);
         }
 
-        if(isset($this->request['attachment'])) {
-            $output->setAttachmentFileName(basename($absolutePath));
-        }
-
-        $output->getHeaders()
-            ->set('Access-Control-Allow-Origin', '*');
+        $output->setFileName(basename($absolutePath), isset($this->request['attachment']))
+            ->getHeaders()
+                ->set('Access-Control-Allow-Origin', '*');
 
         return $output;
     }
