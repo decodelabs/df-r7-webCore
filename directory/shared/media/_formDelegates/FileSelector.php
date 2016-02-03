@@ -485,9 +485,26 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             }
         }
 
-        $this->setMode('upload');
-        $this->onUploadEvent();
-        $this->removeStore('versionFileId');
+        $uploadDelegate = $this['versionUpload'];
+        $result = $uploadDelegate->apply();
+
+        if(!empty($result)) {
+            $result = (array)$result;
+
+            foreach($result as $filePath) {
+                $file = $this->data->media->publishFile($filePath, $this->_bucket, [
+                    'owner' => $this->getOwnerId()
+                ]);
+
+                $this->addSelected((string)$file['id']);
+            }
+
+            $this->setMode('details');
+            $uploadDelegate->setComplete();
+        } else {
+            $this->setMode('upload');
+            $this->removeStore('versionFileId');
+        }
     }
 
     protected function onCancelVersionEvent() {
