@@ -43,19 +43,15 @@
                 ->setIcon('admin')
                 ->isActive($this->context->request->isArea('admin')),
 
-            /*
-            $this->html->link('~front/', $this->_('Front end'))
-                ->setIcon('home')
-                ->isActive($this->context->request->isArea('front')),
-            */
-
             $this->html->link('~mail/', $this->_('Mail centre'))
-                    ->setIcon('mail')
-                    ->isActive($this->context->request->isArea('mail')),
+                ->setIcon('mail')
+                ->isActive($this->context->request->isArea('mail'))
+                ->shouldHideIfInaccessible(true),
 
             $this->html->link('~devtools/', $this->_('Devtools'))
                 ->setIcon('debug')
                 ->isActive($this->context->request->isArea('devtools'))
+                ->shouldHideIfInaccessible(true)
         )
         ->chainIf(!$this->context->application->isProduction(), function($menu) {
             $menu->addLinks(
