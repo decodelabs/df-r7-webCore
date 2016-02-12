@@ -75,6 +75,10 @@ class HttpDefault extends arch\node\Base {
 
                     case 404:
                         $this->logs->logNotFound($url, $exception->getMessage());
+
+                        if($lastRequest && $lastRequest->isArea('admin')) {
+                            $this->logs->logException($exception, $url);
+                        }
                         break;
 
                     case 500:
