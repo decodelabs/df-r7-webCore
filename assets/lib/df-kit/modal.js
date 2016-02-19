@@ -78,6 +78,7 @@ define([
                     },
                     onLoad: function(response) {
                         Core.call(callback);
+                        Core.trigger('dialog.load', 'modal');
                     }
                 });
             };
