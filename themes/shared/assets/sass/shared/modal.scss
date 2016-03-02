@@ -46,6 +46,7 @@ body.modal-open {
     margin: 2em auto;
     background: #FFF;
     z-index: 999;
+    box-sizing: border-box;
 
     &.video {
         width: 90%;
