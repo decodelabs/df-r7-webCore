@@ -142,7 +142,7 @@ class TempUploader extends arch\node\form\Delegate implements
         }
 
         if($this->_showFieldLabel) {
-            $label = $this->_fieldLabel !== null ? $this->_fieldLabel : $this->_('File');
+            $label = $this->_fieldLabel ?? $this->_('File');
         } else {
             $label = null;
         }

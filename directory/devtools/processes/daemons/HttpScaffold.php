@@ -49,9 +49,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             $remote = halo\daemon\Remote::factory($daemon);
             $status = $remote->getStatusData();
 
-            $daemonSettings = isset($settings[$name]) ?
-                $settings[$name] :
-                $this->data->newRecord('axis://daemon/Settings')->toArray();
+            $daemonSettings = $settings[$name] ?? $this->data->newRecord('axis://daemon/Settings')->toArray();
 
             $row = [
                 'name' => $name,
