@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,6 +11,6 @@ use df\fire;
 
 class Comment extends Base {
 
-    protected static $_requiredOutputTypes = ['Html'];
-    protected static $_defaultBlocks = ['SimpleTags', 'Markdown', 'BBCode'];
+    const REQUIRED_OUTPUT_TYPES = ['Html'];
+    const DEFAULT_BLOCKS = ['SimpleTags', 'Markdown', 'BBCode'];
 }

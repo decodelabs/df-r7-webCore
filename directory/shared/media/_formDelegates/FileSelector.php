@@ -18,7 +18,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
     use core\io\TAcceptTypeProcessor;
     use arch\node\TForm_MediaBucketAwareSelector;
 
-    protected static $_defaultModes = [
+    const DEFAULT_MODES = [
         'details' => 'createInlineDetailsUi',
         'select' => 'createOverlaySelectorUi',
         'upload' => 'createOverlayUploaderUi',
