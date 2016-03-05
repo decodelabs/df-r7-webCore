@@ -12,18 +12,18 @@ use df\axis;
 
 class Unit extends axis\unit\table\Base {
 
-    protected $_defaultSearchFields = [
+    const SEARCH_FIELDS = [
         'name' => 10,
         'email' => 2,
         'companyName' => 5,
         'companyPosition' => 1
     ];
 
-    protected $_defaultOrderableFields = [
+    const ORDERABLE_FIELDS = [
         'name', 'email', 'companyName', 'companyPosition', 'creationDate', 'isActive'
     ];
 
-    protected $_defaultOrder = 'creationDate DESC';
+    const DEFAULT_ORDER = 'creationDate DESC';
 
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'AutoId', 8);

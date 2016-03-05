@@ -16,17 +16,17 @@ class Unit extends axis\unit\table\Base {
 
     const INVITE_OPTION = 'invite.allowance';
 
-    protected $_defaultSearchFields = [
+    const SEARCH_FIELDS = [
         'name' => 5,
         'email' => 2
     ];
 
-    protected $_defaultOrderableFields = [
+    const ORDERABLE_FIELDS = [
         'creationDate', 'owner', 'name', 'email',
         'registrationDate', 'user', 'lastSent'
     ];
 
-    protected $_defaultOrder = 'lastSent DESC';
+    const DEFAULT_ORDER = 'lastSent DESC';
 
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'AutoId');

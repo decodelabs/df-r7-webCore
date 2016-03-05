@@ -13,11 +13,11 @@ use df\mesh;
 
 class Unit extends axis\unit\table\Base {
 
-    protected $_defaultOrderableFields = [
+    const ORDERABLE_FIELDS = [
         'title', 'date', 'owner', 'isLive'
     ];
 
-    protected $_defaultOrder = 'date ASC';
+    const DEFAULT_ORDER = 'date ASC';
 
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'Guid');
