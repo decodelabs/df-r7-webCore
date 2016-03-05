@@ -18,12 +18,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ADAPTER = 'axis://user/Group';
     const DEFAULT_SECTION = 'users';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'users' => 'user'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'name', 'signifier', 'roles', 'users'
     ];
 

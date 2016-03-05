@@ -17,17 +17,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ICON = 'file';
     const ADAPTER = 'axis://media/File';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'versions' => 'list'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'fileName', 'bucket', 'slug', 'fileSize', 'owner',
         'creationDate', 'version'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'slug', 'url', 'bucket', 'fileName', 'fileSize', 'owner',
         'hash', 'creationDate'
     ];

@@ -20,12 +20,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const CAN_ADD = false;
     const CAN_EDIT = false;
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'message', 'type', 'code', 'file', 'line',
         'seen', 'lastSeen'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'id', 'type', 'file', 'line', 'code', 'message',
         'seen', 'lastSeen'
     ];

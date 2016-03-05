@@ -19,11 +19,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ADAPTER = 'axis://user/Role';
 
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'name', 'signifier', 'priority', 'groups', 'keys'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'name', 'signifier', 'priority', 'groups'
     ];
 

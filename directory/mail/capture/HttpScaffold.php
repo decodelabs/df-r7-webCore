@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const CAN_ADD = false;
     const CAN_EDIT = false;
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'subject', 'from', 'to', 'date',
         'isPrivate', 'environmentMode'
     ];

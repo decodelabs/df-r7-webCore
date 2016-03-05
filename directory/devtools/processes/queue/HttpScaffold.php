@@ -21,12 +21,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const NAME_FIELD = 'request';
     const KEY_NAME = 'task';
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'request', 'priority', 'queueDate',
         'lockDate', 'environmentMode'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'queueDate',
         'lockDate', 'lockId', 'logs', 'environmentMode'
     ];

@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const CAN_DELETE = false;
 
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'creationDate', 'name', 'email', 'lastSent',
         'owner', 'registrationDate', 'groups'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'key', 'creationDate', 'owner', 'lastSent',
         'name', 'email', 'message', 'groups',
         'registrationDate', 'user'

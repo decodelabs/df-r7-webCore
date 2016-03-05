@@ -18,12 +18,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ADAPTER = 'axis://content/Element';
     const NAME_FIELD = 'slug';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'history'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'slug', 'name', 'owner', 'creationDate',
         'lastEditDate'
     ];

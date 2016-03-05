@@ -21,17 +21,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ADAPTER = 'axis://task/Schedule';
     const NAME_FIELD = 'request';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'logs' => 'log'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
         'schedule', 'environmentMode', 'isLive', 'isAuto'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'creationDate',
         'lastRun', 'lastRun', 'minute', 'hour', 'day', 'month', 'weekday',
         'environmentMode', 'isLive', 'isAuto'

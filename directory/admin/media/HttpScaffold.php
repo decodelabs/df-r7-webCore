@@ -18,12 +18,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ADAPTER = 'axis://media/Bucket';
     const DEFAULT_SECTION = 'files';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'files' => 'file'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'name', 'slug', 'context1', 'context2', 'files',
     ];
 

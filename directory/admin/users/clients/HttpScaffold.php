@@ -20,18 +20,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const KEY_NAME = 'user';
     const NAME_FIELD = 'fullName';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'invites' => 'mail',
         'authentication' => 'lock'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'fullName', 'email', 'status', 'groups',
         'country', 'joinDate', 'loginDate'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'fullName', 'nickName', 'email', 'status',
         'deactivation', 'country', 'language',
         'timezone', 'joinDate', 'loginDate', 'groups'

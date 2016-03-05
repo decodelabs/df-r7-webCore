@@ -20,7 +20,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const KEY_NAME = 'source';
     const NAME_FIELD = 'id';
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'id', 'adapter', 'primaryListId'
     ];
 
