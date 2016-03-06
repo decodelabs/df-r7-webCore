@@ -144,7 +144,7 @@ class HttpAdd extends arch\node\Form {
 
         return $this->complete(function() {
             if($this->_schedule->isNew()
-            || $this->_schedule->hasAnyChanged('minute', 'hour', 'day', 'month', 'weekday')
+            || $this->_schedule->hasChanged('minute', 'hour', 'day', 'month', 'weekday')
             || ($this->_schedule->hasChanged('isLive') && $this->_schedule['isLive'] == false)) {
                 $this->_schedule->isAuto = false;
             }

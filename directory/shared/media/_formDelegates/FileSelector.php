@@ -61,14 +61,14 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             ->isRequired($mode == 'upload')
             ->shouldShowUploadButton(false)
             ->shouldShowFieldLabel(false)
-            ->setAcceptTypes($accept);
+            ->setAcceptTypes(...$accept);
 
         $this->loadDelegate('versionUpload', 'TempUploader')
             ->isForOne(true)
             ->isRequired($mode == 'version')
             ->shouldShowUploadButton(false)
             ->shouldShowFieldLabel(false)
-            ->setAcceptTypes($accept);
+            ->setAcceptTypes(...$accept);
     }
 
 // Record
@@ -203,7 +203,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
             $fs->addField()->push(
                 $this->html->fileUpload($this['upload']->fieldName('file'))
-                    ->setAcceptTypes($accept),
+                    ->setAcceptTypes(...$accept),
 
                 $this->html->eventButton(
                         $this->eventName('beginUpload'),

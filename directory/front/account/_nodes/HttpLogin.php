@@ -90,9 +90,9 @@ class HttpLogin extends arch\node\Form {
         }
     }
 
-    protected function onLoginEvent() {
+    protected function onLoginEvent(...$args) {
         $delegate = $this[$this->_adapter];
-        $output = $delegate->handleEvent('login', func_get_args());
+        $output = $delegate->handleEvent('login', $args);
 
         if($delegate->isComplete()) {
             $this->setComplete();

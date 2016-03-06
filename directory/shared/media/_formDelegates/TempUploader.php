@@ -150,7 +150,7 @@ class TempUploader extends arch\node\form\Delegate implements
         $fa = $fs->addField($label)
             ->push(
                 $this->html->fileUpload($this->fieldName('file'), $this->values->file)
-                    ->setAcceptTypes($this->getAcceptTypes())
+                    ->setAcceptTypes(...$this->getAcceptTypes())
                     ->setId($this->_getWidgetId())
             );
 
@@ -181,7 +181,7 @@ class TempUploader extends arch\node\form\Delegate implements
         unset($this->values->file);
 
         $uploadHandler = new link\http\upload\Handler();
-        $uploadHandler->setAcceptTypes($this->_acceptTypes);
+        $uploadHandler->setAcceptTypes(...$this->_acceptTypes);
 
         if(!count($uploadHandler)) {
             return $this->http->redirect('#'.$this->_getWidgetId());

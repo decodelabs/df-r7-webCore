@@ -24,7 +24,7 @@
         });
 
         if($this->context->request->hasPath()) {
-            echo $this->html->breadcrumbList(true);
+            echo $this->html->breadcrumbList()->addSitemapEntries();
         }
         ?>
     </header>

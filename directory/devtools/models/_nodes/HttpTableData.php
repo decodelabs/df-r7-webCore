@@ -44,7 +44,7 @@ class HttpTableData extends arch\node\Base {
         if($view['unit']->storageExists()) {
             $view['rowList'] = $view['unit']->getUnit()->getUnitAdapter()->getQuerySourceAdapter()->select()
                 ->paginate()
-                    ->setOrderableFields(array_keys($primitives))
+                    ->setOrderableFields(...array_keys($primitives))
                     ->applyWith($this->request->query);
         }
 

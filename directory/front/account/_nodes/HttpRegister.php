@@ -70,7 +70,7 @@ class HttpRegister extends arch\node\Form {
         $this['Local']->renderUi();
     }
 
-    protected function onRegisterEvent() {
-        return $this['Local']->handleEvent('register', func_get_args());
+    protected function onRegisterEvent(...$args) {
+        return $this['Local']->handleEvent('register', $args);
     }
 }

@@ -105,7 +105,7 @@ class SimpleUploader extends arch\node\form\Delegate implements
         $this->loadDelegate('upload', 'TempUploader')
             ->isRequired($this->_isRequired)
             ->isForMany($this->_isForMany)
-            ->setAcceptTypes($accept);
+            ->setAcceptTypes(...$accept);
     }
 
 

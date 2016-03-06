@@ -36,11 +36,11 @@ class DfKit implements arch\IDirectoryHelper {
         return $this;
     }
 
-    public function load($module) {
+    public function load(...$modules) {
         $this->init();
 
         $current = $this->view->bodyTag->getDataAttribute('require');
-        $modules = core\collection\Util::flattenArray(func_get_args());
+        $modules = core\collection\Util::flatten($modules);
 
         if(!empty($current)) {
             $modules = array_unique(array_merge(explode(' ', $current), $modules));
