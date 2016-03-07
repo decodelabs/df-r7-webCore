@@ -49,6 +49,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         }
 
 
+        /*
         yield $this->html->tag('iframe', [
             'src' => $this->uri('~mail/capture/message?mail='.$mail['id']),
             'seamless' => true,
@@ -56,6 +57,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 'width' => '70em',
                 'height' => '26em'
             ]
+        ]);
+        */
+
+        $this->view->linkCss('theme://sass/shared/sterile.scss');
+        $message = $mail->toMessage();
+
+        yield $this->apex->template('Message.html', [
+            'mail' => $mail,
+            'message' => $message
         ]);
     }
 

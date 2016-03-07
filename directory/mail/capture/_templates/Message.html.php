@@ -16,11 +16,11 @@ echo $this->html->elementContentContainer(function() use($message) {
 
                 switch($part->getContentType()) {
                     case 'text/plain':
-                        $content[] = $this->html('div', $this->html->plainText($part->getContent()));
+                        $content[] = $this->html('div.sterile', $this->html->plainText($part->getContent()));
                         break;
 
                     case 'text/html':
-                        $content[] = $this->html('div', $this->html->string($part->getContent()));
+                        $content[] = $this->html('div.sterile', $this->html->string($part->getContent()));
                         break;
                 }
 
