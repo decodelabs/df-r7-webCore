@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\mesh;
-    
+
 class Comment extends arch\component\Base {
 
     protected $_entityLocator;
@@ -33,27 +33,27 @@ class Comment extends arch\component\Base {
         return $this->_entityLocator;
     }
 
-    public function shouldShowInactive($flag=null) {
+    public function shouldShowInactive(bool $flag=null) {
         if($flag !== null) {
-            $this->_showInactive = (bool)$flag;
+            $this->_showInactive = $flag;
             return $this;
         }
 
         return $this->_showInactive;
     }
 
-    public function shouldDisplayAsTree($flag=null) {
+    public function shouldDisplayAsTree(bool $flag=null) {
         if($flag !== null) {
-            $this->_displayAsTree = (bool)$flag;
+            $this->_displayAsTree = $flag;
             return $this;
         }
 
         return $this->_displayAsTree;
     }
 
-    public function shouldShowForm($flag=null) {
+    public function shouldShowForm(bool $flag=null) {
         if($flag !== null) {
-            $this->_showForm = (bool)$flag;
+            $this->_showForm = $flag;
             return $this;
         }
 
@@ -64,12 +64,12 @@ class Comment extends arch\component\Base {
         if(!$this->_entityLocator) {
             throw new arch\InvalidArgumentException(
                 'Comment entity locator has not been set'
-            );  
+            );
         }
 
         $template = $this->apex->template('~/comments/#/elements/List.html');
         $template['displayAsTree'] = $this->_displayAsTree;
-        
+
         $model = $this->data->getModel('content');
         $limit = 30;
 

@@ -28,27 +28,27 @@ class Unit extends axis\unit\config\Base {
         ];
     }
 
-    public function isRegistrationEnabled($flag=null) {
+    public function isRegistrationEnabled(bool $flag=null) {
         if($flag !== null) {
-            $this->values->registrationEnabled = (bool)$flag;
+            $this->values->registrationEnabled = $flag;
             return $this;
         }
 
         return (bool)$this->values['registrationEnabled'];
     }
 
-    public function shouldVerifyEmail($flag=null) {
+    public function shouldVerifyEmail(bool $flag=null) {
         if($flag !== null) {
-            $this->values->verifyEmail = (bool)$flag;
+            $this->values->verifyEmail = $flag;
             return $this;
         }
 
         return (bool)$this->values['verifyEmail'];
     }
 
-    public function shouldLoginOnRegistration($flag=null) {
+    public function shouldLoginOnRegistration(bool $flag=null) {
         if($flag !== null) {
-            $this->values->loginOnRegistration = (bool)$flag;
+            $this->values->loginOnRegistration = $flag;
             return $this;
         }
 
@@ -65,9 +65,9 @@ class Unit extends axis\unit\config\Base {
     }
 
 
-    public function shouldCheckPasswordStrength($flag=null) {
+    public function shouldCheckPasswordStrength(bool $flag=null) {
         if($flag !== null) {
-            $this->values->checkPasswordStrength = (bool)$flag;
+            $this->values->checkPasswordStrength = $flag;
             return $this;
         }
 

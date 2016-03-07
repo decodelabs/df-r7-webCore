@@ -53,7 +53,7 @@ class HttpDeleteSlot extends arch\node\DeleteForm {
 
     protected function apply() {
         $config = fire\Config::getInstance();
-        $this->_layout->removeSlot($this->_slot);
+        $this->_layout->removeSlot($this->_slot->getId());
 
         $config->setLayoutDefinition($this->_layout)->save();
     }

@@ -28,9 +28,9 @@ class TempUploader extends arch\node\form\Delegate implements
 
     private $_dirChecked = false;
 
-    public function shouldShowUploadButton($flag=null) {
+    public function shouldShowUploadButton(bool $flag=null) {
         if($flag !== null) {
-            $this->_showUploadButton = (bool)$flag;
+            $this->_showUploadButton = $flag;
             return $this;
         }
 
@@ -46,9 +46,9 @@ class TempUploader extends arch\node\form\Delegate implements
         return $this->_fieldLabel;
     }
 
-    public function shouldShowFieldLabel($flag=null) {
+    public function shouldShowFieldLabel(bool $flag=null) {
         if($flag !== null) {
-            $this->_showFieldLabel = (bool)$flag;
+            $this->_showFieldLabel = $flag;
             return $this;
         }
 

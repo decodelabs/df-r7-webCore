@@ -18,18 +18,18 @@ class UserLink extends arch\component\RecordLink {
 
 
 // Name
-    public function shouldUseNickName($flag=null) {
+    public function shouldUseNickName(bool $flag=null) {
         if($flag !== null) {
-            $this->_useNickName = (bool)$flag;
+            $this->_useNickName = $flag;
             return $this;
         }
 
         return $this->_useNickName;
     }
 
-    public function shouldShortenName($flag=null) {
+    public function shouldShortenName(bool $flag=null) {
         if($flag !== null) {
-            $this->_shortenName = (bool)$flag;
+            $this->_shortenName = $flag;
             return $this;
         }
 
