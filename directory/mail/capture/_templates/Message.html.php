@@ -20,7 +20,15 @@ echo $this->html->elementContentContainer(function() use($message) {
                         break;
 
                     case 'text/html':
-                        $content[] = $this->html('div.sterile', $this->html->string($part->getContent()));
+                        $doc = core\xml\Tree::fromHtmlString($html = $part->getContent());
+                        $attr = [];
+
+                        if($body = $doc->getFirstChildOfType('body')) {
+                            $body->setTagName('div');
+                            $html = $body->toNodeXmlString();
+                        }
+
+                        $content[] = $this->html('div.sterile', $this->html->string($html));
                         break;
                 }
 

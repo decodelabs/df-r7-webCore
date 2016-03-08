@@ -1,15 +1,15 @@
 .sterile {
-    font-size: medium;
-    line-height: 1;
-    direction:ltr;
-    text-align: left; /* for IE, Opera */
-    text-align: start; /* recommended W3C Spec */
-    font-family: "Times New Roman", Times, serif; /* Override this with whatever font-family is required */
-    color: black;
-    font-style:normal;
-    font-weight:normal;
-    text-decoration:none;
-    list-style-type:disc;
+    font-size: medium !important;
+    line-height: 1.2 !important;
+    direction: ltr !important;
+    text-align: left !important;
+    text-align: start !important;
+    font-family: Arial, sans-serif !important;
+    color: black !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    text-decoration: none !important;
+    list-style-type: disc !important;
 
     &, h1, h2, h3, h4, h5, h6, p, td, dl, tr, dt, ol, form, select, option, pre, div,
     table, th, tbody, tfoot, caption, thead, ul, li, address, blockquote, dd, fieldset,
@@ -20,11 +20,11 @@
     col, datalist, fieldset, main, map, meta, optgroup, output, progress {
         background-attachment:scroll;
         background-color:transparent;
-        background-image:none; /* This rule affects the use of pngfix JavaScript http://dillerdesign.com/experiment/DD_BelatedPNG for IE6, which is used to force the browser to recognise alpha-transparent PNGs files that replace the IE6 lack of PNG transparency. (The rule overrides the VML image that is used to replace the given CSS background-image). If you don't know what that means, then you probably haven't used the pngfix script, and this comment may be ignored :) */
+        background-image:none;
         background-position:0 0;
         background-repeat:repeat;
         border-color:black;
-        border-color:currentColor; /* `border-color` should match font color. Modern browsers (incl. IE9) allow the use of "currentColor" to match the current font 'color' value <http://www.w3.org/TR/css3-color/#currentcolor>. For older browsers, a default of 'black' is given before this rule. Guideline to support older browsers: if you haven't already declared a border-color for an element, be sure to do so, e.g. when you first declare the border-width. */
+        border-color:currentColor;
         border-radius:0;
         border-style:none;
         border-width:medium;
@@ -38,7 +38,7 @@
         direction:inherit;
         display:inline;
         float:none;
-        font-family: inherit; /* As with other inherit values, this needs to be set on the root container element */
+        font-family: inherit;
         font-size: inherit;
         font-style:inherit;
         font-variant:normal;
@@ -47,7 +47,7 @@
         left:auto;
         letter-spacing:normal;
         line-height:inherit;
-        list-style-type: inherit; /* Could set list-style-type to none */
+        list-style-type: inherit;
         list-style-position: outside;
         list-style-image: none;
         margin:0;
@@ -111,7 +111,7 @@
            -moz-column-rule: medium none black;
                 column-rule: medium none black;
         -webkit-column-span: 1;
-           -moz-column-span: 1; /* doesn't exist yet but probably will */
+           -moz-column-span: 1;
                 column-span: 1;
         -webkit-column-width: auto;
            -moz-column-width: auto;
@@ -205,7 +205,7 @@
     }
     th, td {
         display: table-cell;
-        padding: 2px;
+        //padding: 2px;
     }
 
     ol, ul {
@@ -236,10 +236,9 @@
     }
     li {
         display:list-item;
-        /* Fixes IE7 issue with positioning of nested bullets */
         min-height:auto;
         min-width:auto;
-        padding-left: 20px; /* replace -webkit-padding-start: 40px; */
+        padding-left: 20px;
     }
     strong {
         font-weight:bold;
@@ -271,8 +270,8 @@
         -webkit-appearance: push-button;
         color: buttontext;
         border: 1px #a6a6a6 solid;
-        background: lightgrey; /* Old browsers */
-        background: rgb(255,255,255); /* Old browsers */
+        background: lightgrey;
+        background: rgb(255,255,255);
         background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(221,221,221,1) 100%, rgba(209,209,209,1) 100%, rgba(221,221,221,1) 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(221,221,221,1)), color-stop(100%,rgba(209,209,209,1)), color-stop(100%,rgba(221,221,221,1))); /* Chrome,Safari4+ */
         background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%,rgba(209,209,209,1) 100%,rgba(221,221,221,1) 100%); /* Chrome10+,Safari5.1+ */
@@ -293,7 +292,7 @@
     input[type=hidden] {
         display:none;
     }
-    /* restore form defaults */
+
     textarea {
         -webkit-appearance: textarea;
         background: white;
@@ -357,7 +356,7 @@
         text-decoration: line-through;
     }
     blockquote, q  {
-        quotes:none; /* HTML5 */
+        quotes:none;
     }
     blockquote:before, blockquote:after, q:before, q:after, li:before, li:after  {
         content:"";
@@ -367,7 +366,7 @@
     }
 
     table {
-        border-collapse:collapse;
+        border-collapse:separate;
         border-spacing:0;
     }
     hr {
@@ -391,7 +390,7 @@
         padding-top: 8px;
     }
 
-    /* additional helpers */
+
     [hidden],
     template {
         display: none;
