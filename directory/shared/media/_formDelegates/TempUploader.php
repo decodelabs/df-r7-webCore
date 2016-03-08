@@ -307,8 +307,11 @@ class TempUploader extends arch\node\form\Delegate implements
         }
     }
 
-    public function handleDelegateEvent($delegateId, $event, $args) {
-        $this->onUploadEvent();
+    public function handlePostEvent(arch\node\IActiveForm $target, string $event, array $args) {
+        $required = $this->_isRequired;
+        $this->_isRequired = false;
+        $this->handleEvent('upload');
+        $this->_isRequired = $required;
     }
 
     protected function onComplete($success) {
