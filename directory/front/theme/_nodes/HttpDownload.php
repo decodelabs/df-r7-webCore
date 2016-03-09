@@ -43,9 +43,24 @@ class HttpDownload extends arch\node\Base {
             $type = core\fs\Type::fileToMime($absolutePath);
         }
 
-        if(substr($type, 0, 6) == 'image/' && isset($this->request['transform'])) {
-            $cache = neon\raster\Cache::getInstance();
-            $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request['transform']);
+
+        if(($hasTransform = isset($this->request['transform']))
+        || ($hasFavicon = isset($this->request['favicon']))) {
+            if(substr($type, 0, 6) == 'image/') {
+                $cache = neon\raster\Cache::getInstance();
+
+                if($hasTransform) {
+                    $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request['transform']);
+                }
+
+                if($type != 'image/x-icon' && $hasFavicon) {
+                    if(preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', $this->http->getUserAgent())) {
+                        $absolutePath = $cache->getIconFilePath($absolutePath, 16, 32);
+                        $type = 'image/x-icon';
+                        $fileName .= '.ico';
+                    }
+                }
+            }
         }
 
         switch($type) {
@@ -63,7 +78,7 @@ class HttpDownload extends arch\node\Base {
                 $output->setContentType($type);
         }
 
-        $output->setFileName(basename($absolutePath))
+        $output->setFileName($fileName)
             ->getHeaders()
                 ->set('Access-Control-Allow-Origin', '*');
 
