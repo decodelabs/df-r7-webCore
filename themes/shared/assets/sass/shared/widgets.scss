@@ -387,6 +387,9 @@
 .w-checkboxGroup,
 .w-checkboxList {
     margin-bottom: 1em;
+    max-height: 12rem;
+    overflow-y: scroll;
+    display: inline-block;
 
     label {
         display: block;

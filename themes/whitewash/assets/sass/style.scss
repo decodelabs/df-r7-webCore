@@ -323,6 +323,15 @@ div.layout-pageArea {
     font-size: 0.9em;
 }
 
+.w-radioButtonGroup,
+.w-checkboxGroup,
+.w-checkboxList {
+    border: 2px solid #DDD;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 0.5rem rgba(black, 0.1) inset;
+}
+
 
 .w-textbox,
 .w-textarea,
