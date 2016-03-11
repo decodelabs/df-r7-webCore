@@ -43,9 +43,10 @@ class HttpDownload extends arch\node\Base {
             $type = core\fs\Type::fileToMime($absolutePath);
         }
 
+        $hasTransform = isset($this->request['transform']);
+        $hasFavicon = isset($this->request['favicon']);
 
-        if(($hasTransform = isset($this->request['transform']))
-        || ($hasFavicon = isset($this->request['favicon']))) {
+        if($hasTransform || $hasFavicon) {
             if(substr($type, 0, 6) == 'image/') {
                 $cache = neon\raster\Cache::getInstance();
 
