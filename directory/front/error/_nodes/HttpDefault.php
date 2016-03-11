@@ -95,7 +95,7 @@ class HttpDefault extends arch\node\Base {
         $isTesting = $this->application->isTesting();
 
         try {
-            $isAdmin = $this->user->canAccess('virtual://errors');
+            $isAdmin = $this->user->isA('developer');
         } catch(\Exception $e) {
             $isAdmin = false;
         }

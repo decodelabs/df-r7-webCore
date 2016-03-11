@@ -100,7 +100,8 @@ class Unit extends axis\unit\table\Base {
         $isClient = $ownerId == $this->context->user->client->getId();
         $model = $this->getModel();
 
-        if($isClient && $allowance && $this->context->user->canAccess('virtual://unlimited-invites')) {
+        if($isClient && $allowance
+        && ($this->context->user->canAccess('virtual://unlimited-invites') || $this->context->user->isA('developer', 'admin'))) {
             $allowance = false;
         }
 
