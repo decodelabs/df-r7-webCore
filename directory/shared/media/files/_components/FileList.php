@@ -24,7 +24,11 @@ class FileList extends arch\component\CollectionList {
 
 // FileName
     public function addFileNameField($list) {
-        $list->addField('fileName', $this->_('Name'));
+        $list->addField('fileName', $this->_('Name'), function($file) {
+            return $this->html->link($this->media->getDownloadUrl($file['id']), $file['fileName'])
+                ->setDisposition('informative')
+                ->setIcon('download');
+        });
     }
 
 // Bucket
