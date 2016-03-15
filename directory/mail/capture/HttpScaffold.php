@@ -48,18 +48,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             ), 'warning');
         }
 
-
-        /*
-        yield $this->html->tag('iframe', [
-            'src' => $this->uri('~mail/capture/message?mail='.$mail['id']),
-            'seamless' => true,
-            'style' => [
-                'width' => '70em',
-                'height' => '26em'
-            ]
-        ]);
-        */
-
         $this->view->linkCss('theme://sass/shared/sterile.scss');
         $message = $mail->toMessage();
 
@@ -67,6 +55,49 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             'mail' => $mail,
             'message' => $message
         ]);
+    }
+
+    public function downloadNode() {
+        $mail = $this->getRecord();
+        $message = $mail->toMessage();
+        $partIds = explode('-', $this->request['part']);
+        array_shift($partIds);
+
+        if(!$part = $this->_getMessagePart($message, $partIds)) {
+            $this->throwError(404, 'Part not found');
+        }
+
+        $content = $part->getContentString();
+        $contentType = $part->getContentType();
+
+        if(!$filename = $part->getFilename()) {
+            $filename = $mail['id'].'-'.$this->request['part'];
+        }
+
+        return $this->http->stringResponse($content, $contentType)
+            ->setFilename($filename);
+    }
+
+    private function _getMessagePart($multipart, $partIds) {
+        $partId = (int)array_shift($partIds);
+
+        if(!$part = $multipart->getPart($partId)) {
+            return null;
+        }
+
+        if(!empty($partIds)) {
+            if(!$part instanceof flow\mime\IMultiPart) {
+                return null;
+            }
+
+            return $this->_getMessagePart($part, $partIds);
+        } else if(empty($partIds)) {
+            if(!$part instanceof flow\mime\IContentPart) {
+                return null;
+            }
+
+            return $part;
+        }
     }
 
 

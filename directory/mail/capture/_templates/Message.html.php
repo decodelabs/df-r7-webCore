@@ -4,35 +4,44 @@ use df\core;
 use df\flow;
 
 echo $this->html->elementContentContainer(function() use($message) {
-    $renderer = function(array $parts) use(&$renderer) {
-        foreach($parts as $part) {
+    $renderer = function(array $parts, $baseId='') use(&$renderer) {
+        foreach($parts as $i => $part) {
+            $currId = $baseId.$i;
+
             if($part instanceof flow\mime\IMultiPart) {
                 yield $this->html->container(
                     $this->html->attributeList($part->getHeaders()->toArray())->setStyle('font-size', '0.8em'),
-                    $renderer($part->getParts())
+                    $renderer($part->getParts(), $currId.'-')
                 );
             } else if($part instanceof flow\mime\IContentPart) {
-                $content = [$this->html->attributeList($part->getHeaders()->toArray())->setStyle('font-size', '0.8em')];
+                yield $this->html->container(function() use($part, $currId) {
+                    yield $this->html->attributeList(
+                            $part->getHeaders()->toArray() +
+                            [
+                                'download' => $this->html->link('./download?mail='.$this['mail']['id'].'&part='.$currId, 'Download part')
+                                    ->setIcon('download')
+                            ]
+                        )
+                        ->setStyle('font-size', '0.8em');
 
-                switch($part->getContentType()) {
-                    case 'text/plain':
-                        $content[] = $this->html('div.sterile', $this->html->plainText($part->getContent()));
-                        break;
+                    switch($part->getContentType()) {
+                        case 'text/plain':
+                            yield $this->html('div.sterile', $this->html->plainText($part->getContent()));
+                            break;
 
-                    case 'text/html':
-                        $doc = core\xml\Tree::fromHtmlString($html = $part->getContent());
-                        $attr = [];
+                        case 'text/html':
+                            $doc = core\xml\Tree::fromHtmlString($html = $part->getContent());
+                            $attr = [];
 
-                        if($body = $doc->getFirstChildOfType('body')) {
-                            $body->setTagName('div');
-                            $html = $body->toNodeXmlString();
-                        }
+                            if($body = $doc->getFirstChildOfType('body')) {
+                                $body->setTagName('div');
+                                $html = $body->toNodeXmlString();
+                            }
 
-                        $content[] = $this->html('div.sterile', $this->html->string($html));
-                        break;
-                }
-
-                yield $this->html->container($content);
+                            yield $this->html('div.sterile', $this->html->string($html));
+                            break;
+                    }
+                });
             }
         }
     };
