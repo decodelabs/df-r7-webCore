@@ -105,21 +105,26 @@ strong, b {
 
 dl {
     @extend %clearfix;
+
+    dt {
+        font-weight: bold;
+    }
 }
 
-dt {
-    font-weight: bold;
-    width: 10em;
-    float: left;
-    clear: left;
-}
+.w-definitionList {
+    dt {
+        width: 10em;
+        float: left;
+        clear: left;
+    }
 
-dt:after {
-    content: ':';
-}
+    dt:after {
+        content: ':';
+    }
 
-dd {
-    float: left;
+    dd {
+        float: left;
+    }
 }
 
 th {
