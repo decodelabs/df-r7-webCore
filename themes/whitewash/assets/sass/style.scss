@@ -109,6 +109,10 @@ dl {
     dt {
         font-weight: bold;
     }
+
+    dd {
+        margin-bottom: 0.5rem;
+    }
 }
 
 .w-definitionList {
@@ -124,6 +128,7 @@ dl {
 
     dd {
         float: left;
+        margin-bottom: 0;
     }
 }
 
