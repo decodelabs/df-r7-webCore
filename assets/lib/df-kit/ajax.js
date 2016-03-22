@@ -70,7 +70,7 @@ define([
                     var url = xhr.getResponseHeader('X-Response-Url');
 
                     if(url) {
-                        request.originalUrl = request.url;
+                        //request.originalUrl = request.url;
                         request.url = url;
                     }
 
@@ -85,7 +85,7 @@ define([
         normalizeRequest: function(method, url, request) {
             request || (request = {});
             request.method = String(method).toUpperCase();
-            request.url = url;
+            request.url = request.originalUrl = url;
 
             if(!request.data) request.data = {};
             if(!request.type) request.type = 'ajax';
@@ -165,13 +165,18 @@ define([
                 delete ajax._clients[this.id];
             },
 
+            _normalizeUrl: function(url) {
+                return url.replace('.ajax', '').replace(/(\?|\&)\_\=[0-9]+/, '');
+            },
+
             sendRequest: function(request, callback) {
+
                 var _this = this,
                     lastRequest = this.getLastRequest();
 
                 if(!lastRequest
-                || (lastRequest.url !== request.url
-                 && lastRequest.url.replace('.ajax', '') !== request.url.replace('.ajax', ''))) {
+                || (lastRequest.originalUrl !== request.originalUrl
+                 && _this._normalizeUrl(lastRequest.originalUrl) !== _this._normalizeUrl(request.originalUrl))) {
                     this.requestStack.push(request);
                 }
 
@@ -179,7 +184,7 @@ define([
                     response = _this.normalizeResponse(response, request);
 
                     if(!_this.initialUrl) {
-                        _this.initialUrl = request.url.replace('.ajax', '');
+                        _this.initialUrl = _this._normalizeUrl(request.originalUrl);
                     }
 
                     _this.trigger('response', response);
@@ -199,7 +204,7 @@ define([
 
                         _this.trigger('form:complete', response);
 
-                        if(response.request.url.replace('.ajax', '') === _this.initialUrl) {
+                        if(_this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl)) {
                             var request = _this.getFirstRequest();
 
                             if(request && request.formComplete) {
@@ -214,7 +219,7 @@ define([
                         }
 
                         if(response.request.formComplete) {
-                            request.formComplete(response);
+                            response.request.formComplete(response);
 
                             if(response.reload === true) {
                                 location.reload();
@@ -274,7 +279,7 @@ define([
                 e.preventDefault();
 
                 request.formComplete = function(response) {
-                    if(response.request.url.replace('.ajax', '') === _this.initialUrl) {
+                    if(_this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl)) {
                         var firstRequest = _this.getFirstRequest();
 
                         if(firstRequest && firstRequest.formComplete) {
@@ -298,7 +303,11 @@ define([
                     request = {},
                     $trigger;
 
-                if(lastRequest) request = _.clone(lastRequest);
+                if(lastRequest) {
+                    request = _.clone(lastRequest);
+                    request.formComplete = lastRequest.formComplete;
+                }
+
                 request.data = $form.serializeArray();
                 request.formEvent = null;
 
