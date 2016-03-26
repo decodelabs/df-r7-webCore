@@ -31,7 +31,7 @@ class HttpJoinSession extends arch\node\Base {
         }
 
         if(!$key['sessionId']) {
-            $key['sessionId'] = $this->user->session->descriptor->internalId;
+            $key['sessionId'] = $this->user->session->descriptor->id;
             $key->save();
         }
 
