@@ -2,6 +2,7 @@
 
 use df\core;
 use df\flow;
+use df\flex;
 
 echo $this->html->elementContentContainer(function() use($message) {
     $renderer = function(array $parts, $baseId='') use(&$renderer) {
@@ -30,7 +31,7 @@ echo $this->html->elementContentContainer(function() use($message) {
                             break;
 
                         case 'text/html':
-                            $doc = core\xml\Tree::fromHtmlString($html = $part->getContent());
+                            $doc = flex\xml\Tree::fromHtmlString($html = $part->getContent());
                             $attr = [];
 
                             if($body = $doc->getFirstChildOfType('body')) {
