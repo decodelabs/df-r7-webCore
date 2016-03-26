@@ -63,22 +63,23 @@ define([
         },
 
         load: function(href, options) {
+            options = options || {};
+
             var _this = this,
                 callback = options.callback;
 
-            options = options || {};
-
             options.callback = function(data) {
                 _this.client = Ajax.loadElement(_this.attr.content, href, {
-                    source: 'pushy',
+                    source: 'pushy'
+                });
 
-                    formComplete: function(response) {
-                        _this._close();
-                    },
+                _this.client.on('content:load', function(response) {
+                    Core.call(callback);
+                    Core.trigger('dialog.load', 'pushy');
+                });
 
-                    onLoad: function(response) {
-                        Core.call(callback);
-                    }
+                _this.client.on('form:completeInitial', function(response) {
+                    _this.close();
                 });
             };
 
@@ -153,10 +154,9 @@ define([
                 Ajax.post($form.attr('action'), {
                     form: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
-                    source: 'pushy',
-                    formComplete: function() {
-                        _this._close();
-                    }
+                    source: 'pushy'
+                }, function() {
+                    _this._close();
                 });
             } else {
                 this._close(callback, data);

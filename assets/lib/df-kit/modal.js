@@ -68,18 +68,18 @@ define([
             var _this = this,
                 callback = options.callback;
 
-
             options.callback = function(data) {
                 _this.client = Ajax.loadElement(_this.attr.content, href, {
-                    source: 'modal',
+                    source: 'modal'
+                });
 
-                    formComplete: function(response) {
-                        _this._close();
-                    },
-                    onLoad: function(response) {
-                        Core.call(callback);
-                        Core.trigger('dialog.load', 'modal');
-                    }
+                _this.client.on('content:load', function(response) {
+                    Core.call(callback);
+                    Core.trigger('dialog.load', 'modal');
+                });
+
+                _this.client.on('form:completeInitial', function(response) {
+                    _this.close();
                 });
             };
 

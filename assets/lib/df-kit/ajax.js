@@ -204,28 +204,10 @@ define([
 
                         _this.trigger('form:complete', response);
 
-                        if(_this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl)) {
-                            var request = _this.getFirstRequest();
+                        var isInitial = _this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl);
 
-                            if(request && request.formComplete) {
-                                request.formComplete(response);
-
-                                if(response.reload === true) {
-                                    location.reload();
-                                } else {
-                                    return;
-                                }
-                            }
-                        }
-
-                        if(response.request.formComplete) {
-                            response.request.formComplete(response);
-
-                            if(response.reload === true) {
-                                location.reload();
-                            } else {
-                                return;
-                            }
+                        if(isInitial) {
+                            _this.trigger('form:completeInitial', response);
                         }
                     }
 
@@ -244,13 +226,13 @@ define([
                         }
                     }
 
+                    _this.trigger('content:load', response);
+
                     _this.$element
                         .addClass('ajax-content')
                         .html(response.content);
 
-                    if(typeof response.request.onLoad === 'function') {
-                        response.request.onLoad(response);
-                    }
+                    _this.trigger('content:show', response);
                 });
             },
 
@@ -277,19 +259,6 @@ define([
                 if(lastRequest) request = _.clone(lastRequest);
 
                 e.preventDefault();
-
-                request.formComplete = function(response) {
-                    if(_this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl)) {
-                        var firstRequest = _this.getFirstRequest();
-
-                        if(firstRequest && firstRequest.formComplete) {
-                            return firstRequest.formComplete(response);
-                        }
-                    }
-
-                    return _this.back();
-                };
-
                 this.get(url, request);
             },
 
@@ -305,7 +274,6 @@ define([
 
                 if(lastRequest) {
                     request = _.clone(lastRequest);
-                    request.formComplete = lastRequest.formComplete;
                 }
 
                 request.data = $form.serializeArray();
