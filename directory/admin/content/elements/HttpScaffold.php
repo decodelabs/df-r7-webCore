@@ -49,8 +49,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         ];
     }
 
-    public function renderHistorySectionBody($task) {
-        $historyList = $this->data->content->history->fetchFor($task)
+    public function renderHistorySectionBody($element) {
+        $historyList = $this->data->content->history->fetchFor($element)
             ->paginateWith($this->request->query);
 
         return $this->apex->component('~admin/content/history/HistoryList')

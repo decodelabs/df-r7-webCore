@@ -38,7 +38,7 @@ class EmailVerify extends mesh\event\Hook {
 
     protected function _verify($event, $record) {
         if(!$this->data->user->emailVerify->isVerified($record['id'], $record['email'])) {
-            $jobQueue = $event->getJobQueue();
+            $queue = $event->getJobQueue();
 
             $key = $this->data->user->emailVerify->select('key')
                 ->where('user', '=', $record['id'])
@@ -49,7 +49,7 @@ class EmailVerify extends mesh\event\Hook {
                 $key = flex\Generator::random(12, 16);
             }
 
-            $emailTask = $jobQueue->addRawQuery('verifyEmail',
+            $queue->after($event->getJob(), 'verifyEmail',
                 $this->data->user->emailVerify->insert([
                         'user' => $record,
                         'email' => $record['email'],
@@ -57,8 +57,6 @@ class EmailVerify extends mesh\event\Hook {
                     ])
                     ->ifNotExists(true)
             );
-
-            $emailTask->addDependency($event->getJob());
 
             if($this->data->user->config->shouldVerifyEmail()) {
                 $this->context->comms->componentNotify(
