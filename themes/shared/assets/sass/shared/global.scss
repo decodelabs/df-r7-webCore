@@ -266,3 +266,16 @@ a.disabled {
 .unlocked {
     color: $success-color;
 }
+
+
+span.numeric {
+    font-family: monospace;
+
+    .value {
+    }
+
+    .unit {
+        opacity: 0.5;
+        padding-left: 0.4em;
+    }
+}
