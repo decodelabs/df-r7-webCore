@@ -19,10 +19,9 @@
     mark, audio, video, abbr, address, area, blockquote, canvas, caption, cite, code, colgroup,
     col, datalist, fieldset, main, map, meta, optgroup, output, progress {
         background-attachment:scroll;
-        background-color:transparent;
         background-image:none;
-        background-position:0 0;
         background-repeat:repeat;
+        background-position:0 0;
         border-color:black;
         border-color:currentColor;
         border-radius:0;
@@ -43,7 +42,6 @@
         font-style:inherit;
         font-variant:normal;
         font-weight:inherit;
-        height:auto;
         left:auto;
         letter-spacing:normal;
         line-height:inherit;
@@ -78,8 +76,16 @@
             width:auto;
         }
 
+        &:not([height]) {
+            height:auto;
+        }
+
         &:not([align]) {
             text-align:inherit;
+        }
+
+        &:not([bgcolor]) {
+            background-color:transparent;
         }
 
         -webkit-background-origin: padding-box;
