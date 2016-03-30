@@ -122,9 +122,9 @@ class HttpAvatar extends arch\node\Form {
         return $this->complete(function() use($filePath) {
             if($filePath) {
                 $this->data->media->publishFile($filePath, 'Avatar');
-                $this->data->user->cache->setAvatarCacheTime();
             }
 
+            $this->data->user->cache->setAvatarCacheTime();
             $this->comms->flash('avatar.save', $this->_('Your avatar has been successfully updated'), 'success');
         });
     }
