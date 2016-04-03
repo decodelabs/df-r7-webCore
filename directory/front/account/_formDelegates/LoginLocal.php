@@ -15,6 +15,8 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
 
     use arch\node\TForm_ParentUiHandlerDelegate;
 
+    const DEFAULT_REDIRECT = '/';
+
     protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Sign-in'));
