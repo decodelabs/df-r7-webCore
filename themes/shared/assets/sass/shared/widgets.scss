@@ -529,6 +529,7 @@ button.text {
         &.field-actions {
             white-space: nowrap;
             vertical-align: middle;
+            width: 1%;
 
             a.w-link, button.w-eventButton {
                 margin: 0 0.15em;
@@ -540,7 +541,7 @@ button.text {
                 line-height: 1;
                 display: inline-block;
                 border: none;
-                float: left;
+                vertical-align: middle;
 
                 &:first-child {
                     margin-left: 0;
