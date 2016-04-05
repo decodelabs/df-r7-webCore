@@ -38,11 +38,6 @@ class HttpIndex extends arch\node\Base {
                         return $mail->getDescription();
                     }
                 })
-                ->addField('templateType', function($mail) {
-                    if($mail) {
-                        return $mail->getTemplateType();
-                    }
-                })
                 ->addField('actions', function($mail, $context) {
                     if($mail) {
                         return $this->html->link(
