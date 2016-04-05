@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 class Invite extends arch\component\Mail {
-    
+
     const DESCRIPTION = 'User invite';
 
     protected function _prepare($invite) {
@@ -24,7 +24,8 @@ class Invite extends arch\component\Mail {
             'key' => md5(uniqid()),
             'owner' => $this->data->user->client->select('id')->toValue('id'),
             'name' => 'Test User',
-            'email' => 'test@example.com'
+            'email' => 'test@example.com',
+            'message' => 'Come and check this out!'
         ]);
 
         $this->_prepare($invite);
