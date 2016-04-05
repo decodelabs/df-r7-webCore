@@ -265,7 +265,7 @@ class HttpTest extends arch\node\Form {
             $component = $this->apex->component('~mail/'.$validator['component']);
             $notification = $component->renderPreview()->toNotification();
 
-            $mail = new flow\mail\Message();
+            $mail = new flow\mail\LegacyMessage();
             $mail->setSubject($notification->getSubject());
 
             if($notification->getBodyType() == flow\INotification::TEXT) {
@@ -289,7 +289,7 @@ class HttpTest extends arch\node\Form {
                 $mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 
-            $transport->send($mail);
+            $transport->sendLegacy($mail);
 
             $this->comms->flashSuccess(
                 'testMail.sent',
@@ -312,7 +312,7 @@ class HttpTest extends arch\node\Form {
         return $this->complete(function() use($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
 
-            $mail = new flow\mail\Message();
+            $mail = new flow\mail\LegacyMessage();
             $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
             $mail->addToAddress($validator['toAddress'], $validator['toName']);
 
@@ -338,7 +338,7 @@ class HttpTest extends arch\node\Form {
                 $mail->setBodyHtml($validator['bodyHtml']);
             }
 
-            $transport->send($mail);
+            $transport->sendLegacy($mail);
 
             $this->comms->flashSuccess(
                 'testMail.sent',

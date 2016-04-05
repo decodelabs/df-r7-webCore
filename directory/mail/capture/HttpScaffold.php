@@ -124,8 +124,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     public function defineToField($list, $mode) {
         $list->addField('to', function($mail) {
-            $addresses = flow\mail\Message::parseAddressList($mail['to']);
-            $first = array_shift($addresses);
+            $addresses = flow\mail\AddressList::factory($mail['to']);
+            $first = $addresses->extract();
 
             yield $this->html->link(
                     $this->uri->mailto($first->getAddress()),
@@ -135,7 +135,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 ->setDescription($first->getName())
                 ->setDisposition('external');
 
-            if(!empty($addresses)) {
+            if(!$addresses->isEmpty()) {
                 yield $this->html(
                     '<span class="inactive">'.$this->view->esc($this->_(
                         ' and %c% more',

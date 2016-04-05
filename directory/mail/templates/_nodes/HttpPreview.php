@@ -150,7 +150,7 @@ class HttpPreview extends arch\node\Form {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
             $notification = $this->_mail->renderPreview()->toNotification();
 
-            $mail = new flow\mail\Message();
+            $mail = new flow\mail\LegacyMessage();
             $mail->setSubject($notification->getSubject());
 
             if($notification->getBodyType() == flow\INotification::TEXT) {
@@ -174,7 +174,7 @@ class HttpPreview extends arch\node\Form {
                 $mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 
-            $transport->send($mail);
+            $transport->sendLegacy($mail);
 
             $this->comms->flashSuccess(
                 'testMail.sent',
