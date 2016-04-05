@@ -24,8 +24,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const CAN_EDIT = false;
 
     const LIST_FIELDS = [
-        'subject', 'from', 'to', 'date',
-        'isPrivate', 'environmentMode'
+        'subject', 'from', 'to', 'date', 'environmentMode'
     ];
 
 
@@ -41,12 +40,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             ['%t%' => $this->format->timeSince($mail['date'])]
         ));
 
-
-        if($mail['isPrivate']) {
-            yield $this->html->flashMessage($this->_(
-                'This message is marked as private'
-            ), 'warning');
-        }
 
         $this->view->linkCss('theme://sass/shared/sterile.scss');
         $message = $mail->toMessage();
@@ -153,12 +146,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             }
 
             return $this->html->userDateTime($mail['date'], 'medium');
-        });
-    }
-
-    public function defineIsPrivateField($list, $mode) {
-        $list->addField('isPrivate', $this->_('Private'), function($mail) {
-            return $this->html->lockIcon($mail['isPrivate']);
         });
     }
 }
