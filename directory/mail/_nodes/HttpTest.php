@@ -312,7 +312,7 @@ class HttpTest extends arch\node\Form {
         return $this->complete(function() use($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
 
-            $mail = new flow\mail\LegacyMessage();
+            $mail = new flow\mail\Message($validator['subject'], $validator['bodyHtml']);
             $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
             $mail->addToAddress($validator['toAddress'], $validator['toName']);
 
@@ -321,24 +321,18 @@ class HttpTest extends arch\node\Form {
             }
 
             if($validator['ccAddress']) {
-                $mail->addCCAddress($validator['ccAddress'], $validator['ccName']);
+                $mail->addCcAddress($validator['ccAddress'], $validator['ccName']);
             }
 
             if($validator['bccAddress']) {
-                $mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
+                $mail->addBccAddress($validator['bccAddress'], $validator['bccAddress']);
             }
-
-            $mail->setSubject($validator['subject']);
 
             if($validator['bodyText']) {
                 $mail->setBodyText($validator['bodyText']);
             }
 
-            if($validator['bodyHtml']) {
-                $mail->setBodyHtml($validator['bodyHtml']);
-            }
-
-            $transport->sendLegacy($mail);
+            $mail->send($transport);
 
             $this->comms->flashSuccess(
                 'testMail.sent',
