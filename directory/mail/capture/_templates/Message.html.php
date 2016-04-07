@@ -31,13 +31,17 @@ echo $this->html->elementContentContainer(function() use($message) {
                             break;
 
                         case 'text/html':
-                            $doc = flex\xml\Tree::fromHtmlString($html = $part->getContent());
-                            $attr = [];
+                            $html = $part->getContent();
 
-                            if($body = $doc->getFirstChildOfType('body')) {
-                                $body->setTagName('div');
-                                $html = $body->toNodeXmlString();
-                            }
+                            try {
+                                $doc = flex\xml\Tree::fromHtmlString($html);
+                                $attr = [];
+
+                                if($body = $doc->getFirstChildOfType('body')) {
+                                    $body->setTagName('div');
+                                    $html = $body->toNodeXmlString();
+                                }
+                            } catch(\Exception $e) {}
 
                             yield $this->html('div.sterile', $this->html->string($html));
                             break;
