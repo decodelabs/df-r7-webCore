@@ -42,11 +42,17 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                 ->setNote($this->format->counterNote($journalCount))
                 ->setWeight(30),
 
-            $entryList->newLink('~mail/templates/', 'Template visualisation')
-                ->setId('templates')
-                ->setDescription('View component based mail templates with pre-set test data')
+            $entryList->newLink('~mail/previews/', 'Mail previews')
+                ->setId('previews')
+                ->setDescription('View prepared mail previews with pre-set test data')
                 ->setIcon('theme')
                 ->setWeight(40),
+
+            $entryList->newLink('~mail/components/', 'Mail components')
+                ->setId('components')
+                ->setDescription('View component based mail templates with pre-set test data')
+                ->setIcon('theme')
+                ->setWeight(41),
 
             $entryList->newLink('~mail/test', 'Test email capabilities')
                 ->setId('test')

@@ -112,7 +112,10 @@ class HttpLostPassword extends arch\node\Form {
                 ->generateKey()
                 ->save();
 
-            $this->comms->componentNotify('account/PasswordReset', [$key]);
+
+            $this->comms->sendPreparedMail('account/PasswordReset', [
+                'key' => $key
+            ]);
 
             $this->comms->flashSuccess(
                 'lostPassword.send',

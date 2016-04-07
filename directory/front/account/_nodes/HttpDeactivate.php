@@ -60,7 +60,7 @@ class HttpDeactivate extends arch\node\Form {
     }
 
     protected function onDeactivateEvent() {
-        $this->data->newValidator()
+        $validator = $this->data->newValidator()
             ->addField('reason', 'text')
                 ->setMaxLength(255)
             ->addField('reasonOther', 'text')
@@ -69,7 +69,13 @@ class HttpDeactivate extends arch\node\Form {
             ->addField('comments', 'text')
 
             ->validate($this->values)
-            ->applyTo($this->_deactivation);
+            ->applyTo($this->_deactivation, [
+                'reason', 'comments'
+            ]);
+
+        if($validator['reasonOther'] !== null) {
+            $validator->applyTo($this->_deactivation, ['reasonOther']);
+        }
 
         if($this->isValid()) {
             $client = $this->data->user->client->fetchActive();
@@ -79,13 +85,11 @@ class HttpDeactivate extends arch\node\Form {
             $this->_deactivation->user = $client;
             $this->_deactivation->save();
 
-            $this->comms->componentAdminNotify(
-                'users/Deactivation',
-                [$this->_deactivation]
-            );
+            $this->comms->sendPreparedAdminMail('~admin/users/deactivations/DeactivationNotify', [
+                'deactivation' => $this->_deactivation
+            ]);
 
-            $this->user->auth->unbind();
-            return $this->http->redirect('account/login');
+            return $this->http->redirect('account/logout');
         }
     }
 }

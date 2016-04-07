@@ -1,24 +1,24 @@
 <?php
-$this->view->setTitle($this->_(
+$this->view->setSubject($this->_(
     '%n% has deactivated their account',
-    ['%n%' => $this['client']['fullName']]
+    ['%n%' => $user['fullName']]
 ));
 
 echo $this->html('p', [
-    $this->html('strong', $this['client']['fullName']),
+    $this->html('strong', $user['fullName']),
     '  has decided to deactivate their account on ',
     $this->application->getName(),
     '.'
 ]);
 
-if($reason = $this['deactivation']['reason']) {
+if($reason = $deactivation['reason']) {
     echo $this->html('p', [
         $this->html('strong', 'Reason: '),
         $reason
     ]);
 }
 
-if($message = $this['deactivation']['comments']) {
+if($message = $deactivation['comments']) {
     echo $this->html('h4', 'Comments');
     echo $this->html->simpleTags($message);
 }

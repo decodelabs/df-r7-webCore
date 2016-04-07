@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\mail\templates\_nodes;
+namespace df\apex\directory\mail\previews\_nodes;
 
 use df;
 use df\core;
@@ -16,34 +16,32 @@ class HttpIndex extends arch\node\Base {
 
     public function execute() {
         return $this->apex->newWidgetView(function($view) {
-            $mails = $this->_getTemplateList();
+            $mails = $this->_getMailList();
 
             yield $this->html->collectionList($mails)
                 ->addField('name', function($mail, $context) {
-                    $name = $context->getKey();
-
                     if(!$mail) {
-                        return $this->html('span.error', $this->html->icon('mail', $name));
+                        return $this->html('span.error', $this->html->icon('mail', $context->key));
                     }
 
-                    return $this->html->link(
-                            '~mail/templates/view?path='.$name,
-                            $name
-                        )
+                    $url = $this->uri->directoryRequest('~mail/previews/view');
+                    $url->query->path = $mail['path'];
+
+                    return $this->html->link($url, $mail['name'])
                         ->setIcon('theme')
                         ->setDisposition('informative');
                 })
                 ->addField('description', function($mail) {
                     if($mail) {
-                        return $mail->getDescription();
+                        return $mail['description'];
                     }
                 })
                 ->addField('actions', function($mail, $context) {
                     if($mail) {
-                        return $this->html->link(
-                                $this->uri('~mail/templates/preview?path='.$context->key, true),
-                                $this->_('Send preview')
-                            )
+                        $url = $this->uri->directoryRequest('~mail/previews/preview');
+                        $url->query->path = $mail['path'];
+
+                        return $this->html->link($this->uri($url, true), $this->_('Send preview'))
                             ->setIcon('mail')
                             ->setDisposition('positive');
                     }
@@ -51,15 +49,15 @@ class HttpIndex extends arch\node\Base {
         });
     }
 
-    protected function _getTemplateList() {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/mail', 'php', function($path) {
-            return false !== strpos($path, '_components');
+    protected function _getMailList() {
+        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', 'php', function($path) {
+            return false !== strpos($path, '_mail');
         });
 
         $mails = [];
 
         foreach($list as $name => $filePath) {
-            $parts = explode('_components/', substr($name, 0, -4), 2);
+            $parts = explode('_mail/', substr($name, 0, -4), 2);
             $path = array_shift($parts);
             $name = array_shift($parts);
 
@@ -67,21 +65,28 @@ class HttpIndex extends arch\node\Base {
                 $path .= '#/';
             }
 
+
             $name = $path.$name;
-            $path = '~mail/'.$name;
+            $path = '~'.$name;
 
             try {
-                $component = $this->apex->component($path);
+                $mail = $this->comms->prepareMail($path);
             } catch(\Exception $e) {
-                $mails[$name] = null;
+                $mails[$path] = null;
                 continue;
             }
 
-            if(!$component instanceof arch\IMailComponent) {
-                continue;
+            $name = $path;
+
+            if(substr($name, 0, 7) == '~front/') {
+                $name = substr($name, 7);
             }
 
-            $mails[$name] = $component;
+            $mails[$path] = [
+                'name' => $name,
+                'path' => $path,
+                'description' => $mail->getDescription()
+            ];
         }
 
         ksort($mails);

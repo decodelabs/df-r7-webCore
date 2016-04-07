@@ -1,5 +1,5 @@
 <?php
-$this->view->setTitle($this->_(
+$this->view->setSubject($this->_(
     'Your invite request at %n%',
     ['%n%' => $this->context->application->getName()]
 ));
@@ -10,6 +10,6 @@ echo $this->html('p', [
     ' has been turned down.'
 ]);
 
-if($message = $this['invite']['message']) {
+if($message = $this['message']) {
     echo $this->html->simpleTags($message);
 }

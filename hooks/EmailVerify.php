@@ -59,10 +59,10 @@ class EmailVerify extends mesh\event\Hook {
             );
 
             if($this->data->user->config->shouldVerifyEmail()) {
-                $this->context->comms->componentNotify(
-                    'account/EmailVerify',
-                    [$key, $record]
-                );
+                $this->comms->sendPreparedMail('account/EmailVerify', [
+                    'user' => $record,
+                    'key' => $key
+                ]);
             }
         }
     }

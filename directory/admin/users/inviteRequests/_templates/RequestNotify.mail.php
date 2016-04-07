@@ -1,26 +1,26 @@
 <?php
-$this->view->setTitle($this->_(
+$this->view->setSubject($this->_(
     'New invite request from %n%',
-    ['%n%' => $this['request']['name']]
+    ['%n%' => $request['name']]
 ));
 
 echo $this->html('p', [
-    $this->html('strong', $this['request']['name']),
+    $this->html('strong', $request['name']),
     ', ',
-    $this['request']['companyPosition'],
+    $request['companyPosition'],
     ' of ',
-    $this['request']['companyName'],
+    $request['companyName'],
     ' has asked to become a member at ',
     $this->html('strong', $this->application->getName())
 ]);
 
-if($message = $this['invite']['message']) {
+if($message = $request['message']) {
     echo $this->html->simpleTags($message);
 }
 
 echo $this->html('p', [
     $this->html->basicLink(
-            '~admin/users/invite-requests/respond?request='.$this['request']['id'],
+            '~admin/users/invite-requests/respond?request='.$request['id'],
             'Please follow this link to see more details and respond'
         )
         ->setAttribute('target', '_blank')

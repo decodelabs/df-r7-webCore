@@ -99,16 +99,14 @@ class HttpRespond extends arch\node\Form {
             $this->_request['isActive'] = false;
             $this->_request->save();
 
-            if($validator['message']) {
-                $this->comms->componentNotify(
-                    'users/InviteRequestDeny',
-                    [$this->_request, $validator['message']]
-                );
-            }
+            $this->comms->sendPreparedMail('account/InviteRequestDeny', [
+                'request' => $this->_request,
+                'message' => $validator['message']
+            ]);
 
             $this->comms->flashWarning(
                 'request.deny',
-                $this->_('The invite request has bene denied')
+                $this->_('The invite request has been denied')
             );
         });
     }

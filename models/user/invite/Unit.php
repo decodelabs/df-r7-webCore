@@ -126,17 +126,12 @@ class Unit extends axis\unit\table\Base {
         $invite['isActive'] = true;
 
         if($rendererPath === null) {
-            $rendererPath = 'users/Invite';
+            $rendererPath = 'account/Invite';
         }
 
-        $this->context->comms->componentNotify(
-            $rendererPath,
-            [$invite],
-            flow\mail\Address::factory($invite['email'], $invite['name']),
-            null,
-            false,
-            $force
-        );
+        $this->context->comms->prepareMail($rendererPath, ['invite' => $invite], $force)
+            ->addToAddress($invite['email'], $invite['name'])
+            ->send();
 
         $invite['lastSent'] = 'now';
         $invite->save();
@@ -191,17 +186,12 @@ class Unit extends axis\unit\table\Base {
         }
 
         if($rendererPath === null) {
-            $rendererPath = 'users/Invite';
+            $rendererPath = 'account/Invite';
         }
 
-        $this->context->comms->componentNotify(
-            $rendererPath,
-            [$invite],
-            flow\mail\Address::factory($invite['email'], $invite['name']),
-            null,
-            false,
-            $force
-        );
+        $this->context->comms->prepareMail($rendererPath, ['invite' => $invite], $force)
+            ->addToAddress($invite['email'], $invite['name'])
+            ->send();
 
         $invite['lastSent'] = 'now';
         $invite->save();
