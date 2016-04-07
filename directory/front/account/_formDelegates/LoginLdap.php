@@ -82,9 +82,15 @@ class LoginLdap extends arch\node\form\Delegate implements arch\node\IParentUiHa
             );
 
             if(!$result->isValid()) {
-                $this->values->identity->addError('invalid', $this->_(
-                    'The username or password entered was incorrect'
-                ));
+                if($result->getCode() === $result::NO_STATUS) {
+                    $this->values->identity->addError('status', $this->_(
+                        'This account is currently disabled'
+                    ));
+                } else {
+                    $this->values->identity->addError('invalid', $this->_(
+                        'The email address or password entered was incorrect'
+                    ));
+                }
 
                 $this->values->password->setValue('');
                 return false;
