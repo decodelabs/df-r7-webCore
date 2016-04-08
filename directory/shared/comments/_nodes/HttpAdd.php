@@ -99,27 +99,10 @@ class HttpAdd extends arch\node\Form {
             $this->_comment->format = 'SimpleTags';
             $this->_prepareRecord();
 
-            $shouldNotify = $this->_comment->isNew();
             $this->_comment->save();
             $isYours = $this->_comment['#owner'] == $this->user->client->getId();
 
-            if($shouldNotify) {
-                try {
-                    $entity = $this->data->fetchEntity($this->_comment['topic']);
-
-                    if(($entity instanceof fire\interact\ICommentAwareEntity)
-                    && ($notification = $entity->getCommentNotification($this->_comment))) {
-                        $notification->addTo(
-                            $this->data->content->comment->selectDistinct('owner')
-                                ->where('topic', '=', $this->_comment['topic'])
-                                ->toList('owner')
-                        );
-
-                        $notification->shouldFilterClient(true);
-                        $this->comms->sendNotification($notification);
-                    }
-                } catch(\Exception $e) {}
-            }
+            // TODO: send notification?
 
             $this->comms->flashSaveSuccess('comment',
                 $isYours ?

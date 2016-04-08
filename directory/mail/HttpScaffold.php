@@ -48,12 +48,6 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                 ->setIcon('theme')
                 ->setWeight(40),
 
-            $entryList->newLink('~mail/components/', 'Mail components')
-                ->setId('components')
-                ->setDescription('View component based mail templates with pre-set test data')
-                ->setIcon('theme')
-                ->setWeight(41),
-
             $entryList->newLink('~mail/test', 'Test email capabilities')
                 ->setId('test')
                 ->setDescription('Try sending test emails from any of the available transports')

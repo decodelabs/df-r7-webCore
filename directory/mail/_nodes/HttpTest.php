@@ -112,7 +112,7 @@ class HttpTest extends arch\node\Form {
         // Type
         $fs->addField($this->_('Email type'))->push(
             $this->html->selectList('type', $this->values->type, [
-                    'component' => $this->_('Pre-generated preview component'),
+                    'prepared' => $this->_('Prepared mail preview'),
                     'custom' => $this->_('Custom text / html')
                 ])
                 ->isRequired(true),
@@ -123,10 +123,10 @@ class HttpTest extends arch\node\Form {
                 ->shouldValidate(false)
         );
 
-        if($type == 'component') {
-            // Component
-            $fs->addField($this->_('Component'))->push(
-                $this->html->selectList('component', $this->values->component, array_keys($this->_getTemplateList()), true)
+        if($type == 'prepared') {
+            // Prepared
+            $fs->addField($this->_('Prepared mail'))->push(
+                $this->html->selectList('prepared', $this->values->prepared, $this->_getMailList())
                     ->isRequired(true)
             );
         } else if($type == 'custom') {
@@ -154,15 +154,15 @@ class HttpTest extends arch\node\Form {
         $form->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
-    protected function _getTemplateList() {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/mail', 'php', function($path) {
-            return false !== strpos($path, '_components');
+    protected function _getMailList() {
+        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', 'php', function($path) {
+            return false !== strpos($path, '_mail');
         });
 
         $mails = [];
 
         foreach($list as $name => $filePath) {
-            $parts = explode('_components/', substr($name, 0, -4), 2);
+            $parts = explode('_mail/', substr($name, 0, -4), 2);
             $path = array_shift($parts);
             $name = array_shift($parts);
 
@@ -170,21 +170,24 @@ class HttpTest extends arch\node\Form {
                 $path .= '#/';
             }
 
+
             $name = $path.$name;
-            $path = '~mail/'.$name;
+            $path = '~'.$name;
 
             try {
-                $component = $this->apex->component($path);
+                $mail = $this->comms->prepareMail($path);
             } catch(\Exception $e) {
-                $mails[$name] = null;
+                $mails[$path] = null;
                 continue;
             }
 
-            if(!$component instanceof arch\IMailComponent) {
-                continue;
+            $name = $path;
+
+            if(substr($name, 0, 7) == '~front/') {
+                $name = substr($name, 7);
             }
 
-            $mails[$name] = $component;
+            $mails[$path] = $name;
         }
 
         ksort($mails);
@@ -194,7 +197,7 @@ class HttpTest extends arch\node\Form {
     protected function onSelectTypeEvent() {
         $validator = $this->data->newValidator()
             ->addRequiredField('type', 'enum')
-                ->setOptions(['component', 'custom'])
+                ->setOptions(['prepared', 'custom'])
             ->validate($this->values);
 
         if($validator->isValid()) {
@@ -242,8 +245,8 @@ class HttpTest extends arch\node\Form {
 
 
         switch($this->getStore('type')) {
-            case 'component':
-                return $this->_sendComponent($validator);
+            case 'prepared':
+                return $this->_sendPrepared($validator);
 
             case 'custom':
                 return $this->_sendCustom($validator);
@@ -253,26 +256,16 @@ class HttpTest extends arch\node\Form {
         }
     }
 
-    protected function _sendComponent($validator) {
+    protected function _sendPrepared($validator) {
         $validator
 
-            // Component
-            ->addRequiredField('component', 'text')
+            // Prepared
+            ->addRequiredField('prepared', 'text')
             ->validate($this->values);
 
         return $this->complete(function() use($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
-            $component = $this->apex->component('~mail/'.$validator['component']);
-            $notification = $component->renderPreview()->toNotification();
-
-            $mail = new flow\mail\LegacyMessage();
-            $mail->setSubject($notification->getSubject());
-
-            if($notification->getBodyType() == flow\INotification::TEXT) {
-                $mail->setBodyText((string)$notification->getBody());
-            } else {
-                $mail->setBodyHtml($notification->getBodyHtml());
-            }
+            $mail = $this->comms->preparePreviewMail($validator['prepared']);
 
             $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
             $mail->addToAddress($validator['toAddress'], $validator['toName']);
@@ -282,14 +275,14 @@ class HttpTest extends arch\node\Form {
             }
 
             if($validator['ccAddress']) {
-                $mail->addCCAddress($validator['ccAddress'], $validator['ccName']);
+                $mail->addCcAddress($validator['ccAddress'], $validator['ccName']);
             }
 
             if($validator['bccAddress']) {
-                $mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
+                $mail->addBccAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 
-            $transport->sendLegacy($mail);
+            $mail->send($transport);
 
             $this->comms->flashSuccess(
                 'testMail.sent',
