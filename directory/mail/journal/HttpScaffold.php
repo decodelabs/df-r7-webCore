@@ -28,7 +28,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DETAILS_FIELDS = [
         'date', 'name', 'email', 'user', 'environmentMode', 'expireDate',
-        'objectId1', 'objectId2'
+        'key1', 'key2'
     ];
 
 
