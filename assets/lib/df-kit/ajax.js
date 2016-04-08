@@ -198,8 +198,12 @@ define([
                         if(response.request.formEvent !== 'cancel'
                         && response.forceRedirect
                         && response.redirect !== null) {
-                            _this.trigger('form:cancel', response);
+                            _this.trigger('form:forceRedirect', response);
                             return _this.get(response.redirect, response.request);
+                        }
+
+                        if(response.request.formEvent === 'cancel') {
+                            _this.trigger('form:cancel', response);
                         }
 
                         _this.trigger('form:complete', response);
@@ -209,7 +213,12 @@ define([
                         if(isInitial) {
                             _this.trigger('form:completeInitial', response);
                         }
+
+                        if(response.handled) {
+                            return;
+                        }
                     }
+
 
                     if(response.redirect !== null) {
                         _this.trigger('redirect', response);
