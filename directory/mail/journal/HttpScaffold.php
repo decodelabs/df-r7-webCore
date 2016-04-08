@@ -32,47 +32,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-    public function fixNamesNode() {
-        $list = $this->data->mail->journal->fetch()
-            ->where('name', 'begins', '~mail/');
-
-        $count = 0;
-
-        foreach($list as $mail) {
-            $mail['name'] = substr($mail['name'], 6);
-            $mail->save();
-            $count++;
-        }
-
-        core\dump($count);
-    }
-
-    public function fixDurationsNode() {
-        $list = $this->data->mail->journal->fetch();
-        $count = 0;
-
-        foreach($list as $mail) {
-            $date = $mail['date'];
-
-            try {
-                $component = $this->apex->component('~mail/'.$mail['name']);
-
-                if(!$component instanceof arch\IMailComponent) {
-                    continue;
-                }
-            } catch(\Exception $e) {
-                continue;
-            }
-
-            $date = $date->modifyNew('+'.$component::JOURNAL_WEEKS.' weeks');
-            $mail->expireDate = $date;
-            $mail->save();
-            $count++;
-        }
-
-        core\dump($count);
-    }
-
 // Record data
     protected function prepareRecordList($query, $mode) {
         $query->importRelationBlock('user', 'link');
