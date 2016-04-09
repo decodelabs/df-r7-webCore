@@ -30,7 +30,8 @@ class HttpStart extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'daemons/remote?daemon='.$this->_daemon->getName().'&command=start';
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream(
+            'daemons/remote?daemon='.$this->_daemon->getName().'&command=start'
+        );
     }
 }

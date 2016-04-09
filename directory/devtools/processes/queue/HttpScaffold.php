@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const LIST_FIELDS = [
         'request', 'priority', 'queueDate',
-        'lockDate', 'environmentMode'
+        'lockDate'
     ];
 
     const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'queueDate',
-        'lockDate', 'lockId', 'logs', 'environmentMode'
+        'lockDate', 'lockId', 'logs'
     ];
 
 // Record data

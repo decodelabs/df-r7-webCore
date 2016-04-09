@@ -81,7 +81,6 @@ class HttpRebuildTable extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'axis/rebuild-table?unit='.$this->_inspector->getId();
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('axis/rebuild-table?unit='.$this->_inspector->getId());
     }
 }

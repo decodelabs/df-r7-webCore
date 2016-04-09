@@ -24,12 +24,8 @@ class HttpEdit extends HttpAdd {
 
     protected function setDefaultValues() {
         $this->values->importFrom($this->_schedule, [
-            'request', 'environmentMode', 'minute', 'hour',
+            'request', 'minute', 'hour',
             'day', 'month', 'weekday', 'isLive'
         ]);
-
-        if(empty($this->values['environmentMode'])) {
-            $this->values->environmentMode = '';
-        }
     }
 }

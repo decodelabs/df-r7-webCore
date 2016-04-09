@@ -21,7 +21,6 @@ class HttpAdd extends arch\node\Form {
     }
 
     protected function setDefaultValues() {
-        $this->values->environmentMode = df\Launchpad::getEnvironmentMode();
         $this->values->priority = 'medium';
     }
 
@@ -34,16 +33,6 @@ class HttpAdd extends arch\node\Form {
             $this->html->textbox('request', $this->values->request)
                 ->isRequired(true)
                 ->setMaxLength(1024)
-        );
-
-        // Environment mode
-        $fs->addField($this->_('Environment mode'))->push(
-            $this->html->radioButtonGroup('environmentMode', $this->values->environmentMode, [
-                    'development' => $this->_('Development'),
-                    'testing' => $this->_('Testing'),
-                    'production' => $this->_('Production')
-                ])
-                ->isRequired(true)
         );
 
         // Priority
@@ -63,10 +52,6 @@ class HttpAdd extends arch\node\Form {
             ->addRequiredField('request', 'text')
                 ->setMaxLength(1024)
 
-            // Env
-            ->addRequiredField('environmentMode', 'enum')
-                ->setOptions(['development', 'testing', 'production'])
-
             // Priority
             ->addRequiredField('priority', 'enum')
                 ->setType('core/unit/Priority')
@@ -76,6 +61,7 @@ class HttpAdd extends arch\node\Form {
 
 
         return $this->complete(function() {
+            $this->_task->environmentMode = df\Launchpad::getEnvironmentMode();
             $this->_task->save();
 
             $this->comms->flashSuccess(

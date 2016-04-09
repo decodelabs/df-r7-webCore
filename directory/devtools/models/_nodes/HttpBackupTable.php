@@ -77,7 +77,6 @@ class HttpBackupTable extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'axis/backup-table?unit='.$this->_inspector->getId();
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('axis/backup-table?unit='.$this->_inspector->getId());
     }
 }

@@ -54,7 +54,6 @@ class HttpRestoreBackup extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'axis/restore-backup?backup='.basename($this->_file);
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('axis/restore-backup?backup='.basename($this->_file));
     }
 }

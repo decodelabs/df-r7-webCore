@@ -22,7 +22,7 @@ class HttpEdit extends HttpAdd {
 
     protected function setDefaultValues() {
         $this->values->importFrom($this->_task, [
-            'request', 'environmentMode', 'priority'
+            'request', 'priority'
         ]);
     }
 }

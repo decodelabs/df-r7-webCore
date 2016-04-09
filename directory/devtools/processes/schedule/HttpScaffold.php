@@ -28,13 +28,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const LIST_FIELDS = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
-        'schedule', 'environmentMode', 'isLive', 'isAuto'
+        'schedule', 'isLive', 'isAuto'
     ];
 
     const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'creationDate',
         'lastRun', 'lastRun', 'minute', 'hour', 'day', 'month', 'weekday',
-        'environmentMode', 'isLive', 'isAuto'
+        'isLive', 'isAuto'
     ];
 
 

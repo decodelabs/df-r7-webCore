@@ -26,7 +26,6 @@ class HttpBackup extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'axis/backup';
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('axis/backup');
     }
 }

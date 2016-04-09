@@ -21,7 +21,6 @@ class HttpAdd extends arch\node\Form {
     }
 
     protected function setDefaultValues() {
-        $this->values->environmentMode = '';
         $this->values->priority = 'medium';
         $this->values->isLive = true;
     }
@@ -35,17 +34,6 @@ class HttpAdd extends arch\node\Form {
             $this->html->textbox('request', $this->values->request)
                 ->isRequired(true)
                 ->setMaxLength(1024)
-        );
-
-        // Environment mode
-        $fs->addField($this->_('Environment mode'))->push(
-            $this->html->radioButtonGroup('environmentMode', $this->values->environmentMode, [
-                    '' => $this->_('Active at run time'),
-                    'development' => $this->_('Development'),
-                    'testing' => $this->_('Testing'),
-                    'production' => $this->_('Production')
-                ])
-                ->isRequired(true)
         );
 
         // Priority
@@ -107,10 +95,6 @@ class HttpAdd extends arch\node\Form {
             ->addRequiredField('request', 'text')
                 ->setMaxLength(1024)
 
-            // Env
-            ->addField('environmentMode', 'enum')
-                ->setOptions(['development', 'testing', 'production'])
-
             // Priority
             ->addRequiredField('priority', 'enum')
                 ->setType('core/unit/Priority')
@@ -143,6 +127,8 @@ class HttpAdd extends arch\node\Form {
 
 
         return $this->complete(function() {
+            $this->_schedule->environmentMode = df\Launchpad::getEnvironmentMode();
+
             if($this->_schedule->isNew()
             || $this->_schedule->hasChanged('minute', 'hour', 'day', 'month', 'weekday')
             || ($this->_schedule->hasChanged('isLive') && $this->_schedule['isLive'] == false)) {

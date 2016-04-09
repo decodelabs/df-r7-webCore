@@ -81,7 +81,6 @@ class HttpPurgeTableBackups extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'axis/purge-table-backups?unit='.$this->_inspector->getId();
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('axis/purge-table-backups?unit='.$this->_inspector->getId());
     }
 }

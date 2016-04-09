@@ -21,7 +21,6 @@ class HttpSpool extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'tasks/spool';
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('tasks/spool');
     }
 }

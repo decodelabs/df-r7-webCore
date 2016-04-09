@@ -21,7 +21,6 @@ class HttpCompile extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'application/build';
-        return $this->task->initiateStream($task, 'development');
+        return $this->task->initiateStream('application/build');
     }
 }

@@ -30,7 +30,8 @@ class HttpStop extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'daemons/remote?daemon='.$this->_daemon->getName().'&command=stop';
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream(
+            'daemons/remote?daemon='.$this->_daemon->getName().'&command=stop'
+        );
     }
 }

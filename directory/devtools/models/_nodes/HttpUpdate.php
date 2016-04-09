@@ -27,7 +27,6 @@ class HttpUpdate extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $task = 'axis/update';
-        return $this->task->initiateStream($task);
+        return $this->task->initiateStream('axis/update');
     }
 }
