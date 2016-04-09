@@ -61,7 +61,6 @@ class HttpAdd extends arch\node\Form {
 
 
         return $this->complete(function() {
-            $this->_task->environmentMode = df\Launchpad::getEnvironmentMode();
             $this->_task->save();
 
             $this->comms->flashSuccess(
