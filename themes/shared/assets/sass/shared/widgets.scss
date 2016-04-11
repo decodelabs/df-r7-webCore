@@ -335,6 +335,10 @@
         float: left;
         width: 18em;
         padding: 0.2em 0.5em;
+
+        .w-selectList {
+            max-width: 100%;
+        }
     }
 
     > .w-buttonArea {
