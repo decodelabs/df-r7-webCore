@@ -85,8 +85,7 @@ class HttpConfirmLogin extends arch\node\Form {
 
     protected function onLogoutEvent() {
         return $this->complete(function() {
-            $this->user->auth->unbind();
-            return 'account/login';
+            return 'account/logout';
         });
     }
 }
