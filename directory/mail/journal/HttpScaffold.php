@@ -56,7 +56,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             }
 
             if(substr($name, 0, 1) != '~') {
-                return $this->html->link('~mail/templates/view?path='.$name, $name)
+                return $this->html->link('~mail/previews/view?path='.$name, $name)
                     ->setIcon('theme')
                     ->setDisposition('transitive');
             }
