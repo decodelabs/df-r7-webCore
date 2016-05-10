@@ -24,7 +24,7 @@ class HttpLogin extends arch\node\Form {
     protected function init() {
         if($this->user->client->isLoggedIn()) {
             $this->setComplete();
-            return $this->http->defaultRedirect(self::DEFAULT_REDIRECT);
+            return $this->_getCompleteRedirect(null, false);
         }
 
         $this->_config = user\authentication\Config::getInstance();
