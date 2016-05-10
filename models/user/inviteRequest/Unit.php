@@ -43,7 +43,12 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('isActive', 'Boolean')
             ->setDefaultValue(true);
 
-        $schema->addField('invite', 'One', 'user/Invite')
+        $schema->addField('user', 'One', 'user/client')
+            ->isNullable(true);
+        $schema->addField('groups', 'Json')
+            ->isNullable(true);
+
+        $schema->addField('invite', 'One', 'user/invite')
             ->isNullable(true);
     }
 }

@@ -71,17 +71,27 @@ class HttpRespond extends arch\node\Form {
             ->validate($this->values);
 
         return $this->complete(function() use($validator) {
-            $invite = $this->data->user->invite->newRecord([
-                'name' => $this->_request['name'],
-                'email' => $this->_request['email'],
-                'message' => $validator['message']
-            ]);
+            if(!$this->_request['#user']) {
+                $invite = $this->data->user->invite->newRecord([
+                    'name' => $this->_request['name'],
+                    'email' => $this->_request['email'],
+                    'message' => $validator['message'],
+                    'groups' => $this->_request['groups']->toArray()
+                ]);
 
-            $invite->send();
+                $invite->send();
+                $this->_request['invite'] = $invite;
+            } else {
+                // TODO send accept notification mail
+            }
 
             $this->_request['isActive'] = false;
-            $this->_request['invite'] = $invite;
             $this->_request->save();
+
+            if($user = $this->_request['user']) {
+                $user->groups->addList($this->_request['groups']->toArray());
+                $user->save();
+            }
 
             $this->comms->flashSuccess(
                 'request.accept',

@@ -16,7 +16,7 @@ class HttpExport extends arch\node\Base {
     public function execute() {
         return $this->http->csvGenerator('Invite requests ('.$this->format->date('now').').csv', function($builder) {
             $q = $this->data->user->inviteRequest->select()
-                ->leftJoinRelation('invite', 'registrationDate', 'user')
+                ->leftJoinRelation('invite', 'registrationDate', 'user as inviteUser')
                 ->orderBy('creationDate DESC');
 
             $builder->setFields([
@@ -41,6 +41,10 @@ class HttpExport extends arch\node\Base {
                     $row['status'] = 'Declined';
                 } else {
                     $row['status'] = 'Pending';
+                }
+
+                if($row['inviteUser']) {
+                    $row['user'] = $row['inviteUser'];
                 }
 
                 if($row['user']) {

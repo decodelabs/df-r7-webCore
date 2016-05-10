@@ -29,7 +29,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DETAILS_FIELDS = [
         'name', 'email', 'companyName', 'companyPosition',
-        'invite', 'creationDate', 'isActive', 'message'
+        'invite', 'user', 'creationDate', 'isActive', 'message'
     ];
 
 
@@ -57,17 +57,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
     public function getRecordOperativeLinks($request, $mode) {
-        return array_merge(
-            [
-                // Respond
-                $this->apex->component('RequestLink', $request, $this->_('Respond'))
-                    ->setNode('respond')
-                    ->setIcon('mail')
-                    ->setDisposition('operative')
-                    ->isDisabled(!$request['isActive'])
-            ],
-            parent::getRecordOperativeLinks($request, $mode)
-        );
+        // Respond
+        yield $this->apex->component('RequestLink', $request, $this->_('Respond'))
+            ->setNode('respond')
+            ->setIcon('mail')
+            ->setDisposition('operative')
+            ->isDisabled(!$request['isActive']);
+
+        yield parent::getRecordOperativeLinks($request, $mode);
     }
 
 
@@ -87,6 +84,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
+    public function defineUserField($list, $mode) {
+        $list->addField('user', function($request) {
+            return $this->apex->component('../clients/UserLink', $request['user'])
+                ->isNullable(true);
+        });
+    }
+
     public function defineMessageField($list, $mode) {
         $list->addField('message', function($request) {
             return $this->html->plainText($request['message']);
@@ -99,7 +103,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 $context->getRowTag()->addClass('inactive');
             }
 
-            if(isset($request['invite'])) {
+            if(!$request['isActive'] && (isset($request['invite']) || isset($request['user']))) {
                 return $this->html->icon('accept', $mode != 'list' ? $this->_('Accepted') : null)
                     ->addClass('positive');
             } else if($request['isActive']) {
