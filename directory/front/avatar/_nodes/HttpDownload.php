@@ -46,9 +46,13 @@ class HttpDownload extends arch\node\Base {
             try {
                 $version = $this->data->media->fetchSingleUserVersionForDownload($id, 'Avatar');
 
-                $url = $this->data->media->getImageUrl(
+                return $this->media->serveImage(
                     $version['fileId'],
-                    '[cz:'.$size.'|'.$size.']'
+                    $version['id'],
+                    $version['isActive'],
+                    $version['contentType'],
+                    '[cz:'.$size.'|'.$size.']',
+                    $version['creationDate']
                 );
             } catch(\Exception $e) {
                 $url = $this->avatar->getGravatarUrl(
@@ -58,11 +62,10 @@ class HttpDownload extends arch\node\Base {
                     $size
                 );
 
+                $output = $this->http->redirect($url)->isAlternativeContent(true);
+                $output->headers->setCacheExpiration('15 minutes');
+                return $output;
             }
-
-            $output = $this->http->redirect($url)->isAlternativeContent(true);
-            $output->headers->setCacheExpiration('15 minutes');
-            return $output;
         }
     }
 }
