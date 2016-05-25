@@ -70,6 +70,7 @@ class HttpBootstrap extends arch\node\Base {
                 $main = substr($main, 0, -3);
             }
 
+            $paths['{'.$dependency->id.'}'] = 'vendor/'.$dependency->installName;
             $paths[$dependency->id] = 'vendor/'.$dependency->installName.'/'.$main;
 
             if(isset($dependency->shim)) {
