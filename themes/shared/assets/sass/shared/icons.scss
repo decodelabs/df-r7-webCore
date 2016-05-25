@@ -1,11 +1,11 @@
 @if $icon-font-family != false {
     @font-face {
         font-family: $icon-font-family;
-        src: url('../fonts/' + $icon-font-family + '.eot');
-        src: url('../fonts/' + $icon-font-family + '.eot?#iefix') format('embedded-opentype'),
-            url('../fonts/' + $icon-font-family + '.svg#' + $icon-font-family) format('svg'),
-            url('../fonts/' + $icon-font-family + '.woff') format('woff'),
-            url('../fonts/' + $icon-font-family + '.ttf') format('truetype');
+        src: url('../fonts/' + $icon-font-family + '.eot?cts=');
+        src: url('../fonts/' + $icon-font-family + '.eot?cts=#iefix') format('embedded-opentype'),
+            url('../fonts/' + $icon-font-family + '.svg?cts=#' + $icon-font-family) format('svg'),
+            url('../fonts/' + $icon-font-family + '.woff?cts=') format('woff'),
+            url('../fonts/' + $icon-font-family + '.ttf?cts=') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
