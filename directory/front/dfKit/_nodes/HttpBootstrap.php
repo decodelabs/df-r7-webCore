@@ -56,9 +56,13 @@ class HttpBootstrap extends arch\node\Base {
         $manager = aura\theme\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
 
-        $paths = $shims = [];
+        $paths = $shims = $maps = [];
 
         foreach($dependencies as $key => $dependency) {
+            if(isset($dependency->map)) {
+                $maps = array_merge($maps, $dependency->map);
+            }
+
             if(empty($dependency->js)) {
                 continue;
             }
@@ -82,6 +86,10 @@ class HttpBootstrap extends arch\node\Base {
 
         if(!empty($shims)) {
             $data['shims'] = $shims;
+        }
+
+        if(!empty($maps)) {
+            $data['map'] = $maps;
         }
 
         return $data;
