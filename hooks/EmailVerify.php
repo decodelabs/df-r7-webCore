@@ -15,7 +15,7 @@ use df\flex;
 
 class EmailVerify extends mesh\event\Hook {
 
-    protected $_events = [
+    const EVENTS = [
         'axis://user/Client' => [
             'insert' => 'clientInsert',
             'preUpdate' => 'clientUpdate',
