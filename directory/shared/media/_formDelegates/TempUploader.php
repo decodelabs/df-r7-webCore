@@ -27,6 +27,7 @@ class TempUploader extends arch\node\form\Delegate implements
     protected $_maxTempFiles = 10;
 
     private $_dirChecked = false;
+    private $_hasUploaded = false;
 
     public function shouldShowUploadButton(bool $flag=null) {
         if($flag !== null) {
@@ -178,6 +179,10 @@ class TempUploader extends arch\node\form\Delegate implements
 
 // Result
     protected function onUploadEvent() {
+        if($this->_hasUploaded) {
+            return;
+        }
+
         unset($this->values->file);
 
         $uploadHandler = new link\http\upload\Handler();
@@ -205,6 +210,7 @@ class TempUploader extends arch\node\form\Delegate implements
             }
         }
 
+        $this->_hasUploaded = true;
         return $this->http->redirect('#'.$this->_getWidgetId());
     }
 
