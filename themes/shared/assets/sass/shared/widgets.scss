@@ -151,6 +151,7 @@
         order: -2;
         content: ' ';
         height: 1px;
+
         width: $form-label-width;
         flex: 0 0 $form-label-width;
         text-align: $form-label-align;
@@ -159,13 +160,16 @@
         max-width: 40%;
         padding-right: 1em;
         box-sizing: border-box;
+        display: box;
+        position: relative;
     }
 
     > .w-fieldError {
         order: -1;
-        flex: 0 1 60%;
+        flex: 0 1 auto;
         margin-bottom: 0.2em;
-        min-width: calc(100% - #{$form-label-width});
+        min-width: calc(100% - #{$form-label-width + 1});
+        box-sizing: border-box;
     }
 
     > .w-inputArea {
