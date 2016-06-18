@@ -509,18 +509,39 @@ button.text {
     margin: 0.7em 0;
 }
 
-.w-collectionList {
-    a.order.active {
-        &.asc:after {
-            font-size: 0.75em;
-            content: ' ⇑'
-        }
-        &.desc:after {
-            font-size: 0.75em;
-            content: ' ⇓';
+
+// Order
+.w-orderList {
+    list-style: none;
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0 0 1em;
+
+    li {
+        display: inline-block;
+        margin-right: 1.1em;
+
+        &.label {
+            margin-right: 0.3em;
+
+            &:after {
+                content: ': ';
+            }
         }
     }
+}
+a.order.active {
+    &.asc:after {
+        font-size: 0.75em;
+        content: ' ⇑'
+    }
+    &.desc:after {
+        font-size: 0.75em;
+        content: ' ⇓';
+    }
+}
 
+.w-collectionList {
     td, th {
         padding: 0.1em 0.3em;
         height: 2em;
