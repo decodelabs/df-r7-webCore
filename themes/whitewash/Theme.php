@@ -15,7 +15,11 @@ class Theme extends aura\theme\Base {
     const APPLICATION_IMAGE = 'app.png';
 
     protected $_dependencies = [
-        'jquery#~2.1'
+        'requirejs#~2.1',
+        'jquery#~2.1',
+        'underscore#~1.5' => [
+            'shim' => '_'
+        ]
     ];
 
     public function applyDefaultIncludes(aura\view\IView $view) {
