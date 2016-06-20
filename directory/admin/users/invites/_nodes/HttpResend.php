@@ -71,7 +71,7 @@ class HttpResend extends arch\node\ConfirmForm {
 
     protected function apply() {
         $validator = $this->data->newValidator()
-            ->addField('forceSend', 'boolean')
+            ->addRequiredField('forceSend', 'boolean')
             ->validate($this->values);
 
         if($validator['forceSend']) {

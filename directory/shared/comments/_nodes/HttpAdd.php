@@ -86,7 +86,7 @@ class HttpAdd extends arch\node\Form {
     protected function onSaveEvent() {
         $this->data->newValidator()
             // Live
-            ->addField('isLive', 'boolean')
+            ->addRequiredField('isLive', 'boolean')
                 ->setDefaultValue(true)
 
             // Body

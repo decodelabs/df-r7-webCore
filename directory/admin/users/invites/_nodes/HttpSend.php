@@ -102,7 +102,7 @@ class HttpSend extends arch\node\Form {
             ->addField('message', 'text')
 
             // Force send
-            ->addField('forceSend', 'boolean')
+            ->addRequiredField('forceSend', 'boolean')
 
             ->validate($this->values)
             ->applyTo($this->_invite, ['name', 'email', 'groups', 'message']);

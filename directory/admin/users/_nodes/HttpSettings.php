@@ -84,19 +84,19 @@ class HttpSettings extends arch\node\Form {
         $this->data->newValidator()
 
             // Registration
-            ->addField('registrationEnabled', 'boolean')
+            ->addRequiredField('registrationEnabled', 'boolean')
 
             // Verify
-            ->addField('verifyEmail', 'boolean')
+            ->addRequiredField('verifyEmail', 'boolean')
 
             // Login
-            ->addField('loginOnRegistration', 'boolean')
+            ->addRequiredField('loginOnRegistration', 'boolean')
 
             // Landing
             ->addRequiredField('registrationLandingPage', 'text')
 
             // Pass check
-            ->addField('checkPasswordStrength', 'boolean')
+            ->addRequiredField('checkPasswordStrength', 'boolean')
 
             // Min strength
             ->addRequiredField('minPasswordStrength', 'integer')

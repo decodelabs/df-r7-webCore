@@ -78,7 +78,7 @@ class HttpTransfer extends arch\node\Form {
             ->addRequiredField('to', 'enum')
                 ->setOptions(array_keys($handlerList))
 
-            ->addField('deleteSource', 'boolean')
+            ->addRequiredField('deleteSource', 'boolean')
 
             ->validate($this->values);
 

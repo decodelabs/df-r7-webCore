@@ -120,7 +120,7 @@ class HttpAdd extends arch\node\Form {
                 ->setMaxLength(128)
 
             // Is live
-            ->addField('isLive', 'boolean')
+            ->addRequiredField('isLive', 'boolean')
 
             ->validate($this->values)
             ->applyTo($this->_schedule);

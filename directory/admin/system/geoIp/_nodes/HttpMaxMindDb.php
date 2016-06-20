@@ -212,10 +212,10 @@ class HttpMaxMindDb extends arch\node\Form {
         $validator = $this->data->newValidator()
 
             // Default
-            ->addField('setAsDefault', 'boolean')
+            ->addRequiredField('setAsDefault', 'boolean')
 
             // Enabled
-            ->addField('isEnabled', 'boolean')
+            ->addRequiredField('isEnabled', 'boolean')
 
             // File
             ->addField('file', 'enum')
