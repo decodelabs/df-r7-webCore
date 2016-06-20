@@ -35,7 +35,7 @@ class HttpSettings extends arch\node\Form {
                 }
             );
         } else {
-            $this->_config = core\Environment::getInstance();
+            $this->_config = core\environment\Config::getInstance();
         }
     }
 
@@ -66,7 +66,7 @@ class HttpSettings extends arch\node\Form {
             )
         );
 
-        $env = core\Environment::getInstance();
+        $env = core\environment\Config::getInstance();
 
         // User
         $fs->addField($this->_('User'))->push(
