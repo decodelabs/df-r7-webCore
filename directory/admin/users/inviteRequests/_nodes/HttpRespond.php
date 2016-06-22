@@ -82,7 +82,10 @@ class HttpRespond extends arch\node\Form {
                 $invite->send();
                 $this->_request['invite'] = $invite;
             } else {
-                // TODO send accept notification mail
+                $this->comms->sendPreparedMail('account/InviteRequestAccept', [
+                    'request' => $this->_request,
+                    'message' => $validator['message']
+                ]);
             }
 
             $this->_request['isActive'] = false;
