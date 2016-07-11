@@ -188,6 +188,7 @@ return [
     'checkbox' => '&#xe066;',
     'checkbox-partial' => '&#xe067;',
     'surface' => '&#xe067;',
+    'question' => '&#xe067;',
     'radio-checked' => '&#xe068;',
     'arrow-up' => '&#xe069;',
     'arrow-up-right' => '&#xe06a;',
