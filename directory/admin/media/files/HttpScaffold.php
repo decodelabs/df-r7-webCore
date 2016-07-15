@@ -81,6 +81,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         return '../files?bucket='.$this->getRecord()['#bucket'];
     }
 
+    public function getRecordOperativeLinks($record, $mode) {
+        return [
+            $this->html->link($this->media->getDownloadUrl($record['id']), $this->_('Download file'))
+                ->setIcon('download')
+                ->setDisposition('informative'),
+
+            parent::getRecordOperativeLinks($record, $mode)
+        ];
+    }
+
 
 // Fields
     public function defineBucketField($list, $mode) {
