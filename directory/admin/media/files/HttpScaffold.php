@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
     const LIST_FIELDS = [
-        'fileName', 'bucket', 'slug', 'fileSize', 'owner',
+        'fileName', 'bucket', 'fileSize', 'owner',
         'creationDate', 'version'
     ];
 
     const DETAILS_FIELDS = [
-        'slug', 'url', 'bucket', 'fileName', 'fileSize', 'owner',
+        'url', 'bucket', 'fileName', 'fileSize', 'owner',
         'hash', 'creationDate'
     ];
 
@@ -86,16 +86,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     public function defineBucketField($list, $mode) {
         $list->addField('bucket', function($file) {
             return $this->apex->component('../BucketLink', $file['bucket']);
-        });
-    }
-
-    public function defineSlugField($list, $mode) {
-        $list->addField('slug', function($file) {
-            return $this->html->link(
-                    $this->media->getDownloadUrl($file['id']),
-                    $this->html('samp', $file['slug'])
-                )
-                ->setIcon('download');
         });
     }
 

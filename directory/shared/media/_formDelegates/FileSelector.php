@@ -119,7 +119,6 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
     protected function _applyQuerySearch(opal\query\IQuery $query, $search) {
         $query->searchFor($search, [
-            'slug' => 5,
             'fileName' => 2
         ]);
     }
@@ -248,8 +247,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
                     $this->html('div.body', [
                         $this->html->icon('file', $name)
-                            ->addClass('informative')
-                            ->setTitle($result['slug']),
+                            ->addClass('informative'),
                         ' - ',
                         $this->html('em', $this->format->fileSize($result['fileSize']))
                     ]),
@@ -307,7 +305,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $selected = $this->createInlineDetailsUi($fa);
 
         $fileId = $this->getStore('versionFileId');
-        $file = $this->data->media->file->select('id', 'slug', 'fileName')
+        $file = $this->data->media->file->select('id', 'fileName')
             ->leftJoinRelation('activeVersion', 'fileSize', 'creationDate')
             ->where('id', '=', $fileId)
             ->toRow();
@@ -333,8 +331,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
         $fs->addField($this->_('Current file'))->push(
             $this->html->icon('file', $file['fileName'])
-                ->addClass('informative')
-                ->setTitle($file['slug']),
+                ->addClass('informative'),
             ' - ',
             $this->html('em', $this->format->fileSize($file['fileSize']))
         );

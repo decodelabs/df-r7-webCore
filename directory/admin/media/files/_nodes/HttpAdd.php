@@ -54,12 +54,6 @@ class HttpAdd extends arch\node\Form {
             );
         }
 
-        // Slug
-        $fs->addField($this->_('Slug'))->push(
-            $this->html->textbox('slug', $this->values->slug)
-                ->setPlaceholder($this->_('Auto-generate from file name'))
-        );
-
         // File name
         $fa = $fs->addField($this->_('File name'))->push(
             $this->html->textbox('fileName', $this->values->fileName)
@@ -85,7 +79,7 @@ class HttpAdd extends arch\node\Form {
         $filePath = $this['upload']->apply();
 
         if($filePath && $this->values['overwriteName']) {
-            unset($this->values->fileName, $this->values->slug);
+            unset($this->values->fileName);
         }
 
         $validator = $this->data->newValidator()
@@ -103,18 +97,6 @@ class HttpAdd extends arch\node\Form {
                     }
 
                     return $value;
-                })
-
-            // Slug
-            ->addRequiredField('slug')
-                ->setDefaultValueField('fileName', function($fileName) {
-                    return (new core\uri\Path($fileName))->getFilename();
-                })
-                ->allowPathFormat(true)
-                ->allowRoot(false)
-                ->setRecord($this->_file)
-                ->addFilter(function($clause, $field) {
-                    $clause->where('bucket', '=', $field->validator['bucket']);
                 })
 
             // Owner

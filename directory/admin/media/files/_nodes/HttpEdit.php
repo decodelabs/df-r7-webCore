@@ -22,7 +22,7 @@ class HttpEdit extends HttpAdd {
 
     protected function setDefaultValues() {
         $this->values->importFrom($this->_file, [
-            'slug', 'fileName'
+            'fileName'
         ]);
 
         $this['bucket']->setSelected($this->_file['#bucket']);
