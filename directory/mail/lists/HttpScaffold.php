@@ -54,6 +54,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
+// Components
+    public function addIndexSubOperativeLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link($this->uri('./refresh', true), $this->_('Refresh'))
+                ->setIcon('refresh')
+        );
+    }
+
+
 // Fields
 
 }
