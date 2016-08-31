@@ -22,10 +22,12 @@ $rem: true !default;
 /* FONTS */
 $font-base-size: 16px !default;
 $font-fallback-size: false !default;
-$font-min-size: 8px !default;
+$font-min-size: 10px !default;
 $font-base-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
 $font-scale: false !default;
-$font-scale-threshold: 1600px !default;
+$font-scale-threshold: 3000px !default;
+$font-scale-crossover: 1080px !default;
+$font-scale-region: 300px !default;
 $font-base-weight: normal !default;
 $font-antialias: true !default;
 
