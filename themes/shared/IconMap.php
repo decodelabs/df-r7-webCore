@@ -180,6 +180,7 @@ return [
     'light-low' => '&#xe062;',
     'light-high' => '&#xe063;',
     'light' => '&#xe063;',
+    'idea' => '&#xe063;',
     'enter' => '&#xe064;',
     'exit' => '&#xe065;',
     'move' => '&#xe064;',
