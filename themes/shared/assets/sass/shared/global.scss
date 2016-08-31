@@ -22,13 +22,13 @@ html {
         $expDivisions: floor(($maxWidth - $font-scale-crossover) / $font-scale-region);
 
         html {
-            font-size: $font-base-size + $expDivisions;
+            font-size: $font-base-size + $expDivisions - 1;
         }
 
-        @for $i from 1 through $expDivisions {
+        @for $i from 1 through ($expDivisions - 1) {
             @media only screen and (max-width: #{$maxWidth - ($i * $font-scale-region)}) {
                 html {
-                    font-size: #{$font-base-size + ($expDivisions - $i)};
+                    font-size: #{$font-base-size + ($expDivisions - ($i + 1))};
                 }
             }
         }
