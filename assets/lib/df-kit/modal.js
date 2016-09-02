@@ -122,7 +122,7 @@ define([
                     builder();
                 });
             } else {
-                $('body').addClass('modal-open');
+                $('html').addClass('modal-open');
                 $container = $('<div id="modal-container"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
                 $(_this.attr.content).hide();
 
@@ -172,7 +172,7 @@ define([
 
                     $(_this.attr.container).fadeOut(_this._containerFadeTime, function() {
                         $(this).remove();
-                        $('body').removeClass('modal-open');
+                        $('html').removeClass('modal-open');
                         callbackRunner();
                     });
                 });
