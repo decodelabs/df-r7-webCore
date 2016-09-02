@@ -63,19 +63,18 @@ class HttpBootstrap extends arch\node\Base {
                 $maps = array_merge($maps, $dependency->map);
             }
 
-            if(empty($dependency->js)) {
-                continue;
-            }
-
-            $js = $dependency->js;
-            $main = array_shift($js);
-
-            if(substr($main, -3) == '.js') {
-                $main = substr($main, 0, -3);
-            }
-
             $paths['{'.$dependency->id.'}'] = 'vendor/'.$dependency->installName;
-            $paths[$dependency->id] = 'vendor/'.$dependency->installName.'/'.$main;
+
+            if(!empty($dependency->js)) {
+                $js = $dependency->js;
+                $main = array_shift($js);
+
+                if(substr($main, -3) == '.js') {
+                    $main = substr($main, 0, -3);
+                }
+
+                $paths[$dependency->id] = 'vendor/'.$dependency->installName.'/'.$main;
+            }
 
             if(isset($dependency->shim)) {
                 $shims[$dependency->id] = $dependency->shim;
