@@ -174,6 +174,7 @@ define([
                         $(this).remove();
                         $('html').removeClass('modal-open');
                         callbackRunner();
+                        _this.trigger('close');
                     });
                 });
             }
