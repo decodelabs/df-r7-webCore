@@ -875,16 +875,18 @@ a.w-flashMessage {
     height: 100%;
     width: 100vw;
     height: 100vh;
-    padding: 2.5em;
+    padding: 1.5em;
     box-sizing: border-box;
     z-index: 1000;
 
     .container {
         background: #FFF;
         height: 87vh;
-        padding: 2em;
+        height: calc(100vh - 3em);
+        padding: 1.5em;
         box-sizing: border-box;
         overflow: auto;
+        border-radius: 1em;
 
         iframe {
             width: 100%;
