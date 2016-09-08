@@ -21,7 +21,7 @@ class HttpView extends arch\node\Base {
         }
 
         $path = new arch\Request($this->request['path']);
-        $path = '#'.$path->getController().'/'.ucfirst($path->getNode()).'.html';
+        $path = '#'.$path->getController().'/'.ucfirst($path->path->getFileName()).'.html';
 
         $view = $this->apex->view($path);
         $context = $view->getContext();

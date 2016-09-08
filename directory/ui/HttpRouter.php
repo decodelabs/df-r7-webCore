@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 
 class HttpRouter implements arch\IRouter {
-    
+
     public function routeIn(arch\IRequest $request) {
         if($request->eq('~ui/index')) {
             return $request;
@@ -21,12 +21,12 @@ class HttpRouter implements arch\IRouter {
 
         $query = $request->getQuery();
         $query->path = (string)$path;
-        
+
         $request->setPath('~ui/view');
 
         return $request;
     }
-    
+
     public function routeOut(arch\IRequest $request) {
         if(!isset($request->query->path)) {
             return $request;
