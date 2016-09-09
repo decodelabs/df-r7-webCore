@@ -2,7 +2,6 @@ $pushy-width: 25rem !default;
 
 body {
     transition: margin-left .25s ease-out, margin-right .25s ease-out;
-    width: 100vw;
 
     &.push-left {
         transition: margin-left .25s ease-in, margin-right .25s ease-in;

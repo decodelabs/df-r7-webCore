@@ -9,6 +9,7 @@ html {
     font-family: $font-base-family;
     color: $base-text-color;
     min-height: 100%;
+    overflow-x: hidden;
 
     @if $font-antialias == true {
         -webkit-font-smoothing: antialiased;
@@ -16,12 +17,18 @@ html {
     }
 
     &.no-scroll {
-        overflow: hidden;
+        overflow: hidden !important;
 
         body {
-            overflow: hidden;
+            overflow: hidden !important;
         }
     }
+}
+
+body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
 }
 
 @mixin applyRelativeFontSizing($maxWidth:$font-scale-threshold) {
