@@ -27,6 +27,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
 
     protected $_ownerId;
+    protected $_autoSelect = false;
 
 // Owner
     public function setOwnerId($id) {
