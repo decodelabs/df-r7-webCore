@@ -13,6 +13,7 @@
     span[data-icon] {
         margin: 0.2em;
         text-decoration: none !important;
+        font-style: normal !important;
 
         &:before {
             font-family: $icon-font-family;

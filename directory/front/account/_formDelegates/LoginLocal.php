@@ -65,7 +65,7 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
                     $this->eventName('login'),
                     $this->_('Sign in')
                 )
-                ->setIcon('accept'),
+                ->setIcon('user'),
 
             $this->html->cancelEventButton(),
 
