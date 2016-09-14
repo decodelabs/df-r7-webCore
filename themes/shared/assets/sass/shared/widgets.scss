@@ -63,8 +63,11 @@
     }
 
     .w-buttonGroup {
-        display: inline-block;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         margin-left: 1em;
+        vertical-align: center;
 
         &:first-child {
             margin-left: 0;
