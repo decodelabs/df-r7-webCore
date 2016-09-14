@@ -40,9 +40,11 @@ html.modal-open {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
+    /*
     &::-webkit-scrollbar {
         display: none;
     }
+    */
 }
 
 #modal-content {
