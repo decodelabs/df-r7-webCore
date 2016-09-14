@@ -51,6 +51,7 @@ class HttpDownload extends arch\node\Base {
                     $version['id'],
                     $version['isActive'],
                     $version['contentType'],
+                    $version['fileName'],
                     '[cz:'.$size.'|'.$size.']',
                     $version['creationDate']
                 );
