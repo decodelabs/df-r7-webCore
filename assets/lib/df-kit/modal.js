@@ -73,7 +73,7 @@ define([
                     source: 'modal'
                 });
 
-                _this.client.on('content:load', function(response) {
+                _this.client.on('content:show', function(response) {
                     Core.call(callback);
                     Core.trigger('dialog.load', 'modal');
                 });
