@@ -19,9 +19,10 @@ class HttpAdd extends arch\node\Form {
     }
 
     protected function loadDelegates() {
-        $this->loadDelegate('upload', '../TempUploader')
+        $this->loadDelegate('upload', '../CustomTempUploader')
             ->isForOne(true)
-            ->isRequired($this->_file->isNew());
+            ->isRequired($this->_file->isNew())
+            ->shouldShowUploadButton(true);
 
         $this->loadDelegate('bucket', '../BucketSelector')
             ->isForOne(true)
@@ -42,15 +43,15 @@ class HttpAdd extends arch\node\Form {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('File details'));
 
-        $this['upload']->renderContainerContent($fs);
+        $fs->addField($this->_('File'))->push(
+            $this['upload']->render()
+        );
 
         if(!$this->_file->isNew()) {
-            $fs[0]->push(
-                $this->html('span', [
-                    $this->html->checkbox('overwriteName', $this->values->overwriteName, $this->_(
-                        'Use file name of new version'
-                    ))
-                ], ['style' => 'padding-left: 3em;'])
+            $fs->addField()->push(
+                $this->html->checkbox('overwriteName', $this->values->overwriteName, $this->_(
+                    'Use file name of new version'
+                ))
             );
         }
 
