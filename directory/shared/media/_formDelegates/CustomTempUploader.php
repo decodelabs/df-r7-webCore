@@ -14,10 +14,13 @@ use df\link;
 
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
-    core\io\IAcceptTypeProcessor {
+    aura\html\IRenderable,
+    core\io\IAcceptTypeProcessor,
+    core\IStringProvider {
 
     use arch\node\TForm_SelectorDelegate;
     use core\io\TAcceptTypeProcessor;
+    use core\TStringProvider;
 
     protected $_showUploadButton = false;
 
@@ -77,6 +80,10 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         }
 
         return $files;
+    }
+
+    public function toString(): string {
+        return aura\html\ElementContent::normalize($this->render());
     }
 
     public function render($callback=null) {

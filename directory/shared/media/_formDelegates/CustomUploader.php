@@ -16,13 +16,16 @@ use df\flex;
 class CustomUploader extends arch\node\form\Delegate implements
     arch\node\IDependentDelegate,
     arch\node\ISelectorDelegate,
-    core\io\IAcceptTypeProcessor {
+    aura\html\IRenderable,
+    core\io\IAcceptTypeProcessor,
+    core\IStringProvider {
 
     use arch\node\TForm_SelectorDelegate;
     use arch\node\TForm_ValueListSelectorDelegate;
     use arch\node\TForm_DependentDelegate;
     use arch\node\TForm_MediaBucketAwareSelector;
     use core\io\TAcceptTypeProcessor;
+    use core\TStringProvider;
 
     protected $_limit = null;
     protected $_ownerId;
@@ -89,6 +92,10 @@ class CustomUploader extends arch\node\form\Delegate implements
 
 
 // Render
+    public function toString(): string {
+        return aura\html\ElementContent::normalize($this->render());
+    }
+
     public function render($callback=null) {
         if(!$this->_bucket) {
             $this->throwError(500, 'No bucket has been set');
