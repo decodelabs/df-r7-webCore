@@ -71,7 +71,7 @@ class HttpAvatar extends arch\node\Form {
         }
 
         $fs->addField($this->_('Image'))->push(
-            $this['upload']->render()
+            $this['upload']
         );
 
         // Buttons

@@ -44,7 +44,7 @@ class HttpAdd extends arch\node\Form {
         $fs = $form->addFieldSet($this->_('File details'));
 
         $fs->addField($this->_('File'))->push(
-            $this['upload']->render()
+            $this['upload']
         );
 
         if(!$this->_file->isNew()) {

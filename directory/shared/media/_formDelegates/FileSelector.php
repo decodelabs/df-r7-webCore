@@ -282,7 +282,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $fs = $ol->addFieldSet($this->_('Choose your file(s)'));
 
         $fs->addField($this->_('Select a file'))->push(
-            $this['upload']->render()
+            $this['upload']
         );
 
         $fs->addButtonArea()->push(
@@ -320,7 +320,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
         $fs = $ol->addFieldSet($this->_('Choose your file'));
         $fs->addField($this->_('Select a file'))->push(
-            $this['versionUpload']->render()
+            $this['versionUpload']
         );
 
         $fs->unshift(
