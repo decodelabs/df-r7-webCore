@@ -57,18 +57,14 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $mode = $this->getMode();
         $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
 
-        $this->loadDelegate('upload', 'TempUploader')
+        $this->loadDelegate('upload', 'CustomTempUploader')
             ->isForMany($this->_isForMany)
             ->isRequired($mode == 'upload')
-            ->shouldShowUploadButton(false)
-            ->shouldShowFieldLabel(false)
             ->setAcceptTypes(...$accept);
 
-        $this->loadDelegate('versionUpload', 'TempUploader')
+        $this->loadDelegate('versionUpload', 'CustomTempUploader')
             ->isForOne(true)
             ->isRequired($mode == 'version')
-            ->shouldShowUploadButton(false)
-            ->shouldShowFieldLabel(false)
             ->setAcceptTypes(...$accept);
     }
 
@@ -283,7 +279,11 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $selected = $this->createInlineDetailsUi($fa);
         $ol = $fa->addOverlay($fa->getLabelBody().' - '.$this->_('Upload new file'));
 
-        $fs = $ol->addFieldSet($this->_('Choose your file(s)'))->push($this['upload']);
+        $fs = $ol->addFieldSet($this->_('Choose your file(s)'));
+
+        $fs->addField($this->_('Select a file'))->push(
+            $this['upload']->render()
+        );
 
         $fs->addButtonArea()->push(
             $this->html->eventButton(
@@ -318,7 +318,10 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
         $ol = $fa->addOverlay($fa->getLabelBody().' - '.$this->_('Add new version'));
 
-        $fs = $ol->addFieldSet($this->_('Choose your file'))->push($this['versionUpload']);
+        $fs = $ol->addFieldSet($this->_('Choose your file'));
+        $fs->addField($this->_('Select a file'))->push(
+            $this['versionUpload']->render()
+        );
 
         $fs->unshift(
             $this->html->field()->push(
