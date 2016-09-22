@@ -26,6 +26,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
     private $_dirChecked = false;
     private $_hasUploaded = false;
+    private $_fileList;
 
     public function shouldShowUploadButton(bool $flag=null) {
         if($flag !== null) {
@@ -51,9 +52,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     }
 
     protected function _getFileList() {
-        static $files;
-
-        if(!isset($files)) {
+        if(!isset($this->_fileList)) {
             $tempDir = $this->_getTempDir();
             $files = [];
             $i = 0;
@@ -77,9 +76,11 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     $tempDir->deleteFile(array_pop($files)['fileName']);
                 }
             }
+
+            $this->_fileList = $files;
         }
 
-        return $files;
+        return $this->_fileList;
     }
 
     public function toString(): string {
