@@ -26,9 +26,9 @@ class HttpAvatar extends arch\node\Form {
     }
 
     protected function loadDelegates() {
-        $this->loadDelegate('upload', 'media/TempUploader')
+        $this->loadDelegate('upload', 'media/CustomTempUploader')
             ->isForOne(true)
-            ->shouldShowUploadButton(false)
+            //->shouldShowUploadButton(false)
             ;
     }
 
@@ -70,7 +70,9 @@ class HttpAvatar extends arch\node\Form {
            }
         }
 
-        $fs->push($this->getDelegate('upload'));
+        $fs->addField($this->_('Image'))->push(
+            $this['upload']->render()
+        );
 
         // Buttons
         $fs->addButtonArea(
@@ -114,6 +116,14 @@ class HttpAvatar extends arch\node\Form {
 
         $this->data->media->purgeVersion($version);
         $this->data->user->cache->setAvatarCacheTime();
+
+        $active = $this->_file->versions->select()
+            ->where('purgeDate', '=', null)
+            ->count();
+
+        if(!$active) {
+            $this->_file->delete();
+        }
     }
 
     protected function onUploadEvent() {
