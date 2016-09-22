@@ -381,6 +381,14 @@
     }
 }
 
+.w-selected {
+    margin-bottom: 1rem;
+
+    .fileName, .numeric {
+        margin-right: 1em;
+    }
+}
+
 
 .w-textbox {
     width: 100%;
