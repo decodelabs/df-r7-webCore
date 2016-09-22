@@ -133,24 +133,24 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             })->addClass('w-selected');
         }
 
-        yield $this->html('div.w-inputArea', [
+        yield $this->html('div.upload', [
             $input = $this->html->fileUpload($this->fieldName('file'), $this->values->file)
                 ->setAcceptTypes(...$this->getAcceptTypes())
                 ->setId($this->getWidgetId().'-input'),
 
             $this->html->label($this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
-                ->addClass(!empty($available) ? 'replace': null)
-        ]);
+                ->addClass(!empty($available) ? 'replace': null),
 
-        yield $this->html->eventButton(
-                $this->eventName('upload'),
-                $this->_('Upload')
-            )
-            ->setIcon('upload')
-            ->setDisposition('positive')
-            ->shouldValidate(false)
-            ->addClass('upload');
+            $this->html->eventButton(
+                    $this->eventName('upload'),
+                    $this->_('Upload')
+                )
+                ->setIcon('upload')
+                ->setDisposition('positive')
+                ->shouldValidate(false)
+                ->addClass('upload')
+        ]);
     }
 
     public function getWidgetId() {
