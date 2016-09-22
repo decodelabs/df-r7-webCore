@@ -102,6 +102,8 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                         $this->html->number($this->format->fileSize($available['size']))
                     ];
 
+                    yield ' ';
+
                     yield $this->html->eventButton(
                             $this->eventName('removeFile', $available['fileName']),
                             $this->_('Remove')
@@ -121,6 +123,8 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                         $this->html->number($this->format->fileSize($file['size']))
                     ]
                 );
+
+                yield ' ';
 
                 yield $this->html->eventButton(
                         $this->eventName('removeFile', $file['fileName']),

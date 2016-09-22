@@ -157,7 +157,9 @@ class CustomUploader extends arch\node\form\Delegate implements
                             $this->html->number($this->format->fileSize($available['size']))
                         ];
 
+                        yield ' ';
                         yield $this->html->booleanIcon(true);
+                        yield ' ';
 
                         yield $this->html->eventButton(
                                 $this->eventName('removeFile', $available['fileId']),
@@ -174,6 +176,8 @@ class CustomUploader extends arch\node\form\Delegate implements
                             $this->html('span.fileName', $available['fileName']), ' ',
                             $this->html->number($this->format->fileSize($available['size']))
                         ];
+
+                        yield ' ';
 
                         yield $this->html->eventButton(
                                 $delegate->eventName('removeFile', $available['fileName']),
@@ -199,7 +203,9 @@ class CustomUploader extends arch\node\form\Delegate implements
                         $file['fileId']
                     );
 
+                    yield ' ';
                     yield $this->html->booleanIcon(true);
+                    yield ' ';
 
                     yield $this->html->eventButton(
                             $this->eventName('removeFile', $file['fileId']),
@@ -217,6 +223,8 @@ class CustomUploader extends arch\node\form\Delegate implements
                             $this->html->number($this->format->fileSize($file['size']))
                         ]
                     );
+
+                    yield ' ';
 
                     yield $this->html->eventButton(
                             $delegate->eventName('removeFile', $file['fileName']),
