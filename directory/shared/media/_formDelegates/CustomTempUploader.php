@@ -19,8 +19,19 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     use arch\node\TForm_SelectorDelegate;
     use core\io\TAcceptTypeProcessor;
 
+    protected $_showUploadButton = false;
+
     private $_dirChecked = false;
     private $_hasUploaded = false;
+
+    public function shouldShowUploadButton(bool $flag=null) {
+        if($flag !== null) {
+            $this->_showUploadButton = $flag;
+            return $this;
+        }
+
+        return $this->_showUploadButton;
+    }
 
     protected function _getTempDir() {
         $destination = $this->getStore('tempUploadDir');
@@ -146,14 +157,16 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 ->addClass('btn hidden')
                 ->addClass(!empty($available) ? 'replace': null),
 
-            $this->html->eventButton(
-                    $this->eventName('upload'),
-                    $this->_('Upload')
-                )
-                ->setIcon('upload')
-                ->setDisposition('positive')
-                ->shouldValidate(false)
-                ->addClass('upload')
+            $this->_showUploadButton ?
+                $this->html->eventButton(
+                        $this->eventName('upload'),
+                        $this->_('Upload')
+                    )
+                    ->setIcon('upload')
+                    ->setDisposition('positive')
+                    ->shouldValidate(false)
+                    ->addClass('upload')
+                : null
         ]);
     }
 

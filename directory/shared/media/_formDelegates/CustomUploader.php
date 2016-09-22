@@ -26,6 +26,7 @@ class CustomUploader extends arch\node\form\Delegate implements
 
     protected $_limit = null;
     protected $_ownerId;
+    protected $_showUploadButton = false;
 
     public function setOwnerId($id) {
         $this->_ownerId = $id;
@@ -59,6 +60,15 @@ class CustomUploader extends arch\node\form\Delegate implements
         return new mesh\entity\Locator('upload://File');
     }
 
+    public function shouldShowUploadButton(bool $flag=null) {
+        if($flag !== null) {
+            $this->_showUploadButton = $flag;
+            return $this;
+        }
+
+        return $this->_showUploadButton;
+    }
+
     protected function init() {
         $this->_setupBucket();
     }
@@ -73,7 +83,8 @@ class CustomUploader extends arch\node\form\Delegate implements
         $this->loadDelegate('upload', 'CustomTempUploader')
             ->isRequired($this->_isRequired)
             ->isForMany($this->_isForMany)
-            ->setAcceptTypes(...$accept);
+            ->setAcceptTypes(...$accept)
+            ->shouldShowUploadButton($this->_showUploadButton);
     }
 
 
@@ -82,8 +93,6 @@ class CustomUploader extends arch\node\form\Delegate implements
         if(!$this->_bucket) {
             $this->throwError(500, 'No bucket has been set');
         }
-
-        //return $this['upload']->render();
 
         return $this['upload']->render(function($delegate, $available) use($callback) {
             if($this->_isForMany || empty($available)) {
@@ -247,14 +256,16 @@ class CustomUploader extends arch\node\form\Delegate implements
                 ->addClass('btn hidden')
                 ->addClass(!empty($available) ? 'replace': null),
 
-            $this->html->eventButton(
-                    $delegate->eventName('upload'),
-                    $this->_('Upload')
-                )
-                ->setIcon('upload')
-                ->setDisposition('positive')
-                ->shouldValidate(false)
-                ->addClass('upload')
+            $this->_showUploadButton ?
+                $this->html->eventButton(
+                        $delegate->eventName('upload'),
+                        $this->_('Upload')
+                    )
+                    ->setIcon('upload')
+                    ->setDisposition('positive')
+                    ->shouldValidate(false)
+                    ->addClass('upload')
+                : null
         ]);
     }
 
