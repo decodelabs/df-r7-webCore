@@ -15,10 +15,12 @@ use df\link;
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
     aura\html\IRenderable,
+    aura\html\widget\IFieldDataProvider,
     core\io\IAcceptTypeProcessor,
     core\IStringProvider {
 
     use arch\node\TForm_SelectorDelegate;
+    use core\constraint\TDisableable;
     use core\io\TAcceptTypeProcessor;
     use core\TStringProvider;
 
@@ -83,6 +85,14 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return $this->_fileList;
     }
 
+
+// Field data
+    public function getErrors(): array {
+        return $this->values->file->getErrors();
+    }
+
+
+// Render
     public function toString(): string {
         return aura\html\ElementContent::normalize($this->render());
     }
@@ -189,6 +199,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             return;
         }
 
+        $this->_hasUploaded = true;
         unset($this->values->file);
 
         $uploadHandler = new link\http\upload\Handler();
@@ -216,7 +227,6 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             }
         }
 
-        $this->_hasUploaded = true;
         return $this->http->redirect('#'.$this->getWidgetId());
     }
 

@@ -17,6 +17,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     arch\node\IDependentDelegate,
     arch\node\ISelectorDelegate,
     aura\html\IRenderable,
+    aura\html\widget\IFieldDataProvider,
     core\io\IAcceptTypeProcessor,
     core\IStringProvider {
 
@@ -25,6 +26,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     use arch\node\TForm_DependentDelegate;
     use arch\node\TForm_MediaBucketAwareSelector;
     use core\io\TAcceptTypeProcessor;
+    use core\constraint\TDisableable;
     use core\TStringProvider;
 
     protected $_limit = null;
@@ -89,6 +91,17 @@ class CustomUploader extends arch\node\form\Delegate implements
             ->setAcceptTypes(...$accept)
             ->shouldShowUploadButton($this->_showUploadButton);
     }
+
+
+
+// Field data
+    public function getErrors(): array {
+        return array_merge(
+            $this['upload']->getErrors(),
+            $this->values->selected->getErrors()
+        );
+    }
+
 
 
 // Render
@@ -298,6 +311,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                 $file = $this->data->media->publishFile($filePath, $this->_bucket, [
                     'owner' => $this->getOwnerId()
                 ]);
+
                 $this->setSelected($file['id']);
             }
         } else {
