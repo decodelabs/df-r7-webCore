@@ -949,6 +949,16 @@ a.w-flashMessage {
 }
 
 
+// Video embed
+.w-videoEmbed {
+    margin: 2rem 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+
 // General input
 input + button {
     margin-left: 1em;
