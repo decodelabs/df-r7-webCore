@@ -190,7 +190,7 @@
         order: -1;
         flex: 0 1 auto;
         margin-bottom: 0.2em;
-        min-width: calc(100% - #{$form-label-width + 1});
+        width: calc(100% - #{$form-label-width + 1});
         box-sizing: border-box;
     }
 
