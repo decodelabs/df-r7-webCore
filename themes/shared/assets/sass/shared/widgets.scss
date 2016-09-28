@@ -207,15 +207,11 @@
 
         > .w-field,
         > .fire-block > .w-field {
-            //padding: 0.4em;
-            //margin: 0.3em 0;
+            padding: 0.2em;
+            margin: 0.2em 0;
 
             > .w-label {
                 @extend %innerLabelWidget;
-            }
-
-            > .w-inputArea {
-                margin: 0.3em 0 0 0;
             }
         }
 
@@ -324,6 +320,10 @@
 
 .fire-block {
     padding: 0.3em;
+
+    > nav.buttons {
+        margin-bottom: 0.2em;
+    }
 
     .fire-block {
         margin-left: 1em;
