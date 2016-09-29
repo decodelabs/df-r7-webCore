@@ -170,7 +170,6 @@ define([
             },
 
             sendRequest: function(request, callback) {
-
                 var _this = this,
                     lastRequest = this.getLastRequest();
 

@@ -79,6 +79,7 @@ define([
                 });
 
                 _this.client.on('form:completeInitial', function(response) {
+                    response.handled = true;
                     _this.close();
                 });
             };
