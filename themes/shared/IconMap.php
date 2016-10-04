@@ -213,6 +213,7 @@ return [
     'repeat' => '&#xe05a;',
     'rewind' => '&#xe07b;',
     'fastForward' => '&#xe07c;',
+    'audio' => '&#xe07c;',
     'first' => '&#xe07d;',
     'last' => '&#xe07e;',
     'content' => '&#xe07f;',
