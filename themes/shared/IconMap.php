@@ -74,6 +74,7 @@ return [
     'help' => '&#xe023;',
     'milestone' => '&#xe024;',
     'target' => '&#xe025;',
+    'campaign' => '&#xe025;',
     'mail' => '&#xe026;',
     'picture' => '&#xe027;',
     'image' => '&#xe027;',
