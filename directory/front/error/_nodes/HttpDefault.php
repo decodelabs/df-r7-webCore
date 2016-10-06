@@ -19,7 +19,8 @@ class HttpDefault extends arch\node\Base {
 
     public function execute() {
         if(!$exception = $this->application->getDispatchException()) {
-            $this->throwError(404, 'You shouldn\'t be here');
+            $this->logs->logAccessError(403, $this->request, 'You shouldn\'t be here');
+            return $this->http->redirect('/');
         }
 
         $code = $exception->getCode();
