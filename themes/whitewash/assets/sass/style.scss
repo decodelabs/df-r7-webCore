@@ -432,12 +432,12 @@ button {
     }
 
     .block-links {
-        a {
+        a, button {
             border: 2px #EEE solid;
             border-radius: 4px;
             margin: 0 0.15em;
 
-            &.link-selected {
+            &.active {
                 border-color: #AAA;
             }
         }
