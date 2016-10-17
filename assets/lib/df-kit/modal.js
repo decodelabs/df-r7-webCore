@@ -13,6 +13,7 @@ define([
 
         _closeCallback: null,
         _overlayAction: 'close',
+        _currentOptions: null,
         _containerFadeTime: 200,
         _contentFadeTime: 0,
         client: null,
@@ -95,6 +96,7 @@ define([
             var $container = $(_this.attr.container),
                 $modal, $overlay,
                 builder = function() {
+                    _this._currentOptions = options;
                     $modal = $(_this.attr.content).hide().html(html);
                     $overlay = $(_this.attr.container + ',' + _this.attr.wrapper).removeClass('modal-close');
                     _this._closeCallback = options.closeCallback;
@@ -120,6 +122,10 @@ define([
                 $(_this.attr.content).fadeOut(200, function() {
                     Core.call(_this._closeCallback);
                     _this._closeCallback = null;
+
+                    if(_this._currentOptions.class) $(_this.attr.content).removeClass(_this._currentOptions.class);
+                    if(_this._currentOptions.containerClass) $container.removeClass(_this._currentOptions.containerClass);
+
                     builder();
                 });
             } else {
