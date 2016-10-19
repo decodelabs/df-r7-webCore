@@ -94,7 +94,7 @@ iframe[seamless] {
 .operative { color: $operative-color; }
 
 * {
-    line-height: 1.225em;
+    line-height: $font-line-height;
 }
 
 a {
