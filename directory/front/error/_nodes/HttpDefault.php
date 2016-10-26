@@ -84,6 +84,7 @@ class HttpDefault extends arch\node\Base {
 
                     case 500:
                     case 502:
+                    default:
                         $this->logs->logException($exception, $url);
                         break;
                 }
