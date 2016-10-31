@@ -140,8 +140,8 @@ define([
                     runner();
                 }
             } else {
-                $leftContainer = $('<aside class="pushy-container push-left"><a class="pushy-close">x</a><div class="pushy-content"></div></aside>').appendTo('body');
-                $rightContainer = $('<aside class="pushy-container push-right"><a class="pushy-close">x</a><div class="pushy-content"></div></aside>').appendTo('body');
+                $leftContainer = $('<aside class="pushy-container push-left"><a class="pushy-close">✕</a><div class="pushy-content"></div></aside>').appendTo('body');
+                $rightContainer = $('<aside class="pushy-container push-right"><a class="pushy-close">✕</a><div class="pushy-content"></div></aside>').appendTo('body');
                 $(_this.attr.content).hide();
                 builder();
             }
