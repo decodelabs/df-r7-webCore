@@ -59,7 +59,6 @@
 
     > button {
         margin-right: 0.7em;
-
     }
 
     .w-buttonGroup {
@@ -71,6 +70,14 @@
 
         &:first-child {
             margin-left: 0;
+        }
+
+        button, a {
+            margin-right: 0.3em;
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
     }
 
