@@ -27,6 +27,7 @@ define([
 
                 if(!href) {
                     href = $(this).data('pushy');
+                    if(href == 'true') href = null;
                 }
 
                 if(!href) {
