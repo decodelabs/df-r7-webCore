@@ -73,7 +73,7 @@ class HttpChangePassword extends arch\node\Form {
         );
 
         // Buttons
-        $fs->addDefaultButtonGroup();
+        $fs->addDefaultButtonGroup('save', $this->_('Update password'));
     }
 
     protected function onSaveEvent() {
