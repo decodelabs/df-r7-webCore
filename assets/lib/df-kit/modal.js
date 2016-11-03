@@ -31,6 +31,7 @@ define([
 
                 if(!href) {
                     href = $(this).data('modal');
+                    if(href === true) href = null;
                 }
 
                 if(!href) {
