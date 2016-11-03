@@ -141,9 +141,10 @@ define([
         },
 
         close: function(callback, data) {
-            var _this = this;
+            var _this = this,
+                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete;
 
-            if($('.w-form', this.attr.container).length) {
+            if(!isComplete && $('.w-form', this.attr.container).length) {
                 var $form = $('.w-form', this.attr.container).first();
 
                 Ajax.post($form.attr('action'), {

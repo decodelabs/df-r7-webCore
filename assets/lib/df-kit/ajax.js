@@ -99,6 +99,7 @@ define([
             $element: null,
             initialUrl: null,
             requestStack: null,
+            lastResponse: null,
 
 
             construct: function(element) {
@@ -180,6 +181,7 @@ define([
                 }
 
                 ajax.sendRequest(request, function(response, request) {
+                    _this.lastResponse = response;
                     response = _this.normalizeResponse(response, request);
 
                     if(!_this.initialUrl) {
@@ -198,6 +200,7 @@ define([
                         && response.forceRedirect
                         && response.redirect !== null) {
                             _this.trigger('form:forceRedirect', response);
+                            _this.initialUrl = null;
                             return _this.get(response.redirect, response.request);
                         }
 
@@ -212,20 +215,19 @@ define([
                         if(isInitial) {
                             _this.trigger('form:completeInitial', response);
                         }
-
-                        if(response.handled) {
-                            return;
-                        }
-                    }
-
-
-                    if(response.redirect !== null) {
-                        _this.trigger('redirect', response);
-                        return _this.get(response.redirect, _.clone(response.request));
                     }
 
                     if(response.reload === true) {
                         location.reload();
+                    }
+
+                    if(response.handled) {
+                        return;
+                    }
+
+                    if(response.redirect !== null) {
+                        _this.trigger('redirect', response);
+                        return _this.get(response.redirect, _.clone(response.request));
                     }
 
                     if(typeof callback === 'function') {
@@ -306,7 +308,7 @@ define([
                     }
                 }
 
-                if(formEvent) {
+                if(formEvent && !$form.find('[name=formEvent]').length) {
                     request.data.push({name:'formEvent', value:formEvent});
                 }
 

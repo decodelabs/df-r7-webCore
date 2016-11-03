@@ -79,7 +79,8 @@ define([
                     Core.trigger('dialog.load', 'pushy');
                 });
 
-                _this.client.on('form:completeInitial', function(response) {
+                _this.client.once('form:completeInitial', function(response) {
+                    response.handled = true;
                     _this.close();
                 });
             };
@@ -149,11 +150,13 @@ define([
         },
 
         close: function(callback, data) {
-            var _this = this, $form = $('.w-form:has(.w-eventButton)', this.attr.content).first();
+            var _this = this,
+                $form = $('.w-form:has(.w-eventButton)', this.attr.content).first(),
+                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete;
 
-            if($form.length) {
+            if(!isComplete && $form.length) {
                 Ajax.post($form.attr('action'), {
-                    form: [{name:'formEvent', value:'cancel'}],
+                    data: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
                     source: 'pushy'
                 }, function() {
