@@ -350,7 +350,7 @@ class CustomUploader extends arch\node\form\Delegate implements
 
 
         if($this->isValid()) {
-            $delegate->setComplete(true);
+            $delegate->setComplete();
         }
 
         return $this->getSelected();

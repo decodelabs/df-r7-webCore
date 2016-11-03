@@ -311,11 +311,11 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     public function handlePostEvent(arch\node\IActiveForm $target, string $event, array $args) {
         $required = $this->_isRequired;
         $this->_isRequired = false;
-        $this->handleEvent('upload');
+        $this->onUploadEvent();
         $this->_isRequired = $required;
     }
 
-    protected function onComplete($success) {
+    protected function onComplete() {
         if($destination = $this->getStore('tempUploadDir')) {
             core\fs\Dir::delete($destination);
         }
