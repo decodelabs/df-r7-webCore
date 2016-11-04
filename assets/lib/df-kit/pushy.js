@@ -70,7 +70,7 @@ define([
                 callback = options.callback;
 
             options.callback = function(data) {
-                _this.client = Ajax.loadElement(_this.attr.content, href, {
+                _this.client = Ajax.loadElement('.pushy-active.pushy-container > '+_this.attr.content, href, {
                     source: 'pushy'
                 });
 
@@ -90,7 +90,7 @@ define([
 
         open: function(html, options) {
             var _this = this,
-                $body = $(document.body);
+                $body = $('html');
 
             options = options || {};
             Core.trigger('dialog.open', 'pushy');
@@ -183,7 +183,7 @@ define([
             if(!$(_this.attr.content).length) {
                 callbackRunner();
             } else {
-                var $body = $(document.body);
+                var $body = $('html');
                 $body.removeClass('pushy-active');
 
                 setTimeout(function() {
