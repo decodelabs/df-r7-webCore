@@ -124,8 +124,10 @@ define([
                     Core.call(_this._closeCallback);
                     _this._closeCallback = null;
 
-                    if(_this._currentOptions.class) $(_this.attr.content).removeClass(_this._currentOptions.class);
-                    if(_this._currentOptions.containerClass) $container.removeClass(_this._currentOptions.containerClass);
+                    if(_this._currentOptions) {
+                        if(_this._currentOptions.class) $(_this.attr.content).removeClass(_this._currentOptions.class);
+                        if(_this._currentOptions.containerClass) $container.removeClass(_this._currentOptions.containerClass);
+                    }
 
                     builder();
                 });
