@@ -71,6 +71,10 @@ define([
                 callback = options.callback;
 
             options.callback = function(data) {
+                if(_this.client) {
+                    _this.client.clear();
+                }
+
                 _this.client = Ajax.loadElement(_this.attr.content, href, {
                     source: 'modal'
                 });

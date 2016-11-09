@@ -26,6 +26,7 @@ html.modal-open {
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 998;
+    transform: translateX(0) !important;
 }
 
 #modal-wrapper {
