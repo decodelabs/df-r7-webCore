@@ -158,6 +158,7 @@ define([
             clear: function() {
                 this.requestStack = [];
                 this.initialUrl = null;
+                this.lastRequest = null;
                 return this;
             },
 
