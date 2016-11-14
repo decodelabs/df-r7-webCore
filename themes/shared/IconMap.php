@@ -47,6 +47,7 @@ return [
     'project' => '&#xe018;',
     'toolkit' => '&#xe019;',
     'education' => '&#xe019;',
+    'phone' => '&#xe01a;',
     'mobile' => '&#xe01a;',
     'dashboard' => '&#xe01b;',
     'time' => '&#xe01b;',
