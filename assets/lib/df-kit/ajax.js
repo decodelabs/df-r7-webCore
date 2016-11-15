@@ -8,6 +8,10 @@ define([
 
         init: function() {
             $(document).on('click', '.ajax-content button', function(e) {
+                if($(this).closest('.global').length && $(this).closest('.global').closest('.ajax-content').length) {
+                    return;
+                }
+
                 var event = $(this).val(), name = $(this).attr('name');
                 $('#form-activeButton').remove();
                 $(this).closest('form').append('<input type="hidden" name="'+name+'" id="form-activeButton" value="'+event+'" />');
@@ -115,7 +119,7 @@ define([
                     }
                 });
 
-                this.$element.on('submit', '.w-form', function(e) {
+                this.$element.on('submit', '.w-form:not(.global)', function(e) {
                     _this.onFormSubmit(e);
                 });
             },
