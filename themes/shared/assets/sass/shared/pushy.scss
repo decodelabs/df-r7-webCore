@@ -14,13 +14,15 @@ html {
             overflow-x: visible;
 
             > * {
-                transition: transform .25s ease-in !important;
+                transition: transform .25s ease-in, opacity .25s ease-in, filter .25s !important;
             }
         }
 
         &.pushy-active {
             body > *:not(.pushy-container) {
                 transform: translateX($pushy-width);
+                opacity: 0.6;
+                filter: grayscale(80%);
             }
 
             aside.pushy-container.push-left {
@@ -36,13 +38,15 @@ html {
             overflow-x: visible;
 
             > * {
-                transition: transform .25s ease-in !important;
+                transition: transform .25s ease-in, opacity .25s ease-in, filter .25s !important;
             }
         }
 
         &.pushy-active {
             body > *:not(.pushy-container) {
                 transform: translateX(-$pushy-width);
+                opacity: 0.6;
+                filter: grayscale(80%);
             }
 
             aside.pushy-container.push-left {
@@ -67,11 +71,13 @@ aside.pushy-container {
     &.push-left {
         left: 0;
         transform: translateX(-$pushy-width);
+        box-shadow: 0 1rem 2rem 1rem rgba(black, 0.1);
     }
 
     &.push-right {
         right: 0;
         transform: translateX($pushy-width);
+        box-shadow: 0 -1rem 2rem 1rem rgba(black, 0.1);
     }
 
     > a.pushy-close {
