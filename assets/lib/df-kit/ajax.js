@@ -109,7 +109,7 @@ define([
                 this.$element = $(element);
                 this.$element.attr('data-ajax-client', this.id);
 
-                this.$element.on('click', 'a[href]:not([class*=\'-close\'],.local,.local a,[target],.pushy,.modal)', function(e) {
+                this.$element.on('click', 'a[href]:not([class*=\'-close\'],.local,.local a,.global,.global a,[target],.pushy,.modal)', function(e) {
                     if(!Core.isUrlExternal($(this).attr('href'))) {
                         _this.onLinkClick(e);
                     }
