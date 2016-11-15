@@ -155,6 +155,14 @@ define([
                 }
             },
 
+            refresh: function() {
+                var request = this.requestStack.pop();
+
+                if(request) {
+                    return this.sendRequest(request);
+                }
+            },
+
             clear: function() {
                 this.requestStack = [];
                 this.initialUrl = null;
