@@ -168,6 +168,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
         yield $this->html('div.upload', [
             $input = $this->html->fileUpload($this->fieldName('file'), $this->values->file)
+                ->allowMultiple($this->_isForMany)
                 ->setAcceptTypes(...$this->getAcceptTypes())
                 ->setId($this->getWidgetId().'-input'),
 
@@ -215,7 +216,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
         $tempDir = $this->_getTempDir();
 
-        if($file = $uploadHandler[$this->fieldName('file')]) {
+        foreach($uploadHandler as $file) {
             $file->upload($tempDir, $this->values->file);
 
             if($file->isSuccess()) {

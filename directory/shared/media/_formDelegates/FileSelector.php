@@ -199,6 +199,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
             $fs->addField()->push(
                 $this->html->fileUpload($this['upload']->fieldName('file'))
+                    ->allowMultiple($this->_isForMany)
                     ->setAcceptTypes(...$accept),
 
                 $this->html->eventButton(
