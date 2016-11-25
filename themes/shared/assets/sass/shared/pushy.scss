@@ -22,7 +22,7 @@ html {
             body > *:not(.pushy-container) {
                 transform: translateX($pushy-width);
                 //opacity: 0.6;
-                filter: grayscale(60%);
+                filter: grayscale(60%) blur(4px);
             }
 
             aside.pushy-container.push-left {
@@ -46,7 +46,7 @@ html {
             body > *:not(.pushy-container) {
                 transform: translateX(-$pushy-width);
                 //opacity: 0.6;
-                filter: grayscale(60%);
+                filter: grayscale(60%) blur(4px);
             }
 
             aside.pushy-container.push-left {
@@ -71,13 +71,13 @@ aside.pushy-container {
     &.push-left {
         left: 0;
         transform: translateX(-$pushy-width);
-        box-shadow: 0 1rem 1rem 0.6rem rgba(black, 0.1);
+        box-shadow: 0 1rem 2rem 0.6rem rgba(black, 0.1);
     }
 
     &.push-right {
         right: 0;
         transform: translateX($pushy-width);
-        box-shadow: 0 -1rem 1rem 0.6rem rgba(black, 0.1);
+        box-shadow: 0 -1rem 2rem 0.6rem rgba(black, 0.1);
     }
 
     > a.pushy-close {
