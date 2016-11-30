@@ -47,7 +47,7 @@ html.modal-open {
     */
 }
 
-#modal-content {
+#modal-container {
     position: relative;
     width: 60%;
     min-width: 600px;
@@ -58,6 +58,18 @@ html.modal-open {
     z-index: 999;
     //box-sizing: border-box;
 
+    > a.modal-close {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        cursor: pointer;
+        text-decoration: none !important;
+
+        &:hover {
+            text-decoration: none !important;
+        }
+    }
+
     &.video {
         width: 90%;
         min-height: 0 !important;
@@ -65,7 +77,7 @@ html.modal-open {
         padding: 0 0 56.25% 0 !important;
         background: none;
 
-        > iframe {
+        #modal-content > iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -76,7 +88,7 @@ html.modal-open {
 }
 
 @media only screen and (max-width: 640px) {
-    #modal-content {
+    #modal-container {
         min-width: 300px;
         width: 95%;
     }

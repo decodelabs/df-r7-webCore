@@ -8,6 +8,7 @@ define([
             trigger: '.modal, [data-modal]',
             overlay: '#modal-overlay',
             scroll: '#modal-scroll',
+            container: '#modal-container',
             content: '#modal-content'
         },
 
@@ -99,18 +100,19 @@ define([
             Core.trigger('dialog.open', 'modal');
 
             var $overlay = $(_this.attr.overlay),
-                $modal, $combined,
+                $content, $container, $combined,
                 builder = function() {
                     _this._currentOptions = options;
-                    $modal = $(_this.attr.content).hide().html(html);
+                    $container = $(_this.attr.container).hide();
+                    $content = $(_this.attr.content).html(html);
                     $combined = $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close');
                     _this._closeCallback = options.closeCallback;
 
-                    if(options.class) $modal.addClass(options.class);
+                    if(options.class) $container.addClass(options.class);
                     if(options.overlayClass) $overlay.addClass(options.overlayClass);
 
                     Core.call(options.callback, options.callbackData);
-                    $modal.fadeIn(_this._contentFadeTime);
+                    $container.fadeIn(_this._contentFadeTime);
 
                     switch(options.overlayAction) {
                         case 'none':
@@ -124,12 +126,12 @@ define([
                 };
 
             if($overlay.length) {
-                $(_this.attr.content).fadeOut(200, function() {
+                $content.fadeOut(200, function() {
                     Core.call(_this._closeCallback);
                     _this._closeCallback = null;
 
                     if(_this._currentOptions) {
-                        if(_this._currentOptions.class) $(_this.attr.content).removeClass(_this._currentOptions.class);
+                        if(_this._currentOptions.class) $container.removeClass(_this._currentOptions.class);
                         if(_this._currentOptions.overlayClass) $overlay.removeClass(_this._currentOptions.overlayClass);
                     }
 
@@ -137,8 +139,8 @@ define([
                 });
             } else {
                 $('html').addClass('modal-open');
-                $overlay = $('<div id="modal-overlay"><div id="modal-scroll"><div id="modal-content"></div></div></div>').hide().appendTo('body');
-                $(_this.attr.content).hide();
+                $overlay = $('<div id="modal-overlay"><div id="modal-scroll"><div id="modal-container"><a class="modal-close">✕</a><div id="modal-content"></div></div></div></div>').hide().appendTo('body');
+                $(_this.attr.container).hide();
 
                 $overlay.fadeIn(_this._overlayFadeTime, function() {
                     builder();
