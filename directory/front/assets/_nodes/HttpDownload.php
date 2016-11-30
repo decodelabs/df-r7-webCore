@@ -17,7 +17,9 @@ class HttpDownload extends arch\node\Base {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        if(!$absolutePath = df\Launchpad::$loader->findFile('apex/assets/'.$this->request['file'])) {
+        $path = core\uri\FilePath::normalizeLocal($this->request['file']);
+
+        if(!$absolutePath = df\Launchpad::$loader->findFile('apex/assets/'.$path)) {
             $this->throwError(404, 'File not found');
         }
 
