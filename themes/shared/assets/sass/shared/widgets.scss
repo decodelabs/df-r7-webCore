@@ -454,6 +454,10 @@
         margin-bottom: 0;
         overflow: visible;
     }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .w-radioButton,
