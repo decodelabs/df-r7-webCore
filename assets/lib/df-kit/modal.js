@@ -6,7 +6,7 @@ define([
     return Core.component({
         attr: {
             trigger: '.modal, [data-modal]',
-            container: '#modal-container',
+            container: '#modal-overlay',
             wrapper: '#modal-wrapper',
             content: '#modal-content'
         },
@@ -25,7 +25,7 @@ define([
                 e.preventDefault();
 
                 var modalClass = $(this).data('modal-class'),
-                    containerClass = $(this).data('modal-container-class'),
+                    containerClass = $(this).data('modal-overlay-class'),
                     href = $(this).data('modal-href'),
                     overlayAction = $(this).data('overlay-action');
 
@@ -137,7 +137,7 @@ define([
                 });
             } else {
                 $('html').addClass('modal-open');
-                $container = $('<div id="modal-container"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
+                $container = $('<div id="modal-overlay"><div id="modal-wrapper"><div id="modal-content"></div></div></div>').hide().appendTo('body');
                 $(_this.attr.content).hide();
 
                 $container.fadeIn(_this._containerFadeTime, function() {

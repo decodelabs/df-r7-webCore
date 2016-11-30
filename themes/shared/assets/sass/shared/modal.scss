@@ -1,4 +1,4 @@
-body > *:not(#modal-container) {
+body > *:not(#modal-overlay) {
     transition: 250ms filter;
 }
 
@@ -10,13 +10,13 @@ html.modal-open {
     body {
         overflow: hidden;
 
-        > *:not(#modal-container) {
+        > *:not(#modal-overlay) {
             filter: $modal-overlay-filter;
         }
     }
 }
 
-#modal-container {
+#modal-overlay {
     position: fixed;
     top: 0;
     right: 0;
