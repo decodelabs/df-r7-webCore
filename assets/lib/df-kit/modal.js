@@ -100,12 +100,12 @@ define([
             Core.trigger('dialog.open', 'modal');
 
             var $overlay = $(_this.attr.overlay),
-                $content, $container, $combined,
                 builder = function() {
                     _this._currentOptions = options;
-                    $container = $(_this.attr.container).hide();
-                    $content = $(_this.attr.content).html(html);
-                    $combined = $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close');
+                    var $container = $(_this.attr.container).hide(),
+                        $combined = $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close');
+
+                    $(_this.attr.content).html(html);
                     _this._closeCallback = options.closeCallback;
 
                     if(options.class) $container.addClass(options.class);
@@ -126,12 +126,12 @@ define([
                 };
 
             if($overlay.length) {
-                $content.fadeOut(200, function() {
+                $(_this.attr.container).fadeOut(200, function() {
                     Core.call(_this._closeCallback);
                     _this._closeCallback = null;
 
                     if(_this._currentOptions) {
-                        if(_this._currentOptions.class) $container.removeClass(_this._currentOptions.class);
+                        if(_this._currentOptions.class) $(_this.attr.container).removeClass(_this._currentOptions.class);
                         if(_this._currentOptions.overlayClass) $overlay.removeClass(_this._currentOptions.overlayClass);
                     }
 
