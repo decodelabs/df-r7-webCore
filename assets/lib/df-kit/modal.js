@@ -184,7 +184,7 @@ define([
             if(!$(_this.attr.overlay).length) {
                 callbackRunner();
             } else {
-                $(_this.attr.content).fadeOut(_this._contentFadeTime, function() {
+                $(_this.attr.container).fadeOut(_this._contentFadeTime, function() {
                     _this._overlayAction = 'close';
 
                     $(_this.attr.overlay).fadeOut(_this._overlayFadeTime, function() {
