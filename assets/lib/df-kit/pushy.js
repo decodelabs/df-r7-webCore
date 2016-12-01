@@ -23,7 +23,8 @@ define([
 
                 var pushyClass = $(this).data('pushy-class'),
                     href = $(this).data('pushy-href'),
-                    side = $(this).data('pushy-side');
+                    side = $(this).data('pushy-side')
+                    closeButton = $(this).data('pushy-close-button');
 
                 if(!href) {
                     href = $(this).data('pushy');
@@ -40,7 +41,8 @@ define([
 
                 _this.load(href, {
                     class: pushyClass,
-                    side: side
+                    side: side,
+                    closeButton: closeButton
                 });
             });
 
@@ -107,9 +109,11 @@ define([
 
                     if(options.side == 'left') {
                         $content = $leftContainer.addClass('pushy-active').find('.pushy-content');
+                        $leftContainer.find('> a.pushy-close').toggle(options.closeButton !== false);
                         //$rightContainer.find('.pushy-content').html('');
                     } else {
                         $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
+                        $rightContainer.find('> a.pushy-close').toggle(options.closeButton !== false);
                         //$leftContainer.find('.pushy-content').html('');
                     }
 

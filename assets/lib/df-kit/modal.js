@@ -28,7 +28,8 @@ define([
                 var modalClass = $(this).data('modal-class'),
                     overlayClass = $(this).data('modal-overlay-class'),
                     href = $(this).data('modal-href'),
-                    overlayAction = $(this).data('overlay-action');
+                    overlayAction = $(this).data('overlay-action')
+                    closeButton = $(this).data('modal-close-button');
 
                 if(!href) {
                     href = $(this).data('modal');
@@ -42,7 +43,8 @@ define([
                 _this.load(href, {
                     class: modalClass,
                     overlayClass: overlayClass,
-                    overlayAction: overlayAction
+                    overlayAction: overlayAction,
+                    closeButton: closeButton
                 });
             });
 
@@ -110,6 +112,7 @@ define([
 
                     if(options.class) $container.addClass(options.class);
                     if(options.overlayClass) $overlay.addClass(options.overlayClass);
+                    $container.find('> a.modal-close').toggle(options.closeButton !== false);
 
                     Core.call(options.callback, options.callbackData);
                     $container.fadeIn(_this._contentFadeTime);
