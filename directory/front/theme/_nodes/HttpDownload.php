@@ -18,7 +18,7 @@ class HttpDownload extends arch\node\Base {
 
     public function execute() {
         $theme = aura\theme\Base::factory($this->request['theme']);
-        $assetPath = $this->request['file'];
+        $assetPath = core\uri\FilePath::normalizeLocal($this->request['file']);
         $type = null;
         $cacheAge = $this->application->isDevelopment() ? null : '2 days';
 
