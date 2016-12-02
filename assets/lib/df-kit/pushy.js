@@ -11,7 +11,6 @@ define([
             content: '.pushy-content'
         },
 
-        _closeCallback: null,
         _contentFadeTime: 200,
         client: null,
 
@@ -31,13 +30,8 @@ define([
                     if(href === true) href = null;
                 }
 
-                if(!href) {
-                    href = $(this).attr('href');
-                }
-
-                if(!side) {
-                    side = 'right';
-                }
+                if(!href) href = $(this).attr('href');
+                if(!side) side = 'right';
 
                 _this.load(href, {
                     class: pushyClass,
@@ -53,9 +47,7 @@ define([
             });
 
             $(document).keyup(function(e) {
-                if(e.which == 27) {
-                    _this.close();
-                }
+                if(e.which == 27) _this.close();
             });
 
             Core.on('dialog.open', function(source) {
@@ -66,136 +58,126 @@ define([
         },
 
         load: function(href, options) {
-            options = options || {};
-
             var _this = this,
-                callback = options.callback;
+                deferred = $.Deferred();
 
-            options.callback = function(data) {
-                _this.client = Ajax.loadElement('.pushy-active.pushy-container > '+_this.attr.content, href, {
-                    source: 'pushy'
-                });
+            _this.open('loading...', options).done(function($content) {
+                Ajax.embedInto($content, href, {
+                    source: 'pushy',
+                    live: options.live !== false
+                }).progress(function(client) {
+                    _this.client = client;
 
-                _this.client.on('content:load', function(response) {
-                    Core.call(callback);
-                    Core.trigger('dialog.load', 'pushy');
-                });
+                    _this.client.once('content:show', function(response) {
+                        Core.trigger('dialog.load', 'pushy');
+                    });
 
-                _this.client.once('form:completeInitial', function(response) {
-                    response.handled = true;
-                    _this.close();
-                });
-            };
+                    _this.client.once('form:completeInitial', function(response) {
+                        response.handled = true;
+                        _this.close();
+                    });
 
-            _this.open('', options);
+                    deferred.notify(client);
+                }).done(deferred.resolve);
+            });
+
+            return deferred.promise();
         },
 
         open: function(html, options) {
             var _this = this,
-                $body = $('html');
+                $body = $('html'),
+                $leftContainer = $(_this.attr.leftContainer),
+                $rightContainer = $(_this.attr.rightContainer),
+                deferred = $.Deferred();
 
             options = options || {};
             Core.trigger('dialog.open', 'pushy');
 
-            var $leftContainer = $(_this.attr.leftContainer),
-                $rightContainer = $(_this.attr.rightContainer),
-                builder = function() {
-                    $body.addClass('pushy-active');
-                    $('.pushy-container').removeClass('pushy-active');
 
-                    if(!$body.hasClass('push-'+options.side)) {
-                        $body.removeClass('push-left push-right').addClass('push-'+options.side);
-                    }
-
-                    if(options.side == 'left') {
-                        $content = $leftContainer.addClass('pushy-active').find('.pushy-content');
-                        $leftContainer.find('> a.pushy-close').toggle(options.closeButton !== false);
-                        //$rightContainer.find('.pushy-content').html('');
-                    } else {
-                        $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
-                        $rightContainer.find('> a.pushy-close').toggle(options.closeButton !== false);
-                        //$leftContainer.find('.pushy-content').html('');
-                    }
-
-                    $content.html(html);
-
-                    _this._closeCallback = options.closeCallback;
-
-                    if(options.class) {
-                        $leftContainer.addClass(options.class);
-                        $rightContainer.addClass(options.class);
-                    }
-
-                    Core.call(options.callback, options.callbackData);
-                    //$content.show();
-                    $content.fadeIn(_this._contentFadeTime);
-                };
-
+            // Prepare
             if($leftContainer.length) {
-                var $active = $(_this.attr.content, '.pushy-container.pushy-active'),
-                    runner = function() {
-                        Core.call(_this._closeCallback);
-                        _this._closeCallback = null;
-                        builder();
-                    };
+                _this.trigger('close');
+                var $active = $(_this.attr.content, '.pushy-container.pushy-active');
 
-                if($active.length && !$body.hasClass('push-'+options.side)) {
-                    runner();
-                } else {
-                    $('.pushy-content').hide();
-                    runner();
+                if(!($active.length && !$body.hasClass('push-'+options.side))) {
+                    $(_this.attr.content).hide();
                 }
             } else {
                 $leftContainer = $('<aside class="pushy-container push-left"><a class="pushy-close">✕</a><div class="pushy-content"></div></aside>').appendTo('body');
                 $rightContainer = $('<aside class="pushy-container push-right"><a class="pushy-close">✕</a><div class="pushy-content"></div></aside>').appendTo('body');
                 $(_this.attr.content).hide();
-                builder();
             }
+
+            // Set active
+            $body.addClass('pushy-active');
+            $('.pushy-container').removeClass('pushy-active');
+
+            if(!$body.hasClass('push-'+options.side)) {
+                $body.removeClass('push-left push-right').addClass('push-'+options.side);
+            }
+
+
+            // Load content
+            if(options.side == 'left') {
+                $content = $leftContainer.addClass('pushy-active').find('.pushy-content');
+                $leftContainer.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
+            } else {
+                $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
+                $rightContainer.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
+            }
+
+            if(options.class) {
+                $leftContainer.addClass(options.class);
+                $rightContainer.addClass(options.class);
+            }
+
+            $content.html(html);
+            deferred.resolve($content);
+
+            // Fade in
+            $content.fadeIn(_this._contentFadeTime);
+
+            return deferred.promise();
         },
 
-        close: function(callback, data) {
+        close: function() {
             var _this = this,
                 $form = $('.w-form:has(.w-eventButton)', this.attr.content).first(),
-                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete;
+                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete,
+                deferred = $.Deferred();
 
             if(!isComplete && $form.length) {
                 Ajax.post($form.attr('action'), {
                     data: [{name:'formEvent', value:'cancel'}],
                     $element: $form,
                     source: 'pushy'
-                }, function() {
-                    _this._close();
-                });
+                }).always(deferred.notify);
             } else {
-                this._close(callback, data);
+                deferred.notify();
             }
-        },
 
-        _close: function(callback, data) {
-            var _this = this;
+            deferred.progress(function() {
+                if(!$(_this.attr.content).length) {
+                    deferred.resolve();
+                } else {
+                    var $body = $('html');
+                    $body.removeClass('pushy-active');
 
-            var callbackRunner = function() {
-                Core.call(_this._closeCallback, data);
-                _this._closeCallback = null;
-                Core.call(callback, data);
-
-                if(_this.client) {
-                    _this.client.destroy();
+                    setTimeout(function() {
+                        $body.removeClass('push-left push-right');
+                        $('.pushy-container').remove();
+                        deferred.resolve();
+                    }, 500);
                 }
-            };
+            });
 
-            if(!$(_this.attr.content).length) {
-                callbackRunner();
-            } else {
-                var $body = $('html');
-                $body.removeClass('pushy-active');
+            deferred.done(function() {
+                if(_this.client) _this.client.destroy();
+                _this.trigger('close');
+            });
 
-                setTimeout(function() {
-                    $body.removeClass('push-left push-right');
-                    $('.pushy-container').remove();
-                    callbackRunner();
-                }, 500);
-            }
+            return deferred.promise();
         }
     });
 });

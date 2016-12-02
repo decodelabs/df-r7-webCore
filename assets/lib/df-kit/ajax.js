@@ -2,13 +2,13 @@ define([
     'jquery',
     'df-kit/core'
 ], function($, Core) {
-    var ajax;
-    return ajax = Core.component({
+    var Ajax;
+    return Ajax = Core.component({
         _clients: {},
 
         init: function() {
             $(document).on('click', '.ajax-content button', function(e) {
-                if($(this).closest('.global').length && $(this).closest('.global').closest('.ajax-content').length) {
+                if($(this).closest('form.global').length && $(this).closest('form.global').closest('.ajax-content').length) {
                     return;
                 }
 
@@ -18,72 +18,18 @@ define([
             });
         },
 
-        loadElement: function(element, url, options) {
-            var client, clientId = $(element).attr('data-ajax-client');
 
-            if(clientId && this._clients[clientId]) {
-                client = this._clients[clientId];
-            } else {
-                client = new this.Client(element);
-                this._clients[client.id] = client;
-            }
-
-            client.get(url, options);
-            return client;
+    // Basic requests
+        get: function(url, options) {
+            return this.send(this.normalizeRequest('GET', url, options));
         },
 
-        get: function(url, options, callback) {
-            return this.sendRequest(
-                this.normalizeRequest('GET', url, options),
-                callback
-            );
+        getElement: function(slug) {
+            return this.get(Core.rootUrl+'content/element?element='+slug);
         },
 
-        getElement: function(slug, callback) {
-            return this.get(
-                Core.rootUrl+'content/element?element='+slug,
-                null, callback
-            );
-        },
-
-        post: function(url, options, callback) {
-            return this.sendRequest(
-                this.normalizeRequest('POST', url, options),
-                callback
-            );
-        },
-
-        sendRequest: function(request, callback) {
-            var _this = this;
-            if(!request.method) request.method = 'GET';
-            if(!request.data) request.data = {};
-
-            if(!request.url) {
-                throw new Error('No URL defined for ajax request');
-            }
-
-            $.ajax({
-                url: request.url,
-                data: request.data,
-                type: request.method,
-                headers: {
-                    'x-ajax-request-type' : request.type,
-                    'x-ajax-request-source': request.source
-                },
-                success: function(response, status, xhr) {
-                    var url = xhr.getResponseHeader('X-Response-Url');
-
-                    if(url) {
-                        //request.originalUrl = request.url;
-                        request.url = url;
-                    }
-
-                    if(callback) callback(response, request);
-                }
-            }).fail(function(e) {
-                _this.trigger('fail', request);
-                console.log('Ajax call failed...', request.url, e);
-            });
+        post: function(url, options) {
+            return this.send(this.normalizeRequest('POST', url, options));
         },
 
         normalizeRequest: function(method, url, request) {
@@ -98,12 +44,88 @@ define([
             return request;
         },
 
+        send: function(request) {
+            var _this = this;
+            if(!request.method) request.method = 'GET';
+            if(!request.data) request.data = {};
+
+            if(!request.url) {
+                throw new Error('No URL defined for ajax request');
+            }
+
+            var deferred = $.Deferred();
+
+            $.ajax({
+                url: request.url,
+                data: request.data,
+                type: request.method,
+                headers: {
+                    'x-ajax-request-type' : request.type,
+                    'x-ajax-request-source': request.source
+                }
+            }).done(function(response, status, xhr) {
+                var url = xhr.getResponseHeader('X-Response-Url');
+                if(url) request.url = url;
+                deferred.resolve(response, request);
+            }).fail(deferred.reject);
+
+            return deferred.promise();
+        },
+
+
+
+
+
+    // Client shortcuts
+        loadInto: function(element, url, options) {
+            options = options || {}
+            options.live = false;
+
+            return this.embedInto(element, url, options);
+        },
+
+        embedInto: function(element, url, options) {
+            var client = this.getClient(element),
+                deferred = $.Deferred();
+
+            client.clear();
+            deferred.notify(client);
+
+            client.get(url, options)
+                .fail(deferred.reject)
+                .done(deferred.resolve);
+
+            return deferred.promise();
+        },
+
+        getClient: function(element) {
+            var client,
+                clientId = $(element).attr('data-ajax-client')
+
+            if(clientId && this._clients[clientId]) {
+                client = this._clients[clientId];
+            } else {
+                client = new this.Client(element);
+                this._clients[client.id] = client;
+            }
+
+            return client;
+        },
+
+
+
+    // Client
         Client: Core.class({
             id: null,
             $element: null,
             initialUrl: null,
             requestStack: null,
             lastResponse: null,
+
+            attr: {
+                link: 'a[href]:not([class*=\'-close\'],.global,.global *,[target],.pushy,.modal)',
+                form: 'form:not(.global,.global form)'
+            },
 
 
             construct: function(element) {
@@ -112,16 +134,6 @@ define([
                 this.id = _.uniqueId('a');
                 this.$element = $(element);
                 this.$element.attr('data-ajax-client', this.id);
-
-                this.$element.on('click', 'a[href]:not([class*=\'-close\'],.local,.local a,.global,.global a,[target],.pushy,.modal)', function(e) {
-                    if(!Core.isUrlExternal($(this).attr('href'))) {
-                        _this.onLinkClick(e);
-                    }
-                });
-
-                this.$element.on('submit', '.w-form:not(.global)', function(e) {
-                    _this.onFormSubmit(e);
-                });
             },
 
 
@@ -137,17 +149,17 @@ define([
 
 
             get: function(url, options) {
-                return this.sendRequest(ajax.normalizeRequest('get', url, options));
+                return this.send(Ajax.normalizeRequest('get', url, options));
             },
 
             post: function(url, options) {
-                return this.sendRequest(ajax.normalizeRequest('post', url, options));
+                return this.send(Ajax.normalizeRequest('post', url, options));
             },
 
             home: function() {
                 var request = this.getFirstRequest();
                 this.requestStack = [];
-                return this.sendRequest(request);
+                return this.send(request);
             },
 
             back: function() {
@@ -155,7 +167,7 @@ define([
                 var request = this.getLastRequest();
 
                 if(request) {
-                    return this.sendRequest(request);
+                    return this.send(request);
                 }
             },
 
@@ -163,7 +175,7 @@ define([
                 var request = this.requestStack.pop();
 
                 if(request) {
-                    return this.sendRequest(request);
+                    return this.send(request);
                 }
             },
 
@@ -176,16 +188,18 @@ define([
 
             destroy: function() {
                 this.clear();
-                delete ajax._clients[this.id];
+                this.disableLive();
+                delete Ajax._clients[this.id];
             },
 
             _normalizeUrl: function(url) {
                 return url.replace('.ajax', '').replace(/(\?|\&)\_\=[0-9]+/, '');
             },
 
-            sendRequest: function(request, callback) {
+            send: function(request) {
                 var _this = this,
-                    lastRequest = this.getLastRequest();
+                    lastRequest = this.getLastRequest(),
+                    deferred = $.Deferred();
 
                 if(!lastRequest
                 || (lastRequest.originalUrl !== request.originalUrl
@@ -193,7 +207,11 @@ define([
                     this.requestStack.push(request);
                 }
 
-                ajax.sendRequest(request, function(response, request) {
+                Ajax.send(
+                    request
+                ).fail(
+                    deferred.reject
+                ).done(function(response, request) {
                     _this.lastResponse = response;
                     response = _this.normalizeResponse(response, request);
 
@@ -203,12 +221,17 @@ define([
 
                     _this.trigger('response', response);
 
-                    ajax.trigger('elementResponse', {
+                    Ajax.trigger('elementResponse', {
                         client: this,
                         response: response
                     });
 
+                    deferred.notify(response, request);
+
+
+                    // Form complete
                     if(response.isComplete) {
+                        // Forced redirect
                         if(response.request.formEvent !== 'cancel'
                         && response.forceRedirect
                         && response.redirect !== null) {
@@ -217,10 +240,12 @@ define([
                             return _this.get(response.redirect, response.request);
                         }
 
+                        // Form cancel
                         if(response.request.formEvent === 'cancel') {
                             _this.trigger('form:cancel', response);
                         }
 
+                        // Complete
                         _this.trigger('form:complete', response);
 
                         var isInitial = _this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl);
@@ -230,33 +255,61 @@ define([
                         }
                     }
 
+
+                    // Refresh everything
                     if(response.reload === true) {
                         location.reload();
                     }
 
+                    // Handled by event
                     if(response.handled) {
+                        deferred.resolve(response);
                         return;
                     }
 
+                    // Simple redirect
                     if(response.redirect !== null) {
                         _this.trigger('redirect', response);
                         return _this.get(response.redirect, _.clone(response.request));
                     }
 
-                    if(typeof callback === 'function') {
-                        if(false === callback(response)) {
-                            return;
-                        }
-                    }
-
+                    // Handle it
                     _this.trigger('content:load', response);
+                    _this.disableLive();
+
+                    if(request.live !== false) {
+                        _this.enableLive();
+                    }
 
                     _this.$element
                         .addClass('ajax-content')
                         .html(response.content);
 
                     _this.trigger('content:show', response);
+                    deferred.resolve(response, request);
                 });
+
+                return deferred;
+            },
+
+
+            enableLive: function() {
+                var _this = this;
+
+                this.$element.on('click', this.attr.link, function(e) {
+                    if(!Core.isUrlExternal($(this).attr('href'))) {
+                        _this.onLinkClick(e);
+                    }
+                });
+
+                this.$element.on('submit', this.attr.form, function(e) {
+                    _this.onFormSubmit(e);
+                });
+            },
+
+            disableLive: function() {
+                this.$element.off('click', this.attr.link);
+                this.$element.off('submit', this.attr.form);
             },
 
             normalizeResponse: function(response, request) {

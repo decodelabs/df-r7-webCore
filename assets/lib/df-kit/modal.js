@@ -12,7 +12,6 @@ define([
             content: '#modal-content'
         },
 
-        _closeCallback: null,
         _overlayAction: 'close',
         _currentOptions: null,
         _overlayFadeTime: 200,
@@ -71,74 +70,51 @@ define([
             options = options || {};
 
             var _this = this,
-                callback = options.callback;
+                deferred = $.Deferred();
 
-            options.callback = function(data) {
-                if(_this.client) {
-                    _this.client.clear();
-                }
+            _this.open('loading...', options).done(function($content) {
+                Ajax.embedInto(_this.attr.content, href, {
+                    source: 'modal',
+                    live: options.live !== false
+                }).progress(function(client) {
+                    _this.client = client;
 
-                _this.client = Ajax.loadElement(_this.attr.content, href, {
-                    source: 'modal'
-                });
+                    _this.client.once('content:show', function() {
+                        Core.trigger('dialog.load', 'modal');
+                    });
 
-                _this.client.once('content:show', function() {
-                    Core.call(callback);
-                    Core.trigger('dialog.load', 'modal');
-                });
+                    _this.client.on('form:completeInitial', function(response) {
+                        response.handled = true;
+                        _this.close();
+                    });
 
-                _this.client.on('form:completeInitial', function(response) {
-                    response.handled = true;
-                    _this.close();
-                });
-            };
+                    deferred.notify(client);
+                }).done(deferred.resolve);
+            });
 
-            _this.open('loading...', options);
+            return deferred.promise();
         },
 
         open: function(html, options) {
-            var _this = this;
+            var _this = this,
+                $overlay = $(_this.attr.overlay),
+                deferred = $.Deferred();
+
             options = options || {};
             Core.trigger('dialog.open', 'modal');
 
-            var $overlay = $(_this.attr.overlay),
-                builder = function() {
-                    _this._currentOptions = options;
-                    var $container = $(_this.attr.container).hide(),
-                        $combined = $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close');
 
-                    $(_this.attr.content).html(html);
-                    _this._closeCallback = options.closeCallback;
-
-                    if(options.class) $container.addClass(options.class);
-                    if(options.overlayClass) $overlay.addClass(options.overlayClass);
-                    $container.find('> a.modal-close').toggle(options.closeButton !== false);
-
-                    Core.call(options.callback, options.callbackData);
-                    $container.fadeIn(_this._contentFadeTime);
-
-                    switch(options.overlayAction) {
-                        case 'none':
-                            break;
-
-                        case 'close':
-                        default:
-                            $combined.addClass('modal-close');
-                            break;
-                    }
-                };
-
+            // Prepare
             if($overlay.length) {
                 $(_this.attr.container).fadeOut(200, function() {
-                    Core.call(_this._closeCallback);
-                    _this._closeCallback = null;
+                    _this.trigger('close');
 
                     if(_this._currentOptions) {
                         if(_this._currentOptions.class) $(_this.attr.container).removeClass(_this._currentOptions.class);
                         if(_this._currentOptions.overlayClass) $overlay.removeClass(_this._currentOptions.overlayClass);
                     }
 
-                    builder();
+                    deferred.notify();
                 });
             } else {
                 $('html').addClass('modal-open');
@@ -146,58 +122,85 @@ define([
                 $(_this.attr.container).hide();
 
                 $overlay.fadeIn(_this._overlayFadeTime, function() {
-                    builder();
+                    deferred.notify();
                 });
             }
+
+            // Render
+            deferred.progress(function() {
+                _this._currentOptions = options;
+
+                var $container = $(_this.attr.container).hide(),
+                    $combined = $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close'),
+                    $content = $(_this.attr.content);
+
+                // Use options
+                if(options.class) $container.addClass(options.class);
+                if(options.overlayClass) $overlay.addClass(options.overlayClass);
+
+                switch(options.overlayAction) {
+                    case 'none':
+                        break;
+
+                    case 'close':
+                    default:
+                        $combined.addClass('modal-close');
+                        break;
+                }
+
+                $container.find('> a.modal-close').toggleClass('hidden', options.closeButton === false);
+
+                // Load content
+                $content.html(html);
+                deferred.resolve($content);
+
+                // Fade in
+                $container.fadeIn(_this._contentFadeTime);
+            });
+
+            return deferred.promise();
         },
 
-        close: function(callback, data) {
+        close: function() {
             var _this = this,
-                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete;
+                $form = $('.w-form:has(.w-eventButton)', this.attr.content).first(),
+                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete,
+                deferred = $.Deferred();
 
-            if(!isComplete && $('.w-form', this.attr.overlay).length) {
-                var $form = $('.w-form', this.attr.overlay).first();
-
+            if(!isComplete && $form.length) {
                 Ajax.post($form.attr('action'), {
                     data: [{name:'formEvent', value:'cancel'}],
+                    $element: $form,
                     source: 'modal'
-                }, function() {
-                    _this._close();
-                });
+                }).always(deferred.notify);
             } else {
-                this._close(callback, data);
+                deferred.notify();
             }
-        },
 
-        _close: function(callback, data) {
-            var _this = this;
+            deferred.progress(function() {
+                $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close');
 
-            var callbackRunner = function() {
-                Core.call(_this._closeCallback, data);
-                _this._closeCallback = null;
-                Core.call(callback, data);
+                if(!$(_this.attr.overlay).length) {
+                    deferred.resolve();
+                } else {
+                    $(_this.attr.container).fadeOut(_this._contentFadeTime, function() {
+                        _this._overlayAction = 'close';
 
-                if(_this.client) {
-                    _this.client.destroy();
-                }
-            };
-
-            $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close');
-
-            if(!$(_this.attr.overlay).length) {
-                callbackRunner();
-            } else {
-                $(_this.attr.container).fadeOut(_this._contentFadeTime, function() {
-                    _this._overlayAction = 'close';
-
-                    $(_this.attr.overlay).fadeOut(_this._overlayFadeTime, function() {
-                        $(this).remove();
-                        $('html').removeClass('modal-open');
-                        callbackRunner();
-                        _this.trigger('close');
+                        $(_this.attr.overlay).fadeOut(_this._overlayFadeTime, function() {
+                            $(this).remove();
+                            $('html').removeClass('modal-open');
+                            deferred.resolve();
+                        });
                     });
-                });
-            }
+                }
+            });
+
+            deferred.done(function() {
+                if(_this.client) _this.client.destroy();
+                _this.trigger('close');
+            });
+
+            return deferred.promise();
         }
     });
 });
