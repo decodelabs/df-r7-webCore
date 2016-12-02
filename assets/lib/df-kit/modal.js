@@ -107,7 +107,7 @@ define([
             // Prepare
             if($overlay.length) {
                 $(_this.attr.container).fadeOut(200, function() {
-                    _this.trigger('close');
+                    _this.trigger('clear');
 
                     if(_this._currentOptions) {
                         if(_this._currentOptions.class) $(_this.attr.container).removeClass(_this._currentOptions.class);
@@ -197,6 +197,7 @@ define([
 
             deferred.done(function() {
                 if(_this.client) _this.client.destroy();
+                _this.trigger('clear');
                 _this.trigger('close');
             });
 

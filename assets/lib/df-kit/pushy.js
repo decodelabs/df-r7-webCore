@@ -97,7 +97,7 @@ define([
 
             // Prepare
             if($leftContainer.length) {
-                _this.trigger('close');
+                _this.trigger('clear');
                 var $active = $(_this.attr.content, '.pushy-container.pushy-active');
 
                 if(!($active.length && !$body.hasClass('push-'+options.side))) {
@@ -174,6 +174,7 @@ define([
 
             deferred.done(function() {
                 if(_this.client) _this.client.destroy();
+                _this.trigger('clear');
                 _this.trigger('close');
             });
 
