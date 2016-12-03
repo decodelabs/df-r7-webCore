@@ -123,7 +123,7 @@ define([
             lastResponse: null,
 
             attr: {
-                link: 'a[href]:not([class*=\'-close\'],.global,.global *,[target],.pushy,.modal)',
+                link: 'a[href]:not([class*=\'-close\'],.global,.global *,[target],.pushy,.modal),[data-href]:not(.global,.global *)',
                 form: 'form:not(.global,.global form)'
             },
 
@@ -297,9 +297,7 @@ define([
                 var _this = this;
 
                 this.$element.on('click', this.attr.link, function(e) {
-                    if(!Core.isUrlExternal($(this).attr('href'))) {
-                        _this.onLinkClick(e);
-                    }
+                    _this.onLinkClick(e);
                 });
 
                 this.$element.on('submit', this.attr.form, function(e) {
@@ -331,7 +329,8 @@ define([
                     lastRequest = this.getLastRequest();
                     request = {};
 
-                if(!url) return;
+                if(!url) url = $(e.target).closest('[data-href]').attr('data-href');
+                if(!url || Core.isUrlExternal(url)) return;
                 if(lastRequest) request = _.clone(lastRequest);
 
                 e.preventDefault();
