@@ -269,6 +269,7 @@ class CustomUploader extends arch\node\form\Delegate implements
 
         yield $this->html('div.upload', [
             $input = $this->html->fileUpload($delegate->fieldName('file'), $delegate->values->file)
+                ->allowMultiple($this->_isForMany)
                 ->setAcceptTypes(...$delegate->getAcceptTypes())
                 ->setId($delegate->getWidgetId().'-input'),
 
