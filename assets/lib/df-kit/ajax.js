@@ -203,7 +203,7 @@ define([
 
                 if(!lastRequest
                 || (lastRequest.originalUrl !== request.originalUrl
-                 && _this._normalizeUrl(lastRequest.originalUrl) !== _this._normalizeUrl(request.originalUrl))) {
+                 && _this._normalizeUrl(lastRequest.originalUrl) !== _this._normalizeUrl(request.url))) {
                     this.requestStack.push(request);
                 }
 
@@ -216,7 +216,7 @@ define([
                     response = _this.normalizeResponse(response, request);
 
                     if(!_this.initialUrl) {
-                        _this.initialUrl = _this._normalizeUrl(request.originalUrl);
+                        _this.initialUrl = _this._normalizeUrl(request.url);
                     }
 
                     _this.trigger('response', response);
@@ -227,6 +227,7 @@ define([
                     });
 
                     deferred.notify(response, request);
+                    var isInitial = _this._normalizeUrl(response.request.url) === _this._normalizeUrl(_this.initialUrl);
 
 
                     // Form complete
@@ -247,8 +248,7 @@ define([
 
                         // Complete
                         _this.trigger('form:complete', response);
-
-                        var isInitial = _this._normalizeUrl(response.request.originalUrl) === _this._normalizeUrl(_this.initialUrl);
+                        console.log(isInitial, request.originalUrl);
 
                         if(isInitial) {
                             _this.trigger('form:completeInitial', response);
