@@ -122,15 +122,13 @@ define([
             if(options.side == 'left') {
                 $content = $leftContainer.addClass('pushy-active').find('.pushy-content');
                 $leftContainer.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
+                if(options.class) $leftContainer.addClass(options.class);
             } else {
                 $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
                 $rightContainer.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
+                if(options.class) $rightContainer.addClass(options.class);
             }
 
-            if(options.class) {
-                $leftContainer.addClass(options.class);
-                $rightContainer.addClass(options.class);
-            }
 
             $content.html(html);
             deferred.resolve($content);
