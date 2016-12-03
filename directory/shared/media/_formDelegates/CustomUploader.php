@@ -223,7 +223,7 @@ class CustomUploader extends arch\node\form\Delegate implements
             yield $this->html->bulletList($available, function($file) use($delegate) {
                 if(isset($file['fileId'])) {
                     yield $this->html->checkbox(
-                        $this->fieldName('selected[]'),
+                        $this->fieldName('selected['.$file['fileId'].']'),
                         $this->values->selected->contains($file['fileId']),
                         [
                             $this->html('span.fileName', $file['fileName']), ' ',
