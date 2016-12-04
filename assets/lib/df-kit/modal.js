@@ -13,7 +13,6 @@ define([
         },
 
         _overlayAction: 'close',
-        _currentOptions: null,
         _overlayFadeTime: 200,
         _contentFadeTime: 0,
         client: null,
@@ -169,8 +168,6 @@ define([
         },
 
         _applyOptions: function(options) {
-            this._currentOptions = options;
-
             var $overlay = $(this.attr.overlay),
                 $container = $(this.attr.container),
                 $combined = $(this.attr.overlay + ',' + this.attr.scroll),
