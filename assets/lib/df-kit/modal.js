@@ -12,7 +12,6 @@ define([
             content: '#modal-content'
         },
 
-        _overlayAction: 'close',
         _overlayFadeTime: 200,
         _contentFadeTime: 0,
         client: null,
@@ -214,8 +213,6 @@ define([
                     deferred.resolve();
                 } else {
                     $(_this.attr.container).fadeOut(_this._contentFadeTime, function() {
-                        _this._overlayAction = 'close';
-
                         $(_this.attr.overlay).fadeOut(_this._overlayFadeTime, function() {
                             $(this).remove();
                             $('html').removeClass('modal-open');
