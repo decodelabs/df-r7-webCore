@@ -182,7 +182,7 @@ define([
 
             switch(options.overlayAction) {
                 case 'none':
-                    $combine.removeClass('modal-close');
+                    $combined.removeClass('modal-close');
                     break;
 
                 case 'close':

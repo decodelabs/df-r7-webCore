@@ -248,7 +248,6 @@ define([
 
                         // Complete
                         _this.trigger('form:complete', response);
-                        console.log(isInitial, request.originalUrl);
 
                         if(isInitial) {
                             _this.trigger('form:completeInitial', response);
