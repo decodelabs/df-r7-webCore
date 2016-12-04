@@ -171,12 +171,19 @@ define([
         _applyOptions: function(options) {
             this._currentOptions = options;
 
-            var $container = $(this.attr.container),
+            var $overlay = $(this.attr.overlay),
+                $container = $(this.attr.container),
                 $combined = $(this.attr.overlay + ',' + this.attr.scroll),
                 $content = $(this.attr.content);
 
+
             if(options.class) $container.attr('class', options.class);
-            if(options.overlayClass) $(this.attr.overlay).attr('class', options.overlayClass);
+
+            if(options.overlayClass) {
+                $overlay.attr('class', options.overlayClass);
+            } else if(typeof options.overlayClass !== typeof undefined) {
+                $overlay.attr('class', '');
+            }
 
             switch(options.overlayAction) {
                 case 'none':
