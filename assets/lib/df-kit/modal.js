@@ -132,10 +132,8 @@ define([
                 $(_this.attr.container).fadeOut(200, function() {
                     _this.trigger('clear');
 
-                    if(_this._currentOptions) {
-                        if(_this._currentOptions.class) $(_this.attr.container).removeClass(_this._currentOptions.class);
-                        if(_this._currentOptions.overlayClass) $overlay.removeClass(_this._currentOptions.overlayClass);
-                    }
+                    $(_this.attr.container).attr('class', '');
+                    $overlay.attr('class', '');
 
                     deferred.notify();
                 });
@@ -178,7 +176,7 @@ define([
                 $content = $(this.attr.content);
 
             if(options.class) $container.attr('class', options.class);
-            if(options.overlayClass) $overlay.attr('class', options.overlayClass);
+            if(options.overlayClass) $(this.attr.overlay).attr('class', options.overlayClass);
 
             switch(options.overlayAction) {
                 case 'none':
