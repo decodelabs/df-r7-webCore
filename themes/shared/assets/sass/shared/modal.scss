@@ -69,6 +69,10 @@ html.modal-open {
         &:hover {
             text-decoration: none !important;
         }
+
+        &.hidden {
+            display: none !important;
+        }
     }
 
     &.video {

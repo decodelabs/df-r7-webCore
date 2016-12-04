@@ -66,6 +66,25 @@ define([
             });
         },
 
+        _importOptions: function(options, response) {
+            var keys = {
+                class: ['dialogClass', 'modalClass'],
+                overlayClass: ['dialogOverlayClass', 'modalOverlayClass'],
+                overlayAction: ['dialogOverlayAction', 'modalOverlayAction'],
+                closeButton: ['dialogCloseButton', 'modalCloseButton']
+            };
+
+            $.each(keys, function(option, importKeys) {
+                $.each(importKeys, function(i, importKey) {
+                    if(typeof response[importKey] !== typeof undefined) {
+                        options[option] = response[importKey];
+                    }
+                });
+            });
+
+            return options;
+        },
+
         load: function(href, options) {
             options = options || {};
 
@@ -89,7 +108,11 @@ define([
                     });
 
                     deferred.notify(client);
-                }).done(deferred.resolve);
+                }).done(function(response, request) {
+                    _this._importOptions(options, response);
+                    _this._applyOptions(options);
+                    deferred.resolve(response, request);
+                });
             });
 
             return deferred.promise();
@@ -128,27 +151,13 @@ define([
 
             // Render
             deferred.progress(function() {
-                _this._currentOptions = options;
-
-                var $container = $(_this.attr.container).hide(),
-                    $combined = $(_this.attr.overlay + ',' + _this.attr.scroll).removeClass('modal-close'),
+                var $container = $(_this.attr.container),
                     $content = $(_this.attr.content);
 
+                $container.hide();
+
                 // Use options
-                if(options.class) $container.addClass(options.class);
-                if(options.overlayClass) $overlay.addClass(options.overlayClass);
-
-                switch(options.overlayAction) {
-                    case 'none':
-                        break;
-
-                    case 'close':
-                    default:
-                        $combined.addClass('modal-close');
-                        break;
-                }
-
-                $container.find('> a.modal-close').toggleClass('hidden', options.closeButton === false);
+                _this._applyOptions(options);
 
                 // Load content
                 $content.html(html);
@@ -160,6 +169,31 @@ define([
 
             return deferred.promise();
         },
+
+        _applyOptions: function(options) {
+            this._currentOptions = options;
+
+            var $container = $(this.attr.container),
+                $combined = $(this.attr.overlay + ',' + this.attr.scroll),
+                $content = $(this.attr.content);
+
+            if(options.class) $container.attr('class', options.class);
+            if(options.overlayClass) $overlay.attr('class', options.overlayClass);
+
+            switch(options.overlayAction) {
+                case 'none':
+                    $combine.removeClass('modal-close');
+                    break;
+
+                case 'close':
+                default:
+                    $combined.addClass('modal-close');
+                    break;
+            }
+
+            $container.find('> a.modal-close').toggleClass('hidden', options.closeButton === false);
+        },
+
 
         close: function() {
             var _this = this,

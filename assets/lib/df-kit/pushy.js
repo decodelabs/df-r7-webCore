@@ -57,6 +57,24 @@ define([
             });
         },
 
+
+        _importOptions: function(options, response) {
+            var keys = {
+                class: ['dialogClass', 'pushyClass'],
+                closeButton: ['dialogCloseButton', 'pushyCloseButton']
+            };
+
+            $.each(keys, function(option, importKeys) {
+                $.each(importKeys, function(i, importKey) {
+                    if(typeof response[importKey] !== typeof undefined) {
+                        options[option] = response[importKey];
+                    }
+                });
+            });
+
+            return options;
+        },
+
         load: function(href, options) {
             var _this = this,
                 deferred = $.Deferred();
@@ -78,7 +96,11 @@ define([
                     });
 
                     deferred.notify(client);
-                }).done(deferred.resolve);
+                }).done(function(response, request) {
+                    _this._importOptions(options, response);
+                    _this._applyOptions(options);
+                    deferred.resolve(response, request);
+                });
             });
 
             return deferred.promise();
@@ -121,14 +143,11 @@ define([
             // Load content
             if(options.side == 'left') {
                 $content = $leftContainer.addClass('pushy-active').find('.pushy-content');
-                $leftContainer.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
-                if(options.class) $leftContainer.addClass(options.class);
             } else {
                 $content = $rightContainer.addClass('pushy-active').find('.pushy-content');
-                $rightContainer.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
-                if(options.class) $rightContainer.addClass(options.class);
             }
 
+            _this._applyOptions(options);
 
             $content.html(html);
             deferred.resolve($content);
@@ -137,6 +156,19 @@ define([
             $content.fadeIn(_this._contentFadeTime);
 
             return deferred.promise();
+        },
+
+        _applyOptions: function(options) {
+            var $container;
+
+            if(options.side == 'left') {
+                $container = $('.pushy-container.push-left');
+            } else {
+                $container = $('.pushy-container.push-right');
+            }
+
+            if(options.class) $container.attr('class', 'pushy-container push-'+options.side+' '+options.class);
+            $container.find('> a.pushy-close').toggleClass('hidden', options.closeButton === false);
         },
 
         close: function() {

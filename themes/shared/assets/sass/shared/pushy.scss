@@ -88,6 +88,10 @@ aside.pushy-container {
         line-height: 1;
         cursor: pointer;
         font-size: 0.9rem;
+
+        &.hidden {
+            display: none !important;
+        }
     }
 
     > .pushy-content {
