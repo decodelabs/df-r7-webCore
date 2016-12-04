@@ -199,16 +199,10 @@ define([
 
         close: function() {
             var _this = this,
-                $form = $('.w-form:has(.w-eventButton)', this.attr.content).first(),
-                isComplete = _this.client && _this.client.lastResponse && _this.client.lastResponse.isComplete,
                 deferred = $.Deferred();
 
-            if(!isComplete && $form.length) {
-                Ajax.post($form.attr('action'), {
-                    data: [{name:'formEvent', value:'cancel'}],
-                    $element: $form,
-                    source: 'modal'
-                }).always(deferred.notify);
+            if(this.client) {
+                this.client.close('modal').done(deferred.notify);
             } else {
                 deferred.notify();
             }

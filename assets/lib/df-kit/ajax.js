@@ -377,6 +377,25 @@ define([
                 }
 
                 this.post($form.attr('action'), request);
+            },
+
+            close: function(source) {
+                var _this = this,
+                    $form = this.$element.find('.w-form:has(.w-eventButton)').first(),
+                    isComplete = this.lastResponse && this.lastResponse.isComplete,
+                    deferred = $.Deferred();
+
+                if(!isComplete && $form.length) {
+                    Ajax.post($form.attr('action'), {
+                        data: [{name:'formEvent', value:'cancel'}],
+                        $element: $form,
+                        source: source
+                    }).always(deferred.resolve);
+                } else {
+                    deferred.resolve();
+                }
+
+                return deferred.promise();
             }
         })
     });
