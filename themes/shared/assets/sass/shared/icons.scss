@@ -1,3 +1,5 @@
+$gold: #E7D240 !default;
+
 @if $icon-font-family != false {
     @font-face {
         font-family: $icon-font-family;
@@ -32,6 +34,11 @@
 
         &:empty:before {
             padding-right: 0.4em;
+        }
+
+        &.star:before {
+            color: $gold;
+            text-shadow: none;
         }
     }
 
