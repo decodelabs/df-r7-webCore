@@ -66,6 +66,7 @@ return [
     'legacy' => '&#xe020;',
     'urgent' => '&#xe020;',
     'bug' => '&#xe020;',
+    'science' => '&#xe021;',
     'test' => '&#xe021;',
     'tag' => '&#xe022;',
     'label' => '&#xe022;',
