@@ -291,6 +291,8 @@ div.layout-pageArea {
         > .fire-block > .w-field {
             border: 1px #EEE solid;
             border-radius: 4px;
+            box-sizing: border-box;
+            background: rgba(white, 0.7);
         }
     }
 
