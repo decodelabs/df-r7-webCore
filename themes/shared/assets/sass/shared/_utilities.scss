@@ -13,7 +13,11 @@
     padding-right: 1.5rem;
     position: relative;
     margin: 0 auto;
-    max-width: ($font-scale-crossover / $font-base-size) * 1rem;
+
+    @if $page-max-width != null {
+        max-width: $page-max-width;
+    }
+
     z-index: 2;
     box-sizing: border-box;
 

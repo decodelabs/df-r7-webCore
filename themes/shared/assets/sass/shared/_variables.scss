@@ -18,6 +18,8 @@ $link-states: true !default;
 $cell-inset: true !default;
 $rem: true !default;
 
+/* PAGE */
+$page-max-width: 1080px !default;
 
 /* FONTS */
 $font-base-size: 16px !default;
@@ -27,7 +29,7 @@ $font-base-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-ser
 $font-line-height: 1.225em !default;
 $font-scale: false !default;
 $font-scale-threshold: 3000px !default;
-$font-scale-crossover: 1080px !default;
+$font-scale-crossover: $page-max-width !default;
 $font-scale-region: 300px !default;
 $font-base-weight: normal !default;
 $font-antialias: true !default;
