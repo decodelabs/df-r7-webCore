@@ -61,7 +61,6 @@ class HttpResetPassword extends arch\node\Form {
                 'user' => $user['id'],
                 'adapter' => 'Local'
             ],
-            'edit',
             function($auth) use($user) {
                 $auth->import([
                     'user' => $user['id'],

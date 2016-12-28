@@ -19,8 +19,7 @@ class HttpDelete extends arch\node\DeleteForm {
     protected function init() {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
-            $this->request['comment'],
-            'delete'
+            $this->request['comment']
         );
     }
 

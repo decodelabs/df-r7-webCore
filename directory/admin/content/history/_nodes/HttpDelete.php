@@ -19,8 +19,7 @@ class HttpDelete extends arch\node\DeleteForm {
     protected function init() {
         $this->_history = $this->data->fetchForAction(
             'axis://content/History',
-            $this->request['history'],
-            'delete'
+            $this->request['history']
         );
     }
 

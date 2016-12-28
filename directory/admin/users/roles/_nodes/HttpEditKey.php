@@ -14,8 +14,7 @@ class HttpEditKey extends HttpAddKey {
     protected function init() {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
-            $this->request['key'],
-            'edit'
+            $this->request['key']
         );
 
         $this->_role = $this->_key['role'];

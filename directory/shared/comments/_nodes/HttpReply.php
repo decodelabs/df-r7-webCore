@@ -17,8 +17,7 @@ class HttpReply extends HttpAdd {
     protected function init() {
         $this->_parentComment = $this->data->fetchForAction(
             'axis://content/Comment',
-            $this->request['comment'],
-            'reply'
+            $this->request['comment']
         );
 
         $this->_comment = $this->data->newRecord('axis://content/Comment');

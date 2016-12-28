@@ -29,7 +29,6 @@ class HttpSettings extends arch\node\Form {
             $this->_config = $this->data->fetchOrCreateForAction(
                 'axis://daemon/Settings',
                 $this->request['daemon'],
-                'edit',
                 function($settings) {
                     $settings['name'] = $this->request['daemon'];
                 }

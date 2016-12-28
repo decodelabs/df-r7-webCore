@@ -19,8 +19,7 @@ class HttpDeleteKey extends arch\node\DeleteForm {
     protected function init() {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
-            $this->request['key'],
-            'delete'
+            $this->request['key']
         );
     }
 

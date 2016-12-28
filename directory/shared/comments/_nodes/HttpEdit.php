@@ -15,8 +15,7 @@ class HttpEdit extends HttpAdd {
     protected function init() {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
-            $this->request['comment'],
-            'edit'
+            $this->request['comment']
         );
     }
 

@@ -21,7 +21,6 @@ class HttpChangePassword extends arch\node\Form {
                 'user' => $this->request['user'],
                 'adapter' => 'Local'
             ],
-            'edit',
             function($auth) {
                 $user = $this->data->fetchForAction(
                     'axis://user/Client',

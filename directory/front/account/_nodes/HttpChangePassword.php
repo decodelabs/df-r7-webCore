@@ -23,7 +23,6 @@ class HttpChangePassword extends arch\node\Form {
                 'user' => $this->user->client->getId(),
                 'adapter' => 'Local'
             ],
-            'edit',
             function($auth) {
                 $auth->import([
                     'user' => $this->user->client->getId(),
