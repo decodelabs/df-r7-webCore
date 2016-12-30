@@ -115,7 +115,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
             $output->addAttributes($attributes);
         }
 
-        $output->addClass('video-js '.$skin);
+        $output->addClass('video-js video '.$skin);
         return $output;
     }
 }
