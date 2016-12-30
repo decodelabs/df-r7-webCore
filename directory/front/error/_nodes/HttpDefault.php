@@ -102,13 +102,13 @@ class HttpDefault extends arch\node\Base {
             $isAdmin = false;
         }
 
-        $showTemplate = !$isDevelopment || isset($lastRequest->query->template);
+        $showTemplate = !$isDevelopment;
 
         if($code == 500 && ($isAdmin || $isTesting)) {
             $showTemplate = false;
         }
 
-        if(isset($lastRequest->query->showErrorTemplate)) {
+        if(isset($lastRequest->query->template)) {
             $showTemplate = true;
         }
 
