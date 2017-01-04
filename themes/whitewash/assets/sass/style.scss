@@ -81,16 +81,144 @@ h3 {
 
 
 
-a:link,
-a:visited {
-    color: #575757;
-    text-decoration: none;
-}
+a {
+    &:link,
+    &:visited {
+        color: #575757;
+        text-decoration: none;
+    }
 
-a:hover,
-a:active {
-    color: #737373;
-    text-decoration: underline;
+    &:hover,
+    &:active {
+        color: #737373;
+        text-decoration: underline;
+    }
+
+    &.positive {
+        &:link, &:visited {
+            color: $positive-color;
+        }
+        &:hover, &:active {
+            color: lighten($positive-color, 10%);
+        }
+    }
+
+    &.negative {
+        &:link, &:visited {
+            color: $negative-color;
+        }
+        &:hover, &:active {
+            color: lighten($negative-color, 10%);
+        }
+    }
+
+    &.informative {
+        &:link, &:visited {
+            color: $informative-color;
+        }
+        &:hover, &:active {
+            color: lighten($informative-color, 10%);
+        }
+    }
+
+    &.operative {
+        &:link, &:visited {
+            color: $operative-color;
+        }
+        &:hover, &:active {
+            color: lighten($operative-color, 10%);
+        }
+    }
+
+    &.transitive {
+        &:link, &:visited {
+            color: $transitive-color;
+        }
+        &:hover, &:active {
+            color: lighten($transitive-color, 10%);
+        }
+    }
+
+    &.external {
+        &:link, &:visited {
+            color: $external-color;
+        }
+        &:hover, &:active {
+            color: lighten($external-color, 10%);
+        }
+    }
+
+    &.na {
+        &:link, &:visited {
+            color: $disabled-color;
+        }
+        &:hover, &:active {
+            color: lighten($disabled-color, 10%);
+        }
+    }
+
+    &.error {
+        &:link, &:visited {
+            color: $error-color;
+        }
+        &:hover, &:active {
+            color: lighten($error-color, 10%);
+        }
+    }
+
+    &.success {
+        &:link, &:visited {
+            color: $success-color;
+        }
+        &:hover, &:active {
+            color: lighten($success-color, 10%);
+        }
+    }
+
+    &.info {
+        &:link, &:visited {
+            color: $informative-color;
+        }
+        &:hover, &:active {
+            color: lighten($informative-color, 10%);
+        }
+    }
+
+    &.warning {
+        &:link, &:visited {
+            color: $warning-color;
+        }
+        &:hover, &:active {
+            color: lighten($warning-color, 10%);
+        }
+    }
+
+    &.debug {
+        &:link, &:visited {
+            color: $debug-color;
+        }
+        &:hover, &:active {
+            color: lighten($debug-color, 10%);
+        }
+    }
+
+    &.locked {
+        &:link, &:visited {
+            color: $warning-color;
+        }
+        &:hover, &:active {
+            color: lighten($warning-color, 10%);
+        }
+    }
+
+    &.unlocked {
+        &:link, &:visited {
+            color: $success-color;
+        }
+        &:hover, &:active {
+            color: lighten($success-color, 10%);
+        }
+    }
 }
 
 
