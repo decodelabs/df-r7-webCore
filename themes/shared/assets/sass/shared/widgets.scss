@@ -536,10 +536,6 @@ button.text {
         text-align: left;
         vertical-align: top;
 
-        @if $cell-inset == false {
-            padding-left: 0;
-        }
-
         &:after {
             content: ':';
         }
