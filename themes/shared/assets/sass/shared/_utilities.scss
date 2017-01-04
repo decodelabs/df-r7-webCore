@@ -21,7 +21,11 @@
     margin: 0 auto;
 
     @if $page-max-width != null {
-        max-width: pxToRem($page-max-width);
+        @if $font-scale == true {
+            max-width: pxToRem($page-max-width);
+        } @else {
+            max-width: $page-max-width;
+        }
     }
 
     z-index: 2;
