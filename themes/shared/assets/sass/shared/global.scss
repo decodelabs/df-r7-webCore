@@ -1,10 +1,5 @@
 html {
-    @if $font-fallback-size != false {
-        font-size: $font-fallback-size;
-    } @else {
-        font-size: $font-base-size;
-    }
-
+    font-size: $font-base-size;
     font-weight: $font-base-weight;
     font-family: $font-base-family;
     color: $base-text-color;
