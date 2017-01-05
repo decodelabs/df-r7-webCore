@@ -29,7 +29,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
     const DETAILS_FIELDS = [
-        'key', 'creationDate', 'owner', 'lastSent',
+        'key', 'link', 'creationDate', 'owner', 'lastSent',
         'name', 'email', 'message', 'groups',
         'registrationDate', 'user'
     ];
@@ -152,7 +152,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineNameField($list) {
+    public function defineLinkField($list, $mode) {
+        $list->addField('link', function($invite) {
+            return $this->html->link('account/register?invite='.$invite['key']);
+        });
+    }
+
+    public function defineNameField($list, $mode) {
         $list->addField('name', function($invite) {
             if($invite['user']) {
                 return $this->apex->component('../clients/UserLink', $invite['user']);
