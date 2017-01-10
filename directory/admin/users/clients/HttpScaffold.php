@@ -23,7 +23,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const SECTIONS = [
         'details',
         'invites' => 'mail',
-        'authentication' => 'lock'
+        'authentication' => 'lock',
+        'accessPasses' => 'key'
     ];
 
     const LIST_FIELDS = [
@@ -43,12 +44,21 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
     protected function countSectionItems($record) {
-        return [
-            'invites' => $this->data->user->invite->select()
-                ->where('owner', '=', $record['id'])
-                ->count(),
-            'authentication' => $record->authDomains->countAll()
-        ];
+        return $this->getRecordAdapter()->select('id')
+            ->correlate('COUNT(*) as invites')
+                ->from('axis://user/Invite')
+                ->on('owner', '=', 'id')
+                ->endCorrelation()
+            ->correlate('COUNT(*) as authentication')
+                ->from('axis://user/Auth')
+                ->on('user', '=', 'id')
+                ->endCorrelation()
+            ->correlate('COUNT(*) as accessPasses')
+                ->from('axis://user/AccessPass')
+                ->on('user', '=', 'id')
+                ->endCorrelation()
+            ->where('id', '=', $record['id'])
+            ->toRow();
     }
 
 
@@ -111,6 +121,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             });
     }
 
+    public function renderAccessPassesSectionBody($client) {
+        return $this->apex->scaffold('../access-passes/')
+            ->renderRecordList(
+                $this->data->user->accessPass->select()
+                    ->where('user', '=', $client['id']),
+                ['user' => false]
+            );
+    }
+
 
 
 // Components
@@ -157,6 +176,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     public function addAuthenticationSectionSubOperativeLinks($menu, $bar) {
         $this->addDetailsSectionSubOperativeLinks($menu, $bar);
+    }
+
+    public function addAccessPassesSectionSubOperativeLinks($menu, $bar) {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri('../access-passes/add?user='.$this->getRecordId(), true),
+                    $this->_('Add access pass')
+                )
+                ->setIcon('add')
+        );
     }
 
 

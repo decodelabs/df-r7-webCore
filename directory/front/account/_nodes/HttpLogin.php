@@ -44,6 +44,18 @@ class HttpLogin extends arch\node\Form {
         if(!$this->_adapter) {
             $this->throwError(500, 'There are no enabled authentication adapters');
         }
+
+        if(isset($this->request['rf'])) {
+            $redir = $this->request->getRedirectFrom();
+
+            if($redir->matches('account/')
+            && in_array($redir->getNode(), [
+                'accessPass', 'logout', 'lostPassword', 'register', 'resetPassword'
+            ])) {
+                unset($this->request['rf']);
+                return $this->http->redirect($this->request);
+            }
+        }
     }
 
     public function getAdapter() {
