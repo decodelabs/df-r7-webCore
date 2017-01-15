@@ -29,8 +29,14 @@ class DfKit implements arch\IDirectoryHelper {
             return $this;
         }
 
+        $url = '/df-kit/bootstrap.js?theme='.$this->view->getTheme()->getId();
+
+        if(df\Launchpad::$compileTimestamp) {
+            $url .= '&cts='.df\Launchpad::$compileTimestamp;
+        }
+
         $this->view->linkJs('dependency://requirejs', 1, [
-            'data-main' => $this->view->uri('/df-kit/bootstrap.js?theme='.$this->view->getTheme()->getId())
+            'data-main' => $this->view->uri($url)
         ]);
 
         return $this;
