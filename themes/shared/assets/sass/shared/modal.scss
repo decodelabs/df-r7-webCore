@@ -79,10 +79,10 @@ html.modal-open {
         width: 90%;
         min-height: 0 !important;
         height: 0 !important;
-        padding: 0 0 56.25% 0 !important;
+        padding: 0 0 calc(0.9 * 56.25%) 0 !important;
         background: none;
 
-        #modal-content > iframe {
+        #modal-content iframe {
             position: absolute;
             top: 0;
             left: 0;

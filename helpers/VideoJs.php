@@ -39,19 +39,30 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
             return $embed->render();
         }
 
-        $this->view->linkCss('dependency://videojs/dist/video-js.min.css', 1000);
+        $isHtmlView = $this->view instanceof aura\view\IHtmlView;
+
+        if($isHtmlView) {
+            $this->view->linkCss('dependency://videojs/dist/video-js.min.css', 1000);
+        }
 
         if(isset($attributes['dfKit'])) {
             $xSetup = true;
-            $this->view->dfKit->load($attributes['dfKit']);
+
+            if($isHtmlView) {
+                $this->view->dfKit->load($attributes['dfKit']);
+            }
+
             unset($attributes['dfKit']);
         } else {
             $xSetup = false;
-            $this->view->dfKit->load(
-                'vendor-static/Vimeo',
-                'videojs-youtube',
-                'videojs'
-            );
+
+            if($isHtmlView) {
+                $this->view->dfKit->load(
+                    'vendor-static/Vimeo',
+                    'videojs-youtube',
+                    'videojs'
+                );
+            }
         }
 
         $url = $embed->getPreparedUrl();
@@ -117,5 +128,15 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
         $output->addClass('video-js video '.$skin);
         return $output;
+    }
+
+    public function loadResources() {
+        $this->view->linkCss('dependency://videojs/dist/video-js.min.css', 1000);
+
+        $this->view->dfKit->load(
+            'vendor-static/Vimeo',
+            'videojs-youtube',
+            'videojs'
+        );
     }
 }
