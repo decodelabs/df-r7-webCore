@@ -67,7 +67,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
         $url = $embed->getPreparedUrl();
         $provider = $embed->getProvider();
-        $id = 'videoJs'.self::$_instanceId++;
+        $elementId = 'videoJs'.self::$_instanceId++.'-'.time();
         $setup = [];
         $sources = null;
         $poster = false;
@@ -105,7 +105,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
 
         $output = new aura\html\Element('video', $sources, [
-            'id' => $id,
+            'id' => $elementId,
             'controls' => true,
             'preload' => 'auto',
             'width' => $embed->getWidth(),
