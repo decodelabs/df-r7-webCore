@@ -64,6 +64,11 @@ class RegisterLocal extends RegisterBase {
                 ->isRequired(true)
         );
 
+        // Recaptcha
+        $fs->addField()->push(
+            $this->html->recaptcha()
+        );
+
         // Buttons
         $fs->addButtonArea(
             $this->html->eventButton(
@@ -91,6 +96,9 @@ class RegisterLocal extends RegisterBase {
             ->addRequiredField('email')
                 ->setStorageAdapter($this->data->user->client)
                 ->setUniqueErrorMessage($this->_('An account already exists with this email address'))
+
+            // Recaptcha
+            ->addField('recaptcha')
 
             ->validate($this->values)
             ->applyTo($client);
