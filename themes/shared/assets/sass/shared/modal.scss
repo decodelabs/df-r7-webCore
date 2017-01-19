@@ -90,6 +90,18 @@ html.modal-open {
             height: 100%;
         }
     }
+
+    &.loading {
+        background: none !important;
+        min-height: 0;
+
+        #modal-content {
+            color: #555;
+            font-size: 2rem;
+            font-weight: 100;
+            text-align: center;
+        }
+    }
 }
 
 @media only screen and (max-width: 640px) {

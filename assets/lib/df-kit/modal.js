@@ -89,7 +89,7 @@ define([
             var _this = this,
                 deferred = $.Deferred();
 
-            _this.open('loading...', options).done(function($content) {
+            _this.open(null, options).done(function($content) {
                 Ajax.embedInto(_this.attr.content, href, {
                     source: 'modal',
                     live: options.live !== false
@@ -98,6 +98,7 @@ define([
 
                     _this.client.once('content:show', function() {
                         Core.trigger('dialog.load', 'modal');
+                        $(_this.attr.container).removeClass('loading');
                     });
 
                     _this.client.on('form:completeInitial', function(response) {
@@ -137,7 +138,7 @@ define([
                 });
             } else {
                 $('html').addClass('modal-open');
-                $overlay = $('<div id="modal-overlay"><div id="modal-scroll"><div id="modal-container"><a class="modal-close">✕</a><div id="modal-content"></div></div></div></div>').hide().appendTo('body');
+                $overlay = $('<div id="modal-overlay"><div id="modal-scroll"><div id="modal-container" class="loading"><a class="modal-close">✕</a><div id="modal-content">loading...</div></div></div></div>').hide().appendTo('body');
                 $(_this.attr.container).hide();
 
                 $overlay.fadeIn(_this._overlayFadeTime, function() {
@@ -156,7 +157,11 @@ define([
                 _this._applyOptions(options);
 
                 // Load content
-                $content.html(html);
+                if(html !== null) {
+                    $content.html(html);
+                    $container.removeClass('loading');
+                }
+
                 deferred.resolve($content);
 
                 // Fade in
