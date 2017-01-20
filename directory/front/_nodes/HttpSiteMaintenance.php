@@ -23,6 +23,7 @@ class HttpSiteMaintenance extends arch\node\Base {
             ->setTitle('Site under maintenance')
             ->setLayout(null);
 
+        $view->bodyTag->addClass('maintenance');
         $view->getHeaders()->setStatusCode(503);
         return $view;
     }
