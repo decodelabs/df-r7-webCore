@@ -20,6 +20,7 @@ class HttpSiteMaintenance extends arch\node\Base {
         }
 
         $view = $this->apex->view('SiteMaintenance.html')
+            ->setTitle('Site under maintenance')
             ->setLayout(null);
 
         $view->getHeaders()->setStatusCode(503);
