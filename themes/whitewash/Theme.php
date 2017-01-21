@@ -14,14 +14,6 @@ class Theme extends aura\theme\Base {
 
     const APPLICATION_IMAGE = 'app.png';
 
-    const DEPENDENCIES = [
-        'requirejs#~2.1',
-        'jquery#~2.1',
-        'underscore#~1.5' => [
-            'shim' => '_'
-        ]
-    ];
-
     public function applyDefaultIncludes(aura\view\IView $view) {
         $view
             ->linkCss('theme://sass/style.scss')
