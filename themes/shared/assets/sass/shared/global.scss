@@ -5,6 +5,7 @@ html {
     color: $base-text-color;
     min-height: 100%;
     overflow-x: hidden;
+    line-height: $font-line-height;
 
     @if $font-antialias == true {
         -webkit-font-smoothing: antialiased;
@@ -89,9 +90,6 @@ iframe[seamless] {
 .informative { color: $informative-color; }
 .operative { color: $operative-color; }
 
-* {
-    line-height: $font-line-height;
-}
 
 a {
     padding: 0;
