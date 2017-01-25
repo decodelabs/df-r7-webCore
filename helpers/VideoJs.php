@@ -110,7 +110,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
             'preload' => 'auto',
             'width' => $embed->getWidth(),
             'height' => $embed->getHeight(),
-            ($xSetup ? 'data-x-setup' : 'data-setup') => flex\json\Codec::encode($setup),
+            ($xSetup ? 'data-x-setup' : 'data-setup') => flex\Json::toString($setup),
             'poster' => $poster,
             'autoplay' => $embed->shouldAutoPlay()
         ]);
