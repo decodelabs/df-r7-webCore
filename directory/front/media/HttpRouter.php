@@ -8,6 +8,10 @@ use df\arch;
 class HttpRouter implements arch\IRouter {
 
     public function routeIn(arch\IRequest $request) {
+        if($request->isNode('uploaded')) {
+            return $request;
+        }
+
         $parts = explode('[', $request->path->pop(), 2);
         $id = rtrim(array_shift($parts), '-|');
 
@@ -27,6 +31,10 @@ class HttpRouter implements arch\IRouter {
     }
 
     public function routeOut(arch\IRequest $request) {
+        if($request->isNode('uploaded')) {
+            return $request;
+        }
+
         $query = $request->getQuery();
 
         if(isset($query->version)) {

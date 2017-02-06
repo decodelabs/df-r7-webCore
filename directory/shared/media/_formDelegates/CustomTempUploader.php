@@ -64,6 +64,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
                 $files[$time.$i] = [
                     'fileName' => $fileName,
+                    'uploadId' => basename((string)$tempDir),
                     'size' => $file->getSize(),
                     'time' => $time
                 ];
