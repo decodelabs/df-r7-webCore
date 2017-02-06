@@ -33,6 +33,8 @@ class DfKit implements arch\IDirectoryHelper {
 
         if(df\Launchpad::$compileTimestamp) {
             $url .= '&cts='.df\Launchpad::$compileTimestamp;
+        } else {
+            $url .= '&cts='.time();
         }
 
         $this->view->linkJs('dependency://requirejs', 1, [
