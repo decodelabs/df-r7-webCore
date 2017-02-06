@@ -157,8 +157,9 @@ define([
                 _this._applyOptions(options);
 
                 // Load content
+                $content.html(html);
+
                 if(html !== null) {
-                    $content.html(html);
                     $container.removeClass('loading');
                 }
 
