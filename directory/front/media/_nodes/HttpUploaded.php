@@ -20,7 +20,7 @@ class HttpUploaded extends arch\node\Base {
         $path = $this->application->getLocalStoragePath().'/upload';
         $path .= core\uri\Path::normalizeLocal(
             '/'.flex\Guid::factory($this->request['id']).
-            '/'.$this->format->fileName($this->request['file'])
+            '/'.str_replace('/', '_', $this->request['file'])
         );
 
         if(!file_exists($path)) {
