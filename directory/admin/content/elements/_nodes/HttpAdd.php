@@ -22,8 +22,7 @@ class HttpAdd extends arch\node\Form {
 
     protected function loadDelegates() {
         $this->loadDelegate('body', '~/nightfire/ContentSlot')
-            ->isRequired(true)
-            ->setSlotDefinition($this->_element->getSlotDefinition());
+            ->isRequired(true);
     }
 
     protected function createUi() {
