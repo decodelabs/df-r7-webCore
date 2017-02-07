@@ -87,9 +87,11 @@ define([
             options = options || {};
 
             var _this = this,
-                deferred = $.Deferred();
+                deferred = $.Deferred(),
+                open;
 
-            _this.open(null, options).done(function($content) {
+
+            open = _this._open(null, options).progress(function() {
                 Ajax.embedInto(_this.attr.content, href, {
                     source: 'modal',
                     live: options.live !== false
@@ -98,7 +100,7 @@ define([
 
                     _this.client.once('content:show', function() {
                         Core.trigger('dialog.load', 'modal');
-                        $(_this.attr.container).removeClass('loading');
+                        open.loader.resolve(null);
                     });
 
                     _this.client.on('form:completeInitial', function(response) {
@@ -118,10 +120,15 @@ define([
         },
 
         open: function(html, options) {
+            return this._open(html, options).promise();
+        },
+
+        _open: function(html, options) {
             var _this = this,
                 $overlay = $(_this.attr.overlay),
                 deferred = $.Deferred();
 
+            deferred.loader = $.Deferred();
             options = options || {};
             Core.trigger('dialog.open', 'modal');
 
@@ -134,7 +141,7 @@ define([
                     $(_this.attr.container).attr('class', '');
                     $overlay.attr('class', '');
 
-                    deferred.notify();
+                    deferred.loader.notify();
                 });
             } else {
                 $('html').addClass('modal-open');
@@ -142,12 +149,12 @@ define([
                 $(_this.attr.container).hide();
 
                 $overlay.fadeIn(_this._overlayFadeTime, function() {
-                    deferred.notify();
+                    deferred.loader.notify();
                 });
             }
 
-            // Render
-            deferred.progress(function() {
+            // Load
+            deferred.loader.progress(function() {
                 var $container = $(_this.attr.container),
                     $content = $(_this.attr.content);
 
@@ -156,20 +163,31 @@ define([
                 // Use options
                 _this._applyOptions(options);
 
-                // Load content
-                $content.html(html);
-
                 if(html !== null) {
-                    $container.removeClass('loading');
+                    deferred.loader.resolve(html);
+                } else {
+                    deferred.notify();
+                }
+            });
+
+            // Render
+            deferred.loader.done(function(html) {
+                var $container = $(_this.attr.container),
+                    $content = $(_this.attr.content);
+
+                // Load content
+                if(html !== null) {
+                    $content.html(html);
                 }
 
+                $container.removeClass('loading');
                 deferred.resolve($content);
 
                 // Fade in
                 $container.fadeIn(_this._contentFadeTime);
             });
 
-            return deferred.promise();
+            return deferred;
         },
 
         _applyOptions: function(options) {
