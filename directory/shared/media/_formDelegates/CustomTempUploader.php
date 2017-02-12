@@ -216,8 +216,13 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         }
 
         $tempDir = $this->_getTempDir();
+        $localName = $this->fieldName('file');
 
-        foreach($uploadHandler as $file) {
+        foreach($uploadHandler as $key => $file) {
+            if(0 !== strpos($key, $localName)) {
+                continue;
+            }
+
             $file->upload($tempDir, $this->values->file);
 
             if($file->isSuccess()) {
