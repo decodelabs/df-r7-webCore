@@ -29,7 +29,7 @@ class HttpPurge extends arch\node\Form {
         $fs = $form->addFieldSet($this->_('Purge'));
 
         $fs->push(
-            $this->html('<p>'.$this->_('Are you sure you want to purge this version? The data uploaded for this version will be deleted and cannot be restored!').'</p>'),
+            $this->html->string('<p>'.$this->_('Are you sure you want to purge this version? The data uploaded for this version will be deleted and cannot be restored!').'</p>'),
 
             $this->apex->component('VersionDetails', null, $this->_version),
 

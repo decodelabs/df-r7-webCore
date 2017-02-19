@@ -41,7 +41,7 @@ echo $this->html->collectionList($packages)
         return $package->priority;
     })
     ->addField('path', function($package) {
-        return $this->html('<code>'.$this->esc($package->path).'</code>');
+        return $this->html('code', $package->path);
     })
     ->addField('size', function($package, $renderContext) use($probes) {
         if(!$location = $probes[$package->name]) {
@@ -52,19 +52,23 @@ echo $this->html->collectionList($packages)
     })
     ->addField('lines', function($package, $renderContext) use($probes) {
         if(!$location = $probes[$package->name]) {
-            return null;
+            return;
         }
 
         $phpCount = $location['php']->lines;
-        $output = $this->html('<abbr title="PHP">'.$this->esc($this->format->number($phpCount)).'</abbr>');
+
+        yield $this->html('abbr', $this->format->number($phpCount), [
+            'title' => 'PHP'
+        ]);
 
         if($location->countTypes() > 1) {
             $totalCount = $location->getTotals()->lines;
 
             if($totalCount > $phpCount) {
-                $output->append(' / <abbr title="Total">'.$this->esc($this->format->number($totalCount)).'</abbr>');
+                yield ' / ';
+                yield $this->html('abbr', $this->format->number($totalCount), [
+                    'title' => 'Total'
+                ]);
             }
         }
-
-        return $output;
     });

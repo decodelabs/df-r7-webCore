@@ -33,7 +33,7 @@ class HttpActivate extends arch\node\Form {
         $fs = $form->addFieldSet($this->_('Activate'));
 
         $fs->push(
-            $this->html('<p>'.$this->_('Are you sure you want to activate this version?').'</p>'),
+            $this->html->string('<p>'.$this->_('Are you sure you want to activate this version?').'</p>'),
 
             $this->apex->component('VersionDetails', null, $this->_version),
 
