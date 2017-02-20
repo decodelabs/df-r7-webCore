@@ -17,8 +17,8 @@ class Theme extends aura\theme\Base {
     public function applyDefaultIncludes(aura\view\IView $view) {
         $view
             ->linkCss('theme://sass/style.scss')
-            ->linkJs('dependency://jquery')
-            ->linkJs('theme://js/main.js')
+            ->linkJs('dependency://jquery', 1)
+            ->linkJs('theme://js/main.js', 1000)
             ->linkFavicon('theme://favicon.ico')
             ;
     }

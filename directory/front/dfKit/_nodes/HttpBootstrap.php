@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\aura;
+use df\fuse;
 
 class HttpBootstrap extends arch\node\Base {
 
@@ -53,7 +54,7 @@ class HttpBootstrap extends arch\node\Base {
     }
 
     protected function _getRequireConfig($theme) {
-        $manager = aura\theme\Manager::getInstance();
+        $manager = fuse\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
 
         $paths = $shims = $maps = [];
