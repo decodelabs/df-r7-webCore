@@ -62,7 +62,7 @@ class Comment extends arch\component\Base {
 
     protected function _execute() {
         if(!$this->_entityLocator) {
-            throw new arch\InvalidArgumentException(
+            throw core\Error::{'mesh/ENoEntity,ENotFound'}(
                 'Comment entity locator has not been set'
             );
         }

@@ -23,7 +23,12 @@ class HttpDefault extends arch\node\Base {
             return $this->http->redirect('/');
         }
 
-        $code = $exception->getCode();
+        if($exception instanceof core\IError) {
+            $code = $exception->getHttpCode();
+        } else {
+            $code = $exception->getCode();
+        }
+
         $lastRequest = $this->application->getDispatchRequest();
 
         if(!link\http\response\HeaderCollection::isValidStatusCode($code)
