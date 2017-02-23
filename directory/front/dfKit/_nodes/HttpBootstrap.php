@@ -46,8 +46,12 @@ class HttpBootstrap extends arch\node\Base {
 
         try {
             $theme = aura\theme\Base::factory($themeId);
-        } catch(aura\theme\IException $e) {
-            $this->throwError(404, 'Theme not found');
+        } catch(aura\theme\IError $e) {
+            throw core\Error::{'aura/theme/ENotFound'}([
+                'message' => 'Theme not found',
+                'http' => 404,
+                'data' => $themeId
+            ]);
         }
 
         return $theme;

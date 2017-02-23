@@ -67,11 +67,11 @@ class HttpDownload extends arch\node\Base {
         switch($type) {
             case 'text/x-sass':
             case 'text/x-scss':
-                $bridge = new aura\css\sass\Bridge($this->context, $absolutePath);
+                $bridge = new aura\css\SassBridge($this->context, $absolutePath);
                 return $bridge->getHttpResponse();
 
             case 'application/x-sass-map':
-                $bridge = new aura\css\sass\Bridge($this->context, $absolutePath);
+                $bridge = new aura\css\SassBridge($this->context, $absolutePath);
                 return $bridge->getMapHttpResponse();
 
             default:

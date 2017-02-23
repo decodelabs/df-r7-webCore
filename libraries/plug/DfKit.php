@@ -20,7 +20,9 @@ class DfKit implements arch\IDirectoryHelper {
 
     protected function _init() {
         if(!$this->view) {
-            throw new aura\view\RuntimeException('View is not available in plugin context');
+            throw core\Error::{'aura/view/ENoView,ENoContext'}(
+                'View is not available in plugin context'
+            );
         }
     }
 

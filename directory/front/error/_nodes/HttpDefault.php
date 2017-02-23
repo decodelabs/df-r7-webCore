@@ -127,10 +127,10 @@ class HttpDefault extends arch\node\Base {
         if($showTemplate) {
             try {
                 $view = $this->apex->view($code.'.html');
-            } catch(aura\view\ContentNotFoundException $e) {
+            } catch(aura\view\ENotFound $e) {
                 try {
                     $view = $this->apex->view('Default.html');
-                } catch(aura\view\ContentNotFoundException $e) {
+                } catch(aura\view\ENotFound $e) {
                     $view = null;
                 }
             }
