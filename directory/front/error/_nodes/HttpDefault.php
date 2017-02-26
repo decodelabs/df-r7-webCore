@@ -93,7 +93,7 @@ class HttpDefault extends arch\node\Base {
                         $this->logs->logException($exception, $url);
                         break;
                 }
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 core\debug()->exception($e);
             }
         }
@@ -103,7 +103,7 @@ class HttpDefault extends arch\node\Base {
 
         try {
             $isAdmin = $this->user->isA('developer');
-        } catch(\Exception $e) {
+        } catch(\Throwable $e) {
             $isAdmin = false;
         }
 

@@ -176,7 +176,7 @@ class HttpTest extends arch\node\Form {
 
             try {
                 $mail = $this->comms->prepareMail($path);
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 $mails[$path] = null;
                 continue;
             }

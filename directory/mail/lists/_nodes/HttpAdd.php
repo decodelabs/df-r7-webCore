@@ -77,7 +77,7 @@ class HttpAdd extends arch\node\Form {
             try {
                 $source = new flow\mailingList\Source($id, $options);
                 $lists = $source->getListOptions();
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 $lists = [];
             }
 
@@ -134,7 +134,7 @@ class HttpAdd extends arch\node\Form {
             try {
                 $source = new flow\mailingList\Source($id, $options);
                 $source->getManifest();
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 $this->values->adapter->addError('invalid', $this->_(
                     'The adapter cannot connect'
                 ));

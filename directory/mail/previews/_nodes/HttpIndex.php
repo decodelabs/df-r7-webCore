@@ -71,7 +71,7 @@ class HttpIndex extends arch\node\Base {
 
             try {
                 $mail = $this->comms->prepareMail($path);
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 $mails[$path] = null;
                 continue;
             }

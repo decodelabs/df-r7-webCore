@@ -270,7 +270,11 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             $tempDir = $this->_getTempDir();
 
             if(!$tempDir->hasFile($fileName)) {
-                $this->logs->logException(new \Exception('Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName));
+                $this->logs->logException(
+                    core\Error::{'core/fs/ENotFound,ETempNotFound'}(
+                        'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
+                    )
+                );
 
                 $this->values->file->addError('notFound', $this->_(
                     'Something went wrong while transferring your file - please try again'
@@ -298,7 +302,11 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
             foreach($fileNames as $fileName) {
                 if(!$tempDir->hasFile($fileName)) {
-                    $this->logs->logException(new \Exception('Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName));
+                    $this->logs->logException(
+                        core\Error::{'core/fs/ENotFound,ETempNotFound'}(
+                            'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
+                        )
+                    );
 
                     $this->values->file->addError('notFound', $this->_(
                         'Something went wrong while transferring your file - please try again'

@@ -41,7 +41,7 @@ echo $this->html->elementContentContainer(function() use($message) {
                                     $body->setTagName('div');
                                     $html = $body->toNodeXmlString();
                                 }
-                            } catch(\Exception $e) {}
+                            } catch(\Throwable $e) {}
 
                             yield $this->html('div.sterile', $this->html->string($html));
                             break;

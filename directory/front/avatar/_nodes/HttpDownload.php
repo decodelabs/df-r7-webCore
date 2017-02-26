@@ -55,7 +55,7 @@ class HttpDownload extends arch\node\Base {
                     '[cz:'.$size.'|'.$size.']',
                     $version['creationDate']
                 );
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 $url = $this->avatar->getGravatarUrl(
                     $this->data->user->client->select('email')
                         ->where('id', '=', $id)

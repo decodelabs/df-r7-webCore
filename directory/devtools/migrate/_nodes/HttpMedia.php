@@ -26,7 +26,7 @@ class HttpMedia extends arch\node\RestApi {
                 $this->request['file'],
                 $this->request['version']
             );
-        } catch(\Exception $e) {
+        } catch(\Throwable $e) {
             return $this->throwError(404, 'Invalid version ids', [
                 'fileId' => $this->request['file'],
                 'versionId' => $this->request['version']
