@@ -396,6 +396,10 @@ div.layout-pageArea {
     h3 {
         margin: 0;
     }
+
+    span.label {
+        min-width: 15rem;
+    }
 }
 
 .w-fieldSet > .body > .w-field.stacked:first-child {
@@ -441,6 +445,12 @@ div.layout-pageArea {
 .fire-block {
     background: #EBE5E0;
     border-radius: 4px;
+
+    nav.buttons {
+        background: rgba(black, 0.1);
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+    }
 
     .fire-block {
         background: #D8EBDF;
