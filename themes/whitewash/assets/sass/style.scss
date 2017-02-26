@@ -415,6 +415,10 @@ div.layout-pageArea {
             background-color: #FAFAFA;
         }
 
+        > .w-field {
+            margin-bottom: 0.75rem;
+        }
+
         > .w-field,
         > .fire-block > .w-field {
             border: 1px #EEE solid;
@@ -426,6 +430,10 @@ div.layout-pageArea {
 
     + .w-buttonArea:before {
         margin-left: -1em;
+    }
+
+    &:last-child > .w-inputArea > .w-field:last-child {
+        margin-bottom: 0;
     }
 }
 

@@ -42,7 +42,9 @@ class HttpAdd extends arch\node\Form {
         );
 
         // Body
-        $form->addFieldSet($this->_('Body'))->push($this['body']);
+        $fs->addField($this->_('Body'))->push(
+            $this['body']
+        );
 
         // Buttons
         $form->addDefaultButtonGroup();
