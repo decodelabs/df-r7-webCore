@@ -412,7 +412,7 @@
 }
 
 .w-textarea,
-.w-htmlEditor {
+.w-editor {
     box-sizing: border-box;
     width: 100%;
     max-width: 50rem;
@@ -421,7 +421,7 @@
 
 .w-textbox,
 .w-textarea,
-.w-htmlEditor {
+.w-editor {
     background: #FFF;
     border: 1px #AAA solid;
     padding: 2px 4px;
@@ -434,6 +434,10 @@
         background: #EEE;
         opacity: 0.8;
     }
+}
+
+.w-editor {
+    min-height: 13rem;
 }
 
 .w-radioButtonGroup,
