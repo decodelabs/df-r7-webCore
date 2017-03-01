@@ -16,7 +16,10 @@ class HttpIndex extends arch\node\Base {
 
     public function executeAsHtml() {
         if($this->application->isProduction()) {
-            $this->throwError(401, 'Dev mode only');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Dev mode only',
+                'http' => 403
+            ]);
         }
 
         return $this->apex->newWidgetView(function($view) {

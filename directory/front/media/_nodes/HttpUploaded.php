@@ -24,7 +24,10 @@ class HttpUploaded extends arch\node\Base {
         );
 
         if(!file_exists($path)) {
-            $this->throwError(404, 'File not found');
+            throw core\Error::{'core/fs/ENotFound'}([
+                'message' => 'File not found',
+                'http' => 404
+            ]);
         }
 
         $contentType = null;

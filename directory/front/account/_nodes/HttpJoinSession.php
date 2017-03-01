@@ -27,7 +27,10 @@ class HttpJoinSession extends arch\node\Base {
         );
 
         if($key['date']->lt('-1 minute')) {
-            $this->throwError(500, 'Old stub');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Old stub',
+                'http' => 403
+            ]);
         }
 
         if(!$key['sessionId']) {

@@ -16,8 +16,10 @@ class HttpMedia extends arch\node\RestApi {
         $handler = $this->data->media->getMediaHandler();
 
         if(!$this->data->media->isLocalDataMediaHandler()) {
-            return $this->throwError(403, 'Export is currently only supported with local media libraries', [
-                'handler' => $handler->getDisplayName()
+            throw core\Error::{'EApi,EForbidden'}([
+                'message' => 'Export is currently only supported with local media libraries',
+                'http' => 403,
+                'data' => $handler->getDisplayName()
             ]);
         }
 
@@ -27,17 +29,25 @@ class HttpMedia extends arch\node\RestApi {
                 $this->request['version']
             );
         } catch(\Throwable $e) {
-            return $this->throwError(404, 'Invalid version ids', [
-                'fileId' => $this->request['file'],
-                'versionId' => $this->request['version']
+            throw core\Error::{'ENotFound,EArgument'}([
+                'message' => 'Invalid version ids',
+                'http' => 404,
+                'data' => [
+                    'fileId' => $this->request['file'],
+                    'versionId' => $this->request['version']
+                ]
             ]);
         }
 
         if(!is_file($filePath)) {
-            return $this->throwError(404, 'File not found', [
-                'filePath' => $filePath,
-                'fileId' => $this->request['file'],
-                'versionId' => $this->request['version']
+            throw core\Error::{'ENotFound'}([
+                'message' => 'File not found',
+                'http' => 404,
+                'data' => [
+                    'filePath' => $filePath,
+                    'fileId' => $this->request['file'],
+                    'versionId' => $this->request['version']
+                ]
             ]);
         }
 

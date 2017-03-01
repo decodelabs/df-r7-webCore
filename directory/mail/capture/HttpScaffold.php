@@ -57,7 +57,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         array_shift($partIds);
 
         if(!$part = $this->_getMessagePart($message, $partIds)) {
-            $this->throwError(404, 'Part not found');
+            throw core\Error::{'ENotFound'}([
+                'message' => 'Part not found',
+                'http' => 404
+            ]);
         }
 
         $content = $part->getContentString();

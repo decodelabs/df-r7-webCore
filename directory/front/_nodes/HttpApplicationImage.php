@@ -20,14 +20,20 @@ class HttpApplicationImage extends arch\node\Base {
         $theme = $this->apex->getTheme();
 
         if(!$path = $theme->getApplicationImagePath()) {
-            $this->throwError(404, 'No application image path set');
+            throw core\Error::{'core/fs/ENotFound'}([
+                'message' => 'No application image path set',
+                'http' => 404
+            ]);
         }
 
         $absPath = $theme->findAsset($path);
         $type = core\fs\Type::fileToMime($absPath);
 
         if(!$absPath) {
-            $this->throwError(404, 'Application image '.$path.' not found');
+            throw core\Error::{'core/fs/ENotFound'}([
+                'message' => 'Application image '.$path.' not found',
+                'http' => 404
+            ]);
         }
 
         if(isset($this->request['width'])) {

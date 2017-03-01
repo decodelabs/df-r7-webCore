@@ -36,7 +36,10 @@ class HttpDownload extends arch\node\Base {
         }
 
         if(!$absolutePath = $theme->findAsset($assetPath)) {
-            $this->throwError(404, 'File not found');
+            throw core\Error::{'core/fs/ENotFound'}([
+                'message' => 'File not found',
+                'http' => 404
+            ]);
         }
 
         if(!$type) {

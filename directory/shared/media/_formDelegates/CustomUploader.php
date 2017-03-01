@@ -111,7 +111,9 @@ class CustomUploader extends arch\node\form\Delegate implements
 
     public function render($callback=null) {
         if(!$this->_bucket) {
-            $this->throwError(500, 'No bucket has been set');
+            throw core\Error::{'ESetup'}([
+                'message' => 'No bucket has been set'
+            ]);
         }
 
         return $this['upload']->render(function($delegate, $available) use($callback) {

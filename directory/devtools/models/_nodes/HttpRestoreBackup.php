@@ -20,13 +20,19 @@ class HttpRestoreBackup extends arch\node\ConfirmForm {
         $fileName = basename($this->request['backup']);
 
         if(!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
-            $this->throwError(403, 'Not an axis backup file');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Not an axis backup file',
+                'http' => 403
+            ]);
         }
 
         $this->_file = $this->application->getSharedStoragePath().'/backup/'.$fileName;
 
         if(!is_file($this->_file)) {
-            $this->throwError(404, 'Backup not found');
+            throw core\Error::{'ENotFound'}([
+                'message' => 'Backup not found',
+                'http' => 404
+            ]);
         }
     }
 

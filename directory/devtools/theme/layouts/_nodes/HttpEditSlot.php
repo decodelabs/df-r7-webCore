@@ -18,11 +18,17 @@ class HttpEditSlot extends HttpAddSlot {
         $config = fire\Config::getInstance();
 
         if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            $this->throwError(404);
+            throw core\Error::{'fire/layout/ENotFound'}([
+                'message' => 'Layout not found',
+                'http' => 404
+            ]);
         }
 
         if(!$this->_slot = $this->_layout->getSlot($this->request['slot'])) {
-            $this->throwError(404, 'Slot not found');
+            throw core\Error::{'fire/slot/ENotFound'}([
+                'message' => 'Slot not found',
+                'http' => 404
+            ]);
         }
     }
 

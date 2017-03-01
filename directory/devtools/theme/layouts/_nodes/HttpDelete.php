@@ -23,7 +23,10 @@ class HttpDelete extends arch\node\DeleteForm {
         $config = fire\Config::getInstance();
 
         if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            $this->throwError(404, 'Layout not found');
+            throw core\Error::{'fire/layout/ENotFound'}([
+                'message' => 'Layout not found',
+                'http' => 404
+            ]);
         }
     }
 

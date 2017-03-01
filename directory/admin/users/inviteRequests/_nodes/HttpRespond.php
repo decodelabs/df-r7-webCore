@@ -18,7 +18,10 @@ class HttpRespond extends arch\node\Form {
         $this->_request = $this->scaffold->getRecord();
 
         if(!$this->_request['isActive']) {
-            $this->throwError(403, 'Request is not active');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Request is not active',
+                'http' => 403
+            ]);
         }
     }
 

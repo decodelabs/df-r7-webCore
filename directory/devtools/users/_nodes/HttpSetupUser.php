@@ -18,7 +18,10 @@ class HttpSetupUser extends arch\node\Form {
         $model = $this->data->getModel('user');
 
         if($model->client->countAll()) {
-            $this->throwError(403, 'A user has already been set up');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'A user has already been set up',
+                'http' => 403
+            ]);
         }
     }
 

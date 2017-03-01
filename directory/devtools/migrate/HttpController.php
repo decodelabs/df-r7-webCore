@@ -16,8 +16,9 @@ class HttpController extends arch\Controller {
         $key = $this->data->hexHash($this->application->getPassKey());
 
         if($key != $this->request['key']) {
-            $this->throwError(403, 'Pass key is invalid', [
-                'baseUrl' => $this->application->getRouter()->getBaseUrl()
+            throw core\Error::{'EForbidden,EValue'}([
+                'message' => 'Pass key is invalid',
+                'http' => 403
             ]);
         }
     }

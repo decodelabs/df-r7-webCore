@@ -20,7 +20,10 @@ class HttpDownload extends arch\node\Base {
         $path = core\uri\Path::normalizeLocal($this->request['file']);
 
         if(!$absolutePath = df\Launchpad::$loader->findFile('apex/assets/'.$path)) {
-            $this->throwError(404, 'File not found');
+            throw core\Error::{'core/fs/ENotFound'}([
+                'message' => 'File not found',
+                'http' => 404
+            ]);
         }
 
         $type = null;

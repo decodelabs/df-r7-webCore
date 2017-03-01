@@ -36,7 +36,9 @@ class HttpResetPassword extends arch\node\Form {
         }
 
         if(!$user = $this->_key['user']) {
-            $this->throwError(500, 'Client not attached to key');
+            throw core\Error::{'EValue'}([
+                'message' => 'Client not attached to key',
+            ]);
         }
 
         if($this->_key->isRedeemed()) {
@@ -46,7 +48,10 @@ class HttpResetPassword extends arch\node\Form {
         }
 
         if($this->_key['adapter'] != 'Local') {
-            $this->throwError(500, 'Password reset key not for local adapter');
+            throw core\Error::{'user/authentication/EForbidden'}([
+                'message' => 'Password reset key not for local adapter',
+                'http' => 403
+            ]);
         }
 
         if($this->_key->hasExpired()) {

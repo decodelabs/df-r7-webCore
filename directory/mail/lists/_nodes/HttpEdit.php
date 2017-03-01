@@ -22,7 +22,10 @@ class HttpEdit extends HttpAdd {
         $this->_id = $this->request['source'];
 
         if(!isset($sources[$this->_id])) {
-            $this->throwError(404, 'Source not found');
+            throw core\Error::{'flow/mailingList/ENotFound'}([
+                'message' => 'Source not found',
+                'http' => 404
+            ]);
         }
 
         $this->_source = $sources[$this->_id];

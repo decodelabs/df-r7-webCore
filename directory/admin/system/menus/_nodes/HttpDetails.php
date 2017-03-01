@@ -16,7 +16,10 @@ class HttpDetails extends arch\node\Base {
         $view = $this->apex->view('Details.html');
 
         if(!$view['menu'] = arch\navigation\menu\Base::factory($this->context, 'Directory://'.$this->request['menu'])) {
-            $this->throwError(404, 'Menu not found');
+            throw core\Error::{'arch/navigation/menu/ENotFound'}([
+                'message' => 'Menu not found',
+                'http' => 404
+            ]);
         }
 
         $view['entryList'] = $view['menu']->generateEntries();

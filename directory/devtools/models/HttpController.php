@@ -24,7 +24,10 @@ class HttpController extends arch\Controller {
 
         if($type !== null) {
             if($view['unit']->getType() != $type) {
-                $this->throwError(403, 'Unit is not a '.$type);
+                throw core\Error::{'EForbidden'}([
+                    'message' => 'Unit is not a '.$type,
+                    'http' => 403
+                ]);
             }
         }
     }

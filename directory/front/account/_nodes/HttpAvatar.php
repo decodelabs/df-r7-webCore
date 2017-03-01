@@ -111,7 +111,10 @@ class HttpAvatar extends arch\node\Form {
         );
 
         if((string)$version['#file'] != (string)$this->_file['id']) {
-            $this->throwError(403, 'Not your file');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Not your file',
+                'http' => 403
+            ]);
         }
 
         $this->data->media->purgeVersion($version);

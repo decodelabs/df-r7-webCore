@@ -42,7 +42,9 @@ class HttpLogin extends arch\node\Form {
         }
 
         if(!$this->_adapter) {
-            $this->throwError(500, 'There are no enabled authentication adapters');
+            throw core\Error::{'user/authentication/ESetup'}([
+                'message' => 'There are no enabled authentication adapters',
+            ]);
         }
 
         if(isset($this->request['rf'])) {

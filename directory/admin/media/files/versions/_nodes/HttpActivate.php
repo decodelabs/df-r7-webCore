@@ -20,7 +20,10 @@ class HttpActivate extends arch\node\Form {
         $this->_version = $this->scaffold->getRecord();
 
         if($this->_version['purgeDate']) {
-            $this->throwError(403, 'Purged versions cannot be activated');
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Purged versions cannot be activated',
+                'http' => 403
+            ]);
         }
     }
 

@@ -24,13 +24,19 @@ class HttpDownload extends arch\node\Base {
             $theme = aura\theme\Base::factory($this->context);
 
             if(!$absolutePath = $theme->findAsset($this->data->user->avatarConfig->getDefaultAvatarPath())) {
-                $this->throwError(404, 'File not found');
+                throw core\Error::{'core/fs/ENotFound'}([
+                    'message' => 'File not found',
+                    'http' => 404
+                ]);
             }
 
             $type = core\fs\Type::fileToMime($absolutePath);
 
             if(substr($type, 0, 6) != 'image/') {
-                $this->throwError(404, 'File not found');
+                throw core\Error::{'core/fs/EType,EForbidden'}([
+                    'message' => 'File not image',
+                    'http' => 403
+                ]);
             }
 
             if(isset($this->request['size'])) {

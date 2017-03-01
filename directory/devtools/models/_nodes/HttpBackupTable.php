@@ -22,7 +22,10 @@ class HttpBackupTable extends arch\node\ConfirmForm {
         $probe = new axis\introspector\Probe();
 
         if(!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
-            $this->throwError(404, 'Unit not found');
+            throw core\Error::{'axis/unit/ENotFound'}([
+                'message' => 'Unit not found',
+                'http' => 404
+            ]);
         }
     }
 

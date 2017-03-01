@@ -25,11 +25,17 @@ class HttpDeleteStorage extends arch\node\DeleteForm {
         $this->_unit = $probe->inspectUnit($this->request['unit']);
 
         if(!$this->_unit) {
-            $this->throwError(404, 'Unit not found');
+            throw core\Error::{'axis/unit/ENotFound'}([
+                'message' => 'Unit not found',
+                'http' => 404
+            ]);
         }
 
         if(!$this->_describer = $this->_unit->describeStorage($this->request['name'])) {
-            $this->throwError(404, 'Storage not found');
+            throw core\Error::{'axis/unit/ENotFound'}([
+                'message' => 'Storage not found',
+                'http' => 404
+            ]);
         }
     }
 
