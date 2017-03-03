@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\axis;
 
 class HttpCacheStats extends arch\node\Base {
 
@@ -16,7 +17,16 @@ class HttpCacheStats extends arch\node\Base {
 
     public function executeAsHtml() {
         $view = $this->apex->view('CacheStats.html');
-        $this->controller->fetchUnit($view, 'cache');
+
+        $view['unit'] = (new axis\introspector\Probe())
+            ->inspectUnit($this->request['unit']);
+
+        if($view['unit']->getType() != 'cache') {
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Unit is not a cache',
+                'http' => 403
+            ]);
+        }
 
         $view['stats'] = $view['unit']->getUnit()->getCacheStats();
         return $view;

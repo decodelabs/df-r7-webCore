@@ -53,4 +53,15 @@ class HttpMedia extends arch\node\RestApi {
 
         return $this->http->fileResponse($filePath);
     }
+
+    public function authorizeRequest() {
+        $key = $this->data->hexHash($this->application->getPassKey());
+
+        if($key != $this->request['key']) {
+            throw core\Error::{'EForbidden,EValue'}([
+                'message' => 'Pass key is invalid',
+                'http' => 403
+            ]);
+        }
+    }
 }

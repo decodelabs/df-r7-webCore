@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\fire;
 
 class HttpSlots extends arch\node\Base {
 
@@ -16,7 +17,14 @@ class HttpSlots extends arch\node\Base {
 
     public function executeAsHtml() {
         $view = $this->apex->view('Slots.html');
-        $this->controller->fetchLayout($view);
+        $config = fire\Config::getInstance();
+
+        if(!$view['layout'] = $config->getLayoutDefinition($this->request['layout'])) {
+            throw core\Error::{'fire/layout/ENotFound'}([
+                'message' => 'Layout not found',
+                'http' => 404
+            ]);
+        }
 
         $view['slotList'] = $view['layout']->getSlots();
         return $view;

@@ -18,7 +18,16 @@ class HttpTableData extends arch\node\Base {
 
     public function executeAsHtml() {
         $view = $this->apex->view('TableData.html');
-        $this->controller->fetchUnit($view, 'table');
+
+        $view['unit'] = (new axis\introspector\Probe())
+            ->inspectUnit($this->request['unit']);
+
+        if($view['unit']->getType() != 'table') {
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Unit is not a table',
+                'http' => 403
+            ]);
+        }
 
         $view['schema'] = $view['unit']->getTransientSchema();
         $primitives = [];

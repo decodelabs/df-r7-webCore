@@ -28,4 +28,15 @@ class HttpHello extends arch\node\RestApi {
             'nodes' => $nodes
         ];
     }
+
+    public function authorizeRequest() {
+        $key = $this->data->hexHash($this->application->getPassKey());
+
+        if($key != $this->request['key']) {
+            throw core\Error::{'EForbidden,EValue'}([
+                'message' => 'Pass key is invalid',
+                'http' => 403
+            ]);
+        }
+    }
 }

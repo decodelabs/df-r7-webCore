@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\axis;
 
 class HttpTableBackups extends arch\node\Base {
 
@@ -16,7 +17,16 @@ class HttpTableBackups extends arch\node\Base {
 
     public function executeAsHtml() {
         $view = $this->apex->view('TableBackups.html');
-        $this->controller->fetchUnit($view, 'table');
+
+        $view['unit'] = (new axis\introspector\Probe())
+            ->inspectUnit($this->request['unit']);
+
+        if($view['unit']->getType() != 'table') {
+            throw core\Error::{'EForbidden'}([
+                'message' => 'Unit is not a table',
+                'http' => 403
+            ]);
+        }
 
         $view['backupList'] = $view['unit']->getBackups();
 
