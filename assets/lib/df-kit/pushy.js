@@ -108,7 +108,7 @@ define([
 
         open: function(html, options) {
             var _this = this,
-                $body = $('html'),
+                $doc = $('html'),
                 $leftContainer = $(_this.attr.leftContainer),
                 $rightContainer = $(_this.attr.rightContainer),
                 deferred = $.Deferred();
@@ -122,7 +122,7 @@ define([
                 _this.trigger('clear');
                 var $active = $(_this.attr.content, '.pushy-container.pushy-active');
 
-                if(!($active.length && !$body.hasClass('push-'+options.side))) {
+                if(!($active.length && !$doc.hasClass('push-'+options.side))) {
                     $(_this.attr.content).hide();
                 }
             } else {
@@ -132,11 +132,10 @@ define([
             }
 
             // Set active
-            $body.addClass('pushy-active');
             $('.pushy-container').removeClass('pushy-active');
 
-            if(!$body.hasClass('push-'+options.side)) {
-                $body.removeClass('push-left push-right').addClass('push-'+options.side);
+            if(!$doc.hasClass('push-'+options.side)) {
+                $doc.removeClass('push-left push-right').addClass('push-'+options.side);
             }
 
 
@@ -148,8 +147,13 @@ define([
             }
 
             _this._applyOptions(options);
-
             $content.html(html);
+
+            // Start anim
+            setTimeout(function() {
+                $doc.addClass('pushy-active');
+            }, 1);
+
             deferred.resolve($content);
 
             // Fade in
