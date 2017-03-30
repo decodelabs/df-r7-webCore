@@ -155,7 +155,7 @@ class HttpTest extends arch\node\Form {
     }
 
     protected function _getMailList() {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', 'php', function($path) {
+        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function($path) {
             return false !== strpos($path, '_mail');
         });
 

@@ -23,7 +23,7 @@ class HttpIndex extends arch\node\Base {
         }
 
         return $this->apex->newWidgetView(function($view) {
-            $files = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/ui/_templates', 'php');
+            $files = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/ui/_templates', ['php']);
 
             yield $this->html->collectionList($files)
                 ->addField('name', function($filePath, $context) {

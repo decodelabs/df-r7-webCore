@@ -50,7 +50,7 @@ class HttpIndex extends arch\node\Base {
     }
 
     protected function _getMailList() {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', 'php', function($path) {
+        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function($path) {
             return false !== strpos($path, '_mail');
         });
 
