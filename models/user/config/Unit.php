@@ -15,7 +15,7 @@ class Unit extends axis\unit\config\Base {
 
     const ID = 'Users';
 
-    public function getDefaultValues() {
+    public function getDefaultValues(): array {
         return [
             'registrationEnabled' => false,
             'verifyEmail' => false,
