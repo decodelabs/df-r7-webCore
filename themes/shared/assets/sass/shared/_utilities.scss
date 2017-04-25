@@ -44,3 +44,15 @@
         background: inherit;
     }
 }
+
+@mixin stretch-behind($background: false) {
+    @extend %stretch-behind;
+
+    @if $background != false {
+        background: $background;
+
+        &:before {
+            background: $background;
+        }
+    }
+}
