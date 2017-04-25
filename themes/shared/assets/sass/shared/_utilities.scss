@@ -2,7 +2,7 @@
   @return $n / ($n * 0 + 1);
 }
 
-@function pxToRem($px, $base:$font-base-size) {
+@function pxToRem($px, $base: $font-base-size) {
     @return #{($px + 0px) / $font-base-size}rem;
 }
 
@@ -44,4 +44,3 @@
         background: inherit;
     }
 }
-
