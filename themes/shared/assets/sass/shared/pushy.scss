@@ -45,8 +45,7 @@ html {
         &.pushy-active {
             body > *:not(.pushy-container) {
                 transform: translateX(-$pushy-width);
-                //opacity: 0.6;
-                filter: grayscale(60%) blur(4px);
+                filter: $pushy-overlay-filter;
             }
 
             aside.pushy-container.push-left {
