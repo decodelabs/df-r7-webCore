@@ -22,7 +22,7 @@ html {
             body > *:not(.pushy-container) {
                 transform: translateX($pushy-width);
                 //opacity: 0.6;
-                filter: grayscale(60%) blur(4px);
+                filter: grayscale(60%) brightness(70%); // blur(4px);
             }
 
             aside.pushy-container.push-left {
