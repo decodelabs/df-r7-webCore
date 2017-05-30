@@ -30,7 +30,6 @@ html.modal-open {
 }
 
 #modal-scroll {
-    //max-height: 100vh;
     max-height: 100%;
     width: 100%;
     position: fixed;
@@ -38,13 +37,7 @@ html.modal-open {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
-
-    /*
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    */
+    //-webkit-overflow-scrolling: touch;
 }
 
 #modal-container {
@@ -79,7 +72,7 @@ html.modal-open {
         width: 90%;
         min-height: 0 !important;
         height: 0 !important;
-        padding: 0 0 calc(0.9 * 56.25%) 0 !important;
+        padding: 0 0 calc(0.9 * 56.25%) !important;
         background: none;
 
         #modal-content iframe {
