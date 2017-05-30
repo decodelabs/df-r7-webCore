@@ -37,7 +37,7 @@ html.modal-open {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: auto;
-    //-webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
 }
 
 #modal-container {
