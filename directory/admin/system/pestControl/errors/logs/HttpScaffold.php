@@ -130,7 +130,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         if($mode != 'details') return false;
 
         $list->addField('date', function($log) {
-            return $this->html->userDateTime($log['date']);
+            return $this->html->dateTime($log['date']);
         });
     }
     public function defineErrorField($list, $mode) {

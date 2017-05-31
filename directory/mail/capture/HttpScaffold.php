@@ -148,7 +148,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 $context->getRowTag()->addClass('inactive');
             }
 
-            return $this->html->userDateTime($mail['date'], 'medium');
+            return $this->html->dateTime($mail['date'], 'medium');
         });
     }
 }
