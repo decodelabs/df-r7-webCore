@@ -54,10 +54,16 @@ define([
             }
 
             var deferred = $.Deferred();
+            data = request.data;
+
+            if(request.method.toUpperCase() === 'GET' &&
+                request.type === 'ajax') {
+                data._j = null;
+            }
 
             $.ajax({
                 url: request.url,
-                data: request.data,
+                data: data,
                 type: request.method,
                 headers: {
                     'x-ajax-request-type' : request.type,
@@ -78,7 +84,7 @@ define([
 
     // Client shortcuts
         loadInto: function(element, url, options) {
-            options = options || {}
+            options = options || {};
             options.live = false;
 
             return this.embedInto(element, url, options);
@@ -100,7 +106,7 @@ define([
 
         getClient: function(element) {
             var client,
-                clientId = $(element).attr('data-ajax-client')
+                clientId = $(element).attr('data-ajax-client');
 
             if(clientId && this._clients[clientId]) {
                 client = this._clients[clientId];
