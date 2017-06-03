@@ -66,6 +66,8 @@ aside.pushy-container {
     position: fixed;
     top: 0;
     overflow: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     z-index: 500;
 
     &.push-left {
