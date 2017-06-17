@@ -47,8 +47,9 @@ class HttpChangePassword extends arch\node\Form {
 
         // User
         $fs->addField($this->_('User'))->push(
-            $this->html->textbox('user', $this->_auth['user']['fullName'])
+            $this->html->textbox('name--display', $this->_auth['user']['fullName'])
                 ->isDisabled(true)
+                ->shouldAutoComplete(false)
         );
 
         // New password
