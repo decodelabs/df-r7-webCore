@@ -39,8 +39,8 @@ class HttpApplicationImage extends arch\node\Base {
         if(isset($this->request['width'])) {
             $width = $this->request['width'];
             $height = $this->request->query->get('height', $width);
-            $cache = neon\raster\Cache::getInstance();
-            $absPath = $cache->getTransformationFilePath($absPath, '[rs:'.$width.'|'.$height.']');
+            $fileStore = neon\raster\FileStore::getInstance();
+            $absPath = $fileStore->getTransformationFilePath($absPath, '[rs:'.$width.'|'.$height.']');
         }
 
         return $this->http->fileResponse($absPath)

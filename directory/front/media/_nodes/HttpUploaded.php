@@ -34,8 +34,8 @@ class HttpUploaded extends arch\node\Base {
         $fileName = basename($path);
 
         if(isset($this->request['transform'])) {
-            $cache = neon\raster\Cache::getInstance();
-            $path = $cache->getTransformationFilePath($path, $this->request['transform']);
+            $fileStore = neon\raster\FileStore::getInstance();
+            $path = $fileStore->getTransformationFilePath($path, $this->request['transform']);
             $contentType = 'image/png';
         }
 

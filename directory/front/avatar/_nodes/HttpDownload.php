@@ -40,8 +40,8 @@ class HttpDownload extends arch\node\Base {
             }
 
             if(isset($this->request['size'])) {
-                $cache = neon\raster\Cache::getInstance();
-                $absolutePath = $cache->getTransformationFilePath($absolutePath, '[rs:'.$size.'|'.$size.']');
+                $fileStore = neon\raster\FileStore::getInstance();
+                $absolutePath = $fileStore->getTransformationFilePath($absolutePath, '[rs:'.$size.'|'.$size.']');
             }
 
             $output = $this->http->fileResponse($absolutePath);

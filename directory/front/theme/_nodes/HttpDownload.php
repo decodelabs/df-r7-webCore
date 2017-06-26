@@ -51,15 +51,15 @@ class HttpDownload extends arch\node\Base {
 
         if($hasTransform || $hasFavicon) {
             if(substr($type, 0, 6) == 'image/') {
-                $cache = neon\raster\Cache::getInstance();
+                $fileStore = neon\raster\FileStore::getInstance();
 
                 if($hasTransform) {
-                    $absolutePath = $cache->getTransformationFilePath($absolutePath, $this->request['transform']);
+                    $absolutePath = $fileStore->getTransformationFilePath($absolutePath, $this->request['transform']);
                 }
 
                 if($type != 'image/x-icon' && $hasFavicon) {
                     if(preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', $this->http->getUserAgent())) {
-                        $absolutePath = $cache->getIconFilePath($absolutePath, 16, 32);
+                        $absolutePath = $fileStore->getIconFilePath($absolutePath, 16, 32);
                         $type = 'image/x-icon';
                         $fileName .= '.ico';
                     }

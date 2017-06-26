@@ -16,15 +16,15 @@ class HttpRaster extends arch\node\Form {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'refresh';
 
-    protected $_cache;
+    protected $_fileStore;
 
     protected function init() {
-        $this->_cache = neon\raster\Cache::getInstance();
+        $this->_fileStore = neon\raster\FileStore::getInstance();
     }
 
     protected function createUi() {
         $form = $this->content->addForm();
-        $files = $this->_cache->getDirectFileList();
+        $files = $this->_fileStore->getFileList();
 
         $form->push(
             $this->html->collectionList($files)
@@ -88,8 +88,8 @@ class HttpRaster extends arch\node\Form {
     }
 
     protected function onRemoveEvent($key) {
-        if($this->_cache->has($key)) {
-            $this->_cache->remove($key);
+        if($this->_fileStore->has($key)) {
+            $this->_fileStore->remove($key);
 
             $this->comms->flashSuccess(
                     'cache.remove',
@@ -103,7 +103,7 @@ class HttpRaster extends arch\node\Form {
 
     protected function onClearEvent() {
         return $this->complete(function() {
-            $this->_cache->clear();
+            $this->_fileStore->clear();
 
             $this->comms->flashSuccess(
                 'cache.clear',
