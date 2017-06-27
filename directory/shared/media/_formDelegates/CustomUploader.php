@@ -61,7 +61,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         return $this->_limit;
     }
 
-    public function getSourceEntityLocator() {
+    public function getSourceEntityLocator(): mesh\entity\ILocator {
         return new mesh\entity\Locator('upload://File');
     }
 
