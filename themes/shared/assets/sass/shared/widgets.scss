@@ -409,6 +409,10 @@
     width: 100%;
     max-width: $form-input-width;
     box-sizing: border-box;
+
+    &.short {
+        max-width: $form-input-width / 2.5;
+    }
 }
 
 .w-textarea,
