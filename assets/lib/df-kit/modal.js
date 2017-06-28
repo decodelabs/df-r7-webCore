@@ -253,6 +253,10 @@ define([
             });
 
             return deferred.promise();
+        },
+
+        isOpen: function() {
+            return $('html').hasClass('modal-open');
         }
     });
 });
