@@ -11,6 +11,5 @@ use df\fire;
 
 class Comment extends Base {
 
-    const REQUIRED_OUTPUT_TYPES = ['Html'];
     const DEFAULT_BLOCKS = ['SimpleTags', 'Markdown', 'BBCode'];
 }

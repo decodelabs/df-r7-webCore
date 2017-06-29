@@ -56,6 +56,6 @@ class HttpDelete extends arch\node\DeleteForm {
 
     protected function apply() {
         $config = fire\Config::getInstance();
-        $config->removeLayoutDefinition($this->_layout)->save();
+        $config->removeLayoutDefinition($this->_layout->getId())->save();
     }
 }
