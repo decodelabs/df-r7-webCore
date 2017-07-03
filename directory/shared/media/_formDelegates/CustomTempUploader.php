@@ -144,7 +144,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 });
             }
         } else {
-            yield $this->html->bulletList($available, function($file) {
+            yield $this->html->uList($available, function($file) {
                 yield $this->html->checkbox(
                     $this->fieldName('selectUpload['.$file['fileName'].']'),
                     $this->values->selectUpload->{$file['fileName']},

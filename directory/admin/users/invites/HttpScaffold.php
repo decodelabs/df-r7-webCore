@@ -209,7 +209,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 $groups = $invite->groups->select();
             }
 
-            return $this->html->bulletList($groups, function($group) {
+            return $this->html->uList($groups, function($group) {
                 return $this->apex->component('../groups/GroupLink', $group);
             });
         });

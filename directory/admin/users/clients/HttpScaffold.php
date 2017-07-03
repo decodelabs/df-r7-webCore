@@ -195,7 +195,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             $list->addField('email', function($client) {
                 $emailList = $this->data->user->emailVerify->fetchEmailList($client);
 
-                return $this->html->bulletList($emailList, function($verify) use($client) {
+                return $this->html->uList($emailList, function($verify) use($client) {
                     $output = $this->html->mailLink($verify['email'])
                         ->setIcon($verify['verifyDate'] ? 'tick' : 'cross')
                         ->addClass($verify['email'] == $client['email'] ? null : 'disabled');
@@ -298,7 +298,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
             $groupList = $client->groups->fetch()->orderBy('Name');
 
-            return $this->html->bulletList($groupList, function($group) {
+            return $this->html->uList($groupList, function($group) {
                 return $this->apex->component('../groups/GroupLink', $group);
             });
         });

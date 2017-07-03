@@ -79,7 +79,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         }
 
         $list->addField('roles', function($group) {
-            return $this->html->bulletList($group->roles->select()->orderBy('name'), function($role) {
+            return $this->html->uList($group->roles->select()->orderBy('name'), function($role) {
                 return $this->apex->component('../roles/RoleLink', $role);
             });
         });

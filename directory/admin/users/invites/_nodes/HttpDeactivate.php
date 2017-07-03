@@ -44,7 +44,7 @@ class HttpDeactivate extends arch\node\ConfirmForm {
                     return $this->html->simpleTags($invite['message']);
                 })
                 ->addField('groups', function($invite) {
-                    return $this->html->bulletList($invite->groups->fetch(), function($group) {
+                    return $this->html->uList($invite->groups->fetch(), function($group) {
                         return $this->apex->component('../groups/GroupLink', $group);
                     });
                 })

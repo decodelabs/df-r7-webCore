@@ -24,8 +24,8 @@ echo $this->html->attributeList([])
 
     // Available
     ->addField('availableAdapters', function() use($adapterList) {
-        return $this->html->bulletList($adapterList, function($available, $context) {
-            $name = $this->format->name($context->getKey());
+        return $this->html->uList($adapterList, function($available, $el, $key) {
+            $name = $this->format->name($key);
             return $this->html('span', $name)->addClass($available ? 'positive' : 'negative');
         });
     });
