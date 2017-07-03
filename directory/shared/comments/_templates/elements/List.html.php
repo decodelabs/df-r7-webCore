@@ -7,10 +7,10 @@ if($this->getSlot('paginate', true)) {
     echo $paginator = (string)$this->html->paginator($commentList);
 }
 
-echo $this->html->articleList($commentList, function($comment, $context) {
+echo $this->html->list($commentList, 'ol.w-articleList', 'li > article', function($comment, $el) {
     $displayAsTree = $this['displayAsTree'];
     $hash = 'comment-'.$comment->getUniqueId();
-    $context->getCellTag()->setId($hash);
+    $el->setId($hash);
     $redir = clone $this->context->request;
     $redir->setFragment($hash);
 
