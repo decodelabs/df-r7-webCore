@@ -593,31 +593,55 @@ button {
 }
 
 
-
 .w-articleList {
+    list-style: none;
+    margin: 0 0 1.5em;
+    padding: 0;
+    max-width: 40em;
+
     article {
+        margin-bottom: 1.5em;
+
         > .w-articleList {
-            background: #EEE;
-            background: rgba(0,0,0,0.015);
+            margin: 0.5em 0 0 1em;
+            padding: 0.5em 0.3em;
+            background: rgba(0, 0, 0, 0.015);
             border-radius: 0.6em;
         }
 
         > header {
-            background: #F4F4F4;
-            background: rgba(0,0,0,0.04);
+            @extend %clearfix;
+            background: rgba(0, 0, 0, 0.04);
             border-radius: 0.5em;
+            padding: 0.4em 0.6em;
 
             h3 {
-                font-size: 1em;
+                margin: 0 0 0.2em;
+                font-size: 1.2em;
+                padding: 0;
+                background: none;
             }
 
             p {
-                font-size: 0.7em;
+                font-size: 0.9em;
+                margin: 0;
                 color: #888;
             }
         }
 
+        > section {
+            padding: 0.4em 0.6em;
+            margin-bottom: 0.5em;
+
+            :last-child {
+                margin-bottom: 0;
+            }
+        }
+
         > footer {
+            padding-top: 0.5em;
+            font-size: 0.8em;
+            margin: 0 0.6em;
             border-top: 1px #F4F4F4 solid;
         }
     }
@@ -792,16 +816,13 @@ progress {
 
     &::-webkit-progress-value {
         background: #cdeb8e;
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cdeb8e), color-stop(100%,#a5c956));
-        background: -webkit-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%);
-        background: linear-gradient(to bottom,  #cdeb8e 0%,#a5c956 100%);
+        background: linear-gradient(to bottom, #cdeb8e 0%, #a5c956 100%);
         border-radius: 9px;
     }
 
     &::-moz-progress-bar {
         background: #cdeb8e;
-        background: -moz-linear-gradient(top,  #cdeb8e 0%, #a5c956 100%);
-        background: linear-gradient(to bottom,  #cdeb8e 0%,#a5c956 100%);
+        background: linear-gradient(to bottom, #cdeb8e 0%, #a5c956 100%);
         border-radius: 9px;
     }
 }
