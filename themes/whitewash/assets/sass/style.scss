@@ -235,19 +235,10 @@ dl {
     @extend %clearfix;
 
     dt {
-        font-weight: bold;
-    }
-
-    dd {
-        margin-bottom: 0.5rem;
-    }
-}
-
-.w-definitionList {
-    dt {
         width: 10em;
         float: left;
         clear: left;
+        font-weight: bold;
     }
 
     dt:after {
@@ -257,6 +248,7 @@ dl {
     dd {
         float: left;
         margin-bottom: 0;
+        margin-bottom: 0.5rem;
     }
 }
 
