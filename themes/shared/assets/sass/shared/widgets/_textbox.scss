@@ -35,6 +35,10 @@
         }
     }
 
+    &.number {
+        max-width: $form-input-width / 2.5;
+    }
+
     &.editor {
         min-height: 13rem;
     }
