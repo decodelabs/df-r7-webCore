@@ -9,7 +9,7 @@
 
 
     @each $name in (positive, negative, informative, error, warning) {
-        &.#{$name} { color: map-get($active-colors, $name); }
+        .#{$name} { color: map-get($active-colors, $name); }
     }
 
     .success {
