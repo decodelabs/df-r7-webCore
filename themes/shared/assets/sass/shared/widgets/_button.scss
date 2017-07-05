@@ -1,5 +1,7 @@
 $button-invert: true !default;
 $button-default-color: #888 !default;
+$button-3d: true !default;
+$button-shadow: true !default;
 
 %text-button {
     background: none;
@@ -11,7 +13,11 @@ $button-default-color: #888 !default;
 
 %normal-button {
     &:not(.text) {
-        background: #F1F1F1 linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+        @if $button-3d == true {
+            background: linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+        }
+
+        background-color: #F1F1F1;
     }
 
     @each $name, $color in $active-colors {
@@ -21,8 +27,12 @@ $button-default-color: #888 !default;
 
 %inverted-button {
     &:not(.text) {
+        @if $button-3d == true {
+            background: linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+        }
+
         color: white;
-        background: $button-default-color linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+        background-color: $button-default-color;
 
         @each $name, $color in $active-colors {
             &.#{$name} {
@@ -59,11 +69,14 @@ $button-default-color: #888 !default;
         border: 1px solid rgba(black, 0.05);
         border-right-color: rgba(black, 0.1);
         border-bottom-color: rgba(black, 0.2);
-        box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1);
         text-decoration: none;
 
-        &:active {
-            box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1) inset;
+        @if $button-shadow == true {
+            box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1);
+
+            &:active {
+                box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1) inset;
+            }
         }
     }
 
