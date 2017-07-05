@@ -1,0 +1,39 @@
+.fire-block {
+    padding: 0.3em;
+
+    > nav.buttons {
+        margin-bottom: 0.2em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .control {
+            margin-left: auto;
+        }
+    }
+
+    .fire-block {
+        margin-left: 1em;
+    }
+
+    fieldset.w > .body > div.w.field {
+        > div.w.list.labels {
+            @extend %innerLabelWidget;
+            margin-bottom: 0.4em;
+        }
+
+        > div.w.list.inputs {
+            margin-left: 0;
+        }
+    }
+
+    div.w.field {
+        > div.w.list.labels {
+            @extend %innerLabelWidget;
+        }
+
+        > div.w.list.errors {
+            padding-left: 0;
+        }
+    }
+}

@@ -1,0 +1,81 @@
+header.w.bar {
+    border: 4px #F4F4F4 solid;
+    padding: 0.3em;
+    border-radius: 0.7em;
+    margin-bottom: 1.2em;
+    font-size: 0.9em;
+
+    > h2 {
+        padding: 0.3em 0.4em;
+        border-top-left-radius: 0.3em;
+        border-top-right-radius: 0.3em;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        margin: 0;
+        font-size: 1.4em;
+        /*font-style: italic;*/
+        background: #E0E0E0;
+        color: #666;
+        text-shadow: 0 0 0.5em #FFF;
+        font-weight: normal;
+    }
+
+    > h3 {
+        margin: 0;
+        font-size: 1.1em;
+        padding: 0 0 0 2em;
+        font-style: italic;
+        color: #666;
+        background: none;
+    }
+
+    nav.menu.bar.primary {
+        margin: 0;
+        border-radius: 0;
+        border: none;
+
+        ul {
+            padding: 0.25em 0;
+        }
+
+        &:first-child {
+            border-top: none;
+            margin-top: 0;
+            background: #FCFCFC;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        + .w.selectorArea {
+            margin-top: -2.3em;
+        }
+    }
+
+    > nav.menu.bar.secondary {
+        margin: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border: none;
+        border-top: 3px #F4F4F4 solid;
+        background: #FAFAFA;
+        padding: 0.5em 0.4em 0.3em 2em;
+    }
+
+    > .w.selectorArea {
+        right: 5em;
+        position: absolute;
+        margin-top: -2.2em;
+
+        form {
+            margin-bottom: 0;
+        }
+
+        div.w.field {
+            background: none;
+        }
+    }
+
+}

@@ -1,4 +1,15 @@
-@mixin generateGrid($columns:$grid-columns, $gutter:$grid-gutter, $prefix:$grid-column-prefix) {
+@import '_clearfix.scss';
+
+$grid: false !default;
+$grid-columns: 12 !default;
+$grid-gutter: 20px !default;
+$grid-padding-ratio: 1.5 !default;
+$grid-column-prefix: col !default;
+$grid-container-prefix: container !default;
+$grid-container-width: 1080px !default;
+
+
+@mixin generateGrid($columns: $grid-columns, $gutter: $grid-gutter, $prefix: $grid-column-prefix) {
     %#{$prefix} {
         float: left;
         padding: pxToRem($gutter*$grid-padding-ratio) pxToRem($gutter);
@@ -15,13 +26,12 @@
     @if length($columns) > 1 {
         $total: length($columns);
     }
-        
+
     @for $i from 1 through $total {
         %#{$prefix + $i}-width {
             @if length($columns) > 1 {
                 width: percentage(nth($columns, $i));
-            }
-            @else {
+            } @else {
                 width: percentage($i / $columns);
             }
         }
@@ -62,6 +72,6 @@
     }
 }
 
-@if $grid == true {
+@include exports("global/_grid") { @if $grid == true {
     @include generateGrid();
-}
+}}

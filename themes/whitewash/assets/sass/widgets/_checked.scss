@@ -1,0 +1,19 @@
+label.w.radio,
+label.w.checkbox {
+    font-size: 0.9em;
+}
+
+div.w.group.radio,
+div.w.group.checkbox,
+div.w.list.checkbox {
+    border: 2px solid #DDD;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 0.5rem rgba(black, 0.1) inset;
+
+    &.inline {
+        border: none;
+        padding: 0 0.05rem;
+        box-shadow: none;
+    }
+}

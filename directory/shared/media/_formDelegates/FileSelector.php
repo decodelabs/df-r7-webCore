@@ -194,7 +194,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
                 $form->setEncoding($form::ENC_MULTIPART);
             }
 
-            $fs = $ol->addFieldSet($this->_('Upload new file'))->addClass('stacked');
+            $fs = $ol->addFieldSet($this->_('Upload new file'));
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
 
             $fs->addField()->push(
@@ -240,7 +240,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             $name = $this->_getResultDisplayName($result);
 
             $fa->push(
-                $this->html('div.w-selection', [
+                $this->html('div.w.list.selection', [
                     $this->html->hidden($this->fieldName('selected['.$id.']'), $id),
 
                     $this->html('div.body', [

@@ -210,6 +210,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             }
 
             return $this->html->uList($groups, function($group) {
+                if(!$group['id']) {
+                    $group = null;
+                }
+                
                 return $this->apex->component('../groups/GroupLink', $group);
             });
         });

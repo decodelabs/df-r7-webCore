@@ -1,0 +1,25 @@
+$page-min-width: 320px !default;
+$page-max-width: 1080px !default;
+
+
+@include exports("global/_document") {
+    html {
+        min-height: 100%;
+        overflow-x: hidden;
+
+        &.no-scroll {
+            overflow: hidden !important;
+
+            body {
+                overflow: hidden !important;
+            }
+        }
+    }
+
+    body {
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
+        min-width: $page-min-width;
+    }
+}

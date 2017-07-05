@@ -1,0 +1,21 @@
+div.w.paginator {
+    font-size: 0.9em;
+
+    .counts {
+        border: 2px #EEE solid;
+        border-radius: 6px;
+        padding: 0.05em 0.4em;
+    }
+
+    nav.pages {
+        a, button {
+            border: 2px #EEE solid;
+            border-radius: 4px;
+            margin: 0 0.15em;
+
+            &.active {
+                border-color: #AAA;
+            }
+        }
+    }
+}

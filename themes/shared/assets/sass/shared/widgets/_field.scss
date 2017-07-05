@@ -1,0 +1,175 @@
+@import '../global/_forms.scss';
+@import '../global/_clearfix.scss';
+
+%innerLabelWidget {
+    text-align: left;
+    width: auto;
+    float: none;
+    clear: both;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+div.w.field {
+    @extend %clearfix;
+    margin: 0 0 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &:target > div.w.list.inputs,
+    & :target {
+        outline: 2px yellow solid;
+    }
+
+
+    // Label area
+    > div.w.list.labels {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+        box-sizing: border-box;
+
+
+        > label {
+            display: block;
+            padding: 0.15rem 0;
+            font-weight: 500;
+        }
+
+        &.empty {
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+
+            label {
+                display: none;
+            }
+        }
+    }
+
+    &.required > div.w.list.labels {
+        > label.w:after {
+            content: ' *';
+            color: #CC0000;
+        }
+    }
+
+
+    // Error list
+    > div.w.list.errors {
+        margin-bottom: 0.2rem;
+        box-sizing: border-box;
+    }
+
+
+
+    // Inputs
+    > div.w.list.inputs {
+        @extend %clearfix;
+
+        > .description {
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        > div.w.field,
+        > .fire-block > div.w.field {
+            padding: 0.2rem;
+            margin: 0.2rem 0;
+
+            > label.w {
+                @extend %innerLabelWidget;
+            }
+        }
+
+        > .w.flashMessage {
+            font-size: 0.9rem;
+            padding: 0.3rem 1.3rem 0.3m 2.3rem;
+        }
+
+        > div.w.button-area {
+            padding: 0.3rem;
+        }
+    }
+
+
+
+
+    // Floated
+    @media only screen and (min-width: $form-float-threshold) {
+        .floated form > fieldset > .body > &,
+        form.floated > fieldset > .body > &,
+        .floated form > &,
+        form.floated > &,
+        fieldset.floated > .body > &,
+        &.floated {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+
+            &:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+
+            // Error floater
+            &.error:before {
+                display: block;
+                order: -2;
+                content: ' ';
+                height: 1px;
+
+                width: $form-label-width;
+                flex: 0 0 $form-label-width;
+                text-align: $form-label-align;
+                margin: 0;
+                font-size: 1rem;
+                max-width: 40%;
+                padding-right: 1rem;
+                box-sizing: border-box;
+                display: box;
+                position: relative;
+            }
+
+
+            // Labels
+            > div.w.list.labels {
+                float: left;
+                width: $form-label-width;
+                flex: 0 0 $form-label-width;
+                text-align: $form-label-align;
+                margin: 0;
+                max-width: 40%;
+                padding-right: 1rem;
+                height: auto;
+            }
+
+
+            // Error list
+            > div.w.list.errors {
+                order: -1;
+                flex: 0 1 auto;
+                width: calc(100% - #{$form-label-width + 1});
+            }
+
+
+            // Inputs
+            > div.w.list.inputs {
+                width: 60%;
+                flex: 1 1 1px;
+                float: left;
+            }
+
+            + div.w.button-area {
+                margin-top: 2rem;
+            }
+        }
+    }
+}

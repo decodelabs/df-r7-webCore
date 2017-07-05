@@ -44,9 +44,9 @@ define([
             });
 
             // Scroll to first error
-            if($('.w-fieldError').length) {
+            if($('.w.field .list.errors').length) {
                 $('html, body').animate({
-                    scrollTop: $('.w-fieldError').first().parent().offset().top
+                    scrollTop: $('.w.field .list.errors').first().parent().offset().top
                 }, 200);
             }
         },

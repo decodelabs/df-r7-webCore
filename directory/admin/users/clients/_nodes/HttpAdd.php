@@ -54,7 +54,7 @@ class HttpAdd extends arch\node\Form {
 
         // Status
         $fs->addField($this->_('Status'))
-            ->addSelectList('status', $this->values->status, [
+            ->addSelect('status', $this->values->status, [
                     -1 => $this->_('Deactivated'),
                     0 => $this->_('Guest'),
                     1 => $this->_('Pending'),
@@ -66,13 +66,13 @@ class HttpAdd extends arch\node\Form {
 
         // Time zone
         $fs->addField('Timezone')
-            ->addSelectList('timezone', $this->values->timezone)
+            ->addSelect('timezone', $this->values->timezone)
                 ->setOptions($this->i18n->timezones->getList(), true)
                 ->isRequired(true);
 
         // Country
         $fs->addField('Country')
-            ->addSelectList(
+            ->addSelect(
                     'country',
                     $this->values->country,
                     $this->i18n->countries->getList()
@@ -81,7 +81,7 @@ class HttpAdd extends arch\node\Form {
 
         // Language
         $fs->addField('Language')
-                ->addSelectList(
+                ->addSelect(
                     'language',
                     $this->values->language,
                     $this->i18n->languages->getList()

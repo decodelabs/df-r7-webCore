@@ -4,7 +4,7 @@ define([
 ], function($, Core) {
     return Core.component({
         init: function() {
-            $('.w-flashList .w-flashMessage').each(function() {
+            $('div.w.list.flash .w.flashMessage').each(function() {
                 $(this).prepend('<a class="close"><span data-icon="&#xe00b;" aria-hidden="true"></span></a>');
             }).find('a.close').click(function(e) {
                 e.preventDefault();
@@ -13,7 +13,7 @@ define([
                     var $parent = $(this).parent();
                     $(this).remove();
 
-                    if(!$parent.find('.w-flashMessage').length) {
+                    if(!$parent.find('.w.flashMessage').length) {
                         $parent.remove();
                     }
                 });

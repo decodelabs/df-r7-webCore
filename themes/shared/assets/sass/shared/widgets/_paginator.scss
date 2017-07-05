@@ -1,0 +1,26 @@
+@import '../global/_clearfix.scss';
+
+div.w.paginator {
+    @extend %clearfix;
+    margin: 1rem 0;
+
+    .counts {
+        float: left;
+        padding: 0.05em 0;
+    }
+
+    nav.pages {
+        float: right;
+
+        a, button {
+            padding: 0.05em 0.4em;
+            text-decoration: none;
+            background: none;
+            border: none;
+
+            &.active {
+                font-weight: bold;
+            }
+        }
+    }
+}

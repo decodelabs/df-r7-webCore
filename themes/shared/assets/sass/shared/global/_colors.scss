@@ -1,0 +1,42 @@
+$default-active-colors: (
+    primary: #3055a8,
+    secondary: #d49419,
+
+    positive: #3b8b3c,
+    negative: #a11d1d,
+    informative: #2D6672,
+    operative: #8F7310,
+    transitive: #6F5177,
+    external: #6b5e6e,
+
+    error: darken(red, 8%),
+    warning: #8F7310,
+    debug: #7B8034,
+);
+
+$active-colors: ( ) !default !global;
+$active-colors: map-merge($default-active-colors, $active-colors) !global;
+
+$primary-color: map-get($active-colors, primary) !default !global;
+$secondary-color: map-get($active-colors, secondary) !default !global;
+
+$positive-color: map-get($active-colors, positive) !default !global;
+$negative-color: map-get($active-colors, negative) !default !global;
+$informative-color: map-get($active-colors, informative) !default !global;
+$operative-color: map-get($active-colors, operative) !default !global;
+$transitive-color: map-get($active-colors, transitive) !default !global;
+$external-color: map-get($active-colors, external) !default !global;
+
+$error-color: map-get($active-colors, error) !default !global;
+$warning-color: map-get($active-colors, warning) !default !global;
+$debug-color: map-get($active-colors, debug) !default !global;
+
+$disabled-color: #777 !default !global;
+$base-text-color: #444 !default !global;
+
+
+@include exports("global/_colors") {
+    html {
+        color: $base-text-color;
+    }
+}

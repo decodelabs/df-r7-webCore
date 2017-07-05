@@ -1,5 +1,5 @@
-$pushy-width: 25rem !default;
-$pushy-overlay-filter: grayscale(60%) brightness(70%) !default;
+$pushy-width: 25rem !default !global;
+$pushy-overlay-filter: grayscale(60%) brightness(70%) !default !global;
 
 html {
     body > * {

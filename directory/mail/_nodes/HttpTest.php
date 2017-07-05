@@ -54,7 +54,7 @@ class HttpTest extends arch\node\Form {
 
 
         $fs->addField($this->_('Transport'))->push(
-            $this->html->radioButtonGroup('transport', $this->values->transport, $transportList)
+            $this->html->radioGroup('transport', $this->values->transport, $transportList)
                 ->isRequired(true)
         );
 
@@ -111,7 +111,7 @@ class HttpTest extends arch\node\Form {
 
         // Type
         $fs->addField($this->_('Email type'))->push(
-            $this->html->selectList('type', $this->values->type, [
+            $this->html->select('type', $this->values->type, [
                     'prepared' => $this->_('Prepared mail preview'),
                     'custom' => $this->_('Custom text / html')
                 ])
@@ -126,7 +126,7 @@ class HttpTest extends arch\node\Form {
         if($type == 'prepared') {
             // Prepared
             $fs->addField($this->_('Prepared mail'))->push(
-                $this->html->selectList('prepared', $this->values->prepared, $this->_getMailList())
+                $this->html->select('prepared', $this->values->prepared, $this->_getMailList())
                     ->isRequired(true)
             );
         } else if($type == 'custom') {

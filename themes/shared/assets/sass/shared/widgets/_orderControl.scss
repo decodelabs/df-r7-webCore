@@ -1,0 +1,44 @@
+ul.w.order {
+    list-style: none;
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0 0 1em;
+
+    li {
+        display: inline-block;
+        margin-right: 1.1em;
+
+        &.label {
+            margin-right: 0.3em;
+
+            &:after {
+                content: ': ';
+            }
+        }
+    }
+}
+
+a.order, button.order {
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline;
+
+    &.active {
+        &.asc:after {
+            font-size: 0.75em;
+            content: ' ⇑';
+        }
+        &.desc:after {
+            font-size: 0.75em;
+            content: ' ⇓';
+        }
+    }
+}
+
+a.null-order, button.null-order {
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline;
+}

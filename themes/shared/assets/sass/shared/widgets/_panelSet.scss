@@ -1,0 +1,24 @@
+div.w.panelSet {
+    width: 100%;
+    display: table;
+
+    > article.w.panel {
+        display: table-cell;
+        vertical-align: top;
+        padding: 0 0.5em;
+        box-sizing: border-box;
+
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
+
+        div.w.list.attributes {
+            display: block;
+            width: 100%;
+            min-width: 20em;
+        }
+    }
+}

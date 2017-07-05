@@ -1,17 +1,13 @@
-@function parseInt($n) {
-  @return $n / ($n * 0 + 1);
+@import '_clearfix.scss';
+
+@if global-variable-exists(font-base-size) {
+    $pxToRem-base-size: $font-base-size !global;
+} @else {
+    $pxToRem-base-size: 16px !global;
 }
 
-@function pxToRem($px, $base: $font-base-size) {
-    @return #{($px + 0px) / $font-base-size}rem;
-}
-
-%clearfix {
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+@function pxToRem($px, $base: $pxToRem-base-size) {
+    @return #{($px + 0px) / $pxToRem-base-size}rem;
 }
 
 %stretch-behind {
@@ -20,8 +16,8 @@
     position: relative;
     margin: 0 auto;
 
-    @if $page-max-width != null {
-        @if $font-scale == true {
+    @if global-variable-exists(page-max-width) and ($page-max-width != null) {
+        @if global-variable-exists(font-scale) and ($font-scale == true) {
             max-width: pxToRem($page-max-width);
         } @else {
             max-width: $page-max-width;

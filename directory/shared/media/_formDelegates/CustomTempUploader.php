@@ -124,7 +124,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
         if(!$this->_isForMany) {
             if($available) {
-                yield $this->html('div.w-selected', function() use($available) {
+                yield $this->html('div.w.list.selection', function() use($available) {
                     yield $this->html->hidden($this->fieldName('selectUpload'), $available['fileName']);
 
                     yield [
@@ -164,7 +164,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     ->setIcon('cross')
                     ->shouldValidate(false)
                     ->addClass('remove');
-            })->addClass('w-selected');
+            })->addClass('w selection');
         }
 
         yield $this->html('div.upload', [

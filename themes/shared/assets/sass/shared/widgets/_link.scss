@@ -1,0 +1,28 @@
+a.block {
+    display: inline-block;
+    padding: 0.4em;
+    min-width: 10em;
+    max-width: 18em;
+    min-height: 8em;
+    text-decoration: none !important;
+
+    header {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    &:hover header {
+        text-decoration: underline;
+    }
+
+    p {
+        margin: 0.5em 0;
+    }
+}
+
+a.color-block {
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    color: #FFF !important;
+    background: #F1AB3A;
+}

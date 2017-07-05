@@ -1,0 +1,46 @@
+.w.textbox {
+    width: 100%;
+    max-width: $form-input-width;
+    box-sizing: border-box;
+    background: #FFF;
+    border: 1px #AAA solid;
+    padding: 0.2rem 0.4rem;
+
+
+    // Multiline
+    &.multiline {
+        max-width: 50rem;
+        min-height: 6em;
+    }
+
+
+    &.short {
+        max-width: $form-input-width / 2.5;
+    }
+
+    &.error {
+        border-color: $error-color;
+    }
+
+    &[disabled] {
+        background: #EEE;
+        opacity: 0.8;
+    }
+
+    &.picker {
+        width: auto;
+
+        &.time {
+            max-width: 6rem;
+        }
+    }
+
+    &.editor {
+        min-height: 13rem;
+    }
+}
+
+
+input.w.file + label.hidden {
+    display: none;
+}

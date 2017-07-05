@@ -1,0 +1,78 @@
+@import "_colors.scss";
+
+@include exports("global/_states") {
+    .priority-trivial { color: green !important; }
+    .priority-low { color: #8DAD00 !important; }
+    .priority-medium { color: #8F7310 !important; }
+    .priority-high { color: #BE3900 !important; }
+    .priority-critical { color: red !important; }
+
+
+    @each $name in (positive, negative, informative, error, warning) {
+        &.#{$name} { color: map-get($active-colors, $name); }
+    }
+
+    .success {
+        color: $positive-color;
+    }
+
+    .disabled {
+        color: $disabled-color;
+        opacity: 0.7;
+        filter: grayscale(100%);
+    }
+
+    a.disabled {
+        cursor: not-allowed;
+
+        &:link, &:active, &:hover, &:visited {
+            color: #777;
+            opacity: 0.7;
+        }
+
+        &:active {
+            pointer-events: none;
+        }
+    }
+
+    .na {
+        color: $disabled-color;
+        opacity: 0.7;
+    }
+
+    .info {
+        color: $informative-color;
+    }
+
+    a.active {
+        font-weight: bold;
+    }
+
+    .inactive {
+        opacity: 0.4;
+    }
+
+    .removed {
+        text-decoration: line-through;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .locked {
+        color: $warning-color;
+    }
+
+    .unlocked {
+        color: $positive-color;
+    }
+
+    .readable {
+        max-width: 40em;
+
+        img {
+            max-width: 100%;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+div.w.field {
+    background: #FFF;
+    border-bottom: 1px solid #EEE;
+    padding-bottom: 1rem;
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    > div.w.list.labels label {
+        color: #777;
+        font-size: 0.95em;
+    }
+
+    > div.w.list.inputs {
+        > div.w.button-area {
+            background-color: #FAFAFA;
+        }
+
+        > div.w.field {
+            margin-bottom: 0.75rem;
+        }
+
+        > div.w.field,
+        > .fire-block > div.w.field {
+            border: 1px #EEE solid;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background: rgba(white, 0.7);
+        }
+    }
+
+    + div.w.button-area:before {
+        margin-left: -1em;
+    }
+
+    &:last-child > div.w.list.inputs > div.w.field:last-child {
+        margin-bottom: 0;
+    }
+}

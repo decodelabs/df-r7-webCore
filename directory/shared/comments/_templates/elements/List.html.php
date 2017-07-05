@@ -7,7 +7,7 @@ if($this->getSlot('paginate', true)) {
     echo $paginator = (string)$this->html->paginator($commentList);
 }
 
-echo $this->html->list($commentList, 'ol.w-articleList', 'li > article', function($comment, $el) {
+echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', function($comment, $el) {
     $displayAsTree = $this['displayAsTree'];
     $hash = 'comment-'.$comment->getUniqueId();
     $el->setId($hash);

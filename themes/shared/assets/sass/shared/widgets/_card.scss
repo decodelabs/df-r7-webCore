@@ -1,0 +1,18 @@
+.w.card {
+    text-align: center;
+    border: 4px solid #999;
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+
+    &.active {
+        border-color: #FEFFBA;
+    }
+
+    input {
+        display: block;
+    }
+
+    button {
+        margin: 1em auto 0;
+    }
+}

@@ -1,0 +1,48 @@
+form.w {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+fieldset.w {
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5em;
+    background: #F3F3F3;
+    border: none;
+
+    > legend {
+        margin-left: 1rem;
+    }
+
+    > div.body {
+        background: #FFF;
+        padding: 1em;
+
+        > label {
+            display: block;
+        }
+    }
+
+    + div.w.button-area {
+        &:before {
+            margin-right: 1em;
+        }
+    }
+}
+
+div.w.button-area {
+    background: #DDD;
+    border-radius: 0.5em;
+    padding: 1em;
+
+    h3 {
+        margin: 0;
+    }
+
+    span.label {
+        min-width: 15rem;
+    }
+}

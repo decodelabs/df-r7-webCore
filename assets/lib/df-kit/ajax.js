@@ -387,7 +387,7 @@ define([
 
             close: function(source) {
                 var _this = this,
-                    $form = this.$element.find('.w-form:has(.w-eventButton)').first(),
+                    $form = this.$element.find('form.w:has(button.w.btn.event)').first(),
                     isComplete = this.lastResponse && this.lastResponse.isComplete,
                     deferred = $.Deferred();
 

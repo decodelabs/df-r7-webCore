@@ -1,6 +1,9 @@
 $gold: #E7D240 !default;
 
-@if $icon-font-family != false {
+$icon-font-family: Icomoon !default;
+$icon-shadow: false !default;
+
+@include exports("global/_icons") { @if $icon-font-family != false {
     @font-face {
         font-family: $icon-font-family;
         src: url('../fonts/' + $icon-font-family + '.eot?cts=');
@@ -82,4 +85,4 @@ $gold: #E7D240 !default;
             text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
         }
     }
-}
+}}

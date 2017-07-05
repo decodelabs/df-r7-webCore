@@ -1,0 +1,69 @@
+.w.flashMessage {
+    border: 1px #F4F4F4 solid;
+    margin-bottom: 1em;
+    padding: 0.4em 1em 0.4em 3em;
+    display: block !important;
+    position: relative;
+
+    &.success {
+        background: rgba(desaturate(lighten($positive-color, 55%), 20%), 0.65);
+        border-color: $positive-color;
+    }
+
+    &.error {
+        background: rgba(desaturate(lighten($error-color, 45%), 35%), 0.65);
+        border-color: $error-color;
+    }
+
+    &.info {
+        background: rgba(desaturate(lighten($informative-color, 60%), 35%), 0.65);
+        border-color: $informative-color;
+    }
+
+    &.warning {
+        background: rgba(desaturate(lighten($warning-color, 60%), 35%), 0.65);
+        border-color: $warning-color;
+    }
+
+    &.debug {
+        background: rgba(desaturate(lighten($debug-color, 60%), 35%), 0.65);
+        border-color: $debug-color;
+    }
+
+    > span[data-icon] {
+        float: left;
+        position: absolute;
+        font-size: 1.2em;
+        height: 1em;
+        left: 0.8em;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        line-height: 1;
+    }
+
+    .message {
+        margin: 0;
+        font-weight: bold;
+        line-height: 1.3;
+    }
+
+    .description {
+        font-size: 0.8em;
+        color: #777;
+        margin: 0.2em 0 0;
+    }
+}
+
+a.w.flashMessage {
+    text-decoration: none !important;
+}
+
+
+div.w.list.flash {
+    margin-bottom: 1em;
+
+    .w.flashMessage {
+        margin: 0.2em 0;
+    }
+}

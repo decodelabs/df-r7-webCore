@@ -33,7 +33,7 @@ class HttpAdd extends arch\node\Form {
 
         // Adapter
         $fs->addField($this->_('Adapter'))->push(
-            $this->html->selectList('adapter', $this->values->adapter, $this->_manager->getAvailableListAdapters())
+            $this->html->select('adapter', $this->values->adapter, $this->_manager->getAvailableListAdapters())
                 ->isRequired(true)
         );
 
@@ -82,7 +82,7 @@ class HttpAdd extends arch\node\Form {
             }
 
             $fs->addField($this->_('Primary list'))->push(
-                $this->html->selectList('primaryList', $this->values->primaryList, $lists)
+                $this->html->select('primaryList', $this->values->primaryList, $lists)
             );
         }
 

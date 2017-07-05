@@ -1,0 +1,28 @@
+a.w,
+a.block {
+    text-decoration: none;
+
+    &:link, &:visited {
+        text-decoration: none;
+    }
+
+    &:hover, &:active {
+        text-decoration: underline;
+    }
+}
+
+a.w {
+    > sup {
+        margin-left: 0.2em;
+    }
+
+    + a.w.hasIcon {
+        margin-left: 0.75em;
+    }
+}
+
+
+a.block {
+    border: 4px #F8F8F8 solid;
+    border-radius: 6px;
+}

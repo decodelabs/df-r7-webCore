@@ -1,0 +1,45 @@
+div.w.group.radio,
+div.w.group.checkbox,
+div.w.list.checkbox {
+    margin-bottom: 1em;
+    max-height: 12rem;
+    overflow-y: auto;
+    padding-left: 2px;
+    width: auto;
+    display: inline-block;
+
+    label {
+        display: block;
+        margin-bottom: 0.5em;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &.inline label {
+        display: inline-flex;
+        margin-right: 1em;
+        margin-bottom: 0;
+        overflow: visible;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+
+input.w.radio,
+input.w.checkbox {
+    margin-right: 0.6em;
+}
+
+label.w.check, input.w.check {
+    cursor: pointer;
+    align-items: center;
+}
+
+label.w.check {
+    display: inline-flex;
+}

@@ -18,156 +18,157 @@
     article, aside, figure, figcaption, footer, header, menu, nav, section, time,
     mark, audio, video, abbr, address, area, blockquote, canvas, caption, cite, code, colgroup,
     col, datalist, fieldset, main, map, meta, optgroup, output, progress {
-        background-attachment:scroll;
-        background-image:none;
-        background-repeat:repeat;
-        background-position:0 0;
-        border-color:black;
-        border-color:currentColor;
-        border-radius:0;
-        border-style:none;
-        border-width:medium;
-        bottom:auto;
-        clear:none;
-        clip:auto;
-        color:inherit;
-        counter-increment:none;
-        counter-reset:none;
-        cursor:auto;
-        direction:inherit;
-        display:inline;
-        float:none;
-        font-family: inherit;
-        font-size: inherit;
-        font-style:inherit;
-        font-variant:normal;
-        font-weight:inherit;
-        left:auto;
-        letter-spacing:normal;
-        line-height:inherit;
-        list-style-type: inherit;
-        list-style-position: outside;
-        list-style-image: none;
-        margin:0;
-        max-height:none;
-        max-width:none;
-        min-height:0;
-        min-width:0;
-        opacity:1;
-        outline:invert none medium;
-        overflow:visible;
-        padding:0;
-        position:static;
-        quotes: "" "";
-        right:auto;
-        table-layout:auto;
-        text-decoration:inherit;
-        text-indent:0;
-        text-transform:none;
-        top:auto;
-        unicode-bidi:normal;
-        vertical-align:baseline;
-        visibility:inherit;
-        white-space:normal;
-        word-spacing:normal;
-        z-index:auto;
-
-        &:not([width]) {
-            width:auto;
-        }
-
-        &:not([height]) {
-            height:auto;
-        }
-
-        &:not([align]) {
-            text-align:inherit;
-        }
-
-        &:not([bgcolor]) {
-            background-color:transparent;
-        }
+        background-attachment: scroll;
+        background-image: none;
+        background-repeat: repeat;
+        background-position: 0 0;
+        border-color: black;
+        border-color: currentColor;
+        border-radius: 0;
+        border-style: none;
+        border-width: medium;
+        bottom: auto;
+        clear: none;
+        clip: auto;
+        color: inherit;
+        counter-increment: none;
+        counter-reset: none;
+        cursor: auto;
+        direction: inherit;
+        display: inline;
+        float: none;
+        font-family:  inherit;
+        font-size:  inherit;
+        font-style: inherit;
+        font-variant: normal;
+        font-weight: inherit;
+        left: auto;
+        letter-spacing: normal;
+        line-height: inherit;
+        list-style-type:  inherit;
+        list-style-position:  outside;
+        list-style-image:  none;
+        margin: 0;
+        max-height: none;
+        max-width: none;
+        min-height: 0;
+        min-width: 0;
+        opacity: 1;
+        outline: invert none medium;
+        overflow: visible;
+        padding: 0;
+        position: static;
+        quotes:  "" "";
+        right: auto;
+        table-layout: auto;
+        text-decoration: inherit;
+        text-indent: 0;
+        text-transform: none;
+        top: auto;
+        unicode-bidi: normal;
+        vertical-align: baseline;
+        visibility: inherit;
+        white-space: normal;
+        word-spacing: normal;
+        z-index: auto;
 
         -webkit-background-origin: padding-box;
-                background-origin: padding-box;
+        background-origin: padding-box;
         -webkit-background-clip: border-box;
-                background-clip: border-box;
+        background-clip: border-box;
         -webkit-background-size: auto;
-           -moz-background-size: auto;
-                background-size: auto;
+        -moz-background-size: auto;
+        background-size: auto;
         -webkit-border-image: none;
-           -moz-border-image: none;
-             -o-border-image: none;
-                border-image: none;
-        -webkit-border-radius:0;
-           -moz-border-radius:0;
-                border-radius: 0;
+        -moz-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
         -webkit-box-shadow: none;
-                box-shadow: none;
+        box-shadow: none;
         -webkit-box-sizing: content-box;
-           -moz-box-sizing: content-box;
-                box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
         -webkit-column-count: auto;
-           -moz-column-count: auto;
-                column-count: auto;
+        -moz-column-count: auto;
+        column-count: auto;
         -webkit-column-gap: normal;
-           -moz-column-gap: normal;
-                column-gap: normal;
+        -moz-column-gap: normal;
+        column-gap: normal;
         -webkit-column-rule: medium none black;
-           -moz-column-rule: medium none black;
-                column-rule: medium none black;
+        -moz-column-rule: medium none black;
+        column-rule: medium none black;
         -webkit-column-span: 1;
-           -moz-column-span: 1;
-                column-span: 1;
+        -moz-column-span: 1;
+        column-span: 1;
         -webkit-column-width: auto;
-           -moz-column-width: auto;
-                column-width: auto;
+        -moz-column-width: auto;
+        column-width: auto;
         font-feature-settings: normal;
         overflow-x: visible;
         overflow-y: visible;
         -webkit-hyphens: manual;
-           -moz-hyphens: manual;
-                hyphens: manual;
+        -moz-hyphens: manual;
+        hyphens: manual;
         -webkit-perspective: none;
-           -moz-perspective: none;
-            -ms-perspective: none;
-             -o-perspective: none;
-                perspective: none;
+        -moz-perspective: none;
+        -ms-perspective: none;
+        -o-perspective: none;
+        perspective: none;
         -webkit-perspective-origin: 50% 50%;
-           -moz-perspective-origin: 50% 50%;
-            -ms-perspective-origin: 50% 50%;
-             -o-perspective-origin: 50% 50%;
-                perspective-origin: 50% 50%;
+        -moz-perspective-origin: 50% 50%;
+        -ms-perspective-origin: 50% 50%;
+        -o-perspective-origin: 50% 50%;
+        perspective-origin: 50% 50%;
         -webkit-backface-visibility: visible;
-           -moz-backface-visibility: visible;
-            -ms-backface-visibility: visible;
-             -o-backface-visibility: visible;
-                backface-visibility: visible;
+        -moz-backface-visibility: visible;
+        -ms-backface-visibility: visible;
+        -o-backface-visibility: visible;
+        backface-visibility: visible;
         text-shadow: none;
         -webkit-transition: all 0s ease 0s;
-                transition: all 0s ease 0s;
+        transition: all 0s ease 0s;
         -webkit-transform: none;
-           -moz-transform: none;
-            -ms-transform: none;
-             -o-transform: none;
-                transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
         -webkit-transform-origin: 50% 50%;
-           -moz-transform-origin: 50% 50%;
-            -ms-transform-origin: 50% 50%;
-             -o-transform-origin: 50% 50%;
-                transform-origin: 50% 50%;
+        -moz-transform-origin: 50% 50%;
+        -ms-transform-origin: 50% 50%;
+        -o-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
         -webkit-transform-style: flat;
-           -moz-transform-style: flat;
-            -ms-transform-style: flat;
-             -o-transform-style: flat;
-                transform-style: flat;
+        -moz-transform-style: flat;
+        -ms-transform-style: flat;
+        -o-transform-style: flat;
+        transform-style: flat;
         word-break: normal;
+
+
+        &:not([width]) {
+            width: auto;
+        }
+
+        &:not([height]) {
+            height: auto;
+        }
+
+        &:not([align]) {
+            text-align: inherit;
+        }
+
+        &:not([bgcolor]) {
+            background-color: transparent;
+        }
     }
 
 
     &, h3, h5, p, h1, dl, dt, h6, ol, form, option, pre, div, h2, caption, h4, ul, address, blockquote, dd, fieldset, hr,
     article, dialog, figure, footer, header, hgroup, menu, nav, section, audio, video, address, blockquote, colgroup, main, progress, summary {
-        display:block;
+        display: block;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -196,6 +197,8 @@
     }
     table {
         display: table;
+        border-collapse: separate;
+        border-spacing: 0;
     }
     thead {
         display: table-header-group;
@@ -226,34 +229,34 @@
         margin: 0;
     }
     nav ul, nav ol {
-        list-style-type:none;
+        list-style-type: none;
     }
     ul, menu {
-        list-style-type:disc;
+        list-style-type: disc;
     }
     ol {
-        list-style-type:decimal;
+        list-style-type: decimal;
     }
     ol ul, ul ul, menu ul, ol menu, ul menu, menu menu {
-        list-style-type:circle;
+        list-style-type: circle;
     }
     ol ol ul, ol ul ul, ol menu ul, ol ol menu, ol ul menu, ol menu menu, ul ol ul, ul ul ul, ul menu ul, ul ol menu, ul ul menu, ul menu menu, menu ol ul, menu ul ul, menu menu ul, menu ol menu, menu ul menu, menu menu menu {
-        list-style-type:square;
+        list-style-type: square;
     }
     li {
-        display:list-item;
-        min-height:auto;
-        min-width:auto;
-        padding-left: 20px;
+        display: list-item;
+        min-height: auto;
+        min-width: auto;
+        padding-left:  20px;
     }
     strong {
-        font-weight:bold;
+        font-weight: bold;
     }
     em {
-        font-style:italic;
+        font-style: italic;
     }
     kbd, samp, code, pre {
-      font-family:monospace;
+      font-family: monospace;
     }
     a {
         color: blue;
@@ -262,10 +265,13 @@
     a:visited {
         color: #529;
     }
-    a, a *, input[type=submit], input[type=radio], input[type=checkbox], select {
-        cursor:pointer;
+    a, a *,
+    input[type='submit'],
+    input[type='radio'],
+    input[type='checkbox'], select {
+        cursor: pointer;
     }
-    button, input[type=submit] {
+    button, input[type='submit'] {
         text-align: center;
         padding: 2px 6px 3px;
         border-radius: 4px;
@@ -277,13 +283,13 @@
         color: buttontext;
         border: 1px #a6a6a6 solid;
         background: lightgrey;
-        background: rgb(255,255,255);
-        background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(221,221,221,1) 100%, rgba(209,209,209,1) 100%, rgba(221,221,221,1) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(221,221,221,1)), color-stop(100%,rgba(209,209,209,1)), color-stop(100%,rgba(221,221,221,1))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%,rgba(209,209,209,1) 100%,rgba(221,221,221,1) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%,rgba(209,209,209,1) 100%,rgba(221,221,221,1) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%,rgba(209,209,209,1) 100%,rgba(221,221,221,1) 100%); /* IE10+ */
-        background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%,rgba(209,209,209,1) 100%,rgba(221,221,221,1) 100%); /* W3C */
+        background: rgb(255, 255, 255);
+        background: -moz-linear-gradient(top,  rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(221, 221, 221, 1)), color-stop(100%, rgba(209, 209, 209, 1)), color-stop(100%, rgba(221, 221, 221, 1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
         -webkit-box-shadow: 1px 1px 0px #eee;
            -moz-box-shadow: 1px 1px 0px #eee;
@@ -292,11 +298,11 @@
         outline: initial;
     }
     button {
-        padding: 1px 6px 2px 6px;
+        padding: 1px 6px 2px;
         margin-right: 5px;
     }
-    input[type=hidden] {
-        display:none;
+    input[type='hidden'] {
+        display: none;
     }
 
     textarea {
@@ -310,9 +316,11 @@
         font-family: arial, helvetica, sans-serif;
         line-height: 13px;
         resize: both;
+        overflow: auto;
+        vertical-align: top;
     }
     select, textarea, input {
-        border:1px solid #ccc;
+        border: 1px solid #ccc;
     }
     select {
         font-size: 11px;
@@ -323,73 +331,68 @@
         outline: auto 5px -webkit-focus-ring-color;
         outline: initial;
     }
-    input[type=text] {
+    input[type='text'] {
         background: white;
         padding: 1px;
         font-family: initial;
         font-size: small;
     }
-    input[type=checkbox], input[type=radio] {
+    input[type='checkbox'],
+    input[type='radio'] {
         border: 1px #2b2b2b solid;
         border-radius: 4px;
-    }
-    input[type=checkbox], input[type=radio] {
         outline: intial;
     }
-    input[type=radio] {
-        margin: 2px 2px 3px 2px;
+    input[type='radio'] {
+        margin: 2px 2px 3px;
     }
-    input[type=submit]:active, button:active {
-        background: rgb(59,103,158); /* Old browsers */
-        background: -moz-linear-gradient(top, rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(59,103,158,1)), color-stop(50%,rgba(43,136,217,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* IE10+ */
-        background: linear-gradient(to bottom, rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C */
+    input[type='submit']:active, button:active {
+        background: rgb(59, 103, 158); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(59, 103, 158, 1)), color-stop(50%, rgba(43, 136, 217, 1)), color-stop(51%, rgba(32, 124, 202, 1)), color-stop(100%, rgba(125, 185, 232, 1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* W3C */
         border-color: #5259b0;
     }
     abbr[title], acronym[title], dfn[title] {
-        cursor:help;
-        border-bottom-width:1px;
-        border-bottom-style:dotted;
+        cursor: help;
+        border-bottom-width: 1px;
+        border-bottom-style: dotted;
     }
     ins {
-        background-color:#ff9;
-        color:black;
+        background-color: #ff9;
+        color: black;
     }
     del {
         text-decoration: line-through;
     }
     blockquote, q  {
-        quotes:none;
+        quotes: none;
     }
     blockquote:before, blockquote:after, q:before, q:after, li:before, li:after  {
-        content:"";
+        content: "";
     }
     input, select {
-        vertical-align:middle;
+        vertical-align: middle;
     }
 
-    table {
-        border-collapse:separate;
-        border-spacing:0;
-    }
     hr {
-        display:block;
-        height:1px;
-        border:0;
-        border-top:1px solid #ccc;
-        margin:1em 0;
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
     }
-    *[dir=rtl] {
+    *[dir='rtl'] {
         direction: rtl;
     }
     mark {
-        background-color:#ff9;
-        color:black;
-        font-style:italic;
-        font-weight:bold;
+        background-color: #ff9;
+        color: black;
+        font-style: italic;
+        font-weight: bold;
     }
     menu {
         padding-left: 40px;
@@ -422,11 +425,7 @@
     figure {
         margin: 0;
     }
-    textarea {
-        overflow: auto;
-        vertical-align: top;
-    }
     pre {
-        white-space:pre;
+        white-space: pre;
     }
 }

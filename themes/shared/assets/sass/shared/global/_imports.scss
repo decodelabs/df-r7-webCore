@@ -1,0 +1,8 @@
+$_imported: () !default;
+
+@mixin exports($name) {
+    @if (index($_imported, $name) == null) {
+        $_imported: append($_imported, $name) !global;
+        @content;
+    }
+}

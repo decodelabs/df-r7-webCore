@@ -179,7 +179,7 @@ class CustomUploader extends arch\node\form\Delegate implements
 
         if(!$this->_isForMany) {
             if($available) {
-                yield $this->html('div.w-selected', function() use($delegate, $available) {
+                yield $this->html('div.w.list.selection', function() use($delegate, $available) {
                     if(isset($available['fileId'])) {
                         yield $this->html->hidden($this->fieldName('selected'), $available['fileId']);
 
@@ -266,7 +266,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                         ->shouldValidate(false)
                         ->addClass('remove');
                 }
-            })->addClass('w-selected');
+            })->addClass('w selection');
         }
 
         yield $this->html('div.upload', [

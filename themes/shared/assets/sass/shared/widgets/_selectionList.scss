@@ -1,0 +1,45 @@
+@import '../global/_clearfix.scss';
+
+div.w.list.selection {
+    @extend %clearfix;
+    width: 90%;
+    margin-bottom: 0.2em;
+    font-size: 0.9em;
+
+    > .body {
+        float: left;
+        width: 18em;
+        padding: 0.2em 0.5em;
+
+        select.w {
+            max-width: 100%;
+        }
+
+        > div.w.group, div.w.list {
+            display: block;
+            background: rgba(white, 0.5);
+        }
+    }
+
+    > div.w.button-area {
+        float: left;
+        margin: 0 0 0 1em;
+        background: none;
+        padding: 0;
+        width: auto;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+}
+
+
+.w.selection {
+    margin-bottom: 1rem;
+
+    .fileName, .numeric {
+        margin-right: 1em;
+    }
+}

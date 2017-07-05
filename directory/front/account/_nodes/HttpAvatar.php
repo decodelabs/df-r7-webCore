@@ -42,7 +42,7 @@ class HttpAvatar extends arch\node\Form {
             $versions = null;
         }
 
-        $form = $this->content->addForm()->addClass('stacked');
+        $form = $this->content->addForm();
         $form->setEncoding($form::ENC_MULTIPART);
         $fs = $form->addFieldSet($this->_('Update your avatar'));
 
@@ -51,7 +51,7 @@ class HttpAvatar extends arch\node\Form {
             $activeId = $this->_file['#activeVersion'];
 
             foreach($versions as $version) {
-                $fa->push($this->html('div.w-card', [
+                $fa->push($this->html('div.w.card', [
                         $this->html->tag('input', [
                             'type' => 'image',
                             'src' => $this->uri($version->getImageUrl('[cz:150|150]')),

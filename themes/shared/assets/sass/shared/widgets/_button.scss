@@ -1,0 +1,118 @@
+$button-invert: true !default;
+
+%text-button {
+    background: none;
+    border: none;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    box-shadow: none;
+}
+
+%normal-button {
+    &:not(.text) {
+        background: #F1F1F1 linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+    }
+
+    @each $name, $color in $active-colors {
+        &.#{$name} { color: $color; }
+    }
+}
+
+%inverted-button {
+    &:not(.text) {
+        color: white;
+        background: #888 linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+
+        @each $name, $color in $active-colors {
+            &.#{$name} {
+                background-color: $color;
+
+                &.contrast {
+                    background-color: darken($color, 10%);
+                }
+            }
+        }
+    }
+}
+
+.btn {
+    cursor: pointer;
+    border-radius: 0.25rem;
+    padding: 0.4rem 0.65rem;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease-in-out;
+
+    &:hover {
+        filter: brightness(103%);
+    }
+    &:active {
+        filter: brightness(95%);
+    }
+
+
+    // Button shape
+    &:not(.text) {
+        border: 1px solid rgba(black, 0.05);
+        border-right-color: rgba(black, 0.1);
+        border-bottom-color: rgba(black, 0.2);
+        box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1);
+        text-decoration: none;
+
+        &:active {
+            box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1) inset;
+        }
+    }
+
+
+    // Invert
+    @if $button-invert == true {
+        @extend %inverted-button;
+    } @else {
+        @extend %normal-button;
+    }
+
+    &.invert:not(.low) {
+        @if $button-invert == false {
+            @extend %inverted-button;
+        } @else {
+            @extend %normal-button;
+        }
+    }
+
+
+    // Text
+    &.text {
+        @extend %text-button;
+    }
+
+
+    // Icon
+    span[data-icon] {
+        margin-top: 0;
+        margin-bottom: 0;
+
+        &:before {
+            color: inherit !important;
+        }
+    }
+
+    // Disabled
+    &[disabled] {
+        cursor: default;
+        opacity: 0.65;
+        filter: none;
+    }
+
+    // Nested
+    input + & {
+        margin-left: 1em;
+    }
+
+    div.w.list.inputs & {
+        padding: 0.25rem 0.45rem;
+        font-size: 0.85em;
+    }
+}

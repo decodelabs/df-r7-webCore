@@ -1,0 +1,114 @@
+html {
+    //min-width: 580px;
+}
+
+body {
+    background: #EEE;
+
+    &[data-location^="~admin/"] {
+        background: #E7DDD6;
+    }
+
+    &[data-location^="~front/"] {
+        background: #E4E7D8;
+    }
+
+    &[data-location^="~devtools/"] {
+        background: #CBE3E7;
+    }
+
+    &[data-location^="~mail/"] {
+        background: #E4E4C9;
+    }
+
+    &[data-location^="~ui/"] {
+        background: #E4C8E6;
+    }
+
+    &[data-layout="Blank"] {
+        background: #FFF !important;
+    }
+}
+
+
+header h1 {
+    font-size: 3em;
+    margin: 0 0 0.2em;
+    font-weight: normal;
+}
+
+
+
+div.layout-pageArea {
+    margin: 2em;
+    background: #FFF;
+    min-height: 500px;
+    padding: 1em;
+    border-radius: 0.6em;
+
+    .layout-header {
+        @extend %clearfix;
+        margin-bottom: 1em;
+    }
+
+    .layout-contentArea {
+        @extend %clearfix;
+        min-height: 50vh;
+    }
+
+    > header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        > h1 {
+            float: left;
+        }
+
+        nav.user {
+            margin-left: auto;
+            float: right;
+        }
+
+        @media only screen and (max-width: 650px) {
+            display: block;
+
+            > h1 {
+                float: none;
+            }
+
+            nav.user {
+                float: none;
+                margin-left: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+
+        nav.breadcrumbs {
+            clear: both;
+            flex-shrink: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    > footer {
+        margin: 2.5em 0 0;
+
+        > nav.menu.bar {
+            margin-bottom: 0;
+            border: 0.2rem solid #EEE;
+            border-radius: 0.4rem;
+        }
+    }
+}
+
+
+
+// Breadcrumbs
+nav.breadcrumbs {
+    padding: 0.4em;
+    border-radius: 8px;
+    background: #F4F4F4;
+}

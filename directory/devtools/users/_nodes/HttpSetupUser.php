@@ -71,13 +71,13 @@ class HttpSetupUser extends arch\node\Form {
 
         // Country
         $fs->addField('Country')->push(
-            $this->html->selectList('country', $this->values->country, $this->i18n->countries->getList())
+            $this->html->select('country', $this->values->country, $this->i18n->countries->getList())
                 ->isRequired(true)
         );
 
         // Language
         $fs->addField('Language')->push(
-            $this->html->selectList('language', $this->values->language, $this->i18n->languages->getList())
+            $this->html->select('language', $this->values->language, $this->i18n->languages->getList())
                 ->isRequired(true)
         );
 

@@ -1,0 +1,17 @@
+nav.menu {
+
+    &.list {
+        border: 4px #F4F4F4 solid;
+        border-radius: 8px;
+        padding: 0.5em;
+    }
+
+    &.bar + h2 {
+        margin-top: -0.5em;
+        border: 4px #F4F4F4 solid;
+        margin-bottom: 1em;
+        padding: 0.1em 0.3em;
+        border-radius: 8px;
+        font-size: 1.5em;
+    }
+}

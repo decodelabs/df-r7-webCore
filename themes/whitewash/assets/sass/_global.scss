@@ -1,0 +1,226 @@
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5em;
+    font-weight: normal;
+}
+
+* + h1,
+* + h2,
+* + h3,
+* + h4,
+* + h5,
+* + h6 {
+    margin: 1em 0 0.2em;
+}
+
+article + article {
+    margin-top: 1em;
+}
+
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 0.2em;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+h3 {
+    background: #FAFAFA;
+    font-size: 1.5em;
+    padding: 0.2em 0.3em;
+    border-radius: 0.3em;
+}
+
+
+a {
+    &:link,
+    &:visited {
+        color: #575757;
+        text-decoration: none;
+    }
+
+    &:hover,
+    &:active {
+        color: #737373;
+        text-decoration: underline;
+    }
+
+    &.positive {
+        &:link, &:visited {
+            color: $positive-color;
+        }
+        &:hover, &:active {
+            color: lighten($positive-color, 10%);
+        }
+    }
+
+    &.negative {
+        &:link, &:visited {
+            color: $negative-color;
+        }
+        &:hover, &:active {
+            color: lighten($negative-color, 10%);
+        }
+    }
+
+    &.informative {
+        &:link, &:visited {
+            color: $informative-color;
+        }
+        &:hover, &:active {
+            color: lighten($informative-color, 10%);
+        }
+    }
+
+    &.operative {
+        &:link, &:visited {
+            color: $operative-color;
+        }
+        &:hover, &:active {
+            color: lighten($operative-color, 10%);
+        }
+    }
+
+    &.transitive {
+        &:link, &:visited {
+            color: $transitive-color;
+        }
+        &:hover, &:active {
+            color: lighten($transitive-color, 10%);
+        }
+    }
+
+    &.external {
+        &:link, &:visited {
+            color: $external-color;
+        }
+        &:hover, &:active {
+            color: lighten($external-color, 10%);
+        }
+    }
+
+    &.na {
+        &:link, &:visited {
+            color: $disabled-color;
+        }
+        &:hover, &:active {
+            color: lighten($disabled-color, 10%);
+        }
+    }
+
+    &.error {
+        &:link, &:visited {
+            color: $error-color;
+        }
+        &:hover, &:active {
+            color: lighten($error-color, 10%);
+        }
+    }
+
+    &.success {
+        &:link, &:visited {
+            color: $positive-color;
+        }
+        &:hover, &:active {
+            color: lighten($positive-color, 10%);
+        }
+    }
+
+    &.info {
+        &:link, &:visited {
+            color: $informative-color;
+        }
+        &:hover, &:active {
+            color: lighten($informative-color, 10%);
+        }
+    }
+
+    &.warning {
+        &:link, &:visited {
+            color: $warning-color;
+        }
+        &:hover, &:active {
+            color: lighten($warning-color, 10%);
+        }
+    }
+
+    &.debug {
+        &:link, &:visited {
+            color: $debug-color;
+        }
+        &:hover, &:active {
+            color: lighten($debug-color, 10%);
+        }
+    }
+
+    &.locked {
+        &:link, &:visited {
+            color: $warning-color;
+        }
+        &:hover, &:active {
+            color: lighten($warning-color, 10%);
+        }
+    }
+
+    &.unlocked {
+        &:link, &:visited {
+            color: $positive-color;
+        }
+        &:hover, &:active {
+            color: lighten($positive-color, 10%);
+        }
+    }
+}
+
+
+
+em, i {
+    font-style: italic;
+}
+
+strong, b {
+    font-weight: bold;
+}
+
+dl {
+    @extend %clearfix;
+
+    dt {
+        width: 10em;
+        float: left;
+        clear: left;
+        font-weight: bold;
+    }
+
+    dt:after {
+        content: ':';
+    }
+
+    dd {
+        float: left;
+        margin-bottom: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+th {
+    font-weight: bold;
+    text-align: left;
+}
+
+th a {
+    text-decoration: none;
+}
+
+
+code, pre {
+    font-family: $monospace;
+    font-size: 0.9em;
+    white-space: pre-wrap;
+}
+
+section {
+    margin-bottom: 1em;
+}

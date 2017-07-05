@@ -1,0 +1,13 @@
+fieldset.w {
+    margin-bottom: 1rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    + div.w.button-area {
+        margin-top: 2em;
+
+
+    }
+}

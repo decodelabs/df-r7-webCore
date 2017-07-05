@@ -46,7 +46,7 @@ class HttpMaxMindDb extends arch\node\Form {
 
         // Enabled
         $fs->addField($this->_('Geo IP usage'))->push(
-            $this->html->radioButtonGroup('isEnabled', $this->values->isEnabled, [
+            $this->html->radioGroup('isEnabled', $this->values->isEnabled, [
                     '1' => $this->_('Enabled'),
                     '0' => $this->_('Disabled')
                 ])
@@ -68,7 +68,7 @@ class HttpMaxMindDb extends arch\node\Form {
             ), 'warning');
         } else {
             $fa->push(
-                $this->html->selectList('file', $this->values->file, $fileList)
+                $this->html->select('file', $this->values->file, $fileList)
                     ->isRequired(true)
             );
         }

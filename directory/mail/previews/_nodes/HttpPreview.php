@@ -53,7 +53,7 @@ class HttpPreview extends arch\node\Form {
 
 
         $fs->addField($this->_('Transport'))->push(
-            $this->html->radioButtonGroup('transport', $this->values->transport, $transportList)
+            $this->html->radioGroup('transport', $this->values->transport, $transportList)
                 ->isRequired(true)
         );
 

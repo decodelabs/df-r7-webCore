@@ -53,7 +53,7 @@ class HttpTransfer extends arch\node\Form {
         }
 
         $fa->push(
-            $this->html->selectList('to', $this->values->to, $handlerList)
+            $this->html->select('to', $this->values->to, $handlerList)
                 ->setNoSelectionLabel(null)
                 ->isRequired(true)
         );
