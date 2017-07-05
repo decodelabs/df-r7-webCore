@@ -1,4 +1,5 @@
 $button-invert: true !default;
+$button-default-color: #888 !default;
 
 %text-button {
     background: none;
@@ -21,7 +22,7 @@ $button-invert: true !default;
 %inverted-button {
     &:not(.text) {
         color: white;
-        background: #888 linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
+        background: $button-default-color linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
 
         @each $name, $color in $active-colors {
             &.#{$name} {
