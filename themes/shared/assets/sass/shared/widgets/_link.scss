@@ -1,3 +1,18 @@
+a {
+    transition: filter 0.2s ease-in-out;
+
+    @each $name, $color in $active-colors {
+        &.#{$name} { color: $color; }
+    }
+
+    &:hover {
+        filter: brightness(105%);
+    }
+    &:active {
+        filter: brightness(95%);
+    }
+}
+
 a.block {
     display: inline-block;
     padding: 0.4em;
