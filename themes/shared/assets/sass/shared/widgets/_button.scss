@@ -9,6 +9,10 @@ $button-shadow: true !default;
     padding-left: 0.1rem;
     padding-right: 0.1rem;
     box-shadow: none;
+
+    @each $name, $color in $active-colors {
+        &.#{$name} { color: $color; }
+    }
 }
 
 %normal-button {
