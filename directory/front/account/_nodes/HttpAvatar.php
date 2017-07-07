@@ -51,7 +51,7 @@ class HttpAvatar extends arch\node\Form {
             $activeId = $this->_file['#activeVersion'];
 
             foreach($versions as $version) {
-                $fa->push($this->html('div.w.card', [
+                $fa->push($this->html('div.w.card.avatar', [
                         $this->html->tag('input', [
                             'type' => 'image',
                             'src' => $this->uri($version->getImageUrl('[cz:150|150]')),
