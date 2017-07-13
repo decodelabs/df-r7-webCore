@@ -1,5 +1,9 @@
+@import "../global/_contrastBetween.scss";
+
 $button-invert: true !default;
 $button-default-color: #888 !default;
+$button-light-color: white !default;
+$button-dark-color: #444 !default;
 $button-3d: true !default;
 $button-shadow: true !default;
 
@@ -35,11 +39,12 @@ $button-shadow: true !default;
             background: linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
         }
 
-        color: white;
+        color: contrast-between($button-default-color, $button-light-color, $button-dark-color);
         background-color: $button-default-color;
 
         @each $name, $color in $active-colors {
             &.#{$name} {
+                color: contrast-between($color, $button-light-color, $button-dark-color);
                 background-color: $color;
 
                 &.contrast {

@@ -1,0 +1,11 @@
+@function contrast-between($color, $light: #FFF, $dark: #000) {
+    @if(lightness($color) > 50) {
+        @if($dark != null) {
+            @return $dark;
+        }
+    } @else {
+        @if($light != null) {
+            @return $light;
+        }
+    }
+}
