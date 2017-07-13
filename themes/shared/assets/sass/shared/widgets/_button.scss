@@ -39,12 +39,12 @@ $button-shadow: true !default;
             background: linear-gradient(rgba(white, 0.16), transparent, rgba(black, 0.03));
         }
 
-        color: contrast-between($button-default-color, $button-light-color, $button-dark-color);
+        color: contrast-between($button-default-color, $button-light-color, $button-dark-color, 75);
         background-color: $button-default-color;
 
         @each $name, $color in $active-colors {
             &.#{$name} {
-                color: contrast-between($color, $button-light-color, $button-dark-color);
+                color: contrast-between($color, $button-light-color, $button-dark-color, 75);
                 background-color: $color;
 
                 &.contrast {

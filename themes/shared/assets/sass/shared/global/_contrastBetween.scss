@@ -1,5 +1,5 @@
-@function contrast-between($color, $light: #FFF, $dark: #000) {
-    @if(lightness($color) > 50) {
+@function contrast-between($color, $light: #FFF, $dark: #000, $ratio: 65) {
+    @if(lightness($color) > $ratio) {
         @if($dark != null) {
             @return $dark;
         }
