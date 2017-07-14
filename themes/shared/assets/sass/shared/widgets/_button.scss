@@ -126,8 +126,7 @@ $button-shadow: true !default;
     // Disabled
     &[disabled] {
         cursor: default;
-        opacity: 0.65;
-        filter: none;
+        filter: grayscale(100%) opacity(65%);
     }
 
     // Nested
