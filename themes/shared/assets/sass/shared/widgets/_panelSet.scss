@@ -1,19 +1,17 @@
-div.w.panelSet {
-    width: 100%;
-    display: table;
+div.w.list.panels {
+    //width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: stretch;
+    margin: 0 -0.5rem;
 
     > article.w.panel {
-        display: table-cell;
-        vertical-align: top;
-        padding: 0 0.5em;
+        margin: 0;
+        padding: 0.5rem;
         box-sizing: border-box;
-
-        &:first-child {
-            padding-left: 0;
-        }
-        &:last-child {
-            padding-right: 0;
-        }
+        flex: 1 1 auto;
+        min-width: 25rem;
 
         div.w.list.attributes {
             display: block;

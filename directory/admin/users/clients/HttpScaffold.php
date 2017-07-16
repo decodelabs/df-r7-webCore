@@ -65,8 +65,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 // Sections
     public function renderDetailsSectionBody($client) {
         return $this->html->panelSet()
-            ->addPanel('details', 50, parent::renderDetailsSectionBody($client))
-            ->addPanel('avatar', 50, [
+            ->addPanel(parent::renderDetailsSectionBody($client))
+            ->addPanel([
                 $this->html->image(
                     $this->avatar->getAvatarUrl($client['id'], 400),
                     'Avatar'

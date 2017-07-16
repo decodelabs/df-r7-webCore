@@ -53,8 +53,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 // Sections
     public function renderDetailsSectionBody($file) {
         return $this->html->panelSet()
-            ->addPanel('attributes', 50, parent::renderDetailsSectionBody($file))
-            ->addPanel('image', 50, function() use($file) {
+            ->addPanel(parent::renderDetailsSectionBody($file))
+            ->addPanel(function() use($file) {
                 if(false !== strpos($file['activeVersion']['contentType'], 'image/')) {
                     $image = $this->html->image($file->getImageUrl('[rs:380|380|f]'));
 

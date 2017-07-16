@@ -87,11 +87,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 ), 'warning'),
 
             $this->html->panelSet()
-                ->addPanel('details', 50, [
+                ->addPanel([
                     $this->html('h3', $this->_('Log')),
                     parent::renderDetailsSectionBody($log)
                 ])
-                ->addPanel('error', 50, function() use($log) {
+                ->addPanel(function() use($log) {
                     return [
                         $this->html('h3', [
                             $this->apex->component('../ErrorLink', $log['error'], $this->_('Error'))
