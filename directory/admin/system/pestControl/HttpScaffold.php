@@ -100,7 +100,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
 
     protected function _getRouter() {
         if(!$this->_router) {
-            $this->_router = core\application\http\Router::getInstance();
+            $this->_router = core\app\runner\http\Router::getInstance();
         }
 
         return $this->_router;

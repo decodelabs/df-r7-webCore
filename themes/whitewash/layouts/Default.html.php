@@ -1,6 +1,6 @@
 <div class="layout-pageArea floated">
     <header class="layout-header">
-        <h1><?php echo $this->html->link('/', $this->application->getName()); ?></h1>
+        <h1><?php echo $this->html->link('/', $this->app->getName()); ?></h1>
 
         <?php
         echo $this->html('nav.user', function() {
@@ -53,7 +53,7 @@
                 ->isActive($this->context->request->isArea('devtools'))
                 ->shouldHideIfInaccessible(true)
         )
-        ->chainIf(!$this->context->application->isProduction(), function($menu) {
+        ->chainIf(!$this->context->app->isProduction(), function($menu) {
             $menu->addLinks(
                 $this->html->link('~ui/', $this->_('UI testing'))
                     ->setIcon('theme')

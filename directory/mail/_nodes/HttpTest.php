@@ -204,7 +204,7 @@ class HttpTest extends arch\node\Form {
             $this->setStore('type', $validator['type']);
 
             if($validator['type'] == 'custom' && !strlen($this->values['subject'])) {
-                $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->application->getName()]);
+                $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->app->getName()]);
             }
         }
     }

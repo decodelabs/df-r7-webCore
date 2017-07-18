@@ -2,12 +2,12 @@
 if($user->isNew()) {
     echo $this->html('h4', [
         'You have a new account on ',
-        $this->application->getName()
+        $this->app->getName()
     ]);
 } else {
     echo $this->html('h4', [
         'Your email address has recently changed on ',
-        $this->application->getName()
+        $this->app->getName()
     ]);
 }
 

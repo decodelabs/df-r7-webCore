@@ -1,13 +1,13 @@
 <?php
 $this->view->setSubject($this->_(
     'Come and join us at %n%',
-    ['%n%' => $this->context->application->getName()]
+    ['%n%' => $this->app->getName()]
 ));
 
 echo $this->html('p', [
     $this->html('strong', $invite['owner']->getFullName()),
     ' has invited you to become a member at ',
-    $this->html('strong', $this->application->getName())
+    $this->html('strong', $this->app->getName())
 ]);
 
 if($message = $invite['message']) {

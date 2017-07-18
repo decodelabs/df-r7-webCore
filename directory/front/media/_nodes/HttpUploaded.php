@@ -17,7 +17,7 @@ class HttpUploaded extends arch\node\Base {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        $path = $this->application->getLocalStoragePath().'/upload';
+        $path = $this->app->getLocalDataPath().'/upload';
         $path .= core\uri\Path::normalizeLocal(
             '/'.flex\Guid::factory($this->request['id']).
             '/'.str_replace('/', '_', $this->request['file'])

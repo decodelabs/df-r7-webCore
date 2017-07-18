@@ -60,7 +60,7 @@ class HttpSend extends arch\node\Form {
         $fs->addField($this->_('Registration groups'))->push($this['groups']);
 
         // Force send
-        if(!$this->application->isProduction()) {
+        if(!$this->app->isProduction()) {
             $fs->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'

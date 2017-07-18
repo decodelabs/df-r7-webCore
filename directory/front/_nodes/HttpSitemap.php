@@ -18,12 +18,12 @@ class HttpSitemap extends arch\node\Base {
     }
 
     public function executeAsXml() {
-        if($this->application->isDevelopment()) {
+        if($this->app->isDevelopment()) {
             $xml = $this->_generateXml();
             return $this->http->stringResponse($xml->toString(), 'application/xml');
         }
 
-        $path = $this->application->getLocalStoragePath().'/sitemap/'.$this->application->getEnvironmentMode().'.xml';
+        $path = $this->app->getLocalDataPath().'/sitemap/'.$this->app->envMode.'.xml';
         $rebuild = false;
         $file = new core\fs\File($path);
 

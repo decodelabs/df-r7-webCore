@@ -11,7 +11,7 @@ echo $this->html('p', [
     ' of ',
     $request['companyName'],
     ' has asked to become a member at ',
-    $this->html('strong', $this->application->getName())
+    $this->html('strong', $this->app->getName())
 ]);
 
 if($message = $request['message']) {

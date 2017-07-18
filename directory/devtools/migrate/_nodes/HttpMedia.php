@@ -55,7 +55,7 @@ class HttpMedia extends arch\node\RestApi {
     }
 
     public function authorizeRequest() {
-        $key = $this->data->hexHash($this->application->getPassKey());
+        $key = $this->data->hexHash($this->app->getPassKey());
 
         if($key != $this->request['key']) {
             throw core\Error::{'EForbidden,EValue'}([

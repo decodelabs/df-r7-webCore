@@ -26,7 +26,7 @@ class HttpRestoreBackup extends arch\node\ConfirmForm {
             ]);
         }
 
-        $this->_file = $this->application->getSharedStoragePath().'/backup/'.$fileName;
+        $this->_file = $this->app->getSharedDataPath().'/backup/'.$fileName;
 
         if(!is_file($this->_file)) {
             throw core\Error::{'ENotFound'}([

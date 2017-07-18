@@ -16,7 +16,7 @@ class HttpBackups extends arch\node\Base {
 
     public function execute() {
         $view = $this->apex->view('Backups.html');
-        $dir = new core\fs\Dir($this->application->getSharedStoragePath().'/backup/');
+        $dir = new core\fs\Dir($this->app->getSharedDataPath().'/backup/');
 
         $backups = $dir->listFileNames(function($name) {
             return preg_match('/^axis\-[0-9]+\.tar$/i', $name);

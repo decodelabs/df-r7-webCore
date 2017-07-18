@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpRootNodeRouter extends core\application\http\RootNodeRouter {
+class HttpRootNodeRouter extends core\app\runner\http\RootNodeRouter {
 
     protected $_matches = [
         '/^(apple-)?touch-icon(.+)?\.png/' => 'appleTouchIcon'

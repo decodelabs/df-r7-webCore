@@ -1,7 +1,7 @@
 <?php
 echo $this->html('h4', [
     'A password reset link was recently requested on ',
-    $this->application->getName()
+    $this->app->getName()
 ]);
 
 echo $this->html('p',

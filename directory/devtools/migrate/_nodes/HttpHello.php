@@ -24,13 +24,13 @@ class HttpHello extends arch\node\RestApi {
         }
 
         return [
-            'baseUrl' => $this->application->getRouter()->getBaseUrl(),
+            'baseUrl' => $this->runner->getRouter()->getBaseUrl(),
             'nodes' => $nodes
         ];
     }
 
     public function authorizeRequest() {
-        $key = $this->data->hexHash($this->application->getPassKey());
+        $key = $this->data->hexHash($this->app->getPassKey());
 
         if($key != $this->request['key']) {
             throw core\Error::{'EForbidden,EValue'}([

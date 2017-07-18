@@ -18,8 +18,8 @@ class HttpDefault extends arch\node\Base {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        if(!$exception = $this->application->getDispatchException()) {
-            if($this->application->isDevelopment()) {
+        if(!$exception = $this->runner->getDispatchException()) {
+            if($this->app->isDevelopment()) {
                 $exception = new \Exception('Testing...', 401);
             } else {
                 $this->logs->logAccessError(403, $this->request, 'You shouldn\'t be here');
@@ -33,7 +33,7 @@ class HttpDefault extends arch\node\Base {
             $code = $exception->getCode();
         }
 
-        $lastRequest = $this->application->getDispatchRequest();
+        $lastRequest = $this->runner->getDispatchRequest();
 
         if(!link\http\response\HeaderCollection::isValidStatusCode($code)
         || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
@@ -44,7 +44,7 @@ class HttpDefault extends arch\node\Base {
             $client = $this->user->client;
             $redirectRequest = null;
 
-            if($this->application->getRouter()->isBaseRoot()) {
+            if($this->runner->getRouter()->isBaseRoot()) {
                 if(!$client->isLoggedIn()) {
                     $redirectRequest = arch\Request::factory('account/login');
                 } else if(!$client->isConfirmed()) {
@@ -102,8 +102,8 @@ class HttpDefault extends arch\node\Base {
             }
         }
 
-        $isDevelopment = $this->application->isDevelopment();
-        $isTesting = $this->application->isTesting();
+        $isDevelopment = $this->app->isDevelopment();
+        $isTesting = $this->app->isTesting();
 
         try {
             $isAdmin = $this->user->isA('developer');
@@ -148,7 +148,7 @@ class HttpDefault extends arch\node\Base {
         }
 
         if($code == 404 || $code == 500) {
-            $this->application->getResponseAugmentor()->setStatusCode($code);
+            $this->runner->getResponseAugmentor()->setStatusCode($code);
         }
 
         $view['code'] = $code;

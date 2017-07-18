@@ -31,7 +31,7 @@ class HttpDebugMode extends arch\node\ConfirmForm {
     }
 
     protected function apply() {
-        $augmentor = $this->application->getResponseAugmentor();
+        $augmentor = $this->runner->getResponseAugmentor();
         $cookie = $augmentor->newCookie('debug', '1', null, true);
 
         if($this->_isEnabled) {

@@ -7,7 +7,7 @@ $this->view->setSubject($this->_(
 echo $this->html('p', [
     $this->html('strong', $user['fullName']),
     '  has decided to deactivate their account on ',
-    $this->application->getName(),
+    $this->app->getName(),
     '.'
 ]);
 

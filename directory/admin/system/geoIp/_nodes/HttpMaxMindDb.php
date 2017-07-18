@@ -122,7 +122,7 @@ class HttpMaxMindDb extends arch\node\Form {
 
     protected function _getFileList() {
         $output = [];
-        $dir = new core\fs\Dir($this->application->getLocalStoragePath().'/geoIp/');
+        $dir = new core\fs\Dir($this->app->getLocalDataPath().'/geoIp/');
 
         foreach($dir->scanFiles() as $name => $file) {
             if(substr($name, -5) != '.mmdb') {
@@ -139,7 +139,7 @@ class HttpMaxMindDb extends arch\node\Form {
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAllowedExtensions(['mmdb', 'gz']);
         $targetPath = null;
-        $path = $this->application->getLocalStoragePath().'/geoIp';
+        $path = $this->app->getLocalDataPath().'/geoIp';
 
         if(count($uploadHandler)) {
             foreach($uploadHandler as $file) {
@@ -177,7 +177,7 @@ class HttpMaxMindDb extends arch\node\Form {
 
     protected function _fetchUrl($url) {
         $fileName = basename($url);
-        $path = $this->application->getLocalStoragePath().'/geoIp';
+        $path = $this->app->getLocalDataPath().'/geoIp';
         core\fs\Dir::create($path);
 
         if(is_file($path.'/'.substr($fileName, 0, -3))) {

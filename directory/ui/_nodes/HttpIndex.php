@@ -15,7 +15,7 @@ class HttpIndex extends arch\node\Base {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml() {
-        if($this->application->isProduction()) {
+        if($this->app->isProduction()) {
             throw core\Error::{'EForbidden'}([
                 'message' => 'Dev mode only',
                 'http' => 403

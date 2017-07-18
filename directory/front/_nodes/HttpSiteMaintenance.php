@@ -15,7 +15,7 @@ class HttpSiteMaintenance extends arch\node\Base {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute() {
-        if(!df\Launchpad::$isMaintenance) {
+        if(!df\Launchpad::$app->isMaintenance) {
             return $this->http->defaultRedirect();
         }
 

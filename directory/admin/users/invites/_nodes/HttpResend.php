@@ -51,7 +51,7 @@ class HttpResend extends arch\node\ConfirmForm {
 
 
         // Force send
-        if(!$this->application->isProduction()) {
+        if(!$this->app->isProduction()) {
             $container->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'
