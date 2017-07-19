@@ -24,6 +24,12 @@ div.w.list.checkbox {
         overflow: visible;
     }
 
+    &.open {
+        max-height: none;
+        display: block;
+        max-width: 20rem;
+    }
+
     &:last-child {
         margin-bottom: 0;
     }
