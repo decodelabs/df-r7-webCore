@@ -12,7 +12,7 @@ use df\user;
 use df\flow;
 use df\flex;
 
-class Unit extends axis\unit\table\Base {
+class Unit extends axis\unit\Table {
 
     const INVITE_OPTION = 'invite.allowance';
 

@@ -11,7 +11,7 @@ use df\apex;
 use df\axis;
 use df\mesh;
 
-class Unit extends axis\unit\table\Base {
+class Unit extends axis\unit\Table {
 
     const ORDERABLE_FIELDS = [
         'title', 'date', 'owner', 'isLive'
