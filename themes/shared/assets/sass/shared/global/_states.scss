@@ -19,7 +19,7 @@
     .disabled {
         color: $disabled-color;
         opacity: 0.7;
-        filter: grayscale(100%);
+        filter: grayscale(100%) !important;
     }
 
     a.disabled {
