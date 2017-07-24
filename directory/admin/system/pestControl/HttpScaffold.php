@@ -63,11 +63,21 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
             switch($item['mode']) {
                 case 'Http':
                     $router = $this->_getRouter();
-                    $request = new arch\Request($request);
-                    $output = $router->routeIn($request);
-                    unset($output->query->rf, $output->query->rt);
+
+                    if(preg_match('/^http(s)?:/', $request)) {
+                        $url = new df\link\http\Url($request);
+                    } else {
+                        $baseUrl = (string)$router->getBaseUrl();
+                        $url = new df\link\http\Url($baseUrl.$request);
+                    }
+
+                    $output = $router->urlToRequest($url);
+                    unset(
+                        $output->query->rf, $output->query->rt,
+                        $url->query->rf, $url->query->rt
+                    );
+
                     $title = $output->toReadableString();
-                    $url = $router->requestToUrl($request);
                     $output = (string)$request;
                     break;
 
@@ -94,7 +104,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                     ->setTarget('_blank');
             }
 
-            return $output;
+            yield $output;
         });
     }
 
