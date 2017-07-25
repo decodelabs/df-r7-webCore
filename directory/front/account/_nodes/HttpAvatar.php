@@ -21,6 +21,10 @@ class HttpAvatar extends arch\node\Form {
         $this->_file = $this->data->media->fetchSingleUserFile($this->user->client->getId(), 'Avatar');
     }
 
+    protected function getInstanceId() {
+        return null;
+    }
+
     public function getFile() {
         return $this->_file;
     }

@@ -77,6 +77,10 @@ class HttpResetPassword extends arch\node\Form {
         );
     }
 
+    protected function getInstanceId() {
+        return null;
+    }
+
     public function getKey() {
         return $this->_key;
     }

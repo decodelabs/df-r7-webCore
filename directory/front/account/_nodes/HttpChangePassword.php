@@ -34,6 +34,10 @@ class HttpChangePassword extends arch\node\Form {
         );
     }
 
+    protected function getInstanceId() {
+        return null;
+    }
+
     public function getAuth() {
         return $this->_auth;
     }

@@ -21,6 +21,10 @@ class HttpDeactivate extends arch\node\Form {
         $this->_deactivation = $this->data->newRecord('axis://user/ClientDeactivation');
     }
 
+    protected function getInstanceId() {
+        return null;
+    }
+    
     protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('You really want to leave?'));

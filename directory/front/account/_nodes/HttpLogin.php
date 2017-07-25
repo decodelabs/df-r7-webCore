@@ -60,6 +60,10 @@ class HttpLogin extends arch\node\Form {
         }
     }
 
+    protected function getInstanceId() {
+        return null;
+    }
+
     public function getAdapter() {
         return $this->_adapter;
     }

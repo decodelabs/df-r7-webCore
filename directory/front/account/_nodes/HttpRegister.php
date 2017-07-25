@@ -58,7 +58,7 @@ class HttpRegister extends arch\node\Form {
             return $this->_invite['key'];
         }
 
-        return parent::getInstanceId();
+        return null;
     }
 
     protected function loadDelegates() {

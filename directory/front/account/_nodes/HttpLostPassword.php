@@ -22,6 +22,10 @@ class HttpLostPassword extends arch\node\Form {
         }
     }
 
+    protected function getInstanceId() {
+        return null;
+    }
+
     protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Password recovery'));
