@@ -30,29 +30,32 @@ class HttpUploaded extends arch\node\Base {
             ]);
         }
 
-        $contentType = null;
         $fileName = basename($path);
+        $type = core\fs\Type::fileToMime($path);
+        $hasTransform = isset($this->request['transform']);
 
-        if(isset($this->request['transform'])) {
-            $fileStore = neon\raster\FileStore::getInstance();
-            $info = $fileStore->getTransformationFileInfo($path, $this->request['transform']);
-            $path = $info['path'];
-            $contentType = $info['type'];
+        if($hasTransform && substr($type, 0, 6) == 'image/') {
+            $descriptor = new neon\raster\Descriptor($path, $type);
+
+            if($hasTransform) {
+                $descriptor->applyTransformation($this->request['transform']);
+            }
+
+            $path = $descriptor->getLocation();
+            $type = $descriptor->getContentType();
+            $fileName = $descriptor->getFileName();
         }
+
 
         $output = $this->http->fileResponse($path)
-            ->setFileName($fileName);
-
-        if($contentType) {
-            $output->setContentType($contentType);
-        }
+            ->setFileName($fileName)
+            ->setContentType($type);
 
         $output->getHeaders()
             ->set('Access-Control-Allow-Origin', '*')
             ->setCacheAccess('public')
             ->canStoreCache(true)
             ->setCacheExpiration('+10 minutes');
-
 
         return $output;
     }

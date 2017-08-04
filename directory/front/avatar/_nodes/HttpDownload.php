@@ -39,17 +39,15 @@ class HttpDownload extends arch\node\Base {
                 ]);
             }
 
+            $descriptor = new neon\raster\Descriptor($absolutePath, $type);
+
             if(isset($this->request['size'])) {
-                $fileStore = neon\raster\FileStore::getInstance();
-                $info = $fileStore->getTransformationFileInfo($absolutePath, '[rs:'.$size.'|'.$size.']');
-                $absolutePath = $info['path'];
-                $type = $info['type'];
+                $descriptor->applyTransformation('[rs:'.$size.'|'.$size.']');
             }
 
-            $output = $this->http->fileResponse($absolutePath);
-            $output->setContentType($type);
-
-            return $output;
+            return $this->http->fileResponse($descriptor->getLocation())
+                ->setFileName($descriptor->getFileName())
+                ->setContentType($descriptor->getContentType());
         } else {
             try {
                 $version = $this->data->media->fetchSingleUserVersionForDownload($id, 'Avatar');

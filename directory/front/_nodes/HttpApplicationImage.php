@@ -36,16 +36,18 @@ class HttpApplicationImage extends arch\node\Base {
             ]);
         }
 
+        $descriptor = (new neon\raster\Descriptor($absPath, $type))
+            ->setFileName($this->http->request->url->path->getFileName())
+            ->shouldIncludeTransformationInFileName(false);
+
         if(isset($this->request['width'])) {
             $width = $this->request['width'];
             $height = $this->request->query->get('height', $width);
-            $fileStore = neon\raster\FileStore::getInstance();
-            $info = $fileStore->getTransformationFileInfo($absPath, '[rs:'.$width.'|'.$height.']');
-            $absPath = $info['path'];
-            $type = $info['type'];
+            $descriptor->applyTransformation('[rs:'.$width.'|'.$height.']');
         }
 
-        return $this->http->fileResponse($absPath)
-            ->setContentType($type);
+        return $this->http->fileResponse($descriptor->getLocation())
+            ->setFileName($descriptor->getFileName())
+            ->setContentType($descriptor->getContentType());
     }
 }

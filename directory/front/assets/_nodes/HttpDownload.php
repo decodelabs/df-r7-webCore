@@ -26,34 +26,27 @@ class HttpDownload extends arch\node\Base {
             ]);
         }
 
-        $type = null;
         $fileName = basename($absolutePath);
+        $type = core\fs\Type::fileToMime($absolutePath);
 
         $hasTransform = isset($this->request['transform']);
         $hasFavicon = isset($this->request['favicon']);
 
-        if($hasTransform || $hasFavicon) {
-            $type = core\fs\Type::fileToMime($absolutePath);
+        if(($hasTransform || $hasFavicon) && substr($type, 0, 6) == 'image/') {
+            $descriptor = new neon\raster\Descriptor($absolutePath, $type);
 
-            if(substr($type, 0, 6) == 'image/') {
-                $fileStore = neon\raster\FileStore::getInstance();
-
-                if($hasTransform) {
-                    $info = $fileStore->getTransformationFileInfo($absolutePath, $this->request['transform']);
-                    $absolutePath = $info['path'];
-                    $type = $info['type'];
-                }
-
-                if($type != 'image/x-icon' && $hasFavicon) {
-                    if(preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', $this->http->getUserAgent())) {
-                        $absolutePath = $fileStore->getIconFilePath($absolutePath, 16, 32);
-                        $type = 'image/x-icon';
-                        $fileName .= '.ico';
-                    }
-                }
+            if($hasTransform) {
+                $descriptor->applyTransformation($this->request['transform']);
             }
-        }
 
+            if($hasFavicon && preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', $this->http->getUserAgent())) {
+                $descriptor->toIcon(16, 32);
+            }
+
+            $absolutePath = $descriptor->getLocation();
+            $type = $descriptor->getContentType();
+            $fileName = $descriptor->getFileName();
+        }
 
 
         $output = $this->http->fileResponse($absolutePath);
