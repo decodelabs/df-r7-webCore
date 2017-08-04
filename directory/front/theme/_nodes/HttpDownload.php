@@ -54,7 +54,9 @@ class HttpDownload extends arch\node\Base {
                 $fileStore = neon\raster\FileStore::getInstance();
 
                 if($hasTransform) {
-                    $absolutePath = $fileStore->getTransformationFilePath($absolutePath, $this->request['transform']);
+                    $info = $fileStore->getTransformationFileInfo($absolutePath, $this->request['transform']);
+                    $absolutePath = $info['path'];
+                    $type = $info['type'];
                 }
 
                 if($type != 'image/x-icon' && $hasFavicon) {
