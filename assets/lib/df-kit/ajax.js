@@ -153,6 +153,25 @@ define([
                 return this.requestStack[this.requestStack.length - 1];
             },
 
+            getLastGetRequest: function() {
+                if(!this.requestStack.length) return null;
+                var request = null;
+
+                while(true) {
+                    request = this.requestStack.pop();
+
+                    if(!request) {
+                        return;
+                    }
+
+                    if(request.method == 'GET') {
+                        break;
+                    }
+                }
+
+                return request;
+            },
+
 
             get: function(url, options) {
                 return this.send(Ajax.normalizeRequest('get', url, options));
@@ -170,7 +189,7 @@ define([
 
             back: function() {
                 this.requestStack.pop();
-                var request = this.getLastRequest();
+                var request = this.getLastGetRequest();
 
                 if(request) {
                     return this.send(request);
@@ -178,7 +197,7 @@ define([
             },
 
             refresh: function() {
-                var request = this.requestStack.pop();
+                var request = this.getLastGetRequest();
 
                 if(request) {
                     return this.send(request);
