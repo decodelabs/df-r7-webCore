@@ -132,9 +132,9 @@ class HttpAdd extends arch\node\Form {
 
             // Status
             ->addRequiredField('status', 'integer')
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     if($value < -1 || $value > 3) {
-                        $node->addError('invalid', $this->_(
+                        $field->addError('invalid', $this->_(
                             'Please enter a valid status id'
                         ));
                     }
@@ -149,9 +149,9 @@ class HttpAdd extends arch\node\Form {
                 ->setSanitizer(function($value) {
                     return str_replace(' ', '/', ucwords(str_replace('/', ' ', $value)));
                 })
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     if(!$this->i18n->timezones->isValidId($value)) {
-                        $node->addError('invalid', $this->_(
+                        $field->addError('invalid', $this->_(
                             'Please enter a valid timezone id'
                         ));
                     }
@@ -162,9 +162,9 @@ class HttpAdd extends arch\node\Form {
                 ->setSanitizer(function($value) {
                     return strtoupper($value);
                 })
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     if(!$this->i18n->countries->isValidId($value)) {
-                        $node->addError('invalid', $this->_(
+                        $field->addError('invalid', $this->_(
                             'Please enter a valid country code'
                         ));
                     }
@@ -175,9 +175,9 @@ class HttpAdd extends arch\node\Form {
                 ->setSanitizer(function($value) {
                     return strtolower($value);
                 })
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     if(!$this->i18n->languages->isValidId($value)) {
-                        $node->addError('invalid', $this->_(
+                        $field->addError('invalid', $this->_(
                             'Please enter a valid language id'
                         ));
                     }

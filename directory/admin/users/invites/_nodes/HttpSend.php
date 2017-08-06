@@ -80,15 +80,15 @@ class HttpSend extends arch\node\Form {
 
             // Email
             ->addRequiredField('email')
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     if($this->data->user->client->emailExists($value)) {
-                        $node->addError('userExists', $this->_(
+                        $field->addError('userExists', $this->_(
                             'A user has already registered with this email address'
                         ));
                     }
 
                     if($this->data->user->invite->emailIsActive($value) && !$this->format->stringToBoolean($this->values['sendAnyway'])) {
-                        $node->addError('inviteExists', $this->_(
+                        $field->addError('inviteExists', $this->_(
                             'An invite already exists for this email address'
                         ));
                     }

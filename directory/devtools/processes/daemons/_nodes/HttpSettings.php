@@ -94,14 +94,14 @@ class HttpSettings extends arch\node\Form {
             // User
             ->addField($this->_getFieldName('user'), 'text')
                 ->isRequired(!$this->_isRecord)
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     // TODO: test user
                 })
 
             // Group
             ->addField($this->_getFieldName('group'), 'text')
                 ->isRequired(!$this->_isRecord)
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     // TODO: test group
                 })
 

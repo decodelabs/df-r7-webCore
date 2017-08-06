@@ -64,13 +64,13 @@ class HttpLostPassword extends arch\node\Form {
 
         $this->data->newValidator()
             ->addRequiredField('email')
-                ->setCustomValidator(function($node, $value, $field) use (&$client) {
+                ->extend(function($value, $field) use(&$client) {
                     $client = $this->data->user->client->fetch()
                         ->where('email', '=', $value)
                         ->toRow();
 
                     if(!$client) {
-                        $node->addError('incorrect', $this->_(
+                        $field->addError('incorrect', $this->_(
                             'This email address does not appear to be associated with an account'
                         ));
                     }

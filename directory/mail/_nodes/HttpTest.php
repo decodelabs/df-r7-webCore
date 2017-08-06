@@ -216,9 +216,9 @@ class HttpTest extends arch\node\Form {
 
             // Transport
             ->addRequiredField('transport', 'text')
-                ->setCustomValidator(function($node, $value) {
+                ->extend(function($value, $field) {
                     if(!flow\mail\transport\Base::isValidTransport($value)) {
-                        $node->addError('invalid', $this->_(
+                        $field->addError('invalid', $this->_(
                             'Please enter a valid transport name'
                         ));
                     }
