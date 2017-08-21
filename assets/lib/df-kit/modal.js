@@ -25,7 +25,7 @@ define([
                 var modalClass = $(this).data('modal-class'),
                     overlayClass = $(this).data('modal-overlay-class'),
                     href = $(this).data('modal-href'),
-                    overlayAction = $(this).data('overlay-action')
+                    overlayAction = $(this).data('overlay-action'),
                     closeButton = $(this).data('modal-close-button');
 
                 if(!href) {
