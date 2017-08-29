@@ -24,6 +24,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'details',
         'invites' => 'mail',
         'authentication' => 'lock',
+        'sessions' => 'time',
         'accessPasses' => 'key'
     ];
 
@@ -118,6 +119,30 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                         ->setIcon('edit')
                         ->setDisposition('operative');
                 }
+            });
+    }
+
+    public function renderSessionsSectionBody($client) {
+        $sessions = $this->data->session->descriptor->select()
+            ->correlate('COUNT(*)', 'nodes')
+                ->from('axis://session/Node', 'node')
+                ->on('node.descriptor', '=', 'id')
+                ->endCorrelation()
+            ->where('user', '=', $client['id'])
+            ->orderBy('accessTime DESC');
+
+        yield $this->html->collectionList($sessions)
+            ->addField('id', function($session) {
+                return bin2hex($session['id']);
+            })
+            ->addField('startTime', function($session) {
+                return $this->html->timeSince($session['startTime']);
+            })
+            ->addField('transitionTime', function($session) {
+                return $this->html->timeSince($session['transitionTime']);
+            })
+            ->addField('accessTime', function($session) {
+                return $this->html->timeSince($session['accessTime']);
             });
     }
 
