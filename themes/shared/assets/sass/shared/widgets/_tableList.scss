@@ -66,6 +66,10 @@ div.w.list.collection {
     }
 
     td {
+        max-width: 30rem;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+
         &.field-select {
             width: 1%;
         }
