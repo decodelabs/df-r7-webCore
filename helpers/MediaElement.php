@@ -28,6 +28,8 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         }
     }
 
+
+// Audio
     public function audio(?string $embed, array $attributes=null) {
         $embed = trim($embed);
 
@@ -36,37 +38,86 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         }
 
         $embed = $this->html->audioEmbed($embed, 940);
-        $sourceUrl = null;
 
         if($embed->getProvider() == 'audioboom') {
             // Audioboom
             $url = link\http\Url::factory($embed->getUrl());
             $booId = $url->path->get(1);
             $sourceUrl = 'https://audioboom.com/posts/'.$booId.'.mp3';
+            $type = 'audio/mp3';
+        } else {
+            // Don't know??
+            return $embed;
         }
 
+        $this->view->dfKit->load('lib/df-kit/mediaelement');
 
-        if($sourceUrl !== null) {
-            $this->view->dfKit->load('lib/df-kit/mediaelement');
-
-            return $this->html('div.container.mejs.audio > audio.w.embed', null, [
-                'type' => 'audio/mp3',
-                'src' => $sourceUrl,
-                'controls' => true,
-                'preload' => 'auto'
-            ]);
+        if(isset($attributes['dfKit'])) {
+            $this->view->dfKit->load($attributes['dfKit']);
+            unset($attributes['dfKit']);
+        } else {
+            $attributes['data-mejs'] = '';
         }
 
-        return $embed;
+        return $this->html('div.container.mejs.audio > audio.w.embed', null, array_merge($attributes ?? [], [
+            'type' => $type,
+            'src' => $sourceUrl,
+            'controls' => true,
+            'preload' => 'auto'
+        ]));
     }
 
-    /*
+
+
+// Video
     public function video(?string $embed, array $attributes=null) {
         $embed = trim($embed);
 
         if(empty($embed)) {
             return null;
         }
+
+        $width = $attributes['width'] ?? null;
+        $height = $attributes['height'] ?? null;
+        unset($attributes['width'], $attributes['height']);
+
+        $embed = spur\video\Embed::parse($embed)
+            ->setDimensions($width, $height);
+
+
+        if(!$this->request->isArea('front')) {
+            return $embed->render();
+        }
+
+        $this->view->dfKit->load('lib/df-kit/mediaelement');
+        $sourceUrl = $embed->getPreparedUrl();
+
+        // DF Kit
+        if(isset($attributes['dfKit'])) {
+            $this->view->dfKit->load($attributes['dfKit']);
+            unset($attributes['dfKit']);
+        } else {
+        }
+        $attributes['data-mejs'] = '';
+
+        // Autoplay
+        if(isset($attributes['autoplay'])) {
+            $embed->shouldAutoPlay((bool)$attributes['autoplay']);
+            unset($attributes['autoplay']);
+        }
+
+        // Provider
+        $attributes['data-provider'] = $provider = $embed->getProvider();
+
+        if($provider == 'vimeo') {
+            $sourceUrl .= '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0';
+        }
+
+        return $this->html('div.container.mejs.video > video.w.embed', null, array_merge($attributes ?? [], [
+            //'type' => $type,
+            'src' => $sourceUrl,
+            'controls' => true,
+            'preload' => 'auto'
+        ]));
     }
-    */
 }
