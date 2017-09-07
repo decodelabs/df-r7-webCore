@@ -89,7 +89,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             return $embed->render();
         }
 
-        $this->view->dfKit->load('lib/df-kit/mediaelement');
+        $this->view->dfKit->load('df-kit/mediaelement');
         $sourceUrl = $embed->getPreparedUrl();
 
         // DF Kit
@@ -97,8 +97,8 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             $this->view->dfKit->load($attributes['dfKit']);
             unset($attributes['dfKit']);
         } else {
+            $attributes['data-mejs'] = '';
         }
-        $attributes['data-mejs'] = '';
 
         // Autoplay
         if(isset($attributes['autoplay'])) {
