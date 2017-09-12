@@ -59,9 +59,6 @@ div.w.list.attributes {
 
 
 div.w.list.collection {
-    tr {
-        position: relative;
-    }
     td, th {
         padding: 0.1rem 0.3rem;
         height: 2rem;
@@ -69,7 +66,6 @@ div.w.list.collection {
     }
 
     td {
-        width: 20%;
         max-width: 25rem;
         text-overflow: ellipsis;
         overflow-x: hidden;
