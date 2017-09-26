@@ -1,0 +1,14 @@
+.w.color.picker {
+    width: 10rem;
+    height: 1.65rem;
+    box-sizing: border-box;
+    background: #FFF;
+    border: 1px #AAA solid;
+    padding: 0.2rem 0.4rem;
+    display: block;
+    overflow: hidden;
+
+    &.error {
+        border-color: $error-color;
+    }
+}
