@@ -65,6 +65,10 @@ div.w.list.collection {
         vertical-align: middle;
     }
 
+    tbody > tr:only-child td:hover {
+        white-space: nowrap;
+    }
+
     td {
         max-width: 25rem;
         text-overflow: ellipsis;
@@ -75,6 +79,10 @@ div.w.list.collection {
             z-index: 100;
             position: relative;
             white-space: normal;
+
+            a:only-child {
+                display: block;
+            }
         }
 
         &.field-select {
