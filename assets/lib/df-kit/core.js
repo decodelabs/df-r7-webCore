@@ -93,8 +93,10 @@ define([
         },
 
         getUrlPath: function(url) {
-            var reg = /.+?\:\/\/.+?(\/.+?)(?:#|\?|$)/;
-            return reg.exec(url)[1];
+            var reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|$)/;
+            var output = reg.exec(url)[1];
+            if(!output) output = '/';
+            return output;
         },
 
 
