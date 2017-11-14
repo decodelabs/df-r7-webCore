@@ -92,6 +92,11 @@ define([
             window.open(url, title, 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+height+',width='+width+',top='+top+',left='+left);
         },
 
+        getUrlPath: function(url) {
+            var reg = /.+?\:\/\/.+?(\/.+?)(?:#|\?|$)/;
+            return reg.exec(url)[1];
+        },
+
 
 
 
