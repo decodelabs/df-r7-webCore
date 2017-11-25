@@ -22,9 +22,7 @@ class Unit extends axis\unit\Config {
             'loginOnRegistration' => true,
             'registrationLandingPage' => '/',
             'checkPasswordStrength' => true,
-            'minPasswordStrength' => 18,
-            'inviteCap' => null,
-            'inviteGroupCap' => []
+            'minPasswordStrength' => 18
         ];
     }
 
@@ -81,51 +79,5 @@ class Unit extends axis\unit\Config {
 
     public function getMinPasswordStrength() {
         return (int)$this->values->get('minPasswordStrength', 18);
-    }
-
-
-    public function setInviteCap($cap) {
-        if(is_numeric($cap) && $cap > 0) {
-            $cap = (int)$cap;
-        } else {
-            $cap = null;
-        }
-
-        $this->values->inviteCap = $cap;
-        return $this;
-    }
-
-    public function getInviteCap() {
-        $output = $this->values['inviteCap'];
-
-        if(is_numeric($output) && $output > 0) {
-            return (int)$output;
-        } else {
-            return null;
-        }
-    }
-
-    public function setInviteGroupCap($groupId, $cap) {
-        if(is_numeric($cap) && $cap > 0) {
-            $cap = (int)$cap;
-        } else {
-            $cap = null;
-        }
-
-        $this->values->inviteGroupCap[$groupId] = $cap;
-        return $this;
-    }
-
-    public function getInviteGroupCap($groupId) {
-        return $this->values->inviteGroupCap[$groupId];
-    }
-
-    public function getInviteGroupCaps() {
-        return $this->values->inviteGroupCap->toArray();
-    }
-
-    public function hasInviteCap() {
-        return $this->values['inviteCap'] !== null
-            || !$this->values->inviteGroupCap->isEmpty();
     }
 }

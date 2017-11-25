@@ -19,14 +19,6 @@ class Record extends opal\record\Base {
         }
     }
 
-    public function sendAsAllowance($rendererPath=null) {
-        return $this->getAdapter()->sendAsAllowance($this, $rendererPath);
-    }
-
-    public function forceSendAsAllowance($rendererPath=null) {
-        return $this->getAdapter()->forceSendAsAllowance($this, $rendererPath);
-    }
-
     public function send($rendererPath=null) {
         return $this->getAdapter()->send($this, $rendererPath);
     }

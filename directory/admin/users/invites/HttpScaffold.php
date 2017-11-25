@@ -60,13 +60,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                     $this->_('Invite user')
                 )
                 ->setIcon('add')
-                ->addAccessLock('axis://user/Invite#add'),
-
-            $this->html->link(
-                    $this->_getNodeRequest('grant', [], true),
-                    $this->_('Grant allowance')
-                )
-                ->setIcon('edit')
+                ->addAccessLock('axis://user/Invite#add')
         );
     }
 
@@ -213,7 +207,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 if(!$group['id']) {
                     $group = null;
                 }
-                
+
                 return $this->apex->component('../groups/GroupLink', $group);
             });
         });

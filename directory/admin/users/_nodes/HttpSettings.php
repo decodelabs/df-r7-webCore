@@ -69,13 +69,6 @@ class HttpSettings extends arch\node\Form {
                 ->setRange(10, null, 1)
         );
 
-        // Invite cap
-        $fs->addField($this->_('Default invite cap'))->push(
-            $this->html->numberTextbox('inviteCap', $this->values->inviteCap)
-                ->setMin(1)
-                ->setPlaceholder($this->_('No limit'))
-        );
-
         // Buttons
         $fs->addDefaultButtonGroup();
     }
@@ -101,10 +94,6 @@ class HttpSettings extends arch\node\Form {
             // Min strength
             ->addRequiredField('minPasswordStrength', 'integer')
                 ->setMin(0)
-
-            // Invite cap
-            ->addField('inviteCap', 'integer')
-                ->setMin(1)
 
             ->validate($this->values)
             ->applyTo($this->_config->values);
