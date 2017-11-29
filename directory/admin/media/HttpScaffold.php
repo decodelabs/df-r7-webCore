@@ -24,13 +24,20 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
     const LIST_FIELDS = [
-        'name', 'slug', 'context1', 'context2', 'files',
+        'name', 'slug', 'context1', 'context2', 'files', 'size'
     ];
 
 // Record data
     protected function prepareRecordList($query, $mode) {
         $query
-            ->countRelation('files');
+            ->countRelation('files')
+            ->correlate('SUM(fileSize)', 'size')
+                ->from('axis://media/Version', 'version')
+                ->whereCorrelation('id', 'in', 'activeVersion')
+                    ->from('axis://media/File', 'file')
+                    ->on('file.bucket', '=', 'bucket.id')
+                    ->endCorrelation()
+                ->endCorrelation();
     }
 
 // Sections
@@ -65,5 +72,20 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 )
                 ->setIcon('add')
         );
+    }
+
+
+// Fields
+    public function defineFilesField($list, $mode) {
+        $list->addField('files', function($bucket) {
+            return $this->html->link('./files?bucket='.$bucket['id'], $bucket['files'])
+                ->setIcon('file');
+        });
+    }
+
+    public function defineSizeField($list, $mode) {
+        $list->addField('size', function($bucket) {
+            return $this->format->fileSize($bucket['size']);
+        });
     }
 };
