@@ -40,6 +40,9 @@ class HttpDefault extends arch\node\Base {
             $code = 500;
         }
 
+        // Ensure session is open in case a widget tries to open it while rendering error page
+        $this->user->isLoggedIn();
+
         if($code === 401) {
             $client = $this->user->client;
             $redirectRequest = null;
