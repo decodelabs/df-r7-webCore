@@ -39,6 +39,7 @@ div.w.list.attributes {
 
 div.w.list.collection {
     overflow-x: auto;
+    overflow-y: hidden;
 
     tr {
         &.even:hover {
