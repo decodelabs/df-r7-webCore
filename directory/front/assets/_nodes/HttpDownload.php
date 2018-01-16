@@ -48,6 +48,20 @@ class HttpDownload extends arch\node\Base {
             $fileName = $descriptor->getFileName();
         }
 
+        switch($type) {
+            case 'text/x-sass':
+            case 'text/x-scss':
+                if(isset($this->request['compile'])) {
+                    $bridge = new aura\css\SassBridge($this->context, $absolutePath);
+                    return $bridge->getHttpResponse();
+                }
+                break;
+
+            case 'application/x-sass-map':
+                $bridge = new aura\css\SassBridge($this->context, $absolutePath);
+                return $bridge->getMapHttpResponse();
+        }
+
 
         $output = $this->http->fileResponse($absolutePath);
 
