@@ -80,7 +80,7 @@ div.w.list.collection {
             position: relative;
             white-space: normal;
 
-            a:only-child {
+            > a:only-child {
                 display: block;
             }
         }
