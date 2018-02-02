@@ -79,7 +79,8 @@ class HttpRespond extends arch\node\Form {
                     'name' => $this->_request['name'],
                     'email' => $this->_request['email'],
                     'message' => $validator['message'],
-                    'groups' => $this->_request['groups']->toArray()
+                    'groups' => $this->_request['groups'] ?
+                        $this->_request['groups']->toArray() : null
                 ]);
 
                 $invite->send();
@@ -93,6 +94,10 @@ class HttpRespond extends arch\node\Form {
 
             $this->_request['isActive'] = false;
             $this->_request->save();
+
+            $this->mesh->emitEvent($this->_request, 'accept', [
+                'message' => $validator['message']
+            ]);
 
             if($user = $this->_request['user']) {
                 $user->groups->addList($this->_request['groups']->toArray());
@@ -114,6 +119,10 @@ class HttpRespond extends arch\node\Form {
         return $this->complete(function() use($validator) {
             $this->_request['isActive'] = false;
             $this->_request->save();
+
+            $this->mesh->emitEvent($this->_request, 'deny', [
+                'message' => $validator['message']
+            ]);
 
             $this->comms->sendPreparedMail('account/InviteRequestDeny', [
                 'request' => $this->_request,
