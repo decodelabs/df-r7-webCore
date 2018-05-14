@@ -69,7 +69,7 @@ $button-shadow: true !default;
     &:hover {
         filter: brightness(105%);
     }
-    &:active {
+    &:active, &.active {
         filter: brightness(95%);
     }
 
@@ -84,7 +84,7 @@ $button-shadow: true !default;
         @if $button-shadow == true {
             box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1);
 
-            &:active {
+            &:active, &.active {
                 box-shadow: 0.1em 0.1em 0.24em rgba(black, 0.1) inset;
             }
         }
