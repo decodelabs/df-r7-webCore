@@ -11,15 +11,16 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpDismissCookieNotice extends arch\node\Base {
-
+class HttpDismissCookieNotice extends arch\node\Base
+{
     const OPTIMIZE = true;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function execute() {
+    public function execute()
+    {
         $theme = aura\theme\Base::factory($this->context);
         $this->http->setCookie('cnx', 1)
-            ->setExpiryDate(new core\time\Date('+2 years'));
+            ->setExpiryDate(new core\time\Date('+1 years'));
 
         return $this->http->defaultRedirect();
     }
