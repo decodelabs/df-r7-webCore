@@ -3,6 +3,7 @@ echo $this->html('section.cookie-settings', function () use ($cookieData) {
     yield $this->html('h1', 'Cookie settings');
 
     yield $this->html('p', 'Please select which types of cookies you consent to - while we may not use cookies that apply in all categories, you may choose your preferences for full peace of mind.');
+    yield $this->html('p.note', 'Note, if you decide not to consent to certain types of cookies, any 3rd party services that rely on them will not be loaded and may result in a degraded experience.');
 
     $form = $this->html->form();
 
