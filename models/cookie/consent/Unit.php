@@ -13,7 +13,7 @@ use df\axis;
 class Unit extends axis\unit\Table
 {
     const ORDERABLE_FIELDS = [
-        'creationDate', 'necessary', 'preferences',
+        'creationDate', 'preferences',
         'statistics', 'marketing'
     ];
 
@@ -22,11 +22,6 @@ class Unit extends axis\unit\Table
     protected function createSchema($schema)
     {
         $schema->addPrimaryField('id', 'Guid');
-
-        $schema->addField('user', 'One', 'user/client')
-            ->isNullable(true);
-        $schema->addField('guestId', 'Guid')
-            ->isNullable(true);
 
         $schema->addField('creationDate', 'Timestamp');
         $schema->addField('preferences', 'Date:Time')

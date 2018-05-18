@@ -10,12 +10,13 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\AreaMenu {
-
+class HttpScaffold extends arch\scaffold\AreaMenu
+{
     const TITLE = 'User management';
     const ICON = 'user';
 
-    public function generateIndexMenu($entryList) {
+    public function generateIndexMenu($entryList)
+    {
         $entryList->addEntries(
             $entryList->newLink('./clients/', 'All users')
                 ->setId('clients')
@@ -47,11 +48,17 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                 ->setIcon('mail')
                 ->setWeight(50),
 
+            $entryList->newLink('./consents/', 'Cookie consent logs')
+                ->setIcon('consent')
+                ->setDescription('View a record of logged cookie consent transactions')
+                ->setIcon('accept')
+                ->setWeight(60),
+
             $entryList->newLink('./deactivations/', 'Deactivations')
                 ->setId('deactivations')
                 ->setDescription('See who has decided to deactivate their account')
                 ->setIcon('remove')
-                ->setWeight(60)
+                ->setWeight(70)
                 ->setDisposition('neutral'),
 
             $entryList->newLink('./settings', 'Settings')

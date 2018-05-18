@@ -24,7 +24,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'details',
         //'invites' => 'mail',
         'authentication' => 'lock',
-        'consent' => 'accept',
         'sessions' => 'time',
         'accessPasses' => 'key'
     ];
@@ -128,28 +127,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             });
     }
 
-    public function renderConsentSectionBody($client)
-    {
-        $consent = $this->data->fetchOrCreateForAction(
-            'axis://cookie/Consent',
-            ['user' => $client['id']]
-        );
-
-        yield $this->html->attributeList($consent)
-            ->addField('creationDate', function ($consent) {
-                return $this->html->timeFromNow($consent['creationDate']);
-            })
-            ->addField('preferenceCookies', function ($consent) {
-                return $this->html->timeFromNow($consent['preferences']);
-            })
-            ->addField('statisticsCookies', function ($consent) {
-                return $this->html->timeFromNow($consent['statistics']);
-            })
-            ->addField('marketingCookies', function ($consent) {
-                return $this->html->timeFromNow($consent['marketing']);
-            });
-    }
-
     public function renderSessionsSectionBody($client)
     {
         $sessions = $this->data->session->descriptor->select()
@@ -235,17 +212,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function addAuthenticationSectionSubOperativeLinks($menu, $bar)
     {
         $this->addDetailsSectionSubOperativeLinks($menu, $bar);
-    }
-
-    public function addConsentSectionSubOperativeLinks($menu, $bar)
-    {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('./delete-consent?user='.$this->getRecordId(), true),
-                    $this->_('Delete consent')
-                )
-                ->setIcon('delete')
-        );
     }
 
     public function addAccessPassesSectionSubOperativeLinks($menu, $bar)
