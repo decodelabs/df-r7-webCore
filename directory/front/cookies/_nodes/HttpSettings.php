@@ -23,11 +23,19 @@ class HttpSettings extends arch\node\Base
 
             yield 'cookieData' => $this->consent->getUserData();
 
-            //try {
-            $notice = $view->getTheme()->getFacet('cookieNotice');
-            yield 'privacyRequest' => $notice->getPrivacyRequest();
-            //} catch (\Throwable $e) {
-            //}
+            yield 'preferences' => true;
+            yield 'statistics' => true;
+            yield 'marketing' => true;
+
+            try {
+                $notice = $view->getTheme()->getFacet('cookieNotice');
+                yield 'privacyRequest' => $notice->getPrivacyRequest();
+
+                yield 'preferences' => $notice->isCategoryEnabled('preferences');
+                yield 'statistics' => $notice->isCategoryEnabled('statistics');
+                yield 'marketing' => $notice->isCategoryEnabled('marketing');
+            } catch (\Throwable $e) {
+            }
         });
     }
 

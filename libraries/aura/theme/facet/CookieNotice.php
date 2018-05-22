@@ -15,6 +15,7 @@ class CookieNotice extends Base
 {
     protected $_privacyRequest;
     protected $_privacyVersion = 0;
+    protected $_categories = [];
 
     public function __construct(array $config)
     {
@@ -22,6 +23,7 @@ class CookieNotice extends Base
 
         $this->_privacyRequest = $config['privacyRequest'] ?? null;
         $this->_privacyVersion = (int)($config['privacyVersion'] ?? 0);
+        $this->_categories = (array)$config['categories'] ?? [];
     }
 
     public function getPrivacyRequest(): ?string
@@ -32,6 +34,15 @@ class CookieNotice extends Base
     public function getPrivacyVersion(): int
     {
         return $this->_privacyVersion;
+    }
+
+    public function isCategoryEnabled(string $category): bool
+    {
+        if (isset($this->_categories[$category])) {
+            return (bool)$this->_categories[$category];
+        } else {
+            return true;
+        }
     }
 
     public function onHtmlViewLayoutRender(aura\view\IHtmlView $view, $content)
