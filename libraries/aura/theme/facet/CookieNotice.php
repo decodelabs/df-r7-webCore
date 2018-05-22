@@ -23,7 +23,7 @@ class CookieNotice extends Base
 
         $this->_privacyRequest = $config['privacyRequest'] ?? null;
         $this->_privacyVersion = (int)($config['privacyVersion'] ?? 0);
-        $this->_categories = (array)$config['categories'] ?? [];
+        $this->_categories = (array)($config['categories'] ?? []);
     }
 
     public function getPrivacyRequest(): ?string

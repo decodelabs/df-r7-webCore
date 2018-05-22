@@ -60,7 +60,7 @@ class HttpSettings extends arch\node\Base
                 'reload' => true
             ]);
         } else {
-            return $this->http->redirect('/');
+            return $this->http->defaultRedirect('/', true);
         }
     }
 }
