@@ -21,7 +21,9 @@ class HttpSettings extends arch\node\Base
                 'modalClass' => 'cookie-settings'
             ]);
 
-            yield 'cookieData' => $this->consent->getUserData();
+            yield 'cookieData' => $data = $this->consent->getUserData(
+                $this->request['id']
+            );
 
             yield 'preferences' => true;
             yield 'statistics' => true;
@@ -42,12 +44,15 @@ class HttpSettings extends arch\node\Base
     public function executePost()
     {
         $validator = $this->data->newValidator()
+            ->addField('id', 'guid')
             ->addRequiredField('preferences', 'boolean')
             ->addRequiredField('statistics', 'boolean')
             ->addRequiredField('marketing', 'boolean')
             ->validate($this->http->getPostData());
 
+
         $this->consent->setUserData([
+            'id' => $validator['id'],
             'version' => 0,
             'preferences' => $validator['preferences'],
             'statistics' => $validator['statistics'],
@@ -55,7 +60,7 @@ class HttpSettings extends arch\node\Base
         ]);
 
         if ($this->http->isAjaxRequest()) {
-            return $this->http->ajaxResponse('done', [
+            return $this->http->ajaxResponse('', [
                 'isComplete' => true,
                 'reload' => true
             ]);

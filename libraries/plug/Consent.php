@@ -49,15 +49,46 @@ class Consent implements arch\IDirectoryHelper
         return false;
     }
 
-    public function getUserData(): array
+    public function getId(): ?string
     {
-        return $this->getCookieData();
+        return $this->getUserData()['id'] ?? null;
+    }
+
+    public function getUserData(string $logId=null): array
+    {
+        if (self::$_active) {
+            return self::$_active;
+        }
+
+        $output = $this->getCookieData();
+
+        if ($output['id'] === null && $logId !== null) {
+            $record = $this->context->data->cookie->consent->select()
+                ->where('id', '=', $logId)
+                ->toRow();
+
+            if ($record) {
+                $output = [
+                    'id' => (string)$record['id'],
+                    'version' => 0,
+                    'necessary' => true,
+                    'preferences' => (bool)$record['preferences'],
+                    'statistics' => (bool)$record['statistics'],
+                    'marketing' => (bool)$record['marketing']
+                ];
+            } else {
+                $output['id'] = $logId;
+            }
+        }
+
+        self::$_active = $output;
+        return $output;
     }
 
     public function setUserData(array $data)
     {
         $currentData = $this->getCookieData();
-        $currentId = $this->context->user->store->get('cnxId');
+        $currentId = $this->context->user->store->get('cnxId') ?? $data['id'] ?? null;
 
         if ($currentId !== null && $currentId !== $currentData['id']) {
             try {
@@ -72,8 +103,13 @@ class Consent implements arch\IDirectoryHelper
         try {
             $record = $this->context->data->fetchOrCreateForAction(
                 'axis://cookie/Consent',
-                $currentData['id'] ?? null
+                $currentData['id'] ?? $data['id'] ?? null
             );
+
+
+            if ($record->isNew() && isset($data['id'])) {
+                $record['id'] = $data['id'];
+            }
 
             if ($data['preferences'] ?? null) {
                 $record['preferences'] = $record['preferences'] ?? 'now';
@@ -106,10 +142,6 @@ class Consent implements arch\IDirectoryHelper
 
     public function getCookieData(): array
     {
-        if (self::$_active) {
-            return self::$_active;
-        }
-
         $output = [
             'id' => null,
             'version' => 0,
@@ -140,7 +172,6 @@ class Consent implements arch\IDirectoryHelper
         }
 
         $output['id'] = $id;
-        self::$_active = $output;
         return $output;
     }
 

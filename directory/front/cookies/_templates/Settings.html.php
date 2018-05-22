@@ -31,6 +31,7 @@ echo $this->html('section.cookie-settings', function () use ($cookieData) {
     }
 
     $form = $this->html->form($request)->addClass($isGlobal ? 'global' : null);
+    $form->addHidden('id', $cookieData['id']);
 
     $form->addField('Necessary cookies')->push(
         $this->html->checkbox('necessary', true, 'Cookies that help make the website usable - the website cannot function properly without these')
