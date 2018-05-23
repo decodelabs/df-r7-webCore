@@ -35,18 +35,25 @@ class Consent implements arch\IDirectoryHelper
         );
     }
 
-    public function has(string $key)
+    public function has(string ...$keys)
     {
-        $key = strtolower($key);
+        $data = $this->getUserData();
 
-        switch ($key) {
-            case 'preferences':
-            case 'statistics':
-            case 'marketing':
-                return $this->getCookieData()[$key] ?? false;
+        foreach ($keys as $key) {
+            $key = strtolower($key);
+
+            switch ($key) {
+                case 'preferences':
+                case 'statistics':
+                case 'marketing':
+                    if (!($data[$key] ?? false)) {
+                        return false;
+                    }
+                    break;
+            }
         }
 
-        return false;
+        return true;
     }
 
     public function getId(): ?string
