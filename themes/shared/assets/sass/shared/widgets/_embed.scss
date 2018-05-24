@@ -5,3 +5,24 @@
         margin-top: 0;
     }
 }
+
+div.video-cookie-placeholder {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    box-sizing: border-box;
+
+    div.video-message {
+        color: white;
+        max-width: 35rem;
+        text-align: center;
+        font-size: 0.9rem;
+
+        p.strong {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+    }
+}

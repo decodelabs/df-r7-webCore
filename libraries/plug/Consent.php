@@ -24,6 +24,7 @@ class Consent implements arch\IDirectoryHelper
     const MARKETING = 8;
 
     protected static $_active;
+    protected static $_enabled = null;
 
     public function fetchUserRecord()
     {
@@ -35,8 +36,26 @@ class Consent implements arch\IDirectoryHelper
         );
     }
 
+    public function isEnabled(): bool
+    {
+        if (self::$_enabled === null) {
+            try {
+                self::$_enabled = (bool)$this->context->apex->getTheme()->getFacet('cookieNotice');
+            } catch (\Exception $e) {
+                self::$_enabled = false;
+                core\logException($e);
+            }
+        }
+
+        return self::$_enabled;
+    }
+
     public function has(string ...$keys)
     {
+        if (!$this->isEnabled()) {
+            return true;
+        }
+
         $data = $this->getUserData();
 
         foreach ($keys as $key) {
