@@ -25,7 +25,7 @@ define([
 
 
             // Form event
-            $('input[data-formevent]:enabled').bind('keypress.formEvent', function(e) {
+            $('input,select').filter('[data-formevent]:enabled').bind('keypress.formEvent', function(e) {
                 if(e.keyCode == '13') {
                     var $hidden = $('#form-hidden-activeFormEvent');
                     var $form = $(this).parents('form');
