@@ -11,10 +11,11 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class RegisterLocal extends RegisterBase {
-
-    protected function setDefaultValues() {
-        if($this->_invite) {
+class RegisterLocal extends RegisterBase
+{
+    protected function setDefaultValues()
+    {
+        if ($this->_invite) {
             $this->values->fullName = $this->_invite['name'];
             $parts = explode(' ', $this->_invite['name']);
             $this->values->nickName = array_shift($parts);
@@ -22,12 +23,13 @@ class RegisterLocal extends RegisterBase {
         }
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Register an account'));
 
         // Name
-        $fs->addField($this->_('Your name'))->push(
+        $fs->addField($this->_('Your full name'))->push(
             $this->html->textbox(
                     $this->fieldName('fullName'),
                     $this->values->fullName
@@ -81,7 +83,8 @@ class RegisterLocal extends RegisterBase {
         );
     }
 
-    protected function onRegisterEvent() {
+    protected function onRegisterEvent()
+    {
         $client = $this->_createClient();
 
         $this->data->newValidator()
@@ -103,7 +106,7 @@ class RegisterLocal extends RegisterBase {
             ->validate($this->values)
             ->applyTo($client);
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $auth = $this->_createAuth($client, 'Local');
 
             $this->data->newValidator()
@@ -113,10 +116,10 @@ class RegisterLocal extends RegisterBase {
                 ->applyTo($auth);
         }
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $this->_saveClient($client);
 
-            return $this->_completeRegistration(function() use($auth) {
+            return $this->_completeRegistration(function () use ($auth) {
                 $request = new user\authentication\Request('Local');
                 $request->setIdentity($auth['identity']);
                 $request->setCredential('password', $this->values['password']);
