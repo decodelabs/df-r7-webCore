@@ -20,13 +20,15 @@ class HttpDismissNotice extends arch\node\Base
     {
         $cookieNotice = $this->apex->getTheme()->getFacet('cookieNotice');
 
-        $this->consent->setUserData([
-            'version' => 0,
-            'preferences' => $cookieNotice->isCategoryEnabled('preferences'),
-            'statistics' => $cookieNotice->isCategoryEnabled('statistics'),
-            'marketing' => $cookieNotice->isCategoryEnabled('marketing')
-        ]);
+        if ($cookieNotice) {
+            $this->consent->setUserData([
+                'version' => 0,
+                'preferences' => $cookieNotice->isCategoryEnabled('preferences'),
+                'statistics' => $cookieNotice->isCategoryEnabled('statistics'),
+                'marketing' => $cookieNotice->isCategoryEnabled('marketing')
+            ]);
+        }
 
-        return $this->http->defaultRedirect();
+        return $this->http->defaultRedirect('/');
     }
 }
