@@ -156,7 +156,8 @@ div.w.field {
             > div.w.list.errors {
                 order: -1;
                 flex: 0 1 auto;
-                width: calc(100% - #{$form-label-width + 1});
+                width: calc(100% - #{$form-label-width});
+                min-width: 60%;
             }
 
 
