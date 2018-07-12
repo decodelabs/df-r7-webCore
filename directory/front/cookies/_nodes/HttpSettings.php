@@ -59,7 +59,7 @@ class HttpSettings extends arch\node\Base
             }
 
             yield 'formRequest' => $request;
-            yield 'isGlobal' => $global;
+            yield 'isGlobal' => $isGlobal;
         });
     }
 
