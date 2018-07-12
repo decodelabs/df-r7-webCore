@@ -38,6 +38,28 @@ class HttpSettings extends arch\node\Base
                 yield 'marketing' => $notice->isCategoryEnabled('marketing');
             } catch (\Throwable $e) {
             }
+
+
+            $request = clone $this->request;
+            $isGlobal = false;
+
+            try {
+                if ($referrer = $this->http->getReferrer()) {
+                    $referrerDomain = $this->uri($referrer)->getDomain();
+                    $referrer = $this->http->localReferrerToRequest($referrer);
+
+                    if ($referrer && !$referrer->matches($request)) {
+                        if ($referrerDomain !== $this->http->request->url->getDomain()) {
+                            $request->setRedirectTo($referrer);
+                            $isGlobal = true;
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+            }
+
+            yield 'formRequest' => $request;
+            yield 'isGlobal' => $global;
         });
     }
 

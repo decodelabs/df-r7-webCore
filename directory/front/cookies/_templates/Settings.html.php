@@ -12,25 +12,8 @@ echo $this->html('section.cookie-settings', function () use ($cookieData) {
         ]);
     }
 
-    $request = clone $this->request;
-    $isGlobal = false;
 
-    try {
-        if ($referrer = $this->http->getReferrer()) {
-            $referrerDomain = $this->uri($referrer)->getDomain();
-            $referrer = $this->http->localReferrerToRequest($referrer);
-
-            if ($referrer && !$referrer->matches($request)) {
-                if ($referrerDomain !== $this->http->request->url->getDomain()) {
-                    $request->setRedirectTo($referrer);
-                    $isGlobal = true;
-                }
-            }
-        }
-    } catch (\Throwable $e) {
-    }
-
-    $form = $this->html->form($request)->addClass($isGlobal ? 'global' : null);
+    $form = $this->html->form($this['formRequest'])->addClass($this['isGlobal'] ? 'global' : null);
     $form->addHidden('id', $cookieData['id']);
 
     $form->addField('Necessary cookies')->push(
