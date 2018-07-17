@@ -22,7 +22,7 @@ echo $this->html('section.cookie-settings', function () use ($cookieData) {
     );
 
     $form->addField('Preferences or functionality cookies')->push(
-        $this->html->checkbox('preferences', $cookieData['preferences'], 'Cookies that allow the website to adjust it\'s behaviour or presentation according to your choices')
+        $this->html->checkbox('preferences', $cookieData['preferences'], 'Cookies that allow the website to adjust its behaviour or presentation according to your choices')
             ->isDisabled(!$this['preferences'] && !$cookieData['preferences'])
     )->addClass(!$this['preferences'] ? 'disabled' : null);
 
