@@ -10,22 +10,24 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class Invite extends arch\mail\Base {
-
+class Invite extends arch\mail\Base
+{
     const DESCRIPTION = 'User invite';
 
-    public function execute() {
+    public function execute()
+    {
         $this->checkSlots('invite');
         $this->addToAddress($this['invite']['email'], $this['invite']['name']);
     }
 
-    public function preparePreview() {
+    public function preparePreview()
+    {
         $this['invite'] = $this->data->user->invite->newRecord([
             'key' => md5(uniqid()),
             'owner' => $this->data->user->client->select('id')->toValue('id'),
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'message' => 'Come and check this out!'
+            'message' => '-- This is a custom message --'
         ]);
     }
 }
