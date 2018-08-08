@@ -11,16 +11,17 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpTest extends arch\node\Form {
-
+class HttpTest extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'send';
 
-    protected function init() {
-
+    protected function init()
+    {
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->setStore('type', 'custom');
         $this->values->type = 'custom';
 
@@ -33,14 +34,15 @@ class HttpTest extends arch\node\Form {
         $this->values->fromName = $from->getName();
         $this->values->fromAddress = $from->getAddress();
 
-        if($this->user->isLoggedIn()) {
+        if ($this->user->isLoggedIn()) {
             $client = $this->user->client;
             $this->values->toName = $client->getFullName();
             $this->values->toAddress = $client->getEmail();
         }
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Test email'));
 
@@ -48,7 +50,7 @@ class HttpTest extends arch\node\Form {
         // Transport
         $transportList = [];
 
-        foreach(flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
+        foreach (flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
             $transportList[$name] = $name.' - '.$description;
         }
 
@@ -123,13 +125,13 @@ class HttpTest extends arch\node\Form {
                 ->shouldValidate(false)
         );
 
-        if($type == 'prepared') {
+        if ($type == 'prepared') {
             // Prepared
             $fs->addField($this->_('Prepared mail'))->push(
                 $this->html->select('prepared', $this->values->prepared, $this->_getMailList())
                     ->isRequired(true)
             );
-        } else if($type == 'custom') {
+        } elseif ($type == 'custom') {
             // Subject
             $fs->addField($this->_('Subject'))->push(
                 $this->html->textbox('subject', $this->values->subject)
@@ -154,19 +156,20 @@ class HttpTest extends arch\node\Form {
         $form->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
-    protected function _getMailList() {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function($path) {
+    protected function _getMailList()
+    {
+        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
             return false !== strpos($path, '_mail');
         });
 
         $mails = [];
 
-        foreach($list as $name => $filePath) {
+        foreach ($list as $name => $filePath) {
             $parts = explode('_mail/', substr($name, 0, -4), 2);
             $path = array_shift($parts);
             $name = array_shift($parts);
 
-            if(false !== strpos($name, '/')) {
+            if (false !== strpos($name, '/')) {
                 $path .= '#/';
             }
 
@@ -176,14 +179,14 @@ class HttpTest extends arch\node\Form {
 
             try {
                 $mail = $this->comms->prepareMail($path);
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 $mails[$path] = null;
                 continue;
             }
 
             $name = $path;
 
-            if(substr($name, 0, 7) == '~front/') {
+            if (substr($name, 0, 7) == '~front/') {
                 $name = substr($name, 7);
             }
 
@@ -194,30 +197,32 @@ class HttpTest extends arch\node\Form {
         return $mails;
     }
 
-    protected function onSelectTypeEvent() {
+    protected function onSelectTypeEvent()
+    {
         $validator = $this->data->newValidator()
             ->addRequiredField('type', 'enum')
                 ->setOptions(['prepared', 'custom'])
             ->validate($this->values);
 
-        if($validator->isValid()) {
+        if ($validator->isValid()) {
             $this->setStore('type', $validator['type']);
 
-            if($validator['type'] == 'custom' && !strlen($this->values['subject'])) {
+            if ($validator['type'] == 'custom' && !strlen($this->values['subject'])) {
                 $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->app->getName()]);
             }
         }
     }
 
-    protected function onSendEvent() {
+    protected function onSendEvent()
+    {
         $this->onSelectTypeEvent();
 
         $validator = $this->data->newValidator()
 
             // Transport
             ->addRequiredField('transport', 'text')
-                ->extend(function($value, $field) {
-                    if(!flow\mail\transport\Base::isValidTransport($value)) {
+                ->extend(function ($value, $field) {
+                    if (!flow\mail\transport\Base::isValidTransport($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid transport name'
                         ));
@@ -244,7 +249,7 @@ class HttpTest extends arch\node\Form {
             ->addField('bccName', 'text');
 
 
-        switch($this->getStore('type')) {
+        switch ($this->getStore('type')) {
             case 'prepared':
                 return $this->_sendPrepared($validator);
 
@@ -256,29 +261,34 @@ class HttpTest extends arch\node\Form {
         }
     }
 
-    protected function _sendPrepared($validator) {
+    protected function _sendPrepared($validator)
+    {
         $validator
 
             // Prepared
             ->addRequiredField('prepared', 'text')
             ->validate($this->values);
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
             $mail = $this->comms->preparePreviewMail($validator['prepared']);
+
+            $mail->clearToAddresses();
+            $mail->clearCcAddresses();
+            $mail->clearBccAddresses();
 
             $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
             $mail->addToAddress($validator['toAddress'], $validator['toName']);
 
-            if($validator['returnPath']) {
+            if ($validator['returnPath']) {
                 $mail->setReturnPath($validator['returnPath']);
             }
 
-            if($validator['ccAddress']) {
+            if ($validator['ccAddress']) {
                 $mail->addCcAddress($validator['ccAddress'], $validator['ccName']);
             }
 
-            if($validator['bccAddress']) {
+            if ($validator['bccAddress']) {
                 $mail->addBccAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 
@@ -291,7 +301,8 @@ class HttpTest extends arch\node\Form {
         });
     }
 
-    protected function _sendCustom($validator) {
+    protected function _sendCustom($validator)
+    {
         $validator
             // Subject
             ->addRequiredField('subject', 'text')
@@ -302,26 +313,26 @@ class HttpTest extends arch\node\Form {
 
             ->validate($this->values);
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
 
             $mail = new flow\mail\Message($validator['subject'], $validator['bodyHtml']);
             $mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
             $mail->addToAddress($validator['toAddress'], $validator['toName']);
 
-            if($validator['returnPath']) {
+            if ($validator['returnPath']) {
                 $mail->setReturnPath($validator['returnPath']);
             }
 
-            if($validator['ccAddress']) {
+            if ($validator['ccAddress']) {
                 $mail->addCcAddress($validator['ccAddress'], $validator['ccName']);
             }
 
-            if($validator['bccAddress']) {
+            if ($validator['bccAddress']) {
                 $mail->addBccAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 
-            if($validator['bodyText']) {
+            if ($validator['bodyText']) {
                 $mail->setBodyText($validator['bodyText']);
             }
 
