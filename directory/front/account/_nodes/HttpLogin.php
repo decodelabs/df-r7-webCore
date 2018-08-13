@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class HttpLogin extends arch\node\Form {
-
+class HttpLogin extends arch\node\Form
+{
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'login';
@@ -21,78 +21,85 @@ class HttpLogin extends arch\node\Form {
     protected $_adapter;
     protected $_config;
 
-    protected function init() {
-        if($this->user->client->isLoggedIn()) {
+    protected function init()
+    {
+        if ($this->user->client->isLoggedIn()) {
             $this->setComplete();
             return $this->_getCompleteRedirect(null, false);
         }
 
         $this->_config = user\authentication\Config::getInstance();
 
-        if(isset($this->request['adapter'])) {
+        if (isset($this->request['adapter'])) {
             $this->_adapter = $this->request['adapter'];
 
-            if(!$this->_config->isAdapterEnabled($this->_adapter)) {
+            if (!$this->_config->isAdapterEnabled($this->_adapter)) {
                 $this->_adapter = null;
             }
         }
 
-        if(!$this->_adapter) {
+        if (!$this->_adapter) {
             $this->_adapter = $this->_config->getFirstEnabledAdapter();
         }
 
-        if(!$this->_adapter) {
+        if (!$this->_adapter) {
             throw core\Error::{'user/authentication/ESetup'}([
                 'message' => 'There are no enabled authentication adapters',
             ]);
         }
 
-        if(isset($this->request['rf'])) {
+        if (isset($this->request['rf'])) {
             $redir = $this->request->getRedirectFrom();
 
-            if($redir->matches('account/')
+            if ($redir->matches('account/')
             && in_array($redir->getNode(), [
                 'accessPass', 'logout', 'lostPassword', 'register', 'resetPassword'
             ])) {
                 unset($this->request['rf']);
-                return $this->http->redirect($this->request);
+                //return $this->http->redirect($this->request);
             }
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return null;
     }
 
-    public function getAdapter() {
+    public function getAdapter()
+    {
         return $this->_adapter;
     }
 
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->_config;
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $enabled = $this->_config->getEnabledAdapters();
 
-        if(count($enabled) > 1) {
+        if (count($enabled) > 1) {
             $this->_renderSwitcher($enabled);
         }
 
         $this[$this->_adapter]->renderUi();
     }
 
-    protected function _renderSwitcher(array $enabled) {
+    protected function _renderSwitcher(array $enabled)
+    {
         $menu = $this->content->addMenuBar();
 
-        foreach($enabled as $adapterName => $options) {
+        foreach ($enabled as $adapterName => $options) {
             $class = 'df\\user\\authentication\\adapter\\'.$adapterName;
 
-            if(!class_exists($class)) {
+            if (!class_exists($class)) {
                 continue;
             }
 
@@ -108,11 +115,12 @@ class HttpLogin extends arch\node\Form {
         }
     }
 
-    protected function onLoginEvent(...$args) {
+    protected function onLoginEvent(...$args)
+    {
         $delegate = $this[$this->_adapter];
         $output = $delegate->handleEvent('login', $args);
 
-        if($delegate->isComplete()) {
+        if ($delegate->isComplete()) {
             $this->setComplete();
         }
 
