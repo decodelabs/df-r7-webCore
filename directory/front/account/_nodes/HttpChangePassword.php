@@ -10,20 +10,21 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpChangePassword extends arch\node\Form {
-
+class HttpChangePassword extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 
     protected $_auth;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_auth = $this->data->fetchOrCreateForAction(
             'axis://user/Auth',
             [
                 'user' => $this->user->client->getId(),
                 'adapter' => 'Local'
             ],
-            function($auth) {
+            function ($auth) {
                 $auth->import([
                     'user' => $this->user->client->getId(),
                     'adapter' => 'Local',
@@ -34,20 +35,27 @@ class HttpChangePassword extends arch\node\Form {
         );
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return null;
     }
 
-    public function getAuth() {
+    public function getAuth()
+    {
         return $this->_auth;
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
+        $this->view
+            ->setCanonical('account/change-password')
+            ->canIndex(false);
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Change password'));
 
         // Old password
-        if(!$this->_auth->isNew()) {
+        if (!$this->_auth->isNew()) {
             $fs->addField($this->_('Old password'))->push(
                 $this->html->passwordTextbox(
                         $this->fieldName('oldPassword'),
@@ -79,18 +87,19 @@ class HttpChangePassword extends arch\node\Form {
         $fs->addDefaultButtonGroup('save', $this->_('Update password'));
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $userConfig = $this->data->user->config;
 
         $validator = $this->data->newValidator()
 
             // Old password
-            ->chainIf(!$this->_auth->isNew(), function($validator) {
+            ->chainIf(!$this->_auth->isNew(), function ($validator) {
                 $validator->addRequiredField('oldPassword', 'text')
-                    ->extend(function($value, $field) {
+                    ->extend(function ($value, $field) {
                         $hash = $this->user->password->hash($value);
 
-                        if($hash != $this->_auth['password']) {
+                        if ($hash != $this->_auth['password']) {
                             $field->addError('incorrect', $this->_(
                                 'This password is incorrect'
                             ));
@@ -110,7 +119,7 @@ class HttpChangePassword extends arch\node\Form {
         $this->values->newPassword->setValue('');
         $this->values->confirmNewPassword->setValue('');
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $this->_auth->password = $validator['newPassword'];
             $this->_auth->save();
             $this->user->refreshClientData();

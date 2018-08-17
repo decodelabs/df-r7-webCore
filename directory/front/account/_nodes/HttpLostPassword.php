@@ -11,22 +11,30 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpLostPassword extends arch\node\Form {
-
+class HttpLostPassword extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'send';
 
-    protected function init() {
-        if($this->user->isLoggedIn()) {
+    protected function init()
+    {
+        if ($this->user->isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return null;
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
+        $this->view
+            ->setTitle('Reset your password')
+            ->setCanonical('account/lost-password')
+            ->canIndex(false);
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Password recovery'));
 
@@ -58,18 +66,19 @@ class HttpLostPassword extends arch\node\Form {
         );
     }
 
-    protected function onSendEvent() {
+    protected function onSendEvent()
+    {
         $client = null;
         $auth = null;
 
         $this->data->newValidator()
             ->addRequiredField('email')
-                ->extend(function($value, $field) use(&$client) {
+                ->extend(function ($value, $field) use (&$client) {
                     $client = $this->data->user->client->fetch()
                         ->where('email', '=', $value)
                         ->toRow();
 
-                    if(!$client) {
+                    if (!$client) {
                         $field->addError('incorrect', $this->_(
                             'This email address does not appear to be associated with an account'
                         ));
@@ -77,9 +86,9 @@ class HttpLostPassword extends arch\node\Form {
                 })
 
             ->validate($this->values);
-            ;
+        ;
 
-        if($client) {
+        if ($client) {
             /*
             $auth = $this->data->user->auth->fetch()
                 ->where('user', '=', $client)
@@ -100,7 +109,7 @@ class HttpLostPassword extends arch\node\Form {
                 ->where('resetDate', '=', null)
                 ->count();
 
-            if($count >= 3) {
+            if ($count >= 3) {
                 $this->values->email->addError('limit', $this->_(
                     'The maximum number of password reset links have been sent for this account - please contact an admin for assistance'
                 ));
@@ -108,7 +117,7 @@ class HttpLostPassword extends arch\node\Form {
         }
 
 
-        return $this->complete(function() use($client) {
+        return $this->complete(function () use ($client) {
             $key = $this->data->user->passwordResetKey->newRecord([
                     'user' => $client,
                     'adapter' => 'Local'

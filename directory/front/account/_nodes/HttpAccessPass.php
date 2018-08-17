@@ -10,14 +10,15 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAccessPass extends arch\node\Form {
-
+class HttpAccessPass extends arch\node\Form
+{
     const DEFAULT_EVENT = 'login';
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
 
     protected $_pass;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_pass = $this->data->fetchForAction(
             'axis://user/AccessPass',
             $this->request['pass']
@@ -25,13 +26,13 @@ class HttpAccessPass extends arch\node\Form {
 
         $error = false;
 
-        if(!$this->_pass['user']) {
+        if (!$this->_pass['user']) {
             $error = true;
 
             $this->comms->flashWarning($this->_(
                 'The access pass you are trying to use is no longer valid'
             ));
-        } else if($this->_pass['expiryDate']->isPast()) {
+        } elseif ($this->_pass['expiryDate']->isPast()) {
             $error = true;
 
             $this->comms->flashWarning($this->_(
@@ -39,22 +40,26 @@ class HttpAccessPass extends arch\node\Form {
             ));
         }
 
-        if($error) {
+        if ($error) {
             $this->_pass->delete();
             return $this->http->defaultRedirect('/');
         }
 
-        if($this->user->isLoggedIn()) {
+        if ($this->user->isLoggedIn()) {
             $this->user->auth->unbind();
             return $this->http->redirect();
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_pass['id'];
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
+        $this->view->canIndex(false);
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Sign in with access pass'));
 
@@ -76,28 +81,29 @@ class HttpAccessPass extends arch\node\Form {
         );
     }
 
-    protected function onLoginEvent() {
+    protected function onLoginEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Email
             ->addRequiredField('email')
             ->validate($this->values);
 
-        if(!$validator->isValid()) {
+        if (!$validator->isValid()) {
             return;
         }
 
-        if($validator['email'] !== $this->_pass['user']['email']) {
+        if ($validator['email'] !== $this->_pass['user']['email']) {
             $this->values->email->addError('incorrect', $this->_(
                 'This is not the email address associated with this account'
             ));
         }
 
-        if(!$this->isValid()) {
+        if (!$this->isValid()) {
             return;
         }
 
-        if(!$this->user->auth->bindDirect($this->_pass['#user'], true)) {
+        if (!$this->user->auth->bindDirect($this->_pass['#user'], true)) {
             $this->comms->flashWarning($this->_(
                 'This account is not available for sign in'
             ));
@@ -105,7 +111,7 @@ class HttpAccessPass extends arch\node\Form {
             return;
         }
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_pass->delete();
             return '/';
         });

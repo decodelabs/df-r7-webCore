@@ -10,34 +10,43 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAvatar extends arch\node\Form {
-
+class HttpAvatar extends arch\node\Form
+{
     const DEFAULT_EVENT = 'upload';
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 
     protected $_file;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_file = $this->data->media->fetchSingleUserFile($this->user->client->getId(), 'Avatar');
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return null;
     }
 
-    public function getFile() {
+    public function getFile()
+    {
         return $this->_file;
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate('upload', 'media/CustomTempUploader')
             ->isForOne(true)
             //->shouldShowUploadButton(false)
             ;
     }
 
-    protected function createUi() {
-        if($this->_file) {
+    protected function createUi()
+    {
+        $this->view
+            ->setCanonical('account/avatar')
+            ->canIndex(false);
+
+        if ($this->_file) {
             $versions = $this->_file->versions->fetch()
                 ->where('purgeDate', '=', null)
                 ->orderBy('creationDate DESC')
@@ -50,12 +59,13 @@ class HttpAvatar extends arch\node\Form {
         $form->setEncoding($form::ENC_MULTIPART);
         $fs = $form->addFieldSet($this->_('Update your avatar'));
 
-        if(!empty($versions)) {
+        if (!empty($versions)) {
             $fa = $fs->addField($this->_('Your images'));
             $activeId = $this->_file['#activeVersion'];
 
-            foreach($versions as $version) {
-                $fa->push($this->html('div.w.card.avatar', [
+            foreach ($versions as $version) {
+                $fa->push(
+                    $this->html('div.w.card.avatar', [
                         $this->html->tag('input', [
                             'type' => 'image',
                             'src' => $this->uri($version->getImageUrl('[cz:150|150]')),
@@ -67,11 +77,11 @@ class HttpAvatar extends arch\node\Form {
                             ->setIcon('delete')
                     ])
                     ->setStyle('display', 'inline-block')
-                    ->chainIf($activeId == $version['id'], function($widget) {
+                    ->chainIf($activeId == $version['id'], function ($widget) {
                         $widget->addClass('active');
                     })
                 );
-           }
+            }
         }
 
         $fs->addField($this->_('Image'))->push(
@@ -88,12 +98,13 @@ class HttpAvatar extends arch\node\Form {
         );
     }
 
-    protected function onSelectVersionEvent($version) {
-        if(!$this->_file) {
+    protected function onSelectVersionEvent($version)
+    {
+        if (!$this->_file) {
             return;
         }
 
-        return $this->complete(function() use($version) {
+        return $this->complete(function () use ($version) {
             $version = $this->data->fetchForAction(
                 'axis://media/Version',
                 $version
@@ -104,8 +115,9 @@ class HttpAvatar extends arch\node\Form {
         });
     }
 
-    protected function onDeleteVersionEvent($version) {
-        if(!$this->_file) {
+    protected function onDeleteVersionEvent($version)
+    {
+        if (!$this->_file) {
             return;
         }
 
@@ -114,7 +126,7 @@ class HttpAvatar extends arch\node\Form {
             $version
         );
 
-        if((string)$version['#file'] != (string)$this->_file['id']) {
+        if ((string)$version['#file'] != (string)$this->_file['id']) {
             throw core\Error::{'EForbidden'}([
                 'message' => 'Not your file',
                 'http' => 403
@@ -128,16 +140,17 @@ class HttpAvatar extends arch\node\Form {
             ->where('purgeDate', '=', null)
             ->count();
 
-        if(!$active) {
+        if (!$active) {
             $this->_file->delete();
         }
     }
 
-    protected function onUploadEvent() {
+    protected function onUploadEvent()
+    {
         $filePath = $this['upload']->apply();
 
-        return $this->complete(function() use($filePath) {
-            if($filePath) {
+        return $this->complete(function () use ($filePath) {
+            if ($filePath) {
                 $this->data->media->publishFile($filePath, 'Avatar');
             }
 
@@ -145,5 +158,4 @@ class HttpAvatar extends arch\node\Form {
             $this->comms->flash('avatar.save', $this->_('Your avatar has been successfully updated'), 'success');
         });
     }
-
 }

@@ -10,11 +10,16 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpIndex extends arch\node\Base {
-
+class HttpIndex extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 
-    public function execute() {
-        return $this->apex->view('Index.html');
+    public function execute()
+    {
+        return $this->apex->view('Index.html', function ($view) {
+            $view
+                ->setCanonical('account/')
+                ->canIndex(false);
+        });
     }
 }

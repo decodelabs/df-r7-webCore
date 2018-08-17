@@ -83,6 +83,10 @@ class HttpLogin extends arch\node\Form
 
     protected function createUi()
     {
+        $this->view
+            ->setTitle('Sign in to your account')
+            ->setCanonical('account/login');
+
         $enabled = $this->_config->getEnabledAdapters();
 
         if (count($enabled) > 1) {

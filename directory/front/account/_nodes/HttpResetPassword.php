@@ -10,15 +10,16 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpResetPassword extends arch\node\Form {
-
+class HttpResetPassword extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
 
     protected $_key;
     protected $_auth;
 
-    protected function init() {
-        if($this->user->isLoggedIn()) {
+    protected function init()
+    {
+        if ($this->user->isLoggedIn()) {
             return $this->_flashError('loggedIn', $this->_(
                 'Passwords cannot be reset while you are logged in'
             ));
@@ -29,32 +30,32 @@ class HttpResetPassword extends arch\node\Form {
             ->where('key', '=', $this->request['key'])
             ->toRow();
 
-        if(!$this->_key) {
+        if (!$this->_key) {
             return $this->_flashError('notFound', $this->_(
                 'The password reset key this link refers to no longer exists'
             ));
         }
 
-        if(!$user = $this->_key['user']) {
+        if (!$user = $this->_key['user']) {
             throw core\Error::{'EValue'}([
                 'message' => 'Client not attached to key',
             ]);
         }
 
-        if($this->_key->isRedeemed()) {
+        if ($this->_key->isRedeemed()) {
             return $this->_flashError('alreadyReset', $this->_(
                 'The password reset key this link refers to has already been redeemed'
             ));
         }
 
-        if($this->_key['adapter'] != 'Local') {
+        if ($this->_key['adapter'] != 'Local') {
             throw core\Error::{'user/authentication/EForbidden'}([
                 'message' => 'Password reset key not for local adapter',
                 'http' => 403
             ]);
         }
 
-        if($this->_key->hasExpired()) {
+        if ($this->_key->hasExpired()) {
             return $this->_flashError('expired', $this->_(
                 'The password reset key this link refers to has now expired'
             ));
@@ -66,7 +67,7 @@ class HttpResetPassword extends arch\node\Form {
                 'user' => $user['id'],
                 'adapter' => 'Local'
             ],
-            function($auth) use($user) {
+            function ($auth) use ($user) {
                 $auth->import([
                     'user' => $user['id'],
                     'adapter' => 'Local',
@@ -77,15 +78,18 @@ class HttpResetPassword extends arch\node\Form {
         );
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return null;
     }
 
-    public function getKey() {
+    public function getKey()
+    {
         return $this->_key;
     }
 
-    protected function _flashError($flashKey, $message) {
+    protected function _flashError($flashKey, $message)
+    {
         $this->comms->flashError(
             'passwordResetKey.'.$flashKey,
             $message
@@ -94,11 +98,18 @@ class HttpResetPassword extends arch\node\Form {
         return $this->http->redirect('account/');
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->data->user->passwordResetKey->pruneUnusedKeys();
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
+        $this->view
+            ->setTitle('Reset your password')
+            ->setCanonical('account/reset-password')
+            ->canIndex(false);
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Reset password'));
 
@@ -133,7 +144,8 @@ class HttpResetPassword extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $userConfig = $this->data->user->config;
 
         $this->data->newValidator()
@@ -145,7 +157,7 @@ class HttpResetPassword extends arch\node\Form {
             ->validate($this->values);
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_auth->password = $this->user->password->hash($this->values['newPassword']);
             $this->_auth->save();
 

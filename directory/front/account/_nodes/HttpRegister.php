@@ -11,25 +11,26 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class HttpRegister extends arch\node\Form {
-
+class HttpRegister extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
     const DEFAULT_EVENT = 'register';
 
     protected $_invite;
 
-    protected function init() {
-        if($this->user->isLoggedIn()) {
+    protected function init()
+    {
+        if ($this->user->isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
 
-        if(isset($this->request['invite'])) {
+        if (isset($this->request['invite'])) {
             $this->_invite = $this->data->fetchForAction(
                 'axis://user/Invite',
                 ['key' => $this->request['invite']]
             );
 
-            if(!$this->_invite['isActive']) {
+            if (!$this->_invite['isActive']) {
                 $this->comms->flashError(
                     'invite.inactive',
                     $this->_('The invite link you have followed is no longer active')
@@ -38,7 +39,7 @@ class HttpRegister extends arch\node\Form {
                 return $this->http->defaultRedirect('/');
             }
         } else {
-            if(!$this->data->user->config->isRegistrationEnabled()) {
+            if (!$this->data->user->config->isRegistrationEnabled()) {
                 $this->comms->flashError(
                     'registration.disabled',
                     $this->_('Registration for this site is currently disabled')
@@ -49,28 +50,37 @@ class HttpRegister extends arch\node\Form {
         }
     }
 
-    public function getInvite() {
+    public function getInvite()
+    {
         return $this->_invite;
     }
 
-    protected function getInstanceId() {
-        if($this->_invite) {
+    protected function getInstanceId()
+    {
+        if ($this->_invite) {
             return $this->_invite['key'];
         }
 
         return null;
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate('Local', '~front/account/RegisterLocal')
             ->setInvite($this->_invite);
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
+        $this->view
+            ->setTitle('Register for a new account')
+            ->setCanonical('account/register');
+
         $this['Local']->renderUi();
     }
 
-    protected function onRegisterEvent(...$args) {
+    protected function onRegisterEvent(...$args)
+    {
         return $this['Local']->handleEvent('register', $args);
     }
 }

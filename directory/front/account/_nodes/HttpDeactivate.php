@@ -10,22 +10,29 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDeactivate extends arch\node\Form {
-
+class HttpDeactivate extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
     const DEFAULT_EVENT = 'deactivate';
 
     protected $_deactivation;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_deactivation = $this->data->newRecord('axis://user/ClientDeactivation');
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return null;
     }
-    
-    protected function createUi() {
+
+    protected function createUi()
+    {
+        $this->view
+            ->setCanonical('account/deactivate')
+            ->canIndex(false);
+
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('You really want to leave?'));
 
@@ -63,7 +70,8 @@ class HttpDeactivate extends arch\node\Form {
         );
     }
 
-    protected function onDeactivateEvent() {
+    protected function onDeactivateEvent()
+    {
         $validator = $this->data->newValidator()
             ->addField('reason', 'text')
                 ->setMaxLength(255)
@@ -77,11 +85,11 @@ class HttpDeactivate extends arch\node\Form {
                 'reason', 'comments'
             ]);
 
-        if($validator['reasonOther'] !== null) {
+        if ($validator['reasonOther'] !== null) {
             $validator->applyTo($this->_deactivation, ['reasonOther']);
         }
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $client = $this->data->user->client->fetchActive();
             $client->setAsDeactivated();
             $client->save();
