@@ -21,6 +21,9 @@ class HttpSettings extends arch\node\Base
                 'modalClass' => 'cookie-settings'
             ]);
 
+            $view->setTitle('Cookie Settings')
+                ->setMeta('description', 'Please select which types of cookies you would like to enable on '.$this->app->getName());
+
             yield 'cookieData' => $data = $this->consent->getUserData(
                 $this->request['id']
             );
