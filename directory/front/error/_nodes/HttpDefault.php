@@ -21,7 +21,13 @@ class HttpDefault extends arch\node\Base
     {
         if (!$exception = $this->runner->getDispatchException()) {
             if ($this->app->isDevelopment()) {
-                $exception = new \Exception('Testing...', 401);
+                $code = $this->request->getNode();
+
+                if (!link\http\response\HeaderCollection::isValidStatusCode($code)) {
+                    $code = 403;
+                }
+
+                $exception = new \Exception('Testing...', $code);
             } else {
                 $this->logs->logAccessError(403, $this->request, 'You shouldn\'t be here');
                 return $this->http->redirect('/');
