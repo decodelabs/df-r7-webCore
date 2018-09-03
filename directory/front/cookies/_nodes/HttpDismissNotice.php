@@ -29,6 +29,6 @@ class HttpDismissNotice extends arch\node\Base
             ]);
         }
 
-        return $this->http->defaultRedirect('/');
+        return $this->http->defaultRedirect();
     }
 }
