@@ -52,12 +52,19 @@ class CookieNotice extends Base
             return;
         }
 
-        $view->dfKit->load('df-kit/modal');
         $data = $view->consent->getUserData();
 
         if ($data['necessary']) {
             return;
         }
+
+        $agent = $view->http->getUserAgent();
+
+        if ($view->data->user->agent->isBot($agent)) {
+            return;
+        }
+
+        $view->dfKit->load('df-kit/modal');
 
         return $view->context->apex->template('~front/cookies/#/elements/Notice.html', [
                 'privacyRequest' => $this->_privacyRequest
