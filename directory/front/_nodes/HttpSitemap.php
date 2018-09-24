@@ -11,14 +11,16 @@ use df\apex;
 use df\arch;
 use df\flex;
 
-class HttpSitemap extends arch\node\Base {
-
-    public function executeAsHtml() {
+class HttpSitemap extends arch\node\Base
+{
+    public function executeAsHtml()
+    {
         return $this->http->redirect('/sitemap.xml');
     }
 
-    public function executeAsXml() {
-        if($this->app->isDevelopment()) {
+    public function executeAsXml()
+    {
+        if ($this->app->isDevelopment()) {
             $xml = $this->_generateXml();
             return $this->http->stringResponse($xml->toString(), 'application/xml');
         }
@@ -27,14 +29,14 @@ class HttpSitemap extends arch\node\Base {
         $rebuild = false;
         $file = new core\fs\File($path);
 
-        if(!$file->exists()
+        if (!$file->exists()
         || (time() - $file->getLastModified() > (60 * 60 * 6))
         || !$file->getSize()) {
             $rebuild = true;
             $file->open(core\fs\Mode::READ_WRITE_TRUNCATE);
         }
 
-        if($rebuild) {
+        if ($rebuild) {
             $this->_generateXml($file);
             $file->close();
         }
@@ -42,8 +44,9 @@ class HttpSitemap extends arch\node\Base {
         return $this->http->fileResponse($file);
     }
 
-    protected function _generateXml(core\fs\IFile $file=null) {
-        if($file) {
+    protected function _generateXml(core\fs\IFile $file=null)
+    {
+        if ($file) {
             $xml = new flex\xml\Writer(null, $file->getPath());
         } else {
             $xml = new flex\xml\Writer();
@@ -57,12 +60,12 @@ class HttpSitemap extends arch\node\Base {
             'xsi:schemaLocation' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
         ]);
 
-        foreach($this->_scanNodes() as $class => $entry) {
+        foreach ($this->_scanNodes() as $class => $entry) {
             $this->_writeEntry($xml, $entry);
         }
 
-        if($transformer = arch\Transformer::factory($this->context)) {
-            foreach($transformer->getSitemapEntries() as $entry) {
+        if ($transformer = arch\Transformer::factory($this->context)) {
+            foreach ($transformer->getSitemapEntries() as $entry) {
                 $this->_writeEntry($xml, $entry);
             }
         }
@@ -72,19 +75,20 @@ class HttpSitemap extends arch\node\Base {
         return $xml;
     }
 
-    protected function _writeEntry($xml, $entry) {
+    protected function _writeEntry($xml, $entry)
+    {
         $xml->startElement('url');
         $xml->writeElement('loc', $entry->getUrl());
 
-        if($date = $entry->getLastModifiedDate()) {
+        if ($date = $entry->getLastModifiedDate()) {
             $xml->writeElement('lastmod', $date->format($date::ISO8601));
         }
 
-        if($change = $entry->getChangeFrequency()) {
+        if ($change = $entry->getChangeFrequency()) {
             $xml->writeElement('changefreq', $change);
         }
 
-        if(null !== ($priority = $entry->getPriority())) {
+        if (null !== ($priority = $entry->getPriority())) {
             $xml->writeElement('priority', $priority);
         }
 
@@ -93,33 +97,34 @@ class HttpSitemap extends arch\node\Base {
 
 
 
-    protected function _scanNodes() {
-        $fileList = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function($path) {
+    protected function _scanNodes()
+    {
+        $fileList = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
             return basename($path) == '_nodes';
         });
 
-        foreach($fileList as $key => $path) {
+        foreach ($fileList as $key => $path) {
             $basename = substr(basename($path), 0, -4);
 
-            if(substr($basename, 0, 4) != 'Http') {
+            if (substr($basename, 0, 4) != 'Http') {
                 continue;
             }
 
             $keyParts = explode('/', dirname($key));
 
-            if($keyParts[0] == 'shared') {
+            if ($keyParts[0] == 'shared') {
                 continue;
             }
 
             $class = 'df\\apex\\directory\\'.implode('\\', $keyParts).'\\'.$basename;
 
-            if(!class_exists($class)) {
+            if (!class_exists($class)) {
                 continue;
             }
 
             array_pop($keyParts);
 
-            if($keyParts[0] == 'front') {
+            if ($keyParts[0] == 'front') {
                 array_shift($keyParts);
             } else {
                 $keyParts[0] = '~'.$keyParts[0];
@@ -130,13 +135,19 @@ class HttpSitemap extends arch\node\Base {
             $node = new $class($context);
             $entries = $node->getSitemapEntries();
 
-            if(!core\collection\Util::isIterable($entries)) {
+            if (!core\collection\Util::isIterable($entries)) {
                 continue;
             }
 
-            foreach($entries as $entry) {
-                if(!$entry instanceof arch\navigation\ISitemapEntry) {
-                    $entry = new arch\navigation\SitemapEntry((string)$entry);
+            foreach ($entries as $date => $entry) {
+                if (is_string($date)) {
+                    $date = core\time\Date::factory($date);
+                } elseif (!$date instanceof core\time\Date) {
+                    $date = null;
+                }
+
+                if (!$entry instanceof arch\navigation\ISitemapEntry) {
+                    $entry = new arch\navigation\SitemapEntry($this->uri((string)$entry), $date);
                 }
 
                 yield $class => $entry;
