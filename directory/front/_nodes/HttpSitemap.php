@@ -29,7 +29,8 @@ class HttpSitemap extends arch\node\Base
         $rebuild = false;
         $file = new core\fs\File($path);
 
-        if (!$file->exists()
+        if (isset($this->request['rebuild'])
+        || !$file->exists()
         || (time() - $file->getLastModified() > (60 * 60 * 6))
         || !$file->getSize()) {
             $rebuild = true;
