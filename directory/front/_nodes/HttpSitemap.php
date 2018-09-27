@@ -13,6 +13,8 @@ use df\flex;
 
 class HttpSitemap extends arch\node\Base
 {
+    const DEFAULT_ACCESS = arch\IAccess::ALL;
+
     public function executeAsHtml()
     {
         return $this->http->redirect('/sitemap.xml');
