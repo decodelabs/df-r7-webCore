@@ -84,7 +84,7 @@ class HttpSitemap extends arch\node\Base
         $xml->writeElement('loc', $entry->getUrl());
 
         if ($date = $entry->getLastModifiedDate()) {
-            $xml->writeElement('lastmod', $date->format($date::ISO8601));
+            $xml->writeElement('lastmod', $date->format('c'));
         }
 
         if ($change = $entry->getChangeFrequency()) {
