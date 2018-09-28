@@ -17,21 +17,23 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     aura\html\IRenderable,
     aura\html\widget\IFieldDataProvider,
     core\io\IAcceptTypeProcessor,
-    core\IStringProvider {
-
+    core\IStringProvider
+{
     use arch\node\TForm_SelectorDelegate;
     use core\constraint\TDisableable;
     use core\io\TAcceptTypeProcessor;
     use core\TStringProvider;
 
     protected $_showUploadButton = false;
+    protected $_chooseLabel = null;
 
     private $_dirChecked = false;
     private $_hasUploaded = false;
     private $_fileList;
 
-    public function shouldShowUploadButton(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldShowUploadButton(bool $flag=null)
+    {
+        if ($flag !== null) {
             $this->_showUploadButton = $flag;
             return $this;
         }
@@ -39,10 +41,22 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return $this->_showUploadButton;
     }
 
-    protected function _getTempDir() {
+    public function setChooseLabel(?string $label)
+    {
+        $this->_chooseLabel = $label;
+        return $this;
+    }
+
+    public function getChooseLabel(): ?string
+    {
+        return $this->_chooseLabel;
+    }
+
+    protected function _getTempDir()
+    {
         $destination = $this->getStore('tempUploadDir');
 
-        if(!$this->_dirChecked) {
+        if (!$this->_dirChecked) {
             $dir = core\fs\Dir::createUploadTemp($destination);
             $this->_dirChecked = true;
             $this->setStore('tempUploadDir', $dir->getPath());
@@ -53,13 +67,14 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return core\fs\Dir::factory($destination);
     }
 
-    protected function _getFileList() {
-        if(!isset($this->_fileList)) {
+    protected function _getFileList()
+    {
+        if (!isset($this->_fileList)) {
             $tempDir = $this->_getTempDir();
             $files = [];
             $i = 0;
 
-            foreach($tempDir->scanFiles() as $fileName => $file) {
+            foreach ($tempDir->scanFiles() as $fileName => $file) {
                 $time = $file->getLastModified();
 
                 $files[$time.$i] = [
@@ -74,8 +89,8 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
             krsort($files);
 
-            if(!$this->_isForMany) {
-                while(count($files) > 1) {
+            if (!$this->_isForMany) {
+                while (count($files) > 1) {
                     $tempDir->deleteFile(array_pop($files)['fileName']);
                 }
             }
@@ -87,30 +102,33 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     }
 
 
-// Field data
-    public function getErrors(): array {
+    // Field data
+    public function getErrors(): array
+    {
         return $this->values->file->getErrors();
     }
 
 
-// Render
-    public function toString(): string {
+    // Render
+    public function toString(): string
+    {
         return aura\html\ElementContent::normalize($this->render());
     }
 
-    public function render($callback=null) {
-        if(!$callback) {
+    public function render($callback=null)
+    {
+        if (!$callback) {
             $callback = [$this, '_render'];
         }
 
-        if($form = $this->content->findFirstWidgetOfType('Form')) {
+        if ($form = $this->content->findFirstWidgetOfType('Form')) {
             $form->setEncoding($form::ENC_MULTIPART);
         }
 
         $tempDir = $this->_getTempDir();
         $files = $this->_getFileList();
 
-        if(!$this->_isForMany) {
+        if (!$this->_isForMany) {
             $available = array_shift($files);
         } else {
             $available = $files;
@@ -119,12 +137,13 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return core\lang\Callback($callback, $this, $available);
     }
 
-    public function _render($delegate, $available) {
+    public function _render($delegate, $available)
+    {
         yield $this->html('span', null, ['id' => $this->getWidgetId()]);
 
-        if(!$this->_isForMany) {
-            if($available) {
-                yield $this->html('div.w.list.selection', function() use($available) {
+        if (!$this->_isForMany) {
+            if ($available) {
+                yield $this->html('div.w.list.selection', function () use ($available) {
                     yield $this->html->hidden($this->fieldName('selectUpload'), $available['fileName']);
 
                     yield [
@@ -140,11 +159,12 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                         )
                         ->setDisposition('negative')
                         ->setIcon('cross')
-                        ->shouldValidate(false);
+                        ->shouldValidate(false)
+                        ->addClass('remove iconOnly');
                 });
             }
         } else {
-            yield $this->html->uList($available, function($file) {
+            yield $this->html->uList($available, function ($file) {
                 yield $this->html->checkbox(
                     $this->fieldName('selectUpload['.$file['fileName'].']'),
                     $this->values->selectUpload->{$file['fileName']},
@@ -163,7 +183,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     ->setDisposition('negative')
                     ->setIcon('cross')
                     ->shouldValidate(false)
-                    ->addClass('remove');
+                    ->addClass('remove iconOnly');
             })->addClass('w selection');
         }
 
@@ -173,7 +193,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 ->setAcceptTypes(...$this->getAcceptTypes())
                 ->setId($this->getWidgetId().'-input'),
 
-            $this->html->label($this->_('Choose a file...'), $input)
+            $this->html->label($this->_chooseLabel ?? $this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
                 ->addClass(!empty($available) ? 'replace': null),
 
@@ -190,14 +210,16 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         ]);
     }
 
-    public function getWidgetId() {
+    public function getWidgetId()
+    {
         return $this->format->slug('ctu-'.$this->getDelegateId());
     }
 
 
-// Result
-    protected function onUploadEvent() {
-        if($this->_hasUploaded) {
+    // Result
+    protected function onUploadEvent()
+    {
+        if ($this->_hasUploaded) {
             return;
         }
 
@@ -207,26 +229,26 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAcceptTypes(...$this->_acceptTypes);
 
-        if(!count($uploadHandler)) {
+        if (!count($uploadHandler)) {
             return $this->http->redirect('#'.$this->getWidgetId());
         }
 
-        if(!$this->_isForMany) {
+        if (!$this->_isForMany) {
             unset($this->values->selectUpload);
         }
 
         $tempDir = $this->_getTempDir();
         $localName = $this->fieldName('file');
 
-        foreach($uploadHandler as $key => $file) {
-            if(0 !== strpos($key, $localName)) {
+        foreach ($uploadHandler as $key => $file) {
+            if (0 !== strpos($key, $localName)) {
                 continue;
             }
 
             $file->upload($tempDir, $this->values->file);
 
-            if($file->isSuccess()) {
-                if(!$this->_isForMany) {
+            if ($file->isSuccess()) {
+                if (!$this->_isForMany) {
                     $this->values->selectUpload = $file->getBasename();
                 } else {
                     $this->values->selectUpload[$file->getBasename()] = true;
@@ -237,28 +259,31 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return $this->http->redirect('#'.$this->getWidgetId());
     }
 
-    public function hasAnyFile() {
+    public function hasAnyFile()
+    {
         return (bool)count($this->_getFileList());
     }
 
-    public function onRemoveFileEvent($fileName) {
+    public function onRemoveFileEvent($fileName)
+    {
         $tempDir = $this->_getTempDir();
         $tempDir->deleteFile($fileName);
         return $this->http->redirect('#'.$this->getWidgetId());
     }
 
-    public function apply() {
+    public function apply()
+    {
         $this->onUploadEvent();
 
-        if(!$this->values->file->isValid()) {
+        if (!$this->values->file->isValid()) {
             return null;
         }
 
-        if(!$this->_isForMany) {
+        if (!$this->_isForMany) {
             $fileName = $this->values['selectUpload'];
 
-            if(!strlen($fileName)) {
-                if($this->_isRequired) {
+            if (!strlen($fileName)) {
+                if ($this->_isRequired) {
                     $this->values->file->addError('required', $this->_(
                         'You must upload a file'
                     ));
@@ -269,7 +294,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
             $tempDir = $this->_getTempDir();
 
-            if(!$tempDir->hasFile($fileName)) {
+            if (!$tempDir->hasFile($fileName)) {
                 $this->logs->logException(
                     core\Error::{'core/fs/ENotFound,ETempNotFound'}(
                         'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
@@ -287,8 +312,8 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         } else {
             $fileNames = $this->values->selectUpload->getKeys();
 
-            if(empty($fileNames)) {
-                if($this->_isRequired) {
+            if (empty($fileNames)) {
+                if ($this->_isRequired) {
                     $this->values->file->addError('required', $this->_(
                         'You must upload at least one file'
                     ));
@@ -300,8 +325,8 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             $tempDir = $this->_getTempDir();
             $output = [];
 
-            foreach($fileNames as $fileName) {
-                if(!$tempDir->hasFile($fileName)) {
+            foreach ($fileNames as $fileName) {
+                if (!$tempDir->hasFile($fileName)) {
                     $this->logs->logException(
                         core\Error::{'core/fs/ENotFound,ETempNotFound'}(
                             'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
@@ -323,15 +348,17 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         }
     }
 
-    public function handlePostEvent(arch\node\IActiveForm $target, string $event, array $args) {
+    public function handlePostEvent(arch\node\IActiveForm $target, string $event, array $args)
+    {
         $required = $this->_isRequired;
         $this->_isRequired = false;
         $this->onUploadEvent();
         $this->_isRequired = $required;
     }
 
-    protected function onComplete() {
-        if($destination = $this->getStore('tempUploadDir')) {
+    protected function onComplete()
+    {
+        if ($destination = $this->getStore('tempUploadDir')) {
             core\fs\Dir::delete($destination);
         }
 

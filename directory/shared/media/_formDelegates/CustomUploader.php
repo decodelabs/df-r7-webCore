@@ -19,8 +19,8 @@ class CustomUploader extends arch\node\form\Delegate implements
     aura\html\IRenderable,
     aura\html\widget\IFieldDataProvider,
     core\io\IAcceptTypeProcessor,
-    core\IStringProvider {
-
+    core\IStringProvider
+{
     use arch\node\TForm_SelectorDelegate;
     use arch\node\TForm_ValueListSelectorDelegate;
     use arch\node\TForm_DependentDelegate;
@@ -32,22 +32,26 @@ class CustomUploader extends arch\node\form\Delegate implements
     protected $_limit = null;
     protected $_ownerId;
     protected $_showUploadButton = false;
+    protected $_chooseLabel = null;
 
-    public function setOwnerId($id) {
+    public function setOwnerId($id)
+    {
         $this->_ownerId = $id;
         return $this;
     }
 
-    public function getOwnerId() {
-        if($this->_ownerId !== null) {
+    public function getOwnerId()
+    {
+        if ($this->_ownerId !== null) {
             return $this->_ownerId;
         } else {
             return $this->user->client->getId();
         }
     }
 
-    public function setFileLimit($limit) {
-        if($limit) {
+    public function setFileLimit($limit)
+    {
+        if ($limit) {
             $limit = (int)$limit;
         } else {
             $limit = null;
@@ -57,16 +61,19 @@ class CustomUploader extends arch\node\form\Delegate implements
         return $this;
     }
 
-    public function getFileLimit() {
+    public function getFileLimit()
+    {
         return $this->_limit;
     }
 
-    public function getSourceEntityLocator(): mesh\entity\ILocator {
+    public function getSourceEntityLocator(): mesh\entity\ILocator
+    {
         return new mesh\entity\Locator('upload://File');
     }
 
-    public function shouldShowUploadButton(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldShowUploadButton(bool $flag=null)
+    {
+        if ($flag !== null) {
             $this->_showUploadButton = $flag;
             return $this;
         }
@@ -74,12 +81,25 @@ class CustomUploader extends arch\node\form\Delegate implements
         return $this->_showUploadButton;
     }
 
-    protected function init() {
+    public function setChooseLabel(?string $label)
+    {
+        $this->_chooseLabel = $label;
+        return $this;
+    }
+
+    public function getChooseLabel(): ?string
+    {
+        return $this->_chooseLabel;
+    }
+
+    protected function init()
+    {
         $this->_setupBucket();
     }
 
-    protected function loadDelegates() {
-        if($this->_bucketHandler) {
+    protected function loadDelegates()
+    {
+        if ($this->_bucketHandler) {
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
         } else {
             $accept = $this->_acceptTypes;
@@ -89,13 +109,15 @@ class CustomUploader extends arch\node\form\Delegate implements
             ->isRequired($this->_isRequired)
             ->isForMany($this->_isForMany)
             ->setAcceptTypes(...$accept)
-            ->shouldShowUploadButton($this->_showUploadButton);
+            ->shouldShowUploadButton($this->_showUploadButton)
+            ->setChooseLabel($this->_chooseLabel);
     }
 
 
 
-// Field data
-    public function getErrors(): array {
+    // Field data
+    public function getErrors(): array
+    {
         return array_merge(
             $this['upload']->getErrors(),
             $this->values->selected->getErrors()
@@ -104,32 +126,34 @@ class CustomUploader extends arch\node\form\Delegate implements
 
 
 
-// Render
-    public function toString(): string {
+    // Render
+    public function toString(): string
+    {
         return aura\html\ElementContent::normalize($this->render());
     }
 
-    public function render($callback=null) {
-        if(!$this->_bucket) {
+    public function render($callback=null)
+    {
+        if (!$this->_bucket) {
             throw core\Error::{'ESetup'}([
                 'message' => 'No bucket has been set'
             ]);
         }
 
-        return $this['upload']->render(function($delegate, $available) use($callback) {
-            if($this->_isForMany || empty($available)) {
+        return $this['upload']->render(function ($delegate, $available) use ($callback) {
+            if ($this->_isForMany || empty($available)) {
                 $query = $this->data->media->file->select('id as fileId', 'creationDate as time')
                     ->joinRelation('activeVersion', 'fileName', 'fileSize as size')
                     ->where('file.id', 'in', (array)$this->getSelected())
                     ->orderBy('creationDate ASC');
 
-                if(!$this->_isForMany) {
+                if (!$this->_isForMany) {
                     $available = $query->toRow();
                 } else {
                     $files = $query->toArray();
                     $count = count($available);
 
-                    foreach($files as $i => $file) {
+                    foreach ($files as $i => $file) {
                         $salt = $count + $i;
                         $ts = $file['time']->toTimestamp();
                         $key = $ts.$salt;
@@ -139,17 +163,16 @@ class CustomUploader extends arch\node\form\Delegate implements
 
                     ksort($available);
 
-                    foreach($available as &$file) {
-                        if(!isset($file['fileId'])) {
+                    foreach ($available as &$file) {
+                        if (!isset($file['fileId'])) {
                             $file['fileId'] = null;
                         }
                     }
                     unset($file);
                 }
-
             }
 
-            if(!$callback) {
+            if (!$callback) {
                 $callback = [$this, '_render'];
             }
 
@@ -157,30 +180,31 @@ class CustomUploader extends arch\node\form\Delegate implements
         });
     }
 
-    public function _render($delegate, $available) {
+    public function _render($delegate, $available)
+    {
         $delegate = $this['upload'];
 
         yield $this->html('span', null, ['id' => $delegate->getWidgetId()]);
 
-        if($this instanceof arch\node\IDependentDelegate) {
+        if ($this instanceof arch\node\IDependentDelegate) {
             $messages = $this->getDependencyMessages();
 
-            if(!empty($messages)) {
-                foreach($messages as $key => $value) {
+            if (!empty($messages)) {
+                foreach ($messages as $key => $value) {
                     yield $this->html->flashMessage($value, 'warning');
                 }
                 return;
             }
         }
 
-        if($messages = $this->_getSelectionErrors()) {
+        if ($messages = $this->_getSelectionErrors()) {
             yield $this->html->fieldError($messages);
         }
 
-        if(!$this->_isForMany) {
-            if($available) {
-                yield $this->html('div.w.list.selection', function() use($delegate, $available) {
-                    if(isset($available['fileId'])) {
+        if (!$this->_isForMany) {
+            if ($available) {
+                yield $this->html('div.w.list.selection', function () use ($delegate, $available) {
+                    if (isset($available['fileId'])) {
                         yield $this->html->hidden($this->fieldName('selected'), $available['fileId']);
 
                         yield [
@@ -199,7 +223,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                             ->setDisposition('negative')
                             ->setIcon('cross')
                             ->shouldValidate(false)
-                            ->addClass('remove');
+                            ->addClass('remove iconOnly');
                     } else {
                         yield $this->html->hidden($delegate->fieldName('selectUpload'), $available['fileName']);
 
@@ -217,13 +241,13 @@ class CustomUploader extends arch\node\form\Delegate implements
                             ->setDisposition('negative')
                             ->setIcon('cross')
                             ->shouldValidate(false)
-                            ->addClass('remove');
+                            ->addClass('remove iconOnly');
                     }
                 });
             }
         } else {
-            yield $this->html->uList($available, function($file) use($delegate) {
-                if(isset($file['fileId'])) {
+            yield $this->html->uList($available, function ($file) use ($delegate) {
+                if (isset($file['fileId'])) {
                     yield $this->html->checkbox(
                         $this->fieldName('selected['.$file['fileId'].']'),
                         $this->values->selected->contains($file['fileId']),
@@ -244,7 +268,8 @@ class CustomUploader extends arch\node\form\Delegate implements
                         )
                         ->setDisposition('negative')
                         ->setIcon('cross')
-                        ->shouldValidate(false);
+                        ->shouldValidate(false)
+                        ->addClass('remove iconOnly');
                 } else {
                     yield $this->html->checkbox(
                         $delegate->fieldName('selectUpload['.$file['fileName'].']'),
@@ -264,7 +289,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                         ->setDisposition('negative')
                         ->setIcon('cross')
                         ->shouldValidate(false)
-                        ->addClass('remove');
+                        ->addClass('remove iconOnly');
                 }
             })->addClass('w selection');
         }
@@ -275,7 +300,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                 ->setAcceptTypes(...$delegate->getAcceptTypes())
                 ->setId($delegate->getWidgetId().'-input'),
 
-            $this->html->label($this->_('Choose a file...'), $input)
+            $this->html->label($this->_chooseLabel ?? $this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
                 ->addClass(!empty($available) ? 'replace': null),
 
@@ -292,16 +317,18 @@ class CustomUploader extends arch\node\form\Delegate implements
         ]);
     }
 
-    public function hasAnyFile() {
-        if($this->hasSelection()) {
+    public function hasAnyFile()
+    {
+        if ($this->hasSelection()) {
             return true;
         }
 
         return $this['upload']->hasAnyFile();
     }
 
-    public function apply() {
-        if(!$this->_bucket) {
+    public function apply()
+    {
+        if (!$this->_bucket) {
             return;
         }
 
@@ -309,8 +336,8 @@ class CustomUploader extends arch\node\form\Delegate implements
         $delegate->isRequired($this->_isRequired && !$this->hasSelection());
         $delegate->values->file->clearErrors();
 
-        if(!$this->_isForMany) {
-            if($filePath = $delegate->apply()) {
+        if (!$this->_isForMany) {
+            if ($filePath = $delegate->apply()) {
                 $file = $this->data->media->publishFile($filePath, $this->_bucket, [
                     'owner' => $this->getOwnerId()
                 ]);
@@ -321,8 +348,8 @@ class CustomUploader extends arch\node\form\Delegate implements
             $filePaths = $delegate->apply();
             $ids = $this->getSelected();
 
-            if(!empty($filePaths)) {
-                foreach($filePaths as $filePath) {
+            if (!empty($filePaths)) {
+                foreach ($filePaths as $filePath) {
                     $file = $this->data->media->publishFile($filePath, $this->_bucket, [
                         'owner' => $this->getOwnerId()
                     ]);
@@ -331,7 +358,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                 }
             }
 
-            if($this->_limit) {
+            if ($this->_limit) {
                 $ids = array_slice($ids, count($ids) - $this->_limit);
             }
 
@@ -339,8 +366,8 @@ class CustomUploader extends arch\node\form\Delegate implements
         }
 
 
-        if($this->_isRequired && !$this->hasSelection()) {
-            if($this->_isForMany) {
+        if ($this->_isRequired && !$this->hasSelection()) {
+            if ($this->_isForMany) {
                 $delegate->values->file->addError('required', $this->_(
                     'You must upload at least one file'
                 ));
@@ -352,24 +379,26 @@ class CustomUploader extends arch\node\form\Delegate implements
         }
 
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $delegate->setComplete();
         }
 
         return $this->getSelected();
     }
 
-    public function onRemoveFileEvent($id) {
-        if($this->_isForMany) {
+    public function onRemoveFileEvent($id)
+    {
+        if ($this->_isForMany) {
             unset($this->values->selected->{$id});
         } else {
-            if($this->values['selected'] == $id) {
+            if ($this->values['selected'] == $id) {
                 unset($this->values->selected);
             }
         }
     }
 
-    protected function _sanitizeSelection($selection) {
+    protected function _sanitizeSelection($selection)
+    {
         return (string)flex\Guid::factory($selection);
     }
 }
