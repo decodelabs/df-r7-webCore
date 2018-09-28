@@ -34,13 +34,15 @@ div.w.button-area {
         }
     }
 
-    &.right, [dir="rtl"] & {
+    &.right {
         direction: rtl;
 
         * {
             direction: ltr;
         }
-
+    }
+    
+    &.right, [dir="rtl"] & {
         > button {
             margin-right: 0;
             margin-left: 0.7em;
