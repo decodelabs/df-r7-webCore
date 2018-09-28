@@ -34,7 +34,7 @@ div.w.button-area {
         }
     }
 
-    &.right {
+    &.right, [dir="rtl"] & {
         direction: rtl;
 
         * {
