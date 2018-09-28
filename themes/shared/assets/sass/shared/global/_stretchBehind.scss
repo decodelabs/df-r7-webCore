@@ -41,6 +41,13 @@
     }
 }
 
+[dir="rtl"] %stretch-behind {
+    &:before {
+        left: 0;
+        right: -200%;
+    }
+}
+
 @mixin stretch-behind($background: false) {
     @extend %stretch-behind;
 
