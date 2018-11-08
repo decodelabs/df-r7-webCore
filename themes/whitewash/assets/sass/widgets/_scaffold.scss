@@ -1,0 +1,13 @@
+fieldset.scaffold.search,
+fieldset.scaffold.with-selected {
+    padding: 0.25rem;
+
+    > .body {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+}
+
+form + fieldset.scaffold.with-selected {
+    margin-top: -1rem;
+}

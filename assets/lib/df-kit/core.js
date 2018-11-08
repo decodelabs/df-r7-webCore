@@ -14,7 +14,7 @@ define([
             this.baseUrl = viewData.getAttribute('data-base');
             this.cts = viewData.getAttribute('data-cts');
 
-            if(!(this.rootUrl = viewData.getAttribute('data-root'))) {
+            if (!(this.rootUrl = viewData.getAttribute('data-root'))) {
                 this.rootUrl = this.baseUrl;
             }
 
@@ -26,17 +26,17 @@ define([
 
             // Form event
             $('input,select').filter('[data-formevent]:enabled').bind('keypress.formEvent', function(e) {
-                if(e.keyCode == '13') {
+                if (e.keyCode == '13') {
                     var $hidden = $('#form-hidden-activeFormEvent');
                     var $form = $(this).parents('form');
                     var event = $(this).attr('data-formevent');
 
-                    if(!$hidden.length && event != 'default') {
+                    if (!$hidden.length && event != 'default') {
                         $form.prepend('<input type="hidden" id="form-hidden-activeFormEvent" name="formEvent" />');
                         $hidden = $('#form-hidden-activeFormEvent');
                     }
 
-                    if($hidden.length) $hidden.val(event);
+                    if ($hidden.length) $hidden.val(event);
 
                     e.preventDefault();
                     $form.submit();
@@ -44,7 +44,7 @@ define([
             });
 
             // Scroll to first error
-            if($('.w.field .list.errors').length) {
+            if ($('.w.field .list.errors').length) {
                 $('html, body').animate({
                     scrollTop: $('.w.field .list.errors').first().parent().offset().top - 200
                 }, 200);
@@ -52,7 +52,7 @@ define([
         },
 
         call: function(callback, data) {
-            if(typeof(callback) == 'function') {
+            if (typeof(callback) == 'function') {
                 callback.call(this, data);
             }
         },
@@ -60,7 +60,7 @@ define([
         component: function(obj) {
             obj = _.extend(obj, this.Events);
 
-            if(typeof obj.init === 'function') {
+            if (typeof obj.init === 'function') {
                 obj.init.apply(obj);
             }
 
@@ -69,7 +69,7 @@ define([
 
         class: function(obj) {
             var output = function() {
-                if(typeof this.construct === 'function') {
+                if (typeof this.construct === 'function') {
                     this.construct.apply(this, arguments);
                 }
             };
@@ -80,7 +80,7 @@ define([
 
         isUrlExternal: function(url) {
             var domain = function(url) {
-                return url.replace('http://','').replace('https://','').split('/')[0];
+                return url.replace('http://', '').replace('https://', '').split('/')[0];
             };
 
             return domain(location.href) !== domain(url);
@@ -89,34 +89,59 @@ define([
         openWindow: function(url, title, width, height) {
             var left = (screen.width / 2) - (width / 2),
                 top = (screen.height / 2) - (height / 2);
-            window.open(url, title, 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height='+height+',width='+width+',top='+top+',left='+left);
+            window.open(url, title, 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=' + height + ',width=' + width + ',top=' + top + ',left=' + left);
         },
 
         getUrlPath: function(url) {
             var reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|$)/;
             var output = reg.exec(url)[1];
-            if(!output) output = '/';
+            if (!output) output = '/';
             return output;
         },
 
-
+        updateQueryStringParameter: function(uri, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|#|$)", "i");
+            if (value === undefined) {
+                if (uri.match(re)) {
+                    return uri.replace(re, '$1$2');
+                } else {
+                    return uri;
+                }
+            } else {
+                if (uri.match(re)) {
+                    return uri.replace(re, '$1' + key + "=" + value + '$2');
+                } else {
+                    var hash = '';
+                    if (uri.indexOf('#') !== -1) {
+                        hash = uri.replace(/.*#/, '#');
+                        uri = uri.replace(/#.*/, '');
+                    }
+                    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+                    return uri + separator + key + "=" + value + hash;
+                }
+            }
+        },
 
 
         // Events
         Events: {
             on: function(name, callback, context) {
-                if(this._multiplexEvents(this, 'on', name, [callback, context]) || !callback) {
+                if (this._multiplexEvents(this, 'on', name, [callback, context]) || !callback) {
                     return this;
                 }
 
                 this._events || (this._events = {});
                 var events = this._events[name] || (this._events[name] = []);
-                events.push({callback: callback, context: context, ctx: context || this});
+                events.push({
+                    callback: callback,
+                    context: context,
+                    ctx: context || this
+                });
                 return this;
             },
 
             once: function(name, callback, context) {
-                if(this._multiplexEvents(this, 'on', name, [callback, context]) || !callback) {
+                if (this._multiplexEvents(this, 'on', name, [callback, context]) || !callback) {
                     return this;
                 }
 
@@ -131,10 +156,10 @@ define([
             },
 
             _multiplexEvents: function(obj, action, name, args) {
-                if(!name) return false;
+                if (!name) return false;
 
-                if(typeof name === 'object') {
-                    for(var key in name) {
+                if (typeof name === 'object') {
+                    for (var key in name) {
                         obj[action].apply(obj, [key, name[key]].concat(args));
                     }
 
@@ -143,10 +168,10 @@ define([
 
                 var splitter = /\s+/;
 
-                if(splitter.test(name)) {
+                if (splitter.test(name)) {
                     var names = name.split(splitter);
 
-                    for(var i = 0, length = names.length; i < length; i++) {
+                    for (var i = 0, length = names.length; i < length; i++) {
                         obj[action].apply(obj, [names[i]].concat(args));
                     }
 
@@ -159,35 +184,35 @@ define([
             off: function(name, callback, context) {
                 var retain, ev, events, names, i, l, j, k;
 
-                if(!this._events || this._multiplexEvents(this, 'off', name, [callback, context])) {
+                if (!this._events || this._multiplexEvents(this, 'off', name, [callback, context])) {
                     return this;
                 }
 
-                if(!name && !callback && !context) {
+                if (!name && !callback && !context) {
                     this._events = void 0;
                     return this;
                 }
 
                 names = name ? [name] : _.keys(this._events);
 
-                for(i = 0, l = names.length; i < l; i++) {
+                for (i = 0, l = names.length; i < l; i++) {
                     name = names[i];
 
-                    if(events = this._events[name]) {
+                    if (events = this._events[name]) {
                         this._events[name] = retain = [];
 
-                        if(callback || context) {
-                            for(j = 0, k = events.length; j < k; j++) {
+                        if (callback || context) {
+                            for (j = 0, k = events.length; j < k; j++) {
                                 ev = events[j];
 
-                                if((callback && callback !== ev.callback && callback !== ev.callback._callback) ||
+                                if ((callback && callback !== ev.callback && callback !== ev.callback._callback) ||
                                     (context && context !== ev.context)) {
                                     retain.push(ev);
                                 }
                             }
                         }
 
-                        if(!retain.length) delete this._events[name];
+                        if (!retain.length) delete this._events[name];
                     }
                 }
 
@@ -195,18 +220,18 @@ define([
             },
 
             trigger: function(name) {
-                if(!this._events) return this;
+                if (!this._events) return this;
                 var args = Array.prototype.slice.call(arguments, 1);
 
-                if(this._multiplexEvents(this, 'trigger', name, args)) {
+                if (this._multiplexEvents(this, 'trigger', name, args)) {
                     return this;
                 }
 
-                if(this._events[name]) {
+                if (this._events[name]) {
                     this._triggerEvents(this._events[name], args);
                 }
 
-                if(this._events.all) {
+                if (this._events.all) {
                     this._triggerEvents(this._events.all, arguments);
                 }
 
@@ -214,35 +239,39 @@ define([
             },
 
             _triggerEvents: function(events, args) {
-                var ev, i = -1, l = events.length, a1 = args[0], a2 = args[1], a3 = args[2];
+                var ev, i = -1,
+                    l = events.length,
+                    a1 = args[0],
+                    a2 = args[1],
+                    a3 = args[2];
 
-                switch(args.length) {
+                switch (args.length) {
                     case 0:
-                        while(++i < l) {
+                        while (++i < l) {
                             (ev = events[i]).callback.call(ev.ctx);
                         }
                         return;
 
                     case 1:
-                        while(++i < l) {
+                        while (++i < l) {
                             (ev = events[i]).callback.call(ev.ctx, a1);
                         }
                         return;
 
                     case 2:
-                        while(++i < l) {
+                        while (++i < l) {
                             (ev = events[i]).callback.call(ev.ctx, a1, a2);
                         }
                         return;
 
                     case 3:
-                        while(++i < l) {
+                        while (++i < l) {
                             (ev = events[i]).callback.call(ev.ctx, a1, a2, a3);
                         }
                         return;
 
                     default:
-                        while(++i < l) {
+                        while (++i < l) {
                             (ev = events[i]).callback.apply(ev.ctx, args);
                         }
                         return;
@@ -263,7 +292,7 @@ define([
                 var listeningTo = this._listeningTo || (this._listeningTo = {}),
                     id = obj._listenId || (obj._listenId = _.uniqueId('l'));
 
-                if(!callback && typeof name === 'object') {
+                if (!callback && typeof name === 'object') {
                     callback = this;
                 }
 
@@ -274,24 +303,24 @@ define([
 
             stopListening: function(obj, name, callback) {
                 var listeningTo = this._listeningTo;
-                if(!listeningTo) return this;
+                if (!listeningTo) return this;
 
                 var remove = !name && !callback;
 
-                if(!callback && typeof name === 'object') {
+                if (!callback && typeof name === 'object') {
                     callback = this;
                 }
 
-                if(obj) {
+                if (obj) {
                     listeningTo = {};
                     listeningTo[obj._listenId] = obj;
                 }
 
-                for(var id in listeningTo) {
+                for (var id in listeningTo) {
                     obj = listeningTo[id];
                     obj.off(name, callback, this);
 
-                    if(remove || _.isEmpty(obj._events)) {
+                    if (remove || _.isEmpty(obj._events)) {
                         delete this._listenId[id];
                     }
                 }
