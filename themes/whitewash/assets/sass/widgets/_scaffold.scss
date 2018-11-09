@@ -5,6 +5,10 @@ fieldset.scaffold.with-selected {
     > .body {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
+
+        nav.menu {
+            margin-bottom: 0;
+        }
     }
 }
 
