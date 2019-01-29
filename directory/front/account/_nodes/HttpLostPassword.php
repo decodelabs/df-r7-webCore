@@ -131,9 +131,10 @@ class HttpLostPassword extends arch\node\Form
             ]);
 
             $this->comms->flashSuccess(
-                'lostPassword.send',
-                $this->_('A link has been sent to your email address with instructions on resetting your password')
-            );
+                    'lostPassword.send',
+                    $this->_('We\'ve sent you an email to change your password.')
+                )
+                ->setDescription($this->_('Please check your Spam / Junk folder if you don\'t receive it in your Inbox in the next few minutes.'));
         });
     }
 }
