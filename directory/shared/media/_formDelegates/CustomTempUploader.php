@@ -264,10 +264,18 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return (bool)count($this->_getFileList());
     }
 
-    public function onRemoveFileEvent($fileName)
+    public function onRemoveFileEvent($fileName=null)
     {
         $tempDir = $this->_getTempDir();
-        $tempDir->deleteFile($fileName);
+
+        if ($fileName !== null) {
+            $tempDir->deleteFile($fileName);
+        } else {
+            if ($tempDir->countFiles() === 1) {
+                $tempDir->emptyOut();
+            }
+        }
+
         return $this->http->redirect('#'.$this->getWidgetId());
     }
 
