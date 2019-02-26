@@ -15,18 +15,7 @@ class Purge extends axis\fortify\Base
     protected function execute()
     {
         $count = $this->_unit->delete()
-            ->beginWhereClause()
-                ->where('preferences', '<', '-1 year')
-                ->orWhere('preferences', '=', null)
-                ->endClause()
-            ->beginWhereClause()
-                ->where('statistics', '<', '-1 year')
-                ->orWhere('statistics', '=', null)
-                ->endClause()
-            ->beginWhereClause()
-                ->where('marketing', '<', '-1 year')
-                ->orWhere('marketing', '=', null)
-                ->endClause()
+            ->where('creationDate', '<', '-6 months')
             ->execute();
 
         yield $count.' removed';
