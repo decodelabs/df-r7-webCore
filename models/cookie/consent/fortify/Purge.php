@@ -14,10 +14,21 @@ class Purge extends axis\fortify\Base
 {
     protected function execute()
     {
-        $count = $this->_unit->delete()
-            ->where('creationDate', '<', '-6 months')
-            ->execute();
+        $total = 0;
 
-        yield $count.' removed';
+        while (true) {
+            $total += $count = $this->_unit->delete()
+                ->where('creationDate', '<', '-6 months')
+                ->limit(500)
+                ->execute();
+
+            if (!$count) {
+                break;
+            }
+
+            usleep(100000);
+        }
+
+        yield $total.' removed';
     }
 }
