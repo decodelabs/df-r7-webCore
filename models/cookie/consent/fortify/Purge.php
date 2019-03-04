@@ -18,8 +18,8 @@ class Purge extends axis\fortify\Base
 
         while (true) {
             $total += $count = $this->_unit->delete()
-                ->where('creationDate', '<', '-6 months')
-                ->limit(250)
+                ->where('creationDate', '<', '-4 months')
+                ->limit(50)
                 ->execute();
 
             if (!$count) {
