@@ -24,11 +24,8 @@ class Unit extends axis\unit\Table
         $schema->addPrimaryField('id', 'Guid');
 
         $schema->addField('creationDate', 'Timestamp');
-        $schema->addField('preferences', 'Date:Time')
-            ->isNullable(true);
-        $schema->addField('statistics', 'Date:Time')
-            ->isNullable(true);
-        $schema->addField('marketing', 'Date:Time')
-            ->isNullable(true);
+        $schema->addField('preferences', 'Boolean');
+        $schema->addField('statistics', 'Boolean');
+        $schema->addField('marketing', 'Boolean');
     }
 }

@@ -28,39 +28,21 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function definePreferencesField($list, $mode)
     {
         $list->addField('preferences', function ($consent) {
-            if ($date = $consent['preferences']) {
-                return $this->html->icon('accept', $this->html->timeFromNow($date))
-                    ->addClass('positive');
-            } else {
-                return $this->html->icon('deny', $this->_('No'))
-                    ->addClass('negative');
-            }
+            return $this->html->yesNoIcon($consent['preferences']);
         });
     }
 
     public function defineStatisticsField($list, $mode)
     {
         $list->addField('statistics', function ($consent) {
-            if ($date = $consent['statistics']) {
-                return $this->html->icon('accept', $this->html->timeFromNow($date))
-                    ->addClass('positive');
-            } else {
-                return $this->html->icon('deny', $this->_('No'))
-                    ->addClass('negative');
-            }
+            return $this->html->yesNoIcon($consent['statistics']);
         });
     }
 
     public function defineMarketingField($list, $mode)
     {
         $list->addField('marketing', function ($consent) {
-            if ($date = $consent['marketing']) {
-                return $this->html->icon('accept', $this->html->timeFromNow($date))
-                    ->addClass('positive');
-            } else {
-                return $this->html->icon('deny', $this->_('No'))
-                    ->addClass('negative');
-            }
+            return $this->html->yesNoIcon($consent['marketing']);
         });
     }
 }

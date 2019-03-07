@@ -132,28 +132,13 @@ class Consent implements arch\IDirectoryHelper
                 $currentData['id'] ?? $data['id'] ?? null
             );
 
-
             if ($record->isNew() && isset($data['id'])) {
                 $record['id'] = $data['id'];
             }
 
-            if ($data['preferences'] ?? null) {
-                $record['preferences'] = $record['preferences'] ?? 'now';
-            } else {
-                $record['preferences'] = null;
-            }
-
-            if ($data['statistics'] ?? null) {
-                $record['statistics'] = $record['statistics'] ?? 'now';
-            } else {
-                $record['statistics'] = null;
-            }
-
-            if ($data['marketing'] ?? null) {
-                $record['marketing'] = $record['marketing'] ?? 'now';
-            } else {
-                $record['marketing'] = null;
-            }
+            $record['preferences'] = $data['preferences'] ?? false;
+            $record['statistics'] = $data['statistics'] ?? false;
+            $record['marketing'] = $data['marketing'] ?? false;
 
             $record->save();
             $data['id'] = (string)$record['id'];
