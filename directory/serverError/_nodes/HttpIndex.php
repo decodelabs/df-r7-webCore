@@ -28,9 +28,13 @@ class HttpIndex extends arch\node\Base
             throw core\Error::EValue('Invalid status code: '.$code);
         }
 
+        $xCode = substr($code, 0, 2).'x';
+
         $paths = [
             '~serverError/'.$code.'.html' => 'serverError/_templates/'.$code.'.html.php',
-            '~front/error/'.$code.'.html' => 'front/error/_templates/'.$code.'.html.php'
+            '~serverError/'.$xCode.'.html' => 'serverError/_templates/'.$xCode.'.html.php',
+            '~front/error/'.$code.'.html' => 'front/error/_templates/'.$code.'.html.php',
+            '~front/error/'.$xCode.'.html' => 'front/error/_templates/'.$xCode.'.html.php'
         ];
 
         $templatePath = null;
@@ -45,16 +49,22 @@ class HttpIndex extends arch\node\Base
         }
 
         if (!$templatePath) {
-            $templatePath = '~serverError/'.$code.'.html';
+            $templatePath = '~front/error/'.$code.'.html';
         }
 
         try {
             $view = $this->apex->view($templatePath);
         } catch (aura\view\ENotFound $e) {
+            $templatePath = substr($templatePath, 0, -6).'x.html';
+
             try {
-                $view = $this->apex->view('Default.html');
+                $view = $this->apex->view($templatePath);
             } catch (aura\view\ENotFound $f) {
-                throw $e;
+                try {
+                    $view = $this->apex->view('Default.html');
+                } catch (aura\view\ENotFound $f) {
+                    throw $e;
+                }
             }
         }
 
