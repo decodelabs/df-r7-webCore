@@ -29,7 +29,7 @@ class HttpIndex extends arch\node\Base
             if ($ip->isLoopback()) {
                 try {
                     $client = new link\http\Client();
-                    $response = $client->get('http://ipecho.net/plain');
+                    $response = $client->get('http://api6.ipify.org');
 
                     if ($response->isOk()) {
                         $ip = link\Ip::factory($response->getContent());
