@@ -10,23 +10,27 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\user;
+use df\opal;
 
-abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
-
+abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
+{
     use arch\node\TForm_ParentUiHandlerDelegate;
 
     protected $_invite;
 
-    public function setInvite(apex\models\user\invite\Record $invite=null) {
+    public function setInvite(apex\models\user\invite\Record $invite=null)
+    {
         $this->_invite = $invite;
         return $this;
     }
 
-    public function getInvite() {
+    public function getInvite()
+    {
         return $this->_invite;
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $parts = explode('\\', get_class($this));
         $name = array_pop($parts);
 
@@ -35,15 +39,17 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         );
     }
 
-    protected function _createClient() {
+    protected function _createClient()
+    {
         $client = $this->data->user->client->newRecord();
         $client->joinDate = 'now';
 
         return $client;
     }
 
-    protected function _createAuth(apex\models\user\client\Record $client, $adapterName, $identity=null) {
-        if($identity === null) {
+    protected function _createAuth(apex\models\user\client\Record $client, $adapterName, $identity=null)
+    {
+        if ($identity === null) {
             $identity = $client['email'];
         }
 
@@ -56,40 +62,50 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         return $auth;
     }
 
-    protected function _saveClient(apex\models\user\client\Record $client) {
-        if($this->_invite) {
+    protected function _saveClient(apex\models\user\client\Record $client)
+    {
+        if ($this->_invite) {
             $client->groups->addList($this->_invite['#groups']);
         }
 
-        $client->save();
+        try {
+            $client->save();
+        } catch (opal\rdbms\ConstraintException $e) {
+            $this->values->email->addError('unique', $this->_('An account already exists with this email address'));
+            $this->forceResponse($this->http->redirect($this->request));
+        }
 
-        if($this->_invite) {
+        if ($this->_invite) {
             $this->data->user->invite->claim($this->_invite, $client);
         }
     }
 
 
 
-    public function setCompletionRedirect($request) {
+    public function setCompletionRedirect($request)
+    {
         $this->setStore('completionRedirect', $request);
         return $this;
     }
 
-    public function getCompletionRedirect() {
+    public function getCompletionRedirect()
+    {
         return $this->getStore('completionRedirect');
     }
 
-    public function clearCompletionRedirect() {
+    public function clearCompletionRedirect()
+    {
         $this->removeStore('completionRedirect');
         return $this;
     }
 
-    protected function _completeRegistration($requestGenerator=null) {
-        return $this->complete(function() use($requestGenerator) {
+    protected function _completeRegistration($requestGenerator=null)
+    {
+        return $this->complete(function () use ($requestGenerator) {
             $redirect = $this->getStore('completionRedirect');
             $config = $this->data->user->config;
 
-            if($redirect === null) {
+            if ($redirect === null) {
                 $redirect = $config->getRegistrationLandingPage();
             }
 
@@ -98,10 +114,10 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
                 $this->_('Your account has been successfully created')
             );
 
-            if($requestGenerator && $config->shouldLoginOnRegistration()) {
+            if ($requestGenerator && $config->shouldLoginOnRegistration()) {
                 $request = core\lang\Callback($requestGenerator);
 
-                if($request instanceof user\authentication\IRequest) {
+                if ($request instanceof user\authentication\IRequest) {
                     $result = $this->user->auth->bind($request);
                     return $redirect;
                 }
