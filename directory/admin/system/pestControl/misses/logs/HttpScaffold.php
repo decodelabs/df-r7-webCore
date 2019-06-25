@@ -12,8 +12,8 @@ use df\arch;
 use df\opal;
 use df\flex;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
-
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = '404 error logs';
     const ICON = 'log';
     const ADAPTER = 'axis://pestControl/MissLog';
@@ -32,9 +32,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'userAgent', 'user', 'isProduction'
     ];
 
+    const CAN_SELECT = true;
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query
             ->importRelationBlock('miss', 'list')
             ->importRelationBlock('user', 'link')
@@ -45,7 +48,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             ;
     }
 
-    public function getRecordOperativeLinks($record, $mode) {
+    public function getRecordOperativeLinks($record, $mode)
+    {
         return array_merge(
             [
                 $this->html->link(
@@ -59,13 +63,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-// Components
-    protected function getParentSectionRequest() {
+    // Components
+    protected function getParentSectionRequest()
+    {
         $id = $this->getRecord()['#miss'];
         return '../details?miss='.flex\Guid::factory($id);
     }
 
-    public function addIndexSectionLinks($menu, $bar) {
+    public function addIndexSectionLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link('../', $this->_('URLs'))
                 ->setIcon('brokenLink')
@@ -79,8 +85,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Sections
-    public function renderDetailsSectionBody($log) {
+    // Sections
+    public function renderDetailsSectionBody($log)
+    {
         return [
             $log['isArchived'] ?
                 $this->html->flashMessage($this->_(
@@ -96,7 +103,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                     $this->html('h3', $this->_('Log')),
                     parent::renderDetailsSectionBody($log)
                 ])
-                ->addPanel(function() use($log) {
+                ->addPanel(function () use ($log) {
                     return [
                         $this->html('h3', [
                             $this->_('Error'), ' - ',
@@ -109,65 +116,77 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         ];
     }
 
-// Fields
-    public function defineDateField($list, $mode) {
-        if($mode != 'details') return false;
+    // Fields
+    public function defineDateField($list, $mode)
+    {
+        if ($mode != 'details') {
+            return false;
+        }
 
-        $list->addField('date', function($log) {
+        $list->addField('date', function ($log) {
             return $this->html->dateTime($log['date']);
         });
     }
-    public function defineMissField($list, $mode) {
-        $list->addField('error', function($log) {
+    public function defineMissField($list, $mode)
+    {
+        $list->addField('error', function ($log) {
             return $this->apex->component('../MissLink', $log['miss']);
         });
     }
 
-    public function defineUserAgentField($list, $mode) {
-        $list->addField('userAgent', function($log) {
-            if($agent = $log['userAgent']) {
+    public function defineUserAgentField($list, $mode)
+    {
+        $list->addField('userAgent', function ($log) {
+            if ($agent = $log['userAgent']) {
                 return $this->html('code', $agent['body']);
             }
         });
     }
 
-    public function defineUserField($list, $mode) {
-        $list->addField('user', function($log) {
+    public function defineUserField($list, $mode)
+    {
+        $list->addField('user', function ($log) {
             return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
                 ->isNullable(true);
         });
     }
 
-    public function defineReferrerField($list, $mode) {
-        $list->addField('referrer', function($log) use($mode) {
-            if(!$referrer = $log['referrer']) return;
+    public function defineReferrerField($list, $mode)
+    {
+        $list->addField('referrer', function ($log) use ($mode) {
+            if (!$referrer = $log['referrer']) {
+                return;
+            }
 
             return $this->html->link($referrer, $this->html('samp', $mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
                 ->setIcon('link');
         });
     }
 
-    public function defineModeField($list, $mode) {
-        $list->addField('mode', function($log) {
+    public function defineModeField($list, $mode)
+    {
+        $list->addField('mode', function ($log) {
             return $this->format->name($log['mode']);
         });
     }
 
-    public function defineRequestField($list, $mode) {
+    public function defineRequestField($list, $mode)
+    {
         return $this->apex->scaffold('../../')->defineRequestField($list, $mode);
     }
 
-    public function defineMessageField($list, $mode) {
-        $list->addField('message', function($error) use($mode) {
+    public function defineMessageField($list, $mode)
+    {
+        $list->addField('message', function ($error) use ($mode) {
             $message = $error['message'];
 
-            if($mode == 'list') {
+            if ($mode == 'list') {
                 $message = $this->format->shorten($message, 25);
             }
 
             $output = $this->html('samp', $message);
 
-            if($mode == 'list') {
+            if ($mode == 'list') {
                 $output->setTitle($error['message']);
             }
 
@@ -175,9 +194,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineIsBotField($list, $mode) {
-        $list->addField('isBot', $this->_('Bot'), function($log, $context) {
-            if($log['isBot']) {
+    public function defineIsBotField($list, $mode)
+    {
+        $list->addField('isBot', $this->_('Bot'), function ($log, $context) {
+            if ($log['isBot']) {
                 $context->getRowTag()->addClass('inactive');
             }
 
@@ -185,9 +205,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineIsProductionField($list, $mode) {
-        $list->addField('isProduction', $mode == 'list' ? $this->_('Prod') : $this->_('Production'), function($log, $context) use($mode) {
-            if(!$log['isProduction']) {
+    public function defineIsProductionField($list, $mode)
+    {
+        $list->addField('isProduction', $mode == 'list' ? $this->_('Prod') : $this->_('Production'), function ($log, $context) use ($mode) {
+            if (!$log['isProduction']) {
                 $context->getRowTag()->addClass('inactive');
             }
 
