@@ -10,16 +10,17 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\AreaMenu {
-
+class HttpScaffold extends arch\scaffold\AreaMenu
+{
     const TITLE = 'Pest control';
     const ICON = 'bug';
 
     protected $_router;
 
-    public function generateIndexMenu($entryList) {
-        $criticalErrorCount = $this->data->pestControl->errorLog->countAll();
-        $notFoundCount = $this->data->pestControl->missLog->countAll();
+    public function generateIndexMenu($entryList)
+    {
+        $criticalErrorCount = $this->data->pestControl->error->countAll();
+        $notFoundCount = $this->data->pestControl->miss->countAll();
         $accessErrorCount = $this->data->pestControl->accessLog->countAll();
 
         $entryList->addEntries(
@@ -46,7 +47,8 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
         );
     }
 
-    public function addIndexOperativeLinks($menu, $bar) {
+    public function addIndexOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
                 ->setIcon('delete')
@@ -54,17 +56,20 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
     }
 
 
-// Helpers
-    public function defineRequestField($list, $mode) {
-        $list->addField('request', function($item, $context) use($mode) {
-            if(!$request = $item['request']) return;
+    // Helpers
+    public function defineRequestField($list, $mode)
+    {
+        $list->addField('request', function ($item, $context) use ($mode) {
+            if (!$request = $item['request']) {
+                return;
+            }
             $context->getCellTag()->setStyle('word-break', 'break-all');
 
-            switch($item['mode']) {
+            switch ($item['mode']) {
                 case 'Http':
                     $router = $this->_getRouter();
 
-                    if(preg_match('/^http(s)?:/', $request)) {
+                    if (preg_match('/^http(s)?:/', $request)) {
                         $url = new df\link\http\Url($request);
                     } else {
                         $baseUrl = (string)$router->getBaseUrl();
@@ -87,17 +92,17 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                     break;
             }
 
-            if($mode == 'list') {
+            if ($mode == 'list') {
                 $output = $this->format->shorten($output, 60, true);
             }
 
             $output = $this->html('code', $output);
 
-            if($mode == 'list' && $title !== null) {
+            if ($mode == 'list' && $title !== null) {
                 $output->setTitle($title);
             }
 
-            if($item['mode'] == 'Http') {
+            if ($item['mode'] == 'Http') {
                 $output = $this->html->link($url, $output)
                     ->setIcon('link')
                     ->setDisposition('transitive')
@@ -108,8 +113,9 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
         });
     }
 
-    protected function _getRouter() {
-        if(!$this->_router) {
+    protected function _getRouter()
+    {
+        if (!$this->_router) {
             $this->_router = core\app\runner\http\Router::getInstance();
         }
 
