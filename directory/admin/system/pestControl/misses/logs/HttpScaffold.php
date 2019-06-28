@@ -23,12 +23,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const CAN_EDIT = false;
 
     const LIST_FIELDS = [
-        'date', 'mode', 'request',
+        'date', 'mode', 'url', 'request',
         'referrer', 'user', 'isBot', 'isProduction'
     ];
 
     const DETAILS_FIELDS = [
-        'date', 'referrer', 'message',
+        'date', 'url', 'referrer', 'message',
         'userAgent', 'user', 'isProduction'
     ];
 
