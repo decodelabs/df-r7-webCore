@@ -10,19 +10,22 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
-
+class HttpAdd extends arch\node\Form
+{
     protected $_client;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_client = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate('groups', '../groups/GroupSelector');
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $locale = $this->i18n->getDefaultLocale();
 
         $this->values->status = 3;
@@ -31,7 +34,8 @@ class HttpAdd extends arch\node\Form {
         $this->values->timezone = $this->i18n->timezones->suggestForCountry($locale->getRegion());
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $model = $this->data->getModel('user');
 
         $form = $this->content->addForm();
@@ -55,10 +59,11 @@ class HttpAdd extends arch\node\Form {
         // Status
         $fs->addField($this->_('Status'))
             ->addSelect('status', $this->values->status, [
+                    -2 => $this->_('Spam account'),
                     -1 => $this->_('Deactivated'),
-                    0 => $this->_('Guest'),
+                    //0 => $this->_('Guest'),
                     1 => $this->_('Pending'),
-                    2 => $this->_('Bound'),
+                    //2 => $this->_('Bound'),
                     3 => $this->_('Confirmed')
                 ])
                 ->isRequired(true);
@@ -91,7 +96,7 @@ class HttpAdd extends arch\node\Form {
 
 
         // Password
-        if($this->_client->isNew()) {
+        if ($this->_client->isNew()) {
             $fs = $form->addFieldSet($this->_('Password'));
 
             $fs->addField($this->_('Password'))
@@ -113,7 +118,8 @@ class HttpAdd extends arch\node\Form {
     }
 
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $isNew = $this->_client->isNew();
         $auth = null;
 
@@ -132,8 +138,8 @@ class HttpAdd extends arch\node\Form {
 
             // Status
             ->addRequiredField('status', 'integer')
-                ->extend(function($value, $field) {
-                    if($value < -1 || $value > 3) {
+                ->extend(function ($value, $field) {
+                    if (!in_array($value, [-2, -1, 1, 3], true)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid status id'
                         ));
@@ -146,11 +152,11 @@ class HttpAdd extends arch\node\Form {
 
             // Timezone
             ->addRequiredField('timezone', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return str_replace(' ', '/', ucwords(str_replace('/', ' ', $value)));
                 })
-                ->extend(function($value, $field) {
-                    if(!$this->i18n->timezones->isValidId($value)) {
+                ->extend(function ($value, $field) {
+                    if (!$this->i18n->timezones->isValidId($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid timezone id'
                         ));
@@ -159,11 +165,11 @@ class HttpAdd extends arch\node\Form {
 
             // Country
             ->addRequiredField('country', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return strtoupper($value);
                 })
-                ->extend(function($value, $field) {
-                    if(!$this->i18n->countries->isValidId($value)) {
+                ->extend(function ($value, $field) {
+                    if (!$this->i18n->countries->isValidId($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid country code'
                         ));
@@ -172,11 +178,11 @@ class HttpAdd extends arch\node\Form {
 
             // Language
             ->addRequiredField('language', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return strtolower($value);
                 })
-                ->extend(function($value, $field) {
-                    if(!$this->i18n->languages->isValidId($value)) {
+                ->extend(function ($value, $field) {
+                    if (!$this->i18n->languages->isValidId($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid language id'
                         ));
@@ -187,7 +193,7 @@ class HttpAdd extends arch\node\Form {
             ->applyTo($this->_client);
 
 
-        if($isNew) {
+        if ($isNew) {
             $auth = $this->data->getModel('user')->auth->newRecord([
                 'adapter' => 'Local',
                 'identity' => $this->_client['email'],
@@ -201,10 +207,10 @@ class HttpAdd extends arch\node\Form {
                 ->applyTo($auth);
         }
 
-        return $this->complete(function() use($isNew, $auth) {
+        return $this->complete(function () use ($isNew, $auth) {
             $this->_client->save();
 
-            if($isNew) {
+            if ($isNew) {
                 $auth['user'] = $this->_client;
                 $auth->save();
             }

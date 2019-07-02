@@ -251,17 +251,21 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineStatusField($list, $mode)
     {
         $list->addField('status', function ($client, $context) use ($mode) {
-            if ($client['status'] == user\IState::DEACTIVATED) {
+            if (in_array($client['status'], [user\IState::SPAM, user\IState::DEACTIVATED])) {
                 if ($mode == 'list') {
-                    $context->getRowTag()->addClass('disabled');
+                    $context->getRowTag()->addClass('inactive');
                 }
 
                 $context->getCellTag()->addClass('negative');
+
+                if ($client['status'] === user\IState::SPAM) {
+                    yield $this->html->icon('warning');
+                }
             } elseif ($client['status'] == user\IState::PENDING) {
                 $context->getCellTag()->addClass('warning');
             }
 
-            return $this->user->client->stateIdToName($client['status']);
+            yield $this->user->client->stateIdToName($client['status']);
         });
     }
 
