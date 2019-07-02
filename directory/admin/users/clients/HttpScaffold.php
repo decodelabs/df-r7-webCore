@@ -65,6 +65,24 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
+    // Nodes
+    public function deactivatedHtmlNode()
+    {
+        return $this->buildListNode(
+            $this->getRecordAdapter()->select()
+                ->where('status', '=', user\IState::DEACTIVATED)
+        );
+    }
+
+    public function spamHtmlNode()
+    {
+        return $this->buildListNode(
+            $this->getRecordAdapter()->select()
+                ->where('status', '=', user\IState::SPAM)
+        );
+    }
+
+
     // Sections
     public function renderDetailsSectionBody($client)
     {
@@ -165,6 +183,23 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
+    public function addIndexSectionLinks($menu, $bar)
+    {
+        $menu->addLinks(
+            $this->html->link('./', $this->_('All'), true)
+                ->setIcon('star')
+                ->setDisposition('informative'),
+
+            $this->html->link('./deactivated', $this->_('Deactivated'), true)
+                ->setIcon('remove')
+                ->setDisposition('informative'),
+
+            $this->html->link('./spam', $this->_('Spam'), true)
+                ->setIcon('warning')
+                ->setDisposition('informative')
+        );
+    }
+
     public function addIndexSubOperativeLinks($menu, $bar)
     {
         $menu->addLinks(
