@@ -66,6 +66,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Nodes
+    public function confirmedHtmlNode()
+    {
+        return $this->buildListNode(
+            $this->getRecordAdapter()->select()
+                ->where('status', '=', user\IState::CONFIRMED)
+        );
+    }
+
     public function deactivatedHtmlNode()
     {
         return $this->buildListNode(
@@ -188,6 +196,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $menu->addLinks(
             $this->html->link('./', $this->_('All'), true)
                 ->setIcon('star')
+                ->setDisposition('informative'),
+
+            $this->html->link('./confirmed', $this->_('Confirmed'), true)
+                ->setIcon('tick')
                 ->setDisposition('informative'),
 
             $this->html->link('./deactivated', $this->_('Deactivated'), true)
