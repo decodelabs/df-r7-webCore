@@ -103,7 +103,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('thumbnail', $this->_('Thumb'), function ($file) {
             if (false !== strpos($file['contentType'], 'image/')) {
-                $image = $this->media->image($file['id'], '[rs:80|80|f]');
+                $image = $this->media->image($file['id'], '[rs:80|80|f]', null, 80);
 
                 if ($file['activeVersion']['contentType'] == 'image/svg+xml') {
                     $image->setStyle('height', '6em');
