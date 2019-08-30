@@ -12,8 +12,8 @@ use df\arch;
 use df\opal;
 use df\flow;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
-
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const TITLE = 'Development mailbox';
     const ICON = 'mail';
@@ -28,9 +28,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-// Sections
-    public function renderDetailsSectionBody($mail) {
-        if(!$mail['readDate']) {
+    // Sections
+    public function renderDetailsSectionBody($mail)
+    {
+        if (!$mail['readDate']) {
             $mail->readDate = 'now';
             $mail->save();
         }
@@ -50,13 +51,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         ]);
     }
 
-    public function downloadNode() {
+    public function downloadNode()
+    {
         $mail = $this->getRecord();
         $message = $mail->toMessage();
         $partIds = explode('-', $this->request['part']);
         array_shift($partIds);
 
-        if(!$part = $this->_getMessagePart($message, $partIds)) {
+        if (!$part = $this->_getMessagePart($message, $partIds)) {
             throw core\Error::{'ENotFound'}([
                 'message' => 'Part not found',
                 'http' => 404
@@ -66,7 +68,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         $content = $part->getContentString();
         $contentType = $part->getContentType();
 
-        if(!$filename = $part->getFilename()) {
+        if (!$filename = $part->getFilename()) {
             $filename = $mail['id'].'-'.$this->request['part'];
         }
 
@@ -74,21 +76,22 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             ->setFilename($filename);
     }
 
-    private function _getMessagePart($multipart, $partIds) {
+    private function _getMessagePart($multipart, $partIds)
+    {
         $partId = (int)array_shift($partIds);
 
-        if(!$part = $multipart->getPart($partId)) {
+        if (!$part = $multipart->getPart($partId)) {
             return null;
         }
 
-        if(!empty($partIds)) {
-            if(!$part instanceof flow\mime\IMultiPart) {
+        if (!empty($partIds)) {
+            if (!$part instanceof flow\mime\IMultiPart) {
                 return null;
             }
 
             return $this->_getMessagePart($part, $partIds);
-        } else if(empty($partIds)) {
-            if(!$part instanceof flow\mime\IContentPart) {
+        } elseif (empty($partIds)) {
+            if (!$part instanceof flow\mime\IContentPart) {
                 return null;
             }
 
@@ -97,8 +100,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Components
-    public function addIndexSubOperativeLinks($menu, $bar) {
+    // Components
+    public function addIndexSubOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('~mail/capture/delete-all', true),
@@ -110,16 +114,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function defineFromField($list, $mode) {
-        $list->addField('from', function($mail) {
+    // Fields
+    public function defineFromField($list, $mode)
+    {
+        $list->addField('from', function ($mail) {
             return $this->html->mailLink($mail['from'])
                 ->setIcon('user');
         });
     }
 
-    public function defineToField($list, $mode) {
-        $list->addField('to', function($mail) {
+    public function defineToField($list, $mode)
+    {
+        $list->addField('to', function ($mail) {
             $addresses = flow\mail\AddressList::factory($mail['to']);
             $first = $addresses->extract();
 
@@ -131,8 +137,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 ->setDescription($first->getName())
                 ->setDisposition('external');
 
-            if(!$addresses->isEmpty()) {
-                yield $this->html(
+            if (!$addresses->isEmpty()) {
+                yield $this->html->string(
                     '<span class="inactive">'.$this->view->esc($this->_(
                         ' and %c% more',
                         ['%c%' => count($addresses)]
@@ -142,9 +148,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineDateField($list, $mode) {
-        $list->addField('date', function($mail, $context) use($mode) {
-            if($mode == 'list' && $mail['readDate']) {
+    public function defineDateField($list, $mode)
+    {
+        $list->addField('date', function ($mail, $context) use ($mode) {
+            if ($mode == 'list' && $mail['readDate']) {
                 $context->getRowTag()->addClass('inactive');
             }
 
