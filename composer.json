@@ -1,0 +1,20 @@
+{
+    "name": "df-r7/webCore",
+    "description": "DF r7 webCore",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Wright",
+            "email": "tom@inflatablecookie.com"
+        }
+    ],
+    "require": {
+        "df-r7/base": "dev-develop"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.x-dev"
+        }
+    }
+}
