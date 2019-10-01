@@ -11,12 +11,13 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpEdit extends arch\node\Form {
-
+class HttpEdit extends arch\node\Form
+{
     protected $_menu;
 
-    protected function init() {
-        if(!$this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request['menu'])) {
+    protected function init()
+    {
+        if (!$this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request['menu'])) {
             throw core\Error::{'arch/navigation/menu/ENotFound'}([
                 'message' => 'Menu not found',
                 'http' => 404
@@ -24,15 +25,17 @@ class HttpEdit extends arch\node\Form {
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_menu->getId()->path->toString();
     }
 
-    protected function loadDelegates() {
-        core\stub('Add menu delegate selector and entry builder');
+    protected function loadDelegates()
+    {
+        Glitch::incomplete('Add menu delegate selector and entry builder');
     }
 
-    protected function createUi() {
-
+    protected function createUi()
+    {
     }
 }

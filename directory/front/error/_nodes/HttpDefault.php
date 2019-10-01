@@ -34,7 +34,8 @@ class HttpDefault extends arch\node\Base
             }
         }
 
-        if ($exception instanceof core\IError) {
+        if ($exception instanceof core\IError ||
+            $exception instanceof \EGlitch) {
             $code = $exception->getHttpCode();
         } else {
             $code = $exception->getCode();
@@ -108,7 +109,7 @@ class HttpDefault extends arch\node\Base
                         break;
                 }
             } catch (\Throwable $e) {
-                core\debug()->exception($e);
+                Glitch::dump($e);
             }
         }
 
@@ -151,10 +152,7 @@ class HttpDefault extends arch\node\Base
         }
 
         if (!$view) {
-            core\debug()
-                ->info('error has reached the error handler!')
-                ->exception($exception)
-                ->render();
+            Glitch::dumpException($exception);
         }
 
         if ($code == 403 || $code == 404 || $code == 500) {
