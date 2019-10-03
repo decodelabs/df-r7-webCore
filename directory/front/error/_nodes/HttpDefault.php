@@ -122,6 +122,10 @@ class HttpDefault extends arch\node\Base
             $isAdmin = false;
         }
 
+        if ($isAdmin) {
+            Glitch::getRenderer()->setProductionOverride(true);
+        }
+
         $showTemplate = !$isDevelopment;
 
         if ($code == 500 && ($isAdmin || $isTesting)) {
