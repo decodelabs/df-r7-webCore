@@ -14,6 +14,8 @@ use df\spur;
 use df\flex;
 use df\link;
 
+use DecodeLabs\Tagged\Html;
+
 class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
 {
     use aura\view\TView_DirectoryHelper;
