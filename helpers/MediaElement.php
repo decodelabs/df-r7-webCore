@@ -14,14 +14,15 @@ use df\spur;
 use df\flex;
 use df\link;
 
-class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper {
-
+class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
+{
     use aura\view\TView_DirectoryHelper;
 
-    public function __invoke(string $type, ?string $embed, array $attributes=null) {
-        if($type == 'audio') {
+    public function __invoke(string $type, ?string $embed, array $attributes=null)
+    {
+        if ($type == 'audio') {
             return $this->audio($embed, $attributes);
-        } else if($type == 'video') {
+        } elseif ($type == 'video') {
             return $this->video($embed, $attributes);
         } else {
             throw core\Error::EArgument('Invalid media element type: '.$type);
@@ -29,17 +30,18 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
     }
 
 
-// Audio
-    public function audio(?string $embed, array $attributes=null) {
+    // Audio
+    public function audio(?string $embed, array $attributes=null)
+    {
         $embed = trim($embed);
 
-        if(empty($embed)) {
+        if (empty($embed)) {
             return null;
         }
 
-        $embed = $this->html->audioEmbed($embed, 940);
+        $embed = Html::$embed->audio($embed, 940);
 
-        if($embed->getProvider() == 'audioboom') {
+        if ($embed->getProvider() == 'audioboom') {
             // Audioboom
             $url = link\http\Url::factory($embed->getUrl());
             $booId = $url->path->get(1);
@@ -52,7 +54,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
         $this->view->dfKit->load('lib/df-kit/mediaelement');
 
-        if(isset($attributes['dfKit'])) {
+        if (isset($attributes['dfKit'])) {
             $this->view->dfKit->load($attributes['dfKit']);
             unset($attributes['dfKit']);
         } else {
@@ -69,11 +71,12 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
 
 
-// Video
-    public function video(?string $embed, array $attributes=null) {
+    // Video
+    public function video(?string $embed, array $attributes=null)
+    {
         $embed = trim($embed);
 
-        if(empty($embed)) {
+        if (empty($embed)) {
             return null;
         }
 
@@ -81,11 +84,11 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         $height = $attributes['height'] ?? null;
         unset($attributes['width'], $attributes['height']);
 
-        $embed = spur\video\Embed::parse($embed)
+        $embed = Html::$embed->video($embed)
             ->setDimensions($width, $height);
 
 
-        if(!$this->request->isArea('front')) {
+        if (!$this->request->isArea('front')) {
             return $embed->render();
         }
 
@@ -93,7 +96,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         $sourceUrl = $embed->getPreparedUrl();
 
         // DF Kit
-        if(isset($attributes['dfKit'])) {
+        if (isset($attributes['dfKit'])) {
             $this->view->dfKit->load($attributes['dfKit']);
             unset($attributes['dfKit']);
         } else {
@@ -101,7 +104,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         }
 
         // Autoplay
-        if(isset($attributes['autoplay'])) {
+        if (isset($attributes['autoplay'])) {
             $embed->shouldAutoPlay((bool)$attributes['autoplay']);
             unset($attributes['autoplay']);
         }
@@ -109,7 +112,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         // Provider
         $attributes['data-provider'] = $provider = $embed->getProvider();
 
-        if($provider == 'vimeo') {
+        if ($provider == 'vimeo') {
             $sourceUrl .= '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0';
         }
 
