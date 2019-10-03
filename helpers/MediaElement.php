@@ -84,8 +84,9 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         $height = $attributes['height'] ?? null;
         unset($attributes['width'], $attributes['height']);
 
-        $embed = Html::$embed->video($embed)
-            ->setDimensions($width, $height);
+        if (!$embed = Html::$embed->video($embed, $width, $height)) {
+            return null;
+        }
 
 
         if (!$this->request->isArea('front')) {

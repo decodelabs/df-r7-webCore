@@ -13,16 +13,19 @@ use df\arch;
 use df\spur;
 use df\flex;
 
-class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper {
+use DecodeLabs\Tagged\Html;
 
+class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
+{
     use aura\view\TView_DirectoryHelper;
 
     protected static $_instanceId = 0;
 
-    public function __invoke($embed, array $attributes=null) {
+    public function __invoke($embed, array $attributes=null)
+    {
         $embed = trim($embed);
 
-        if(empty($embed)) {
+        if (empty($embed)) {
             return '';
         }
 
@@ -30,25 +33,26 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
         $height = $attributes['height'] ?? null;
         unset($attributes['width'], $attributes['height']);
 
-        $embed = spur\video\Embed::parse($embed)
-            ->setDimensions($width, $height);
+        if (!$embed = Html::$embed->video($embed, $width, $height)) {
+            return;
+        }
 
         $isFront = $this->request->isArea('front');
 
-        if(!$isFront) {
+        if (!$isFront) {
             return $embed->render();
         }
 
         $isHtmlView = $this->view instanceof aura\view\IHtmlView;
 
-        if($isHtmlView) {
+        if ($isHtmlView) {
             $this->view->linkCss('dependency://videojs/dist/video-js.min.css', 1000);
         }
 
-        if(isset($attributes['dfKit'])) {
+        if (isset($attributes['dfKit'])) {
             $xSetup = true;
 
-            if($isHtmlView) {
+            if ($isHtmlView) {
                 $this->view->dfKit->load($attributes['dfKit']);
             }
 
@@ -56,7 +60,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
         } else {
             $xSetup = false;
 
-            if($isHtmlView) {
+            if ($isHtmlView) {
                 $this->view->dfKit->load(
                     'vendor-static/Vimeo',
                     'videojs-youtube',
@@ -73,14 +77,14 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
         $poster = false;
 
 
-        if(isset($attributes['autoplay'])) {
+        if (isset($attributes['autoplay'])) {
             $embed->shouldAutoPlay((bool)$attributes['autoplay']);
             unset($attributes['autoplay']);
         }
 
         $setup['autoplay'] = $embed->shouldAutoPlay();
 
-        switch($provider) {
+        switch ($provider) {
             case 'youtube':
                 $this->_youtube = true;
                 $setup['techOrder'] = ['youtube'];
@@ -115,14 +119,14 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
             'autoplay' => $embed->shouldAutoPlay()
         ]);
 
-        if(isset($attributes['skin'])) {
+        if (isset($attributes['skin'])) {
             $skin = $attributes['skin'];
             unset($attributes['skin']);
         } else {
             $skin = 'vjs-default-skin';
         }
 
-        if($attributes) {
+        if ($attributes) {
             $output->addAttributes($attributes);
         }
 
@@ -130,7 +134,8 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
         return $output;
     }
 
-    public function loadResources() {
+    public function loadResources()
+    {
         $this->view->linkCss('dependency://videojs/dist/video-js.min.css', 1000);
 
         $this->view->dfKit->load(
