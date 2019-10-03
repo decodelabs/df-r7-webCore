@@ -43,11 +43,9 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
         $embed = Html::$embed->audio($embed, 940);
 
-        if ($embed->getProvider() == 'audioboom') {
+        if ($embed->getProvider() == 'audioboom' && $embed->getAudioboomType() == 'embed') {
             // Audioboom
-            $url = link\http\Url::factory($embed->getUrl());
-            $booId = $url->path->get(1);
-            $sourceUrl = 'https://audioboom.com/posts/'.$booId.'.mp3';
+            $sourceUrl = 'https://audioboom.com/posts/'.$embed->getAudioboomId().'.mp3';
             $type = 'audio/mp3';
         } else {
             // Don't know??
