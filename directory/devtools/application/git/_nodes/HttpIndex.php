@@ -11,11 +11,12 @@ use df\apex;
 use df\arch;
 use df\spur;
 
-class HttpIndex extends arch\node\Base {
-
+class HttpIndex extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $view = $this->apex->view('Index.html');
         $view['packageList'] = $this->data->getModel('package')->getInstalledPackageList();
 

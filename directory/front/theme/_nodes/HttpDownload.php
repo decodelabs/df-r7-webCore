@@ -11,6 +11,8 @@ use df\arch;
 use df\aura;
 use df\neon;
 
+use DecodeLabs\Atlas;
+
 class HttpDownload extends arch\node\Base
 {
     const OPTIMIZE = true;
@@ -44,7 +46,7 @@ class HttpDownload extends arch\node\Base
         }
 
         if (!$type) {
-            $type = core\fs\Type::fileToMime($absolutePath);
+            $type = Atlas::$mime->detect($absolutePath);
         }
 
         $hasTransform = isset($this->request['transform']);

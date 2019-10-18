@@ -11,6 +11,10 @@ use df\apex;
 use df\arch;
 use df\flex;
 
+use DecodeLabs\Atlas;
+use DecodeLabs\Atlas\Mode;
+use DecodeLabs\Atlas\File;
+
 class HttpSitemap extends arch\node\Base
 {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
@@ -29,14 +33,14 @@ class HttpSitemap extends arch\node\Base
 
         $path = $this->app->getLocalDataPath().'/sitemap/'.$this->app->envMode.'.xml';
         $rebuild = false;
-        $file = new core\fs\File($path);
+        $file = Atlas::$fs->file($path);
 
         if (isset($this->request['rebuild'])
         || !$file->exists()
         || (time() - $file->getLastModified() > (60 * 60 * 6))
         || !$file->getSize()) {
             $rebuild = true;
-            $file->open(core\fs\Mode::READ_WRITE_TRUNCATE);
+            $file->open(Mode::READ_WRITE_TRUNCATE);
         }
 
         if ($rebuild) {
@@ -47,7 +51,7 @@ class HttpSitemap extends arch\node\Base
         return $this->http->fileResponse($file);
     }
 
-    protected function _generateXml(core\fs\IFile $file=null)
+    protected function _generateXml(File $file=null)
     {
         if ($file) {
             $xml = new flex\xml\Writer(null, $file->getPath());

@@ -11,17 +11,20 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpDeleteBackup extends arch\node\DeleteForm {
+use DecodeLabs\Atlas;
 
+class HttpDeleteBackup extends arch\node\DeleteForm
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const ITEM_NAME = 'backup';
 
     protected $_file;
 
-    protected function init() {
+    protected function init()
+    {
         $fileName = basename($this->request['backup']);
 
-        if(!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
+        if (!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
             throw core\Error::{'EForbidden'}([
                 'message' => 'Not an axis backup file',
                 'http' => 403
@@ -30,7 +33,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm {
 
         $this->_file = $this->app->getSharedDataPath().'/backup/'.$fileName;
 
-        if(!is_file($this->_file)) {
+        if (!is_file($this->_file)) {
             throw core\Error::{'ENotFound'}([
                 'message' => 'Backup not found',
                 'http' => 404
@@ -38,21 +41,24 @@ class HttpDeleteBackup extends arch\node\DeleteForm {
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return basename($this->_file);
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList(basename($this->_file))
-            ->addField('name', function($backup) {
+            ->addField('name', function ($backup) {
                 return $backup;
             })
-            ->addField('created', function($backup) {
+            ->addField('created', function ($backup) {
                 return $this->html->timeFromNow(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
             });
     }
 
-    protected function apply() {
-        core\fs\File::delete($this->_file);
+    protected function apply()
+    {
+        Atlas::$fs->deleteFile($this->_file);
     }
 }

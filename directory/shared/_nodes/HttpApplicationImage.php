@@ -11,15 +11,18 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class HttpApplicationImage extends arch\node\Base {
+use DecodeLabs\Atlas;
 
+class HttpApplicationImage extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     const CHECK_ACCESS = false;
 
-    public function executeAsPng() {
+    public function executeAsPng()
+    {
         $theme = $this->apex->getTheme();
 
-        if(!$path = $theme->getApplicationImagePath()) {
+        if (!$path = $theme->getApplicationImagePath()) {
             throw core\Error::{'core/fs/ENotFound'}([
                 'message' => 'No application image path set',
                 'http' => 404
@@ -27,9 +30,9 @@ class HttpApplicationImage extends arch\node\Base {
         }
 
         $absPath = $theme->findAsset($path);
-        $type = core\fs\Type::fileToMime($absPath);
+        $type = Atlas::$mime->detect($absPath);
 
-        if(!$absPath) {
+        if (!$absPath) {
             throw core\Error::{'core/fs/ENotFound'}([
                 'message' => 'Application image '.$path.' not found',
                 'http' => 404
@@ -40,7 +43,7 @@ class HttpApplicationImage extends arch\node\Base {
             ->setFileName($this->http->request->url->path->getFileName())
             ->shouldIncludeTransformationInFileName(false);
 
-        if(isset($this->request['width'])) {
+        if (isset($this->request['width'])) {
             $width = $this->request['width'];
             $height = $this->request->query->get('height', $width);
             $descriptor->applyTransformation('[rs:'.$width.'|'.$height.']');

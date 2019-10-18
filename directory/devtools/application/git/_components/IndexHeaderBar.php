@@ -10,21 +10,12 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
-
+class IndexHeaderBar extends arch\component\HeaderBar
+{
     protected $_icon = 'package';
 
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('Git packages');
-    }
-
-    protected function _addOperativeLinks($menu) {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('~devtools/application/git/refresh-all', true),
-                    $this->_('Refresh')
-                )
-                ->setIcon('refresh')
-        );
     }
 }

@@ -12,18 +12,21 @@ use df\arch;
 use df\flex;
 use df\neon;
 
-class HttpUploaded extends arch\node\Base {
+use DecodeLabs\Atlas;
 
+class HttpUploaded extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function execute() {
+    public function execute()
+    {
         $path = $this->app->getLocalDataPath().'/upload';
         $path .= core\uri\Path::normalizeLocal(
             '/'.flex\Guid::factory($this->request['id']).
             '/'.str_replace('/', '_', $this->request['file'])
         );
 
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             throw core\Error::{'core/fs/ENotFound'}([
                 'message' => 'File not found',
                 'http' => 404
@@ -31,13 +34,13 @@ class HttpUploaded extends arch\node\Base {
         }
 
         $fileName = basename($path);
-        $type = core\fs\Type::fileToMime($path);
+        $type = Atlas::$mime->detect($path);
         $hasTransform = isset($this->request['transform']);
 
-        if($hasTransform && substr($type, 0, 6) == 'image/') {
+        if ($hasTransform && substr($type, 0, 6) == 'image/') {
             $descriptor = new neon\raster\Descriptor($path, $type);
 
-            if($hasTransform) {
+            if ($hasTransform) {
                 $descriptor->applyTransformation($this->request['transform']);
             }
 

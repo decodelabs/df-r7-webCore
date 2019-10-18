@@ -12,6 +12,8 @@ use df\arch;
 use df\aura;
 use df\link;
 
+use DecodeLabs\Atlas;
+
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
     aura\html\IRenderable,
@@ -57,14 +59,14 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         $destination = $this->getStore('tempUploadDir');
 
         if (!$this->_dirChecked) {
-            $dir = core\fs\Dir::createUploadTemp($destination);
+            $dir = link\http\upload\Handler::createUploadTemp($destination);
             $this->_dirChecked = true;
             $this->setStore('tempUploadDir', $dir->getPath());
 
             return $dir;
         }
 
-        return core\fs\Dir::factory($destination);
+        return Atlas::$fs->dir($destination);
     }
 
     protected function _getFileList()
@@ -367,9 +369,9 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     protected function onComplete()
     {
         if ($destination = $this->getStore('tempUploadDir')) {
-            core\fs\Dir::delete($destination);
+            Atlas::$fs->deleteDir($destination);
         }
 
-        core\fs\Dir::purgeUploadTemp();
+        link\http\upload\Handler::purgeUploadTemp();
     }
 }

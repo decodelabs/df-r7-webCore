@@ -10,15 +10,17 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpBackups extends arch\node\Base {
+use DecodeLabs\Atlas;
 
+class HttpBackups extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function execute() {
+    public function execute()
+    {
         $view = $this->apex->view('Backups.html');
-        $dir = new core\fs\Dir($this->app->getSharedDataPath().'/backup/');
 
-        $backups = $dir->listFileNames(function($name) {
+        $backups = Atlas::$fs->listFileNames($this->app->getSharedDataPath().'/backup/', function ($name) {
             return preg_match('/^axis\-[0-9]+\.tar$/i', $name);
         });
 

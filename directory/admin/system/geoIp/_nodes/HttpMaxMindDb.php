@@ -11,20 +11,25 @@ use df\apex;
 use df\arch;
 use df\link;
 
-class HttpMaxMindDb extends arch\node\Form {
+use DecodeLabs\Atlas;
 
+class HttpMaxMindDb extends arch\node\Form
+{
     protected $_config;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_config = link\geoIp\Config::getInstance();
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->isEnabled = $this->_config->isEnabled();
         $this->values->file = $this->_config->values->adapters->MaxMindDb['file'];
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $this->content->push(
             $this->apex->component('IndexHeaderBar')
         );
@@ -36,7 +41,7 @@ class HttpMaxMindDb extends arch\node\Form {
         $fs = $form->addFieldSet($this->_('MaxMind DB adapter'));
 
         // Set as default
-        if($this->_config->getDefaultAdapter() != 'MaxMindDb') {
+        if ($this->_config->getDefaultAdapter() != 'MaxMindDb') {
             $fs->addField()->push(
                 $this->html->checkbox('setAsDefault', $this->values->setAsDefault, $this->_(
                     'Make this the default Geo IP adapter'
@@ -54,7 +59,7 @@ class HttpMaxMindDb extends arch\node\Form {
                 ->isDisabled(empty($fileList))
         );
 
-        if(empty($fileList)) {
+        if (empty($fileList)) {
             $fs->push($this->html->hidden('isEnabled', false));
         }
 
@@ -62,7 +67,7 @@ class HttpMaxMindDb extends arch\node\Form {
         $fs = $form->addFieldSet($this->_('Databases'));
         $fa = $fs->addField($this->_('File'));
 
-        if(empty($fileList)) {
+        if (empty($fileList)) {
             $fa->addFlashMessage($this->_(
                 'There are currently no database files to choose from'
             ), 'warning');
@@ -85,7 +90,7 @@ class HttpMaxMindDb extends arch\node\Form {
         $hasLiteCountry = isset($fileList['GeoLite2-Country.mmdb']);
         $hasLiteCity = isset($fileList['GeoLite2-City.mmdb']);
 
-        if(!$hasLiteCountry || !$hasLiteCity) {
+        if (!$hasLiteCountry || !$hasLiteCity) {
             $fa = $fs->addField($this->_('Fetch free databases'))
                 ->setErrorContainer($this->values->fetch);
 
@@ -93,7 +98,7 @@ class HttpMaxMindDb extends arch\node\Form {
                 'Please be patient while files download, it can take a little while!'
             ));
 
-            if(!$hasLiteCountry) {
+            if (!$hasLiteCountry) {
                 $fa->push(
                     $this->html->eventButton(
                             'fetchLiteCountry',
@@ -104,7 +109,7 @@ class HttpMaxMindDb extends arch\node\Form {
                 );
             }
 
-            if(!$hasLiteCity) {
+            if (!$hasLiteCity) {
                 $fa->push(
                     $this->html->eventButton(
                             'fetchLiteCity',
@@ -120,12 +125,13 @@ class HttpMaxMindDb extends arch\node\Form {
         $form->addDefaultButtonGroup();
     }
 
-    protected function _getFileList() {
+    protected function _getFileList()
+    {
         $output = [];
-        $dir = new core\fs\Dir($this->app->getLocalDataPath().'/geoIp/');
+        $dir = Atlas::$fs->dir($this->app->getLocalDataPath().'/geoIp/');
 
-        foreach($dir->scanFiles() as $name => $file) {
-            if(substr($name, -5) != '.mmdb') {
+        foreach ($dir->scanFiles() as $name => $file) {
+            if (substr($name, -5) != '.mmdb') {
                 continue;
             }
 
@@ -135,60 +141,64 @@ class HttpMaxMindDb extends arch\node\Form {
         return $output;
     }
 
-    protected function onUploadEvent() {
+    protected function onUploadEvent()
+    {
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAllowedExtensions(['mmdb', 'gz']);
         $targetPath = null;
         $path = $this->app->getLocalDataPath().'/geoIp';
 
-        if(count($uploadHandler)) {
-            foreach($uploadHandler as $file) {
-                if($file->getExtension() == 'gz') {
+        if (count($uploadHandler)) {
+            foreach ($uploadHandler as $file) {
+                if ($file->getExtension() == 'gz') {
                     $file->tempUpload($this->values->upload);
 
-                    if($this->values->upload->isValid()) {
+                    if ($this->values->upload->isValid()) {
                         $targetPath = $this->_extractGz($file->getTempPath(), $path.'/'.$file->getFileName());
                     }
                 } else {
                     $file->upload($path, $this->values->upload);
 
-                    if($this->values->upload->isValid()) {
+                    if ($this->values->upload->isValid()) {
                         $targetPath = $file->getDestinationPath();
                     }
                 }
             }
         }
 
-        if($targetPath) {
+        if ($targetPath) {
             $this->values->file = basename($targetPath);
             $this->values->isEnabled = true;
         }
     }
 
-    protected function onFetchLiteCountryEvent() {
+    protected function onFetchLiteCountryEvent()
+    {
         $url = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz';
         $this->_fetchUrl($url);
     }
 
-    protected function onFetchLiteCityEvent() {
+    protected function onFetchLiteCityEvent()
+    {
         $url = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz';
         $this->_fetchUrl($url);
     }
 
-    protected function _fetchUrl($url) {
+    protected function _fetchUrl($url)
+    {
         $fileName = basename($url);
         $path = $this->app->getLocalDataPath().'/geoIp';
-        core\fs\Dir::create($path);
+        Atlas::$fs->createDir($path);
 
-        if(is_file($path.'/'.substr($fileName, 0, -3))) {
+        if (is_file($path.'/'.substr($fileName, 0, -3))) {
             return;
         }
 
-        if(!is_file($path.'/'.$fileName)) {
+        if (!is_file($path.'/'.$fileName)) {
             try {
                 set_time_limit(0);
                 file_put_contents($path.'/'.$fileName, fopen($url, 'r'));
-            } catch(\ErrorException $e) {
+            } catch (\ErrorException $e) {
                 $this->values->fetch->addError('download', $this->_(
                     'File download failed!'
                 ));
@@ -202,13 +212,15 @@ class HttpMaxMindDb extends arch\node\Form {
         $this->values->isEnabled = true;
     }
 
-    protected function _extractGz($path, $targetPath=null) {
+    protected function _extractGz($path, $targetPath=null)
+    {
         $targetPath = core\archive\Base::factory('gz')->decompressFile($path, $targetPath);
-        core\fs\File::delete($path);
+        Atlas::$fs->deleteFile($path);
         return $targetPath;
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Default
@@ -223,15 +235,15 @@ class HttpMaxMindDb extends arch\node\Form {
 
             ->validate($this->values);
 
-        return $this->complete(function() use($validator) {
-            if($validator['setAsDefault']) {
+        return $this->complete(function () use ($validator) {
+            if ($validator['setAsDefault']) {
                 $this->_config->setDefaultAdapter('MaxMindDb');
             }
 
             $this->_config->values->adapters->MaxMindDb->file = $validator['file'];
             $enabled = (bool)$validator['isEnabled'];
 
-            if($enabled && !link\geoIp\Handler::isAdapterAvailable('MaxMindDb')) {
+            if ($enabled && !link\geoIp\Handler::isAdapterAvailable('MaxMindDb')) {
                 $enabled = false;
             }
 

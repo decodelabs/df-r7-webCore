@@ -12,6 +12,8 @@ use df\arch;
 use df\link;
 use df\aura;
 
+use DecodeLabs\Atlas;
+
 class HttpIndex extends arch\node\Base
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -77,11 +79,10 @@ class HttpIndex extends arch\node\Base
             ->setLayout('Default')
             ->setTitle($message);
 
-        $output = $view->render();
-
-        $path = $this->app->getPath().'/serverError/'.$code.'.html';
-        $file = new core\fs\File($path);
-        $file->putContents($output);
+        Atlas::$fs->createFile(
+            $this->app->getPath().'/serverError/'.$code.'.html',
+            $view->render()
+        );
 
         return $view;
     }

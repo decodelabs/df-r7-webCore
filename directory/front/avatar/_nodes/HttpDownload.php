@@ -12,27 +12,30 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-class HttpDownload extends arch\node\Base {
+use DecodeLabs\Atlas;
 
+class HttpDownload extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function execute() {
+    public function execute()
+    {
         $id = $this->request['user'];
         $size = $this->request->query->get('size', 400);
 
-        if($id == 'default') {
+        if ($id == 'default') {
             $theme = aura\theme\Base::factory($this->context);
 
-            if(!$absolutePath = $theme->findAsset($this->data->user->avatarConfig->getDefaultAvatarPath())) {
+            if (!$absolutePath = $theme->findAsset($this->data->user->avatarConfig->getDefaultAvatarPath())) {
                 throw core\Error::{'core/fs/ENotFound'}([
                     'message' => 'File not found',
                     'http' => 404
                 ]);
             }
 
-            $type = core\fs\Type::fileToMime($absolutePath);
+            $type = Atlas::$mime->detect($absolutePath);
 
-            if(substr($type, 0, 6) != 'image/') {
+            if (substr($type, 0, 6) != 'image/') {
                 throw core\Error::{'core/fs/EType,EForbidden'}([
                     'message' => 'File not image',
                     'http' => 403
@@ -41,7 +44,7 @@ class HttpDownload extends arch\node\Base {
 
             $descriptor = new neon\raster\Descriptor($absolutePath, $type);
 
-            if(isset($this->request['size'])) {
+            if (isset($this->request['size'])) {
                 $descriptor->applyTransformation('[rs:'.$size.'|'.$size.']');
             }
 
@@ -61,7 +64,7 @@ class HttpDownload extends arch\node\Base {
                     '[cz:'.$size.'|'.$size.']',
                     $version['creationDate']
                 );
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 $url = $this->avatar->getGravatarUrl(
                     $this->data->user->client->select('email')
                         ->where('id', '=', $id)
