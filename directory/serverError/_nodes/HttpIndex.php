@@ -21,7 +21,7 @@ class HttpIndex extends arch\node\Base
     public function executeAsHtml()
     {
         if (!$this->app->isDevelopment()) {
-            throw core\Error('Server error generators can only be run in development mode');
+            throw core\Error::ERuntime('Server error generators can only be run in development mode');
         }
 
         $code = $this->request['error'];

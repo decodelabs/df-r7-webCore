@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
-
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = 'Invites';
     const ICON = 'mail';
     const ADAPTER = 'axis://user/Invite';
@@ -34,15 +34,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'registrationDate', 'user'
     ];
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query
             ->populateSelect('groups', 'id', 'name')
             ->importRelationBlock('owner', 'link')
             ->importRelationBlock('user', 'link');
     }
 
-    protected function searchRecordList($query, $search) {
+    protected function searchRecordList($query, $search)
+    {
         $query->searchFor($search, [
             'name' => 5,
             'email' => 2,
@@ -52,8 +54,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Components
-    public function addIndexOperativeLinks($menu, $bar) {
+    // Components
+    public function addIndexOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->_getNodeRequest('send', [], true),
@@ -64,7 +67,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-    public function addIndexSubOperativeLinks($menu, $bar) {
+    public function addIndexSubOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->_getNodeRequest('export'),
@@ -82,7 +86,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-    public function addIndexTransitiveLinks($menu, $bar) {
+    public function addIndexTransitiveLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     '../invite-requests/',
@@ -93,7 +98,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-    public function getRecordOperativeLinks($invite, $mode) {
+    public function getRecordOperativeLinks($invite, $mode)
+    {
         return [
             // Resend
             $this->apex->component('InviteLink', $invite, $this->_('Resend invite'))
@@ -112,11 +118,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Sections
-    public function renderDetailsSectionBody($invite) {
+    // Sections
+    public function renderDetailsSectionBody($invite)
+    {
         $output = parent::renderDetailsSectionBody($invite);
 
-        if(!$invite['isActive']) {
+        if (!$invite['isActive']) {
             $output = [
                 $this->html->flashMessage($this->_(
                     'This invite is no longer active'
@@ -129,14 +136,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function defineCreationDateField($list, $mode) {
-        if($mode != 'list') {
+    // Fields
+    public function defineCreationDateField($list, $mode)
+    {
+        if ($mode != 'list') {
             return false;
         }
 
-        $list->addField('creationDate', $this->_('Created'), function($invite, $context) {
-            if(!$invite['isActive'] && !$invite['registrationDate']) {
+        $list->addField('creationDate', $this->_('Created'), function ($invite, $context) {
+            if (!$invite['isActive'] && !$invite['registrationDate']) {
                 $context->getRowTag()->addClass('inactive');
             }
 
@@ -146,15 +154,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineLinkField($list, $mode) {
-        $list->addField('link', function($invite) {
+    public function defineLinkField($list, $mode)
+    {
+        $list->addField('link', function ($invite) {
             return $this->html->link('account/register?invite='.$invite['key']);
         });
     }
 
-    public function defineNameField($list, $mode) {
-        $list->addField('name', function($invite) {
-            if($invite['user']) {
+    public function defineNameField($list, $mode)
+    {
+        $list->addField('name', function ($invite) {
+            if ($invite['user']) {
                 return $this->apex->component('../clients/UserLink', $invite['user']);
             } else {
                 return $invite['name'];
@@ -162,17 +172,19 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineLastSentField($list, $mode) {
-        $list->addField('lastSent', function($invite) {
+    public function defineLastSentField($list, $mode)
+    {
+        $list->addField('lastSent', function ($invite) {
             return $this->html->timeFromNow($invite['lastSent']);
         });
     }
 
-    public function defineOwnerField($list, $mode) {
-        $list->addField('ownerName', $this->_('Sent by'), function($invite) use($mode) {
+    public function defineOwnerField($list, $mode)
+    {
+        $list->addField('ownerName', $this->_('Sent by'), function ($invite) {
             $output = $this->apex->component('../clients/UserLink', $invite['owner']);
 
-            if($invite['isFromAdmin']) {
+            if ($invite['isFromAdmin']) {
                 $output = [
                     $output, ' ',
                     $this->html('sup', '(admin)')
@@ -183,28 +195,31 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineRegistrationDateField($list) {
-        $list->addField('registrationDate', $this->_('Registered'), function($invite) {
+    public function defineRegistrationDateField($list)
+    {
+        $list->addField('registrationDate', $this->_('Registered'), function ($invite) {
             return $this->html->date($invite['registrationDate']);
         });
     }
 
-    public function defineMessageField($list) {
-        $list->addField('message', function($invite) {
+    public function defineMessageField($list)
+    {
+        $list->addField('message', function ($invite) {
             return $this->html->simpleTags($invite['message']);
         });
     }
 
-    public function defineGroupsField($list, $mode) {
-        $list->addField('groups', function($invite) use($mode) {
-            if($mode == 'list') {
+    public function defineGroupsField($list, $mode)
+    {
+        $list->addField('groups', function ($invite) use ($mode) {
+            if ($mode == 'list') {
                 $groups = $invite['groups'];
             } else {
                 $groups = $invite->groups->select();
             }
 
-            return $this->html->uList($groups, function($group) {
-                if(!$group['id']) {
+            return $this->html->uList($groups, function ($group) {
+                if (!$group['id']) {
                     $group = null;
                 }
 
@@ -213,8 +228,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineUserField($list, $mode) {
-        $list->addField('userName', $this->_('Account'), function($invite) {
+    public function defineUserField($list, $mode)
+    {
+        $list->addField('userName', $this->_('Account'), function ($invite) {
             return $this->apex->component('../clients/UserLink', $invite['user'])
                 ->isNullable(true);
         });

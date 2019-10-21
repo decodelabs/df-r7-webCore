@@ -88,7 +88,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
 
                 default:
                     $output = (string)$request;
-                    $title = null;
+                    $title = $url = null;
                     break;
             }
 

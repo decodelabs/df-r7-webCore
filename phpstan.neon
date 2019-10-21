@@ -1,0 +1,9 @@
+includes:
+    - ../base/phpstan.extension.neon
+parameters:
+    paths:
+        - directory
+        - helpers
+        - hooks
+        - libraries
+        - models

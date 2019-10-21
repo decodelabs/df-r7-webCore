@@ -223,7 +223,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     public function defineIsProductionField($list, $mode)
     {
-        $list->addField('isProduction', $mode == 'list' ? $this->_('Prod') : $this->_('Production'), function ($log, $context) use ($mode) {
+        $list->addField('isProduction', $mode == 'list' ? $this->_('Prod') : $this->_('Production'), function ($log, $context) {
             if (!$log['isProduction']) {
                 $context->getRowTag()->addClass('inactive');
             }

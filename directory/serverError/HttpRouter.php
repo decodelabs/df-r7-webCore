@@ -15,6 +15,7 @@ class HttpRouter extends arch\router\Base
 {
     public function routeIn(arch\IRequest $request)
     {
+        $type = $node = $query = null;
         extract($request->getComponents());
 
         $output = $this->newRequest('~serverError/index.'.strtolower($type));
@@ -28,6 +29,7 @@ class HttpRouter extends arch\router\Base
 
     public function routeOut(arch\IRequest $request)
     {
+        $query = null;
         extract($request->getComponents());
 
         return $this->newRequest('~serverError/'.$query['error'])

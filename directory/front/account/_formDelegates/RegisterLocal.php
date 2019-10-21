@@ -106,15 +106,17 @@ class RegisterLocal extends RegisterBase
             ->validate($this->values)
             ->applyTo($client);
 
-        if ($this->isValid()) {
-            $auth = $this->_createAuth($client, 'Local');
-
-            $this->data->newValidator()
-                ->addRequiredField('password')
-                    ->setMatchField('confirmPassword')
-                ->validate($this->values)
-                ->applyTo($auth);
+        if (!$this->isValid()) {
+            return;
         }
+        
+        $auth = $this->_createAuth($client, 'Local');
+
+        $this->data->newValidator()
+            ->addRequiredField('password')
+                ->setMatchField('confirmPassword')
+            ->validate($this->values)
+            ->applyTo($auth);
 
         if ($this->isValid()) {
             $this->_saveClient($client);

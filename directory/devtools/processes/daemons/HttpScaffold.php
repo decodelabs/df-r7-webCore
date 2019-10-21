@@ -12,8 +12,8 @@ use df\arch;
 use df\halo;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
-
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const TITLE = 'Daemons';
     const ICON = 'launch';
@@ -37,15 +37,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     protected $_enabled;
 
 
-// Record data
-    protected function generateRecordAdapter() {
+    // Record data
+    protected function generateRecordAdapter()
+    {
         $this->_enabled = core\environment\Config::getInstance()->canUseDaemons();
 
         $daemons = halo\daemon\Base::loadAll();
         $data = [];
         $settings = $this->data->daemon->settings->select()->toKeyArray('name');
 
-        foreach($daemons as $name => $daemon) {
+        foreach ($daemons as $name => $daemon) {
             $remote = halo\daemon\Remote::factory($daemon);
             $status = $remote->getStatusData();
 
@@ -74,9 +75,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Components
-    public function getRecordOperativeLinks($daemon, $mode) {
-        if($daemon['isRunning']) {
+    // Components
+    public function getRecordOperativeLinks($daemon, $mode)
+    {
+        if ($daemon['isRunning']) {
             $output = [
                 $this->html->link(
                         $this->uri('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
@@ -117,7 +119,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         return $output;
     }
 
-    public function addIndexSubOperativeLinks($menu, $bar) {
+    public function addIndexSubOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('~devtools/processes/daemons/settings', true),
@@ -128,39 +131,44 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-// Fields
-    public function defineStateField($list, $mode) {
-        $list->addField('state', function($daemon, $context) {
-            if(!$daemon['isEnabled']) {
+    // Fields
+    public function defineStateField($list, $mode)
+    {
+        $list->addField('state', function ($daemon, $context) {
+            if (!$daemon['isEnabled']) {
                 $context->getRowTag()->addClass('disabled');
             }
 
-            switch($daemon['state']) {
+            switch ($daemon['state']) {
                 case 'running': $class = 'positive'; break;
-                case 'stopping':
-                case 'paused': $class = 'warning'; break;
                 case 'stopped': $class = 'negative'; break;
+                case 'stopping':
+                case 'paused':
+                default: $class = 'warning'; break;
             }
 
             return $this->html('span.'.$class, $this->format->name($daemon['state']));
         });
     }
 
-    public function defineStartDateField($list, $mode) {
-        $list->addField('startDate', $this->_('Launched'), function($daemon) {
+    public function defineStartDateField($list, $mode)
+    {
+        $list->addField('startDate', $this->_('Launched'), function ($daemon) {
             return $this->html->timeFromNow($daemon['startDate']);
         });
     }
 
-    public function defineStatusDateField($list, $mode) {
-        $list->addField('statusDate', $this->_('Last status'), function($daemon) {
+    public function defineStatusDateField($list, $mode)
+    {
+        $list->addField('statusDate', $this->_('Last status'), function ($daemon) {
             return $this->html->timeFromNow($daemon['statusDate']);
         });
     }
 
-    public function defineTestModeField($list, $mode) {
-        $list->addField('testMode', $this->_('Test'), function($daemon, $context) {
-            if($daemon['testMode']) {
+    public function defineTestModeField($list, $mode)
+    {
+        $list->addField('testMode', $this->_('Test'), function ($daemon, $context) {
+            if ($daemon['testMode']) {
                 $context->getRowTag()->addClass('inactive');
             }
 
@@ -168,13 +176,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineAutomaticField($list, $mode) {
-        $list->addField('automatic', $this->_('Auto'), function($daemon) {
+    public function defineAutomaticField($list, $mode)
+    {
+        $list->addField('automatic', $this->_('Auto'), function ($daemon) {
             return $this->html->booleanIcon($daemon['automatic']);
         });
     }
 
-    public function defineUserField($list, $mode) {
+    public function defineUserField($list, $mode)
+    {
         $list->addField('user');
     }
 }
