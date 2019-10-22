@@ -12,11 +12,12 @@ use df\arch;
 use df\aura;
 use df\fuse;
 
-class HttpBootstrap extends arch\node\Base {
-
+class HttpBootstrap extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function executeAsJs() {
+    public function executeAsJs()
+    {
         $theme = $this->_getTheme();
         $data = $this->_getRequireConfig($theme);
 
@@ -36,18 +37,19 @@ class HttpBootstrap extends arch\node\Base {
         return $output;
     }
 
-    protected function _getTheme() {
+    protected function _getTheme()
+    {
         $themeId = $this->request['theme'];
 
-        if(!$themeId) {
+        if (!$themeId) {
             $config = aura\theme\Config::getInstance();
             $themeId = $config->getThemeIdFor('front');
         }
 
         try {
             $theme = aura\theme\Base::factory($themeId);
-        } catch(aura\theme\IError $e) {
-            throw core\Error::{'aura/theme/ENotFound'}([
+        } catch (\Throwable $e) {
+            throw Glitch::{'df/aura/theme/ENotFound'}([
                 'message' => 'Theme not found',
                 'http' => 404,
                 'data' => $themeId
@@ -57,42 +59,47 @@ class HttpBootstrap extends arch\node\Base {
         return $theme;
     }
 
-    protected function _getRequireConfig($theme) {
+    protected function _getRequireConfig($theme)
+    {
         $manager = fuse\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
 
         $paths = $shims = $maps = [];
 
-        foreach($dependencies as $key => $dependency) {
-            if(isset($dependency->map)) {
+        foreach ($dependencies as $key => $dependency) {
+            if (!$dependency instanceof fuse\Dependency) {
+                continue;
+            }
+
+            if (isset($dependency->map)) {
                 $maps = array_merge($maps, $dependency->map);
             }
 
             $paths['{'.$dependency->id.'}'] = 'vendor/'.$dependency->installName;
 
-            if(!empty($dependency->js)) {
+            if (!empty($dependency->js)) {
                 $js = $dependency->js;
                 $main = array_shift($js);
 
-                if(substr($main, -3) == '.js') {
+                if (substr($main, -3) == '.js') {
                     $main = substr($main, 0, -3);
                 }
 
                 $paths[$dependency->id] = 'vendor/'.$dependency->installName.'/'.$main;
             }
 
-            if(isset($dependency->shim)) {
+            if (isset($dependency->shim)) {
                 $shims[$dependency->id] = $dependency->shim;
             }
         }
 
         $data = ['paths' => $paths];
 
-        if(!empty($shims)) {
+        if (!empty($shims)) {
             $data['shims'] = $shims;
         }
 
-        if(!empty($maps)) {
+        if (!empty($maps)) {
             $data['map'] = $maps;
         }
 

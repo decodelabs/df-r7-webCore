@@ -13,8 +13,8 @@ use df\aura;
 use df\opal;
 use df\mesh;
 
-class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IAcceptTypeProcessor {
-
+class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IAcceptTypeProcessor
+{
     use core\io\TAcceptTypeProcessor;
     use arch\node\TForm_MediaBucketAwareSelector;
 
@@ -29,14 +29,16 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
     protected $_ownerId;
     protected $_autoSelect = false;
 
-// Owner
-    public function setOwnerId($id) {
+    // Owner
+    public function setOwnerId($id)
+    {
         $this->_ownerId = $id;
         return $this;
     }
 
-    public function getOwnerId() {
-        if($this->_ownerId !== null) {
+    public function getOwnerId()
+    {
+        if ($this->_ownerId !== null) {
             return $this->_ownerId;
         } else {
             return $this->user->client->getId();
@@ -44,13 +46,15 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
     }
 
 
-// Form
-    protected function init() {
+    // Form
+    protected function init()
+    {
         $this->_setupBucket();
     }
 
-    protected function loadDelegates() {
-        if(!$this->_bucket) {
+    protected function loadDelegates()
+    {
+        if (!$this->_bucket) {
             return;
         }
 
@@ -68,9 +72,10 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             ->setAcceptTypes(...$accept);
     }
 
-// Record
-    protected function _getBaseQuery($fields=null) {
-        if($this->_bucketHandler) {
+    // Record
+    protected function _getBaseQuery($fields=null)
+    {
+        if ($this->_bucketHandler) {
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
         } else {
             $accept = $this->_acceptTypes;
@@ -81,8 +86,8 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             ->leftJoinRelation('activeVersion', 'number as version', 'fileSize', 'contentType')
             ->importRelationBlock('bucket', 'link')
             ->importRelationBlock('owner', 'link')
-            ->chainIf($this->_bucket, function($query) {
-                if($this->_bucket['slug'] == 'shared') {
+            ->chainIf($this->_bucket, function ($query) {
+                if ($this->_bucket['slug'] == 'shared') {
                     //$query->where('bucket', '=', $this->_bucket);
                 } else {
                     $query->beginWhereClause()
@@ -94,15 +99,15 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
                         ->endClause();
                 }
             })
-            ->chainIf(!empty($accept), function($query) use($accept) {
+            ->chainIf(!empty($accept), function ($query) use ($accept) {
                 $clause = $query->beginWhereClause();
 
-                foreach($accept as $type) {
-                    if(substr($type, -1) == '*') {
+                foreach ($accept as $type) {
+                    if (substr($type, -1) == '*') {
                         $type = substr($type, 0, -1);
                     }
 
-                    if(substr($type, -1) == '/') {
+                    if (substr($type, -1) == '/') {
                         $clause->orWhere('contentType', 'begins', $type);
                     } else {
                         $clause->orWhere('contentType', '=', $type);
@@ -114,22 +119,29 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             ->orderBy('fileName ASC');
     }
 
-    protected function _applyQuerySearch(opal\query\IQuery $query, $search) {
+    protected function _applyQuerySearch(opal\query\IQuery $query, $search)
+    {
+        if (!$query instanceof opal\query\ISearchableQuery) {
+            return;
+        }
+        
         $query->searchFor($search, [
             'fileName' => 2
         ]);
     }
 
-    protected function _getResultDisplayName($row) {
+    protected function _getResultDisplayName($row)
+    {
         return $row['fileName'];
     }
 
 
-// Ui
-    protected function _renderDetailsButtonGroup(aura\html\widget\ButtonArea $ba, $selected, $isList=false) {
+    // Ui
+    protected function _renderDetailsButtonGroup(aura\html\widget\ButtonArea $ba, $selected, $isList=false)
+    {
         $mainLabel = $isList ? $this->_('Upload / search') : $this->_('Upload / select');
 
-        if(empty($selected)) {
+        if (empty($selected)) {
             $ba->push(
                 $this->html->eventButton(
                         $this->eventName('beginSelect'),
@@ -140,7 +152,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
                     ->shouldValidate(false)
             );
         } else {
-            if(!$this->_isForMany) {
+            if (!$this->_isForMany) {
                 $ba->push(
                     $this->html->eventButton(
                             $this->eventName('beginVersion'),
@@ -163,7 +175,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             }
         }
 
-        if($isList) {
+        if ($isList) {
             $ba->push(
                 $this->html->eventButton(
                         $this->eventName('endSelect'),
@@ -176,7 +188,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         }
 
 
-        if(!empty($selected)) {
+        if (!empty($selected)) {
             $ba->push(
                 $this->html->eventButton(
                         $this->eventName('clear'),
@@ -188,9 +200,10 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         }
     }
 
-    protected function createOverlaySelectorUiContent(aura\html\widget\Overlay $ol, $selected) {
-        if($this->_bucket) {
-            if($form = $this->content->findFirstWidgetOfType('Form')) {
+    protected function createOverlaySelectorUiContent(aura\html\widget\Overlay $ol, $selected)
+    {
+        if ($this->_bucket) {
+            if ($form = $this->content->findFirstWidgetOfType('Form')) {
                 $form->setEncoding($form::ENC_MULTIPART);
             }
 
@@ -219,7 +232,8 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         parent::createOverlaySelectorUiContent($ol, $selected);
     }
 
-    protected function _renderCollectionList($result) {
+    protected function _renderCollectionList($result)
+    {
         // TODO: swap for shared !!!!!
         return $this->apex->component('~/media/files/FileList', [
                 'actions' => false
@@ -227,15 +241,16 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             ->setCollection($result);
     }
 
-    protected function _renderManySelected($fs, $selected) {
-        if(empty($selected)) {
+    protected function _renderManySelected($fs, $selected)
+    {
+        if (empty($selected)) {
             return;
         }
 
         $fa = $fs->addField($this->_('Selected'));
         $fa->addClass('delegate-selector');
 
-        foreach($selected as $result) {
+        foreach ($selected as $result) {
             $id = $this->_getResultId($result);
             $name = $this->_getResultDisplayName($result);
 
@@ -272,8 +287,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         }
     }
 
-    protected function createOverlayUploaderUi(aura\html\widget\Field $fa) {
-        if(!$this->_bucket) {
+    protected function createOverlayUploaderUi(aura\html\widget\Field $fa)
+    {
+        if (!$this->_bucket) {
             return;
         }
 
@@ -299,8 +315,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         );
     }
 
-    protected function createOverlayVersionUi(aura\html\widget\Field $fa) {
-        if(!$this->_bucket) {
+    protected function createOverlayVersionUi(aura\html\widget\Field $fa)
+    {
+        if (!$this->_bucket) {
             return;
         }
 
@@ -312,7 +329,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
             ->where('id', '=', $fileId)
             ->toRow();
 
-        if(!$file) {
+        if (!$file) {
             $this->switchMode('version', 'select');
             return $this->createOverlaySelectorUi($fa);
         }
@@ -369,18 +386,20 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
     }
 
 
-// Events
-    protected function onEndSelectEvent() {
+    // Events
+    protected function onEndSelectEvent()
+    {
         $this->onUploadEvent();
 
-        if($this->values->isValid()) {
+        if ($this->values->isValid()) {
             return parent::onEndSelectEvent();
         }
     }
 
 
-    protected function onBeginUploadEvent() {
-        if(!$this->_bucket) {
+    protected function onBeginUploadEvent()
+    {
+        if (!$this->_bucket) {
             return;
         }
 
@@ -388,21 +407,22 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $this->onUploadEvent();
     }
 
-    protected function onUploadEvent() {
-        if(!$this->_bucket) {
+    protected function onUploadEvent()
+    {
+        if (!$this->_bucket) {
             return;
         }
 
         $uploadDelegate = $this['upload'];
         $result = $uploadDelegate->apply();
 
-        if(empty($result)) {
+        if (empty($result)) {
             return;
         }
 
         $result = (array)$result;
 
-        foreach($result as $filePath) {
+        foreach ($result as $filePath) {
             $file = $this->data->media->publishFile($filePath, $this->_bucket, [
                 'owner' => $this->getOwnerId()
             ]);
@@ -414,21 +434,23 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $uploadDelegate->setComplete();
     }
 
-    protected function onCancelUploadEvent() {
+    protected function onCancelUploadEvent()
+    {
         $this->switchMode('upload', 'select');
     }
 
 
 
-    protected function onBeginVersionEvent($id=null) {
-        if(!$this->_bucket) {
+    protected function onBeginVersionEvent($id=null)
+    {
+        if (!$this->_bucket) {
             return;
         }
 
-        if(!$this->_isForMany) {
+        if (!$this->_isForMany) {
             $id = $this->getSelected();
         } else {
-            if(!$this->isSelected($id)) {
+            if (!$this->isSelected($id)) {
                 return;
             }
         }
@@ -436,13 +458,14 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $this->switchMode(['details', 'select'], 'version');
         $this->setStore('versionFileId', $id);
 
-        if($this->_isForMany) {
+        if ($this->_isForMany) {
             $this->onUploadVersionEvent();
         }
     }
 
-    protected function onUploadVersionEvent() {
-        if(!$this->_bucket
+    protected function onUploadVersionEvent()
+    {
+        if (!$this->_bucket
         || $this->getMode() != 'version'
         || !$this->hasStore('versionFileId')) {
             return;
@@ -450,18 +473,18 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
 
         $id = $this->getStore('versionFileId');
 
-        if(!$this->isSelected($id)) {
+        if (!$this->isSelected($id)) {
             return;
         }
 
         $uploadDelegate = $this['versionUpload'];
         $result = $uploadDelegate->apply();
 
-        if(empty($result)) {
+        if (empty($result)) {
             return;
         }
 
-        if(!$file = $this->data->media->file->fetchByPrimary($id)) {
+        if (!$file = $this->data->media->file->fetchByPrimary($id)) {
             return;
         }
 
@@ -474,15 +497,16 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $this->removeStore('versionFileId');
     }
 
-    protected function onClearAndUploadEvent() {
-        if(!$this->_bucket) {
+    protected function onClearAndUploadEvent()
+    {
+        if (!$this->_bucket) {
             return;
         }
 
-        if(!$this->_isForMany) {
+        if (!$this->_isForMany) {
             $this->setSelected(null);
         } else {
-            if($fileId = $this->getStore('versionFileId')) {
+            if ($fileId = $this->getStore('versionFileId')) {
                 $this->removeSelected($fileId);
             }
         }
@@ -490,10 +514,10 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         $uploadDelegate = $this['versionUpload'];
         $result = $uploadDelegate->apply();
 
-        if(!empty($result)) {
+        if (!empty($result)) {
             $result = (array)$result;
 
-            foreach($result as $filePath) {
+            foreach ($result as $filePath) {
                 $file = $this->data->media->publishFile($filePath, $this->_bucket, [
                     'owner' => $this->getOwnerId()
                 ]);
@@ -509,7 +533,8 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         }
     }
 
-    protected function onCancelVersionEvent() {
+    protected function onCancelVersionEvent()
+    {
         $this->switchMode('version', 'details');
         $this->removeStore('versionFileId');
     }

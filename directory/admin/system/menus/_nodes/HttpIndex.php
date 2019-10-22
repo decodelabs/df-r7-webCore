@@ -10,14 +10,22 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpIndex extends arch\node\Base {
+use DecodeLabs\Glitch;
 
-    public function executeAsHtml() {
+class HttpIndex extends arch\node\Base
+{
+    public function executeAsHtml()
+    {
         $view = $this->apex->view('Index.html');
         $source = arch\navigation\menu\source\Base::factory($this->context, 'directory');
+
+        if (!$source instanceof arch\navigation\menu\source\Directory) {
+            throw Glitch::ELogic('Source is not a directory type', null, $source);
+        }
+
         $area = trim($this->request->query->get('area', 'admin'), ':~');
 
-        if(empty($area)) {
+        if (empty($area)) {
             $area = null;
         }
 
