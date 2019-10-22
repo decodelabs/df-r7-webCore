@@ -141,7 +141,7 @@ class HttpAvatar extends arch\node\Form
             ->count();
 
         if (!$active) {
-            $this->_file->delete();
+            $this->data->media->deleteFile($this->_file);
         }
     }
 
