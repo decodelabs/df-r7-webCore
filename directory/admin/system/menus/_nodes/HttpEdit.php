@@ -19,12 +19,7 @@ class HttpEdit extends arch\node\Form
 
     protected function init()
     {
-        if (!$this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request['menu'])) {
-            throw core\Error::{'arch/navigation/menu/ENotFound'}([
-                'message' => 'Menu not found',
-                'http' => 404
-            ]);
-        }
+        $this->_menu = arch\navigation\menu\Base::factory($this->context, 'directory://'.$this->request['menu']);
     }
 
     protected function getInstanceId()

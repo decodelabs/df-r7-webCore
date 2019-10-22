@@ -39,10 +39,7 @@ class HttpUploaded extends arch\node\Base
 
         if ($hasTransform && substr($type, 0, 6) == 'image/') {
             $descriptor = new neon\raster\Descriptor($path, $type);
-
-            if ($hasTransform) {
-                $descriptor->applyTransformation($this->request['transform']);
-            }
+            $descriptor->applyTransformation($this->request['transform']);
 
             $path = $descriptor->getLocation();
             $type = $descriptor->getContentType();
