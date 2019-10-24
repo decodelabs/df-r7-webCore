@@ -70,7 +70,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
 
         try {
             $client->save();
-        } catch (opal\rdbms\ConstraintException $e) {
+        } catch (opal\rdbms\EConstraint $e) {
             $this->values->email->addError('unique', $this->_('An account already exists with this email address'));
             $this->forceResponse($this->http->redirect($this->request));
         }
