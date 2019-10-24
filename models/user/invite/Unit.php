@@ -12,8 +12,10 @@ use df\user;
 use df\flow;
 use df\flex;
 
-class Unit extends axis\unit\Table {
+use DecodeLabs\Glitch;
 
+class Unit extends axis\unit\Table
+{
     const INVITE_OPTION = 'invite.allowance';
 
     const SEARCH_FIELDS = [
@@ -28,7 +30,8 @@ class Unit extends axis\unit\Table {
 
     const DEFAULT_ORDER = 'lastSent DESC';
 
-    protected function createSchema($schema) {
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'AutoId');
         $schema->addUniqueField('key', 'Text', 64);
 
@@ -59,32 +62,36 @@ class Unit extends axis\unit\Table {
     }
 
 
-    public function emailIsActive($email) {
+    public function emailIsActive($email)
+    {
         return (bool)$this->select()->where('email', '=', $email)->where('isActive', '=', true)->count();
     }
 
-    public function send(Record $invite, $rendererPath=null) {
+    public function send(Record $invite, $rendererPath=null)
+    {
         return $this->_send($invite, $rendererPath);
     }
 
-    public function forceSend(Record $invite, $rendererPath=null) {
+    public function forceSend(Record $invite, $rendererPath=null)
+    {
         return $this->_send($invite, $rendererPath, true);
     }
 
-    protected function _send(Record $invite, $rendererPath=null, $force=false) {
-        if($invite['lastSent']) {
-            throw new \RuntimeException(
+    protected function _send(Record $invite, $rendererPath=null, $force=false)
+    {
+        if ($invite['lastSent']) {
+            throw Glitch::ERuntime(
                 'Invite has already been sent'
             );
         }
 
-        if(!$invite['name'] || !$invite['email']) {
-            throw new \RuntimeException(
+        if (!$invite['name'] || !$invite['email']) {
+            throw Glitch::ERuntime(
                 'Invite details are invalid'
             );
         }
 
-        if(!$invite['#owner']) {
+        if (!$invite['#owner']) {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
@@ -92,13 +99,13 @@ class Unit extends axis\unit\Table {
         $isClient = $ownerId == $this->context->user->client->getId();
         $model = $this->getModel();
 
-        if(!$invite['key']) {
+        if (!$invite['key']) {
             $invite['key'] = flex\Generator::sessionId();
         }
 
         $invite['isActive'] = true;
 
-        if($rendererPath === null) {
+        if ($rendererPath === null) {
             $rendererPath = 'account/Invite';
         }
 
@@ -113,38 +120,41 @@ class Unit extends axis\unit\Table {
         return $invite;
     }
 
-    public function resend(Record $invite, $rendererPath=null) {
+    public function resend(Record $invite, $rendererPath=null)
+    {
         return $this->_resend($invite, $rendererPath);
     }
 
-    public function forceResend(Record $invite, $rendererPath=null) {
+    public function forceResend(Record $invite, $rendererPath=null)
+    {
         return $this->_resend($invite, $rendererPath, true);
     }
 
-    protected function _resend(Record $invite, $rendererPath=null, $force=false) {
-        if($invite->isNew()) {
-            throw new \RuntimeException(
+    protected function _resend(Record $invite, $rendererPath=null, $force=false)
+    {
+        if ($invite->isNew()) {
+            throw Glitch::ERuntime(
                 'Invite has not been initialized'
             );
         }
 
-        if(!$invite['name'] || !$invite['email'] || !$invite['key']) {
-            throw new \RuntimeException(
+        if (!$invite['name'] || !$invite['email'] || !$invite['key']) {
+            throw Glitch::ERuntime(
                 'Invite details are invalid'
             );
         }
 
-        if(!$invite['isActive']) {
-            throw new \RuntimeException(
+        if (!$invite['isActive']) {
+            throw Glitch::ERuntime(
                 'Invite is no longer active'
             );
         }
 
-        if(!$invite['owner']) {
+        if (!$invite['owner']) {
             $invite['owner'] = $this->context->user->client->getId();
         }
 
-        if($rendererPath === null) {
+        if ($rendererPath === null) {
             $rendererPath = 'account/Invite';
         }
 
@@ -159,7 +169,8 @@ class Unit extends axis\unit\Table {
         return $invite;
     }
 
-    public function ensureSent($email, $generator, $rendererPath=null) {
+    public function ensureSent($email, $generator, $rendererPath=null)
+    {
         $invite = $this->fetch()
             ->where('email', '=', $email)
             ->where('registrationDate', '=', null)
@@ -168,7 +179,7 @@ class Unit extends axis\unit\Table {
 
         $generator = core\lang\Callback::factory($generator);
 
-        if($invite) {
+        if ($invite) {
             $generator->invoke($invite);
             $this->resend($invite, $rendererPath);
             return $this;
@@ -183,7 +194,8 @@ class Unit extends axis\unit\Table {
         return $this;
     }
 
-    public function claim(Record $invite, user\IClientDataObject $client) {
+    public function claim(Record $invite, user\IClientDataObject $client)
+    {
         $this->update(['user' => null])
             ->where('user', '=', $client->getId())
             ->execute();

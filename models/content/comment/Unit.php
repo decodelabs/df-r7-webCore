@@ -11,15 +11,18 @@ use df\apex;
 use df\axis;
 use df\mesh;
 
-class Unit extends axis\unit\Table {
+use DecodeLabs\Glitch;
 
+class Unit extends axis\unit\Table
+{
     const ORDERABLE_FIELDS = [
         'title', 'date', 'owner', 'isLive'
     ];
 
     const DEFAULT_ORDER = 'date ASC';
 
-    protected function createSchema($schema) {
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'Guid');
 
         $schema->addIndexedField('topic', 'EntityLocator');
@@ -41,8 +44,9 @@ class Unit extends axis\unit\Table {
     }
 
 
-    public function postFor($entityLocator, $body, $user=null, $inReplyTo=null, $format='SimpleTags') {
-        if($user == null) {
+    public function postFor($entityLocator, $body, $user=null, $inReplyTo=null, $format='SimpleTags')
+    {
+        if ($user == null) {
             $user = $this->context->user->client->getId();
         }
 
@@ -60,17 +64,19 @@ class Unit extends axis\unit\Table {
         return $this;
     }
 
-    public function countFor($entityLocator, $includeHidden=false) {
+    public function countFor($entityLocator, $includeHidden=false)
+    {
         $query = $this->select()->where('topic', '=', $this->_normalizeItemLocator($entityLocator));
 
-        if(!$includeHidden) {
+        if (!$includeHidden) {
             $query->where('isLive', '=', true);
         }
 
         return $query->count();
     }
 
-    public function deleteFor($entityLocator) {
+    public function deleteFor($entityLocator)
+    {
         $this->delete()
             ->where('topic', '=', $this->_normalizeItemLocator($entityLocator))
             ->execute();
@@ -78,9 +84,10 @@ class Unit extends axis\unit\Table {
         return $this;
     }
 
-    protected function _normalizeItemLocator($locator) {
-        if(is_array($locator)) {
-            foreach($locator as $i => $value) {
+    protected function _normalizeItemLocator($locator)
+    {
+        if (is_array($locator)) {
+            foreach ($locator as $i => $value) {
                 $locator[$i] = $this->_normalizeItemLocator($value);
             }
 
@@ -89,8 +96,8 @@ class Unit extends axis\unit\Table {
 
         $locator = mesh\entity\Locator::factory($locator);
 
-        if(!$locator->getId()) {
-            throw new mesh\entity\InvalidArgumentException(
+        if (!$locator->getId()) {
+            throw Glitch::{'df/mesh/entity/EInvalidArgument'}(
                 'Locator does not have an id'
             );
         }
@@ -100,8 +107,9 @@ class Unit extends axis\unit\Table {
 
 
 
-    public function deleteRecord(namespace\Record $comment) {
-        if(!$comment['#root']) {
+    public function deleteRecord(namespace\Record $comment)
+    {
+        if (!$comment['#root']) {
             $this->delete()
                 ->where('root', '=', $comment)
                 ->execute();
@@ -112,8 +120,8 @@ class Unit extends axis\unit\Table {
                 ->orderBy('date ASC')
                 ->toList('id', 'inReplyTo');
 
-            foreach($tree as $id => $inReplyTo) {
-                if(in_array($inReplyTo, $deleteIndex)) {
+            foreach ($tree as $id => $inReplyTo) {
+                if (in_array($inReplyTo, $deleteIndex)) {
                     $deleteIndex[] = $id;
                 }
             }
