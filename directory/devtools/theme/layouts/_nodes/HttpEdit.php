@@ -12,24 +12,29 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-class HttpEdit extends HttpAdd {
+use DecodeLabs\Glitch;
 
-    protected function init() {
+class HttpEdit extends HttpAdd
+{
+    protected function init()
+    {
         $config = fire\Config::getInstance();
 
-        if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            throw core\Error::{'fire/layout/ENotFound'}([
+        if (!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
+            throw Glitch::{'df/fire/layout/ENotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_layout->getId();
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->id = $this->_layout->getId();
         $this->values->name = $this->_layout->getName();
         $this->values->areas = implode(', ', $this->_layout->getAreas());

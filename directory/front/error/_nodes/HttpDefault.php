@@ -36,8 +36,7 @@ class HttpDefault extends arch\node\Base
             }
         }
 
-        if ($exception instanceof core\IError ||
-            $exception instanceof \EGlitch) {
+        if ($exception instanceof \EGlitch) {
             $code = $exception->getHttpCode();
         } else {
             $code = $exception->getCode();

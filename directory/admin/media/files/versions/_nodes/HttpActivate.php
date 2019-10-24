@@ -10,28 +10,33 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpActivate extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpActivate extends arch\node\Form
+{
     const DEFAULT_EVENT = 'activate';
 
     protected $_version;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_version = $this->scaffold->getRecord();
 
-        if($this->_version['purgeDate']) {
-            throw core\Error::{'EForbidden'}([
+        if ($this->_version['purgeDate']) {
+            throw Glitch::EForbidden([
                 'message' => 'Purged versions cannot be activated',
                 'http' => 403
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_version['id'];
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Activate'));
 
@@ -44,8 +49,9 @@ class HttpActivate extends arch\node\Form {
         );
     }
 
-    protected function onActivateEvent() {
-        return $this->complete(function() {
+    protected function onActivateEvent()
+    {
+        return $this->complete(function () {
             $this->data->media->activateVersion($this->_version['file'], $this->_version);
 
             $this->comms->flashSuccess(

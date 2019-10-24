@@ -12,6 +12,8 @@ use df\arch;
 use df\opal;
 use df\flow;
 
+use DecodeLabs\Glitch;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -59,7 +61,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         array_shift($partIds);
 
         if (!$part = $this->_getMessagePart($message, $partIds)) {
-            throw core\Error::{'ENotFound'}([
+            throw Glitch::ENotFound([
                 'message' => 'Part not found',
                 'http' => 404
             ]);

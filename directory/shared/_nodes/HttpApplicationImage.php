@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\neon;
 
+use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
 
 class HttpApplicationImage extends arch\node\Base
@@ -23,7 +24,7 @@ class HttpApplicationImage extends arch\node\Base
         $theme = $this->apex->getTheme();
 
         if (!$path = $theme->getApplicationImagePath()) {
-            throw core\Error::{'core/fs/ENotFound'}([
+            throw Glitch::{'df/core/fs/ENotFound'}([
                 'message' => 'No application image path set',
                 'http' => 404
             ]);
@@ -33,7 +34,7 @@ class HttpApplicationImage extends arch\node\Base
         $type = Atlas::$mime->detect($absPath);
 
         if (!$absPath) {
-            throw core\Error::{'core/fs/ENotFound'}([
+            throw Glitch::{'df/core/fs/ENotFound'}([
                 'message' => 'Application image '.$path.' not found',
                 'http' => 404
             ]);

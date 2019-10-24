@@ -11,13 +11,16 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpView extends arch\node\Base {
+use DecodeLabs\Glitch;
 
+class HttpView extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function executeAsHtml() {
-        if($this->app->isProduction()) {
-            throw core\Error::{'EForbidden'}([
+    public function executeAsHtml()
+    {
+        if ($this->app->isProduction()) {
+            throw Glitch::EForbidden([
                 'message' => 'Dev mode only',
                 'http' => 403
             ]);

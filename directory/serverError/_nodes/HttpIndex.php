@@ -12,6 +12,7 @@ use df\arch;
 use df\link;
 use df\aura;
 
+use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
 
 class HttpIndex extends arch\node\Base
@@ -21,13 +22,13 @@ class HttpIndex extends arch\node\Base
     public function executeAsHtml()
     {
         if (!$this->app->isDevelopment()) {
-            throw core\Error::ERuntime('Server error generators can only be run in development mode');
+            throw Glitch::ERuntime('Server error generators can only be run in development mode');
         }
 
         $code = $this->request['error'];
 
         if (!link\http\response\HeaderCollection::isErrorStatusCode($code)) {
-            throw core\Error::EValue('Invalid status code: '.$code);
+            throw Glitch::EUnexpectedValue('Invalid status code: '.$code);
         }
 
         $xCode = substr($code, 0, 2).'x';

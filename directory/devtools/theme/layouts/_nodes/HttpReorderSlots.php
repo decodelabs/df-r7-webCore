@@ -12,31 +12,36 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-class HttpReorderSlots extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpReorderSlots extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_layout;
 
-    protected function init() {
+    protected function init()
+    {
         $config = fire\Config::getInstance();
 
-        if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            throw core\Error::{'fire/layout/ENotFound'}([
+        if (!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
+            throw Glitch::{'df/fire/layout/ENotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_layout->getId();
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $i = 1;
 
-        foreach($this->_layout->getSlots() as $slot) {
+        foreach ($this->_layout->getSlots() as $slot) {
             $this->values->slots[] = [
                 'id' => $slot->getId(),
                 'weight' => $i
@@ -46,13 +51,14 @@ class HttpReorderSlots extends arch\node\Form {
         }
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Slot order'));
         $fa = $fs->addField();
 
-        foreach($this->values->slots as $i => $slotNode) {
-            if(!$slot = $this->_layout->getSlot($slotNode['id'])) {
+        foreach ($this->values->slots as $i => $slotNode) {
+            if (!$slot = $this->_layout->getSlot($slotNode['id'])) {
                 continue;
             }
 
@@ -78,18 +84,19 @@ class HttpReorderSlots extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onRefreshEvent() {
+    protected function onRefreshEvent()
+    {
         $queue = new \SplPriorityQueue();
 
-        foreach($this->values->slots as $slotNode) {
+        foreach ($this->values->slots as $slotNode) {
             $queue->insert($slotNode['id'], $slotNode->get('weight', 10000));
         }
 
         $this->values->remove('slots');
         $i = count($queue);
 
-        foreach($queue as $id) {
-            if(!$slot = $this->_layout->getSlot($id)) {
+        foreach ($queue as $id) {
+            if (!$slot = $this->_layout->getSlot($id)) {
                 continue;
             }
 
@@ -102,13 +109,14 @@ class HttpReorderSlots extends arch\node\Form {
         }
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->onRefreshEvent();
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $ids = [];
 
-            foreach($this->values->slots as $slotNode) {
+            foreach ($this->values->slots as $slotNode) {
                 $ids[] = $slotNode['id'];
             }
 

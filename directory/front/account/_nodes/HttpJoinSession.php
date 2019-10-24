@@ -10,12 +10,15 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpJoinSession extends arch\node\Base {
+use DecodeLabs\Glitch;
 
+class HttpJoinSession extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function execute() {
-        if(isset($this->request['401']) && !$this->user->isLoggedIn()) {
+    public function execute()
+    {
+        if (isset($this->request['401']) && !$this->user->isLoggedIn()) {
             $request = arch\Request::factory('account/login');
             $request->query->rf = $this->request->encode();
             return $this->http->redirect($request);
@@ -26,14 +29,14 @@ class HttpJoinSession extends arch\node\Base {
             hex2bin($this->request['key'])
         );
 
-        if($key['date']->lt('-1 minute')) {
-            throw core\Error::{'EForbidden'}([
+        if ($key['date']->lt('-1 minute')) {
+            throw Glitch::EForbidden([
                 'message' => 'Old stub',
                 'http' => 403
             ]);
         }
 
-        if(!$key['sessionId']) {
+        if (!$key['sessionId']) {
             $key['sessionId'] = $this->user->session->descriptor->id;
             $key->save();
         }

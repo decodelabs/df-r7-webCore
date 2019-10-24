@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Glitch;
+
 class HttpAvatar extends arch\node\Form
 {
     const DEFAULT_EVENT = 'upload';
@@ -127,7 +129,7 @@ class HttpAvatar extends arch\node\Form
         );
 
         if ((string)$version['#file'] != (string)$this->_file['id']) {
-            throw core\Error::{'EForbidden'}([
+            throw Glitch::EForbidden([
                 'message' => 'Not your file',
                 'http' => 403
             ]);

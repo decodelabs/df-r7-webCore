@@ -13,6 +13,8 @@ use df\aura;
 use df\mesh;
 use df\flex;
 
+use DecodeLabs\Glitch;
+
 class CustomUploader extends arch\node\form\Delegate implements
     arch\node\IDependentDelegate,
     arch\node\ISelectorDelegate,
@@ -135,7 +137,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     public function render($callback=null)
     {
         if (!$this->_bucket) {
-            throw core\Error::{'ESetup'}([
+            throw Glitch::ESetup([
                 'message' => 'No bucket has been set'
             ]);
         }

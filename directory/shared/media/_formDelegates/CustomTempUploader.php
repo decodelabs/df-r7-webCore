@@ -12,6 +12,7 @@ use df\arch;
 use df\aura;
 use df\link;
 
+use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
 
 class CustomTempUploader extends arch\node\form\Delegate implements
@@ -306,7 +307,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
             if (!$tempDir->hasFile($fileName)) {
                 $this->logs->logException(
-                    core\Error::{'core/fs/ENotFound,ETempNotFound'}(
+                    Glitch::{'df/core/fs/ENotFound,ETempNotFound'}(
                         'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
                     )
                 );
@@ -338,7 +339,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             foreach ($fileNames as $fileName) {
                 if (!$tempDir->hasFile($fileName)) {
                     $this->logs->logException(
-                        core\Error::{'core/fs/ENotFound,ETempNotFound'}(
+                        Glitch::{'df/core/fs/ENotFound,ETempNotFound'}(
                             'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
                         )
                     );

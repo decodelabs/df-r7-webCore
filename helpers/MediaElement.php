@@ -14,6 +14,7 @@ use df\spur;
 use df\flex;
 use df\link;
 
+use DecodeLabs\Glitch;
 use DecodeLabs\Tagged\Html;
 
 class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
@@ -27,7 +28,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
         } elseif ($type == 'video') {
             return $this->video($embed, $attributes);
         } else {
-            throw core\Error::EArgument('Invalid media element type: '.$type);
+            throw Glitch::EInvalidArgument('Invalid media element type: '.$type);
         }
     }
 

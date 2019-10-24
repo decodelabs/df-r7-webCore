@@ -10,23 +10,26 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpIndex extends arch\node\Base {
+use DecodeLabs\Glitch;
 
+class HttpIndex extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function executeAsHtml() {
-        if($this->app->isProduction()) {
-            throw core\Error::{'EForbidden'}([
+    public function executeAsHtml()
+    {
+        if ($this->app->isProduction()) {
+            throw Glitch::EForbidden([
                 'message' => 'Dev mode only',
                 'http' => 403
             ]);
         }
 
-        return $this->apex->newWidgetView(function($view) {
+        return $this->apex->newWidgetView(function ($view) {
             $files = df\Launchpad::$loader->lookupFileListRecursive('apex/directory/ui/_templates', ['php']);
 
             yield $this->html->collectionList($files)
-                ->addField('name', function($filePath, $context) {
+                ->addField('name', function ($filePath, $context) {
                     $name = substr($context->getKey(), 0, -4);
                     return $this->html->link(
                             '~ui/view?path='.$name,
@@ -35,10 +38,10 @@ class HttpIndex extends arch\node\Base {
                         ->setIcon('file')
                         ->setDisposition('informative');
                 })
-                ->addField('created', function($filePath) {
+                ->addField('created', function ($filePath) {
                     return $this->format->date(@filectime($filePath));
                 })
-                ->addField('modified', function($filePath) {
+                ->addField('modified', function ($filePath) {
                     return $this->format->timeFromNow(@filemtime($filePath));
                 });
         });

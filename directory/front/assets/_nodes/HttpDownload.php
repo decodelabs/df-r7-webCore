@@ -11,6 +11,7 @@ use df\arch;
 use df\aura;
 use df\neon;
 
+use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
 
 class HttpDownload extends arch\node\Base
@@ -23,7 +24,7 @@ class HttpDownload extends arch\node\Base
         $path = core\uri\Path::normalizeLocal($this->request['file']);
 
         if (!$absolutePath = df\Launchpad::$loader->findFile('apex/assets/'.$path)) {
-            throw core\Error::{'core/fs/ENotFound'}([
+            throw Glitch::{'df/core/fs/ENotFound'}([
                 'message' => 'File not found',
                 'http' => 404
             ]);

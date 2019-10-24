@@ -11,6 +11,8 @@ use df\plug;
 use df\arch;
 use df\aura;
 
+use DecodeLabs\Glitch;
+
 class DfKit implements arch\IDirectoryHelper
 {
     use arch\TDirectoryHelper;
@@ -21,7 +23,7 @@ class DfKit implements arch\IDirectoryHelper
     protected function _init()
     {
         if (!$this->view) {
-            throw core\Error::{'aura/view/ENoView,ENoContext'}(
+            throw Glitch::{'df/aura/view/ENoView,ENoContext'}(
                 'View is not available in plugin context'
             );
         }

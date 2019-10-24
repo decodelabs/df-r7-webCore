@@ -10,37 +10,42 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpRespond extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpRespond extends arch\node\Form
+{
     protected $_request;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_request = $this->scaffold->getRecord();
 
-        if(!$this->_request['isActive']) {
-            throw core\Error::{'EForbidden'}([
+        if (!$this->_request['isActive']) {
+            throw Glitch::EForbidden([
                 'message' => 'Request is not active',
                 'http' => 403
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_request['id'];
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $this->content->addAttributeList($this->_request)
             ->addField('name')
-            ->addField('email', function($request) {
+            ->addField('email', function ($request) {
                 return $this->html->mailLink($request['email']);
             })
             ->addField('companyName')
             ->addField('companyPosition')
-            ->addField('creationDate', $this->_('Created'), function($request) {
+            ->addField('creationDate', $this->_('Created'), function ($request) {
                 return $this->html->timeSince($request['creationDate']);
             })
-            ->addField('message', function($request) {
+            ->addField('message', function ($request) {
                 return $this->html->plainText($request['message']);
             });
 
@@ -68,13 +73,14 @@ class HttpRespond extends arch\node\Form {
         );
     }
 
-    protected function onAcceptEvent() {
+    protected function onAcceptEvent()
+    {
         $validator = $this->data->newValidator()
             ->addField('message', 'text')
             ->validate($this->values);
 
-        return $this->complete(function() use($validator) {
-            if(!$this->_request['#user']) {
+        return $this->complete(function () use ($validator) {
+            if (!$this->_request['#user']) {
                 $invite = $this->data->user->invite->newRecord([
                     'name' => $this->_request['name'],
                     'email' => $this->_request['email'],
@@ -99,7 +105,7 @@ class HttpRespond extends arch\node\Form {
                 'message' => $validator['message']
             ]);
 
-            if($user = $this->_request['user']) {
+            if ($user = $this->_request['user']) {
                 $user->groups->addList($this->_request['groups']->toArray());
                 $user->save();
             }
@@ -111,12 +117,13 @@ class HttpRespond extends arch\node\Form {
         });
     }
 
-    protected function onDenyEvent() {
+    protected function onDenyEvent()
+    {
         $validator = $this->data->newValidator()
             ->addField('message', 'text')
             ->validate($this->values);
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $this->_request['isActive'] = false;
             $this->_request->save();
 

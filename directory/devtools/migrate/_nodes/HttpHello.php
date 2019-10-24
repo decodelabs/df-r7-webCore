@@ -10,13 +10,16 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpHello extends arch\node\RestApi {
+use DecodeLabs\Glitch;
 
-    public function executeGet() {
+class HttpHello extends arch\node\RestApi
+{
+    public function executeGet()
+    {
         $nodes = [];
 
-        foreach(df\Launchpad::$loader->lookupClassList('apex/directory/devtools/migrate/_nodes') as $name => $class) {
-            if(0 !== strpos($name, 'Http')) {
+        foreach (df\Launchpad::$loader->lookupClassList('apex/directory/devtools/migrate/_nodes') as $name => $class) {
+            if (0 !== strpos($name, 'Http')) {
                 continue;
             }
 
@@ -29,11 +32,12 @@ class HttpHello extends arch\node\RestApi {
         ];
     }
 
-    public function authorizeRequest() {
+    public function authorizeRequest()
+    {
         $key = $this->data->hexHash($this->app->getPassKey());
 
-        if($key != $this->request['key']) {
-            throw core\Error::{'EForbidden,EValue'}([
+        if ($key != $this->request['key']) {
+            throw Glitch::{'EForbidden,EUnexpectedValue'}([
                 'message' => 'Pass key is invalid',
                 'http' => 403
             ]);

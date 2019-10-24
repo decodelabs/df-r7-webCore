@@ -12,55 +12,61 @@ use df\arch;
 use df\axis;
 use df\halo;
 
-class HttpRebuildTable extends arch\node\ConfirmForm {
+use DecodeLabs\Glitch;
 
+class HttpRebuildTable extends arch\node\ConfirmForm
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_inspector;
 
-    protected function init() {
+    protected function init()
+    {
         $probe = new axis\introspector\Probe();
 
-        if(!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
-            throw core\Error::{'axis/unit/ENotFound'}([
+        if (!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
+            throw Glitch::{'df/axis/unit/ENotFound'}([
                 'message' => 'Unit not found',
                 'http' => 404
             ]);
         }
 
-        if($this->_inspector->getType() != 'table') {
-            throw core\Error::{'axis/unit/EDomain,EForbidden'}([
+        if ($this->_inspector->getType() != 'table') {
+            throw Glitch::{'df/axis/unit/EDomain,EForbidden'}([
                 'message' => 'Unit not a table',
                 'http' => 403
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_inspector->getId();
     }
 
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to rebuild this table?');
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_inspector)
             // Id
-            ->addField('id', function($inspector) {
+            ->addField('id', function ($inspector) {
                 return $inspector->getId();
             })
 
             // Canonical id
-            ->addField('canonicalId', $this->_('Storage name'), function($inspector) {
+            ->addField('canonicalId', $this->_('Storage name'), function ($inspector) {
                 return $inspector->getCanonicalId();
             })
 
             // Type
-            ->addField('type', function($inspector) {
+            ->addField('type', function ($inspector) {
                 $output = ucfirst($inspector->getType());
 
-                if($inspector->isVirtual()) {
+                if ($inspector->isVirtual()) {
                     $output = [
                         $output, ' ',
                         $this->html('sup', '(virtual)')
@@ -71,22 +77,24 @@ class HttpRebuildTable extends arch\node\ConfirmForm {
             })
 
             // Adapter
-            ->addField('adapter', function($inspector) {
+            ->addField('adapter', function ($inspector) {
                 return $inspector->getAdapterName();
             })
 
             // Connection
-            ->addField('connection', function($inspector) {
+            ->addField('connection', function ($inspector) {
                 return $inspector->getAdapterConnectionName();
             });
     }
 
-    protected function customizeMainButton($button) {
+    protected function customizeMainButton($button)
+    {
         $button->setBody($this->_('Rebuild'))
             ->setIcon('refresh');
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         return $this->task->initiateStream('axis/rebuild-table?unit='.$this->_inspector->getId());
     }
 }

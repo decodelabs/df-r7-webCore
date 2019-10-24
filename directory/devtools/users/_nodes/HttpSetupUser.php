@@ -10,28 +10,33 @@ use df\core;
 use df\arch;
 use df\user;
 
-class HttpSetupUser extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpSetupUser extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    protected function initWithSession() {
+    protected function initWithSession()
+    {
         $model = $this->data->getModel('user');
 
-        if($model->client->countAll()) {
-            throw core\Error::{'EForbidden'}([
+        if ($model->client->countAll()) {
+            throw Glitch::EForbidden([
                 'message' => 'A user has already been set up',
                 'http' => 403
             ]);
         }
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->timezone = 'Europe/London';
         $this->values->country = 'GB';
         $this->values->language = 'en';
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $this->content->push($this->html('p',
             'WARNING: this form wont hold your hand, make sure you type everything properly.. it will also only work ONCE'
         ));
@@ -86,7 +91,8 @@ class HttpSetupUser extends arch\node\Form {
     }
 
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Email
@@ -103,11 +109,11 @@ class HttpSetupUser extends arch\node\Form {
 
             // Timezone
             ->addRequiredField('timezone', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return str_replace(' ', '/', ucwords(str_replace('/', ' ', $value)));
                 })
-                ->extend(function($value, $field) {
-                    if(!$this->i18n->timezones->isValidId($value)) {
+                ->extend(function ($value, $field) {
+                    if (!$this->i18n->timezones->isValidId($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid timezone id'
                         ));
@@ -116,11 +122,11 @@ class HttpSetupUser extends arch\node\Form {
 
             // Country
             ->addRequiredField('country', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return strtoupper($value);
                 })
-                ->extend(function($value, $field) {
-                    if(!$this->i18n->countries->isValidId($value)) {
+                ->extend(function ($value, $field) {
+                    if (!$this->i18n->countries->isValidId($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid country code'
                         ));
@@ -129,11 +135,11 @@ class HttpSetupUser extends arch\node\Form {
 
             // Language
             ->addRequiredField('language', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return strtolower($value);
                 })
-                ->extend(function($value, $field) {
-                    if(!$this->i18n->languages->isValidId($value)) {
+                ->extend(function ($value, $field) {
+                    if (!$this->i18n->languages->isValidId($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid language id'
                         ));
@@ -143,7 +149,7 @@ class HttpSetupUser extends arch\node\Form {
             ->validate($this->values);
 
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $model = $this->data->getModel('user');
             $model->installDefaultManifest();
 

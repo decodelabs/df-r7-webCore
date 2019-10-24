@@ -11,16 +11,19 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-class HttpDetails extends arch\node\Base {
+use DecodeLabs\Glitch;
 
+class HttpDetails extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $view = $this->apex->view('Details.html');
         $config = fire\Config::getInstance();
 
-        if(!$view['layout'] = $config->getLayoutDefinition($this->request['layout'])) {
-            throw core\Error::{'fire/layout/ENotFound'}([
+        if (!$view['layout'] = $config->getLayoutDefinition($this->request['layout'])) {
+            throw Glitch::{'df/fire/layout/ENotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);

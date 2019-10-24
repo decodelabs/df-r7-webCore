@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Glitch;
+
 class HttpResetPassword extends arch\node\Form
 {
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
@@ -37,7 +39,7 @@ class HttpResetPassword extends arch\node\Form
         }
 
         if (!$user = $this->_key['user']) {
-            throw core\Error::{'EValue'}([
+            throw Glitch::EUnexpectedValue([
                 'message' => 'Client not attached to key',
             ]);
         }
@@ -49,7 +51,7 @@ class HttpResetPassword extends arch\node\Form
         }
 
         if ($this->_key['adapter'] != 'Local') {
-            throw core\Error::{'user/authentication/EForbidden'}([
+            throw Glitch::{'df/user/authentication/EForbidden'}([
                 'message' => 'Password reset key not for local adapter',
                 'http' => 403
             ]);

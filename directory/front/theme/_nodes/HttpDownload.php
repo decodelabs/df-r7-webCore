@@ -11,6 +11,7 @@ use df\arch;
 use df\aura;
 use df\neon;
 
+use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
 
 class HttpDownload extends arch\node\Base
@@ -39,7 +40,7 @@ class HttpDownload extends arch\node\Base
         }
 
         if (!$absolutePath = $theme->findAsset($assetPath)) {
-            throw core\Error::{'core/fs/ENotFound'}([
+            throw Glitch::{'df/core/fs/ENotFound'}([
                 'message' => 'File not found',
                 'http' => 404
             ]);

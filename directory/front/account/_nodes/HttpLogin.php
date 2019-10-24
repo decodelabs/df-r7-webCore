@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Glitch;
+
 class HttpLogin extends arch\node\Form
 {
     const CHECK_ACCESS = false;
@@ -43,7 +45,7 @@ class HttpLogin extends arch\node\Form
         }
 
         if (!$this->_adapter) {
-            throw core\Error::{'user/authentication/ESetup'}([
+            throw Glitch::{'df/user/authentication/ESetup'}([
                 'message' => 'There are no enabled authentication adapters',
             ]);
         }

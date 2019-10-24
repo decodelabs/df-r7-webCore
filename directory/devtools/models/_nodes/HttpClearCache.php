@@ -11,58 +11,66 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpClearCache extends arch\node\ConfirmForm {
+use DecodeLabs\Glitch;
 
+class HttpClearCache extends arch\node\ConfirmForm
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DISPOSITION = 'negative';
 
     protected $_inspector;
 
-    protected function init() {
+    protected function init()
+    {
         $probe = new axis\introspector\Probe();
 
-        if(!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
-            throw core\Error::{'axis/unit/ENotFound'}([
+        if (!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
+            throw Glitch::{'df/axis/unit/ENotFound'}([
                 'message' => 'Unit not found',
                 'http' => 404
             ]);
         }
 
-        if($this->_inspector->getType() != 'cache') {
-            throw core\Error::{'axis/unit/EDomain,EForbidden'}([
+        if ($this->_inspector->getType() != 'cache') {
+            throw Glitch::{'df/axis/unit/EDomain,EForbidden'}([
                 'message' => 'Unit not a cache',
                 'http' => 403
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_inspector->getId();
     }
 
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to clear this cache?');
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_inspector)
-            ->addField('unit', function($inspector) {
+            ->addField('unit', function ($inspector) {
                 return $inspector->getId();
             })
-            ->addField('backend', function($inspector) {
+            ->addField('backend', function ($inspector) {
                 return $inspector->getAdapterName();
             })
-            ->addField('entries', function($inspector) {
+            ->addField('entries', function ($inspector) {
                 return $inspector->getUnit()->count();
             });
     }
 
-    protected function customizeMainButton($button) {
+    protected function customizeMainButton($button)
+    {
         $button->setBody($this->_('Clear'))
             ->setIcon('delete');
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->_inspector->getUnit()->clear();
     }
 }

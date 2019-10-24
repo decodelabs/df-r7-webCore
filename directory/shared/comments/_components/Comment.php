@@ -11,30 +11,36 @@ use df\apex;
 use df\arch;
 use df\mesh;
 
-class Comment extends arch\component\Base {
+use DecodeLabs\Glitch;
 
+class Comment extends arch\component\Base
+{
     protected $_entityLocator;
     protected $_showInactive = false;
     protected $_displayAsTree = false;
     protected $_showForm = true;
 
-    protected function init($entityLocator=null) {
-        if($entityLocator) {
+    protected function init($entityLocator=null)
+    {
+        if ($entityLocator) {
             $this->setEntityLocator($entityLocator);
         }
     }
 
-    public function setEntityLocator($locator) {
+    public function setEntityLocator($locator)
+    {
         $this->_entityLocator = mesh\entity\Locator::factory($locator);
         return $this;
     }
 
-    public function getEntityLocator() {
+    public function getEntityLocator()
+    {
         return $this->_entityLocator;
     }
 
-    public function shouldShowInactive(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldShowInactive(bool $flag=null)
+    {
+        if ($flag !== null) {
             $this->_showInactive = $flag;
             return $this;
         }
@@ -42,8 +48,9 @@ class Comment extends arch\component\Base {
         return $this->_showInactive;
     }
 
-    public function shouldDisplayAsTree(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldDisplayAsTree(bool $flag=null)
+    {
+        if ($flag !== null) {
             $this->_displayAsTree = $flag;
             return $this;
         }
@@ -51,8 +58,9 @@ class Comment extends arch\component\Base {
         return $this->_displayAsTree;
     }
 
-    public function shouldShowForm(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldShowForm(bool $flag=null)
+    {
+        if ($flag !== null) {
             $this->_showForm = $flag;
             return $this;
         }
@@ -60,9 +68,10 @@ class Comment extends arch\component\Base {
         return $this->_showForm;
     }
 
-    protected function _execute() {
-        if(!$this->_entityLocator) {
-            throw core\Error::{'mesh/ENoEntity,ENotFound'}(
+    protected function _execute()
+    {
+        if (!$this->_entityLocator) {
+            throw Glitch::{'df/mesh/ENoEntity,ENotFound'}(
                 'Comment entity locator has not been set'
             );
         }
@@ -77,11 +86,11 @@ class Comment extends arch\component\Base {
             ->populateSelect('owner', 'id', 'fullName')
             ->where('topic', '=', $this->_entityLocator);
 
-        if(!$this->_showInactive) {
+        if (!$this->_showInactive) {
             $query->where('isLive', '=', true);
         }
 
-        if($this->_displayAsTree) {
+        if ($this->_displayAsTree) {
             $limit = 15;
             $query->where('root', '=', null)
                 ->populate('replyTree')

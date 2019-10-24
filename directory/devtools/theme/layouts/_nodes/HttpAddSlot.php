@@ -12,18 +12,21 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-class HttpAddSlot extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpAddSlot extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_layout;
     protected $_slot;
 
-    protected function init() {
+    protected function init()
+    {
         $config = fire\Config::getInstance();
 
-        if(!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            throw core\Error::{'fire/layout/ENotFound'}([
+        if (!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
+            throw Glitch::{'df/fire/layout/ENotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);
@@ -32,11 +35,13 @@ class HttpAddSlot extends arch\node\Form {
         $this->_slot = new fire\slot\Definition('__default__');
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_layout->getId().':'.$this->_slot->getId();
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $detailsFs = $form->addFieldSet($this->_('Slot details'));
 
@@ -83,7 +88,8 @@ class HttpAddSlot extends arch\node\Form {
     }
 
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Id
@@ -110,13 +116,13 @@ class HttpAddSlot extends arch\node\Form {
 
         $config = fire\Config::getInstance();
 
-        if($this->isValid()) {
-            if($this->values['id'] !== $this->_slot->getId()) {
-                if($this->_layout->getSlot($this->values['id'])) {
+        if ($this->isValid()) {
+            if ($this->values['id'] !== $this->_slot->getId()) {
+                if ($this->_layout->getSlot($this->values['id'])) {
                     $this->values->id->addError('unique', $this->_(
                         'There is already a slot with that id'
                     ));
-                } else if($this->_slot->isPrimary()) {
+                } elseif ($this->_slot->isPrimary()) {
                     $this->values->id->addError('static', $this->_(
                         'The primary slot is required so you cannot change this id'
                     ));
@@ -124,7 +130,7 @@ class HttpAddSlot extends arch\node\Form {
             }
         }
 
-        return $this->complete(function() use($config) {
+        return $this->complete(function () use ($config) {
             $this->_layout->removeSlot($this->_slot->getId());
 
             $this->_slot->setId($this->values['id'])

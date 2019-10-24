@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Glitch;
+
 class HttpLogin extends arch\node\Base
 {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
@@ -21,7 +23,7 @@ class HttpLogin extends arch\node\Base
         $config = user\authentication\Config::getInstance();
 
         if (!$config->isAdapterEnabled('Auth0')) {
-            throw core\Error::EForbidden([
+            throw Glitch::EForbidden([
                 'message' => 'Auth0 is not enabled',
                 'http' => 403
             ]);

@@ -11,18 +11,21 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpEdit extends HttpAdd {
+use DecodeLabs\Glitch;
 
+class HttpEdit extends HttpAdd
+{
     protected $_id;
     protected $_source;
 
-    protected function initWithSession() {
+    protected function initWithSession()
+    {
         $config = flow\mail\Config::getInstance();
         $sources = $config->getListSources();
         $this->_id = $this->request['source'];
 
-        if(!isset($sources[$this->_id])) {
-            throw core\Error::{'flow/mailingList/ENotFound'}([
+        if (!isset($sources[$this->_id])) {
+            throw Glitch::{'df/flow/mailingList/ENotFound'}([
                 'message' => 'Source not found',
                 'http' => 404
             ]);
@@ -30,13 +33,14 @@ class HttpEdit extends HttpAdd {
 
         $this->_source = $sources[$this->_id];
 
-        if($adapter = $this->_source['adapter']) {
+        if ($adapter = $this->_source['adapter']) {
             $this->setStore('adapter', $adapter);
             $this->setStore('options', $this->_source->toArray());
         }
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->import($this->_source);
         $this->values->id = $this->_id;
     }
