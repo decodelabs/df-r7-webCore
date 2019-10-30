@@ -12,6 +12,8 @@ use df\arch;
 use df\opal;
 use df\link;
 
+use GuzzleHttp\Client as HttpClient;
+
 class HttpIndex extends arch\node\Base
 {
     public function executeAsHtml()
@@ -28,12 +30,9 @@ class HttpIndex extends arch\node\Base
 
             if ($ip->isLoopback()) {
                 try {
-                    $client = new link\http\Client();
-                    $response = $client->get('http://api6.ipify.org');
-
-                    if ($response->isOk()) {
-                        $ip = link\Ip::factory($response->getContent());
-                    }
+                    $httpClient = new HttpClient();
+                    $response = $httpClient->get('http://api6.ipify.org');
+                    $ip = link\Ip::factory((string)$response->getBody());
                 } catch (\Throwable $e) {
                 }
             }
