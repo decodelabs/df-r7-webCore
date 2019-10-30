@@ -13,9 +13,9 @@ use df\aura;
 use df\opal;
 use df\mesh;
 
-class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IAcceptTypeProcessor
+class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\IAcceptTypeProcessor
 {
-    use core\io\TAcceptTypeProcessor;
+    use core\lang\TAcceptTypeProcessor;
     use arch\node\TForm_MediaBucketAwareSelector;
 
     const DEFAULT_MODES = [
@@ -124,7 +124,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\io\IA
         if (!$query instanceof opal\query\ISearchableQuery) {
             return;
         }
-        
+
         $query->searchFor($search, [
             'fileName' => 2
         ]);

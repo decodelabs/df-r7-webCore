@@ -19,12 +19,12 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
     aura\html\IRenderable,
     aura\html\widget\IFieldDataProvider,
-    core\io\IAcceptTypeProcessor,
+    core\lang\IAcceptTypeProcessor,
     core\IStringProvider
 {
     use arch\node\TForm_SelectorDelegate;
     use core\constraint\TDisableable;
-    use core\io\TAcceptTypeProcessor;
+    use core\lang\TAcceptTypeProcessor;
     use core\TStringProvider;
 
     protected $_showUploadButton = false;

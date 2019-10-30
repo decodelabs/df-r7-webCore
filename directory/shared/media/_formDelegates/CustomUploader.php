@@ -20,14 +20,14 @@ class CustomUploader extends arch\node\form\Delegate implements
     arch\node\ISelectorDelegate,
     aura\html\IRenderable,
     aura\html\widget\IFieldDataProvider,
-    core\io\IAcceptTypeProcessor,
+    core\lang\IAcceptTypeProcessor,
     core\IStringProvider
 {
     use arch\node\TForm_SelectorDelegate;
     use arch\node\TForm_ValueListSelectorDelegate;
     use arch\node\TForm_DependentDelegate;
     use arch\node\TForm_MediaBucketAwareSelector;
-    use core\io\TAcceptTypeProcessor;
+    use core\lang\TAcceptTypeProcessor;
     use core\constraint\TDisableable;
     use core\TStringProvider;
 
