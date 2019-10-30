@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
-
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     const TITLE = 'Spool logs';
@@ -33,23 +33,22 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-// Sections
-    public function renderDetailsSectionBody($log) {
+    // Sections
+    public function renderDetailsSectionBody($log)
+    {
         $output = [parent::renderDetailsSectionBody($log)];
 
-        if($log['errorOutput']) {
+        if ($log['errorOutput']) {
             $output[] = [
                 $this->html('h3', $this->_('Error output')),
-                $this->html->container($this->html->plainText($log['errorOutput']))
-                    ->addClass('error mono')
+                $this->html('samp.terminal-output.error', $log['errorOutput'])
             ];
         }
 
-        if($log['output']) {
+        if ($log['output']) {
             $output[] = [
                 $this->html('h3', $this->_('Standard output')),
-                $this->html->container($this->html->plainText($log['output']))
-                    ->addClass('mono')
+                $this->html('samp.terminal-output', $log['output'])
             ];
         }
 
@@ -57,8 +56,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Components
-    public function addIndexOperativeLinks($menu, $bar) {
+    // Components
+    public function addIndexOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('~devtools/processes/logs/delete-all', true),
@@ -69,25 +69,28 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function defineStartDateField($list, $mode) {
-        $list->addField('startDate', $this->_('Started'), function($log) {
+    // Fields
+    public function defineStartDateField($list, $mode)
+    {
+        $list->addField('startDate', $this->_('Started'), function ($log) {
             return $this->html->timeFromNow($log['startDate']);
         });
     }
 
-    public function defineRunTimeField($list, $mode) {
-        $list->addField('runTime', function($log) {
+    public function defineRunTimeField($list, $mode)
+    {
+        $list->addField('runTime', function ($log) {
             return $this->format->duration($log['runTime']);
         });
     }
 
-    public function defineStatusField($list, $mode) {
-        $list->addField('status', function($log) {
-            if($log['errorOutput']) {
+    public function defineStatusField($list, $mode)
+    {
+        $list->addField('status', function ($log) {
+            if ($log['errorOutput']) {
                 return $this->html->icon('error', $this->_('Error'))
                     ->addClass('error');
-            } else if(!$log['output']) {
+            } elseif (!$log['output']) {
                 return $this->html->icon('warning', $this->_('No output'))
                     ->addClass('warning');
             } else {
