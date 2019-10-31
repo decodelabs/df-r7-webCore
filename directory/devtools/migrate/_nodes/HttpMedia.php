@@ -54,7 +54,9 @@ class HttpMedia extends arch\node\RestApi
             ]);
         }
 
-        return $this->http->fileResponse($filePath);
+        $output = $this->http->fileResponse($filePath);
+        $output->getHeaders()->set('content-length', filesize($filePath));
+        return $output;
     }
 
     public function authorizeRequest()
