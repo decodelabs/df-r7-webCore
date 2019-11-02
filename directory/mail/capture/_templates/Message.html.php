@@ -4,18 +4,20 @@ use df\core;
 use df\flow;
 use df\flex;
 
-echo $this->html->elementContentContainer(function() use($message) {
-    $renderer = function(array $parts, $baseId='') use(&$renderer) {
-        foreach($parts as $i => $part) {
+use DecodeLabs\Tagged\Xml\Element as XmlElement;
+
+echo $this->html->elementContentContainer(function () use ($message) {
+    $renderer = function (array $parts, $baseId='') use (&$renderer) {
+        foreach ($parts as $i => $part) {
             $currId = $baseId.$i;
 
-            if($part instanceof flow\mime\IMultiPart) {
+            if ($part instanceof flow\mime\IMultiPart) {
                 yield $this->html->container(
                     $this->html->attributeList($part->getHeaders()->toArray())->setStyle('font-size', '0.8em'),
                     $renderer($part->getParts(), $currId.'-')
                 );
-            } else if($part instanceof flow\mime\IContentPart) {
-                yield $this->html->container(function() use($part, $currId) {
+            } elseif ($part instanceof flow\mime\IContentPart) {
+                yield $this->html->container(function () use ($part, $currId) {
                     yield $this->html->attributeList(
                             $part->getHeaders()->toArray() +
                             [
@@ -25,7 +27,7 @@ echo $this->html->elementContentContainer(function() use($message) {
                         )
                         ->setStyle('font-size', '0.8em');
 
-                    switch($part->getContentType()) {
+                    switch ($part->getContentType()) {
                         case 'text/plain':
                             yield $this->html('div.sterile', $this->html->plainText($part->getContent()));
                             break;
@@ -34,14 +36,15 @@ echo $this->html->elementContentContainer(function() use($message) {
                             $html = $part->getContent();
 
                             try {
-                                $doc = flex\xml\Tree::fromHtmlString($html);
+                                $doc = XmlElement::fromHtmlString($html);
                                 $attr = [];
 
-                                if($body = $doc->getFirstChildOfType('body')) {
+                                if ($body = $doc->getFirstChildOfType('body')) {
                                     $body->setTagName('div');
-                                    $html = $body->toNodeXmlString();
+                                    $html = (string)$body;
                                 }
-                            } catch(\Throwable $e) {}
+                            } catch (\Throwable $e) {
+                            }
 
                             yield $this->html('div.sterile', $this->html->string($html));
                             break;
