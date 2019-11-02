@@ -14,6 +14,7 @@ use df\flex;
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Mode;
 use DecodeLabs\Atlas\File;
+use DecodeLabs\Tagged\Xml\Writer as XmlWriter;
 
 class HttpSitemap extends arch\node\Base
 {
@@ -28,7 +29,7 @@ class HttpSitemap extends arch\node\Base
     {
         if ($this->app->isDevelopment()) {
             $xml = $this->_generateXml();
-            return $this->http->stringResponse($xml->toString(), 'application/xml');
+            return $this->http->stringResponse((string)$xml, 'application/xml');
         }
 
         $path = $this->app->getLocalDataPath().'/sitemap/'.$this->app->envMode.'.xml';
@@ -54,9 +55,9 @@ class HttpSitemap extends arch\node\Base
     protected function _generateXml(File $file=null)
     {
         if ($file) {
-            $xml = new flex\xml\Writer(null, $file->getPath());
+            $xml = new XmlWriter($file->getPath());
         } else {
-            $xml = new flex\xml\Writer();
+            $xml = new XmlWriter();
         }
 
         $xml->writeHeader();
