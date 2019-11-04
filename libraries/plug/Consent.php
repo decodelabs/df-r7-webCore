@@ -171,7 +171,7 @@ class Consent implements arch\IDirectoryHelper
         $parts = explode('.', $raw);
         $output['version'] = (int)array_shift($parts);
         $flag = (int)array_shift($parts);
-        $id = array_shift($parts);
+        $id = (string)array_shift($parts);
 
         $output['necessary'] = true;
         $output['preferences'] = (bool)($flag & self::PREFERENCES);

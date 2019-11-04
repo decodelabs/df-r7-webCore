@@ -11,28 +11,35 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpPreview extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpPreview extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'send';
 
     protected $_mail;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_mail = $this->comms->prepareMail($this->request['path']);
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $manager = flow\Manager::getInstance();
         $this->values->transport = $manager->getDefaultMailTransportName();
 
         $config = flow\mail\Config::getInstance();
-        $from = flow\mail\Address::factory($config->getDefaultAddress());
+
+        if (null === ($from = flow\mail\Address::factory($config->getDefaultAddress()))) {
+            throw Glitch::EUnexpectedValue('Unable to parse default email address');
+        }
 
         $this->values->fromName = $from->getName();
         $this->values->fromAddress = $from->getAddress();
 
-        if($this->user->isLoggedIn()) {
+        if ($this->user->isLoggedIn()) {
             $client = $this->user->client;
             $this->values->toName = $client->getFullName();
             $this->values->toAddress = $client->getEmail();
@@ -40,14 +47,15 @@ class HttpPreview extends arch\node\Form {
     }
 
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Email details'));
 
         // Transport
         $transportList = [];
 
-        foreach(flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
+        foreach (flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
             $transportList[$name] = $name.' - '.$description;
         }
 
@@ -108,13 +116,14 @@ class HttpPreview extends arch\node\Form {
         $fs->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
-    protected function onSendEvent() {
+    protected function onSendEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Transport
             ->addRequiredField('transport', 'text')
-                ->extend(function($value, $field) {
-                    if(!flow\mail\transport\Base::isValidTransport($value)) {
+                ->extend(function ($value, $field) {
+                    if (!flow\mail\transport\Base::isValidTransport($value)) {
                         $field->addError('invalid', $this->_(
                             'Please enter a valid transport name'
                         ));
@@ -142,22 +151,22 @@ class HttpPreview extends arch\node\Form {
 
             ->validate($this->values);
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $transport = flow\mail\transport\Base::factory($validator['transport']);
             $this->_mail->preparePreview();
 
             $this->_mail->setFromAddress($validator['fromAddress'], $validator['fromName']);
             $this->_mail->addToAddress($validator['toAddress'], $validator['toName']);
 
-            if($validator['returnPath']) {
+            if ($validator['returnPath']) {
                 $this->_mail->setReturnPath($validator['returnPath']);
             }
 
-            if($validator['ccAddress']) {
+            if ($validator['ccAddress']) {
                 $this->_mail->addCCAddress($validator['ccAddress'], $validator['ccName']);
             }
 
-            if($validator['bccAddress']) {
+            if ($validator['bccAddress']) {
                 $this->_mail->addBCCAddress($validator['bccAddress'], $validator['bccAddress']);
             }
 

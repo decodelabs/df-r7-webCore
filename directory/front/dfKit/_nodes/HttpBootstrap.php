@@ -23,7 +23,7 @@ class HttpBootstrap extends arch\node\Base
 
         $output =
             'if(typeof require == \'undefined\') { throw new Error(\'Require.js has not been loaded\'); };'."\n".
-            'define(\'require.config\', function() { return '.str_replace('\\/', '/', json_encode($data)).'; });'."\n";
+            'define(\'require.config\', function() { return '.str_replace('\\/', '/', (string)json_encode($data)).'; });'."\n";
 
         $output .= file_get_contents(__DIR__.'/bootstrap.js');
 

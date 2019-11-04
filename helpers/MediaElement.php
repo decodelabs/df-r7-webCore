@@ -36,6 +36,10 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
     // Audio
     public function audio(?string $embed, array $attributes=null)
     {
+        if ($embed === null) {
+            return null;
+        }
+
         $embed = trim($embed);
 
         if (empty($embed)) {
@@ -75,6 +79,10 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
     // Video
     public function video(?string $embed, array $attributes=null)
     {
+        if ($embed === null) {
+            return null;
+        }
+
         $embed = trim($embed);
 
         if (empty($embed)) {

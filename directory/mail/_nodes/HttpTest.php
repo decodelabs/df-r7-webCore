@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\flow;
 
+use DecodeLabs\Glitch;
+
 class HttpTest extends arch\node\Form
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -29,7 +31,10 @@ class HttpTest extends arch\node\Form
         $this->values->transport = $manager->getDefaultMailTransportName();
 
         $config = flow\mail\Config::getInstance();
-        $from = flow\mail\Address::factory($config->getDefaultAddress());
+
+        if (null === ($from = flow\mail\Address::factory($config->getDefaultAddress()))) {
+            throw Glitch::EUnexpectedValue('Unable to parse default email address');
+        }
 
         $this->values->fromName = $from->getName();
         $this->values->fromAddress = $from->getAddress();
@@ -166,8 +171,8 @@ class HttpTest extends arch\node\Form
 
         foreach ($list as $name => $filePath) {
             $parts = explode('_mail/', substr($name, 0, -4), 2);
-            $path = array_shift($parts);
-            $name = array_shift($parts);
+            $path = (string)array_shift($parts);
+            $name = (string)array_shift($parts);
 
             if (false !== strpos($name, '/')) {
                 $path .= '#/';
