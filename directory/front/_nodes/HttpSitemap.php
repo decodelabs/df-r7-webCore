@@ -55,9 +55,9 @@ class HttpSitemap extends arch\node\Base
     protected function _generateXml(File $file=null)
     {
         if ($file) {
-            $xml = new XmlWriter($file->getPath());
+            $xml = XmlWriter::createFile($file->getPath());
         } else {
-            $xml = new XmlWriter();
+            $xml = XmlWriter::create();
         }
 
         $xml->writeHeader();
