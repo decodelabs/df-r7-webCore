@@ -52,12 +52,12 @@ class HttpDeleteSlot extends arch\node\DeleteForm
             $this->html->attributeList($this->_slot)
                 // Id
                 ->addField('id', function ($slot) {
-                    return $slot->getId();
+                    return $slot['id'];
                 })
 
                 // Name
                 ->addField('name', function ($slot) {
-                    return $slot->getName();
+                    return $slot['name'];
                 })
         );
     }

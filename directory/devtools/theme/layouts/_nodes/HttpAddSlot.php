@@ -135,7 +135,7 @@ class HttpAddSlot extends arch\node\Form
 
             $this->_slot->setId($this->values['id'])
                 ->setName($this->values['name'])
-                ->setMinBlocks($this->values['minBlocks'])
+                ->setMinBlocks((int)$this->values['minBlocks'])
                 ->setMaxBlocks($this->values['maxBlocks'])
                 //->setBlockTypes($this->values->blockTypes->toArray())
                 ;
