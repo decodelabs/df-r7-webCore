@@ -110,7 +110,11 @@ class HttpDefault extends arch\node\Base
                         break;
                 }
             } catch (\Throwable $e) {
-                Glitch::dump($e);
+                try {
+                    $this->logs->logException($e);
+                } catch (\Throwable $f) {
+                    Glitch::dumpDie($e, $f, $exception);
+                }
             }
         }
 
