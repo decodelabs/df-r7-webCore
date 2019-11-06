@@ -1,6 +1,7 @@
 includes:
-    - ../base/phpstan.extension.neon
+    - ./vendor/df-r7/base/phpstan.extension.neon
 parameters:
+    bootstrap: %currentWorkingDirectory%/tests/bootstrap.php
     paths:
         - directory
         - helpers

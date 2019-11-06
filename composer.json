@@ -11,8 +11,8 @@
     ],
     "repositories": [
         {
-            "type": "path",
-            "url": "../base"
+            "type": "vcs",
+            "url": "git@github.com:decodelabs/df-r7-base.git"
         }
     ],
     "require": {
