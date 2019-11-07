@@ -10,14 +10,24 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\AreaMenu {
-
+class HttpScaffold extends arch\scaffold\AreaMenu
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const TITLE = 'Devtools';
     const ICON = 'debug';
     const HEADER_BAR = false;
 
-    public function generateIndexMenu($entryList) {
+    protected function renderIntro($view)
+    {
+        $view->content->addAttributeList()
+            ->addField('COMPILE_TIMESTAMP', df\COMPILE_TIMESTAMP)
+            ->addField('COMPILE_BUILD_ID', df\COMPILE_BUILD_ID)
+            ->addField('COMPILE_ROOT_PATH', df\COMPILE_ROOT_PATH)
+            ->addField('COMPILE_ENV_NODE', df\COMPILE_ENV_NODE);
+    }
+
+    public function generateIndexMenu($entryList)
+    {
         $entryList->addEntries(
             $entryList->newLink('~devtools/users/', 'User setup')
                 ->setId('users')
