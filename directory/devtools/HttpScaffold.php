@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
             ->addField('COMPILE_TIMESTAMP', df\COMPILE_TIMESTAMP)
             ->addField('COMPILE_BUILD_ID', df\COMPILE_BUILD_ID)
             ->addField('COMPILE_ROOT_PATH', df\COMPILE_ROOT_PATH)
-            ->addField('COMPILE_ENV_NODE', df\COMPILE_ENV_NODE);
+            ->addField('COMPILE_ENV_MODE', df\COMPILE_ENV_MODE);
     }
 
     public function generateIndexMenu($entryList)
