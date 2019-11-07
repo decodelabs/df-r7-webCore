@@ -20,10 +20,18 @@ class HttpScaffold extends arch\scaffold\AreaMenu
     protected function renderIntro($view)
     {
         $view->content->addAttributeList()
-            ->addField('COMPILE_TIMESTAMP', df\COMPILE_TIMESTAMP)
-            ->addField('COMPILE_BUILD_ID', df\COMPILE_BUILD_ID)
-            ->addField('COMPILE_ROOT_PATH', df\COMPILE_ROOT_PATH)
-            ->addField('COMPILE_ENV_MODE', df\COMPILE_ENV_MODE);
+            ->addField('COMPILE_TIMESTAMP', function () {
+                return df\COMPILE_TIMESTAMP;
+            })
+            ->addField('COMPILE_BUILD_ID', function () {
+                return df\COMPILE_BUILD_ID;
+            })
+            ->addField('COMPILE_ROOT_PATH', function () {
+                return df\COMPILE_ROOT_PATH;
+            })
+            ->addField('COMPILE_ENV_MODE', function () {
+                return df\COMPILE_ENV_MODE;
+            });
     }
 
     public function generateIndexMenu($entryList)
