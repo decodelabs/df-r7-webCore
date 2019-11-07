@@ -21,16 +21,16 @@ class HttpScaffold extends arch\scaffold\AreaMenu
     {
         $view->content->addAttributeList()
             ->addField('COMPILE_TIMESTAMP', function () {
-                return df\COMPILE_TIMESTAMP;
+                return $this->html->dateTime(df\COMPILE_TIMESTAMP);
             })
             ->addField('COMPILE_BUILD_ID', function () {
-                return df\COMPILE_BUILD_ID;
+                return $this->html('?code', df\COMPILE_BUILD_ID);
             })
             ->addField('COMPILE_ROOT_PATH', function () {
-                return df\COMPILE_ROOT_PATH;
+                return $this->html('?code', df\COMPILE_ROOT_PATH);
             })
             ->addField('COMPILE_ENV_MODE', function () {
-                return df\COMPILE_ENV_MODE;
+                return $this->format->name(df\COMPILE_ENV_MODE);
             });
     }
 
