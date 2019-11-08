@@ -4,12 +4,12 @@ $this->view->setSubject($this->_(
     ['%n%' => $this->app->getName()]
 ));
 
-echo $this->html('p', [
+echo $generator->p([
     'Sorry, but your request to join ',
-    $this->html('strong', $this->app->getName()),
+    Html::strong($this->app->getName()),
     ' has been turned down.'
 ]);
 
-if($message = $this['message']) {
+if ($message = $this['message']) {
     echo $this->html->simpleTags($message);
 }

@@ -4,21 +4,21 @@ $this->view->setSubject($this->_(
     ['%n%' => $user['fullName']]
 ));
 
-echo $this->html('p', [
-    $this->html('strong', $user['fullName']),
+echo $generator->p([
+    Html::strong($user['fullName']),
     '  has decided to deactivate their account on ',
     $this->app->getName(),
     '.'
 ]);
 
-if($reason = $deactivation['reason']) {
-    echo $this->html('p', [
-        $this->html('strong', 'Reason: '),
+if ($reason = $deactivation['reason']) {
+    echo $generator->p([
+        Html::strong('Reason: '),
         $reason
     ]);
 }
 
-if($message = $deactivation['comments']) {
-    echo $this->html('h4', 'Comments');
+if ($message = $deactivation['comments']) {
+    echo $generator->h4('Comments');
     echo $this->html->simpleTags($message);
 }

@@ -1,23 +1,22 @@
 <?php
-if($user->isNew()) {
-    echo $this->html('h4', [
+if ($user->isNew()) {
+    echo $generator->h4([
         'You have a new account on ',
         $this->app->getName()
     ]);
 } else {
-    echo $this->html('h4', [
+    echo $generator->h4([
         'Your email address has recently changed on ',
         $this->app->getName()
     ]);
 }
 
-echo $this->html('p', [
+echo $generator->p([
     'To make sure your details are correct and we can contact you, ',
-    $this->html('br'),
-    $this->html->link(
-            'account/email-verify?key='.$key.'&user='.$user['id'],
-            'please verify this email address'
-        )
-        ->setTarget('_blank'),
+    Html::br(),
+    $generator->link(
+        $this->uri('account/email-verify?key='.$key.'&user='.$user['id']),
+        'please verify this email address'
+    ),
     '.'
 ]);

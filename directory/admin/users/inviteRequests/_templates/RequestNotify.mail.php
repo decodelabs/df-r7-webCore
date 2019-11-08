@@ -4,24 +4,23 @@ $this->view->setSubject($this->_(
     ['%n%' => $request['name']]
 ));
 
-echo $this->html('p', [
-    $this->html('strong', $request['name']),
+echo $generator->p([
+    Html::strong($request['name']),
     ', ',
     $request['companyPosition'],
     ' of ',
     $request['companyName'],
     ' has asked to become a member at ',
-    $this->html('strong', $this->app->getName())
+    Html::strong($this->app->getName())
 ]);
 
-if($message = $request['message']) {
+if ($message = $request['message']) {
     echo $this->html->simpleTags($message);
 }
 
-echo $this->html('p', [
-    $this->html->basicLink(
-            '~admin/users/invite-requests/respond?request='.$request['id'],
-            'Please follow this link to see more details and respond'
-        )
-        ->setAttribute('target', '_blank')
+echo $generator->p([
+    $generator->link(
+        $this->uri('~admin/users/invite-requests/respond?request='.$request['id']),
+        'Please follow this link to see more details and respond'
+    )
 ]);
