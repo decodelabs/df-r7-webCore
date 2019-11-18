@@ -1,8 +1,31 @@
-span.numeric {
+span.numeric, span.number {
     font-family: $monospace;
 
     .unit {
         opacity: 0.5;
         padding-left: 0.2em;
+    }
+
+
+    &.currency {
+        .unit {
+            opacity: 0.75;
+        }
+
+        > .unit:first-child {
+            margin-right: 0.15em;
+        }
+
+        > .unit.code:first-child {
+            margin-right: 0.35em;
+        }
+
+        > .unit:last-child {
+            margin-left: 0.15em;
+        }
+
+        > .unit.code:last-child {
+            margin-left: 0.35em;
+        }
     }
 }
