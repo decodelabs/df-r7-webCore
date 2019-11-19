@@ -226,9 +226,13 @@ define([
                     lastRequest = this.getLastRequest(),
                     deferred = $.Deferred();
 
-                if(!lastRequest
-                || (lastRequest.originalUrl !== request.originalUrl
-                 && _this._normalizeUrl(lastRequest.originalUrl) !== _this._normalizeUrl(request.url))) {
+                if(
+                    !lastRequest ||
+                    (
+                        lastRequest.originalUrl !== request.originalUrl &&
+                        _this._normalizeUrl(lastRequest.originalUrl) !== _this._normalizeUrl(request.url)
+                    )
+                ) {
                     this.requestStack.push(request);
                 }
 
@@ -258,9 +262,11 @@ define([
                     // Form complete
                     if(response.isComplete) {
                         // Forced redirect
-                        if(response.request.formEvent !== 'cancel'
-                        && response.forceRedirect
-                        && response.redirect !== null) {
+                        if(
+                            response.request.formEvent !== 'cancel' &&
+                            response.forceRedirect &&
+                            response.redirect !== null
+                        ) {
                             _this.trigger('form:forceRedirect', response);
                             _this.initialUrl = null;
                             return _this.get(response.redirect, response.request);
@@ -289,6 +295,14 @@ define([
                     if(response.handled) {
                         deferred.resolve(response);
                         return;
+                    }
+
+                    // Reget after post
+                    if(
+                        response.request.method === 'POST' &&
+                        response.redirect === null
+                    ) {
+                        response.redirect = response.request.url;
                     }
 
                     // Simple redirect
