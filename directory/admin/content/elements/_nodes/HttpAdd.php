@@ -10,22 +10,26 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
-
+class HttpAdd extends arch\node\Form
+{
     protected $_element;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_element = $this->scaffold->newRecord([
             'owner' => $this->user->client->getId()
         ]);
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate('body', '~/nightfire/ContentSlot')
+            ->setCategory('Description')
             ->isRequired(true);
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Element details'));
 
@@ -50,7 +54,8 @@ class HttpAdd extends arch\node\Form {
         $form->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Name
@@ -68,8 +73,8 @@ class HttpAdd extends arch\node\Form {
             ->validate($this->values)
             ->applyTo($this->_element);
 
-        return $this->complete(function() {
-            if(!$this->_element->isNew()) {
+        return $this->complete(function () {
+            if (!$this->_element->isNew()) {
                 $this->_element->lastEditDate = 'now';
             }
 
