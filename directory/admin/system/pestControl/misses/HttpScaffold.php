@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = '404 errors';
@@ -151,7 +153,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('botsSeen', $this->_('Bots'), function ($miss) {
             $percent = (100 / $miss['seen']) * $miss['botsSeen'];
-            $output = $this->format->percent($percent);
+            $output = Html::$number->percent($percent);
 
             if ($percent > 0) {
                 $output = $this->html->icon('warning', $output);
