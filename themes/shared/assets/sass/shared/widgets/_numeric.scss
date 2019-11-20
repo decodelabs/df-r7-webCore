@@ -3,29 +3,52 @@ span.numeric, span.number {
 
     .unit {
         opacity: 0.5;
-        padding-left: 0.2em;
+
+        &:first-child {
+            margin-right: 0.2em;
+        }
+
+        &:last-child {
+            margin-left: 0.2em;
+        }
     }
 
 
     &.currency {
         .unit {
             opacity: 0.75;
-        }
 
-        > .unit:first-child {
-            margin-right: 0.15em;
-        }
+            &:first-child {
+                margin-right: 0.35em;
+            }
 
-        > .unit.code:first-child {
-            margin-right: 0.35em;
-        }
+            &.code:first-child {
+                margin-right: 0.55em;
+            }
 
-        > .unit:last-child {
-            margin-left: 0.15em;
-        }
+            &:last-child {
+                margin-left: 0.35em;
+            }
 
-        > .unit.code:last-child {
-            margin-left: 0.35em;
+            &.code:last-child {
+                margin-left: 0.55em;
+            }
+        }
+    }
+
+    &.percent {
+        .unit {
+            font-size: 0.8em;
+            position: relative;
+            margin: 0;
+
+            &:first-child {
+                margin-right: 0.1em;
+            }
+
+            &:last-child {
+                margin-left: 0.1em;
+            }
         }
     }
 }
