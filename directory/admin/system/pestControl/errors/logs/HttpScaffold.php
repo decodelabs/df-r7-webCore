@@ -12,6 +12,8 @@ use df\arch;
 use df\opal;
 use df\flex;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = 'Critical error logs';
@@ -95,12 +97,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
             $this->html->panelSet()
                 ->addPanel([
-                    $this->html('h3', $this->_('Log')),
+                    Html::{'h3'}($this->_('Log')),
                     parent::renderDetailsSectionBody($log)
                 ])
                 ->addPanel(function () use ($log) {
                     return [
-                        $this->html('h3', [
+                        Html::{'h3'}([
                             $this->apex->component('../ErrorLink', $log['error'], $this->_('Error'))
                         ]),
                         $this->apex->component('../ErrorDetails')
@@ -108,7 +110,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                     ];
                 }),
 
-            $this->html('h3', $this->_('Stack trace')),
+            Html::{'h3'}($this->_('Stack trace')),
 
             function () use ($log) {
                 if (!$trace = $log['stackTrace']) {
@@ -122,11 +124,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 return $this->html->collectionList($trace)
                     ->addField('file', function ($call) {
                         if ($call['file']) {
-                            return $this->html('code', $call['file'].' : '.$call['line']);
+                            return Html::{'code'}($call['file'].' : '.$call['line']);
                         }
                     })
                     ->addField('signature', function ($call) {
-                        return $this->html('code', $call['signature']);
+                        return Html::{'code'}($call['signature']);
                     });
             }
         ];
@@ -154,7 +156,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('userAgent', function ($log) {
             if ($agent = $log['userAgent']) {
-                return $this->html('code', $agent['body']);
+                return Html::{'code'}($agent['body']);
             }
         });
     }
@@ -186,7 +188,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 return;
             }
 
-            return $this->html->link($referrer, $this->html('samp', $mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
+            return $this->html->link($referrer, Html::{'samp'}($mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
                 ->setIcon('link');
         });
     }
@@ -203,7 +205,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
                 $message = $this->format->shorten($message, 25);
 
-                return $this->html('samp', $message, [
+                return Html::{'samp'}($message, [
                     'title' => $log['message']
                 ]);
             });
@@ -216,7 +218,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                     return;
                 }
 
-                return $this->html('samp', $message);
+                return Html::{'samp'}($message);
             });
         }
     }

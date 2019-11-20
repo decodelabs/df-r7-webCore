@@ -10,18 +10,21 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpChangePassword extends arch\node\Form {
+use DecodeLabs\Tagged\Html;
 
+class HttpChangePassword extends arch\node\Form
+{
     protected $_auth;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_auth = $this->data->fetchOrCreateForAction(
             'axis://user/Auth',
             [
                 'user' => $this->request['user'],
                 'adapter' => 'Local'
             ],
-            function($auth) {
+            function ($auth) {
                 $user = $this->data->fetchForAction(
                     'axis://user/Client',
                     $this->request['user']
@@ -37,17 +40,19 @@ class HttpChangePassword extends arch\node\Form {
         );
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_auth['#user'];
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Change password'));
 
         // User
         $fs->addField($this->_('User'))->push(
-            $this->html('strong', $this->_auth['user']['fullName'])
+            Html::{'strong'}($this->_auth['user']['fullName'])
         );
 
         // New password
@@ -66,13 +71,14 @@ class HttpChangePassword extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
             ->addRequiredField('password')
                 ->setMatchField('confirmPassword')
             ->validate($this->values);
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_auth->password = $this->user->password->hash($this->values['password']);
             $this->_auth->save();
 

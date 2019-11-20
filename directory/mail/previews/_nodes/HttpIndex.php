@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpIndex extends arch\node\Base
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -22,7 +24,7 @@ class HttpIndex extends arch\node\Base
             yield $this->html->collectionList($mails)
                 ->addField('name', function ($mail, $context) {
                     if (!$mail) {
-                        return $this->html('span.error', $this->html->icon('mail', $context->key));
+                        return Html::{'span.error'}($this->html->icon('mail', $context->key));
                     }
 
                     $url = $this->uri->directoryRequest('~mail/previews/view');

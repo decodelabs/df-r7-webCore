@@ -4,6 +4,7 @@ use df\core;
 use df\flow;
 use df\flex;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Tagged\Xml\Element as XmlElement;
 
 echo $this->html->elementContentContainer(function () use ($message) {
@@ -29,7 +30,7 @@ echo $this->html->elementContentContainer(function () use ($message) {
 
                     switch ($part->getContentType()) {
                         case 'text/plain':
-                            yield $this->html('div.sterile', $this->html->plainText($part->getContent()));
+                            yield Html::{'div.sterile'}($this->html->plainText($part->getContent()));
                             break;
 
                         case 'text/html':
@@ -46,7 +47,7 @@ echo $this->html->elementContentContainer(function () use ($message) {
                             } catch (\Throwable $e) {
                             }
 
-                            yield $this->html('div.sterile', $this->html->string($html));
+                            yield Html::{'div.sterile'}($this->html->string($html));
                             break;
                     }
                 });

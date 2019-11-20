@@ -14,6 +14,7 @@ use df\link;
 
 use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
+use DecodeLabs\Tagged\Html;
 
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
@@ -142,15 +143,15 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
     public function _render($delegate, $available)
     {
-        yield $this->html('span', null, ['id' => $this->getWidgetId()]);
+        yield Html::{'span'}(null, ['id' => $this->getWidgetId()]);
 
         if (!$this->_isForMany) {
             if ($available) {
-                yield $this->html('div.w.list.selection', function () use ($available) {
+                yield Html::{'div.w.list.selection'}(function () use ($available) {
                     yield $this->html->hidden($this->fieldName('selectUpload'), $available['fileName']);
 
                     yield [
-                        $this->html('span.fileName', $available['fileName']), ' ',
+                        Html::{'span.fileName'}($available['fileName']), ' ',
                         $this->html->number($this->format->fileSize($available['size']))
                     ];
 
@@ -172,7 +173,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     $this->fieldName('selectUpload['.$file['fileName'].']'),
                     $this->values->selectUpload->{$file['fileName']},
                     [
-                        $this->html('span.fileName', $file['fileName']), ' ',
+                        Html::{'span.fileName'}($file['fileName']), ' ',
                         $this->html->number($this->format->fileSize($file['size']))
                     ]
                 );
@@ -190,7 +191,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             })->addClass('w selection');
         }
 
-        yield $this->html('div.upload', [
+        yield Html::{'div.upload'}([
             $input = $this->html->fileUpload($this->fieldName('file'), $this->values->file)
                 ->allowMultiple($this->_isForMany)
                 ->setAcceptTypes(...$this->getAcceptTypes())

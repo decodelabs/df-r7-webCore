@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
     const TITLE = 'Pest control';
@@ -96,7 +98,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 $output = $this->format->shorten($output, 60, true);
             }
 
-            $output = $this->html('code', $output);
+            $output = Html::{'code'}($output);
 
             if ($mode == 'list' && $title !== null) {
                 $output->setTitle($title);

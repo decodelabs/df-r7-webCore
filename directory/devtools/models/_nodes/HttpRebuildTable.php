@@ -12,6 +12,7 @@ use df\arch;
 use df\axis;
 use df\halo;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpRebuildTable extends arch\node\ConfirmForm
@@ -69,7 +70,7 @@ class HttpRebuildTable extends arch\node\ConfirmForm
                 if ($inspector->isVirtual()) {
                     $output = [
                         $output, ' ',
-                        $this->html('sup', '(virtual)')
+                        Html::{'sup'}('(virtual)')
                     ];
                 }
 

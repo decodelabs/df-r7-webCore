@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = 'Critical errors';
@@ -106,7 +108,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $output = $this->format->shorten($output, 35);
             }
 
-            $output = $this->html('code', $output);
+            $output = Html::{'code'}($output);
 
             if ($mode == 'list') {
                 $output->setTitle($error['type']);
@@ -125,7 +127,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $output = $this->format->shorten($output, 35, true);
             }
 
-            $output = $this->html('code', $output.' : '.$error['line']);
+            $output = Html::{'code'}($output.' : '.$error['line']);
 
             if ($mode == 'list') {
                 $output->setTitle($error['file']);
@@ -147,14 +149,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         }
 
         $list->addField('message', function ($error) {
-            return $this->html('samp', $error['message']);
+            return Html::{'samp'}($error['message']);
         });
     }
 
     public function defineSeenField($list, $mode)
     {
         $list->addField('seen', function ($error) {
-            $output = $this->html('span', $this->_(
+            $output = Html::{'span'}($this->_(
                 [
                     'n == 1' => '%n% time',
                     '*' => '%n% times'

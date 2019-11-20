@@ -6,7 +6,7 @@ use df\flex;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 
-if(!isset($rowList)) {
+if (!isset($rowList)) {
     echo $this->html->flashMessage($this->_(
         'No storage exists for this unit'
     ), 'warning');
@@ -17,25 +17,25 @@ if(!isset($rowList)) {
 $list = $this->html->collectionList($rowList)
     ->setErrorMessage($this->_('This storage unit is currently empty'));
 
-foreach($primitives as $primitive) {
-    $list->addField($primitive->getName(), $primitive->getName(), function($row) use($primitive) {
+foreach ($primitives as $primitive) {
+    $list->addField($primitive->getName(), $primitive->getName(), function ($row) use ($primitive) {
         $name = $primitive->getName();
 
-        if($primitive instanceof opal\schema\Primitive_Date) {
+        if ($primitive instanceof opal\schema\Primitive_Date) {
             return $this->html->date($row[$name]);
         }
 
-        if($primitive instanceof opal\schema\Primitive_DateTime
+        if ($primitive instanceof opal\schema\Primitive_DateTime
         || $primitive instanceof opal\schema\Primitive_Timestamp) {
             return $this->html->dateTime($row[$name]);
         }
 
-        if($primitive instanceof opal\schema\Primitive_Guid) {
-            if($row[$name] === null) {
+        if ($primitive instanceof opal\schema\Primitive_Guid) {
+            if ($row[$name] === null) {
                 return null;
             }
 
-            return $this->html('abbr', 'GUID')
+            return Html::{'abbr'}('GUID')
                 ->setTitle(flex\Guid::factory($row[$name]));
         }
 

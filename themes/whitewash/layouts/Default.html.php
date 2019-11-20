@@ -3,8 +3,8 @@
         <h1><?php echo $this->html->link('/', $this->app->getName()); ?></h1>
 
         <?php
-        echo $this->html('nav.user', function() {
-            if($this->user->isLoggedIn()) {
+        echo Html::{'nav.user'}(function () {
+            if ($this->user->isLoggedIn()) {
                 yield $this->_('Logged in as %n%. ', [
                     '%n%' => $this->user->client->getFullName()
                 ]);
@@ -23,7 +23,7 @@
             }
         });
 
-        if($this->context->request->hasPath()) {
+        if ($this->context->request->hasPath()) {
             echo $this->html->breadcrumbList()->addSitemapEntries();
         }
         ?>
@@ -53,7 +53,7 @@
                 ->isActive($this->context->request->isArea('devtools'))
                 ->shouldHideIfInaccessible(true)
         )
-        ->chainIf(!$this->context->app->isProduction(), function($menu) {
+        ->chainIf(!$this->context->app->isProduction(), function ($menu) {
             $menu->addLinks(
                 $this->html->link('~ui/', $this->_('UI testing'))
                     ->setIcon('theme')

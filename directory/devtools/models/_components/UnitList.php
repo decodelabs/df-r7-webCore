@@ -10,8 +10,10 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class UnitList extends arch\component\CollectionList {
+use DecodeLabs\Tagged\Html;
 
+class UnitList extends arch\component\CollectionList
+{
     protected $_fields = [
         'id' => true,
         'canonicalId' => true,
@@ -21,31 +23,34 @@ class UnitList extends arch\component\CollectionList {
     ];
 
 
-// Id
-    public function addIdField($list) {
-        $list->addField('id', function($inspector) {
+    // Id
+    public function addIdField($list)
+    {
+        $list->addField('id', function ($inspector) {
             return $this->apex->component('~devtools/models/UnitLink', $inspector)
                 ->setDisposition('informative');
         });
     }
 
-// Canonical id
-    public function addCanonicalIdField($list) {
-        $list->addField('canonicalId', $this->_('Storage id'), function($inspector) {
-            return $this->html('abbr', $id = $inspector->getCanonicalId())
+    // Canonical id
+    public function addCanonicalIdField($list)
+    {
+        $list->addField('canonicalId', $this->_('Storage id'), function ($inspector) {
+            return Html::{'abbr'}($id = $inspector->getCanonicalId())
                 ->setTitle($inspector->getAdapterConnectionName().'/'.$id);
         });
     }
 
-// Type
-    public function addTypeField($list) {
-        $list->addField('type', function($inspector) {
+    // Type
+    public function addTypeField($list)
+    {
+        $list->addField('type', function ($inspector) {
             $output = ucfirst($inspector->getType());
 
-            if($adapter = $inspector->getAdapterName()) {
+            if ($adapter = $inspector->getAdapterName()) {
                 $output = [
                     $output, ' ',
-                    $this->html('sup', $adapter)
+                    Html::{'sup'}($adapter)
                 ];
             }
 
@@ -53,17 +58,18 @@ class UnitList extends arch\component\CollectionList {
         });
     }
 
-// Version
-    public function addVersionField($list) {
-        $list->addField('version', function($inspector, $context) {
-            if(!$inspector->isSchemaBasedStorageUnit()) {
+    // Version
+    public function addVersionField($list)
+    {
+        $list->addField('version', function ($inspector, $context) {
+            if (!$inspector->isSchemaBasedStorageUnit()) {
                 return;
             }
 
             $current = $inspector->getSchemaVersion();
             $max = $inspector->getDefinedSchemaVersion();
 
-            if($current < $max) {
+            if ($current < $max) {
                 $output = $this->html->icon('warning', $current.' / '.$max)->addClass('warning');
             } else {
                 $output = $this->html->icon('tick', $current)->addClass('positive');
@@ -73,10 +79,11 @@ class UnitList extends arch\component\CollectionList {
         });
     }
 
-// Actions
-    public function addActionsField($list) {
-        $list->addField('actions', function($inspector) {
-            switch($inspector->getType()) {
+    // Actions
+    public function addActionsField($list)
+    {
+        $list->addField('actions', function ($inspector) {
+            switch ($inspector->getType()) {
                 case 'cache':
                     return [
                         $this->html->link(

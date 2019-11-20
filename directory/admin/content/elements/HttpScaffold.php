@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = 'Elements';
     const ICON = 'element';
     const ADAPTER = 'axis://content/Element';
@@ -28,28 +30,32 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'lastEditDate'
     ];
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query->importRelationBlock('owner', 'link');
     }
 
-    protected function countSectionItems($record) {
+    protected function countSectionItems($record)
+    {
         return [
             'history' => $this->data->content->history->countFor($record)
         ];
     }
 
-// Sections
-    public function renderDetailsSectionBody($element) {
+    // Sections
+    public function renderDetailsSectionBody($element)
+    {
         return [
             parent::renderDetailsSectionBody($element),
 
-            $this->html('h3', $this->_('Body')),
+            Html::{'h3'}($this->_('Body')),
             $this->nightfire->renderSlot($element['body'])
         ];
     }
 
-    public function renderHistorySectionBody($element) {
+    public function renderHistorySectionBody($element)
+    {
         $historyList = $this->data->content->history->fetchFor($element)
             ->paginateWith($this->request->query);
 

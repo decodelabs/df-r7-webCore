@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = 'Invites';
@@ -187,7 +189,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             if ($invite['isFromAdmin']) {
                 $output = [
                     $output, ' ',
-                    $this->html('sup', '(admin)')
+                    Html::{'sup'}('(admin)')
                 ];
             }
 

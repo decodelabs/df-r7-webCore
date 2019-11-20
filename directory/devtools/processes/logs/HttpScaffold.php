@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -40,15 +42,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
         if ($log['errorOutput']) {
             $output[] = [
-                $this->html('h3', $this->_('Error output')),
-                $this->html('samp.terminal-output.error', $log['errorOutput'])
+                Html::{'h3'}($this->_('Error output')),
+                Html::{'samp.terminal-output.error'}($log['errorOutput'])
             ];
         }
 
         if ($log['output']) {
             $output[] = [
-                $this->html('h3', $this->_('Standard output')),
-                $this->html('samp.terminal-output', $log['output'])
+                Html::{'h3'}($this->_('Standard output')),
+                Html::{'samp.terminal-output'}($log['output'])
             ];
         }
 

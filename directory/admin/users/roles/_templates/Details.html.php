@@ -1,11 +1,11 @@
 <?php
-echo $this->html('h3', $this->_('Keys'));
+echo Html::{'h3'}($this->_('Keys'));
 
 echo $this->html->collectionList($keyList)
     ->setErrorMessage($this->_('This role currently has no keys'))
 
     // Domain
-    ->addField('domain', function($row) {
+    ->addField('domain', function ($row) {
         return $this->html->link('#', $row['domain'])
             ->setIcon('key');
     })
@@ -14,12 +14,12 @@ echo $this->html->collectionList($keyList)
     ->addField('pattern')
 
     // Allow
-    ->addField('allow', 'Policy', function($row) {
+    ->addField('allow', 'Policy', function ($row) {
         return $row['allow'] ? 'Allow' : 'Deny';
     })
 
     // Actions
-    ->addField('actions', function($row) {
+    ->addField('actions', function ($row) {
         return [
             $this->html->link(
                     $this->uri('./edit-key?key='.$row['id'], true),

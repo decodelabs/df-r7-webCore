@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpAvatar extends arch\node\Form
@@ -67,7 +68,7 @@ class HttpAvatar extends arch\node\Form
 
             foreach ($versions as $version) {
                 $fa->push(
-                    $this->html('div.w.card.avatar', [
+                    Html::{'div.w.card.avatar'}([
                         $this->html->tag('input', [
                             'type' => 'image',
                             'src' => $this->uri($version->getImageUrl('[cz:150|150]')),

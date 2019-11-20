@@ -10,8 +10,10 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class MenuList extends arch\component\CollectionList {
+use DecodeLabs\Tagged\Html;
 
+class MenuList extends arch\component\CollectionList
+{
     protected $_fields = [
         'name' => true,
         'packages' => true,
@@ -19,9 +21,10 @@ class MenuList extends arch\component\CollectionList {
     ];
 
 
-// Name
-    public function addNameField($list) {
-        $list->addField('name', function($menu) {
+    // Name
+    public function addNameField($list)
+    {
+        $list->addField('name', function ($menu) {
             $idString = $menu->getId()->path->toString();
             $parts = explode('/', $idString);
             array_pop($parts);
@@ -30,7 +33,7 @@ class MenuList extends arch\component\CollectionList {
             return $this->html->link(
                     $this->uri('./details?menu='.$idString, true),
                     [
-                        $this->html('span.inactive', $path.'/'),
+                        Html::{'span.inactive'}($path.'/'),
                         $menu->getDisplayName()
                     ]
                 )
@@ -40,13 +43,14 @@ class MenuList extends arch\component\CollectionList {
     }
 
 
-// Packages
-    public function addPackagesField($list) {
-        $list->addField('packages', function($menu) {
-            foreach($menu->getDelegates() as $delegate) {
+    // Packages
+    public function addPackagesField($list)
+    {
+        $list->addField('packages', function ($menu) {
+            foreach ($menu->getDelegates() as $delegate) {
                 $idString = $delegate->getId()->path->toString();
 
-                if(!$subId = $delegate->getSubId()) {
+                if (!$subId = $delegate->getSubId()) {
                     continue;
                 }
 
@@ -60,9 +64,10 @@ class MenuList extends arch\component\CollectionList {
     }
 
 
-// Actions
-    public function addActionsField($list) {
-        $list->addField('actions', function($menu) {
+    // Actions
+    public function addActionsField($list)
+    {
+        $list->addField('actions', function ($menu) {
             return [
                 $this->html->link(
                         $this->uri('./edit?menu='.$menu->getId()->path->toString(), true),

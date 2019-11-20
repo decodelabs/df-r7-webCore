@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = 'Files';
@@ -124,7 +126,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineUrlField($list, $mode)
     {
         $list->addField('url', $this->_('Copy & paste url'), function ($file) {
-            return $this->html('code', 'media/download/f'.$file['id']);
+            return Html::{'code'}('media/download/f'.$file['id']);
         });
     }
 
@@ -143,7 +145,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('hash', function ($file) {
             if ($hash = $this->format->binHex($file['activeVersion']['hash'])) {
-                return $this->html('samp', $hash);
+                return Html::{'samp'}($hash);
             }
         });
     }
@@ -166,7 +168,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                         '%t%' => $file['versions']
                     ]);
                 } else {
-                    return $this->html('strong', $file['version']);
+                    return Html::{'strong'}($file['version']);
                 }
             });
         } else {

@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = 'Access errors';
@@ -77,7 +79,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $message = $this->format->shorten($message, 25);
             }
 
-            $output = $this->html('samp', $message);
+            $output = Html::{'samp'}($message);
 
             if ($mode == 'list') {
                 $output->setTitle($error['message']);
@@ -91,7 +93,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('userAgent', function ($log) {
             if ($agent = $log['userAgent']) {
-                return $this->html('code', $agent['body']);
+                return Html::{'code'}($agent['body']);
             }
         });
     }

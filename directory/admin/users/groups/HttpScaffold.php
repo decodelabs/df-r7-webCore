@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = 'Groups';
     const ICON = 'group';
     const ADAPTER = 'axis://user/Group';
@@ -27,21 +29,24 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'name', 'signifier', 'roles', 'users'
     ];
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query
             ->countRelation('users')
             ->countRelation('roles');
     }
 
-    public function deleteRecord(opal\record\IRecord $group, array $flags=[]) {
+    public function deleteRecord(opal\record\IRecord $group, array $flags=[])
+    {
         $group->delete();
         $this->user->instigateGlobalKeyringRegeneration();
         return $this;
     }
 
-// Components
-    public function addIndexTransitiveLinks($menu, $bar) {
+    // Components
+    public function addIndexTransitiveLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link('../roles/', $this->_('View roles'))
                 ->setIcon('role')
@@ -51,8 +56,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Secions
-    public function renderDetailsSectionBody($group) {
+    // Secions
+    public function renderDetailsSectionBody($group)
+    {
         return $this->apex->scaffold('../roles/')
             ->renderRecordList(
                 $group->roles->select(),
@@ -60,26 +66,31 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             );
     }
 
-    public function renderUsersSectionBody($group) {
+    public function renderUsersSectionBody($group)
+    {
         return $this->apex->scaffold('../clients/')
             ->renderRecordList($group->users->select());
     }
 
-// Fields
-    public function defineSignifierField($list, $mode) {
-        $list->addField('signifier', function($group) {
-            if(!$group['signifier']) return null;
-            return $this->html('samp', $group['signifier']);
+    // Fields
+    public function defineSignifierField($list, $mode)
+    {
+        $list->addField('signifier', function ($group) {
+            if (!$group['signifier']) {
+                return null;
+            }
+            return Html::{'samp'}($group['signifier']);
         });
     }
 
-    public function defineRolesField($list, $mode) {
-        if($mode == 'list') {
+    public function defineRolesField($list, $mode)
+    {
+        if ($mode == 'list') {
             return false;
         }
 
-        $list->addField('roles', function($group) {
-            return $this->html->uList($group->roles->select()->orderBy('name'), function($role) {
+        $list->addField('roles', function ($group) {
+            return $this->html->uList($group->roles->select()->orderBy('name'), function ($role) {
                 return $this->apex->component('../roles/RoleLink', $role);
             });
         });

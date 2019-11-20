@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -24,10 +26,10 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 return $this->html->dateTime(df\COMPILE_TIMESTAMP);
             })
             ->addField('COMPILE_BUILD_ID', function () {
-                return $this->html('?code', df\COMPILE_BUILD_ID);
+                return Html::{'?code'}(df\COMPILE_BUILD_ID);
             })
             ->addField('COMPILE_ROOT_PATH', function () {
-                return $this->html('?code', df\COMPILE_ROOT_PATH);
+                return Html::{'?code'}(df\COMPILE_ROOT_PATH);
             })
             ->addField('COMPILE_ENV_MODE', function () {
                 return $this->format->name(df\COMPILE_ENV_MODE);

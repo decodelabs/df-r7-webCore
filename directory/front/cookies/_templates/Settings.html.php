@@ -1,12 +1,12 @@
 <?php
-echo $this->html('section.cookie-settings', function () use ($cookieData) {
-    yield $this->html('h1', 'Cookie settings');
+echo Html::{'section.cookie-settings'}(function () use ($cookieData) {
+    yield Html::{'h1'}('Cookie settings');
 
-    yield $this->html('p', 'Please select which types of cookies you wish to allow - while we may not use cookies that apply in all categories, you may choose your preferences for full peace of mind.');
-    yield $this->html('p.note', 'Note, if you decide not to consent to certain types of cookies, any 3rd party services that rely on them will not be loaded and may result in a degraded experience.');
+    yield Html::{'p'}('Please select which types of cookies you wish to allow - while we may not use cookies that apply in all categories, you may choose your preferences for full peace of mind.');
+    yield Html::{'p.note'}('Note, if you decide not to consent to certain types of cookies, any 3rd party services that rely on them will not be loaded and may result in a degraded experience.');
 
     if ($privacy = $this['privacyRequest']) {
-        yield $this->html('p.note', [
+        yield Html::{'p.note'}([
             'For more information about how we handle your data, please see our ',
             $this->html->link($privacy, 'Privacy Policy')->addClass('global')
         ]);

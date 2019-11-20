@@ -12,8 +12,10 @@ use df\arch;
 use df\opal;
 use df\user;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = 'Roles';
     const ICON = 'role';
     const ADAPTER = 'axis://user/Role';
@@ -27,23 +29,26 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'name', 'signifier', 'priority', 'groups'
     ];
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query
             ->countRelation('groups')
             ->countRelation('keys');
     }
 
 
-    public function deleteRecord(opal\record\IRecord $role, array $flags=[]) {
+    public function deleteRecord(opal\record\IRecord $role, array $flags=[])
+    {
         $role->delete();
         $this->user->instigateGlobalKeyringRegeneration();
         return $this;
     }
 
 
-// Sections
-    public function renderDetailsSectionBody($role) {
+    // Sections
+    public function renderDetailsSectionBody($role)
+    {
         $keyList = $role->keys->fetch()
             ->orderBy('domain ASC', 'pattern ASC');
 
@@ -56,8 +61,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Components
-    public function addIndexTransitiveLinks($menu, $bar) {
+    // Components
+    public function addIndexTransitiveLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link('../groups/', $this->_('View groups'))
                 ->setIcon('group')
@@ -66,7 +72,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-    public function addDetailsSectionSubOperativeLinks($menu, $bar) {
+    public function addDetailsSectionSubOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             // Add key
             $this->html->link(
@@ -79,25 +86,30 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function definePriorityField($list, $mode) {
+    // Fields
+    public function definePriorityField($list, $mode)
+    {
         $list->addField('priority');
     }
 
-    public function defineSignifierField($list, $mode) {
-        $list->addField('signifier', function($role) {
-            if(!$role['signifier']) return null;
-            return $this->html('samp', $role['signifier']);
+    public function defineSignifierField($list, $mode)
+    {
+        $list->addField('signifier', function ($role) {
+            if (!$role['signifier']) {
+                return null;
+            }
+            return Html::{'samp'}($role['signifier']);
         });
     }
 
-    public function defineGroupsField($list, $mode) {
-        if($mode == 'list') {
+    public function defineGroupsField($list, $mode)
+    {
+        if ($mode == 'list') {
             return false;
         }
 
-        $list->addField('groups', function($role) {
-            return $this->html->uList($role->groups->fetch()->orderBy('name'), function($group) {
+        $list->addField('groups', function ($role) {
+            return $this->html->uList($role->groups->fetch()->orderBy('name'), function ($group) {
                 return $this->apex->component('../groups/GroupLink', $group);
             });
         });

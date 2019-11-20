@@ -12,6 +12,7 @@ use df\arch;
 use df\aura;
 use df\fire;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpReorderSlots extends arch\node\Form
@@ -63,7 +64,7 @@ class HttpReorderSlots extends arch\node\Form
             }
 
             $fa->push(
-                $this->html('div', [
+                Html::{'div'}([
                     $this->html->numberTextbox('slots['.$i.'][weight]', $slotNode->weight)
                         ->setStep(1)
                         ->isRequired(true),

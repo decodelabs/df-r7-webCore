@@ -99,7 +99,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineSeenField($list, $mode)
     {
         $list->addField('seen', function ($miss) {
-            $output = $this->html('span', $this->_(
+            $output = Html::{'span'}($this->_(
                 [
                     'n == 1' => '%n% time',
                     '*' => '%n% times'

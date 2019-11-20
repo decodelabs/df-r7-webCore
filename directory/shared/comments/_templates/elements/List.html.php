@@ -3,11 +3,11 @@ use df\mesh;
 
 $paginator = null;
 
-if($this->getSlot('paginate', true)) {
+if ($this->getSlot('paginate', true)) {
     echo $paginator = (string)$this->html->paginator($commentList);
 }
 
-echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', function($comment, $el) {
+echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', function ($comment, $el) {
     $displayAsTree = $this['displayAsTree'];
     $hash = 'comment-'.$comment->getUniqueId();
     $el->setId($hash);
@@ -15,7 +15,7 @@ echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', functio
     $redir->setFragment($hash);
 
     // Header
-    yield $this->html('header', [
+    yield Html::{'header'}([
         // Avatar
         $this->html->image(
                 $this->avatar->getAvatarUrl($comment['owner']['id'], 50),
@@ -30,7 +30,7 @@ echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', functio
         ),
 
 
-        $this->html('p', [
+        Html::{'p'}([
             // Time
             $this->html->timeFromNow($comment['date']),
 
@@ -54,11 +54,11 @@ echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', functio
     ]);
 
     // Body
-    yield $this->html('section', $this->html->convert($comment['body'], $comment['format']));
+    yield Html::{'section'}($this->html->convert($comment['body'], $comment['format']));
 
     // Footer
-    if($this->getSlot('showFooter', true)) {
-        yield $this->html('footer', [
+    if ($this->getSlot('showFooter', true)) {
+        yield Html::{'footer'}([
             $this->html->link(
                     $this->uri('~/comments/reply?comment='.$comment['id'], $redir),
                     $this->_('Reply')
@@ -80,10 +80,10 @@ echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', functio
         ]);
     }
 
-    if($displayAsTree) {
+    if ($displayAsTree) {
         $replies = $comment->getPopulatedTreeReplies();
 
-        if(!empty($replies)) {
+        if (!empty($replies)) {
             yield $this->apex->template('~/comments/#/elements/List.html', [
                 'commentList' => $replies,
                 'paginate' => false,
@@ -96,7 +96,7 @@ echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', functio
 echo $paginator;
 
 
-if($this->getSlot('showForm', false) && isset($entity)) {
+if ($this->getSlot('showForm', false) && isset($entity)) {
     $locator = mesh\entity\Locator::factory($entity);
     echo $this->apex->form('~/comments/add?entity='.$locator);
 }

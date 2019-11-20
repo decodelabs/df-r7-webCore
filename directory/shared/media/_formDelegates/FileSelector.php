@@ -13,6 +13,8 @@ use df\aura;
 use df\opal;
 use df\mesh;
 
+use DecodeLabs\Tagged\Html;
+
 class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\IAcceptTypeProcessor
 {
     use core\lang\TAcceptTypeProcessor;
@@ -255,14 +257,14 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             $name = $this->_getResultDisplayName($result);
 
             $fa->push(
-                $this->html('div.w.list.selection', [
+                Html::{'div.w.list.selection'}([
                     $this->html->hidden($this->fieldName('selected['.$id.']'), $id),
 
-                    $this->html('div.body', [
+                    Html::{'div.body'}([
                         $this->html->icon('file', $name)
                             ->addClass('informative'),
                         ' - ',
-                        $this->html('em', $this->format->fileSize($result['fileSize']))
+                        Html::{'em'}($this->format->fileSize($result['fileSize']))
                     ]),
 
                     $this->html->buttonArea(
@@ -355,7 +357,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             $this->html->icon('file', $file['fileName'])
                 ->addClass('informative'),
             ' - ',
-            $this->html('em', $this->format->fileSize($file['fileSize']))
+            Html::{'em'}($this->format->fileSize($file['fileSize']))
         );
 
         $fs->addField($this->_('Notes'))->push(

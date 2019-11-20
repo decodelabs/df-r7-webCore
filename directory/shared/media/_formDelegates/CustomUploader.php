@@ -13,6 +13,7 @@ use df\aura;
 use df\mesh;
 use df\flex;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class CustomUploader extends arch\node\form\Delegate implements
@@ -186,7 +187,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     {
         $delegate = $this['upload'];
 
-        yield $this->html('span', null, ['id' => $delegate->getWidgetId()]);
+        yield Html::{'span'}(null, ['id' => $delegate->getWidgetId()]);
 
         if ($this instanceof arch\node\IDependentDelegate) {
             $messages = $this->getDependencyMessages();
@@ -205,12 +206,12 @@ class CustomUploader extends arch\node\form\Delegate implements
 
         if (!$this->_isForMany) {
             if ($available) {
-                yield $this->html('div.w.list.selection', function () use ($delegate, $available) {
+                yield Html::{'div.w.list.selection'}(function () use ($delegate, $available) {
                     if (isset($available['fileId'])) {
                         yield $this->html->hidden($this->fieldName('selected'), $available['fileId']);
 
                         yield [
-                            $this->html('span.fileName', $available['fileName']), ' ',
+                            Html::{'span.fileName'}($available['fileName']), ' ',
                             $this->html->number($this->format->fileSize($available['size']))
                         ];
 
@@ -230,7 +231,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                         yield $this->html->hidden($delegate->fieldName('selectUpload'), $available['fileName']);
 
                         yield [
-                            $this->html('span.fileName', $available['fileName']), ' ',
+                            Html::{'span.fileName'}($available['fileName']), ' ',
                             $this->html->number($this->format->fileSize($available['size']))
                         ];
 
@@ -254,7 +255,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                         $this->fieldName('selected['.$file['fileId'].']'),
                         $this->values->selected->contains($file['fileId']),
                         [
-                            $this->html('span.fileName', $file['fileName']), ' ',
+                            Html::{'span.fileName'}($file['fileName']), ' ',
                             $this->html->number($this->format->fileSize($file['size']))
                         ],
                         $file['fileId']
@@ -277,7 +278,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                         $delegate->fieldName('selectUpload['.$file['fileName'].']'),
                         $delegate->values->selectUpload->{$file['fileName']},
                         [
-                            $this->html('span.fileName', $file['fileName']), ' ',
+                            Html::{'span.fileName'}($file['fileName']), ' ',
                             $this->html->number($this->format->fileSize($file['size']))
                         ]
                     );
@@ -296,7 +297,7 @@ class CustomUploader extends arch\node\form\Delegate implements
             })->addClass('w selection');
         }
 
-        yield $this->html('div.upload', [
+        yield Html::{'div.upload'}([
             $input = $this->html->fileUpload($delegate->fieldName('file'), $delegate->values->file)
                 ->allowMultiple($this->_isForMany)
                 ->setAcceptTypes(...$delegate->getAcceptTypes())

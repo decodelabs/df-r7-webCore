@@ -11,20 +11,23 @@ use df\apex;
 use df\arch;
 use df\user;
 
-class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate {
+use DecodeLabs\Tagged\Html;
 
+class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
+{
     use arch\node\TForm_ParentUiHandlerDelegate;
 
     const DEFAULT_REDIRECT = '/';
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Sign-in'));
 
         // Register
-        if($this->data->user->config->isRegistrationEnabled()) {
+        if ($this->data->user->config->isRegistrationEnabled()) {
             $fs->addField()->push(
-                $this->html('p', [
+                Html::{'p'}([
                     $this->_('Not signed up yet?'), ' ',
                     $this->html->link(
                         $this->uri('account/register'),
@@ -78,21 +81,22 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
         );
     }
 
-    protected function onLoginEvent() {
-        if(!$this->values->identity->hasValue()) {
+    protected function onLoginEvent()
+    {
+        if (!$this->values->identity->hasValue()) {
             $this->values->identity->addError('required', $this->_(
                 'Please enter your username'
             ));
         }
 
-        if(!$this->values->password->hasValue()) {
+        if (!$this->values->password->hasValue()) {
             $this->values->password->addError('required', $this->_(
                 'Please enter your password'
             ));
         }
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $result = $this->user->auth->bind(
                 $this->user->auth->newRequest('Local')
                     ->setIdentity($this->values['identity'])
@@ -100,8 +104,8 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
                     ->setAttribute('rememberMe', (bool)$this->values['rememberMe'])
             );
 
-            if(!$result->isValid()) {
-                if($result->getCode() === $result::NO_STATUS) {
+            if (!$result->isValid()) {
+                if ($result->getCode() === $result::NO_STATUS) {
                     $this->values->identity->addError('status', $this->_(
                         'This account is currently disabled'
                     ));

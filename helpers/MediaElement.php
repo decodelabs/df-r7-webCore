@@ -66,7 +66,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             $attributes['data-mejs'] = '';
         }
 
-        return $this->html('div.container.mejs.audio > audio.w.embed', null, array_merge($attributes ?? [], [
+        return Html::{'div.container.mejs.audio > audio.w.embed'}(null, array_merge($attributes ?? [], [
             'type' => $type,
             'src' => $sourceUrl,
             'controls' => true,
@@ -126,7 +126,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             $sourceUrl .= '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0';
         }
 
-        return $this->html('div.container.mejs.video > video.w.embed', null, array_merge($attributes ?? [], [
+        return Html::{'div.container.mejs.video > video.w.embed'}(null, array_merge($attributes ?? [], [
             //'type' => $type,
             'src' => $sourceUrl,
             'controls' => true,

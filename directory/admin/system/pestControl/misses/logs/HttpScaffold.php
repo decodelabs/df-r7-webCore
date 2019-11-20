@@ -12,6 +12,8 @@ use df\arch;
 use df\opal;
 use df\flex;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = '404 error logs';
@@ -100,12 +102,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
             $this->html->panelSet()
                 ->addPanel([
-                    $this->html('h3', $this->_('Log')),
+                    Html::{'h3'}($this->_('Log')),
                     parent::renderDetailsSectionBody($log)
                 ])
                 ->addPanel(function () use ($log) {
                     return [
-                        $this->html('h3', [
+                        Html::{'h3'}([
                             $this->_('Error'), ' - ',
                             $this->apex->component('../MissLink', $log['miss'])
                         ]),
@@ -138,7 +140,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('userAgent', function ($log) {
             if ($agent = $log['userAgent']) {
-                return $this->html('code', $agent['body']);
+                return Html::{'code'}($agent['body']);
             }
         });
     }
@@ -158,7 +160,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 return;
             }
 
-            return $this->html->link($referrer, $this->html('samp', $mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
+            return $this->html->link($referrer, Html::{'samp'}($mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
                 ->setIcon('link');
         });
     }
@@ -184,7 +186,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $message = $this->format->shorten($message, 25);
             }
 
-            $output = $this->html('samp', $message);
+            $output = Html::{'samp'}($message);
 
             if ($mode == 'list') {
                 $output->setTitle($error['message']);

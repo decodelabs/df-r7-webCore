@@ -12,6 +12,8 @@ use df\arch;
 use df\opal;
 use df\user;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const TITLE = 'Users';
@@ -336,11 +338,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             $output = [
-                $this->html('p', $deactivation['reason'])
+                Html::{'p'}($deactivation['reason'])
             ];
 
             if ($deactivation['comments']) {
-                $output[] = $this->html('div', $this->html->plainText($deactivation['comments']));
+                $output[] = Html::{'div'}($this->html->plainText($deactivation['comments']));
             }
 
             return $output;
@@ -362,7 +364,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $output = $this->i18n->countries->getName($client['country']);
 
             if ($mode == 'list') {
-                $output = $this->html('abbr', $client['country'], [
+                $output = Html::{'abbr'}($client['country'], [
                     'title' => $output
                 ]);
             }
