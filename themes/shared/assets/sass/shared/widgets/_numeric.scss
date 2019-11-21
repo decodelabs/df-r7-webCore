@@ -2,14 +2,14 @@ span.numeric, span.number {
     //font-family: $monospace;
 
     .unit {
-        opacity: 0.6;
+        opacity: 0.65;
 
         &:first-child {
-            margin-right: 0.2em;
+            margin-right: 0.1em;
         }
 
         &:last-child {
-            margin-left: 0.2em;
+            margin-left: 0.1em;
         }
     }
 
@@ -40,16 +40,6 @@ span.numeric, span.number {
         .unit {
             font-size: 0.8em;
             position: relative;
-            margin: 0;
-            opacity: 0.7;
-
-            &:first-child {
-                margin-right: 0.1em;
-            }
-
-            &:last-child {
-                margin-left: 0.1em;
-            }
         }
     }
 }
