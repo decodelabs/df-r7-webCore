@@ -19,19 +19,19 @@ span.numeric, span.number {
             opacity: 0.75;
 
             &:first-child {
-                margin-right: 0.35em;
+                margin-right: 0.15em;
             }
 
             &.code:first-child {
-                margin-right: 0.55em;
+                margin-right: 0.35em;
             }
 
             &:last-child {
-                margin-left: 0.35em;
+                margin-left: 0.15em;
             }
 
             &.code:last-child {
-                margin-left: 0.55em;
+                margin-left: 0.35em;
             }
         }
     }
