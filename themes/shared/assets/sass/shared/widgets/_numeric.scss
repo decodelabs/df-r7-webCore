@@ -18,16 +18,8 @@ span.numeric, span.number {
         .unit {
             opacity: 0.75;
 
-            &:first-child {
-                margin-right: 0.15em;
-            }
-
             &.code:first-child {
                 margin-right: 0.35em;
-            }
-
-            &:last-child {
-                margin-left: 0.15em;
             }
 
             &.code:last-child {
