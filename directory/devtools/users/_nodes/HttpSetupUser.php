@@ -10,6 +10,7 @@ use df\core;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpSetupUser extends arch\node\Form
@@ -37,7 +38,7 @@ class HttpSetupUser extends arch\node\Form
 
     protected function createUi()
     {
-        $this->content->push($this->html('p',
+        $this->content->push(Html::{'p'}(
             'WARNING: this form wont hold your hand, make sure you type everything properly.. it will also only work ONCE'
         ));
 

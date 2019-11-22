@@ -44,7 +44,7 @@ echo $this->html->attributeList($menu)
         $delegates = $menu->getDelegates();
 
         if (!empty($delegates)) {
-            return $this->html->uList($delegates, function ($delegate) {
+            return Html::uList($delegates, function ($delegate) {
                 if ($delegate->getSourceId() == 'Directory') {
                     return $this->html->link(
                             $this->uri('./details?menu='.$delegate->getId()->path->toString()),

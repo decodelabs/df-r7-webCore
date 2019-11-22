@@ -249,7 +249,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                 });
             }
         } else {
-            yield $this->html->uList($available, function ($file) use ($delegate) {
+            yield Html::uList($available, function ($file) use ($delegate) {
                 if (isset($file['fileId'])) {
                     yield $this->html->checkbox(
                         $this->fieldName('selected['.$file['fileId'].']'),

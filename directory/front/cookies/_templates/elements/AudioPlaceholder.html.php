@@ -1,6 +1,6 @@
 <?php
 $category = (array)($this['categories'] ?? 'statistics');
-$category = $this->html->iList($category, null, null, ', ', ' and ');
+$category = Html::iList($category, null, ', ', ' and ');
 ?>
 <div class="audio-cookie-placeholder">
     <div class="audio-message">

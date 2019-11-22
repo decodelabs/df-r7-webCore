@@ -10,17 +10,20 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDeactivate extends arch\node\ConfirmForm {
+use DecodeLabs\Tagged\Html;
 
+class HttpDeactivate extends arch\node\ConfirmForm
+{
     const ITEM_NAME = 'invite';
     const DISPOSITION = 'negative';
 
     protected $_invite;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_invite = $this->scaffold->getRecord();
 
-        if(!$this->_invite['isActive']) {
+        if (!$this->_invite['isActive']) {
             $this->comms->flashError(
                 'invite.inactive',
                 $this->_('This invite is no longer active')
@@ -30,42 +33,47 @@ class HttpDeactivate extends arch\node\ConfirmForm {
         }
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->push(
             $this->html->attributeList($this->_invite)
-                ->addField('creationDate', function($invite) {
+                ->addField('creationDate', function ($invite) {
                     return $this->html->date($invite['creationDate']);
                 })
                 ->addField('name')
-                ->addField('email', function($invite) {
+                ->addField('email', function ($invite) {
                     return $this->html->mailLink($invite['email']);
                 })
-                ->addField('message', function($invite) {
+                ->addField('message', function ($invite) {
                     return $this->html->simpleTags($invite['message']);
                 })
-                ->addField('groups', function($invite) {
-                    return $this->html->uList($invite->groups->fetch(), function($group) {
+                ->addField('groups', function ($invite) {
+                    return Html::uList($invite->groups->fetch(), function ($group) {
                         return $this->apex->component('../groups/GroupLink', $group);
                     });
                 })
         );
     }
 
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to deactivate this invite?');
     }
 
-    protected function customizeMainButton($button) {
+    protected function customizeMainButton($button)
+    {
         $button->setBody($this->_('Deactivate'))
             ->setIcon('remove');
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->_invite['isActive'] = false;
         $this->_invite->save();
     }
 
-    protected function getFlashMessage() {
+    protected function getFlashMessage()
+    {
         return $this->_('Your invite has been successfully deactivated');
     }
 }

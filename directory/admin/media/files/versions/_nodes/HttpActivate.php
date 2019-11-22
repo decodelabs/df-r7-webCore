@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpActivate extends arch\node\Form
@@ -41,7 +42,7 @@ class HttpActivate extends arch\node\Form
         $fs = $form->addFieldSet($this->_('Activate'));
 
         $fs->push(
-            $this->html->string('<p>'.$this->_('Are you sure you want to activate this version?').'</p>'),
+            Html::raw('<p>'.$this->_('Are you sure you want to activate this version?').'</p>'),
 
             $this->apex->component('VersionDetails', null, $this->_version),
 

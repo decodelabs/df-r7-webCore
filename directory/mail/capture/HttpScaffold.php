@@ -12,6 +12,7 @@ use df\arch;
 use df\opal;
 use df\flow;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
@@ -140,7 +141,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->setDisposition('external');
 
             if (!$addresses->isEmpty()) {
-                yield $this->html->string(
+                yield Html::raw(
                     '<span class="inactive">'.$this->view->esc($this->_(
                         ' and %c% more',
                         ['%c%' => count($addresses)]

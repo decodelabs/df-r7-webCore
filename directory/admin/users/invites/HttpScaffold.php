@@ -220,7 +220,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $groups = $invite->groups->select();
             }
 
-            return $this->html->uList($groups, function ($group) {
+            return Html::uList($groups, function ($group) {
                 if (!$group['id']) {
                     $group = null;
                 }

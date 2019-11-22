@@ -7,7 +7,7 @@ if ($this->getSlot('paginate', true)) {
     echo $paginator = (string)$this->html->paginator($commentList);
 }
 
-echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', function ($comment, $el) {
+echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($comment, $el) {
     $displayAsTree = $this['displayAsTree'];
     $hash = 'comment-'.$comment->getUniqueId();
     $el->setId($hash);
@@ -24,7 +24,7 @@ echo $this->html->list($commentList, 'ol.w.articleList', 'li > article', functio
             ->setStyles('float: left; margin-right: 0.6em;'),
 
         // By
-        $this->html('h3',
+        Html::{'h3'}(
              $this->apex->component('~admin/users/clients/UserLink', $comment['owner'])
                 ->setIcon(null)
         ),

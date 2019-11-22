@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class AddressSelector extends arch\node\form\Delegate implements
@@ -198,7 +199,7 @@ class AddressSelector extends arch\node\form\Delegate implements
                 }
             } else {
                 $fs->addField()->push(
-                    $this->html->string('<br />..or enter manually:<br />')
+                    Html::raw('<br />..or enter manually:<br />')
                 );
             }
         }

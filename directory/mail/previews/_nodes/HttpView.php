@@ -11,19 +11,22 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-class HttpView extends arch\node\Base {
+use DecodeLabs\Tagged\Html;
 
+class HttpView extends arch\node\Base
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $mail = $this->comms->preparePreviewMail($this->request['path']);
         $html = $mail->getBodyHtml();
 
-        if($html !== null) {
-            if(false === stripos($html, '<body')) {
+        if ($html !== null) {
+            if (false === stripos($html, '<body')) {
                 $view = $mail->context->apex->newWidgetView();
                 $view->setTheme(false);
-                $view->content->push($view->html->string($html));
+                $view->content->push(Html::raw($html));
                 $view->shouldUseLayout(false);
                 $view->setTitle($mail->getSubject());
 

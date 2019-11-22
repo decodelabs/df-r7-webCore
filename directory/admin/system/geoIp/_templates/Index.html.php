@@ -24,7 +24,7 @@ echo $this->html->attributeList([])
 
     // Available
     ->addField('availableAdapters', function () use ($adapterList) {
-        return $this->html->uList($adapterList, function ($available, $el, $key) {
+        return Html::uList($adapterList, function ($available, $el, $key) {
             $name = $this->format->name($key);
             return Html::{'span'}($name)->addClass($available ? 'positive' : 'negative');
         });

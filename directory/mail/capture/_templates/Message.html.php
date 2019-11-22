@@ -47,7 +47,7 @@ echo $this->html->elementContentContainer(function () use ($message) {
                             } catch (\Throwable $e) {
                             }
 
-                            yield Html::{'div.sterile'}($this->html->string($html));
+                            yield Html::{'div.sterile'}(Html::raw($html));
                             break;
                     }
                 });

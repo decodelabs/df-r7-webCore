@@ -69,20 +69,20 @@ class HttpAvatar extends arch\node\Form
             foreach ($versions as $version) {
                 $fa->push(
                     Html::{'div.w.card.avatar'}([
-                        $this->html->tag('input', [
-                            'type' => 'image',
-                            'src' => $this->uri($version->getImageUrl('[cz:150|150]')),
-                            'name' => 'formEvent',
-                            'value' => $this->eventName('selectVersion', $version['id'])
-                        ]),
+                            Html::tag('input', [
+                                'type' => 'image',
+                                'src' => $this->uri($version->getImageUrl('[cz:150|150]')),
+                                'name' => 'formEvent',
+                                'value' => $this->eventName('selectVersion', $version['id'])
+                            ]),
 
-                        $this->html->eventButton($this->eventName('deleteVersion', $version['id']), $this->_('Delete'))
-                            ->setIcon('delete')
-                    ])
-                    ->setStyle('display', 'inline-block')
-                    ->chainIf($activeId == $version['id'], function ($widget) {
-                        $widget->addClass('active');
-                    })
+                            $this->html->eventButton($this->eventName('deleteVersion', $version['id']), $this->_('Delete'))
+                                ->setIcon('delete')
+                        ])
+                        ->setStyle('display', 'inline-block')
+                        ->thenIf($activeId == $version['id'], function ($widget) {
+                            $widget->addClass('active');
+                        })
                 );
             }
         }

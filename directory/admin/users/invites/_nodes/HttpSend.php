@@ -10,22 +10,27 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpSend extends arch\node\Form {
+use DecodeLabs\Tagged\Html;
 
+class HttpSend extends arch\node\Form
+{
     const DEFAULT_EVENT = 'send';
 
     protected $_invite;
 
-    protected function init() {
+    protected function init()
+    {
         $this->data->checkAccess('axis://user/Invite', 'add');
         $this->_invite = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate('groups', '../groups/GroupSelector');
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('User details'));
 
@@ -41,9 +46,9 @@ class HttpSend extends arch\node\Form {
                 ->isRequired(true)
         );
 
-        if($this->values->email->hasError('inviteExists')) {
+        if ($this->values->email->hasError('inviteExists')) {
             $fa->push(
-                $this->html('br'),
+                Html::{'br'}(),
 
                 $this->html->checkbox('sendAnyway', $this->values->sendAnyway, $this->_(
                     'Resend invite anyway'
@@ -60,7 +65,7 @@ class HttpSend extends arch\node\Form {
         $fs->addField($this->_('Registration groups'))->push($this['groups']);
 
         // Force send
-        if(!$this->app->isProduction()) {
+        if (!$this->app->isProduction()) {
             $fs->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'
@@ -72,7 +77,8 @@ class HttpSend extends arch\node\Form {
         $fs->addDefaultButtonGroup('send', $this->_('Send'));
     }
 
-    protected function onSendEvent() {
+    protected function onSendEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Name
@@ -80,14 +86,14 @@ class HttpSend extends arch\node\Form {
 
             // Email
             ->addRequiredField('email')
-                ->extend(function($value, $field) {
-                    if($this->data->user->client->emailExists($value)) {
+                ->extend(function ($value, $field) {
+                    if ($this->data->user->client->emailExists($value)) {
                         $field->addError('userExists', $this->_(
                             'A user has already registered with this email address'
                         ));
                     }
 
-                    if($this->data->user->invite->emailIsActive($value) && !$this->format->stringToBoolean($this->values['sendAnyway'])) {
+                    if ($this->data->user->invite->emailIsActive($value) && !$this->format->stringToBoolean($this->values['sendAnyway'])) {
                         $field->addError('inviteExists', $this->_(
                             'An invite already exists for this email address'
                         ));
@@ -108,10 +114,10 @@ class HttpSend extends arch\node\Form {
             ->applyTo($this->_invite, ['name', 'email', 'groups', 'message']);
 
 
-        return $this->complete(function() use($validator) {
+        return $this->complete(function () use ($validator) {
             $this->_invite['isFromAdmin'] = true;
 
-            if($validator['forceSend']) {
+            if ($validator['forceSend']) {
                 $this->_invite->forceSend();
             } else {
                 $this->_invite->send();

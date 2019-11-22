@@ -147,7 +147,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 default: $class = 'warning'; break;
             }
 
-            return $this->html('span.'.$class, $this->format->name($daemon['state']));
+            return Html::{'span.'.$class}($this->format->name($daemon['state']));
         });
     }
 
