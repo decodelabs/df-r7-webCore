@@ -11,18 +11,22 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class HttpRaster extends arch\node\Form {
+use DecodeLabs\Tagged\Html;
 
+class HttpRaster extends arch\node\Form
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const DEFAULT_EVENT = 'refresh';
 
     protected $_fileStore;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_fileStore = neon\raster\FileStore::getInstance();
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $files = $this->_fileStore->getFileList();
 
@@ -31,7 +35,7 @@ class HttpRaster extends arch\node\Form {
                 ->setErrorMessage($this->_('There are currently no images cached'))
 
                 // Key
-                ->addField('file id', function($file, $context) {
+                ->addField('file id', function ($file, $context) {
                     $parts = explode('-', $context->getKey());
 
                     $context->setStore('transformHash', array_pop($parts));
@@ -42,22 +46,22 @@ class HttpRaster extends arch\node\Form {
                 })
 
                 // Transform
-                ->addField('transformationId', function($file, $context) {
+                ->addField('transformationId', function ($file, $context) {
                     return $context->getStore('transformHash');
                 })
 
                 // Size
-                ->addField('size', function($file) {
-                    return $this->format->fileSize($file->getSize());
+                ->addField('size', function ($file) {
+                    return Html::$number->fileSize($file->getSize());
                 })
 
                 // Created
-                ->addField('created', function($file) {
+                ->addField('created', function ($file) {
                     return $this->html->dateTime($file->getLastModified());
                 })
 
                 // Actions
-                ->addField('actions', function($file, $context) {
+                ->addField('actions', function ($file, $context) {
                     return $this->html->eventButton(
                             $this->eventName('remove', $context->getKey()),
                             $this->_('Clear')
@@ -87,8 +91,9 @@ class HttpRaster extends arch\node\Form {
         );
     }
 
-    protected function onRemoveEvent($key) {
-        if($this->_fileStore->has($key)) {
+    protected function onRemoveEvent($key)
+    {
+        if ($this->_fileStore->has($key)) {
             $this->_fileStore->remove($key);
 
             $this->comms->flashSuccess(
@@ -101,8 +106,9 @@ class HttpRaster extends arch\node\Form {
         }
     }
 
-    protected function onClearEvent() {
-        return $this->complete(function() {
+    protected function onClearEvent()
+    {
+        return $this->complete(function () {
             $this->_fileStore->clear();
 
             $this->comms->flashSuccess(

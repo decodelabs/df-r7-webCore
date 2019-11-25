@@ -25,7 +25,7 @@ echo $this->html->collectionList($list)
         return $this->format->number($location->lines);
     })
     ->addField('size', function ($location) {
-        return $this->format->fileSize($location->bytes);
+        return Html::$number->fileSize($location->bytes);
     });
 ?>
 
@@ -48,7 +48,7 @@ echo $this->html->collectionList($packages)
             return null;
         }
 
-        return $this->format->fileSize($location->getTotals()->bytes);
+        return Html::$number->fileSize($location->getTotals()->bytes);
     })
     ->addField('lines', function ($package, $renderContext) use ($probes) {
         if (!$location = $probes[$package->name]) {

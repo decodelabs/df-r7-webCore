@@ -10,8 +10,10 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class FileList extends arch\component\CollectionList {
+use DecodeLabs\Tagged\Html;
 
+class FileList extends arch\component\CollectionList
+{
     protected $_fields = [
         'fileName' => true,
         'bucket' => true,
@@ -22,45 +24,51 @@ class FileList extends arch\component\CollectionList {
     ];
 
 
-// FileName
-    public function addFileNameField($list) {
-        $list->addField('fileName', $this->_('Name'), function($file) {
+    // FileName
+    public function addFileNameField($list)
+    {
+        $list->addField('fileName', $this->_('Name'), function ($file) {
             return $this->html->link($this->media->getDownloadUrl($file['id']), $file['fileName'])
                 ->setDisposition('informative')
                 ->setIcon('download');
         });
     }
 
-// Bucket
-    public function addBucketField($list) {
-        $list->addField('bucket', function($file) {
+    // Bucket
+    public function addBucketField($list)
+    {
+        $list->addField('bucket', function ($file) {
             return $file['bucket']['name'];
         });
     }
 
-// Size
-    public function addFileSizeField($list) {
-        $list->addField('fileSize', function($file) {
-            return $this->format->fileSize($file['fileSize']);
+    // Size
+    public function addFileSizeField($list)
+    {
+        $list->addField('fileSize', function ($file) {
+            return Html::$number->fileSize($file['fileSize']);
         });
     }
 
-// Owner
-    public function addOwnerField($list) {
-        $list->addField('owner', function($file) {
+    // Owner
+    public function addOwnerField($list)
+    {
+        $list->addField('owner', function ($file) {
             return $file['owner']['fullName'];
         });
     }
 
-// Created
-    public function addCreationDateField($list) {
-        $list->addField('creationDate', $this->_('Created'), function($file) {
+    // Created
+    public function addCreationDateField($list)
+    {
+        $list->addField('creationDate', $this->_('Created'), function ($file) {
             return $this->html->timeFromNow($file['creationDate']);
         });
     }
 
-// Version
-    public function addVersionField($list) {
+    // Version
+    public function addVersionField($list)
+    {
         $list->addField('version', $this->_('Ver'));
     }
 }

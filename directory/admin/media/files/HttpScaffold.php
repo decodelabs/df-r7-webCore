@@ -134,9 +134,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('fileSize', $this->_('Size'), function ($file) use ($mode) {
             if ($mode == 'list') {
-                return $this->format->fileSize($file['fileSize']);
+                return Html::$number->fileSize($file['fileSize']);
             } else {
-                return $this->format->fileSize($file['activeVersion']['fileSize']);
+                return Html::$number->fileSize($file['activeVersion']['fileSize']);
             }
         });
     }

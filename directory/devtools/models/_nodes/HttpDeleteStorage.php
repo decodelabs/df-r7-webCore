@@ -12,6 +12,7 @@ use df\arch;
 use df\axis;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpDeleteStorage extends arch\node\DeleteForm
@@ -67,12 +68,12 @@ class HttpDeleteStorage extends arch\node\DeleteForm
 
             // Size
             ->addField('size', function ($storage) {
-                return $this->format->fileSize($storage->size);
+                return Html::$number->fileSize($storage->size);
             })
 
             // Index size
             ->addField('indexSize', function ($storage) {
-                return $this->format->fileSize($storage->indexSize);
+                return Html::$number->fileSize($storage->indexSize);
             })
 
             // Creation date

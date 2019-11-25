@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = 'Media buckets';
     const ICON = 'database';
     const ADAPTER = 'axis://media/Bucket';
@@ -27,8 +29,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'name', 'slug', 'context1', 'context2', 'files', 'size'
     ];
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query
             ->countRelation('files')
             ->correlate('SUM(fileSize)', 'size')
@@ -40,8 +43,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 ->endCorrelation();
     }
 
-// Sections
-    public function renderFilesSectionBody($bucket) {
+    // Sections
+    public function renderFilesSectionBody($bucket)
+    {
         return $this->apex->scaffold('./files/')
             ->renderRecordList(
                 $bucket->files->select(),
@@ -49,8 +53,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             );
     }
 
-// Components
-    public function addIndexTransitiveLinks($menu, $bar) {
+    // Components
+    public function addIndexTransitiveLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link('./files/', $this->_('All files'))
                 ->setIcon('file')
@@ -58,11 +63,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-    public function addFilesSectionTransitiveLinks($menu, $bar) {
+    public function addFilesSectionTransitiveLinks($menu, $bar)
+    {
         $this->addIndexTransitiveLinks($menu, $bar);
     }
 
-    public function addFilesSectionSubOperativeLinks($menu, $bar) {
+    public function addFilesSectionSubOperativeLinks($menu, $bar)
+    {
         $bucket = $this->getRecord();
 
         $menu->addLinks(
@@ -75,17 +82,19 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function defineFilesField($list, $mode) {
-        $list->addField('files', function($bucket) {
+    // Fields
+    public function defineFilesField($list, $mode)
+    {
+        $list->addField('files', function ($bucket) {
             return $this->html->link('./files?bucket='.$bucket['id'], $bucket['files'])
                 ->setIcon('file');
         });
     }
 
-    public function defineSizeField($list, $mode) {
-        $list->addField('size', function($bucket) {
-            return $this->format->fileSize($bucket['size']);
+    public function defineSizeField($list, $mode)
+    {
+        $list->addField('size', function ($bucket) {
+            return Html::$number->fileSize($bucket['size']);
         });
     }
 };

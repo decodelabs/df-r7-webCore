@@ -264,7 +264,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
                         $this->html->icon('file', $name)
                             ->addClass('informative'),
                         ' - ',
-                        Html::{'em'}($this->format->fileSize($result['fileSize']))
+                        Html::{'em'}(Html::$number->fileSize($result['fileSize']))
                     ]),
 
                     $this->html->buttonArea(
@@ -357,7 +357,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             $this->html->icon('file', $file['fileName'])
                 ->addClass('informative'),
             ' - ',
-            Html::{'em'}($this->format->fileSize($file['fileSize']))
+            Html::{'em'}(Html::$number->fileSize($file['fileSize']))
         );
 
         $fs->addField($this->_('Notes'))->push(

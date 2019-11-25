@@ -152,7 +152,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
                     yield [
                         Html::{'span.fileName'}($available['fileName']), ' ',
-                        $this->html->number($this->format->fileSize($available['size']))
+                        Html::$number->fileSize($available['size'])
                     ];
 
                     yield ' ';
@@ -174,7 +174,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     $this->values->selectUpload->{$file['fileName']},
                     [
                         Html::{'span.fileName'}($file['fileName']), ' ',
-                        $this->html->number($this->format->fileSize($file['size']))
+                        Html::$number->fileSize($file['size'])
                     ]
                 );
 
