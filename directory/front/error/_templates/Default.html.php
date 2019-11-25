@@ -1,2 +1,3 @@
-<h1>Error <?php echo $this->esc($code); ?></h1>
-<p><?php echo $this->esc($message); ?></p>
+<?php
+echo Html::h1(['Error ', $code]);
+echo Html::p($message);

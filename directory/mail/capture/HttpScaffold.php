@@ -142,7 +142,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
             if (!$addresses->isEmpty()) {
                 yield Html::raw(
-                    '<span class="inactive">'.$this->view->esc($this->_(
+                    '<span class="inactive">'.Html::esc($this->_(
                         ' and %c% more',
                         ['%c%' => count($addresses)]
                     )).'</span>'
