@@ -34,4 +34,11 @@ span.numeric, span.number {
             position: relative;
         }
     }
+
+    &.filesize {
+        .unit {
+            font-size: 0.8em;
+            margin-left: 0.2em;
+        }
+    }
 }
