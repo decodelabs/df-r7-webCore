@@ -22,12 +22,12 @@ foreach ($primitives as $primitive) {
         $name = $primitive->getName();
 
         if ($primitive instanceof opal\schema\Primitive_Date) {
-            return $this->html->date($row[$name]);
+            return Html::$time->date($row[$name]);
         }
 
         if ($primitive instanceof opal\schema\Primitive_DateTime
         || $primitive instanceof opal\schema\Primitive_Timestamp) {
-            return $this->html->dateTime($row[$name]);
+            return Html::$time->date($row[$name]);
         }
 
         if ($primitive instanceof opal\schema\Primitive_Guid) {

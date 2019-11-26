@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpRespond extends arch\node\Form
@@ -43,7 +44,7 @@ class HttpRespond extends arch\node\Form
             ->addField('companyName')
             ->addField('companyPosition')
             ->addField('creationDate', $this->_('Created'), function ($request) {
-                return $this->html->timeSince($request['creationDate']);
+                return Html::$time->since($request['creationDate']);
             })
             ->addField('message', function ($request) {
                 return $this->html->plainText($request['message']);

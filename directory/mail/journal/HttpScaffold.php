@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const TITLE = 'Send logs';
     const ICON = 'log';
@@ -32,12 +34,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query->importRelationBlock('user', 'link');
     }
 
-    protected function searchRecordList($query, $search) {
+    protected function searchRecordList($query, $search)
+    {
         $query->searchFor($search, [
             'name' => 3,
             'email' => 1,
@@ -46,16 +50,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function defineNameField($list, $mode) {
-        $list->addField('name', $this->_('Template'), function($log) {
+    // Fields
+    public function defineNameField($list, $mode)
+    {
+        $list->addField('name', $this->_('Template'), function ($log) {
             $name = $log['name'];
 
-            if(0 === strpos($name, '~mail/')) {
+            if (0 === strpos($name, '~mail/')) {
                 $name = substr($name, 6);
             }
 
-            if(substr($name, 0, 1) != '~') {
+            if (substr($name, 0, 1) != '~') {
                 return $this->html->link('~mail/previews/view?path='.$name, $name)
                     ->setIcon('theme')
                     ->setDisposition('transitive');
@@ -65,16 +70,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineUserField($list, $mode) {
-        $list->addField('user', function($log) {
+    public function defineUserField($list, $mode)
+    {
+        $list->addField('user', function ($log) {
             return $this->apex->component('~admin/users/clients/UserLink', $log['user'])
                 ->isNullable(true);
         });
     }
 
-    public function defineExpireDateField($list, $mode) {
-        $list->addField('expireDate', $this->_('Expires'), function($log) {
-            return $this->html->timeFromNow($log['expireDate']);
+    public function defineExpireDateField($list, $mode)
+    {
+        $list->addField('expireDate', $this->_('Expires'), function ($log) {
+            return Html::$time->until($log['expireDate']);
         });
     }
 }

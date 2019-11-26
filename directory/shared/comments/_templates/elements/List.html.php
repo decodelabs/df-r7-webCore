@@ -32,7 +32,7 @@ echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($com
 
         Html::{'p'}([
             // Time
-            $this->html->timeFromNow($comment['date']),
+            Html::$time->since($comment['date']),
 
             // In reply to
             $displayAsTree || !($inReplyTo = $comment['inReplyTo']) ? null :

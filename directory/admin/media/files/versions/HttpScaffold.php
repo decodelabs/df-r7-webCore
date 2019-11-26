@@ -170,7 +170,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             $context->rowTag->addClass('disabled');
-            return $this->html->timeFromNow($date);
+            return Html::$time->since($date);
         });
     }
 

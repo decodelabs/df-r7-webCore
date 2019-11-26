@@ -94,7 +94,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineSizeField($list, $mode)
     {
         $list->addField('size', function ($bucket) {
-            return Html::$number->fileSize($bucket['size']);
+            return Html::$number->fileSize((int)$bucket['size']);
         });
     }
 };

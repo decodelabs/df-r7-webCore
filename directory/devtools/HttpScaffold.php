@@ -23,7 +23,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
     {
         $view->content->addAttributeList()
             ->addField('COMPILE_TIMESTAMP', function () {
-                return $this->html->dateTime(df\COMPILE_TIMESTAMP);
+                return Html::$time->dateTime(df\COMPILE_TIMESTAMP);
             })
             ->addField('COMPILE_BUILD_ID', function () {
                 return Html::{'?code'}(df\COMPILE_BUILD_ID);

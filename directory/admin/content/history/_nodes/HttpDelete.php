@@ -10,27 +10,32 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDelete extends arch\node\DeleteForm {
+use DecodeLabs\Tagged\Html;
 
+class HttpDelete extends arch\node\DeleteForm
+{
     const ITEM_NAME = 'history event';
 
     protected $_history;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_history = $this->data->fetchForAction(
             'axis://content/History',
             $this->request['history']
         );
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_history['id'];
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_history)
             // User
-            ->addField('user', function($history) {
+            ->addField('user', function ($history) {
                 return $this->apex->component('~admin/users/clients/UserLink', $history['user']);
             })
 
@@ -38,17 +43,18 @@ class HttpDelete extends arch\node\DeleteForm {
             ->addField('entity')
 
             // Timestamp
-            ->addField('timestamp', $this->_('At'), function($history) {
-                return $this->html->timeSince($history['date']);
+            ->addField('timestamp', $this->_('At'), function ($history) {
+                return Html::$time->since($history['date']);
             })
 
             // Description
-            ->addField('description', function($history) {
+            ->addField('description', function ($history) {
                 return $this->html->simpleTags($history['description']);
             });
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->_history->delete();
     }
 }

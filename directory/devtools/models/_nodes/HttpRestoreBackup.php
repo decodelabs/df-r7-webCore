@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpRestoreBackup extends arch\node\ConfirmForm
@@ -56,7 +57,7 @@ class HttpRestoreBackup extends arch\node\ConfirmForm
                 return $backup;
             })
             ->addField('created', function ($backup) {
-                return $this->html->timeFromNow(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
+                return Html::$time->since(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
             });
     }
 

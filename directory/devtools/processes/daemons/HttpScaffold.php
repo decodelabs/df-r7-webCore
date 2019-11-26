@@ -12,6 +12,8 @@ use df\arch;
 use df\halo;
 use df\opal;
 
+use DecodeLabs\Tagged\Html;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
     const DEFAULT_ACCESS = arch\IAccess::DEV;
@@ -154,14 +156,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineStartDateField($list, $mode)
     {
         $list->addField('startDate', $this->_('Launched'), function ($daemon) {
-            return $this->html->timeFromNow($daemon['startDate']);
+            return Html::$time->since($daemon['startDate']);
         });
     }
 
     public function defineStatusDateField($list, $mode)
     {
         $list->addField('statusDate', $this->_('Last status'), function ($daemon) {
-            return $this->html->timeFromNow($daemon['statusDate']);
+            return Html::$time->since($daemon['statusDate']);
         });
     }
 

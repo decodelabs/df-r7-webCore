@@ -10,8 +10,10 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const TITLE = 'Access passes';
     const ICON = 'key';
     const ADAPTER = 'axis://user/AccessPass';
@@ -24,15 +26,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-// Record data
-    protected function prepareRecordList($query, $mode) {
+    // Record data
+    protected function prepareRecordList($query, $mode)
+    {
         $query
             ->importRelationBlock('user', 'link');
     }
 
 
-// Components
-    public function getRecordOperativeLinks($pass, $mode) {
+    // Components
+    public function getRecordOperativeLinks($pass, $mode)
+    {
         return [
             // Consume
             $this->html->link('account/access-pass?pass='.$pass['id'], 'Consume')
@@ -44,16 +48,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Fields
-    public function defineExpiryDateField($list, $mode) {
-        $list->addField('expiryDate', $this->_('Expires'), function($pass, $context) {
-            if($pass['expiryDate']->isPast()) {
+    // Fields
+    public function defineExpiryDateField($list, $mode)
+    {
+        $list->addField('expiryDate', $this->_('Expires'), function ($pass, $context) {
+            if ($pass['expiryDate']->isPast()) {
                 $context->rowTag->addClass('inactive');
             } else {
                 $context->cellTag->addClass('positive');
             }
 
-            return $this->html->timeFromNow($pass['expiryDate']);
+            return Html::$time->since($pass['expiryDate']);
         });
     }
 }

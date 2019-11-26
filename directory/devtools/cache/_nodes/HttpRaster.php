@@ -57,7 +57,7 @@ class HttpRaster extends arch\node\Form
 
                 // Created
                 ->addField('created', function ($file) {
-                    return $this->html->dateTime($file->getLastModified());
+                    return Html::$time->dateTime($file->getLastModified());
                 })
 
                 // Actions

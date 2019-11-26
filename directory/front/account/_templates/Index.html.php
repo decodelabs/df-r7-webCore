@@ -4,7 +4,7 @@ $client = $this->context->user->client;
 echo Html::{'p'}([
     $this->html->_('Hello %n%, you last logged in %t% ago', [
         '%n%' => $client->getNickname(),
-        '%t%' => $this->html->timeSince($client->getLoginDate())
+        '%t%' => Html::$time->since($client->getLoginDate())
     ])
 ]);
 

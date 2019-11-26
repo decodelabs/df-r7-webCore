@@ -3,13 +3,13 @@
 echo $this->apex->component('~devtools/models/IndexHeaderBar');
 
 echo $this->html->collectionList($backupList)
-    ->addField('name', function($backup) {
+    ->addField('name', function ($backup) {
         return $backup;
     })
-    ->addField('created', function($backup) {
-        return $this->html->timeFromNow(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
+    ->addField('created', function ($backup) {
+        return Html::$time->since(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
     })
-    ->addField('actions', function($backup) {
+    ->addField('actions', function ($backup) {
         return [
             $this->html->link(
                     $this->uri('~devtools/models/restore-backup?backup='.$backup, true),

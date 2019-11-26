@@ -39,10 +39,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $mail->save();
         }
 
-        yield $this->html->flashMessage($this->_(
-            'This message was received %t% ago',
-            ['%t%' => $this->format->timeSince($mail['date'])]
-        ));
+        yield $this->html->flashMessage([
+            'This message was received ',
+            Html::$time->since($mail['date'])
+        ]);
 
 
         $this->view->linkCss('theme://sass/shared/sterile.scss');
@@ -158,7 +158,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $context->getRowTag()->addClass('inactive');
             }
 
-            return $this->html->dateTime($mail['date'], 'medium');
+            return Html::$time->dateTime($mail['date']);
         });
     }
 }

@@ -78,7 +78,7 @@ class HttpDeleteStorage extends arch\node\DeleteForm
 
             // Creation date
             ->addField('creationDate', $this->_('Created'), function ($storage) {
-                return $this->html->timeFromNow($storage->creationDate);
+                return Html::$time->since($storage->creationDate);
             })
         ;
     }

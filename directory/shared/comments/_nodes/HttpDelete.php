@@ -10,37 +10,43 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDelete extends arch\node\DeleteForm {
+use DecodeLabs\Tagged\Html;
 
+class HttpDelete extends arch\node\DeleteForm
+{
     const ITEM_NAME = 'comment';
 
     protected $_comment;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
             $this->request['comment']
         );
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_comment['id'];
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_comment)
-            ->addField('owner', function($comment) {
+            ->addField('owner', function ($comment) {
                 return $this->apex->component('~admin/users/clients/UserLink', $comment['owner']);
             })
-            ->addField('date', $this->_('Posted'), function($comment) {
-                return $this->html->timeSince($comment['date']);
+            ->addField('date', $this->_('Posted'), function ($comment) {
+                return Html::$time->since($comment['date']);
             })
-            ->addField('body', function($comment) {
+            ->addField('body', function ($comment) {
                 return $this->html->convert($comment['body'], $comment['format']);
             });
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->data->content->comment->deleteRecord($this->_comment);
     }
 }

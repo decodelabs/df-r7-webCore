@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
 
@@ -54,7 +55,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
                 return $backup;
             })
             ->addField('created', function ($backup) {
-                return $this->html->timeFromNow(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
+                return Html::$time->since(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
             });
     }
 

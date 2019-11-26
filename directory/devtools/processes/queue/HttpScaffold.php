@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     const TITLE = 'Task queue';
@@ -31,8 +33,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         'lockDate', 'lockId', 'logs'
     ];
 
-// Record data
-    public function getRecordOperativeLinks($task, $mode) {
+    // Record data
+    public function getRecordOperativeLinks($task, $mode)
+    {
         return array_merge(
             [
                 $this->html->link(
@@ -46,8 +49,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-// Components
-    public function addIndexSubOperativeLinks($menu, $bar) {
+    // Components
+    public function addIndexSubOperativeLinks($menu, $bar)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('~devtools/processes/queue/spool', true),
@@ -58,21 +62,24 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-// Fields
-    public function defineQueueDateField($list, $mode) {
-        $list->addField('queueDate', $this->_('Queued'), function($log) {
-            return $this->html->timeFromNow($log['queueDate']);
+    // Fields
+    public function defineQueueDateField($list, $mode)
+    {
+        $list->addField('queueDate', $this->_('Queued'), function ($log) {
+            return Html::$time->since($log['queueDate']);
         });
     }
 
-    public function defineLockDateField($list, $mode) {
-        $list->addField('lockDate', $this->_('Locked'), function($log) {
-            return $this->html->timeFromNow($log['lockDate']);
+    public function defineLockDateField($list, $mode)
+    {
+        $list->addField('lockDate', $this->_('Locked'), function ($log) {
+            return Html::$time->since($log['lockDate']);
         });
     }
 
-    public function defineLogsField($list, $mode) {
-        $list->addField('logs', $this->_('Previous launches'), function($log) {
+    public function defineLogsField($list, $mode)
+    {
+        $list->addField('logs', $this->_('Previous launches'), function ($log) {
             $request = new arch\Request($log['request']);
             $request->setQuery(null);
             $request = (string)$request->getPath();
@@ -81,7 +88,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 ->where('request', 'matches', $request)
                 ->count();
 
-            if(!$count) {
+            if (!$count) {
                 return;
             }
 

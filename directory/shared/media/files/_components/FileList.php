@@ -62,7 +62,7 @@ class FileList extends arch\component\CollectionList
     public function addCreationDateField($list)
     {
         $list->addField('creationDate', $this->_('Created'), function ($file) {
-            return $this->html->timeFromNow($file['creationDate']);
+            return Html::$time->since($file['creationDate']);
         });
     }
 

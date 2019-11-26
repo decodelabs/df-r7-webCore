@@ -75,7 +75,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineStartDateField($list, $mode)
     {
         $list->addField('startDate', $this->_('Started'), function ($log) {
-            return $this->html->timeFromNow($log['startDate']);
+            return Html::$time->since($log['startDate']);
         });
     }
 

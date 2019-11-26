@@ -188,7 +188,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $context->getRowTag()->addClass('disabled');
             }
 
-            $output = $this->html->timeFromNow($error['lastSeen']);
+            $output = Html::$time->since($error['lastSeen']);
 
             if ($error['lastSeen']->gt('-1 day')) {
                 $output->addClass('priority-critical');

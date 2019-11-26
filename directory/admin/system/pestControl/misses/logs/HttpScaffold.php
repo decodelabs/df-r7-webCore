@@ -126,7 +126,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         }
 
         $list->addField('date', function ($log) {
-            return $this->html->dateTime($log['date']);
+            return Html::$time->dateTime($log['date']);
         });
     }
     public function defineMissField($list, $mode)

@@ -132,13 +132,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
             // Bind date
             ->addField('bindDate', function ($auth) {
-                return $this->html->date($auth['bindDate']);
+                return Html::$time->date($auth['bindDate']);
             })
 
             // Login date
             ->addField('loginDate', $this->_('Last login'), function ($auth) {
                 if ($auth['loginDate']) {
-                    return $this->html->timeSince($auth['loginDate']);
+                    return Html::$time->since($auth['loginDate']);
                 }
             })
 
@@ -170,13 +170,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 return bin2hex($session['id']);
             })
             ->addField('startTime', function ($session) {
-                return $this->html->timeSince($session['startTime']);
+                return Html::$time->since($session['startTime']);
             })
             ->addField('transitionTime', function ($session) {
-                return $this->html->timeSince($session['transitionTime']);
+                return Html::$time->since($session['transitionTime']);
             })
             ->addField('accessTime', function ($session) {
-                return $this->html->timeSince($session['accessTime']);
+                return Html::$time->since($session['accessTime']);
             });
     }
 
@@ -353,7 +353,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('loginDate', $mode == 'list' ? $this->_('Login') : $this->_('Last login'), function ($client) {
             if ($client['loginDate']) {
-                return $this->html->timeSince($client['loginDate']);
+                return Html::$time->since($client['loginDate']);
             }
         });
     }

@@ -84,7 +84,7 @@ class StorageList extends arch\component\CollectionList
     public function addCreationDateField($list)
     {
         $list->addField('creationDate', $this->_('Created'), function ($storage) {
-            return $this->html->timeFromNow($storage->creationDate);
+            return Html::$time->since($storage->creationDate);
         });
     }
 

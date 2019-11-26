@@ -12,8 +12,10 @@ use df\arch;
 use df\opal;
 use df\halo;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
+use DecodeLabs\Tagged\Html;
 
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     const TITLE = 'Scheduled tasks';
@@ -38,8 +40,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-// Record data
-    protected function countSectionItems($schedule) {
+    // Record data
+    protected function countSectionItems($schedule)
+    {
         return [
             'logs' => $this->data->task->log->select()
                 ->where('request', 'begins', $this->_normalizeRequest($schedule['request']))
@@ -48,8 +51,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Sections
-    public function renderLogsSectionBody($schedule) {
+    // Sections
+    public function renderLogsSectionBody($schedule)
+    {
         return $this->apex->scaffold('../logs/')
             ->renderRecordList(
                 $this->data->task->log->select()
@@ -57,14 +61,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
             );
     }
 
-    protected function _normalizeRequest($request) {
+    protected function _normalizeRequest($request)
+    {
         $request = arch\Request::factory($request);
         return (string)$request->path;
     }
 
 
-// Components
-    public function getRecordOperativeLinks($record, $mode) {
+    // Components
+    public function getRecordOperativeLinks($record, $mode)
+    {
         return array_merge(
             [
                 $this->html->link(
@@ -80,7 +86,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
 
 
-    public function addIndexSubOperativeLinks($menu, $bar) {
+    public function addIndexSubOperativeLinks($menu, $bar)
+    {
         $remote = halo\daemon\Remote::factory('TaskSpool');
         $isRunning = $remote->isRunning();
 
@@ -111,35 +118,39 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         );
     }
 
-// Fields
-    public function defineLastRunField($list, $mode) {
-        $list->addField('lastRun', $this->_('Last run'), function($schedule) {
-            return $this->html->timeFromNow($schedule['lastRun']);
+    // Fields
+    public function defineLastRunField($list, $mode)
+    {
+        $list->addField('lastRun', $this->_('Last run'), function ($schedule) {
+            return Html::$time->since($schedule['lastRun']);
         });
     }
 
-    public function defineLastTriggerField($list, $mode) {
-        $list->addField('lastTrigger', function($schedule) {
-            if(!$schedule['isLive']) {
+    public function defineLastTriggerField($list, $mode)
+    {
+        $list->addField('lastTrigger', function ($schedule) {
+            if (!$schedule['isLive']) {
                 return;
             }
 
-            return $this->html->timeFromNow(core\time\Schedule::factory($schedule)->getLast(null, 1));
+            return Html::$time->since(core\time\Schedule::factory($schedule)->getLast(null, 1));
         });
     }
 
-    public function defineNextRunField($list, $mode) {
-        $list->addField('nextRun', function($schedule) {
-            if(!$schedule['isLive']) {
+    public function defineNextRunField($list, $mode)
+    {
+        $list->addField('nextRun', function ($schedule) {
+            if (!$schedule['isLive']) {
                 return;
             }
 
-            return $this->html->timeFromNow(core\time\Schedule::factory($schedule)->getNext(null, 1));
+            return Html::$time->untilAbs(core\time\Schedule::factory($schedule)->getNext(null, 1));
         });
     }
 
-    public function defineScheduleField($list, $mode) {
-        $list->addField('schedule', function($schedule) {
+    public function defineScheduleField($list, $mode)
+    {
+        $list->addField('schedule', function ($schedule) {
             return
                 $schedule['minute'].' '.
                 $schedule['hour'].' '.
@@ -149,8 +160,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         });
     }
 
-    public function defineIsAutoField($list, $mode) {
-        $list->addField('isAuto', $this->_('Auto'), function($schema) {
+    public function defineIsAutoField($list, $mode)
+    {
+        $list->addField('isAuto', $this->_('Auto'), function ($schema) {
             return $this->html->lockIcon(!$schema['isAuto'])
                 ->addClass($schema['isAuto'] ? 'positive' : 'negative');
         });

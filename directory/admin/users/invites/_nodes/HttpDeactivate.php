@@ -38,7 +38,7 @@ class HttpDeactivate extends arch\node\ConfirmForm
         $container->push(
             $this->html->attributeList($this->_invite)
                 ->addField('creationDate', function ($invite) {
-                    return $this->html->date($invite['creationDate']);
+                    return Html::$time->date($invite['creationDate']);
                 })
                 ->addField('name')
                 ->addField('email', function ($invite) {

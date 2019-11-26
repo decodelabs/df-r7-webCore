@@ -150,7 +150,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $context->getRowTag()->addClass('inactive');
             }
 
-            return $this->apex->component('InviteLink', $invite, $this->format->date($invite['creationDate'], 'short'))
+            return $this->apex->component('InviteLink', $invite, Html::$time->shortDate($invite['creationDate']))
                 ->setIcon($invite['registrationDate'] ? 'tick' : 'mail')
                 ->setDisposition($invite['registrationDate'] ? 'positive' : 'informative');
         });
@@ -177,7 +177,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineLastSentField($list, $mode)
     {
         $list->addField('lastSent', function ($invite) {
-            return $this->html->timeFromNow($invite['lastSent']);
+            return Html::$time->since($invite['lastSent']);
         });
     }
 
@@ -200,7 +200,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineRegistrationDateField($list)
     {
         $list->addField('registrationDate', $this->_('Registered'), function ($invite) {
-            return $this->html->date($invite['registrationDate']);
+            return Html::$time->date($invite['registrationDate']);
         });
     }
 
