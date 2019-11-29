@@ -39,10 +39,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $mail->save();
         }
 
-        yield $this->html->flashMessage([
-            'This message was received ',
-            Html::$time->since($mail['date'])
-        ]);
+        yield $this->html->flashMessage(
+            'This message was received '.$this->format->timeSince($mail['date'])
+        );
 
 
         $this->view->linkCss('theme://sass/shared/sterile.scss');
