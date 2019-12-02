@@ -91,6 +91,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $menu->addLinks(
             $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
+                ->setIcon('delete'),
+
+            $this->html->link($this->uri('./purge-all', true), $this->_('Purge ALL'))
                 ->setIcon('delete')
         );
     }
