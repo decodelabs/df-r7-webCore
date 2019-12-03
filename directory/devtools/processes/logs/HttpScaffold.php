@@ -34,6 +34,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'status'
     ];
 
+    const SEARCH_FIELDS = [
+        'request' => 10
+    ];
+
 
     // Sections
     public function renderDetailsSectionBody($log)
