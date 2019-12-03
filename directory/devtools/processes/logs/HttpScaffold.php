@@ -25,7 +25,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const CAN_EDIT = false;
 
     const LIST_FIELDS = [
-        'request', 'startDate', 'runTime',
+        'request', 'startDate', 'lastActivity', 'runTime',
         'status', 'environmentMode'
     ];
 
@@ -83,6 +83,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         });
     }
 
+    public function defineLastActivityField($list, $mode)
+    {
+        $list->addField('lastActivity', 'Activity', function ($log) {
+            return Html::$time->since($log['lastActivity']);
+        });
+    }
+
     public function defineRunTimeField($list, $mode)
     {
         $list->addField('runTime', function ($log) {
@@ -93,14 +100,21 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineStatusField($list, $mode)
     {
         $list->addField('status', function ($log) {
+            if ($log['status']) {
+                $output = $this->data->task->status->label($log['status']);
+            } else {
+                $output = null;
+            }
+
+
             if ($log['errorOutput']) {
-                return $this->html->icon('error', $this->_('Error'))
+                return $this->html->icon('error', $output ?? 'Error')
                     ->addClass('error');
             } elseif (!$log['output']) {
-                return $this->html->icon('warning', $this->_('No output'))
+                return $this->html->icon('warning', $output ?? 'No output')
                     ->addClass('warning');
             } else {
-                return $this->html->icon('tick', $this->_('Success'))
+                return $this->html->icon('tick', $output ?? 'Success')
                     ->addClass('success');
             }
         });
