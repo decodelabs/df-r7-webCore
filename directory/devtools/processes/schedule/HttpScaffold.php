@@ -30,7 +30,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     const LIST_FIELDS = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
-        'schedule', 'isLive', 'isAuto'
+        'schedule', 'isLive', 'isAuto', 'status'
     ];
 
     const DETAILS_FIELDS = [
@@ -41,6 +41,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Record data
+    protected function prepareRecordList($query, $mode)
+    {
+        $query
+            ->correlate('status')
+                ->from('axis://task/Log', 'log')
+                ->on('log.request', '=', 'schedule.request')
+                ->orderBy('startDate DESC')
+                ->limit(1)
+                ->endCorrelation();
+    }
+
     protected function countSectionItems($schedule)
     {
         return [
@@ -165,6 +176,28 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $list->addField('isAuto', $this->_('Auto'), function ($schema) {
             return $this->html->lockIcon(!$schema['isAuto'])
                 ->addClass($schema['isAuto'] ? 'positive' : 'negative');
+        });
+    }
+
+    public function defineStatusField($list, $mode)
+    {
+        $list->addField('status', function ($log) {
+            switch ($log['status']) {
+                case 'pending':
+                    return $this->html->icon('time', 'Pending')->addClass('warning');
+
+                case 'locked':
+                    return $this->html->icon('lock', 'Locked')->addClass('warning');
+
+                case 'processing':
+                    return $this->html->icon('time', 'Processing')->addClass('positive');
+
+                case 'lagging':
+                    return $this->html->icon('warning', 'Lagging')->addClass('negative');
+
+                case 'complete':
+                    return $this->html->icon('tick', 'Complete')->addClass('positive');
+            }
         });
     }
 }
