@@ -25,12 +25,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     const LIST_FIELDS = [
         'request', 'priority', 'queueDate',
-        'lockDate'
+        'lockDate', 'status'
     ];
 
     const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'queueDate',
-        'lockDate', 'lockId', 'logs'
+        'lockDate', 'lockId', 'logs', 'status'
     ];
 
     // Record data
@@ -104,6 +104,28 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                     )
                 )
                 ->setIcon('log');
+        });
+    }
+
+    public function defineStatusField($list, $mode)
+    {
+        $list->addField('status', function ($log) {
+            switch ($log['status']) {
+                case 'pending':
+                    return $this->html->icon('time', 'Pending')->addClass('warning');
+
+                case 'locked':
+                    return $this->html->icon('lock', 'Locked')->addClass('warning');
+
+                case 'processing':
+                    return $this->html->icon('time', 'Processing')->addClass('positive');
+
+                case 'lagging':
+                    return $this->html->icon('warning', 'Lagging')->addClass('negative');
+
+                case 'complete':
+                    return $this->html->icon('tick', 'Complete')->addClass('positive');
+            }
         });
     }
 }
