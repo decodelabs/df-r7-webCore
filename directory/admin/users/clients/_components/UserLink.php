@@ -49,7 +49,7 @@ class UserLink extends arch\component\RecordLink
         }
 
         if ($this->_shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
-            $name = $matches[1].' '.ucfirst($matches[2]{0}).'.';
+            $name = $matches[1].' '.ucfirst($matches[2][0]).'.';
         }
 
         if ($name === null) {

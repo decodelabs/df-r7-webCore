@@ -16,9 +16,9 @@ class HttpRouter implements arch\IRouter
         $parts = explode('[', $request->path->pop(), 2);
         $id = rtrim((string)array_shift($parts), '-|');
 
-        if ($id{0} == 'f') {
+        if ($id[0] == 'f') {
             $request->query->file = substr($id, 1);
-        } elseif ($id{0} == 'v') {
+        } elseif ($id[0] == 'v') {
             $request->query->version = substr($id, 1);
         } else {
             $request->query->version = $id;
