@@ -26,7 +26,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     ];
 
     const LIST_FIELDS = [
-        'name', 'slug', 'context1', 'context2', 'files', 'size'
+        'name', 'slug', 'files', 'size'
     ];
 
     // Record data

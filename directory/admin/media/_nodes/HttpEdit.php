@@ -10,19 +10,22 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpEdit extends HttpAdd {
-
-    protected function init() {
+class HttpEdit extends HttpAdd
+{
+    protected function init()
+    {
         $this->_bucket = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_bucket['id'];
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->importFrom($this->_bucket, [
-            'name', 'slug', 'context1', 'context2'
+            'name', 'slug'
         ]);
     }
 }
