@@ -237,10 +237,6 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             return $this->http->redirect('#'.$this->getWidgetId());
         }
 
-        if (!$this->_isForMany) {
-            unset($this->values->selectUpload);
-        }
-
         $tempDir = $this->_getTempDir();
         $localName = $this->fieldName('file');
 
@@ -249,11 +245,16 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 continue;
             }
 
+            if (!$this->_isForMany) {
+                unset($this->values->selectUpload);
+            }
+
             $file->upload($tempDir, $this->values->file);
 
             if ($file->isSuccess()) {
                 if (!$this->_isForMany) {
                     $this->values->selectUpload = $file->getBasename();
+                    break;
                 } else {
                     $this->values->selectUpload[$file->getBasename()] = true;
                 }
