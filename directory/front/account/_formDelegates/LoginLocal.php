@@ -51,6 +51,7 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
                     $this->fieldName('password'),
                     $this->values->password
                 )
+                ->shouldAutoComplete(false)
                 ->isRequired(true);
 
         // Remember
