@@ -30,6 +30,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
     protected $_showUploadButton = false;
     protected $_chooseLabel = null;
+    protected $_avScan = false;
 
     private $_dirChecked = false;
     private $_hasUploaded = false;
@@ -54,6 +55,16 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     public function getChooseLabel(): ?string
     {
         return $this->_chooseLabel;
+    }
+
+    public function shouldAvScan(bool $flag=null)
+    {
+        if ($flag !== null) {
+            $this->_avScan = $flag;
+            return $this;
+        }
+
+        return $this->_avScan;
     }
 
     protected function _getTempDir()
@@ -232,6 +243,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAcceptTypes(...$this->_acceptTypes);
+        $uploadHandler->shouldAvScan($this->_avScan);
 
         if (!count($uploadHandler)) {
             return $this->http->redirect('#'.$this->getWidgetId());

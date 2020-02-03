@@ -36,6 +36,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     protected $_ownerId;
     protected $_showUploadButton = false;
     protected $_chooseLabel = null;
+    protected $_avScan = false;
 
     public function setOwnerId($id)
     {
@@ -95,6 +96,16 @@ class CustomUploader extends arch\node\form\Delegate implements
         return $this->_chooseLabel;
     }
 
+    public function shouldAvScan(bool $flag=null)
+    {
+        if ($flag !== null) {
+            $this->_avScan = $flag;
+            return $this;
+        }
+
+        return $this->_avScan;
+    }
+
     protected function init()
     {
         $this->_setupBucket();
@@ -112,6 +123,7 @@ class CustomUploader extends arch\node\form\Delegate implements
             ->isRequired($this->_isRequired)
             ->isForMany($this->_isForMany)
             ->setAcceptTypes(...$accept)
+            ->shouldAvScan($this->_avScan)
             ->shouldShowUploadButton($this->_showUploadButton)
             ->setChooseLabel($this->_chooseLabel);
     }
