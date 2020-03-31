@@ -1,7 +1,7 @@
 define([
     'jquery',
     'underscore'
-], function($, _) {
+], function ($, _) {
     var Core = {
         baseUrl: null,
         rootUrl: null,
@@ -9,7 +9,7 @@ define([
         location: null,
         layout: null,
 
-        init: function() {
+        init: function () {
             var viewData = document.getElementById('custom-view-data');
             this.baseUrl = viewData.getAttribute('data-base');
             this.cts = viewData.getAttribute('data-cts');
@@ -25,7 +25,7 @@ define([
 
 
             // Form event
-            $('input,select').filter('[data-formevent]:enabled').bind('keypress.formEvent', function(e) {
+            $('input,select').filter('[data-formevent]:enabled').bind('keypress.formEvent', function (e) {
                 if (e.keyCode == '13') {
                     var $hidden = $('#form-hidden-activeFormEvent');
                     var $form = $(this).parents('form');
@@ -51,13 +51,13 @@ define([
             }
         },
 
-        call: function(callback, data) {
-            if (typeof(callback) == 'function') {
+        call: function (callback, data) {
+            if (typeof (callback) == 'function') {
                 callback.call(this, data);
             }
         },
 
-        component: function(obj) {
+        component: function (obj) {
             obj = _.extend(obj, this.Events);
 
             if (typeof obj.init === 'function') {
@@ -67,8 +67,8 @@ define([
             return obj;
         },
 
-        class: function(obj) {
-            var output = function() {
+        classComponent: function (obj) {
+            var output = function () {
                 if (typeof this.construct === 'function') {
                     this.construct.apply(this, arguments);
                 }
@@ -78,28 +78,28 @@ define([
             return output;
         },
 
-        isUrlExternal: function(url) {
-            var domain = function(url) {
+        isUrlExternal: function (url) {
+            var domain = function (url) {
                 return url.replace('http://', '').replace('https://', '').split('/')[0];
             };
 
             return domain(location.href) !== domain(url);
         },
 
-        openWindow: function(url, title, width, height) {
+        openWindow: function (url, title, width, height) {
             var left = (screen.width / 2) - (width / 2),
                 top = (screen.height / 2) - (height / 2);
             window.open(url, title, 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=' + height + ',width=' + width + ',top=' + top + ',left=' + left);
         },
 
-        getUrlPath: function(url) {
+        getUrlPath: function (url) {
             var reg = /.+?\:\/\/.+?(\/.+?)?(?:#|\?|$)/;
             var output = reg.exec(url)[1];
             if (!output) output = '/';
             return output;
         },
 
-        updateQueryStringParameter: function(uri, key, value) {
+        updateQueryStringParameter: function (uri, key, value) {
             var re = new RegExp("([?&])" + key + "=.*?(&|#|$)", "i");
             if (value === undefined) {
                 if (uri.match(re)) {
@@ -125,7 +125,7 @@ define([
 
         // Events
         Events: {
-            on: function(name, callback, context) {
+            on: function (name, callback, context) {
                 if (this._multiplexEvents(this, 'on', name, [callback, context]) || !callback) {
                     return this;
                 }
@@ -140,13 +140,13 @@ define([
                 return this;
             },
 
-            once: function(name, callback, context) {
+            once: function (name, callback, context) {
                 if (this._multiplexEvents(this, 'on', name, [callback, context]) || !callback) {
                     return this;
                 }
 
                 var _this = this,
-                    once = _.once(function() {
+                    once = _.once(function () {
                         _this.off(name, once);
                         callback.apply(this, arguments);
                     });
@@ -155,7 +155,7 @@ define([
                 return this.on(name, once, context);
             },
 
-            _multiplexEvents: function(obj, action, name, args) {
+            _multiplexEvents: function (obj, action, name, args) {
                 if (!name) return false;
 
                 if (typeof name === 'object') {
@@ -181,7 +181,7 @@ define([
                 return false;
             },
 
-            off: function(name, callback, context) {
+            off: function (name, callback, context) {
                 var retain, ev, events, names, i, l, j, k;
 
                 if (!this._events || this._multiplexEvents(this, 'off', name, [callback, context])) {
@@ -219,7 +219,7 @@ define([
                 return this;
             },
 
-            trigger: function(name) {
+            trigger: function (name) {
                 if (!this._events) return this;
                 var args = Array.prototype.slice.call(arguments, 1);
 
@@ -238,7 +238,7 @@ define([
                 return this;
             },
 
-            _triggerEvents: function(events, args) {
+            _triggerEvents: function (events, args) {
                 var ev, i = -1,
                     l = events.length,
                     a1 = args[0],
@@ -280,15 +280,15 @@ define([
             },
 
 
-            listenTo: function(obj, name, callback) {
+            listenTo: function (obj, name, callback) {
                 return this._listen('on', obj, name, callback);
             },
 
-            listenOnce: function(obj, name, callback) {
+            listenOnce: function (obj, name, callback) {
                 return this._listen('once', obj, name, callback);
             },
 
-            _listen: function(call, obj, name, callback) {
+            _listen: function (call, obj, name, callback) {
                 var listeningTo = this._listeningTo || (this._listeningTo = {}),
                     id = obj._listenId || (obj._listenId = _.uniqueId('l'));
 
@@ -301,7 +301,7 @@ define([
                 return this;
             },
 
-            stopListening: function(obj, name, callback) {
+            stopListening: function (obj, name, callback) {
                 var listeningTo = this._listeningTo;
                 if (!listeningTo) return this;
 

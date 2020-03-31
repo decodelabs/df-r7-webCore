@@ -1,62 +1,63 @@
 define([
     'jquery',
     'df-kit/core'
-], function($, Core) {
+], function ($, Core) {
     var Ajax;
     return Ajax = Core.component({
         _clients: {},
 
-        init: function() {
-            $(document).on('click', '.ajax-content button', function(e) {
-                if($(this).closest('form.global').length && $(this).closest('form.global').closest('.ajax-content').length) {
+        init: function () {
+            $(document).on('click', '.ajax-content button', function (e) {
+                if ($(this).closest('form.global').length && $(this).closest('form.global').closest('.ajax-content').length) {
                     return;
                 }
 
-                var event = $(this).val(), name = $(this).attr('name');
+                var event = $(this).val(),
+                    name = $(this).attr('name');
                 $('#form-activeButton').remove();
-                $(this).closest('form').append('<input type="hidden" name="'+name+'" id="form-activeButton" value="'+event+'" />');
+                $(this).closest('form').append('<input type="hidden" name="' + name + '" id="form-activeButton" value="' + event + '" />');
             });
         },
 
 
-    // Basic requests
-        get: function(url, options) {
+        // Basic requests
+        get: function (url, options) {
             return this.send(this.normalizeRequest('GET', url, options));
         },
 
-        getElement: function(slug) {
-            return this.get(Core.rootUrl+'content/element?element='+slug);
+        getElement: function (slug) {
+            return this.get(Core.rootUrl + 'content/element?element=' + slug);
         },
 
-        post: function(url, options) {
+        post: function (url, options) {
             return this.send(this.normalizeRequest('POST', url, options));
         },
 
-        normalizeRequest: function(method, url, request) {
+        normalizeRequest: function (method, url, request) {
             request || (request = {});
             request.method = String(method).toUpperCase();
             request.url = request.originalUrl = url;
 
-            if(!request.data) request.data = {};
-            if(!request.type) request.type = 'ajax';
-            if(!request.source) request.source = 'ajax';
+            if (!request.data) request.data = {};
+            if (!request.type) request.type = 'ajax';
+            if (!request.source) request.source = 'ajax';
 
             return request;
         },
 
-        send: function(request) {
+        send: function (request) {
             var _this = this;
-            if(!request.method) request.method = 'GET';
-            if(!request.data) request.data = {};
+            if (!request.method) request.method = 'GET';
+            if (!request.data) request.data = {};
 
-            if(!request.url) {
+            if (!request.url) {
                 throw new Error('No URL defined for ajax request');
             }
 
             var deferred = $.Deferred();
             data = request.data;
 
-            if(request.method.toUpperCase() === 'GET' &&
+            if (request.method.toUpperCase() === 'GET' &&
                 request.type === 'ajax') {
                 data._j = null;
             }
@@ -66,12 +67,12 @@ define([
                 data: data,
                 type: request.method,
                 headers: {
-                    'x-ajax-request-type' : request.type,
+                    'x-ajax-request-type': request.type,
                     'x-ajax-request-source': request.source
                 }
-            }).done(function(response, status, xhr) {
+            }).done(function (response, status, xhr) {
                 var url = xhr.getResponseHeader('X-Response-Url');
-                if(url) request.url = url;
+                if (url) request.url = url;
                 deferred.resolve(response, request);
             }).fail(deferred.reject);
 
@@ -82,15 +83,15 @@ define([
 
 
 
-    // Client shortcuts
-        loadInto: function(element, url, options) {
+        // Client shortcuts
+        loadInto: function (element, url, options) {
             options = options || {};
             options.live = false;
 
             return this.embedInto(element, url, options);
         },
 
-        embedInto: function(element, url, options) {
+        embedInto: function (element, url, options) {
             var client = this.getClient(element),
                 deferred = $.Deferred();
 
@@ -104,11 +105,11 @@ define([
             return deferred.promise();
         },
 
-        getClient: function(element) {
+        getClient: function (element) {
             var client,
                 clientId = $(element).attr('data-ajax-client');
 
-            if(clientId && this._clients[clientId]) {
+            if (clientId && this._clients[clientId]) {
                 client = this._clients[clientId];
             } else {
                 client = new this.Client(element);
@@ -120,8 +121,8 @@ define([
 
 
 
-    // Client
-        Client: Core.class({
+        // Client
+        Client: Core.classComponent({
             id: null,
             $element: null,
             initialUrl: null,
@@ -134,7 +135,7 @@ define([
             },
 
 
-            construct: function(element) {
+            construct: function (element) {
                 var _this = this;
                 this.clear();
                 this.id = _.uniqueId('a');
@@ -143,28 +144,28 @@ define([
             },
 
 
-            getFirstRequest: function() {
-                if(!this.requestStack.length) return null;
+            getFirstRequest: function () {
+                if (!this.requestStack.length) return null;
                 return this.requestStack[0];
             },
 
-            getLastRequest: function() {
-                if(!this.requestStack.length) return null;
+            getLastRequest: function () {
+                if (!this.requestStack.length) return null;
                 return this.requestStack[this.requestStack.length - 1];
             },
 
-            getLastGetRequest: function() {
-                if(!this.requestStack.length) return null;
+            getLastGetRequest: function () {
+                if (!this.requestStack.length) return null;
                 var request = null;
 
-                while(true) {
+                while (true) {
                     request = this.requestStack.pop();
 
-                    if(!request) {
+                    if (!request) {
                         return;
                     }
 
-                    if(request.method == 'GET') {
+                    if (request.method == 'GET') {
                         break;
                     }
                 }
@@ -173,60 +174,60 @@ define([
             },
 
 
-            get: function(url, options) {
+            get: function (url, options) {
                 return this.send(Ajax.normalizeRequest('get', url, options));
             },
 
-            post: function(url, options) {
+            post: function (url, options) {
                 return this.send(Ajax.normalizeRequest('post', url, options));
             },
 
-            home: function() {
+            home: function () {
                 var request = this.getFirstRequest();
                 this.requestStack = [];
                 return this.send(request);
             },
 
-            back: function() {
+            back: function () {
                 this.requestStack.pop();
                 var request = this.getLastGetRequest();
 
-                if(request) {
+                if (request) {
                     return this.send(request);
                 }
             },
 
-            refresh: function() {
+            refresh: function () {
                 var request = this.getLastGetRequest();
 
-                if(request) {
+                if (request) {
                     return this.send(request);
                 }
             },
 
-            clear: function() {
+            clear: function () {
                 this.requestStack = [];
                 this.initialUrl = null;
                 this.lastResponse = null;
                 return this;
             },
 
-            destroy: function() {
+            destroy: function () {
                 this.clear();
                 this.disableLive();
                 delete Ajax._clients[this.id];
             },
 
-            _normalizeUrl: function(url) {
+            _normalizeUrl: function (url) {
                 return url.replace('.ajax', '').replace(/(\?|\&)\_\=[0-9]+/, '');
             },
 
-            send: function(request) {
+            send: function (request) {
                 var _this = this,
                     lastRequest = this.getLastRequest(),
                     deferred = $.Deferred();
 
-                if(
+                if (
                     !lastRequest ||
                     (
                         lastRequest.originalUrl !== request.originalUrl &&
@@ -240,11 +241,11 @@ define([
                     request
                 ).fail(
                     deferred.reject
-                ).done(function(response, request) {
+                ).done(function (response, request) {
                     _this.lastResponse = response;
                     response = _this.normalizeResponse(response, request);
 
-                    if(!_this.initialUrl) {
+                    if (!_this.initialUrl) {
                         _this.initialUrl = _this._normalizeUrl(request.url);
                     }
 
@@ -260,9 +261,9 @@ define([
 
 
                     // Form complete
-                    if(response.isComplete) {
+                    if (response.isComplete) {
                         // Forced redirect
-                        if(
+                        if (
                             response.request.formEvent !== 'cancel' &&
                             response.forceRedirect &&
                             response.redirect !== null
@@ -273,32 +274,32 @@ define([
                         }
 
                         // Form cancel
-                        if(response.request.formEvent === 'cancel') {
+                        if (response.request.formEvent === 'cancel') {
                             _this.trigger('form:cancel', response);
                         }
 
                         // Complete
                         _this.trigger('form:complete', response);
 
-                        if(isInitial) {
+                        if (isInitial) {
                             _this.trigger('form:completeInitial', response);
                         }
                     }
 
 
                     // Refresh everything
-                    if(response.reload === true) {
+                    if (response.reload === true) {
                         location.reload();
                     }
 
                     // Handled by event
-                    if(response.handled) {
+                    if (response.handled) {
                         deferred.resolve(response);
                         return;
                     }
 
                     // Reget after post
-                    if(
+                    if (
                         response.request.method === 'POST' &&
                         response.redirect === null
                     ) {
@@ -306,7 +307,7 @@ define([
                     }
 
                     // Simple redirect
-                    if(response.redirect !== null) {
+                    if (response.redirect !== null) {
                         _this.trigger('redirect', response);
                         return _this.get(response.redirect, _.clone(response.request));
                     }
@@ -315,7 +316,7 @@ define([
                     _this.trigger('content:load', response);
                     _this.disableLive();
 
-                    if(request.live !== false) {
+                    if (request.live !== false) {
                         _this.enableLive();
                     }
 
@@ -331,51 +332,53 @@ define([
             },
 
 
-            enableLive: function() {
+            enableLive: function () {
                 var _this = this;
 
-                this.$element.on('click', this.attr.link, function(e) {
+                this.$element.on('click', this.attr.link, function (e) {
                     _this.onLinkClick(e);
                 });
 
-                this.$element.on('submit', this.attr.form, function(e) {
+                this.$element.on('submit', this.attr.form, function (e) {
                     _this.onFormSubmit(e);
                 });
             },
 
-            disableLive: function() {
+            disableLive: function () {
                 this.$element.off('click', this.attr.link);
                 this.$element.off('submit', this.attr.form);
             },
 
-            normalizeResponse: function(response, request) {
-                if(typeof response !== 'object') {
-                    response = {content: response};
+            normalizeResponse: function (response, request) {
+                if (typeof response !== 'object') {
+                    response = {
+                        content: response
+                    };
                 }
 
                 response.request = request;
-                if(!response.redirect) response.redirect = null;
+                if (!response.redirect) response.redirect = null;
 
                 return response;
             },
 
 
 
-            onLinkClick: function(e) {
+            onLinkClick: function (e) {
                 var _this = this,
                     url = $(e.target).closest('a').attr('href'),
                     lastRequest = this.getLastRequest();
-                    request = {};
+                request = {};
 
-                if(!url) url = $(e.target).closest('[data-href]').attr('data-href');
-                if(!url || Core.isUrlExternal(url)) return;
-                if(lastRequest) request = _.clone(lastRequest);
+                if (!url) url = $(e.target).closest('[data-href]').attr('data-href');
+                if (!url || Core.isUrlExternal(url)) return;
+                if (lastRequest) request = _.clone(lastRequest);
 
                 e.preventDefault();
                 this.get(url, request);
             },
 
-            onFormSubmit: function(e) {
+            onFormSubmit: function (e) {
                 e.preventDefault();
 
                 var _this = this,
@@ -385,48 +388,57 @@ define([
                     request = {},
                     $trigger;
 
-                if(lastRequest) {
+                if (lastRequest) {
                     request = _.clone(lastRequest);
                 }
 
                 request.data = $form.serializeArray();
                 request.formEvent = null;
 
-                if(e.originalEvent && e.originalEvent.explicitOriginalTarget && e.originalEvent.explicitOriginalTarget.tagName == 'BUTTON') {
+                if (e.originalEvent && e.originalEvent.explicitOriginalTarget && e.originalEvent.explicitOriginalTarget.tagName == 'BUTTON') {
                     $trigger = $(e.originalEvent.explicitOriginalTarget);
-                } else if(document.activeElement && document.activeElement.tagName == 'BUTTON') {
+                } else if (document.activeElement && document.activeElement.tagName == 'BUTTON') {
                     $trigger = $(document.activeElement);
                 } else {
                     $trigger = $('#form-activeButton');
                 }
 
-                if($trigger) {
+                if ($trigger) {
                     var triggerName = $trigger.attr('name'),
                         triggerVal = $trigger.val();
 
-                    if(triggerName == 'formEvent') {
+                    if (triggerName == 'formEvent') {
                         request.formEvent = formEvent = triggerVal;
                     } else {
-                        request.data.push({name:triggerName, value:triggerVal});
+                        request.data.push({
+                            name: triggerName,
+                            value: triggerVal
+                        });
                     }
                 }
 
-                if(formEvent && !$form.find('[name=formEvent]').length) {
-                    request.data.push({name:'formEvent', value:formEvent});
+                if (formEvent && !$form.find('[name=formEvent]').length) {
+                    request.data.push({
+                        name: 'formEvent',
+                        value: formEvent
+                    });
                 }
 
                 this.post($form.attr('action'), request);
             },
 
-            close: function(source) {
+            close: function (source) {
                 var _this = this,
                     $form = this.$element.find('form.w:has(button.w.btn.event)').first(),
                     isComplete = this.lastResponse && this.lastResponse.isComplete,
                     deferred = $.Deferred();
 
-                if(!isComplete && $form.length) {
+                if (!isComplete && $form.length) {
                     Ajax.post($form.attr('action'), {
-                        data: [{name:'formEvent', value:'cancel'}],
+                        data: [{
+                            name: 'formEvent',
+                            value: 'cancel'
+                        }],
                         $element: $form,
                         source: source
                     }).always(deferred.resolve);
