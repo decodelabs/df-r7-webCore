@@ -41,6 +41,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'timezone', 'joinDate', 'loginDate', 'groups'
     ];
 
+    const CONFIRM_DELETE = true;
+
+
     // Record data
     protected function prepareRecordList($query, $mode)
     {

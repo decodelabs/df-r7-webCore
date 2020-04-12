@@ -29,6 +29,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'name', 'slug', 'files', 'size'
     ];
 
+    const CONFIRM_DELETE = true;
+
+
     // Record data
     protected function prepareRecordList($query, $mode)
     {
