@@ -141,19 +141,23 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
     // Ui
     protected function _renderDetailsButtonGroup(aura\html\widget\ButtonArea $ba, $selected, $isList=false)
     {
-        $mainLabel = $isList ? $this->_('Upload / search') : $this->_('Upload / select');
-
-        if (empty($selected)) {
-            $ba->push(
-                $this->html->eventButton(
-                        $this->eventName('beginSelect'),
-                        $mainLabel
-                    )
-                    ->setIcon('upload')
-                    ->setDisposition('positive')
-                    ->shouldValidate(false)
-            );
+        if ($hasSelected = !empty($selected)) {
+            $mainLabel = $this->_('Replace');
         } else {
+            $mainLabel = $isList ? $this->_('Upload / search') : $this->_('Upload / select');
+        }
+
+        $ba->push(
+            $this->html->eventButton(
+                    $this->eventName('beginSelect'),
+                    $mainLabel
+                )
+                ->setIcon('upload')
+                ->setDisposition('positive')
+                ->shouldValidate(false)
+        );
+
+        if ($hasSelected) {
             if (!$this->_isForMany) {
                 $ba->push(
                     $this->html->eventButton(
