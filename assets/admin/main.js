@@ -1,20 +1,20 @@
 define([
     'jquery',
     'df-kit/core'
-], function($, Core) {
+], function ($, Core) {
     // Form event
-    $('input[data-formevent]:enabled').bind('keypress.formEvent', function(e) {
-        if(e.keyCode == '13') {
+    $('input[data-formevent]:enabled').bind('keypress.formEvent', function (e) {
+        if (e.keyCode == '13') {
             var s = $('#form-hidden-activeFormEvent');
             var f = $(this).parents('form');
             var event = $(this).attr('data-formevent');
 
-            if(!s.length && event != 'default') {
+            if (!s.length && event != 'default') {
                 f.prepend('<input type="hidden" id="form-hidden-activeFormEvent" name="formEvent" />');
                 s = $('#form-hidden-activeFormEvent');
             }
 
-            if(s.length) {
+            if (s.length) {
                 s.val(event);
             }
 
@@ -24,7 +24,7 @@ define([
     });
 
     // Scroll to first error
-    if($(".w.field .list.errors").length) {
+    if ($(".w.field .list.errors").length) {
         $('html, body').animate({
             scrollTop: $(".w.field .list.errors").first().parent().offset().top
         }, 200);
@@ -32,8 +32,8 @@ define([
 
 
     // Record admin selects
-    $(document).on('click', '.scaffold.with-selected a', function(e) {
-        if($(this).hasClass('disabled')) {
+    $(document).on('click', '.scaffold.with-selected a', function (e) {
+        if ($(this).hasClass('disabled')) {
             e.preventDefault();
             return;
         }
@@ -42,7 +42,7 @@ define([
             $fs = $(this).closest('fieldset'),
             ids = $fs.data('selectIds');
 
-        if(!url) {
+        if (!url) {
             $(this).attr('data-href', url = $(this).attr('href'));
         }
 
@@ -50,7 +50,7 @@ define([
         $(this).attr('href', url);
     });
 
-    var updateSelection = function() {
+    var updateSelection = function () {
         var $list = $(this).closest('.list.collection'),
             $checked = $list.find('input.checkbox.selection:checked'),
             $fs = $list.siblings('.scaffold.with-selected'),
@@ -58,7 +58,7 @@ define([
 
         $fs.find('a').toggleClass('disabled', !$checked.length);
 
-        $checked.each(function(i) {
+        $checked.each(function (i) {
             ids[i] = $(this).val();
         });
 
@@ -67,4 +67,10 @@ define([
 
     $('.list.collection > table').each(updateSelection);
     $(document).on('change', '.list.collection input.checkbox.selection', updateSelection);
+
+
+    // Action tooltips
+    $('.field-actions a.hasIcon').each(function () {
+        $(this).attr('title', $(this).text());
+    });
 });
