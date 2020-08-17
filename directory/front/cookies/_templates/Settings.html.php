@@ -1,5 +1,5 @@
 <?php
-echo Html::{'section.cookie-settings'}(function () use ($cookieData) {
+echo Html::{'main.cookie-settings'}(function () use ($cookieData) {
     yield Html::{'h1'}('Cookie settings');
 
     yield Html::{'p'}('Please select which types of cookies you wish to allow - while we may not use cookies that apply in all categories, you may choose your preferences for full peace of mind.');
