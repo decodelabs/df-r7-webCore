@@ -10,25 +10,29 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpEdit extends arch\node\Form {
-
+class HttpEdit extends arch\node\Form
+{
     protected $_version;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_version = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_version['id'];
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->importFrom($this->_version, [
             'fileName', 'contentType'
         ]);
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Version details'));
 
@@ -50,7 +54,8 @@ class HttpEdit extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Filename
@@ -59,12 +64,12 @@ class HttpEdit extends arch\node\Form {
 
             // Content type
             ->addRequiredField('contentType', 'text')
-                ->setPattern('/^[a-zA-Z0-9\-_]+\/[a-zA-Z0-9\-_]+$/')
+                ->setPattern('/^[a-zA-Z0-9\-_]+\/[a-zA-Z0-9\-_.]+$/')
 
             ->validate($this->values)
             ->applyTo($this->_version);
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_version->save();
             $this->comms->flashSaveSuccess('version');
         });
