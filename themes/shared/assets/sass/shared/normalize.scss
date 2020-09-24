@@ -231,7 +231,7 @@ pre,
 samp {
   font-family: Consolas, "Andale Mono WT", "Andale Mono", Courier, monospace;
   font-size: 14px;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
 /* Forms
@@ -423,12 +423,9 @@ th {
   padding: 0;
 }
 
-
-
 q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
+  quotes: "\201C""\201D""\2018""\2019";
 }
-
 
 * :first-child {
   margin-top: 0;
@@ -438,5 +435,5 @@ q {
 }
 
 iframe[seamless] {
-    border: none;
+  border: none;
 }
