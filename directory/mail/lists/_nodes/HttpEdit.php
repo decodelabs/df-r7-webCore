@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpEdit extends HttpAdd
 {
@@ -25,7 +25,7 @@ class HttpEdit extends HttpAdd
         $this->_id = $this->request['source'];
 
         if (!isset($sources[$this->_id])) {
-            throw Glitch::{'df/flow/mailingList/ENotFound'}([
+            throw Exceptional::{'df/flow/mailingList/NotFound'}([
                 'message' => 'Source not found',
                 'http' => 404
             ]);

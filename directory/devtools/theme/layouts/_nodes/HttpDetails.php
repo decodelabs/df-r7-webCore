@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpDetails extends arch\node\Base
 {
@@ -23,7 +23,7 @@ class HttpDetails extends arch\node\Base
         $config = fire\Config::getInstance();
 
         if (!$view['layout'] = $config->getLayoutDefinition($this->request['layout'])) {
-            throw Glitch::{'df/fire/layout/ENotFound'}([
+            throw Exceptional::{'df/fire/layout/NotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);

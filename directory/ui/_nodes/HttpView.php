@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpView extends arch\node\Base
 {
@@ -20,7 +20,7 @@ class HttpView extends arch\node\Base
     public function executeAsHtml()
     {
         if ($this->app->isProduction()) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Dev mode only',
                 'http' => 403
             ]);

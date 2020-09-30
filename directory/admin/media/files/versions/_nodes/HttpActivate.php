@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpActivate extends arch\node\Form
 {
@@ -24,7 +24,7 @@ class HttpActivate extends arch\node\Form
         $this->_version = $this->scaffold->getRecord();
 
         if ($this->_version['purgeDate']) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Purged versions cannot be activated',
                 'http' => 403
             ]);

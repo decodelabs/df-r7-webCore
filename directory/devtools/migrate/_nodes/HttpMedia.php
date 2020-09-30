@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpMedia extends arch\node\RestApi
 {
@@ -19,7 +19,7 @@ class HttpMedia extends arch\node\RestApi
         $handler = $this->data->media->getMediaHandler();
 
         if (!$this->data->media->isLocalDataMediaHandler()) {
-            throw Glitch::{'EApi,EForbidden'}([
+            throw Exceptional::{'Api,Forbidden'}([
                 'message' => 'Export is currently only supported with local media libraries',
                 'http' => 403,
                 'data' => $handler->getDisplayName()
@@ -32,7 +32,7 @@ class HttpMedia extends arch\node\RestApi
                 $this->request['version']
             );
         } catch (\Throwable $e) {
-            throw Glitch::{'ENotFound,EInvalidArgument'}([
+            throw Exceptional::{'NotFound,InvalidArgument'}([
                 'message' => 'Invalid version ids',
                 'http' => 404,
                 'data' => [
@@ -43,7 +43,7 @@ class HttpMedia extends arch\node\RestApi
         }
 
         if (!is_file($filePath)) {
-            throw Glitch::{'ENotFound'}([
+            throw Exceptional::NotFound([
                 'message' => 'File not found',
                 'http' => 404,
                 'data' => [
@@ -64,7 +64,7 @@ class HttpMedia extends arch\node\RestApi
         $key = $this->data->hexHash($this->app->getPassKey());
 
         if ($key != $this->request['key']) {
-            throw Glitch::{'EForbidden,EUnexpectedValue'}([
+            throw Exceptional::{'Forbidden,UnexpectedValue'}([
                 'message' => 'Pass key is invalid',
                 'http' => 403
             ]);

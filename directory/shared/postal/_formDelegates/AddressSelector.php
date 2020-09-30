@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class AddressSelector extends arch\node\form\Delegate implements
     arch\node\ISelfContainedRenderableDelegate,
@@ -42,7 +42,7 @@ class AddressSelector extends arch\node\form\Delegate implements
                 break;
 
             default:
-                throw Glitch::EInvalidArgument(
+                throw Exceptional::InvalidArgument(
                     $level.' is not a valid access level'
                 );
         }

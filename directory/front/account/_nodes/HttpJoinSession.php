@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpJoinSession extends arch\node\Base
 {
@@ -30,7 +30,7 @@ class HttpJoinSession extends arch\node\Base
         );
 
         if ($key['date']->lt('-1 minute')) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Old stub',
                 'http' => 403
             ]);

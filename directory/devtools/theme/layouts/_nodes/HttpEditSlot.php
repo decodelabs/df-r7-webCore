@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpEditSlot extends HttpAddSlot
 {
@@ -21,14 +21,14 @@ class HttpEditSlot extends HttpAddSlot
         $config = fire\Config::getInstance();
 
         if (!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            throw Glitch::{'df/fire/layout/ENotFound'}([
+            throw Exceptional::{'df/fire/layout/NotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);
         }
 
         if (!$this->_slot = $this->_layout->getSlot($this->request['slot'])) {
-            throw Glitch::{'df/fire/slot/ENotFound'}([
+            throw Exceptional::{'df/fire/slot/NotFound'}([
                 'message' => 'Slot not found',
                 'http' => 404
             ]);

@@ -12,7 +12,7 @@ use df\arch;
 use df\axis;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 use DecodeLabs\Atlas;
 
 class HttpDeleteBackup extends arch\node\DeleteForm
@@ -27,7 +27,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
         $fileName = basename($this->request['backup']);
 
         if (!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Not an axis backup file',
                 'http' => 403
             ]);
@@ -36,7 +36,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
         $this->_file = $this->app->getSharedDataPath().'/backup/'.$fileName;
 
         if (!is_file($this->_file)) {
-            throw Glitch::ENotFound([
+            throw Exceptional::NotFound([
                 'message' => 'Backup not found',
                 'http' => 404
             ]);

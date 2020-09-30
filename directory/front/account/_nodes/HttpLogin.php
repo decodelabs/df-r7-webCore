@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpLogin extends arch\node\Form
 {
@@ -45,7 +45,7 @@ class HttpLogin extends arch\node\Form
         }
 
         if (!$this->_adapter) {
-            throw Glitch::{'df/user/authentication/ESetup'}([
+            throw Exceptional::{'df/user/authentication/Setup'}([
                 'message' => 'There are no enabled authentication adapters',
             ]);
         }

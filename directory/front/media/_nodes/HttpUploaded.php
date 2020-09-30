@@ -12,8 +12,8 @@ use df\arch;
 use df\flex;
 use df\neon;
 
-use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
+use DecodeLabs\Exceptional;
 
 class HttpUploaded extends arch\node\Base
 {
@@ -28,7 +28,7 @@ class HttpUploaded extends arch\node\Base
         );
 
         if (!file_exists($path)) {
-            throw Glitch::{'df/core/fs/ENotFound'}([
+            throw Exceptional::{'df/core/fs/NotFound'}([
                 'message' => 'File not found',
                 'http' => 404
             ]);

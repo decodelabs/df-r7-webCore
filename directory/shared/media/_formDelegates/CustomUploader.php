@@ -14,7 +14,7 @@ use df\mesh;
 use df\flex;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class CustomUploader extends arch\node\form\Delegate implements
     arch\node\IDependentDelegate,
@@ -150,7 +150,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     public function render($callback=null)
     {
         if (!$this->_bucket) {
-            throw Glitch::ESetup([
+            throw Exceptional::Setup([
                 'message' => 'No bucket has been set'
             ]);
         }

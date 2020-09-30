@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class AddressEditor extends arch\node\form\Delegate
 {
@@ -35,7 +35,7 @@ class AddressEditor extends arch\node\form\Delegate
                 break;
 
             default:
-                throw Glitch::EInvalidArgument(
+                throw Exceptional::InvalidArgument(
                     $level.' is not a valid access level'
                 );
         }

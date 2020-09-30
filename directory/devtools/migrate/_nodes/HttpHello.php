@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpHello extends arch\node\RestApi
 {
@@ -37,7 +37,7 @@ class HttpHello extends arch\node\RestApi
         $key = $this->data->hexHash($this->app->getPassKey());
 
         if ($key != $this->request['key']) {
-            throw Glitch::{'EForbidden,EUnexpectedValue'}([
+            throw Exceptional::{'Forbidden,UnexpectedValue'}([
                 'message' => 'Pass key is invalid',
                 'http' => 403
             ]);

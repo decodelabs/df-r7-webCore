@@ -12,8 +12,8 @@ use df\arch;
 use df\link;
 use df\aura;
 
-use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
+use DecodeLabs\Exceptional;
 
 class HttpIndex extends arch\node\Base
 {
@@ -22,13 +22,17 @@ class HttpIndex extends arch\node\Base
     public function executeAsHtml()
     {
         if (!$this->app->isDevelopment()) {
-            throw Glitch::ERuntime('Server error generators can only be run in development mode');
+            throw Exceptional::Runtime(
+                'Server error generators can only be run in development mode'
+            );
         }
 
         $code = $this->request['error'];
 
         if (!link\http\response\HeaderCollection::isErrorStatusCode($code)) {
-            throw Glitch::EUnexpectedValue('Invalid status code: '.$code);
+            throw Exceptional::UnexpectedValue(
+                'Invalid status code: '.$code
+            );
         }
 
         $xCode = substr($code, 0, 2).'x';
@@ -57,15 +61,15 @@ class HttpIndex extends arch\node\Base
 
         try {
             $view = $this->apex->view($templatePath);
-        } catch (aura\view\ENotFound $e) {
+        } catch (aura\view\NotFoundException $e) {
             $templatePath = substr($templatePath, 0, -6).'x.html';
 
             try {
                 $view = $this->apex->view($templatePath);
-            } catch (aura\view\ENotFound $f) {
+            } catch (aura\view\NotFoundException $f) {
                 try {
                     $view = $this->apex->view('Default.html');
-                } catch (aura\view\ENotFound $f) {
+                } catch (aura\view\NotFoundException $f) {
                     throw $e;
                 }
             }

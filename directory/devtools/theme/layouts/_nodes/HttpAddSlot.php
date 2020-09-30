@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpAddSlot extends arch\node\Form
 {
@@ -26,7 +26,7 @@ class HttpAddSlot extends arch\node\Form
         $config = fire\Config::getInstance();
 
         if (!$this->_layout = $config->getLayoutDefinition($this->request['layout'])) {
-            throw Glitch::{'df/fire/layout/ENotFound'}([
+            throw Exceptional::{'df/fire/layout/NotFound'}([
                 'message' => 'Layout not found',
                 'http' => 404
             ]);

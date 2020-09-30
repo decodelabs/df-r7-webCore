@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpIndex extends arch\node\Base
 {
@@ -19,7 +19,7 @@ class HttpIndex extends arch\node\Base
     public function executeAsHtml()
     {
         if ($this->app->isProduction()) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Dev mode only',
                 'http' => 403
             ]);

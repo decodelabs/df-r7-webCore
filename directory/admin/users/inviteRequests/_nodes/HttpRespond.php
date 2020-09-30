@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpRespond extends arch\node\Form
 {
@@ -22,7 +22,7 @@ class HttpRespond extends arch\node\Form
         $this->_request = $this->scaffold->getRecord();
 
         if (!$this->_request['isActive']) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Request is not active',
                 'http' => 403
             ]);

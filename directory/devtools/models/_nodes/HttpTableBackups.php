@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpTableBackups extends arch\node\Base
 {
@@ -25,7 +25,7 @@ class HttpTableBackups extends arch\node\Base
             ->inspectUnit($this->request['unit']);
 
         if ($view['unit']->getType() != 'table') {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Unit is not a table',
                 'http' => 403
             ]);

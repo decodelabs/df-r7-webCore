@@ -12,8 +12,8 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-use DecodeLabs\Glitch;
 use DecodeLabs\Atlas;
+use DecodeLabs\Exceptional;
 
 class HttpDownload extends arch\node\Base
 {
@@ -28,7 +28,7 @@ class HttpDownload extends arch\node\Base
             $theme = aura\theme\Base::factory($this->context);
 
             if (!$absolutePath = $theme->findAsset($this->data->user->avatarConfig->getDefaultAvatarPath())) {
-                throw Glitch::{'df/core/fs/ENotFound'}([
+                throw Exceptional::{'df/core/fs/NotFound'}([
                     'message' => 'File not found',
                     'http' => 404
                 ]);
@@ -37,7 +37,7 @@ class HttpDownload extends arch\node\Base
             $type = Atlas::$mime->detect($absolutePath);
 
             if (substr($type, 0, 6) != 'image/') {
-                throw Glitch::{'df/core/fs/EType,EForbidden'}([
+                throw Exceptional::{'df/core/fs/Type,Forbidden'}([
                     'message' => 'File not image',
                     'http' => 403
                 ]);

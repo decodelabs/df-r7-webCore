@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpCacheStats extends arch\node\Base
 {
@@ -25,7 +25,7 @@ class HttpCacheStats extends arch\node\Base
             ->inspectUnit($this->request['unit']);
 
         if ($view['unit']->getType() != 'cache') {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Unit is not a cache',
                 'http' => 403
             ]);

@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpAvatar extends arch\node\Form
 {
@@ -130,7 +130,7 @@ class HttpAvatar extends arch\node\Form
         );
 
         if ((string)$version['#file'] != (string)$this->_file['id']) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'Not your file',
                 'http' => 403
             ]);

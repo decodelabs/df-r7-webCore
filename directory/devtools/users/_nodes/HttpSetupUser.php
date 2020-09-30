@@ -11,7 +11,7 @@ use df\arch;
 use df\user;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpSetupUser extends arch\node\Form
 {
@@ -22,7 +22,7 @@ class HttpSetupUser extends arch\node\Form
         $model = $this->data->getModel('user');
 
         if ($model->client->countAll()) {
-            throw Glitch::EForbidden([
+            throw Exceptional::Forbidden([
                 'message' => 'A user has already been set up',
                 'http' => 403
             ]);

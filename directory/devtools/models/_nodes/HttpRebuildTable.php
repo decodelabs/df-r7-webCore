@@ -13,7 +13,7 @@ use df\axis;
 use df\halo;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpRebuildTable extends arch\node\ConfirmForm
 {
@@ -26,14 +26,14 @@ class HttpRebuildTable extends arch\node\ConfirmForm
         $probe = new axis\introspector\Probe();
 
         if (!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
-            throw Glitch::{'df/axis/unit/ENotFound'}([
+            throw Exceptional::{'df/axis/unit/NotFound'}([
                 'message' => 'Unit not found',
                 'http' => 404
             ]);
         }
 
         if ($this->_inspector->getType() != 'table') {
-            throw Glitch::{'df/axis/unit/EDomain,EForbidden'}([
+            throw Exceptional::{'df/axis/unit/Domain,Forbidden'}([
                 'message' => 'Unit not a table',
                 'http' => 403
             ]);

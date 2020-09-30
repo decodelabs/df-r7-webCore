@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpTest extends arch\node\Form
 {
@@ -33,7 +33,9 @@ class HttpTest extends arch\node\Form
         $config = flow\mail\Config::getInstance();
 
         if (null === ($from = flow\mail\Address::factory($config->getDefaultAddress()))) {
-            throw Glitch::EUnexpectedValue('Unable to parse default email address');
+            throw Exceptional::UnexpectedValue(
+                'Unable to parse default email address'
+            );
         }
 
         $this->values->fromName = $from->getName();

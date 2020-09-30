@@ -12,7 +12,7 @@ use df\user;
 use df\flow;
 use df\flex;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class Unit extends axis\unit\Table
 {
@@ -80,13 +80,13 @@ class Unit extends axis\unit\Table
     protected function _send(Record $invite, $rendererPath=null, $force=false)
     {
         if ($invite['lastSent']) {
-            throw Glitch::ERuntime(
+            throw Exceptional::Runtime(
                 'Invite has already been sent'
             );
         }
 
         if (!$invite['name'] || !$invite['email']) {
-            throw Glitch::ERuntime(
+            throw Exceptional::Runtime(
                 'Invite details are invalid'
             );
         }
@@ -133,19 +133,19 @@ class Unit extends axis\unit\Table
     protected function _resend(Record $invite, $rendererPath=null, $force=false)
     {
         if ($invite->isNew()) {
-            throw Glitch::ERuntime(
+            throw Exceptional::Runtime(
                 'Invite has not been initialized'
             );
         }
 
         if (!$invite['name'] || !$invite['email'] || !$invite['key']) {
-            throw Glitch::ERuntime(
+            throw Exceptional::Runtime(
                 'Invite details are invalid'
             );
         }
 
         if (!$invite['isActive']) {
-            throw Glitch::ERuntime(
+            throw Exceptional::Runtime(
                 'Invite is no longer active'
             );
         }

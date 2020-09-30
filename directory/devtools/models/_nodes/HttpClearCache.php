@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpClearCache extends arch\node\ConfirmForm
 {
@@ -25,14 +25,14 @@ class HttpClearCache extends arch\node\ConfirmForm
         $probe = new axis\introspector\Probe();
 
         if (!$this->_inspector = $probe->inspectUnit($this->request['unit'])) {
-            throw Glitch::{'df/axis/unit/ENotFound'}([
+            throw Exceptional::{'df/axis/unit/NotFound'}([
                 'message' => 'Unit not found',
                 'http' => 404
             ]);
         }
 
         if ($this->_inspector->getType() != 'cache') {
-            throw Glitch::{'df/axis/unit/EDomain,EForbidden'}([
+            throw Exceptional::{'df/axis/unit/Domain,Forbidden'}([
                 'message' => 'Unit not a cache',
                 'http' => 403
             ]);

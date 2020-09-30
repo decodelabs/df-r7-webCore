@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\mesh;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class Comment extends arch\component\Base
 {
@@ -71,7 +71,7 @@ class Comment extends arch\component\Base
     protected function _execute()
     {
         if (!$this->_entityLocator) {
-            throw Glitch::{'df/mesh/ENoEntity,ENotFound'}(
+            throw Exceptional::{'df/mesh/NoEntity,NotFound'}(
                 'Comment entity locator has not been set'
             );
         }

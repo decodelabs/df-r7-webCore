@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpIndex extends arch\node\Base
 {
@@ -20,7 +20,9 @@ class HttpIndex extends arch\node\Base
         $source = arch\navigation\menu\source\Base::factory($this->context, 'directory');
 
         if (!$source instanceof arch\navigation\menu\source\Directory) {
-            throw Glitch::ELogic('Source is not a directory type', null, $source);
+            throw Exceptional::Logic(
+                'Source is not a directory type', null, $source
+            );
         }
 
         $area = trim($this->request->query->get('area', 'admin'), ':~');

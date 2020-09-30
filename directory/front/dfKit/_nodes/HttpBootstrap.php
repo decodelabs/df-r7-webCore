@@ -12,6 +12,8 @@ use df\arch;
 use df\aura;
 use df\fuse;
 
+use DecodeLabs\Exceptional;
+
 class HttpBootstrap extends arch\node\Base
 {
     const DEFAULT_ACCESS = arch\IAccess::ALL;
@@ -49,7 +51,7 @@ class HttpBootstrap extends arch\node\Base
         try {
             $theme = aura\theme\Base::factory($themeId);
         } catch (\Throwable $e) {
-            throw Glitch::{'df/aura/theme/ENotFound'}([
+            throw Exceptional::{'df/aura/theme/NotFound'}([
                 'message' => 'Theme not found',
                 'http' => 404,
                 'data' => $themeId

@@ -13,7 +13,7 @@ use df\opal;
 use df\flow;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -61,7 +61,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         array_shift($partIds);
 
         if (!$part = $this->_getMessagePart($message, $partIds)) {
-            throw Glitch::ENotFound([
+            throw Exceptional::NotFound([
                 'message' => 'Part not found',
                 'http' => 404
             ]);

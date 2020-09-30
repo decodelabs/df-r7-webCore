@@ -13,7 +13,7 @@ use df\axis;
 use df\opal;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpDeleteStorage extends arch\node\DeleteForm
 {
@@ -29,14 +29,14 @@ class HttpDeleteStorage extends arch\node\DeleteForm
         $this->_unit = $probe->inspectUnit($this->request['unit']);
 
         if (!$this->_unit) {
-            throw Glitch::{'df/axis/unit/ENotFound'}([
+            throw Exceptional::{'df/axis/unit/NotFound'}([
                 'message' => 'Unit not found',
                 'http' => 404
             ]);
         }
 
         if (!$this->_describer = $this->_unit->describeStorage($this->request['name'])) {
-            throw Glitch::{'df/axis/unit/ENotFound'}([
+            throw Exceptional::{'df/axis/unit/NotFound'}([
                 'message' => 'Storage not found',
                 'http' => 404
             ]);
