@@ -13,6 +13,7 @@ use df\aura;
 use df\link;
 
 use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpDefault extends arch\node\Base
 {
@@ -38,6 +39,8 @@ class HttpDefault extends arch\node\Base
 
         if ($exception instanceof \EGlitch) {
             $code = $exception->getHttpCode();
+        } elseif ($exception instanceof Exceptional\Exception) {
+            $code = $exception->getHttpStatus();
         } else {
             $code = $exception->getCode();
         }
