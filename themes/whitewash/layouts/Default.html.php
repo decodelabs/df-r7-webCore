@@ -24,6 +24,10 @@ echo Html::{'div.layout-pageArea.floated'}(function () {
                     ->setDisposition('transitive');
             }
         });
+
+        if ($this->context->request->hasPath()) {
+            yield $this->html->breadcrumbList()->addSitemapEntries();
+        }
     });
 
     yield Html::raw($this->html->flashList());
