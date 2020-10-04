@@ -1,5 +1,6 @@
 <?php
 use df\link;
+use DecodeLabs\Tagged\Html;
 
 echo $this->apex->component('IndexHeaderBar');
 

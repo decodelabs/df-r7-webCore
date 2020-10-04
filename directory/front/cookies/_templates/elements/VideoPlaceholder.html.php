@@ -1,4 +1,5 @@
 <?php
+use DecodeLabs\Tagged\Html;
 
 echo Html::{'div.video-cookie-placeholder > div.video-message'}(function () {
     $category = (array)($this['categories'] ?? 'statistics');

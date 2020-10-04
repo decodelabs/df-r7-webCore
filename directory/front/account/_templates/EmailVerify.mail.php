@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 if ($user->isNew()) {
     echo $generator->h4([
         'You have a new account on ',

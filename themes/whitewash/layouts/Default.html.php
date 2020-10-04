@@ -1,9 +1,11 @@
-<div class="layout-pageArea floated">
-    <header class="layout-header">
-        <h1><?php echo $this->html->link('/', $this->app->getName()); ?></h1>
+<?php
+use DecodeLabs\Tagged\Html;
 
-        <?php
-        echo Html::{'nav.user'}(function () {
+echo Html::{'div.layout-pageArea.floated'}(function () {
+    yield Html::{'header.layout-header'}(function () {
+        yield Html::h1($this->html->link('/', $this->app->getName()));
+
+        yield Html::{'nav.user'}(function () {
             if ($this->user->isLoggedIn()) {
                 yield $this->_('Logged in as %n%. ', [
                     '%n%' => $this->user->client->getFullName()
@@ -22,44 +24,34 @@
                     ->setDisposition('transitive');
             }
         });
+    });
 
-        if ($this->context->request->hasPath()) {
-            echo $this->html->breadcrumbList()->addSitemapEntries();
-        }
-        ?>
-    </header>
+    yield Html::raw($this->html->flashList());
+    yield Html::{'div.layout-contentArea'}(Html::raw($this->renderInnerContent()));
 
-    <?php echo $this->html->flashList(); ?>
+    yield Html::footer(function () {
+        yield $this->html->menuBar()
+            ->addLinks(
+                $this->html->link('~admin/', $this->_('Admin control panel'))
+                    ->setIcon('admin')
+                    ->isActive($this->context->request->isArea('admin')),
 
-    <div class="layout-contentArea">
-        <?php echo $this->renderInnerContent(); ?>
-    </div>
+                $this->html->link('~mail/', $this->_('Mail centre'))
+                    ->setIcon('mail')
+                    ->isActive($this->context->request->isArea('mail'))
+                    ->shouldHideIfInaccessible(true),
 
-    <footer>
-    <?php
-    echo $this->html->menuBar()
-        ->addLinks(
-            $this->html->link('~admin/', $this->_('Admin control panel'))
-                ->setIcon('admin')
-                ->isActive($this->context->request->isArea('admin')),
-
-            $this->html->link('~mail/', $this->_('Mail centre'))
-                ->setIcon('mail')
-                ->isActive($this->context->request->isArea('mail'))
-                ->shouldHideIfInaccessible(true),
-
-            $this->html->link('~devtools/', $this->_('Devtools'))
-                ->setIcon('debug')
-                ->isActive($this->context->request->isArea('devtools'))
-                ->shouldHideIfInaccessible(true)
-        )
-        ->chainIf(!$this->context->app->isProduction(), function ($menu) {
-            $menu->addLinks(
-                $this->html->link('~ui/', $this->_('UI testing'))
-                    ->setIcon('theme')
-                    ->isActive($this->context->request->isArea('ui'))
-            );
-        });
-    ?>
-    </footer>
-</div>
+                $this->html->link('~devtools/', $this->_('Devtools'))
+                    ->setIcon('debug')
+                    ->isActive($this->context->request->isArea('devtools'))
+                    ->shouldHideIfInaccessible(true)
+            )
+            ->chainIf(!$this->context->app->isProduction(), function ($menu) {
+                $menu->addLinks(
+                    $this->html->link('~ui/', $this->_('UI testing'))
+                        ->setIcon('theme')
+                        ->isActive($this->context->request->isArea('ui'))
+                );
+            });
+    });
+});

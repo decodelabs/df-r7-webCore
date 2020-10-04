@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 $this->view->setSubject($this->_(
     'Come and join us at %n%',
     ['%n%' => $this->app->getName()]

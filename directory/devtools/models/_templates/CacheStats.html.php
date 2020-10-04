@@ -1,4 +1,5 @@
 <?php
+use DecodeLabs\Tagged\Html;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 

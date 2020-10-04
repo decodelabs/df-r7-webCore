@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 $this->view->setSubject($this->_(
     '%n% has deactivated their account',
     ['%n%' => $user['fullName']]

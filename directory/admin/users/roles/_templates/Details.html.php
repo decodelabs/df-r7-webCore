@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 echo Html::{'h3'}($this->_('Keys'));
 
 echo $this->html->collectionList($keyList)

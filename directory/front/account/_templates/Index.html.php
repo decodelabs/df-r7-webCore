@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 $client = $this->context->user->client;
 
 echo Html::{'p'}([

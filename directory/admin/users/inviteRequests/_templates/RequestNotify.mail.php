@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 $this->view->setSubject($this->_(
     'New invite request from %n%',
     ['%n%' => $request['name']]

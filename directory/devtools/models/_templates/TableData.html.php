@@ -4,6 +4,8 @@ use df\core;
 use df\opal;
 use df\flex;
 
+use DecodeLabs\Tagged\Html;
+
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 
 if (!isset($rowList)) {

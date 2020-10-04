@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 echo Html::{'div#cookieNotice > div.cookie-message'}(function () {
     yield Html::{'p'}('We use cookies on this website to maintain your browsing session and to improve the ways you use it.');
 

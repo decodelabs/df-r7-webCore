@@ -1,4 +1,6 @@
 <?php
+use DecodeLabs\Tagged\Html;
+
 echo $this->html->menuBar()
     ->addLinks(
         $this->html->backLink()
