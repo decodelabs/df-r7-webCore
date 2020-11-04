@@ -34,7 +34,8 @@ div.w.list.attributes {
     min-width: 40rem;
     max-width: 65rem;
 
-    td, th {
+    td,
+    th {
         padding: 0.25rem 0.5rem;
     }
 
@@ -45,7 +46,7 @@ div.w.list.attributes {
         vertical-align: top;
 
         &:after {
-            content: ':';
+            content: ":";
         }
     }
 }
@@ -54,12 +55,9 @@ div.w.list.attributes {
     margin: 0.7rem 0;
 }
 
-
-
-
-
 div.w.list.collection {
-    td, th {
+    td,
+    th {
         padding: 0.1rem 0.3rem;
         height: 2rem;
         vertical-align: middle;
@@ -78,11 +76,14 @@ div.w.list.collection {
             overflow-x: visible;
             z-index: 100;
             position: relative;
+
+            /*
             white-space: normal;
 
             > a:only-child {
                 display: block;
             }
+            */
         }
 
         &.field-select {
@@ -99,7 +100,8 @@ div.w.list.collection {
             vertical-align: middle;
             width: 1%;
 
-            a.w, button.w.btn.event {
+            a.w,
+            button.w.btn.event {
                 margin: 0 0.15rem;
                 font-size: 1.2rem;
                 width: 1.2rem !important;
