@@ -1,5 +1,5 @@
 header.w.bar {
-    border: 4px #F4F4F4 solid;
+    border: 4px #f4f4f4 solid;
     padding: 0.3em;
     border-radius: 0.7em;
     margin-bottom: 1.2em;
@@ -14,9 +14,9 @@ header.w.bar {
         margin: 0;
         font-size: 1.4em;
         /*font-style: italic;*/
-        background: #E0E0E0;
+        background: #e0e0e0;
         color: #666;
-        text-shadow: 0 0 0.5em #FFF;
+        text-shadow: 0 0 0.5em #fff;
         font-weight: normal;
     }
 
@@ -41,7 +41,7 @@ header.w.bar {
         &:first-child {
             border-top: none;
             margin-top: 0;
-            background: #FCFCFC;
+            background: #fcfcfc;
         }
 
         &:last-child {
@@ -59,9 +59,25 @@ header.w.bar {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border: none;
-        border-top: 3px #F4F4F4 solid;
-        background: #FAFAFA;
-        padding: 0.5em 0.4em 0.3em 2em;
+        border-top: 3px #f4f4f4 solid;
+        background: #fafafa;
+        padding: 0.5em 0.4em 0.3em;
+
+        li {
+            margin-bottom: 0.3em;
+            margin-right: 0.4em;
+        }
+
+        a {
+            font-size: 0.85em;
+            padding: 0.3em 0.5em;
+            border-radius: 0.3em;
+            background: rgba(#ddd, 0.35);
+
+            &.active {
+                background: rgba(#ddd, 0.6);
+            }
+        }
     }
 
     > .w.selectorArea {
@@ -77,5 +93,4 @@ header.w.bar {
             background: none;
         }
     }
-
 }
