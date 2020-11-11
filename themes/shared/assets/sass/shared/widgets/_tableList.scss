@@ -72,11 +72,14 @@ div.w.list.collection {
         text-overflow: ellipsis;
         overflow-x: hidden;
 
+        > a:only-child {
+            white-space: nowrap;
+        }
+
         &:hover {
             overflow-x: visible;
             z-index: 100;
             position: relative;
-
             white-space: normal;
             /*
 
