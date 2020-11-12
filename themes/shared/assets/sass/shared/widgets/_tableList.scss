@@ -63,6 +63,10 @@ div.w.list.collection {
         vertical-align: middle;
     }
 
+    thead > th {
+        white-space: nowrap;
+    }
+
     tbody > tr:only-child td:hover {
         white-space: nowrap;
     }
