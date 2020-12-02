@@ -15,3 +15,23 @@ fieldset.scaffold.with-selected {
 form + fieldset.scaffold.with-selected {
     margin-top: -1rem;
 }
+
+fieldset.scaffold.search {
+    > div.body {
+        display: flex;
+        align-items: stretch;
+        padding: 0.25rem;
+    }
+
+    button {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 0.8em;
+    }
+
+    a {
+        align-self: center;
+        margin-left: 1rem;
+        font-size: 0.8em;
+    }
+}
