@@ -3,8 +3,7 @@ fieldset.scaffold.with-selected {
     padding: 0.25rem;
 
     > .body {
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
+        padding: 0.25rem;
 
         nav.menu {
             margin-bottom: 0;
@@ -14,13 +13,29 @@ fieldset.scaffold.with-selected {
 
 form + fieldset.scaffold.with-selected {
     margin-top: -1rem;
+
+    > div.body {
+        display: flex;
+        align-items: center;
+
+        > div.label {
+            font-size: 0.7em;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        nav.menu {
+            padding: 0;
+        }
+    }
 }
 
 fieldset.scaffold.search {
     > div.body {
         display: flex;
         align-items: stretch;
-        padding: 0.25rem;
     }
 
     button {
