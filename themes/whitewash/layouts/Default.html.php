@@ -49,13 +49,6 @@ echo Html::{'div.layout-pageArea.floated'}(function () {
                     ->setIcon('debug')
                     ->isActive($this->context->request->isArea('devtools'))
                     ->shouldHideIfInaccessible(true)
-            )
-            ->chainIf(!$this->context->app->isProduction(), function ($menu) {
-                $menu->addLinks(
-                    $this->html->link('~ui/', $this->_('UI testing'))
-                        ->setIcon('theme')
-                        ->isActive($this->context->request->isArea('ui'))
-                );
-            });
+            );
     });
 });
