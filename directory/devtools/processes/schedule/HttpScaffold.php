@@ -85,7 +85,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return array_merge(
             [
                 $this->html->link(
-                        $this->_getRecordNodeRequest($record, 'launch', null, true),
+                        $this->getRecordNodeUri($record, 'launch', null, true),
                         $this->_('Launch '.$this->getRecordItemName())
                     )
                     ->setIcon('launch')

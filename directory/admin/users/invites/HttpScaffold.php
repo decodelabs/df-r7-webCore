@@ -61,7 +61,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $menu->addLinks(
             $this->html->link(
-                    $this->_getNodeRequest('send', [], true),
+                    $this->getNodeUri('send', [], true),
                     $this->_('Invite user')
                 )
                 ->setIcon('add')
@@ -73,7 +73,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $menu->addLinks(
             $this->html->link(
-                    $this->_getNodeRequest('export'),
+                    $this->getNodeUri('export'),
                     $this->_('Export csv')
                 )
                 ->setIcon('download')
