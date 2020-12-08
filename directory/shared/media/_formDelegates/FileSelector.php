@@ -13,6 +13,9 @@ use df\aura;
 use df\opal;
 use df\mesh;
 
+use df\opal\query\ISelectQuery as SelectQuery;
+use df\arch\IComponent as Component;
+
 use DecodeLabs\Tagged\Html;
 
 class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\IAcceptTypeProcessor
@@ -75,7 +78,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
     }
 
     // Record
-    protected function _getBaseQuery($fields=null)
+    protected function getBaseQuery(?array $fields=null): SelectQuery
     {
         if ($this->_bucketHandler) {
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
@@ -121,7 +124,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             ->orderBy('fileName ASC');
     }
 
-    protected function _applyQuerySearch(opal\query\IQuery $query, $search)
+    protected function applyQuerySearch(opal\query\ISelectQuery $query, string $search): void
     {
         if (!$query instanceof opal\query\ISearchableQuery) {
             return;
@@ -132,9 +135,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         ]);
     }
 
-    protected function _getResultDisplayName($row)
+    protected function getResultDisplayName(array $file)
     {
-        return $row['fileName'];
+        return $file['fileName'];
     }
 
 
@@ -238,13 +241,13 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         parent::createOverlaySelectorUiContent($ol, $selected);
     }
 
-    protected function _renderCollectionList($result)
+    protected function renderCollectionList(?iterable $collection): ?Component
     {
         // TODO: swap for shared !!!!!
         return $this->apex->component('~/media/files/FileList', [
                 'actions' => false
             ])
-            ->setCollection($result);
+            ->setCollection($collection);
     }
 
     protected function _renderManySelected($fs, $selected)
@@ -257,8 +260,8 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         $fa->addClass('delegate-selector');
 
         foreach ($selected as $result) {
-            $id = $this->_getResultId($result);
-            $name = $this->_getResultDisplayName($result);
+            $id = $this->getResultId($result);
+            $name = $this->getResultDisplayName($result);
 
             $fa->push(
                 Html::{'div.w.list.selection'}([
