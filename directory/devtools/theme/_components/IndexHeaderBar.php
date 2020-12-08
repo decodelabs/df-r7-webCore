@@ -10,11 +10,12 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'theme';
 
-    protected $_icon = 'theme';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('Theme configuration');
     }
 }

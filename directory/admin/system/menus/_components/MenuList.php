@@ -14,7 +14,7 @@ use DecodeLabs\Tagged\Html;
 
 class MenuList extends arch\component\CollectionList
 {
-    protected $_fields = [
+    protected $fields = [
         'name' => true,
         'packages' => true,
         'actions' => true

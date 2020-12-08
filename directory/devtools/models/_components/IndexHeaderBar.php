@@ -10,16 +10,18 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'database';
 
-    protected $_icon = 'database';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('Data models');
     }
 
-    protected function _addSubOperativeLinks($menu) {
-        switch($this->request->getNode()) {
+    protected function _addSubOperativeLinks($menu)
+    {
+        switch ($this->request->getNode()) {
             case 'index':
                 $menu->addLinks(
                     $this->html->link(
@@ -46,7 +48,8 @@ class IndexHeaderBar extends arch\component\HeaderBar {
         }
     }
 
-    protected function _addSectionLinks($menu) {
+    protected function _addSectionLinks($menu)
+    {
         $menu->addLinks(
             $this->html->link(
                     '~devtools/models/',

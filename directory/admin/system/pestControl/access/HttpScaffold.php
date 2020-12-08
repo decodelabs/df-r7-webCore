@@ -36,7 +36,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const CAN_SELECT = true;
 
     // Record data
-    protected function describeRecord($record)
+    public function describeRecord($record)
     {
         return $record['mode'].' '.$record['code'].' - '.$this->format->date($record['date']);
     }

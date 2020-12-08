@@ -79,7 +79,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $menu->addLinks(
             // Add key
             $this->html->link(
-                    $this->uri('./add-key?role='.$this->_record['id'], true),
+                    $this->uri('./add-key?role='.$this->getRecordId(), true),
                     $this->_('Add new key')
                 )
                 ->setIcon('add')

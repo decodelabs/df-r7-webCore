@@ -10,27 +10,29 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'location';
 
-    protected $_icon = 'location';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('Geo IP settings');
     }
 
-/*
-    protected function _addOperativeLinks($menu) {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('./delete-all', true),
-                    $this->_('Delete all errors')
-                )
-                ->setIcon('delete')
-        );
-    }
-*/
+    /*
+        protected function _addOperativeLinks($menu) {
+            $menu->addLinks(
+                $this->html->link(
+                        $this->uri('./delete-all', true),
+                        $this->_('Delete all errors')
+                    )
+                    ->setIcon('delete')
+            );
+        }
+    */
 
-    protected function _addSectionLinks($menu) {
+    protected function _addSectionLinks($menu)
+    {
         $menu->addLinks(
             $this->html->link('./', $this->_('Details'))
                 ->setIcon('details')

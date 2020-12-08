@@ -10,16 +10,18 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class DetailHeaderBar extends arch\component\HeaderBar {
+class DetailHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'menu';
 
-    protected $_icon = 'menu';
-
-    protected function _getDefaultTitle() {
-        return $this->_('Menu: %n%', ['%n%' => $this->_record->getDisplayName()]);
+    protected function _getDefaultTitle()
+    {
+        return $this->_('Menu: %n%', ['%n%' => $this->record->getDisplayName()]);
     }
 
-    protected function _addOperativeLinks($menu) {
-        $menuId = $this->_record->getId()->path->toString();
+    protected function _addOperativeLinks($menu)
+    {
+        $menuId = $this->record->getId()->path->toString();
 
         $menu->addLinks(
             $this->html->link(

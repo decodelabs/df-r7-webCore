@@ -10,16 +10,18 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class DetailHeaderBar extends arch\component\HeaderBar {
+class DetailHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'layout';
 
-    protected $_icon = 'layout';
-
-    protected function _getDefaultTitle() {
-        return $this->_('Layout: %n%', ['%n%' => $this->_record->getId()]);
+    protected function _getDefaultTitle()
+    {
+        return $this->_('Layout: %n%', ['%n%' => $this->record->getId()]);
     }
 
-    protected function _addOperativeLinks($menu) {
-        $layoutId = $this->_record->getId();
+    protected function _addOperativeLinks($menu)
+    {
+        $layoutId = $this->record->getId();
 
         $menu->addLinks(
             $this->html->link(
@@ -39,9 +41,10 @@ class DetailHeaderBar extends arch\component\HeaderBar {
         );
     }
 
-    protected function _addSubOperativeLinks($menu) {
-        if($this->request->isNode('slots')) {
-            $layoutId = $this->_record->getId();
+    protected function _addSubOperativeLinks($menu)
+    {
+        if ($this->request->isNode('slots')) {
+            $layoutId = $this->record->getId();
 
             $menu->addLinks(
                 $this->html->link(
@@ -60,9 +63,10 @@ class DetailHeaderBar extends arch\component\HeaderBar {
         }
     }
 
-    protected function _addSectionLinks($menu) {
-        $layoutId = $this->_record->getId();
-        $slotCount = $this->_record->countSlots();
+    protected function _addSectionLinks($menu)
+    {
+        $layoutId = $this->record->getId();
+        $slotCount = $this->record->countSlots();
 
         $menu->addLinks(
             $this->html->link(

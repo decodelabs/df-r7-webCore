@@ -10,21 +10,24 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class UnitLink extends arch\component\RecordLink {
+class UnitLink extends arch\component\RecordLink
+{
+    protected $icon = 'unit';
+    protected $maxLength = 35;
 
-    protected $_icon = 'unit';
-    protected $_maxLength = 35;
-
-// Url
-    protected function _getRecordUrl($id) {
+    // Url
+    protected function getRecordUri(string $id)
+    {
         return '~devtools/models/unit-details?unit='.$id;
     }
 
-    protected function _getRecordId() {
-        return $this->_record->getId();
+    protected function getRecordId(): string
+    {
+        return (string)$this->record->getId();
     }
 
-    protected function _getRecordName() {
-        return $this->_record->getId();
+    protected function getRecordName()
+    {
+        return $this->record->getId();
     }
 }

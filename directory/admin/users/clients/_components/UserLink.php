@@ -12,55 +12,55 @@ use df\arch;
 
 class UserLink extends arch\component\RecordLink
 {
-    protected $_icon = 'user';
-    protected $_useNickName = false;
-    protected $_shortenName = false;
+    protected $icon = 'user';
+    protected $useNickName = false;
+    protected $shortenName = false;
 
 
     // Name
     public function shouldUseNickName(bool $flag=null)
     {
         if ($flag !== null) {
-            $this->_useNickName = $flag;
+            $this->useNickName = $flag;
             return $this;
         }
 
-        return $this->_useNickName;
+        return $this->useNickName;
     }
 
     public function shouldShortenName(bool $flag=null)
     {
         if ($flag !== null) {
-            $this->_shortenName = $flag;
+            $this->shortenName = $flag;
             return $this;
         }
 
-        return $this->_shortenName;
+        return $this->shortenName;
     }
 
 
     // Name
-    protected function _getRecordName()
+    protected function getRecordName()
     {
-        if ($this->_useNickName) {
-            $name = $this->_record['nickName'];
+        if ($this->useNickName) {
+            $name = $this->record['nickName'];
         } else {
-            $name = $this->_record['fullName'];
+            $name = $this->record['fullName'];
         }
 
-        if ($this->_shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
+        if ($this->shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
             $name = $matches[1].' '.ucfirst($matches[2][0]).'.';
         }
 
         if ($name === null) {
-            $name = '#'.$this->_record['id'];
+            $name = '#'.$this->record['id'];
         }
 
         return $name;
     }
 
     // Url
-    protected function _getRecordUrl($id)
+    protected function getRecordUri(string $id)
     {
         return '~admin/users/clients/details?user='.$id;
     }

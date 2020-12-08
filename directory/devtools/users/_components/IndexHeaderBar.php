@@ -10,11 +10,12 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'user';
 
-    protected $_icon = 'user';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('User setup');
     }
 }

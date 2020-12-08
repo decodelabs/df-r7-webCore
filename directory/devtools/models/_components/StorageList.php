@@ -15,7 +15,7 @@ use DecodeLabs\Tagged\Html;
 
 class StorageList extends arch\component\CollectionList
 {
-    protected $_fields = [
+    protected $fields = [
         'name' => true,
         'type' => true,
         'itemCount' => true,
@@ -25,17 +25,17 @@ class StorageList extends arch\component\CollectionList
         'actions' => true
     ];
 
-    protected $_inspector;
+    protected $inspector;
 
     public function setUnitInspector(axis\introspector\IUnitInspector $inspector)
     {
-        $this->_inspector = $inspector;
+        $this->inspector = $inspector;
         return $this;
     }
 
     public function getUnitInspector()
     {
-        return $this->_inspector;
+        return $this->inspector;
     }
 
     // Name
@@ -91,13 +91,13 @@ class StorageList extends arch\component\CollectionList
     // Actions
     public function addActionsField($list)
     {
-        if (!$this->_inspector) {
+        if (!$this->inspector) {
             return;
         }
 
         $list->addField('actions', function ($storage) {
             return $this->html->link(
-                    $this->uri('~devtools/models/delete-storage?unit='.$this->_inspector->getId().'&name='.$storage->name, true),
+                    $this->uri('~devtools/models/delete-storage?unit='.$this->inspector->getId().'&name='.$storage->name, true),
                     $this->_('Delete storage')
                 )
                 ->setIcon('delete');

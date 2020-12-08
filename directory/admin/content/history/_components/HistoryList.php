@@ -14,7 +14,7 @@ use DecodeLabs\Tagged\Html;
 
 class HistoryList extends arch\component\CollectionList
 {
-    protected $_fields = [
+    protected $fields = [
         'user' => true,
         'action' => true,
         'description' => true,

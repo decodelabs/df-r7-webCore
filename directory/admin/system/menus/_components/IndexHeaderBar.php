@@ -10,15 +10,17 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'menu';
 
-    protected $_icon = 'menu';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('System menus');
     }
 
-    protected function _addOperativeLinks($menu) {
+    protected function _addOperativeLinks($menu)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('./refresh', true),

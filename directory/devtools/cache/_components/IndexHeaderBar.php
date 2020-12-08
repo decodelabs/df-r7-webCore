@@ -10,15 +10,17 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'toolkit';
 
-    protected $_icon = 'toolkit';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('Cache control');
     }
 
-    protected function _addOperativeLinks($menu) {
+    protected function _addOperativeLinks($menu)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('~devtools/cache/purge', true),

@@ -13,13 +13,13 @@ use df\axis;
 
 class UnitDetailHeaderBar extends arch\component\HeaderBar
 {
-    protected $_icon = 'unit';
+    protected $icon = 'unit';
     protected $_storageExists = false;
 
     protected function _getDefaultTitle()
     {
         return $this->_('Unit: %t%', [
-            '%t%' => $this->_record->getId()
+            '%t%' => $this->record->getId()
         ]);
     }
 
@@ -36,11 +36,11 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
 
     protected function _addOperativeLinks($menu)
     {
-        switch ($this->_record->getType()) {
+        switch ($this->record->getType()) {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/clear-cache?unit='.$this->_record->getId(), true),
+                            $this->uri('~devtools/models/clear-cache?unit='.$this->record->getId(), true),
                             $this->_('Clear cache')
                         )
                         ->setIcon('delete')
@@ -51,7 +51,7 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/rebuild-table?unit='.$this->_record->getId(), true),
+                            $this->uri('~devtools/models/rebuild-table?unit='.$this->record->getId(), true),
                             $this->_('Rebuild table')
                         )
                         ->setIcon('refresh')
@@ -69,7 +69,7 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'tableBackups':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/purge-table-backups?unit='.$this->_record->getId(), true),
+                            $this->uri('~devtools/models/purge-table-backups?unit='.$this->record->getId(), true),
                             $this->_('Delete all backups')
                         )
                         ->setIcon('delete')
@@ -83,17 +83,17 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
     {
         $menu->addLinks(
             $this->html->link(
-                    '~devtools/models/unit-details?unit='.$this->_record->getId(),
+                    '~devtools/models/unit-details?unit='.$this->record->getId(),
                     $this->_('Details')
                 )
                 ->setIcon('details')
         );
 
-        switch ($this->_record->getType()) {
+        switch ($this->record->getType()) {
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/cache-stats?unit='.$this->_record->getId(),
+                            '~devtools/models/cache-stats?unit='.$this->record->getId(),
                             $this->_('Stats')
                         )
                         ->setIcon('report')
@@ -104,14 +104,14 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/table-data?unit='.$this->_record->getId(),
+                            '~devtools/models/table-data?unit='.$this->record->getId(),
                             $this->_('Data')
                         )
                         ->setIcon('list')
                         ->isDisabled(!$this->_storageExists),
 
                     $this->html->link(
-                            '~devtools/models/table-backups?unit='.$this->_record->getId(),
+                            '~devtools/models/table-backups?unit='.$this->record->getId(),
                             $this->_('Backups')
                         )
                         ->setIcon('backup')

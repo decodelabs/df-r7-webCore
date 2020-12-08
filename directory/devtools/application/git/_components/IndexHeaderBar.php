@@ -12,7 +12,7 @@ use df\arch;
 
 class IndexHeaderBar extends arch\component\HeaderBar
 {
-    protected $_icon = 'package';
+    protected $icon = 'package';
 
     protected function _getDefaultTitle()
     {

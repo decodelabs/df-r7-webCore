@@ -14,7 +14,7 @@ use DecodeLabs\Tagged\Html;
 
 class FileList extends arch\component\CollectionList
 {
-    protected $_fields = [
+    protected $fields = [
         'fileName' => true,
         'bucket' => true,
         'fileSize' => true,

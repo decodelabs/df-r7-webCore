@@ -14,7 +14,7 @@ use DecodeLabs\Tagged\Html;
 
 class UnitList extends arch\component\CollectionList
 {
-    protected $_fields = [
+    protected $fields = [
         'id' => true,
         'canonicalId' => true,
         'type' => true,

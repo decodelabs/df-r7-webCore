@@ -10,15 +10,17 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class IndexHeaderBar extends arch\component\HeaderBar {
+class IndexHeaderBar extends arch\component\HeaderBar
+{
+    protected $icon = 'layout';
 
-    protected $_icon = 'layout';
-
-    protected function _getDefaultTitle() {
+    protected function _getDefaultTitle()
+    {
         return $this->_('Layouts');
     }
 
-    protected function _addOperativeLinks($menu) {
+    protected function _addOperativeLinks($menu)
+    {
         $menu->addLinks(
             $this->html->link(
                     $this->uri('~devtools/theme/layouts/add', true),

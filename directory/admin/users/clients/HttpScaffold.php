@@ -248,17 +248,15 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     public function addDetailsSectionSubOperativeLinks($menu, $bar)
     {
-        //if($this->_record->hasLocalAuth()) {
         $menu->addLinks(
-                // Change password
-                $this->html->link(
-                        $this->uri('./change-password?user='.$this->_record['id'], true),
-                        $this->_('Change password')
-                    )
-                    ->setIcon('edit')
-                    ->setDisposition('operative')
-            );
-        //}
+            // Change password
+            $this->html->link(
+                    $this->uri('./change-password?user='.$this->getRecordId(), true),
+                    $this->_('Change password')
+                )
+                ->setIcon('edit')
+                ->setDisposition('operative')
+        );
     }
 
     public function addAuthenticationSectionSubOperativeLinks($menu, $bar)
