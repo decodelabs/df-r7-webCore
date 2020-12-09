@@ -14,7 +14,7 @@ class IndexHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'folder';
 
-    protected function _getDefaultTitle()
+    protected function getDefaultTitle()
     {
         return $this->_('Media tools');
     }

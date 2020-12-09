@@ -63,15 +63,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexOperativeLinks($menu, $bar)
+    public function generateIndexOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('~devtools/processes/logs/delete-all', true),
-                    $this->_('Delete all logs')
-                )
-                ->setIcon('delete')
-        );
+        yield 'deleteAll' => $this->html->link(
+                $this->uri('~devtools/processes/logs/delete-all', true),
+                $this->_('Delete all logs')
+            )
+            ->setIcon('delete');
     }
 
 

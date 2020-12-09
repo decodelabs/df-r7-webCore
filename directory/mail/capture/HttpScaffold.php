@@ -103,16 +103,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexSubOperativeLinks($menu, $bar)
+    public function generateIndexSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('~mail/capture/delete-all', true),
-                    $this->_('Delete all mail')
-                )
-                ->setIcon('delete')
-                ->addAccessLock('axis://mail/Capture#delete')
-        );
+        yield 'deleteAll' => $this->html->link(
+                $this->uri('~mail/capture/delete-all', true),
+                $this->_('Delete all mail')
+            )
+            ->setIcon('delete')
+            ->addAccessLock('axis://mail/Capture#delete');
     }
 
 

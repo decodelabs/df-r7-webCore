@@ -12,8 +12,8 @@ use df\arch;
 use df\flow;
 use df\opal;
 
-class HttpScaffold extends arch\scaffold\RecordAdmin {
-
+class HttpScaffold extends arch\scaffold\RecordAdmin
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const TITLE = 'Mailing lists';
     const ICON = 'list';
@@ -25,13 +25,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     ];
 
 
-// Record data
-    protected function generateRecordAdapter() {
+    // Record data
+    protected function generateRecordAdapter()
+    {
         $manager = flow\Manager::getInstance();
         $sources = $manager->getListSources();
         $data = [];
 
-        foreach($sources as $source) {
+        foreach ($sources as $source) {
             $data[] = [
                 'id' => $source->getId(),
                 'adapter' => $source->getAdapter()->getName(),
@@ -44,7 +45,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-    public function deleteRecord(opal\record\IRecord $record, array $flags=[]) {
+    public function deleteRecord(opal\record\IRecord $record, array $flags=[])
+    {
         $id = $record['id'];
         $config = flow\mail\Config::getInstance();
         unset($config->values->listSources->{$id});
@@ -54,15 +56,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     }
 
 
-// Components
-    public function addIndexSubOperativeLinks($menu, $bar) {
-        $menu->addLinks(
-            $this->html->link($this->uri('./refresh', true), $this->_('Refresh'))
-                ->setIcon('refresh')
-        );
+    // Components
+    public function generateIndexSubOperativeLinks(): iterable
+    {
+        yield 'refresh' => $this->html->link(
+                $this->uri('./refresh', true),
+                $this->_('Refresh')
+            )
+            ->setIcon('refresh');
     }
-
-
-// Fields
-
 }

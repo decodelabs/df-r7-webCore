@@ -83,9 +83,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    protected function getParentSectionRequest()
+    protected function getRecordParentUriString($file): string
     {
-        return '../files?bucket='.$this->getRecord()['#bucket'];
+        return '../files?bucket='.$file['#bucket'];
     }
 
     public function getRecordOperativeLinks($record, $mode)

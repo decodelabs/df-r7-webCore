@@ -50,16 +50,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
     // Components
-    public function addIndexSubOperativeLinks($menu, $bar)
+    public function generateIndexSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('~devtools/processes/queue/spool', true),
-                    $this->_('Run spool now')
-                )
-                ->setIcon('launch')
-                ->setDisposition('operative')
-        );
+        yield 'spool' => $this->html->link(
+                $this->uri('~devtools/processes/queue/spool', true),
+                $this->_('Run spool now')
+            )
+            ->setIcon('launch')
+            ->setDisposition('operative');
     }
 
     // Fields

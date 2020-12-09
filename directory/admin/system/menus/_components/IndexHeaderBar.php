@@ -10,16 +10,18 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use df\aura\html\widget\Menu as MenuWidget;
+
 class IndexHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'menu';
 
-    protected function _getDefaultTitle()
+    protected function getDefaultTitle()
     {
         return $this->_('System menus');
     }
 
-    protected function _addOperativeLinks($menu)
+    protected function addOperativeLinks(MenuWidget $menu): void
     {
         $menu->addLinks(
             $this->html->link(

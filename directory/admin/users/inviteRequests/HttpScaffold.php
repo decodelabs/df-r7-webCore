@@ -34,28 +34,24 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexOperativeLinks($menu, $bar)
+    public function generateIndexOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->getNodeUri('export'),
-                    $this->_('Export to csv')
-                )
-                ->setIcon('download')
-                ->setDisposition('positive')
-        );
+        yield 'export' => $this->html->link(
+                $this->getNodeUri('export'),
+                $this->_('Export to csv')
+            )
+            ->setIcon('download')
+            ->setDisposition('positive');
     }
 
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    '../invites/',
-                    $this->_('Invites')
-                )
-                ->setIcon('mail')
-                ->setDisposition('transitive')
-        );
+        yield 'invites' => $this->html->link(
+                '../invites/',
+                $this->_('Invites')
+            )
+            ->setIcon('mail')
+            ->setDisposition('transitive');
     }
 
     public function getRecordOperativeLinks($request, $mode)

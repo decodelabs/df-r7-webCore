@@ -50,7 +50,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $query->countRelation('groups');
     }
 
-    protected function countSectionItems($record)
+    protected function countSectionItems($record): array
     {
         return $this->getRecordAdapter()->select('id')
             ->correlate('COUNT(*) as invites')
@@ -196,83 +196,73 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexSectionLinks($menu, $bar)
+    public function generateIndexSectionLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('./', $this->_('All'), true)
-                ->setIcon('star')
-                ->setDisposition('informative'),
+        yield 'all' => $this->html->link('./', $this->_('All'), true)
+            ->setIcon('star')
+            ->setDisposition('informative');
 
-            $this->html->link('./confirmed', $this->_('Confirmed'), true)
-                ->setIcon('tick')
-                ->setDisposition('informative'),
+        yield 'confirmed' => $this->html->link('./confirmed', $this->_('Confirmed'), true)
+            ->setIcon('tick')
+            ->setDisposition('informative');
 
-            $this->html->link('./deactivated', $this->_('Deactivated'), true)
-                ->setIcon('remove')
-                ->setDisposition('informative'),
+        yield 'deactivated' => $this->html->link('./deactivated', $this->_('Deactivated'), true)
+            ->setIcon('remove')
+            ->setDisposition('informative');
 
-            $this->html->link('./spam', $this->_('Spam'), true)
-                ->setIcon('warning')
-                ->setDisposition('informative')
-        );
+        yield 'spam' => $this->html->link('./spam', $this->_('Spam'), true)
+            ->setIcon('warning')
+            ->setDisposition('informative');
     }
 
-    public function addIndexSubOperativeLinks($menu, $bar)
+    public function generateIndexSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('../settings', true),
-                    $this->_('Settings')
-                )
-                ->setIcon('settings')
-                ->setDisposition('operative')
-        );
+        yield $this->html->link(
+                $this->uri('../settings', true),
+                $this->_('Settings')
+            )
+            ->setIcon('settings')
+            ->setDisposition('operative');
     }
 
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('../groups/', $this->_('Groups'))
-                ->setIcon('group')
-                ->setDisposition('transitive'),
+        yield 'groups' => $this->html->link('../groups/', $this->_('Groups'))
+            ->setIcon('group')
+            ->setDisposition('transitive');
 
-            $this->html->link('../roles/', $this->_('Roles'))
-                ->setIcon('role')
-                ->setDisposition('transitive'),
+        yield 'roles' => $this->html->link('../roles/', $this->_('Roles'))
+            ->setIcon('role')
+            ->setDisposition('transitive');
 
-            $this->html->link('../invites/', $this->_('Invites'))
-                ->setIcon('mail')
-                ->setDisposition('transitive')
-        );
+        yield 'invites' => $this->html->link('../invites/', $this->_('Invites'))
+            ->setIcon('mail')
+            ->setDisposition('transitive');
     }
 
-    public function addDetailsSectionSubOperativeLinks($menu, $bar)
+    public function generateDetailsSectionSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            // Change password
-            $this->html->link(
-                    $this->uri('./change-password?user='.$this->getRecordId(), true),
-                    $this->_('Change password')
-                )
-                ->setIcon('edit')
-                ->setDisposition('operative')
-        );
+        // Change password
+        yield 'changePassword' => $this->html->link(
+                $this->uri('./change-password?user='.$this->getRecordId(), true),
+                $this->_('Change password')
+            )
+            ->setIcon('edit')
+            ->setDisposition('operative');
     }
 
-    public function addAuthenticationSectionSubOperativeLinks($menu, $bar)
+    public function generateAuthenticationSectionSubOperativeLinks(): iterable
     {
-        $this->addDetailsSectionSubOperativeLinks($menu, $bar);
+        yield from $this->generateDetailsSectionSubOperativeLinks();
     }
 
-    public function addAccessPassesSectionSubOperativeLinks($menu, $bar)
+    public function generateAccessPassesSectionSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('../access-passes/add?user='.$this->getRecordId(), true),
-                    $this->_('Add access pass')
-                )
-                ->setIcon('add')
-        );
+        yield 'add' => $this->html->link(
+                $this->uri('../access-passes/add?user='.$this->getRecordId(), true),
+                $this->_('Add access pass')
+            )
+            ->setIcon('add');
     }
 
 

@@ -55,7 +55,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return array_merge(
             [
                 $this->html->link(
-                        $this->getRecordNodeUri($record, 'archive', null, true),
+                        $this->getRecordUri($record, 'archive', null, true),
                         $this->_('Archive '.$this->getRecordItemName())
                     )
                     ->setIcon('save')
@@ -66,24 +66,21 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
     // Components
-    protected function getParentSectionRequest()
+    protected function getRecordParentUriString($log): string
     {
-        $id = $this->getRecord()['#miss'];
-        return '../details?miss='.flex\Guid::factory($id);
+        return '../details?miss='.$log['#miss'];
     }
 
-    public function addIndexSectionLinks($menu, $bar)
+    public function generateIndexSectionLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('../', $this->_('URLs'))
-                ->setIcon('brokenLink')
-                ->setDisposition('informative'),
+        yield 'index' => $this->html->link('../', $this->_('URLs'), true)
+            ->setIcon('brokenLink')
+            ->setDisposition('informative');
 
-            $this->html->link('./', $this->_('Logs'))
-                ->setIcon('log')
-                ->setDisposition('informative')
-                ->isActive(true)
-        );
+        yield 'logs' => $this->html->link('./', $this->_('Logs'))
+            ->setIcon('log')
+            ->setDisposition('informative')
+            ->isActive(true);
     }
 
 

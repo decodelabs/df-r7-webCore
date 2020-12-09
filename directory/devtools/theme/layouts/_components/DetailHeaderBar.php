@@ -10,16 +10,18 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use df\aura\html\widget\Menu as MenuWidget;
+
 class DetailHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'layout';
 
-    protected function _getDefaultTitle()
+    protected function getDefaultTitle()
     {
         return $this->_('Layout: %n%', ['%n%' => $this->record->getId()]);
     }
 
-    protected function _addOperativeLinks($menu)
+    protected function addOperativeLinks(MenuWidget $menu): void
     {
         $layoutId = $this->record->getId();
 
@@ -41,7 +43,7 @@ class DetailHeaderBar extends arch\component\HeaderBar
         );
     }
 
-    protected function _addSubOperativeLinks($menu)
+    protected function addSubOperativeLinks(MenuWidget $menu): void
     {
         if ($this->request->isNode('slots')) {
             $layoutId = $this->record->getId();
@@ -63,7 +65,7 @@ class DetailHeaderBar extends arch\component\HeaderBar
         }
     }
 
-    protected function _addSectionLinks($menu)
+    protected function addSectionLinks(MenuWidget $menu): void
     {
         $layoutId = $this->record->getId();
         $slotCount = $this->record->countSlots();

@@ -49,12 +49,10 @@ class HttpScaffold extends arch\scaffold\AreaMenu
         );
     }
 
-    public function addIndexOperativeLinks($menu, $bar)
+    public function generateIndexOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
-                ->setIcon('delete')
-        );
+        yield 'purge' => $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
+            ->setIcon('delete');
     }
 
 

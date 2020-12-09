@@ -57,31 +57,25 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
     // Components
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('./files/', $this->_('All files'))
-                ->setIcon('file')
-                ->setDisposition('transitive')
-        );
+        yield 'files' => $this->html->link('./files/', $this->_('All files'))
+            ->setIcon('file')
+            ->setDisposition('transitive');
     }
 
-    public function addFilesSectionTransitiveLinks($menu, $bar)
+    public function generateFilesSectionTransitiveLinks(): iterable
     {
-        $this->addIndexTransitiveLinks($menu, $bar);
+        yield from $this->generateIndexTransitiveLinks();
     }
 
-    public function addFilesSectionSubOperativeLinks($menu, $bar)
+    public function generateFilesSectionSubOperativeLinks(): iterable
     {
-        $bucket = $this->getRecord();
-
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('./files/add?bucket='.$bucket['id'], true),
-                    $this->_('Add file')
-                )
-                ->setIcon('add')
-        );
+        yield 'add' => $this->html->link(
+                $this->uri('./files/add?bucket='.$this->getRecordId(), true),
+                $this->_('Add file')
+            )
+            ->setIcon('add');
     }
 
 

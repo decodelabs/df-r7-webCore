@@ -64,27 +64,23 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('../groups/', $this->_('View groups'))
-                ->setIcon('group')
-                ->setDisposition('transitive')
-                ->addAccessLock('axis://user/Group')
-        );
+        yield 'groups' => $this->html->link('../groups/', $this->_('View groups'))
+            ->setIcon('group')
+            ->setDisposition('transitive')
+            ->addAccessLock('axis://user/Group');
     }
 
-    public function addDetailsSectionSubOperativeLinks($menu, $bar)
+    public function generateDetailsSectionSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            // Add key
-            $this->html->link(
-                    $this->uri('./add-key?role='.$this->getRecordId(), true),
-                    $this->_('Add new key')
-                )
-                ->setIcon('add')
-                ->addAccessLock('axis://user/Key#add')
-        );
+        // Add key
+        yield 'addKey' => $this->html->link(
+                $this->uri('./add-key?role='.$this->getRecordId(), true),
+                $this->_('Add new key')
+            )
+            ->setIcon('add')
+            ->addAccessLock('axis://user/Key#add');
     }
 
 

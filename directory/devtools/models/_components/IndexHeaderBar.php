@@ -10,16 +10,18 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use df\aura\html\widget\Menu as MenuWidget;
+
 class IndexHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'database';
 
-    protected function _getDefaultTitle()
+    protected function getDefaultTitle()
     {
         return $this->_('Data models');
     }
 
-    protected function _addSubOperativeLinks($menu)
+    protected function addSubOperativeLinks(MenuWidget $menu): void
     {
         switch ($this->request->getNode()) {
             case 'index':
@@ -48,7 +50,7 @@ class IndexHeaderBar extends arch\component\HeaderBar
         }
     }
 
-    protected function _addSectionLinks($menu)
+    protected function addSectionLinks(MenuWidget $menu): void
     {
         $menu->addLinks(
             $this->html->link(

@@ -97,18 +97,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         ];
     }
 
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('../', $this->_('All files'))
-                ->setIcon('file')
-                ->setDisposition('transitive')
-        );
+        yield 'all' => $this->html->link('../', $this->_('All files'))
+            ->setIcon('file')
+            ->setDisposition('transitive');
     }
 
-    protected function getParentSectionRequest()
+    protected function getRecordParentUriString($version): string
     {
-        return '../versions?file='.$this->getRecord()['#file'];
+        return '../versions?file='.$version['#file'];
     }
 
 

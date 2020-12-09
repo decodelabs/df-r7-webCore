@@ -121,16 +121,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return $output;
     }
 
-    public function addIndexSubOperativeLinks($menu, $bar)
+    public function generateIndexSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('~devtools/processes/daemons/settings', true),
-                    $this->_('Settings')
-                )
-                ->setIcon('settings')
-                ->setDisposition('operative')
-        );
+        yield 'settings' => $this->html->link(
+                $this->uri('~devtools/processes/daemons/settings', true),
+                $this->_('Settings')
+            )
+            ->setIcon('settings')
+            ->setDisposition('operative');
     }
 
     // Fields

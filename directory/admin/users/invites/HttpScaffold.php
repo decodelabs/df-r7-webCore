@@ -57,47 +57,41 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexOperativeLinks($menu, $bar)
+    public function generateIndexOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->getNodeUri('send', [], true),
-                    $this->_('Invite user')
-                )
-                ->setIcon('add')
-                ->addAccessLock('axis://user/Invite#add')
-        );
+        yield 'send' => $this->html->link(
+                $this->getNodeUri('send', [], true),
+                $this->_('Invite user')
+            )
+            ->setIcon('add')
+            ->addAccessLock('axis://user/Invite#add');
     }
 
-    public function addIndexSubOperativeLinks($menu, $bar)
+    public function generateIndexSubOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    $this->getNodeUri('export'),
-                    $this->_('Export csv')
-                )
-                ->setIcon('download')
-                ->setDisposition('positive'),
+        yield 'export' => $this->html->link(
+                $this->getNodeUri('export'),
+                $this->_('Export csv')
+            )
+            ->setIcon('download')
+            ->setDisposition('positive');
 
-            $this->html->link(
-                    $this->uri('../settings', true),
-                    $this->_('Settings')
-                )
-                ->setIcon('settings')
-                ->setDisposition('operative')
-        );
+        yield 'settings' => $this->html->link(
+                $this->uri('../settings', true),
+                $this->_('Settings')
+            )
+            ->setIcon('settings')
+            ->setDisposition('operative');
     }
 
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link(
-                    '../invite-requests/',
-                    $this->_('Invite requests')
-                )
-                ->setIcon('key')
-                ->setDisposition('transitive')
-        );
+        yield 'inviteRequests' => $this->html->link(
+                '../invite-requests/',
+                $this->_('Invite requests')
+            )
+            ->setIcon('key')
+            ->setDisposition('transitive');
     }
 
     public function getRecordOperativeLinks($invite, $mode)

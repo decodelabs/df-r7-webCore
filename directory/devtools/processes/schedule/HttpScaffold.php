@@ -52,7 +52,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->endCorrelation();
     }
 
-    protected function countSectionItems($schedule)
+    protected function countSectionItems($schedule): array
     {
         return [
             'logs' => $this->data->task->log->select()
@@ -85,7 +85,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return array_merge(
             [
                 $this->html->link(
-                        $this->getRecordNodeUri($record, 'launch', null, true),
+                        $this->getRecordUri($record, 'launch', null, true),
                         $this->_('Launch '.$this->getRecordItemName())
                     )
                     ->setIcon('launch')
@@ -97,36 +97,34 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
 
-    public function addIndexSubOperativeLinks($menu, $bar)
+    public function generateIndexSubOperativeLinks(): iterable
     {
         $remote = halo\daemon\Remote::factory('TaskSpool');
         $isRunning = $remote->isRunning();
 
-        $menu->addLinks(
-            $this->html->link(
-                    $this->uri('~devtools/processes/schedule/nudge', true),
-                    $isRunning ?
-                        $this->_('Daemon is running') :
-                        $this->_('Launch spool daemon')
-                )
-                ->setIcon('launch')
-                ->setDisposition('positive')
-                ->isDisabled($isRunning),
+        yield 'nudge' => $this->html->link(
+                $this->uri('~devtools/processes/schedule/nudge', true),
+                $isRunning ?
+                    $this->_('Daemon is running') :
+                    $this->_('Launch spool daemon')
+            )
+            ->setIcon('launch')
+            ->setDisposition('positive')
+            ->isDisabled($isRunning);
 
-            $this->html->link(
-                    $this->uri('~devtools/processes/schedule/scan', true),
-                    $this->_('Scan for tasks')
-                )
-                ->setIcon('search')
-                ->setDisposition('operative'),
+        yield 'scan' => $this->html->link(
+                $this->uri('~devtools/processes/schedule/scan', true),
+                $this->_('Scan for tasks')
+            )
+            ->setIcon('search')
+            ->setDisposition('operative');
 
-            $this->html->link(
-                    $this->uri('~devtools/processes/queue/spool', true),
-                    $this->_('Spool now')
-                )
-                ->setIcon('launch')
-                ->setDisposition('operative')
-        );
+        yield 'spool' => $this->html->link(
+                $this->uri('~devtools/processes/queue/spool', true),
+                $this->_('Spool now')
+            )
+            ->setIcon('launch')
+            ->setDisposition('operative');
     }
 
     // Fields

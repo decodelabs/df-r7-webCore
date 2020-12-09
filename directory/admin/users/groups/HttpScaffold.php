@@ -48,14 +48,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
     // Components
-    public function addIndexTransitiveLinks($menu, $bar)
+    public function generateIndexTransitiveLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('../roles/', $this->_('View roles'))
-                ->setIcon('role')
-                ->setDisposition('transitive')
-                ->addAccessLock('axis://user/Role')
-        );
+        yield 'roles' => $this->html->link('../roles/', $this->_('View roles'))
+            ->setIcon('role')
+            ->setDisposition('transitive')
+            ->addAccessLock('axis://user/Role');
     }
 
 

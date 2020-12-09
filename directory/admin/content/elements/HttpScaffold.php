@@ -39,7 +39,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $query->importRelationBlock('owner', 'link');
     }
 
-    protected function countSectionItems($record)
+    protected function countSectionItems($record): array
     {
         return [
             'history' => $this->data->content->history->countFor($record)

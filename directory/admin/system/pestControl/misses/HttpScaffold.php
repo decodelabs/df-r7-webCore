@@ -36,7 +36,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return array_merge(
             [
                 $this->html->link(
-                        $this->getRecordNodeUri($record, 'archive', null, true),
+                        $this->getRecordUri($record, 'archive', null, true),
                         $this->_('Archive '.$this->getRecordItemName())
                     )
                     ->setIcon('remove')
@@ -60,29 +60,25 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function addIndexSectionLinks($menu, $bar)
+    public function generateIndexSectionLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link('./', $this->_('URLs'))
-                ->setIcon('brokenLink')
-                ->setDisposition('informative')
-                ->isActive(true),
+        yield 'index' => $this->html->link('./', $this->_('URLs'))
+            ->setIcon('brokenLink')
+            ->setDisposition('informative')
+            ->isActive(true);
 
-            $this->html->link('./logs/', $this->_('Logs'))
-                ->setIcon('log')
-                ->setDisposition('informative')
-        );
+        yield 'logs' => $this->html->link('./logs/', $this->_('Logs'))
+            ->setIcon('log')
+            ->setDisposition('informative');
     }
 
-    public function addIndexOperativeLinks($menu, $bar)
+    public function generateIndexOperativeLinks(): iterable
     {
-        $menu->addLinks(
-            $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
-                ->setIcon('delete'),
+        yield 'purge' => $this->html->link($this->uri('./purge', true), $this->_('Purge old logs'))
+            ->setIcon('delete');
 
-            $this->html->link($this->uri('./purge-all', true), $this->_('Purge ALL'))
-                ->setIcon('delete')
-        );
+        yield 'purgeAll' => $this->html->link($this->uri('./purge-all', true), $this->_('Purge ALL'))
+            ->setIcon('delete');
     }
 
 

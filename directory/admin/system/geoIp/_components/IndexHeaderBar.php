@@ -10,28 +10,31 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use df\aura\html\widget\Menu as MenuWidget;
+
 class IndexHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'location';
 
-    protected function _getDefaultTitle()
+    protected function getDefaultTitle()
     {
         return $this->_('Geo IP settings');
     }
 
     /*
-        protected function _addOperativeLinks($menu) {
-            $menu->addLinks(
-                $this->html->link(
-                        $this->uri('./delete-all', true),
-                        $this->_('Delete all errors')
-                    )
-                    ->setIcon('delete')
-            );
-        }
+    protected function addOperativeLinks(MenuWidget $menu): void
+    {
+        $menu->addLinks(
+            $this->html->link(
+                    $this->uri('./delete-all', true),
+                    $this->_('Delete all errors')
+                )
+                ->setIcon('delete')
+        );
+    }
     */
 
-    protected function _addSectionLinks($menu)
+    protected function addSectionLinks(MenuWidget $menu): void
     {
         $menu->addLinks(
             $this->html->link('./', $this->_('Details'))

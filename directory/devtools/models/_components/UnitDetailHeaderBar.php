@@ -11,12 +11,14 @@ use df\apex;
 use df\arch;
 use df\axis;
 
+use df\aura\html\widget\Menu as MenuWidget;
+
 class UnitDetailHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'unit';
     protected $_storageExists = false;
 
-    protected function _getDefaultTitle()
+    protected function getDefaultTitle()
     {
         return $this->_('Unit: %t%', [
             '%t%' => $this->record->getId()
@@ -34,7 +36,7 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
         return parent::setRecord($record);
     }
 
-    protected function _addOperativeLinks($menu)
+    protected function addOperativeLinks(MenuWidget $menu): void
     {
         switch ($this->record->getType()) {
             case 'cache':
@@ -63,7 +65,7 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
         }
     }
 
-    protected function _addSubOperativeLinks($menu)
+    protected function addSubOperativeLinks(MenuWidget $menu): void
     {
         switch ($this->request->getNode()) {
             case 'tableBackups':
@@ -79,7 +81,7 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
         }
     }
 
-    protected function _addSectionLinks($menu)
+    protected function addSectionLinks(MenuWidget $menu): void
     {
         $menu->addLinks(
             $this->html->link(
