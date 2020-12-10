@@ -30,22 +30,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     const CAN_SELECT = true;
 
-    // Record data
-    public function getRecordOperativeLinks($record, $mode)
-    {
-        return array_merge(
-            [
-                $this->html->link(
-                        $this->getRecordUri($record, 'archive', null, true),
-                        $this->_('Archive '.$this->getRecordItemName())
-                    )
-                    ->setIcon('remove')
-                    ->isDisabled(isset($record['archiveDate']))
-            ],
-            parent::getRecordOperativeLinks($record, $mode)
-        );
-    }
-
 
     // Sections
     public function renderDetailsSectionBody($miss)
@@ -60,6 +44,20 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
+    public function generateRecordOperativeLinks(array $miss): iterable
+    {
+        // Archive
+        yield 'archive' => $this->html->link(
+                $this->getRecordUri($miss, 'archive', null, true),
+                $this->_('Archive '.$this->getRecordItemName())
+            )
+            ->setIcon('remove')
+            ->isDisabled(isset($miss['archiveDate']));
+
+        // Defaults
+        yield from parent::generateRecordOperativeLinks($miss);
+    }
+
     public function generateIndexSectionLinks(): iterable
     {
         yield 'index' => $this->html->link('./', $this->_('URLs'))

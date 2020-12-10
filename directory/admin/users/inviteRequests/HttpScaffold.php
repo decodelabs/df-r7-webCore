@@ -34,6 +34,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
+    public function generateRecordOperativeLinks(array $request): iterable
+    {
+        // Respond
+        yield 'respond' => $this->apex->component('RequestLink', $request, $this->_('Respond'))
+            ->setNode('respond')
+            ->setIcon('mail')
+            ->setDisposition('operative')
+            ->isDisabled(!$request['isActive']);
+
+        yield from parent::generateRecordOperativeLinks($request);
+    }
+
     public function generateIndexOperativeLinks(): iterable
     {
         yield 'export' => $this->html->link(
@@ -54,17 +66,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->setDisposition('transitive');
     }
 
-    public function getRecordOperativeLinks($request, $mode)
-    {
-        // Respond
-        yield $this->apex->component('RequestLink', $request, $this->_('Respond'))
-            ->setNode('respond')
-            ->setIcon('mail')
-            ->setDisposition('operative')
-            ->isDisabled(!$request['isActive']);
 
-        yield parent::getRecordOperativeLinks($request, $mode);
-    }
 
 
     // Fields

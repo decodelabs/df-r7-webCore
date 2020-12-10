@@ -57,6 +57,23 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
+    public function generateRecordOperativeLinks(array $invite): iterable
+    {
+        // Resend
+        yield 'resend' => $this->apex->component('InviteLink', $invite, $this->_('Resend invite'))
+            ->setNode('resend')
+            ->setIcon('refresh')
+            ->setDisposition('positive')
+            ->isDisabled(!$invite['isActive'] || $invite['registrationDate']);
+
+        // Deactivate
+        yield 'deactivate' => $this->apex->component('InviteLink', $invite, $this->_('Deactivate invite'))
+            ->setNode('deactivate')
+            ->setIcon('remove')
+            ->setDisposition('negative')
+            ->isDisabled(!$invite['isActive']);
+    }
+
     public function generateIndexOperativeLinks(): iterable
     {
         yield 'send' => $this->html->link(
@@ -94,24 +111,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->setDisposition('transitive');
     }
 
-    public function getRecordOperativeLinks($invite, $mode)
-    {
-        return [
-            // Resend
-            $this->apex->component('InviteLink', $invite, $this->_('Resend invite'))
-                ->setNode('resend')
-                ->setIcon('refresh')
-                ->setDisposition('positive')
-                ->isDisabled(!$invite['isActive'] || $invite['registrationDate']),
 
-            // Deactivate
-            $this->apex->component('InviteLink', $invite, $this->_('Deactivate invite'))
-                ->setNode('deactivate')
-                ->setIcon('remove')
-                ->setDisposition('negative')
-                ->isDisabled(!$invite['isActive'])
-        ];
-    }
 
 
     // Sections

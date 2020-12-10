@@ -70,31 +70,29 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function getRecordOperativeLinks($version, $mode)
+    public function generateRecordOperativeLinks(array $version): iterable
     {
         $isPurged = (bool)$version['purgeDate'];
 
-        return [
-            // Activate
-            $this->apex->component('VersionLink', $version, $this->_('Activate'))
-                ->setNode('activate')
-                ->setDisposition('positive')
-                ->setIcon('accept')
-                ->isDisabled($version['isActive'] || $isPurged),
+        // Activate
+        yield 'activate' => $this->apex->component('VersionLink', $version, $this->_('Activate'))
+            ->setNode('activate')
+            ->setDisposition('positive')
+            ->setIcon('accept')
+            ->isDisabled($version['isActive'] || $isPurged);
 
-            // Edit
-            $this->apex->component('VersionLink', $version, $this->_('Edit'))
-                ->setNode('edit')
-                ->setIcon('edit')
-                ->isDisabled($isPurged),
+        // Edit
+        yield 'edit' => $this->apex->component('VersionLink', $version, $this->_('Edit'))
+            ->setNode('edit')
+            ->setIcon('edit')
+            ->isDisabled($isPurged);
 
-            // Purge
-            $this->apex->component('VersionLink', $version, $this->_('Purge'))
-                ->setNode('purge')
-                ->setIcon('delete')
-                ->setDisposition('negative')
-                ->isDisabled($version['isActive'] || $isPurged),
-        ];
+        // Purge
+        yield 'purge' => $this->apex->component('VersionLink', $version, $this->_('Purge'))
+            ->setNode('purge')
+            ->setIcon('delete')
+            ->setDisposition('negative')
+            ->isDisabled($version['isActive'] || $isPurged);
     }
 
     public function generateIndexTransitiveLinks(): iterable
@@ -104,9 +102,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->setDisposition('transitive');
     }
 
-    protected function getRecordParentUriString($version): string
+    protected function getRecordParentUriString(array $version): ?string
     {
-        return '../versions?file='.$version['#file'];
+        return '../versions?file='.$this->data->getRelationId($version, 'file');
     }
 
 

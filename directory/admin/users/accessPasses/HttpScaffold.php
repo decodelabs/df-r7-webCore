@@ -35,16 +35,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function getRecordOperativeLinks($pass, $mode)
+    public function generateRecordOperativeLinks(array $pass): iterable
     {
-        return [
-            // Consume
-            $this->html->link('account/access-pass?pass='.$pass['id'], 'Consume')
-                ->setIcon('user')
-                ->setDisposition('positive'),
+        // Consume
+        yield 'consume' => $this->html->link('account/access-pass?pass='.$pass['id'], 'Consume')
+            ->setIcon('user')
+            ->setDisposition('positive');
 
-            parent::getRecordOperativeLinks($pass, $mode)
-        ];
+        yield from parent::generateRecordOperativeLinks($pass);
     }
 
 

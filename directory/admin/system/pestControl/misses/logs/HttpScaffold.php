@@ -50,25 +50,26 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ;
     }
 
-    public function getRecordOperativeLinks($record, $mode)
-    {
-        return array_merge(
-            [
-                $this->html->link(
-                        $this->getRecordUri($record, 'archive', null, true),
-                        $this->_('Archive '.$this->getRecordItemName())
-                    )
-                    ->setIcon('save')
-                    ->isDisabled($record['isArchived'])
-            ],
-            parent::getRecordOperativeLinks($record, $mode)
-        );
-    }
+
 
     // Components
-    protected function getRecordParentUriString($log): string
+    protected function getRecordParentUriString(array $log): ?string
     {
-        return '../details?miss='.$log['#miss'];
+        return '../details?miss='.$this->data->getRelationId($log, 'miss');
+    }
+
+    public function generateRecordOperativeLinks(array $log): iterable
+    {
+        // Archive
+        yield 'archive' => $this->html->link(
+                $this->getRecordUri($log, 'archive', null, true),
+                $this->_('Archive '.$this->getRecordItemName())
+            )
+            ->setIcon('save')
+            ->isDisabled($log['isArchived']);
+
+        // Defaults
+        yield from parent::generateRecordOperativeLinks($log);
     }
 
     public function generateIndexSectionLinks(): iterable

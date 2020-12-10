@@ -78,47 +78,45 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function getRecordOperativeLinks($daemon, $mode)
+    public function generateRecordOperativeLinks(array $daemon): iterable
     {
         if ($daemon['isRunning']) {
-            $output = [
-                $this->html->link(
-                        $this->uri('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
-                        $this->_('Restart daemon')
-                    )
-                    ->setIcon('refresh')
-                    ->setDisposition('operative')
-                    ->isDisabled(!$this->_enabled),
+            // Restart
+            yield 'restart' => $this->html->link(
+                    $this->uri('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
+                    $this->_('Restart daemon')
+                )
+                ->setIcon('refresh')
+                ->setDisposition('operative')
+                ->isDisabled(!$this->_enabled);
 
-                $this->html->link(
-                        $this->uri('~devtools/processes/daemons/stop?daemon='.$daemon['name'], true),
-                        $this->_('Stop daemon')
-                    )
-                    ->setIcon('remove')
-                    ->setDisposition('negative')
-                    ->isDisabled(!$this->_enabled)
-            ];
+            // Stop
+            yield 'stop' => $this->html->link(
+                    $this->uri('~devtools/processes/daemons/stop?daemon='.$daemon['name'], true),
+                    $this->_('Stop daemon')
+                )
+                ->setIcon('remove')
+                ->setDisposition('negative')
+                ->isDisabled(!$this->_enabled);
         } else {
-            $output = [
-                $this->html->link(
-                        $this->uri('~devtools/processes/daemons/start?daemon='.$daemon['name'], true),
-                        $this->_('Start daemon')
-                    )
-                    ->setIcon('launch')
-                    ->setDisposition('positive')
-                    ->isDisabled(!$this->_enabled || !$daemon['isEnabled'] || $daemon['testMode'])
-            ];
+            // Start
+            yield 'start' => $this->html->link(
+                    $this->uri('~devtools/processes/daemons/start?daemon='.$daemon['name'], true),
+                    $this->_('Start daemon')
+                )
+                ->setIcon('launch')
+                ->setDisposition('positive')
+                ->isDisabled(!$this->_enabled || !$daemon['isEnabled'] || $daemon['testMode']);
         }
 
-        $output[] = $this->html->link(
+        // Settings
+        yield 'settings' => $this->html->link(
                 $this->uri('~devtools/processes/daemons/settings?daemon='.$daemon['name'], true),
                 $this->_('Settings')
             )
             ->setIcon('settings')
             ->setDisposition('operative')
             ->isDisabled(!$this->_enabled || $daemon['testMode']);
-
-        return $output;
     }
 
     public function generateIndexSubOperativeLinks(): iterable

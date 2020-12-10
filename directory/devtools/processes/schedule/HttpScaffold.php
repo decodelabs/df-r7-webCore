@@ -80,19 +80,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function getRecordOperativeLinks($record, $mode)
+    public function generateRecordOperativeLinks(array $schedule): iterable
     {
-        return array_merge(
-            [
-                $this->html->link(
-                        $this->getRecordUri($record, 'launch', null, true),
-                        $this->_('Launch '.$this->getRecordItemName())
-                    )
-                    ->setIcon('launch')
-                    ->setDisposition('positive')
-            ],
-            parent::getRecordOperativeLinks($record, $mode)
-        );
+        // Launch
+        yield 'launch' => $this->html->link(
+                $this->getRecordUri($schedule, 'launch', null, true),
+                $this->_('Launch '.$this->getRecordItemName())
+            )
+            ->setIcon('launch')
+            ->setDisposition('positive');
+
+        // Defaults
+        yield from parent::generateRecordOperativeLinks($schedule);
     }
 
 

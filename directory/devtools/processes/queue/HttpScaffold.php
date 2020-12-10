@@ -33,23 +33,22 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'lockDate', 'lockId', 'logs', 'status'
     ];
 
-    // Record data
-    public function getRecordOperativeLinks($task, $mode)
-    {
-        return array_merge(
-            [
-                $this->html->link(
-                        $this->uri('~devtools/processes/queue/launch?task='.$task['id'], true),
-                        $this->_('Launch now')
-                    )
-                    ->setIcon('launch')
-                    ->setDisposition('positive')
-            ],
-            parent::getRecordOperativeLinks($task, $mode)
-        );
-    }
 
     // Components
+    public function generateRecordOperativeLinks(array $task): iterable
+    {
+        // Launch
+        yield 'launch' => $this->html->link(
+                $this->uri('~devtools/processes/queue/launch?task='.$task['id'], true),
+                $this->_('Launch now')
+            )
+            ->setIcon('launch')
+            ->setDisposition('positive');
+
+        // Defaults
+        yield from parent::generateRecordOperativeLinks($task);
+    }
+
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield 'spool' => $this->html->link(

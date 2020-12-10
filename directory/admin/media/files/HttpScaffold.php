@@ -34,6 +34,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'hash', 'creationDate'
     ];
 
+    const CAN_PREVIEW = true;
+
     // Record data
     protected function prepareRecordList($query, $mode)
     {
@@ -83,20 +85,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    protected function getRecordParentUriString($file): string
+    protected function getRecordParentUriString(array $file): ?string
     {
-        return '../files?bucket='.$file['#bucket'];
+        return '../files?bucket='.$this->data->getRelationId($file, 'bucket');
     }
 
-    public function getRecordOperativeLinks($record, $mode)
+    protected function getRecordPreviewUriString(array $file): string
     {
-        return [
-            $this->html->link($this->media->getDownloadUrl($record['id']), $this->_('Download file'))
-                ->setIcon('download')
-                ->setDisposition('informative'),
-
-            parent::getRecordOperativeLinks($record, $mode)
-        ];
+        return 'media/download?file='.$file['id'];
     }
 
 
