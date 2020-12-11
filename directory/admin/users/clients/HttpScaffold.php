@@ -73,21 +73,21 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     // Nodes
     public function confirmedHtmlNode()
     {
-        return $this->buildListNode(function ($query) {
+        return $this->buildRecordListNode(function ($query) {
             $query->where('status', '=', user\IState::CONFIRMED);
         });
     }
 
     public function deactivatedHtmlNode()
     {
-        return $this->buildListNode(function ($query) {
+        return $this->buildRecordListNode(function ($query) {
             $query->where('status', '=', user\IState::DEACTIVATED);
         });
     }
 
     public function spamHtmlNode()
     {
-        return $this->buildListNode(function ($query) {
+        return $this->buildRecordListNode(function ($query) {
             $query->where('status', '=', user\IState::SPAM);
         });
     }
