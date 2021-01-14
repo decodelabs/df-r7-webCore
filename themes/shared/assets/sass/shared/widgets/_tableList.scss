@@ -67,6 +67,10 @@ div.w.list.collection {
         white-space: nowrap;
     }
 
+    th.field-select {
+        cursor: pointer;
+    }
+
     tbody > tr:only-child td:hover {
         white-space: nowrap;
     }

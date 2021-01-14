@@ -32,6 +32,12 @@ define([
 
 
     // Record admin selects
+    $(document).on('click', 'th.field-select', function (e) {
+        var on = !$(this).hasClass('checked');
+        $(this).closest('table').find('td.field-select input[type=checkbox]').prop('checked', on);
+        $(this).toggleClass('checked', on);
+    });
+
     $(document).on('click', '.scaffold.with-selected a', function (e) {
         if ($(this).hasClass('disabled')) {
             e.preventDefault();
