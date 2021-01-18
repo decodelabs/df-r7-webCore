@@ -19,6 +19,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const ICON = 'group';
     const ADAPTER = 'axis://user/Group';
     const DEFAULT_SECTION = 'users';
+    const IS_SHARED = true;
 
     const SECTIONS = [
         'details',

@@ -19,6 +19,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const ICON = 'element';
     const ADAPTER = 'axis://content/Element';
     const NAME_FIELD = 'slug';
+    const IS_SHARED = true;
 
     const SECTIONS = [
         'details',

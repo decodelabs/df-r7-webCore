@@ -18,6 +18,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const TITLE = 'Files';
     const ICON = 'file';
     const ADAPTER = 'axis://media/File';
+    const IS_SHARED = true;
 
     const SECTIONS = [
         'details',

@@ -19,7 +19,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const TITLE = 'Roles';
     const ICON = 'role';
     const ADAPTER = 'axis://user/Role';
-
+    const IS_SHARED = true;
 
     const LIST_FIELDS = [
         'name', 'signifier', 'priority', 'groups', 'keys'

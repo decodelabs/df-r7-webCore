@@ -19,6 +19,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     const ICON = 'database';
     const ADAPTER = 'axis://media/Bucket';
     const DEFAULT_SECTION = 'files';
+    const IS_PARENT = true;
 
     const SECTIONS = [
         'details',
