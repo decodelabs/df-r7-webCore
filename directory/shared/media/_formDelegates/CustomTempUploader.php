@@ -14,6 +14,7 @@ use df\link;
 
 use DecodeLabs\Atlas;
 use DecodeLabs\Tagged\Html;
+use DecodeLabs\Exceptional;
 
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
