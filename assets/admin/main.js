@@ -32,12 +32,6 @@ define([
 
 
     // Record admin selects
-    $(document).on('click', 'th.field-select', function (e) {
-        var on = !$(this).hasClass('checked');
-        $(this).closest('table').find('td.field-select input[type=checkbox]').prop('checked', on);
-        $(this).toggleClass('checked', on);
-    });
-
     $(document).on('click', '.scaffold.with-selected a', function (e) {
         if ($(this).hasClass('disabled')) {
             e.preventDefault();
@@ -56,11 +50,13 @@ define([
         $(this).attr('href', url);
     });
 
-    var updateSelection = function () {
-        var $list = $(this).closest('.list.collection'),
+    var updateSelection = function (el) {
+        var $list = $(el).closest('.list.collection'),
             $checked = $list.find('input.checkbox.selection:checked'),
             $fs = $list.siblings('.scaffold.with-selected'),
             ids = [];
+
+        console.log($list);
 
         $fs.find('a').toggleClass('disabled', !$checked.length);
 
@@ -71,8 +67,19 @@ define([
         $fs.data('selectIds', ids);
     };
 
-    $('.list.collection > table').each(updateSelection);
-    $(document).on('change', '.list.collection input.checkbox.selection', updateSelection);
+    $('.list.collection > table').each(function () {
+        updateSelection(this);
+    });
+    $(document).on('change', '.list.collection input.checkbox.selection', function () {
+        updateSelection(this);
+    });
+
+    $(document).on('click', 'th.field-select', function (e) {
+        var on = !$(this).hasClass('checked');
+        $(this).closest('table').find('td.field-select input[type=checkbox]').prop('checked', on);
+        $(this).toggleClass('checked', on);
+        updateSelection(this);
+    });
 
 
     // Action tooltips
