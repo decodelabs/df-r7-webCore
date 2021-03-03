@@ -62,16 +62,25 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function renderDetailsSectionBody($group)
     {
         return $this->apex->scaffold('../roles/')
-            ->renderRecordList(
-                $group->roles->select(),
-                ['actions' => false]
-            );
+            ->renderRecordList(function ($query) use ($group) {
+                $query->whereCorrelation('id', 'in', 'role')
+                    ->from($this->data->user->group->getBridgeUnit('roles'), 'bridge')
+                    ->where('bridge.group', '=', $group['id'])
+                    ->endCorrelation();
+            }, [
+                'actions' => false
+            ]);
     }
 
     public function renderUsersSectionBody($group)
     {
         return $this->apex->scaffold('../clients/')
-            ->renderRecordList($group->users->select());
+            ->renderRecordList(function ($query) use ($group) {
+                $query->whereCorrelation('id', 'in', 'client')
+                    ->from($this->data->user->group->getBridgeUnit('users'), 'bridge')
+                    ->where('bridge.group', '=', $group['id'])
+                    ->endCorrelation();
+            });
     }
 
     // Fields

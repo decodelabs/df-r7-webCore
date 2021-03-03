@@ -51,10 +51,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function renderFilesSectionBody($bucket)
     {
         return $this->apex->scaffold('./files/')
-            ->renderRecordList(
-                $bucket->files->select(),
-                ['bucket' => false]
-            );
+            ->renderRecordList(function ($query) use ($bucket) {
+                $query->where('bucket', '=', $bucket['id']);
+            }, [
+                'bucket' => false
+            ]);
     }
 
     // Components

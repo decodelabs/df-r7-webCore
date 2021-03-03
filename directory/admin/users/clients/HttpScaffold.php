@@ -109,11 +109,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function renderInvitesSectionBody($client)
     {
         return $this->apex->scaffold('../invites/')
-            ->renderRecordList(
-                $this->data->user->invite->select()
-                    ->where('owner', '=', $client['id']),
-                ['owner' => false]
-            );
+            ->renderRecordList(function ($query) use ($client) {
+                $query->where('owner', '=', $client['id']);
+            }, [
+                'owner' => false
+            ]);
     }
 
     public function renderAuthenticationSectionBody($client)
@@ -183,11 +183,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function renderAccessPassesSectionBody($client)
     {
         return $this->apex->scaffold('../access-passes/')
-            ->renderRecordList(
-                $this->data->user->accessPass->select()
-                    ->where('user', '=', $client['id']),
-                ['user' => false]
-            );
+            ->renderRecordList(function ($query) use ($client) {
+                $query->where('user', '=', $client['id']);
+            }, [
+                'user' => false
+            ]);
     }
 
 

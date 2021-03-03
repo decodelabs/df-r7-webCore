@@ -78,10 +78,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function renderVersionsSectionBody($file)
     {
         return $this->apex->scaffold('./versions/')
-            ->renderRecordList(
-                $file->versions->select(),
-                ['file' => false]
-            );
+            ->renderRecordList(function ($query) use ($file) {
+                $query->where('file', '=', $file['id']);
+            }, [
+                'file' => false
+            ]);
     }
 
 

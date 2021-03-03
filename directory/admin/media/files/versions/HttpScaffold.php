@@ -60,15 +60,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return $output;
     }
 
-    public function renderFilesSectionBody($version)
-    {
-        return $this->apex->scaffold('../')
-            ->renderRecordList(
-                $version->files->select()
-            );
-    }
-
-
     // Components
     public function generateRecordOperativeLinks(array $version): iterable
     {

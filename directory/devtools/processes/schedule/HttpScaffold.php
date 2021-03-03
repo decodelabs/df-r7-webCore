@@ -66,10 +66,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function renderLogsSectionBody($schedule)
     {
         return $this->apex->scaffold('../logs/')
-            ->renderRecordList(
-                $this->data->task->log->select()
-                    ->where('request', 'begins', $this->_normalizeRequest($schedule['request']))
-            );
+            ->renderRecordList(function ($query) use ($schedule) {
+                $query->where('request', 'begins', $this->_normalizeRequest($schedule['request']));
+            });
     }
 
     protected function _normalizeRequest($request)

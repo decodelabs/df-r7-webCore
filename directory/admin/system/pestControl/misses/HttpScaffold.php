@@ -38,7 +38,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             parent::renderDetailsSectionBody($miss),
 
             $this->apex->scaffold('./logs/')
-                ->renderRecordList($miss->missLogs->select())
+                ->renderRecordList(function ($query) use ($miss) {
+                    $query->where('miss', '=', $miss['id']);
+                })
         ];
     }
 
