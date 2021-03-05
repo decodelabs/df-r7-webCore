@@ -1,32 +1,33 @@
 div.w.list.collection,
 div.w.list.attributes {
-    border: 2px #F5F5F5 solid;
+    border: 2px #f5f5f5 solid;
     border-radius: 0.5em;
 
     tr {
         &.even {
-            background: #FFF;
+            background: #fff;
         }
         &.odd {
-            background: #FBFBFB;
+            background: #fbfbfb;
 
             > th {
-                background: #F0F0F0;
+                background: #f0f0f0;
             }
         }
 
         > th {
-            border-bottom: 2px #EEE solid;
-            background: #F8F8F8;
+            border-bottom: 2px #eee solid;
+            background: #f8f8f8;
         }
 
-        &.spacer, &.divider {
-            border-top: 2px #EEE solid;
-            border-bottom: 1px #EEE solid;
+        &.spacer,
+        &.divider {
+            border-top: 2px #eee solid;
+            border-bottom: 1px #eee solid;
         }
 
         &.divider {
-            background: #FBFBFB;
+            background: #fbfbfb;
 
             &:first-child {
                 border-top: none;
@@ -35,23 +36,24 @@ div.w.list.attributes {
     }
 }
 
-
-
 div.w.list.collection {
     overflow-x: auto;
     overflow-y: hidden;
+    font-size: 0.9em;
 
     tr {
         &.even:hover {
-            background: darken(#FFF, 4%);
+            background: darken(#fff, 4%);
         }
         &.odd:hover {
-            background: darken(#FBFBFB, 2%);
+            background: darken(#fbfbfb, 2%);
         }
     }
 
     td {
         white-space: nowrap;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
 
         span.list {
             display: inline-block;
