@@ -57,6 +57,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
+
+    // Filters
+    protected function generateRecordFilters(): iterable
+    {
+        yield $this->newRecordFilter('bucket', 'All buckets', function () {
+            yield from $this->data->media->bucket->select('id', 'name')
+                ->orderBy('name')
+                ->toList('id', 'name');
+        });
+    }
+
+
     // Sections
     public function renderDetailsSectionBody($file)
     {

@@ -93,6 +93,22 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
+    // Filters
+    public function generateRecordFilters(): iterable
+    {
+        yield $this->newRecordFilter('group', 'All users', function () {
+            yield from $this->data->user->group->select('id', 'name')
+                ->orderBy('name ASC')
+                ->toList('id', 'name');
+        })->setApplicator(function ($query, $groupId) {
+            $query->whereCorrelation('id', 'in', 'client')
+                ->from($this->data->user->client->getBridgeUnit('groups'), 'bridge')
+                ->where('group', '=', $groupId)
+                ->endCorrelation();
+        });
+    }
+
+
     // Sections
     public function renderDetailsSectionBody($client)
     {

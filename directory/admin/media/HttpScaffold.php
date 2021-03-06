@@ -47,6 +47,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->endCorrelation();
     }
 
+
     // Sections
     public function renderFilesSectionBody($bucket)
     {
@@ -78,6 +79,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $this->_('Add file')
             )
             ->setIcon('add');
+    }
+
+    public function renderFilesSectionSelectorArea()
+    {
+        return $this->apex->scaffold('./files/')
+            ->renderRecordFilters('bucket');
     }
 
 
