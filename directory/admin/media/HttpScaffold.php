@@ -56,7 +56,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $query->where('bucket', '=', $bucket['id']);
             }, [
                 'bucket' => false
-            ]);
+            ], 'bucket');
     }
 
     // Components
@@ -79,12 +79,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 $this->_('Add file')
             )
             ->setIcon('add');
-    }
-
-    public function renderFilesSectionSelectorArea()
-    {
-        return $this->apex->scaffold('./files/')
-            ->renderRecordFilters('bucket');
     }
 
 

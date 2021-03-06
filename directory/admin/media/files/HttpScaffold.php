@@ -36,6 +36,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     ];
 
     const CAN_PREVIEW = true;
+    const CAN_SELECT = true;
 
     // Record data
     protected function prepareRecordList($query, $mode)

@@ -53,10 +53,8 @@ define([
     var updateSelection = function (el) {
         var $list = $(el).closest('.list.collection'),
             $checked = $list.find('input.checkbox.selection:checked'),
-            $fs = $list.siblings('.scaffold.with-selected'),
+            $fs = $list.siblings('.controls').find('.scaffold.with-selected'),
             ids = [];
-
-        console.log($list);
 
         $fs.find('a').toggleClass('disabled', !$checked.length);
 

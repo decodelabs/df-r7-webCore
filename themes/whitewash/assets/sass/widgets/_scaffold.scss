@@ -1,9 +1,11 @@
 fieldset.scaffold.search,
+fieldset.scaffold.filters,
 fieldset.scaffold.with-selected {
-    padding: 0.25rem;
+    margin-bottom: 0.75em;
+    padding: 0rem;
 
     > .body {
-        padding: 0.25rem;
+        padding: 0rem;
 
         nav.menu {
             margin-bottom: 0;
@@ -11,9 +13,6 @@ fieldset.scaffold.with-selected {
     }
 }
 
-form + fieldset.scaffold.with-selected {
-    margin-top: -1rem;
-}
 fieldset.scaffold.with-selected > div.body {
     display: flex;
     align-items: center;
@@ -47,5 +46,44 @@ fieldset.scaffold.search {
         align-self: center;
         margin-left: 1rem;
         font-size: 0.8em;
+    }
+}
+
+fieldset.scaffold.filters {
+    margin-bottom: 0;
+
+    > div.body {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        &:before {
+            content: "Filter";
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.7em;
+            color: #999;
+            margin-right: 0.6em;
+        }
+    }
+}
+
+div.scaffold.controls {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    div.left {
+        flex: 1 1 45%;
+        align-items: center;
+
+        form {
+            margin-bottom: 0;
+        }
+    }
+    div.right {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        align-items: center;
     }
 }
