@@ -89,5 +89,5 @@ define([
     // Filters
     $(document).on('change', 'fieldset.scaffold.filters select', function () {
         $(this).closest('form').submit();
-    })
+    });
 });
