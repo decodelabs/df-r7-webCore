@@ -84,4 +84,10 @@ define([
     $('.field-actions a.hasIcon').each(function () {
         $(this).attr('title', $(this).text());
     });
+
+
+    // Filters
+    $(document).on('change', 'fieldset.scaffold.filters select', function () {
+        $(this).closest('form').submit();
+    })
 });
