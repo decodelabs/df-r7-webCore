@@ -106,7 +106,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     protected function generateRecordFilters(): iterable
     {
-        yield $this->newRecordFilter('group', 'All users', function () {
+        // Groups
+        yield $this->newRecordFilter('group', 'All groups', function () {
             yield from $this->data->user->group->select('id', 'name')
                 ->orderBy('name ASC')
                 ->toList('id', 'name');
@@ -115,6 +116,31 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->from($this->data->user->client->getBridgeUnit('groups'), 'bridge')
                 ->where('group', '=', $groupId)
                 ->endCorrelation();
+        });
+
+
+        // Country
+        yield $this->newRecordFilter('country', 'All countries', function () {
+            yield from $this->getRecordAdapter()->select('country', 'COUNT(country) as count')
+                ->groupBy('country')
+                ->having('count', '>', 0)
+                ->orderBy('count DESC')
+                ->toList('country', function ($row) {
+                    return $this->i18n->countries->getName($row['country']);
+                });
+        });
+
+
+        // Status
+        yield $this->newRecordFilter('status', 'All statuses', function () {
+            yield from [
+                -2 => $this->_('Spam account'),
+                -1 => $this->_('Deactivated'),
+                //0 => $this->_('Guest'),
+                1 => $this->_('Pending'),
+                //2 => $this->_('Bound'),
+                3 => $this->_('Confirmed')
+            ];
         });
     }
 
