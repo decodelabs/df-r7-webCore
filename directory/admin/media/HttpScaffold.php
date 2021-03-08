@@ -48,6 +48,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
+    // Filters
+    protected function generateRecordSwitchers(): iterable
+    {
+        yield $this->newRecordSwitcher(function () {
+            yield from $this->getRecordAdapter()->select('id', 'name')
+                ->orderBy('name')
+                ->toList('id', 'name');
+        });
+    }
+
+
     // Sections
     public function renderFilesSectionBody($bucket)
     {

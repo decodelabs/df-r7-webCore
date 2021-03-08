@@ -94,7 +94,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Filters
-    public function generateRecordFilters(): iterable
+    protected function generateRecordSwitchers(): iterable
+    {
+        yield $this->newRecordSwitcher(function () {
+            yield from $this->getRecordAdapter()->select('id', 'fullName')
+                ->orderBy('loginDate DESC')
+                ->limit(20)
+                ->toList('id', 'fullName');
+        });
+    }
+
+    protected function generateRecordFilters(): iterable
     {
         yield $this->newRecordFilter('group', 'All users', function () {
             yield from $this->data->user->group->select('id', 'name')

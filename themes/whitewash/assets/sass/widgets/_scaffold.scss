@@ -1,4 +1,5 @@
 fieldset.scaffold.search,
+fieldset.scaffold.switcher,
 fieldset.scaffold.filters,
 fieldset.scaffold.with-selected {
     margin-bottom: 0.75em;
@@ -49,13 +50,16 @@ fieldset.scaffold.search {
     }
 }
 
+fieldset.scaffold.switcher,
 fieldset.scaffold.filters {
     margin-bottom: 0;
+    background: transparent;
 
     > div.body {
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        background: transparent;
 
         a,
         label {
