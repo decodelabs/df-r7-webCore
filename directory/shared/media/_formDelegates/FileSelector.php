@@ -16,7 +16,7 @@ use df\mesh;
 use df\opal\query\ISelectQuery as SelectQuery;
 use df\arch\IComponent as Component;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\IAcceptTypeProcessor
 {

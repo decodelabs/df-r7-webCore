@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 ?>
 <?xml version="1.0" encoding="utf-8"?>

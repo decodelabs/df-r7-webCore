@@ -14,7 +14,7 @@ use df\flex;
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Mode;
 use DecodeLabs\Atlas\File;
-use DecodeLabs\Tagged\Xml\Writer as XmlWriter;
+use DecodeLabs\Exemplar\Writer as XmlWriter;
 
 class HttpSitemap extends arch\node\Base
 {

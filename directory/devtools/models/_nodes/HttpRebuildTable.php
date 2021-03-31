@@ -12,7 +12,7 @@ use df\arch;
 use df\axis;
 use df\halo;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class HttpRebuildTable extends arch\node\ConfirmForm

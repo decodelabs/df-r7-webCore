@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 echo Html::{'div.layout-pageArea.floated'}(function () {
     yield Html::{'header.layout-header'}(function () {

@@ -4,7 +4,7 @@ use df\core;
 use df\opal;
 use df\flex;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 

@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class AddressSelector extends arch\node\form\Delegate implements

@@ -4,8 +4,8 @@ use df\core;
 use df\flow;
 use df\flex;
 
-use DecodeLabs\Tagged\Html;
-use DecodeLabs\Tagged\Xml\Element as XmlElement;
+use DecodeLabs\Tagged as Html;
+use DecodeLabs\Exemplar\Element as XmlElement;
 
 echo $this->html->elementContentContainer(function () use ($message) {
     $renderer = function (array $parts, $baseId='') use (&$renderer) {

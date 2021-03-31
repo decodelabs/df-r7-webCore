@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 echo $this->html->collectionList($entryList->getEntries())
     ->setErrorMessage($this->_('This menu has no entries'))

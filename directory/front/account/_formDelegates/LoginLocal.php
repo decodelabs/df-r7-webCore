@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {

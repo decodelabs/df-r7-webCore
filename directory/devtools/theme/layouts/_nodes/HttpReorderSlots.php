@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\fire;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class HttpReorderSlots extends arch\node\Form

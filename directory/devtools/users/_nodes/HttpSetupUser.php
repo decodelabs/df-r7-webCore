@@ -10,7 +10,7 @@ use df\core;
 use df\arch;
 use df\user;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class HttpSetupUser extends arch\node\Form

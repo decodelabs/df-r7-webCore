@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 echo $generator->document($this->view->getSubject(), function () use ($generator) {
     yield $generator->previewText($this['previewText']);

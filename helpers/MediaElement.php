@@ -14,7 +14,7 @@ use df\spur;
 use df\flex;
 use df\link;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper

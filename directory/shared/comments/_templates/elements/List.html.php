@@ -1,6 +1,6 @@
 <?php
 use df\mesh;
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 $paginator = null;
 

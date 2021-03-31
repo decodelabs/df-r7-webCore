@@ -13,7 +13,7 @@ use df\aura;
 use df\mesh;
 use df\flex;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class CustomUploader extends arch\node\form\Delegate implements

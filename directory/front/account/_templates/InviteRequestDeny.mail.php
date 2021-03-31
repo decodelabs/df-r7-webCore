@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 $this->view->setSubject($this->_(
     'Your invite request at %n%',

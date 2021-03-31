@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Atlas;
 

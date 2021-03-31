@@ -13,7 +13,7 @@ use df\aura;
 use df\link;
 
 use DecodeLabs\Atlas;
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class CustomTempUploader extends arch\node\form\Delegate implements

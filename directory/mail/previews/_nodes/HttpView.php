@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\aura;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 class HttpView extends arch\node\Base
 {

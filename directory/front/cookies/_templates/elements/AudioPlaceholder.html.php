@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 echo Html::{'div.audio-cookie-placeholder > div.audio-message'}(function () {
     $category = (array)($this['categories'] ?? 'statistics');

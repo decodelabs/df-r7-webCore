@@ -13,7 +13,7 @@ use df\arch;
 use df\spur;
 use df\flex;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
 {

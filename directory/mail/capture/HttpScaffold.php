@@ -12,7 +12,7 @@ use df\arch;
 use df\opal;
 use df\flow;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin

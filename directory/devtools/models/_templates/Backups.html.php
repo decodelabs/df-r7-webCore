@@ -1,5 +1,5 @@
 <?php
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 echo $this->apex->component('~devtools/models/IndexHeaderBar');
 
