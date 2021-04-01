@@ -108,7 +108,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
         }
 
 
-        $output = new aura\html\Element('video', $sources, [
+        $output = Html::{'video'}($sources, [
             'id' => $elementId,
             'controls' => true,
             'preload' => 'auto',
@@ -127,7 +127,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
         }
 
         if ($attributes) {
-            $output->addAttributes($attributes);
+            $output->setAttributes($attributes);
         }
 
         $output->addClass('video-js video '.$skin);
