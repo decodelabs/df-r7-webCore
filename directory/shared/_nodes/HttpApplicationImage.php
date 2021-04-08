@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-use DecodeLabs\Atlas;
+use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
 
 class HttpApplicationImage extends arch\node\Base
@@ -31,7 +31,7 @@ class HttpApplicationImage extends arch\node\Base
         }
 
         $absPath = $theme->findAsset($path);
-        $type = Atlas::$mime->detect($absPath);
+        $type = Typify::detect($absPath);
 
         if (!$absPath) {
             throw Exceptional::{'df/core/fs/NotFound'}([

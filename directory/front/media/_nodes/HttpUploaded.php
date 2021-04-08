@@ -12,7 +12,7 @@ use df\arch;
 use df\flex;
 use df\neon;
 
-use DecodeLabs\Atlas;
+use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
 
 class HttpUploaded extends arch\node\Base
@@ -35,7 +35,7 @@ class HttpUploaded extends arch\node\Base
         }
 
         $fileName = basename($path);
-        $type = Atlas::$mime->detect($path);
+        $type = Typify::detect($path);
         $hasTransform = isset($this->request['transform']);
 
         if ($hasTransform && substr($type, 0, 6) == 'image/') {

@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-use DecodeLabs\Atlas;
+use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
 
 class HttpDownload extends arch\node\Base
@@ -34,7 +34,7 @@ class HttpDownload extends arch\node\Base
                 ]);
             }
 
-            $type = Atlas::$mime->detect($absolutePath);
+            $type = Typify::detect($absolutePath);
 
             if (substr($type, 0, 6) != 'image/') {
                 throw Exceptional::{'df/core/fs/Type,Forbidden'}([

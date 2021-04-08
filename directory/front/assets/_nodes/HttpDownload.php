@@ -11,7 +11,7 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-use DecodeLabs\Atlas;
+use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
 
 class HttpDownload extends arch\node\Base
@@ -31,7 +31,7 @@ class HttpDownload extends arch\node\Base
         }
 
         $fileName = basename($absolutePath);
-        $type = Atlas::$mime->detect($absolutePath);
+        $type = Typify::detect($absolutePath);
 
         $hasTransform = isset($this->request['transform']);
         $hasFavicon = isset($this->request['favicon']);
