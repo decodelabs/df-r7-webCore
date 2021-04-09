@@ -84,7 +84,7 @@ class HttpIndex extends arch\node\Base
             ->setLayout('Default')
             ->setTitle($message);
 
-        Atlas::$fs->createFile(
+        Atlas::createFile(
             $this->app->getPath().'/serverError/'.$code.'.html',
             $view->render()
         );

@@ -61,6 +61,6 @@ class HttpDeleteBackup extends arch\node\DeleteForm
 
     protected function apply()
     {
-        Atlas::$fs->deleteFile($this->_file);
+        Atlas::deleteFile($this->_file);
     }
 }

@@ -128,7 +128,7 @@ class HttpMaxMindDb extends arch\node\Form
     protected function _getFileList()
     {
         $output = [];
-        $dir = Atlas::$fs->dir($this->app->getLocalDataPath().'/geoIp/');
+        $dir = Atlas::dir($this->app->getLocalDataPath().'/geoIp/');
 
         foreach ($dir->scanFiles() as $name => $file) {
             if (substr($name, -5) != '.mmdb') {
@@ -188,7 +188,7 @@ class HttpMaxMindDb extends arch\node\Form
     {
         $fileName = basename($url);
         $path = $this->app->getLocalDataPath().'/geoIp';
-        Atlas::$fs->createDir($path);
+        Atlas::createDir($path);
 
         if (is_file($path.'/'.substr($fileName, 0, -3))) {
             return;
@@ -215,7 +215,7 @@ class HttpMaxMindDb extends arch\node\Form
     protected function _extractGz($path, $targetPath=null)
     {
         $targetPath = core\archive\Base::factory('gz')->decompressFile($path, $targetPath);
-        Atlas::$fs->deleteFile($path);
+        Atlas::deleteFile($path);
         return $targetPath;
     }
 

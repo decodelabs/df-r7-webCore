@@ -34,7 +34,7 @@ class HttpSitemap extends arch\node\Base
 
         $path = $this->app->getLocalDataPath().'/sitemap/'.$this->app->envMode.'.xml';
         $rebuild = false;
-        $file = Atlas::$fs->file($path);
+        $file = Atlas::file($path);
 
         if (isset($this->request['rebuild'])
         || !$file->exists()

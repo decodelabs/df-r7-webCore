@@ -79,7 +79,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             return $dir;
         }
 
-        return Atlas::$fs->dir($destination);
+        return Atlas::dir($destination);
     }
 
     protected function _getFileList()
@@ -384,7 +384,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     protected function onComplete()
     {
         if ($destination = $this->getStore('tempUploadDir')) {
-            Atlas::$fs->deleteDir($destination);
+            Atlas::deleteDir($destination);
         }
 
         link\http\upload\Handler::purgeUploadTemp();
