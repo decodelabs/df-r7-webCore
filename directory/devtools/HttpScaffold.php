@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
@@ -32,7 +33,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 return Html::{'?code'}(df\COMPILE_ROOT_PATH);
             })
             ->addField('COMPILE_ENV_MODE', function () {
-                return $this->format->name(df\COMPILE_ENV_MODE);
+                return Dictum::name(df\COMPILE_ENV_MODE);
             });
     }
 

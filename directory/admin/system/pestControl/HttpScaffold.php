@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
@@ -93,7 +94,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
             }
 
             if ($mode == 'list') {
-                $output = $this->format->shorten($output, 60, true);
+                $output = Dictum::shorten($output, 60, true);
             }
 
             $output = Html::{'code'}($output);

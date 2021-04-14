@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
@@ -101,7 +102,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             if ($mode == 'list') {
-                $output = $this->format->shorten($output, 35);
+                $output = Dictum::shorten($output, 35);
             }
 
             $output = Html::{'code'}($output);
@@ -120,7 +121,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $output = $error['file'];
 
             if ($mode == 'list') {
-                $output = $this->format->shorten($output, 35, true);
+                $output = Dictum::shorten($output, 35, true);
             }
 
             $output = Html::{'code'}($output.' : '.$error['line']);

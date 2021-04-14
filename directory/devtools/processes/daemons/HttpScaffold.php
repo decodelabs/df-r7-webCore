@@ -12,6 +12,7 @@ use df\arch;
 use df\halo;
 use df\opal;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
@@ -145,7 +146,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 default: $class = 'warning'; break;
             }
 
-            return Html::{'span.'.$class}($this->format->name($daemon['state']));
+            return Html::{'span.'.$class}(Dictum::name($daemon['state']));
         });
     }
 

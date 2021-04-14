@@ -12,6 +12,7 @@ use df\arch;
 use df\aura;
 use df\link;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Atlas;
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
@@ -227,7 +228,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
     public function getWidgetId()
     {
-        return $this->format->slug('ctu-'.$this->getDelegateId());
+        return Dictum::slug('ctu-'.$this->getDelegateId());
     }
 
 

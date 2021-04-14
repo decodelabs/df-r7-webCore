@@ -1,5 +1,6 @@
 <?php
 use df\link;
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 echo $this->apex->component('IndexHeaderBar');
@@ -18,7 +19,7 @@ echo $this->html->attributeList([])
     // Default
     ->addField('defaultAdapter', function () use ($config, $adapterList) {
         $name = $config->getDefaultAdapter();
-        $output = $this->format->name($name);
+        $output = Dictum::name($name);
         $available = isset($adapterList[$name]) && $adapterList[$name];
         return Html::{'span'}($output)->addClass($available ? 'positive' : 'negative');
     })
@@ -26,7 +27,7 @@ echo $this->html->attributeList([])
     // Available
     ->addField('availableAdapters', function () use ($adapterList) {
         return Html::uList($adapterList, function ($available, $el, $key) {
-            $name = $this->format->name($key);
+            $name = Dictum::name($key);
             return Html::{'span'}($name)->addClass($available ? 'positive' : 'negative');
         });
     });

@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\flex;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Mode;
 use DecodeLabs\Atlas\File;
@@ -138,7 +139,7 @@ class HttpSitemap extends arch\node\Base
                 $keyParts[0] = '~'.$keyParts[0];
             }
 
-            $request = arch\Request::factory(implode('/', $keyParts).'/'.$this->format->nodeSlug(substr($basename, 4)));
+            $request = arch\Request::factory(implode('/', $keyParts).'/'.Dictum::actionSlug(substr($basename, 4)));
             $context = $this->context->spawnInstance($request);
             $node = new $class($context);
             $entries = $node->getSitemapEntries();

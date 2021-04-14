@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
@@ -86,7 +87,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineModeField($list, $mode)
     {
         $list->addField('mode', function ($miss) {
-            return $this->format->name($miss['mode']);
+            return Dictum::name($miss['mode']);
         });
     }
 

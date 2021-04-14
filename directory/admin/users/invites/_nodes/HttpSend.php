@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpSend extends arch\node\Form
@@ -93,7 +94,10 @@ class HttpSend extends arch\node\Form
                         ));
                     }
 
-                    if ($this->data->user->invite->emailIsActive($value) && !$this->format->stringToBoolean($this->values['sendAnyway'])) {
+                    if (
+                        $this->data->user->invite->emailIsActive($value) &&
+                        !Dictum::toBoolean($this->values['sendAnyway'])
+                    ) {
                         $field->addError('inviteExists', $this->_(
                             'An invite already exists for this email address'
                         ));

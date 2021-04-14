@@ -12,6 +12,7 @@ use df\arch;
 use df\opal;
 use df\flex;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
@@ -158,7 +159,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 return;
             }
 
-            return $this->html->link($referrer, Html::{'samp'}($mode == 'list' ? $this->format->shorten($referrer, 35) : $referrer))
+            return $this->html->link($referrer, Html::{'samp'}($mode == 'list' ? Dictum::shorten($referrer, 35) : $referrer))
                 ->setIcon('link');
         });
     }
@@ -166,7 +167,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineModeField($list, $mode)
     {
         $list->addField('mode', function ($log) {
-            return $this->format->name($log['mode']);
+            return Dictum::name($log['mode']);
         });
     }
 
@@ -181,7 +182,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $message = $error['message'];
 
             if ($mode == 'list') {
-                $message = $this->format->shorten($message, 25);
+                $message = Dictum::shorten($message, 25);
             }
 
             $output = Html::{'samp'}($message);

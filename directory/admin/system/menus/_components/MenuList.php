@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class MenuList extends arch\component\CollectionList
@@ -56,7 +57,7 @@ class MenuList extends arch\component\CollectionList
 
                 yield $this->html->link(
                         $this->uri('./details?menu='.$idString, true),
-                        $this->format->name($subId)
+                        Dictum::name($subId)
                     )
                     ->setIcon('plugin');
             }
