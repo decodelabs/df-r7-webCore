@@ -10,14 +10,17 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\AreaMenu {
+use DecodeLabs\Dictum;
 
+class HttpScaffold extends arch\scaffold\AreaMenu
+{
     const DEFAULT_ACCESS = arch\IAccess::DEV;
     const TITLE = 'Mail';
     const ICON = 'mail';
     const HEADER_BAR = false;
 
-    public function generateIndexMenu($entryList) {
+    public function generateIndexMenu($entryList)
+    {
         $captureCount = $this->data->mail->capture->countAll();
         $journalCount = $this->data->mail->journal->countAll();
 
@@ -32,14 +35,14 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                 ->setId('capture')
                 ->setDescription('When testing, all outgoing emails are diverted to a local mailbox to avoid unwanted spam - view them here')
                 ->setIcon('mail')
-                ->setNote($this->format->counterNote($captureCount))
+                ->setNote(Dictum::$number->counter($captureCount))
                 ->setWeight(20),
 
             $entryList->newLink('~mail/journal/', 'Send logs')
                 ->setId('journal')
                 ->setDescription('Get an overview of what emails have been sent recently')
                 ->setIcon('log')
-                ->setNote($this->format->counterNote($journalCount))
+                ->setNote(Dictum::$number->counter($journalCount))
                 ->setWeight(30),
 
             $entryList->newLink('~mail/previews/', 'Mail previews')

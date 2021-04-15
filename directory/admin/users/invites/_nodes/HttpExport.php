@@ -11,10 +11,13 @@ use df\apex;
 use df\arch;
 use df\flex;
 
-class HttpExport extends arch\node\Base {
+use DecodeLabs\Dictum;
 
-    public function execute() {
-        return $this->http->csvGenerator('Invites ('.$this->format->date('now').').csv', function($builder) {
+class HttpExport extends arch\node\Base
+{
+    public function execute()
+    {
+        return $this->http->csvGenerator('Invites ('.Dictum::$time->date('now').').csv', function ($builder) {
             $q = $this->data->user->invite->select()
                 ->leftJoinRelation('owner', 'fullName as owner')
                 ->leftJoinRelation('user', 'fullName as userName')
@@ -33,25 +36,25 @@ class HttpExport extends arch\node\Base {
                 'message' => 'Message'
             ]);
 
-            foreach($q as $row) {
-                $row['creationDate'] = $this->format->dateTime($row['creationDate']);
-                $row['registrationDate'] = $this->format->dateTime($row['registrationDate']);
-                $row['lastSent'] = $this->format->dateTime($row['lastSent']);
+            foreach ($q as $row) {
+                $row['creationDate'] = Dictum::$time->dateTime($row['creationDate']);
+                $row['registrationDate'] = Dictum::$time->dateTime($row['registrationDate']);
+                $row['lastSent'] = Dictum::$time->dateTime($row['lastSent']);
                 $groups = [];
 
-                foreach($row['groups'] as $group) {
+                foreach ($row['groups'] as $group) {
                     $groups[] = $group['name'];
                 }
 
                 $row['groups'] = implode(', ', $groups);
 
-                if($row['userName']) {
+                if ($row['userName']) {
                     $row['name'] = $row['userName'];
                 }
 
-                if($row['user']) {
+                if ($row['user']) {
                     $row['status'] = 'Accepted';
-                } else if($row['isActive']) {
+                } elseif ($row['isActive']) {
                     $row['status'] = 'Pending';
                 } else {
                     $row['status'] = 'Cancelled';

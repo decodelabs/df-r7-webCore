@@ -31,21 +31,21 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setId('errors')
                 ->setDescription('Get detailed information on critical errors encountered by users')
                 ->setIcon('error')
-                ->setNote($this->format->counterNote($criticalErrorCount))
+                ->setNote(Dictum::$number->counter($criticalErrorCount))
                 ->setWeight(10),
 
             $entryList->newLink('./misses/', '404 errors')
                 ->setId('misses')
                 ->setDescription('View requests that users are making to files and nodes that don\'t exist')
                 ->setIcon('brokenLink')
-                ->setNote($this->format->counterNote($notFoundCount))
+                ->setNote(Dictum::$number->counter($notFoundCount))
                 ->setWeight(20),
 
             $entryList->newLink('./access/', 'Access errors')
                 ->setId('access')
                 ->setDescription('See who is trying to access things they are not supposed to')
                 ->setIcon('lock')
-                ->setNote($this->format->counterNote($accessErrorCount))
+                ->setNote(Dictum::$number->counter($accessErrorCount))
                 ->setWeight(30)
         );
     }

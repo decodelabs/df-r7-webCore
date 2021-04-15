@@ -21,10 +21,10 @@ echo $this->html->collectionList($list)
         return $location->extension;
     })
     ->addField('files', function ($location) {
-        return $this->format->number($location->files);
+        return Html::$number->format($location->files);
     })
     ->addField('lines', function ($location) {
-        return $this->format->number($location->lines);
+        return Html::$number->format($location->lines);
     })
     ->addField('size', function ($location) {
         return Html::$number->fileSize($location->bytes);
@@ -59,7 +59,7 @@ echo $this->html->collectionList($packages)
 
         $phpCount = $location['php']->lines;
 
-        yield Html::{'abbr'}($this->format->number($phpCount), [
+        yield Html::{'abbr'}(Html::$number->format($phpCount), [
             'title' => 'PHP'
         ]);
 
@@ -68,7 +68,7 @@ echo $this->html->collectionList($packages)
 
             if ($totalCount > $phpCount) {
                 yield ' / ';
-                yield Html::{'abbr'}($this->format->number($totalCount), [
+                yield Html::{'abbr'}(Html::$number->format($totalCount), [
                     'title' => 'Total'
                 ]);
             }

@@ -12,6 +12,8 @@ use df\arch;
 
 use df\aura\html\widget\Menu as MenuWidget;
 
+use DecodeLabs\Dictum;
+
 class DetailHeaderBar extends arch\component\HeaderBar
 {
     protected $icon = 'layout';
@@ -84,7 +86,7 @@ class DetailHeaderBar extends arch\component\HeaderBar
                     $this->_('Slots'),
                     true
                 )
-                ->setNote($this->format->counterNote($slotCount))
+                ->setNote(Dictum::$number->counter($slotCount))
                 ->setIcon('list')
                 ->setDisposition('informative')
         );

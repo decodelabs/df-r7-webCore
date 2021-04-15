@@ -12,6 +12,7 @@ use df\arch;
 use df\opal;
 use df\flow;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
@@ -40,7 +41,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         }
 
         yield $this->html->flashMessage(
-            'This message was received '.$this->format->timeSince($mail['date'])
+            'This message was received '.Dictum::$time->since($mail['date'])
         );
 
 

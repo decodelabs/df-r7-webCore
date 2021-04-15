@@ -131,9 +131,11 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineHashField($list, $mode)
     {
         $list->addField('hash', function ($version) {
-            if ($hash = $this->format->binHex($version['hash'])) {
-                return Html::{'samp'}($hash);
+            if (null === ($hash = $version['hash'])) {
+                return null;
             }
+
+            return Html::{'samp'}(bin2hex($hash));
         });
     }
 

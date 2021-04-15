@@ -11,10 +11,13 @@ use df\apex;
 use df\arch;
 use df\flex;
 
-class HttpExport extends arch\node\Base {
+use DecodeLabs\Dictum;
 
-    public function execute() {
-        return $this->http->csvGenerator('Invite requests ('.$this->format->date('now').').csv', function($builder) {
+class HttpExport extends arch\node\Base
+{
+    public function execute()
+    {
+        return $this->http->csvGenerator('Invite requests ('.Dictum::$time->date('now').').csv', function ($builder) {
             $q = $this->data->user->inviteRequest->select()
                 ->leftJoinRelation('invite', 'registrationDate', 'user as inviteUser')
                 ->orderBy('creationDate DESC');
@@ -31,23 +34,23 @@ class HttpExport extends arch\node\Base {
                 'message' => 'Message'
             ]);
 
-            foreach($q as $row) {
-                $row['creationDate'] = $this->format->dateTime($row['creationDate']);
-                $row['registrationDate'] = $this->format->dateTime($row['registrationDate']);
+            foreach ($q as $row) {
+                $row['creationDate'] = Dictum::$time->dateTime($row['creationDate']);
+                $row['registrationDate'] = Dictum::$time->dateTime($row['registrationDate']);
 
-                if($row['invite']) {
+                if ($row['invite']) {
                     $row['status'] = 'Accepted';
-                } else if(!$row['isActive']) {
+                } elseif (!$row['isActive']) {
                     $row['status'] = 'Declined';
                 } else {
                     $row['status'] = 'Pending';
                 }
 
-                if($row['inviteUser']) {
+                if ($row['inviteUser']) {
                     $row['user'] = $row['inviteUser'];
                 }
 
-                if($row['user']) {
+                if ($row['user']) {
                     $row['user'] = (string)$row['user'];
                 }
 

@@ -91,7 +91,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineRunTimeField($list, $mode)
     {
         $list->addField('runTime', function ($log) {
-            return $this->format->duration($log['runTime']);
+            return $this->date->formatDuration($log['runTime']);
         });
     }
 

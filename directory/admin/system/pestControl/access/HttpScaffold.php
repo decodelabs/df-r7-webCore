@@ -39,7 +39,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     // Record data
     public function describeRecord($record)
     {
-        return $record['mode'].' '.$record['code'].' - '.$this->format->date($record['date']);
+        return $record['mode'].' '.$record['code'].' - '.Dictum::$time->date($record['date']);
     }
 
     protected function prepareRecordList($query, $mode)
