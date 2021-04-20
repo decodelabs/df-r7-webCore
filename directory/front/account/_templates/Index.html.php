@@ -1,12 +1,11 @@
 <?php
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
-
-$client = $this->context->user->client;
 
 echo Html::{'p'}([
     $this->html->_('Hello %n%, you last logged in %t% ago', [
-        '%n%' => $client->getNickname(),
-        '%t%' => Html::$time->since($client->getLastLoginDate())
+        '%n%' => Disciple::getNickName(),
+        '%t%' => Html::$time->since(Disciple::getLastLoginDate())
     ])
 ]);
 
