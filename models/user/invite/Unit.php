@@ -12,6 +12,7 @@ use df\user;
 use df\flow;
 use df\flex;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class Unit extends axis\unit\Table
@@ -92,11 +93,11 @@ class Unit extends axis\unit\Table
         }
 
         if (!$invite['#owner']) {
-            $invite['owner'] = $this->context->user->client->getId();
+            $invite['owner'] = Disciple::getId();
         }
 
         $ownerId = $invite['#owner'];
-        $isClient = $ownerId == $this->context->user->client->getId();
+        $isClient = $ownerId == Disciple::getId();
         $model = $this->getModel();
 
         if (!$invite['key']) {
@@ -151,7 +152,7 @@ class Unit extends axis\unit\Table
         }
 
         if (!$invite['owner']) {
-            $invite['owner'] = $this->context->user->client->getId();
+            $invite['owner'] = Disciple::getId();
         }
 
         if ($rendererPath === null) {

@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
+
 class HttpAdd extends arch\node\Form
 {
     protected $_element;
@@ -17,7 +19,7 @@ class HttpAdd extends arch\node\Form
     protected function init()
     {
         $this->_element = $this->scaffold->newRecord([
-            'owner' => $this->user->client->getId()
+            'owner' => Disciple::getId()
         ]);
     }
 

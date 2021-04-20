@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Disciple;
+
 class HttpRegister extends arch\node\Form
 {
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
@@ -20,7 +22,7 @@ class HttpRegister extends arch\node\Form
 
     protected function init()
     {
-        if ($this->user->isLoggedIn()) {
+        if (Disciple::isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
 

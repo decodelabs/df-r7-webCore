@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
+
 class HttpAccessPass extends arch\node\Form
 {
     const DEFAULT_EVENT = 'login';
@@ -45,7 +47,7 @@ class HttpAccessPass extends arch\node\Form
             return $this->http->defaultRedirect('/');
         }
 
-        if ($this->user->isLoggedIn()) {
+        if (Disciple::isLoggedIn()) {
             $this->user->auth->unbind();
             return $this->http->redirect();
         }

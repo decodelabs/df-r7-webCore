@@ -16,6 +16,7 @@ use df\mesh;
 use df\opal\query\ISelectQuery as SelectQuery;
 use df\arch\IComponent as Component;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 
 class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\IAcceptTypeProcessor
@@ -46,7 +47,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         if ($this->_ownerId !== null) {
             return $this->_ownerId;
         } else {
-            return $this->user->client->getId();
+            return Disciple::getId();
         }
     }
 

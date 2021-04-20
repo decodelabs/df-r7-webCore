@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\flow;
 
+use DecodeLabs\Disciple;
+
 class HttpLostPassword extends arch\node\Form
 {
     const DEFAULT_ACCESS = arch\IAccess::GUEST;
@@ -18,7 +20,7 @@ class HttpLostPassword extends arch\node\Form
 
     protected function init()
     {
-        if ($this->user->isLoggedIn()) {
+        if (Disciple::isLoggedIn()) {
             return $this->http->defaultRedirect('account/');
         }
     }

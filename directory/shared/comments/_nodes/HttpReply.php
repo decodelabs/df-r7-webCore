@@ -10,11 +10,14 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpReply extends HttpAdd {
+use DecodeLabs\Disciple;
 
+class HttpReply extends HttpAdd
+{
     protected $_parentComment;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_parentComment = $this->data->fetchForAction(
             'axis://content/Comment',
             $this->request['comment']
@@ -23,11 +26,13 @@ class HttpReply extends HttpAdd {
         $this->_comment = $this->data->newRecord('axis://content/Comment');
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_parentComment['id'];
     }
 
-    protected function _renderHistory($fs) {
+    protected function _renderHistory($fs)
+    {
         $fs->addField($this->_('Reply to'))->push(
             $this->apex->template('~/comments/#/elements/List.html', [
                     'commentList' => [$this->_parentComment],
@@ -37,11 +42,12 @@ class HttpReply extends HttpAdd {
         );
     }
 
-    protected function _prepareRecord() {
+    protected function _prepareRecord()
+    {
         $this->_comment->topic = $this->_parentComment['topic'];
-        $this->_comment->owner = $this->user->client->getId();
+        $this->_comment->owner = Disciple::getId();
 
-        if(!$root = $this->_parentComment['root']) {
+        if (!$root = $this->_parentComment['root']) {
             $root = $this->_parentComment;
         }
 

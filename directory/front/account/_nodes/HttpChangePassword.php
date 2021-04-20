@@ -10,6 +10,8 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
+
 class HttpChangePassword extends arch\node\Form
 {
     const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
@@ -21,14 +23,14 @@ class HttpChangePassword extends arch\node\Form
         $this->_auth = $this->data->fetchOrCreateForAction(
             'axis://user/Auth',
             [
-                'user' => $this->user->client->getId(),
+                'user' => Disciple::getId(),
                 'adapter' => 'Local'
             ],
             function ($auth) {
                 $auth->import([
-                    'user' => $this->user->client->getId(),
+                    'user' => Disciple::getId(),
                     'adapter' => 'Local',
-                    'identity' => $this->user->client->getEmail(),
+                    'identity' => Disciple::getEmail(),
                     'bindDate' => 'now'
                 ]);
             }

@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class HttpResetPassword extends arch\node\Form
@@ -21,7 +22,7 @@ class HttpResetPassword extends arch\node\Form
 
     protected function init()
     {
-        if ($this->user->isLoggedIn()) {
+        if (Disciple::isLoggedIn()) {
             return $this->_flashError('loggedIn', $this->_(
                 'Passwords cannot be reset while you are logged in'
             ));

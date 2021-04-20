@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class HttpLogin extends arch\node\Form
@@ -25,7 +26,7 @@ class HttpLogin extends arch\node\Form
 
     protected function init()
     {
-        if ($this->user->client->isLoggedIn()) {
+        if (Disciple::isLoggedIn()) {
             $this->setComplete();
             return $this->_getCompleteRedirect(null, false);
         }

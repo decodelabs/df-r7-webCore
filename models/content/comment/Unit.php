@@ -11,6 +11,7 @@ use df\apex;
 use df\axis;
 use df\mesh;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class Unit extends axis\unit\Table
@@ -47,7 +48,7 @@ class Unit extends axis\unit\Table
     public function postFor($entityLocator, $body, $user=null, $inReplyTo=null, $format='SimpleTags')
     {
         if ($user == null) {
-            $user = $this->context->user->client->getId();
+            $user = Disciple::getId();
         }
 
         $comment = $this->newRecord([

@@ -12,6 +12,7 @@ use df\arch;
 use df\opal;
 use df\user;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin

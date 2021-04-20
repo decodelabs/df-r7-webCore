@@ -10,15 +10,19 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
+use DecodeLabs\Disciple;
 
+class HttpAdd extends arch\node\Form
+{
     protected $_file;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_file = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->loadDelegate('upload', '../CustomTempUploader')
             ->isForOne(true)
             ->isRequired($this->_file->isNew())
@@ -33,13 +37,15 @@ class HttpAdd extends arch\node\Form {
             ->isRequired(false);
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this['owner']->setSelected(
-            $this->user->client->getId()
+            Disciple::getId()
         );
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('File details'));
 
@@ -47,7 +53,7 @@ class HttpAdd extends arch\node\Form {
             $this['upload']
         );
 
-        if(!$this->_file->isNew()) {
+        if (!$this->_file->isNew()) {
             $fs->addField()->push(
                 $this->html->checkbox('overwriteName', $this->values->overwriteName, $this->_(
                     'Use file name of new version'
@@ -62,7 +68,7 @@ class HttpAdd extends arch\node\Form {
                 ->setMaxLength(1024)
         );
 
-        if($this->_file->isNew()) {
+        if ($this->_file->isNew()) {
             $fa->setDescription($this->_('Leave empty to fill from uploaded file'));
         }
 
@@ -76,10 +82,11 @@ class HttpAdd extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $filePath = $this['upload']->apply();
 
-        if($filePath && $this->values['overwriteName']) {
+        if ($filePath && $this->values['overwriteName']) {
             unset($this->values->fileName);
         }
 
@@ -92,8 +99,8 @@ class HttpAdd extends arch\node\Form {
             // File name
             ->addRequiredField('fileName', 'text')
                 ->setMaxLength(1024)
-                ->setSanitizer(function($value) use($filePath) {
-                    if(!strlen($value)) {
+                ->setSanitizer(function ($value) use ($filePath) {
+                    if (!strlen($value)) {
                         $value = basename($filePath);
                     }
 
@@ -107,14 +114,14 @@ class HttpAdd extends arch\node\Form {
             ->validate($this->values)
             ->applyTo($this->_file);
 
-        return $this->complete(function() use($validator, $filePath) {
-            if($this->_file->isNew()) {
+        return $this->complete(function () use ($validator, $filePath) {
+            if ($this->_file->isNew()) {
                 $this->data->media->publishFile(
                     $filePath,
                     $this->data->media->bucket->fetchByPrimary($validator['bucket']),
                     $validator->getValues()
                 );
-            } else if($filePath !== null) {
+            } elseif ($filePath !== null) {
                 $this->data->media->publishVersion(
                     $this->_file,
                     $filePath,

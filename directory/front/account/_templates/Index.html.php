@@ -3,7 +3,7 @@ use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 
 echo Html::{'p'}([
-    $this->html->_('Hello %n%, you last logged in %t% ago', [
+    $this->html->_('Hello %n%, you last logged in %t%', [
         '%n%' => Disciple::getNickName(),
         '%t%' => Html::$time->since(Disciple::getLastLoginDate())
     ])

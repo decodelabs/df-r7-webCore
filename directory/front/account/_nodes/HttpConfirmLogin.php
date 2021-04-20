@@ -11,19 +11,13 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Disciple;
+
 class HttpConfirmLogin extends arch\node\Form
 {
     const DEFAULT_ACCESS = arch\IAccess::BOUND;
     const DEFAULT_EVENT = 'login';
     const DEFAULT_REDIRECT = '/';
-
-    protected function init()
-    {
-        if ($this->user->client->isConfirmed()) {
-            //$this->setComplete();
-            //return $this->http->defaultRedirect('account/');
-        }
-    }
 
     protected function getInstanceId()
     {
@@ -43,7 +37,7 @@ class HttpConfirmLogin extends arch\node\Form
         $fs->addField($this->_('User'))
             ->addEmailTextbox(
                     $this->fieldName('name'),
-                    $this->user->client->getFullName()
+                    Disciple::getFullName()
                 )
                 ->isDisabled(true);
 
@@ -79,7 +73,7 @@ class HttpConfirmLogin extends arch\node\Form
         return $this->complete(function () {
             $result = $this->user->auth->bind(
                 $this->user->auth->newRequest('Local')
-                    ->setIdentity($this->user->client->getEmail())
+                    ->setIdentity(Disciple::getEmail())
                     ->setCredential('password', $this->values['password'])
             );
 

@@ -12,6 +12,7 @@ use df\user;
 use df\aura;
 use df\link;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Glitch;
 use DecodeLabs\Exceptional;
 
@@ -54,13 +55,12 @@ class HttpDefault extends arch\node\Base
         $this->user->isLoggedIn();
 
         if ($code === 401) {
-            $client = $this->user->client;
             $redirectRequest = null;
 
             if ($this->runner->getRouter()->isBaseRoot()) {
-                if (!$client->isLoggedIn()) {
+                if (!Disciple::isLoggedIn()) {
                     $redirectRequest = arch\Request::factory('account/login');
-                } elseif (!$client->isConfirmed()) {
+                } elseif (!$this->user->client->isConfirmed()) {
                     $redirectRequest = arch\Request::factory('account/confirm-login');
                 }
             } else {

@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\flow;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class HttpTest extends arch\node\Form
@@ -41,10 +42,9 @@ class HttpTest extends arch\node\Form
         $this->values->fromName = $from->getName();
         $this->values->fromAddress = $from->getAddress();
 
-        if ($this->user->isLoggedIn()) {
-            $client = $this->user->client;
-            $this->values->toName = $client->getFullName();
-            $this->values->toAddress = $client->getEmail();
+        if (Disciple::isLoggedIn()) {
+            $this->values->toName = Disciple::getFullName();
+            $this->values->toAddress = Disciple::getEmail();
         }
     }
 

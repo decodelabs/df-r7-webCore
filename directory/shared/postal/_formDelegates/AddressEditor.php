@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class AddressEditor extends arch\node\form\Delegate
@@ -99,16 +100,16 @@ class AddressEditor extends arch\node\form\Delegate
     {
         if (!$this->_address) {
             $this->_address = $this->data->getModel('postal')->address->newRecord([
-                'owner' => $this->user->client->getId(),
+                'owner' => Disciple::getId(),
                 'access' => $this->_access
             ]);
 
             return;
         }
 
-        if ($this->_address->mustSpawnToEdit($this->_access, $this->user->client->getId())) {
+        if ($this->_address->mustSpawnToEdit($this->_access, Disciple::getId())) {
             $this->_address = $this->_address->spawnNew([
-                'owner' => $this->user->client->getId(),
+                'owner' => Disciple::getId(),
                 'access' => $this->_access
             ]);
         }

@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
@@ -22,7 +23,7 @@ class HttpAvatar extends arch\node\Form
 
     protected function init()
     {
-        $this->_file = $this->data->media->fetchSingleUserFile($this->user->client->getId(), 'Avatar');
+        $this->_file = $this->data->media->fetchSingleUserFile(Disciple::getId(), 'Avatar');
     }
 
     protected function getInstanceId()

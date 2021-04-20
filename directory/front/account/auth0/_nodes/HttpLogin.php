@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class HttpLogin extends arch\node\Base
@@ -19,7 +20,7 @@ class HttpLogin extends arch\node\Base
 
     public function execute()
     {
-        $link = $this->user->isLoggedIn();
+        $link = Disciple::isLoggedIn();
         $config = user\authentication\Config::getInstance();
 
         if (!$config->isAdapterEnabled('Auth0')) {
@@ -36,7 +37,7 @@ class HttpLogin extends arch\node\Base
 
             $adapter->authenticate(
                 $this->user->auth->newRequest('Auth0')
-                    ->setIdentity($this->user->getId())
+                    ->setIdentity(Disciple::getId())
                     ->setAttribute('redirect', $this->request),
                 $result = new user\authentication\Result('Auth0')
             );

@@ -1,4 +1,5 @@
 <?php
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 
 echo Html::{'div.layout-pageArea.floated'}(function () {
@@ -6,9 +7,9 @@ echo Html::{'div.layout-pageArea.floated'}(function () {
         yield Html::h1($this->html->link('/', $this->app->getName()));
 
         yield Html::{'nav.user'}(function () {
-            if ($this->user->isLoggedIn()) {
-                yield $this->_('Logged in as %n%. ', [
-                    '%n%' => $this->user->client->getFullName()
+            if (Disciple::isLoggedIn()) {
+                yield $this->_('Hi %n% ', [
+                    '%n%' => Disciple::getFirstName()
                 ]);
 
                 yield $this->html->link('account/logout', 'Log out')

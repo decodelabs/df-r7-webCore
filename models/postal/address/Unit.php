@@ -12,9 +12,12 @@ use df\axis;
 use df\user;
 use df\flex;
 
-class Unit extends axis\unit\Table {
+use DecodeLabs\Disciple;
 
-    protected function createSchema($schema) {
+class Unit extends axis\unit\Table
+{
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'Guid');
 
         $schema->addField('street1', 'Text', 128);
@@ -34,18 +37,19 @@ class Unit extends axis\unit\Table {
     }
 
 
-    public function lookupPostcode($search, $access=null) {
-        if($access === null) {
+    public function lookupPostcode($search, $access=null)
+    {
+        if ($access === null) {
             $access = 'protected';
         }
 
-        $clientId = $this->context->user->client->getId();
+        $clientId = Disciple::getId();
 
         $output = $this->fetch()
             ->where('postcode', 'like', $search)
             ->limit(100);
 
-        switch($access) {
+        switch ($access) {
             case 'public':
                 $output->beginWhereClause()
                     ->where('access', '=', 'public')
@@ -75,11 +79,12 @@ class Unit extends axis\unit\Table {
         return $output;
     }
 
-    public function lookupPostcodeAsList($search, $access=null) {
+    public function lookupPostcodeAsList($search, $access=null)
+    {
         $list = $this->lookupPostcode($search, $access);
         $output = [];
 
-        foreach($list as $address) {
+        foreach ($list as $address) {
             $output[$address['id']] = $address->toOneLineString();
         }
 

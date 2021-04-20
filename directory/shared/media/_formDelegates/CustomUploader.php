@@ -13,6 +13,7 @@ use df\aura;
 use df\mesh;
 use df\flex;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
@@ -49,7 +50,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         if ($this->_ownerId !== null) {
             return $this->_ownerId;
         } else {
-            return $this->user->client->getId();
+            return Disciple::getId();
         }
     }
 

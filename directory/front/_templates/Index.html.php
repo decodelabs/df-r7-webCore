@@ -1,8 +1,10 @@
 <?php
+use DecodeLabs\Disciple;
+
 echo $this->html->menu()
     ->addLinks(
         $this->html->link('account/login', $this->_('Log in'))
-            ->addAccessLock($this->context->user->client->isLoggedIn())
+            ->addAccessLock(Disciple::isLoggedIn())
             ->shouldHideIfInaccessible(true)
             ->setIcon('lock'),
 

@@ -10,6 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
 class HttpJoinSession extends arch\node\Base
@@ -18,7 +19,7 @@ class HttpJoinSession extends arch\node\Base
 
     public function execute()
     {
-        if (isset($this->request['401']) && !$this->user->isLoggedIn()) {
+        if (isset($this->request['401']) && !Disciple::isLoggedIn()) {
             $request = arch\Request::factory('account/login');
             $request->query->rf = $this->request->encode();
             return $this->http->redirect($request);
