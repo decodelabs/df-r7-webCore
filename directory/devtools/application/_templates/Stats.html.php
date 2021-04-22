@@ -29,11 +29,10 @@ echo $this->html->collectionList($list)
     ->addField('size', function ($location) {
         return Html::$number->fileSize($location->bytes);
     });
-?>
 
-<hr />
-<h3>Packages</h3>
-<?php
+
+echo Html::hr();
+echo Html::h3('Packages');
 
 echo $this->html->collectionList($packages)
     ->addField('name', function ($package) {
