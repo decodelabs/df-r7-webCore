@@ -47,7 +47,9 @@ define([
             });
 
             $(document).keyup(function (e) {
-                if (e.which == 27) _this.close();
+                if (e.which == 27 && !$('html').hasClass('modal-open')) {
+                    _this.close();
+                }
             });
 
             Core.on('dialog.open', function (source) {
