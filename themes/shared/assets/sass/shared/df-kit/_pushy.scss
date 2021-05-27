@@ -98,5 +98,7 @@ aside.pushy-container {
         overflow: auto;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
+        height: 100vh;
+        box-sizing: border-box;
     }
 }
