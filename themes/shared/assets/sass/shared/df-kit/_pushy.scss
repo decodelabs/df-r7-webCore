@@ -3,7 +3,7 @@ $pushy-overlay-filter: grayscale(60%) brightness(70%) !default !global;
 
 html {
     body > * {
-        transition: transform .25s ease-out;
+        transition: transform 0.25s ease-out;
     }
 
     &.pushy-active {
@@ -15,7 +15,7 @@ html {
             overflow-x: visible;
 
             > * {
-                transition: transform .25s ease-in, opacity .25s ease-in, filter .25s !important;
+                transition: transform 0.25s ease-in, opacity 0.25s ease-in, filter 0.25s !important;
             }
         }
 
@@ -38,7 +38,7 @@ html {
             overflow-x: visible;
 
             > * {
-                transition: transform .25s ease-in, opacity .25s ease-in, filter .25s !important;
+                transition: transform 0.25s ease-in, opacity 0.25s ease-in, filter 0.25s !important;
             }
         }
 
@@ -65,9 +65,6 @@ aside.pushy-container {
     height: 100vh;
     position: fixed;
     top: 0;
-    overflow: auto;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     z-index: 500;
 
     &.push-left {
@@ -98,5 +95,8 @@ aside.pushy-container {
 
     > .pushy-content {
         padding: 1rem;
+        overflow: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
