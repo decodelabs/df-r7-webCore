@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
 use df;
@@ -15,7 +16,7 @@ use DecodeLabs\Exceptional;
 
 class HttpJoinSession extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
@@ -30,12 +31,14 @@ class HttpJoinSession extends arch\node\Base
             hex2bin($this->request['key'])
         );
 
+        /*
         if ($key['date']->lt('-1 minute')) {
             throw Exceptional::Forbidden([
                 'message' => 'Old stub',
                 'http' => 403
             ]);
         }
+        */
 
         if (!$key['sessionId']) {
             $key['sessionId'] = $this->user->session->descriptor->id;
