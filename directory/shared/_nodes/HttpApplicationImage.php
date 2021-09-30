@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\_nodes;
 
 use df;
@@ -16,12 +17,12 @@ use DecodeLabs\Exceptional;
 
 class HttpApplicationImage extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-    const CHECK_ACCESS = false;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const CHECK_ACCESS = false;
 
     public function executeAsPng()
     {
-        $theme = $this->apex->getTheme();
+        $theme = $this->apex->getTheme($this->request['theme']);
 
         if (!$path = $theme->getApplicationImagePath()) {
             throw Exceptional::{'df/core/fs/NotFound'}([
