@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\cookies\_nodes;
 
 use df;
@@ -12,7 +13,7 @@ use df\arch;
 
 class HttpSettings extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsHtml()
     {
@@ -22,7 +23,8 @@ class HttpSettings extends arch\node\Base
             ]);
 
             $view->setTitle('Cookie Settings')
-                ->setMeta('description', 'Please select which types of cookies you would like to enable on '.$this->app->getName());
+                ->setMeta('description', 'Select which types of cookies you would like to enable on '.$this->app->getName())
+                ->setCanonical('cookies/settings');
 
             yield 'cookieData' => $data = $this->consent->getUserData(
                 $this->request['id']
