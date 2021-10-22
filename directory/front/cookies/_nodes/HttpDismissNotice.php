@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\cookies\_nodes;
 
 use df;
@@ -13,8 +14,8 @@ use df\aura;
 
 class HttpDismissNotice extends arch\node\Base
 {
-    const OPTIMIZE = true;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const OPTIMIZE = true;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
@@ -29,6 +30,6 @@ class HttpDismissNotice extends arch\node\Base
             ]);
         }
 
-        return $this->http->defaultRedirect();
+        return $this->http->defaultRedirect('/');
     }
 }
