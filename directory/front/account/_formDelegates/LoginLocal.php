@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_formDelegates;
 
 use df;
@@ -11,13 +12,15 @@ use df\apex;
 use df\arch;
 use df\user;
 
+use DecodeLabs\Disciple;
+use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
 class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {
     use arch\node\TForm_ParentUiHandlerDelegate;
 
-    const DEFAULT_REDIRECT = '/';
+    public const DEFAULT_REDIRECT = '/';
 
     protected function createUi()
     {
@@ -98,6 +101,22 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
 
 
         return $this->complete(function () {
+            $gateKeeper = Disciple::getGateKeeper();
+            $identity = (string)$this->values['identity'];
+
+            // Check approval
+            if (!$gateKeeper->approveLogin($identity, function ($time) {
+                $this->values->identity->addError('time', $this->_(
+                    'Too many login attempts, please wait '.Dictum::$time->until($time)
+                ));
+
+                $this->values->password->setValue('');
+            })) {
+                return false;
+            }
+
+
+            // Run login
             $result = $this->user->auth->bind(
                 $this->user->auth->newRequest('Local')
                     ->setIdentity($this->values['identity'])
@@ -105,6 +124,12 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
                     ->setAttribute('rememberMe', (bool)$this->values['rememberMe'])
             );
 
+
+            // Log attempt
+            $gateKeeper->reportLogin($identity, $result->isValid());
+
+
+            // Deal with errors
             if (!$result->isValid()) {
                 if ($result->getCode() === $result::NO_STATUS) {
                     $this->values->identity->addError('status', $this->_(

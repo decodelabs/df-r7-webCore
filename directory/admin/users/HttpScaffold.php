@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users;
 
 use df;
@@ -12,8 +13,8 @@ use df\arch;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
-    const TITLE = 'User management';
-    const ICON = 'user';
+    public const TITLE = 'User management';
+    public const ICON = 'user';
 
     public function generateIndexMenu($entryList)
     {
@@ -54,11 +55,17 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setIcon('accept')
                 ->setWeight(60),
 
+            $entryList->newLink('~admin/users/logins/', 'Login attempts')
+                ->setId('logins')
+                ->setDescription('See all logs of recent attempted logins')
+                ->setWeight(70)
+                ->setIcon('form'),
+
             $entryList->newLink('./deactivations/', 'Deactivations')
                 ->setId('deactivations')
                 ->setDescription('See who has decided to deactivate their account')
                 ->setIcon('remove')
-                ->setWeight(70)
+                ->setWeight(80)
                 ->setDisposition('neutral'),
 
             $entryList->newLink('./settings', 'Settings')
