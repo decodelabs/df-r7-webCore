@@ -49,7 +49,7 @@ class HttpRespond extends arch\node\Form
                 return Html::$time->since($request['creationDate']);
             })
             ->addField('message', function ($request) {
-                return Metamorph::{'plainText.html'}($request['message']);
+                return Metamorph::text($request['message']);
             });
 
 

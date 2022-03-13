@@ -102,7 +102,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineMessageField($list, $mode)
     {
         $list->addField('message', function ($request) {
-            return Metamorph::{'plainText.html'}($request['message']);
+            return Metamorph::text($request['message']);
         });
     }
 

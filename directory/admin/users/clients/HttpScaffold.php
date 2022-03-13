@@ -385,7 +385,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ];
 
             if ($deactivation['comments']) {
-                $output[] = Html::{'div'}(Metamorph::{'plainText.html'}($deactivation['comments']));
+                $output[] = Html::{'div'}(Metamorph::text($deactivation['comments']));
             }
 
             return $output;

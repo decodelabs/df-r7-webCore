@@ -59,7 +59,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineCommentsField($list)
     {
         $list->addField('comments', function ($deactivation) {
-            return Metamorph::{'plainText.html'}($deactivation['comments']);
+            return Metamorph::text($deactivation['comments']);
         });
     }
 }

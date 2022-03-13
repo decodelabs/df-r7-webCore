@@ -31,7 +31,7 @@ echo $this->html->elementContentContainer(function () use ($message) {
 
                     switch ($part->getContentType()) {
                         case 'text/plain':
-                            yield Html::{'div.sterile'}(Metamorph::{'plainText.raw'}($part->getContent()));
+                            yield Html::{'div.sterile'}(Metamorph::{'text.raw'}($part->getContent()));
                             break;
 
                         case 'text/html':
