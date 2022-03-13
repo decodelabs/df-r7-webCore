@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\deactivations;
 
 use df;
@@ -11,22 +12,24 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Metamorph;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'User deactivations';
-    const ICON = 'remove';
-    const ADAPTER = 'axis://user/ClientDeactivation';
-    const KEY_NAME = 'deactivation';
-    const NAME_FIELD = 'date';
+    public const TITLE = 'User deactivations';
+    public const ICON = 'remove';
+    public const ADAPTER = 'axis://user/ClientDeactivation';
+    public const KEY_NAME = 'deactivation';
+    public const NAME_FIELD = 'date';
 
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'date', 'user', 'reason'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'user', 'date', 'reason', 'comments'
     ];
 
@@ -56,7 +59,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineCommentsField($list)
     {
         $list->addField('comments', function ($deactivation) {
-            return $this->html->plainText($deactivation['comments']);
+            return Metamorph::{'plainText.html'}($deactivation['comments']);
         });
     }
 }

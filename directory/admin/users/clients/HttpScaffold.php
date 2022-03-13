@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\clients;
 
 use df;
@@ -13,17 +14,18 @@ use df\opal;
 use df\user;
 
 use DecodeLabs\Disciple;
+use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Users';
-    const ICON = 'user';
-    const ADAPTER = 'axis://user/Client';
-    const KEY_NAME = 'user';
-    const NAME_FIELD = 'fullName';
+    public const TITLE = 'Users';
+    public const ICON = 'user';
+    public const ADAPTER = 'axis://user/Client';
+    public const KEY_NAME = 'user';
+    public const NAME_FIELD = 'fullName';
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         //'invites' => 'mail',
         'authentication' => 'lock',
@@ -31,18 +33,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'accessPasses' => 'key'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'fullName', 'email', 'status', 'groups',
         'country', 'joinDate', 'loginDate'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'fullName', 'nickName', 'email', 'status',
         'deactivation', 'country', 'language',
         'timezone', 'joinDate', 'loginDate', 'groups'
     ];
 
-    const CONFIRM_DELETE = true;
+    public const CONFIRM_DELETE = true;
 
 
     // Record data
@@ -383,7 +385,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ];
 
             if ($deactivation['comments']) {
-                $output[] = Html::{'div'}($this->html->plainText($deactivation['comments']));
+                $output[] = Html::{'div'}(Metamorph::{'plainText.html'}($deactivation['comments']));
             }
 
             return $output;

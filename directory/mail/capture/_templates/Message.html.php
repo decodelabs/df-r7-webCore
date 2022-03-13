@@ -6,6 +6,7 @@ use df\flex;
 
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exemplar\Element as XmlElement;
+use DecodeLabs\Metamorph;
 
 echo $this->html->elementContentContainer(function () use ($message) {
     $renderer = function (array $parts, $baseId='') use (&$renderer) {
@@ -30,7 +31,7 @@ echo $this->html->elementContentContainer(function () use ($message) {
 
                     switch ($part->getContentType()) {
                         case 'text/plain':
-                            yield Html::{'div.sterile'}($this->html->plainText($part->getContent()));
+                            yield Html::{'div.sterile'}(Metamorph::{'plainText.raw'}($part->getContent()));
                             break;
 
                         case 'text/html':

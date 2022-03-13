@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\inviteRequests\_nodes;
 
 use df;
@@ -12,6 +13,7 @@ use df\arch;
 
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Metamorph;
 
 class HttpRespond extends arch\node\Form
 {
@@ -47,7 +49,7 @@ class HttpRespond extends arch\node\Form
                 return Html::$time->since($request['creationDate']);
             })
             ->addField('message', function ($request) {
-                return $this->html->plainText($request['message']);
+                return Metamorph::{'plainText.html'}($request['message']);
             });
 
 

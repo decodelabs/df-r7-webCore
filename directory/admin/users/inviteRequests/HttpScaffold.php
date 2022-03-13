@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\inviteRequests;
 
 use df;
@@ -11,23 +12,25 @@ use df\apex;
 use df\arch;
 use df\opal;
 
+use DecodeLabs\Metamorph;
+
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Invite requests';
-    const ICON = 'key';
-    const ADAPTER = 'axis://user/InviteRequest';
-    const KEY_NAME = 'request';
-    const ITEM_NAME = 'Invite request';
+    public const TITLE = 'Invite requests';
+    public const ICON = 'key';
+    public const ADAPTER = 'axis://user/InviteRequest';
+    public const KEY_NAME = 'request';
+    public const ITEM_NAME = 'Invite request';
 
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'name', 'email', 'companyName', 'companyPosition',
         'creationDate', 'isActive'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'name', 'email', 'companyName', 'companyPosition',
         'invite', 'user', 'creationDate', 'isActive', 'message'
     ];
@@ -99,7 +102,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineMessageField($list, $mode)
     {
         $list->addField('message', function ($request) {
-            return $this->html->plainText($request['message']);
+            return Metamorph::{'plainText.html'}($request['message']);
         });
     }
 
