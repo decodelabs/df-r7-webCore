@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\helpers;
 
 use df;
@@ -61,6 +62,10 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
         $this->view->dfKit->load('lib/df-kit/mediaelement');
 
+        if ($attributes === null) {
+            $attributes = [];
+        }
+
         if (isset($attributes['dfKit'])) {
             $this->view->dfKit->load($attributes['dfKit']);
             unset($attributes['dfKit']);
@@ -68,7 +73,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             $attributes['data-mejs'] = '';
         }
 
-        return Html::{'div.container.mejs.audio > audio.w.embed'}(null, array_merge($attributes ?? [], [
+        return Html::{'div.container.mejs.audio > audio.w.embed'}(null, array_merge($attributes, [
             'type' => $type,
             'src' => $sourceUrl,
             'controls' => true,
@@ -89,6 +94,10 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
         if (empty($embed)) {
             return null;
+        }
+
+        if ($attributes === null) {
+            $attributes = [];
         }
 
         $width = $attributes['width'] ?? null;
@@ -128,7 +137,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             $sourceUrl .= '?title=0&amp;byline=0&amp;portrait=0&amp;badge=0';
         }
 
-        return Html::{'div.container.mejs.video > video.w.embed'}(null, array_merge($attributes ?? [], [
+        return Html::{'div.container.mejs.video > video.w.embed'}(null, array_merge($attributes, [
             //'type' => $type,
             'src' => $sourceUrl,
             'controls' => true,
