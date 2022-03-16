@@ -1,4 +1,6 @@
 <?php
+
+use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
 $this->view->setSubject($this->_(
@@ -22,5 +24,5 @@ if ($reason = $deactivation['reason']) {
 
 if ($message = $deactivation['comments']) {
     echo $generator->h4('Comments');
-    echo $this->html->simpleTags($message);
+    echo Metamorph::idiom($message);
 }

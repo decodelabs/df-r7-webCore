@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\invites\_nodes;
 
 use df;
@@ -10,11 +11,12 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
 class HttpResend extends arch\node\ConfirmForm
 {
-    const ITEM_NAME = 'invite';
+    public const ITEM_NAME = 'invite';
 
     protected $_invite;
 
@@ -44,7 +46,7 @@ class HttpResend extends arch\node\ConfirmForm
                     return $this->html->mailLink($invite['email']);
                 })
                 ->addField('message', function ($invite) {
-                    return $this->html->simpleTags($invite['message']);
+                    return Metamorph::idiom($invite['message']);
                 })
                 ->addField('groups', function ($invite) {
                     return Html::uList($invite->groups->fetch(), function ($group) {

@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\history\_components;
 
 use df;
@@ -10,6 +11,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
 class HistoryList extends arch\component\CollectionList
@@ -36,7 +38,7 @@ class HistoryList extends arch\component\CollectionList
     public function addDescriptionField($list)
     {
         $list->addField('description', function ($history) {
-            return $this->html->simpleTags($history['description']);
+            return Metamorph::idiom($history['description']);
         });
     }
 

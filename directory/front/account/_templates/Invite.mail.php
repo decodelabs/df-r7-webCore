@@ -1,4 +1,6 @@
 <?php
+
+use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
 $this->view->setSubject($this->_(
@@ -13,7 +15,7 @@ echo $generator->p([
 ]);
 
 if ($message = $invite['message']) {
-    echo $this->html->simpleTags($message);
+    echo Metamorph::idiom($message);
 }
 
 echo $generator->p([
