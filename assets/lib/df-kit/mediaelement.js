@@ -2,8 +2,8 @@ define([
     'jquery',
     'underscore',
     'df-kit/core',
-    '{mediaelement}/build/mediaelement-and-player.min'
-], function($, _, Core, mejs) {
+    '{mediaelement}/build/mediaelement-and-player.min.js'
+], function ($, _, Core, mejs) {
 
 
     return Core.component({
@@ -16,28 +16,32 @@ define([
         vimeoOnPage: false,
         _pluginDeferred: null,
 
-        init: function() {
+        init: function () {
             this.load($('audio.w.embed[data-mejs], video.w.embed[data-mejs]'));
         },
 
-        load: function($el) {
-            var _this = this, loaded = false, deferred = $.Deferred();
+        load: function ($el) {
+            var _this = this,
+                loaded = false,
+                deferred = $.Deferred();
 
-            if(!$el.length) {
+            if (!$el.length) {
                 return deferred.promise();
             }
 
 
-            if(!_this.vimeoOnPage) {
+            if (!_this.vimeoOnPage) {
                 _this.vimeoOnPage = $('video.w.embed[data-provider=vimeo]').length;
 
-                if(_this.vimeoOnPage) {
+                if (_this.vimeoOnPage) {
                     _this._pluginDeferred = $.Deferred();
 
-                    require(['https://player.vimeo.com/api/player.js'], function(Vimeo) {
-                        window.Vimeo = {Player: Vimeo};
+                    System.import('https://player.vimeo.com/api/player.js').then(function (Vimeo) {
+                        window.Vimeo = {
+                            Player: Vimeo
+                        };
 
-                        require(['{mediaelement}/build/renderers/vimeo'], function() {
+                        System.import('{mediaelement}/build/renderers/vimeo.js').then(function () {
                             _this._pluginDeferred.resolve();
                         });
                     });
@@ -45,8 +49,8 @@ define([
             }
 
 
-            if(_this._pluginDeferred) {
-                _this._pluginDeferred.done(function() {
+            if (_this._pluginDeferred) {
+                _this._pluginDeferred.done(function () {
                     _this._load($el, deferred);
                 });
             } else {
@@ -56,13 +60,13 @@ define([
             return deferred.promise();
         },
 
-        _load: function($el, deferred) {
-            if(!$el.length) {
+        _load: function ($el, deferred) {
+            if (!$el.length) {
                 return;
             }
 
             $el.mediaelementplayer(_.extend(this.options, {
-                success: function(mediaElement, originalNode, instance) {
+                success: function (mediaElement, originalNode, instance) {
                     deferred.resolve(mediaElement, originalNode, instance);
                 }
             }));

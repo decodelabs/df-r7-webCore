@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\dfKit\_nodes;
 
 use df;
@@ -13,23 +14,15 @@ use df\aura;
 use df\fuse;
 
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
 
-class HttpBootstrap extends arch\node\Base
+class HttpBootstrapSystem extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsJs()
     {
-        $theme = $this->_getTheme();
-        $data = $this->_getRequireConfig($theme);
-
-        $output =
-            'if(typeof require == \'undefined\') { throw new Error(\'Require.js has not been loaded\'); };'."\n".
-            'define(\'require.config\', function() { return '.str_replace('\\/', '/', (string)json_encode($data)).'; });'."\n";
-
-        $output .= file_get_contents(__DIR__.'/bootstrap.js');
-
-        $output = $this->http->stringResponse($output, 'text/javascript');
+        $output = $this->http->fileResponse(__DIR__.'/bootstrap.system.js', 'text/javascript');
         $output->headers
             ->set('Access-Control-Allow-Origin', '*')
             ->setCacheAccess('public')
@@ -37,6 +30,14 @@ class HttpBootstrap extends arch\node\Base
             ->setCacheExpiration('+1 year');
 
         return $output;
+    }
+
+    public function executeAsJson()
+    {
+        $config = $this->_getRequireConfig($this->_getTheme());
+
+
+        return $this->http->jsonResponse($config);
     }
 
     protected function _getTheme()
@@ -65,46 +66,40 @@ class HttpBootstrap extends arch\node\Base
     {
         $manager = fuse\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
+        $cts = Legacy::getCompileTimestamp() ?? time();
 
-        $paths = $shims = $maps = [];
+        $paths = [
+            'app/' => '../assets/app/',
+            'admin/' => '../assets/admin/',
+            'assets/' => '../assets/',
+            'theme/' => '../../theme/',
+            'vendor-static/' => '../assets/vendor-static/',
+            'df-kit/' => '../assets/lib/df-kit/'
+        ];
+
+        $dfKit = [
+            'ajax', 'core', 'flash-messages', 'markdown',
+            'mediaelement', 'modal', 'pushy'
+        ];
+
+        foreach ($dfKit as $lib) {
+            $paths['df-kit/'.$lib] = '../assets/lib/df-kit/'.$lib.'.js?cts='.$cts;
+        }
 
         foreach ($dependencies as $key => $dependency) {
             if (!$dependency instanceof fuse\Dependency) {
                 continue;
             }
 
-            if (isset($dependency->map)) {
-                $maps = array_merge($maps, $dependency->map);
-            }
-
-            $paths['{'.$dependency->id.'}'] = 'vendor/'.$dependency->installName;
+            $paths['{'.$dependency->id.'}/'] = '../assets/vendor/'.$dependency->installName.'/';
 
             if (!empty($dependency->js)) {
                 $js = $dependency->js;
                 $main = array_shift($js);
-
-                if (substr($main, -3) == '.js') {
-                    $main = substr($main, 0, -3);
-                }
-
-                $paths[$dependency->id] = 'vendor/'.$dependency->installName.'/'.$main;
-            }
-
-            if (isset($dependency->shim)) {
-                $shims[$dependency->id] = $dependency->shim;
+                $paths[$dependency->id] = '../assets/vendor/'.$dependency->installName.'/'.$main;
             }
         }
 
-        $data = ['paths' => $paths];
-
-        if (!empty($shims)) {
-            $data['shims'] = $shims;
-        }
-
-        if (!empty($maps)) {
-            $data['map'] = $maps;
-        }
-
-        return $data;
+        return ['imports' => $paths];
     }
 }
