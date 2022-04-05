@@ -47,7 +47,7 @@ class DfKit implements arch\IDirectoryHelper
     protected function initRequire()
     {
         $url = '/df-kit/bootstrap-require.js?theme='.$this->view->getTheme()->getId();
-        $url .= '&cts='.(Legacy::getCompileTimestamp() ?? time());
+        $url .= '&cts='.(df\Launchpad::$compileTimestamp ?? time());
 
         // Avoid using data-main for extensions also using RequireJS
         $this->view->linkJs('dependency://requirejs', 1, [
@@ -58,7 +58,7 @@ class DfKit implements arch\IDirectoryHelper
     protected function initSystem()
     {
         $url = '/df-kit/bootstrap-system.js?theme='.$this->view->getTheme()->getId();
-        $url .= '&cts='.(Legacy::getCompileTimestamp() ?? time());
+        $url .= '&cts='.(df\Launchpad::$compileTimestamp ?? time());
 
         $url = Legacy::uri($url);
         $jsUrl = (string)$url;

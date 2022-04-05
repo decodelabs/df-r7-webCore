@@ -14,7 +14,6 @@ use df\aura;
 use df\fuse;
 
 use DecodeLabs\Exceptional;
-use DecodeLabs\R7\Legacy;
 
 class HttpBootstrapSystem extends arch\node\Base
 {
@@ -66,7 +65,7 @@ class HttpBootstrapSystem extends arch\node\Base
     {
         $manager = fuse\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
-        $cts = Legacy::getCompileTimestamp() ?? time();
+        $cts = df\Launchpad::$compileTimestamp ?? time();
 
         $paths = [
             'app/' => '../assets/app/',
