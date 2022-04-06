@@ -60,7 +60,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             return $embed;
         }
 
-        $this->view->dfKit->load('lib/df-kit/mediaelement');
+        $this->view->dfKit->load('df-kit/mediaelement');
 
         if ($attributes === null) {
             $attributes = [];
