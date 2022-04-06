@@ -99,6 +99,8 @@ class HttpBootstrapSystem extends arch\node\Base
             }
         }
 
+        $paths = array_merge($paths, $theme->getImportMap());
+
         return ['imports' => $paths];
     }
 }
