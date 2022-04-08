@@ -37,22 +37,9 @@ class DfKit implements arch\IDirectoryHelper
             return $this;
         }
 
-        //$this->initRequire();
         $this->initSystem();
 
         return $this;
-    }
-
-
-    protected function initRequire()
-    {
-        $url = '/df-kit/bootstrap-require.js?theme='.$this->view->getTheme()->getId();
-        $url .= '&cts='.(df\Launchpad::$compileTimestamp ?? time());
-
-        // Avoid using data-main for extensions also using RequireJS
-        $this->view->linkJs('dependency://requirejs', 1, [
-            '__invoke' => 'require([\''.Legacy::uri($url).'\']);'
-        ]);
     }
 
     protected function initSystem()
