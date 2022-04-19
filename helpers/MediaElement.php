@@ -77,7 +77,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             'type' => $type,
             'src' => $sourceUrl,
             'controls' => true,
-            'preload' => 'auto'
+            'preload' => 'none'
         ]));
     }
 
@@ -141,7 +141,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             //'type' => $type,
             'src' => $sourceUrl,
             'controls' => true,
-            'preload' => 'auto'
+            'preload' => 'none'
         ]));
     }
 }
