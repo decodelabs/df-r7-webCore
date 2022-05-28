@@ -35,8 +35,14 @@ class HttpBootstrapSystem extends arch\node\Base
     {
         $config = $this->_getRequireConfig($this->_getTheme());
 
+        $output = $this->http->jsonResponse($config);
+        $output->headers
+            ->set('Access-Control-Allow-Origin', '*')
+            ->setCacheAccess('public')
+            ->canStoreCache(true)
+            ->setCacheExpiration('+1 year');
 
-        return $this->http->jsonResponse($config);
+        return $output;
     }
 
     protected function _getTheme()
