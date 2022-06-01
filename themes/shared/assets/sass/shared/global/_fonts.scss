@@ -1,3 +1,17 @@
+$consolas: null;
+$helvetica: null;
+$monospace: null;
+$font-base-size: null;
+$font-min-size: null;
+$font-base-family: null;
+$font-line-height: null;
+$font-base-weight: null;
+$font-antialias: null;
+$font-scale: null;
+$font-scale-threshold: null;
+$font-scale-region: null;
+$font-scale-crossover: null;
+
 $consolas: Consolas, "Andale Mono WT", "Andale Mono", "Courier New", Courier, monospace !global;
 $helvetica: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !global;
 
@@ -20,8 +34,6 @@ $font-scale-crossover: null !default !global;
 } @else {
     $font-scale-crossover: 1080px !default;
 }
-
-
 
 // FONT SCALING
 @mixin applyRelativeFontSizing($maxWidth: $font-scale-threshold) {
@@ -63,8 +75,6 @@ $font-scale-crossover: null !default !global;
         }
     }
 }
-
-
 
 @include exports("global/_fonts") {
     html {

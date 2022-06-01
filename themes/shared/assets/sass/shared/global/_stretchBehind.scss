@@ -1,4 +1,6 @@
-@import '_clearfix.scss';
+@import "_clearfix.scss";
+
+$pxToRem-base-size: null;
 
 @if global-variable-exists(font-base-size) {
     $pxToRem-base-size: $font-base-size !global;
@@ -28,7 +30,7 @@
     box-sizing: border-box;
 
     &:before {
-        content: '';
+        content: "";
         width: 500%;
         height: 100%;
         position: absolute;
