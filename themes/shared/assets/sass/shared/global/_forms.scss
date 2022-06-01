@@ -1,14 +1,8 @@
-$form-label-width: null;
-$form-label-align: null;
-$form-input-width: null;
-$form-float-threshold: null;
-$error-color: null;
-
-$form-label-width: 16rem !default !global;
-$form-label-align: right !default !global;
-$form-input-width: 30rem !default !global;
-$form-float-threshold: 55em !default !global;
-$error-color: darken(red, 8%) !default !global;
+$form-label-width: 16rem !default;
+$form-label-align: right !default;
+$form-input-width: 30rem !default;
+$form-float-threshold: 55em !default;
+$error-color: darken(red, 8%) !default;
 
 //@include exports("global/_fonts") {
 

@@ -1,33 +1,19 @@
-$consolas: null;
-$helvetica: null;
-$monospace: null;
-$font-base-size: null;
-$font-min-size: null;
-$font-base-family: null;
-$font-line-height: null;
-$font-base-weight: null;
-$font-antialias: null;
-$font-scale: null;
-$font-scale-threshold: null;
-$font-scale-region: null;
-$font-scale-crossover: null;
+$consolas: Consolas, "Andale Mono WT", "Andale Mono", "Courier New", Courier, monospace;
+$helvetica: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 
-$consolas: Consolas, "Andale Mono WT", "Andale Mono", "Courier New", Courier, monospace !global;
-$helvetica: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !global;
+$monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 
-$monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default !global;
+$font-base-size: 15px !default;
+$font-min-size: 10px !default;
+$font-base-family: $helvetica !default;
+$font-line-height: 1.4 !default;
+$font-base-weight: normal !default;
+$font-antialias: true !default;
 
-$font-base-size: 16px !default !global;
-$font-min-size: 10px !default !global;
-$font-base-family: $helvetica !default !global;
-$font-line-height: 1.4 !default !global;
-$font-base-weight: normal !default !global;
-$font-antialias: true !default !global;
-
-$font-scale: false !default !global;
-$font-scale-threshold: 3000px !default !global;
-$font-scale-region: 300px !default !global;
-$font-scale-crossover: null !default !global;
+$font-scale: false !default;
+$font-scale-threshold: 3000px !default;
+$font-scale-region: 300px !default;
+$font-scale-crossover: null !default;
 
 @if global-variable-exists(page-max-width) {
     $font-scale-crossover: $page-max-width !default;

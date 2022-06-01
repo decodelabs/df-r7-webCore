@@ -1,7 +1,5 @@
 @import "_clearfix.scss";
 
-$pxToRem-base-size: null;
-
 @if global-variable-exists(font-base-size) {
     $pxToRem-base-size: $font-base-size !global;
 } @else {
