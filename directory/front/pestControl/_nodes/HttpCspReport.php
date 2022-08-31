@@ -29,7 +29,7 @@ class HttpCspReport extends arch\node\Base
 
         $data = $data['csp-report'];
 
-        if (($data['source-file']) === 'chrome-extension') {
+        if (($data['source-file'] ?? null) === 'chrome-extension') {
             return 'ignore extensions';
         }
 
