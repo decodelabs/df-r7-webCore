@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\system\pestControl;
 
 use df;
@@ -15,8 +16,8 @@ use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
-    const TITLE = 'Pest control';
-    const ICON = 'bug';
+    public const TITLE = 'Pest control';
+    public const ICON = 'bug';
 
     protected $_router;
 
@@ -25,6 +26,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
         $criticalErrorCount = $this->data->pestControl->error->countAll();
         $notFoundCount = $this->data->pestControl->miss->countAll();
         $accessErrorCount = $this->data->pestControl->accessLog->countAll();
+        $reportErrorCount = $this->data->pestControl->report->countAll();
 
         $entryList->addEntries(
             $entryList->newLink('./errors/', 'Critical errors')
@@ -46,7 +48,14 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setDescription('See who is trying to access things they are not supposed to')
                 ->setIcon('lock')
                 ->setNote(Dictum::$number->counter($accessErrorCount))
-                ->setWeight(30)
+                ->setWeight(30),
+
+            $entryList->newLink('./reports/', 'HTTP reports')
+                ->setId('reports')
+                ->setDescription('View HTTP client reports for CSP, etc')
+                ->setIcon('report')
+                ->setNote(Dictum::$number->counter($reportErrorCount))
+                ->setWeight(40)
         );
     }
 
