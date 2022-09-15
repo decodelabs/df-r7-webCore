@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\postal\_formDelegates;
 
 use df;
@@ -134,7 +135,12 @@ class AddressSelector extends arch\node\form\Delegate implements
 
     protected function loadDelegates()
     {
-        $this->loadDelegate('address', 'AddressEditor')
+        /**
+         * Address
+         * @var AddressEditor $address
+         */
+        $address = $this->loadDelegate('address', 'AddressEditor');
+        $address
             ->setAddress($this->_address)
             ->setAccessLevel($this->_access)
             ->shouldAutoComplete($this->_autoComplete)

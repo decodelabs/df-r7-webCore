@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\media\_formDelegates;
 
 use df;
@@ -24,7 +25,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
     use core\lang\TAcceptTypeProcessor;
     use arch\node\TForm_MediaBucketAwareSelector;
 
-    const DEFAULT_MODES = [
+    public const DEFAULT_MODES = [
         'details' => 'createInlineDetailsUi',
         'select' => 'createOverlaySelectorUi',
         'upload' => 'createOverlayUploaderUi',
@@ -67,12 +68,22 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         $mode = $this->getMode();
         $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
 
-        $this->loadDelegate('upload', 'CustomTempUploader')
+        /**
+         * Upload
+         * @var CustomTempUploader $upload
+         */
+        $upload = $this->loadDelegate('upload', 'CustomTempUploader');
+        $upload
             ->isForMany($this->_isForMany)
             ->isRequired($mode == 'upload')
             ->setAcceptTypes(...$accept);
 
-        $this->loadDelegate('versionUpload', 'CustomTempUploader')
+        /**
+         * Version upload
+         * @var CustomTempUploader $versionUpload
+         */
+        $versionUpload = $this->loadDelegate('versionUpload', 'CustomTempUploader');
+        $versionUpload
             ->isForOne(true)
             ->isRequired($mode == 'version')
             ->setAcceptTypes(...$accept);

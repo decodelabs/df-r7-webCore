@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\elements\_nodes;
 
 use df;
@@ -25,7 +26,9 @@ class HttpAdd extends arch\node\Form
 
     protected function loadDelegates()
     {
-        $this->loadDelegate('body', '~/nightfire/ContentSlot')
+        /** @var  apex\directory\shared\nightfire\_formDelegates\ContentSlot $body */
+        $body = $this->loadDelegate('body', '~/nightfire/ContentSlot');
+        $body
             ->setCategory('Description')
             ->isRequired(true);
     }

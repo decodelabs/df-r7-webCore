@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
 use df;
@@ -15,8 +16,8 @@ use DecodeLabs\Disciple;
 
 class HttpRegister extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::GUEST;
-    const DEFAULT_EVENT = 'register';
+    public const DEFAULT_ACCESS = arch\IAccess::GUEST;
+    public const DEFAULT_EVENT = 'register';
 
     protected $_invite;
 
@@ -68,7 +69,12 @@ class HttpRegister extends arch\node\Form
 
     protected function loadDelegates()
     {
-        $this->loadDelegate('Local', '~front/account/RegisterLocal')
+        /**
+         * RegisterLocal
+         * @var apex\directory\front\account\_formDelegates\RegisterLocal $register
+         */
+        $register = $this->loadDelegate('Local', '~front/account/RegisterLocal');
+        $register
             ->setInvite($this->_invite);
     }
 

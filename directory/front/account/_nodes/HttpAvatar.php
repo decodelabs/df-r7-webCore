@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
 use df;
@@ -16,8 +17,8 @@ use DecodeLabs\Exceptional;
 
 class HttpAvatar extends arch\node\Form
 {
-    const DEFAULT_EVENT = 'upload';
-    const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
+    public const DEFAULT_EVENT = 'upload';
+    public const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 
     protected $_file;
 
@@ -38,7 +39,12 @@ class HttpAvatar extends arch\node\Form
 
     protected function loadDelegates()
     {
-        $this->loadDelegate('upload', 'media/CustomTempUploader')
+        /**
+         * File
+         * @var apex\directory\shared\media\_formDelegates\CustomTempUploader $file
+         */
+        $file = $this->loadDelegate('upload', 'media/CustomTempUploader');
+        $file
             ->isForOne(true)
             //->shouldShowUploadButton(false)
             ;

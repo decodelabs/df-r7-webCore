@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\error\_nodes;
 
 use df;
@@ -18,8 +19,8 @@ use DecodeLabs\Exceptional;
 
 class HttpDefault extends arch\node\Base
 {
-    const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const CHECK_ACCESS = false;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {

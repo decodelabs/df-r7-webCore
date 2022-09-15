@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\media\files\_nodes;
 
 use df;
@@ -23,16 +24,31 @@ class HttpAdd extends arch\node\Form
 
     protected function loadDelegates()
     {
-        $this->loadDelegate('upload', '../CustomTempUploader')
+        /**
+         * File
+         * @var apex\directory\shared\media\_formDelegates\CustomTempUploader $file
+         */
+        $file = $this->loadDelegate('upload', '../CustomTempUploader');
+        $file
             ->isForOne(true)
             ->isRequired($this->_file->isNew())
             ->shouldShowUploadButton(true);
 
-        $this->loadDelegate('bucket', '../BucketSelector')
+        /**
+         * Bucket
+         * @var arch\scaffold\Node\Form\SelectorDelegate $bucket
+         */
+        $bucket = $this->loadDelegate('bucket', '../BucketSelector');
+        $bucket
             ->isForOne(true)
             ->isRequired(true);
 
-        $this->loadDelegate('owner', '~admin/users/clients/UserSelector')
+        /**
+         * User
+         * @var arch\scaffold\Node\Form\SelectorDelegate $user
+         */
+        $user = $this->loadDelegate('owner', '~admin/users/clients/UserSelector');
+        $user
             ->isForOne(true)
             ->isRequired(false);
     }

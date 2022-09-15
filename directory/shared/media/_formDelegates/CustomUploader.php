@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\media\_formDelegates;
 
 use df;
@@ -120,7 +121,12 @@ class CustomUploader extends arch\node\form\Delegate implements
             $accept = $this->_acceptTypes;
         }
 
-        $this->loadDelegate('upload', 'CustomTempUploader')
+        /**
+         * Upload
+         * @var CustomTempUploader $upload
+         */
+        $upload = $this->loadDelegate('upload', 'CustomTempUploader');
+        $upload
             ->isRequired($this->_isRequired)
             ->isForMany($this->_isForMany)
             ->setAcceptTypes(...$accept)
@@ -318,7 +324,7 @@ class CustomUploader extends arch\node\form\Delegate implements
 
             $this->html->label($this->_chooseLabel ?? $this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
-                ->addClass(!empty($available) ? 'replace': null),
+                ->addClass(!empty($available) ? 'replace' : null),
 
             $this->_showUploadButton ?
                 $this->html->eventButton(
