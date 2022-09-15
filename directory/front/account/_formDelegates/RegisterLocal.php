@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_formDelegates;
 
 use df;
@@ -109,7 +110,7 @@ class RegisterLocal extends RegisterBase
         if (!$this->isValid()) {
             return;
         }
-        
+
         $auth = $this->_createAuth($client, 'Local');
 
         $this->data->newValidator()
@@ -118,6 +119,7 @@ class RegisterLocal extends RegisterBase
             ->validate($this->values)
             ->applyTo($auth);
 
+        /** @phpstan-ignore-next-line */
         if ($this->isValid()) {
             $this->_saveClient($client);
 
