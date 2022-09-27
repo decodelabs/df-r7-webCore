@@ -16,6 +16,7 @@ use df\flex;
 use df\link;
 
 use DecodeLabs\Tagged as Html;
+use DecodeLabs\Tagged\Embed\Audioboom;
 use DecodeLabs\Exceptional;
 
 class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
@@ -51,7 +52,11 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
         $embed = Html::$embed->audio($embed, 940);
 
-        if ($embed->getProvider() == 'audioboom' && $embed->getAudioboomType() == 'embed') {
+        if (
+            $embed->getProvider() == 'audioboom' &&
+            $embed instanceof Audioboom &&
+            $embed->getAudioboomType() == 'embed'
+        ) {
             // Audioboom
             $sourceUrl = 'https://audioboom.com/posts/'.$embed->getAudioboomId().'.mp3';
             $type = 'audio/mp3';
@@ -126,7 +131,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
         // Autoplay
         if (isset($attributes['autoplay'])) {
-            $embed->shouldAutoPlay((bool)$attributes['autoplay']);
+            $embed->setAutoPlay((bool)$attributes['autoplay']);
             unset($attributes['autoplay']);
         }
 

@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\helpers;
 
 use df;
@@ -78,7 +79,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
 
         if (isset($attributes['autoplay'])) {
-            $embed->shouldAutoPlay((bool)$attributes['autoplay']);
+            $embed->setAutoPlay((bool)$attributes['autoplay']);
             unset($attributes['autoplay']);
         }
 
@@ -98,7 +99,8 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
             case 'vimeo':
                 $this->_vimeo = true;
                 $setup['techOrder'] = ['vimeo'];
-                $id = $url->getPath()->getLast();
+                $uri = $this->view->uri($url);
+                $id = $uri->getPath()->getLast();
 
                 $setup['sources'] = [[
                     'type' => 'video/vimeo',
