@@ -18,6 +18,8 @@ class HttpFiles extends arch\node\Base
 
     public function executeAsHtml()
     {
-        dd(get_included_files());
+        return $this->apex->view('Files.html', function ($view) {
+            yield 'files' => get_included_files();
+        });
     }
 }
