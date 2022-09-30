@@ -13,6 +13,7 @@ use df\arch;
 use df\aura;
 
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
 use DecodeLabs\R7\Legacy;
 
 class DfKit implements arch\IDirectoryHelper
@@ -45,7 +46,7 @@ class DfKit implements arch\IDirectoryHelper
     protected function initSystem()
     {
         $url = '/df-kit/bootstrap-system.js?theme='.$this->view->getTheme()->getId();
-        $url .= '&cts='.(df\Launchpad::$compileTimestamp ?? time());
+        $url .= '&cts='.Genesis::$build->getCacheBuster();
 
         $url = Legacy::uri($url);
         $jsUrl = (string)$url;

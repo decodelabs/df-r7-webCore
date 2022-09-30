@@ -14,6 +14,7 @@ use df\aura;
 use df\fuse;
 
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
 
 class HttpBootstrapSystem extends arch\node\Base
 {
@@ -71,7 +72,7 @@ class HttpBootstrapSystem extends arch\node\Base
     {
         $manager = fuse\Manager::getInstance();
         $dependencies = $manager->getInstalledDependenciesFor($theme);
-        $cts = df\Launchpad::$compileTimestamp ?? time();
+        $cts = Genesis::$build->getCacheBuster();
 
         $paths = [
             'app/' => '../assets/app/',
