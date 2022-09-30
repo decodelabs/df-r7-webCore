@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\migrate\_nodes;
 
 use df;
@@ -11,6 +12,7 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
 
 class HttpHello extends arch\node\RestApi
 {
@@ -34,7 +36,7 @@ class HttpHello extends arch\node\RestApi
 
     public function authorizeRequest()
     {
-        $key = $this->data->hexHash($this->app->getPassKey());
+        $key = $this->data->hexHash(Legacy::getPassKey());
 
         if ($key != $this->request['key']) {
             throw Exceptional::{'Forbidden,UnexpectedValue'}([
