@@ -18,6 +18,7 @@ use DecodeLabs\Atlas\File;
 use DecodeLabs\Dictum;
 use DecodeLabs\Exemplar\Writer as XmlWriter;
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 
 class HttpSitemap extends arch\node\Base
 {
@@ -110,7 +111,7 @@ class HttpSitemap extends arch\node\Base
 
     protected function _scanNodes()
     {
-        $fileList = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
+        $fileList = Legacy::getLoader()->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
             return basename($path) == '_nodes';
         });
 

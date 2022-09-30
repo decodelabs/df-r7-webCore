@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\previews\_nodes;
 
 use df;
@@ -11,10 +12,11 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged as Html;
+use DecodeLabs\R7\Legacy;
 
 class HttpIndex extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function execute()
     {
@@ -54,7 +56,7 @@ class HttpIndex extends arch\node\Base
 
     protected function _getMailList()
     {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
+        $list = Legacy::getLoader()->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
             return false !== strpos($path, '_mail');
         });
 

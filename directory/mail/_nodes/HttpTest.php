@@ -15,6 +15,7 @@ use df\flow;
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 
 class HttpTest extends arch\node\Form
 {
@@ -167,7 +168,7 @@ class HttpTest extends arch\node\Form
 
     protected function _getMailList()
     {
-        $list = df\Launchpad::$loader->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
+        $list = Legacy::getLoader()->lookupFileListRecursive('apex/directory', ['php'], function ($path) {
             return false !== strpos($path, '_mail');
         });
 

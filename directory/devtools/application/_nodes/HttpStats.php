@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\application\_nodes;
 
 use df;
@@ -11,11 +12,14 @@ use df\apex;
 use df\arch;
 use df\flex;
 
-class HttpStats extends arch\node\Base {
+use DecodeLabs\R7\Legacy;
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+class HttpStats extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         clearstatcache();
 
         $scanner = new flex\code\Scanner(null, [
@@ -27,7 +31,7 @@ class HttpStats extends arch\node\Base {
 
         $view = $this->apex->view('Stats.html')
             ->setSlot('probes', $probes)
-            ->setSlot('packages', df\Launchpad::$loader->getPackages());
+            ->setSlot('packages', Legacy::getLoader()->getPackages());
 
         return $view;
     }

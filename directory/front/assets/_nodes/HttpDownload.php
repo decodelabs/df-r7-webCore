@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\assets\_nodes;
 
 use df;
@@ -11,19 +12,20 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Typify;
+use DecodeLabs\R7\Legacy;
 
 class HttpDownload extends arch\node\Base
 {
-    const OPTIMIZE = true;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const OPTIMIZE = true;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
         $path = core\uri\Path::normalizeLocal($this->request['file']);
 
-        if (!$absolutePath = df\Launchpad::$loader->findFile('apex/assets/'.$path)) {
+        if (!$absolutePath = Legacy::getLoader()->findFile('apex/assets/'.$path)) {
             throw Exceptional::{'df/core/fs/NotFound'}([
                 'message' => 'File not found',
                 'http' => 404

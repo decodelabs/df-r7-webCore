@@ -20,7 +20,7 @@ class HttpHello extends arch\node\RestApi
     {
         $nodes = [];
 
-        foreach (df\Launchpad::$loader->lookupClassList('apex/directory/devtools/migrate/_nodes') as $name => $class) {
+        foreach (Legacy::getLoader()->lookupClassList('apex/directory/devtools/migrate/_nodes') as $name => $class) {
             if (0 !== strpos($name, 'Http')) {
                 continue;
             }
@@ -29,7 +29,7 @@ class HttpHello extends arch\node\RestApi
         }
 
         return [
-            'baseUrl' => $this->runner->getRouter()->getBaseUrl(),
+            'baseUrl' => Legacy::getHttpRunner()->getRouter()->getBaseUrl(),
             'nodes' => $nodes
         ];
     }

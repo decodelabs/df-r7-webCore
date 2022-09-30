@@ -17,6 +17,7 @@ use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Glitch;
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 
 class HttpDefault extends arch\node\Base
 {
@@ -25,7 +26,7 @@ class HttpDefault extends arch\node\Base
 
     public function execute()
     {
-        if (!$exception = $this->runner->getDispatchException()) {
+        if (!$exception = Legacy::getHttpRunner()->getDispatchException()) {
             if (Genesis::$environment->isDevelopment()) {
                 $code = $this->request->getNode();
 
@@ -46,7 +47,7 @@ class HttpDefault extends arch\node\Base
             $code = $exception->getCode();
         }
 
-        $lastRequest = $this->runner->getDispatchRequest();
+        $lastRequest = Legacy::getHttpRunner()->getDispatchRequest();
 
         if (!link\http\response\HeaderCollection::isValidStatusCode($code)
         || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
@@ -59,7 +60,7 @@ class HttpDefault extends arch\node\Base
         if ($code === 401) {
             $redirectRequest = null;
 
-            if ($this->runner->getRouter()->isBaseRoot()) {
+            if (Legacy::getHttpRunner()->getRouter()->isBaseRoot()) {
                 if (!Disciple::isLoggedIn()) {
                     $redirectRequest = arch\Request::factory('account/login');
                 } elseif (!$this->user->client->isConfirmed()) {
@@ -168,7 +169,7 @@ class HttpDefault extends arch\node\Base
         }
 
         if ($code == 403 || $code == 404 || $code == 500) {
-            $this->runner->getResponseAugmentor()->setStatusCode($code);
+            Legacy::getHttpRunner()->getResponseAugmentor()->setStatusCode($code);
         }
 
         $view['code'] = $code;
