@@ -3,13 +3,12 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\aura\theme\facet;
 
-use df;
-use df\core;
 use df\aura;
-use df\arch;
-use df\spur;
+
+use DecodeLabs\Genesis;
 
 class CookieNotice extends Base
 {
@@ -47,8 +46,10 @@ class CookieNotice extends Base
 
     public function onHtmlViewLayoutRender(aura\view\IHtmlView $view, $content)
     {
-        if ($view->context->getRunMode() != 'Http'
-        || !$view->shouldRenderBase()) {
+        if (
+            Genesis::$kernel->getMode() != 'Http' ||
+            !$view->shouldRenderBase()
+        ) {
             return;
         }
 

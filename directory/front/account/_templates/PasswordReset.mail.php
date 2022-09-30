@@ -1,7 +1,10 @@
 <?php
+
+use DecodeLabs\Genesis;
+
 echo $generator->h4([
     'A password reset link was recently requested on ',
-    $this->app->getName()
+    Genesis::$hub->getApplicationName()
 ]);
 
 echo $generator->p($generator->link(

@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\serverError\_nodes;
 
 use df;
@@ -14,14 +15,15 @@ use df\aura;
 
 use DecodeLabs\Atlas;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
 
 class HttpIndex extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml()
     {
-        if (!$this->app->isDevelopment()) {
+        if (!Genesis::$environment->isDevelopment()) {
             throw Exceptional::Runtime(
                 'Server error generators can only be run in development mode'
             );
@@ -47,7 +49,7 @@ class HttpIndex extends arch\node\Base
         $templatePath = null;
 
         foreach ($paths as $relPath => $path) {
-            $path = $this->app->getPath().'/directory/'.$path;
+            $path = Genesis::$hub->getApplicationPath().'/directory/'.$path;
 
             if (file_exists($path)) {
                 $templatePath = $relPath;
@@ -85,7 +87,7 @@ class HttpIndex extends arch\node\Base
             ->setTitle($message);
 
         Atlas::createFile(
-            $this->app->getPath().'/serverError/'.$code.'.html',
+            Genesis::$hub->getApplicationPath().'/serverError/'.$code.'.html',
             $view->render()
         );
 

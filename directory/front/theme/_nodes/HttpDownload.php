@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\theme\_nodes;
 
 use df;
@@ -11,20 +12,21 @@ use df\arch;
 use df\aura;
 use df\neon;
 
-use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
+use DecodeLabs\Typify;
 
 class HttpDownload extends arch\node\Base
 {
-    const OPTIMIZE = true;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const OPTIMIZE = true;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
         $theme = aura\theme\Base::factory($this->request['theme']);
         $assetPath = core\uri\Path::normalizeLocal($this->request['file']);
         $type = null;
-        $cacheAge = $this->app->isDevelopment() ? null : '2 days';
+        $cacheAge = Genesis::$environment->isDevelopment() ? null : '2 days';
 
         $fileName = basename($assetPath);
         $parts = explode('.', $fileName);

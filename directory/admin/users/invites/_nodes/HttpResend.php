@@ -11,6 +11,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\Genesis;
 use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
@@ -57,7 +58,7 @@ class HttpResend extends arch\node\ConfirmForm
 
 
         // Force send
-        if (!$this->app->isProduction()) {
+        if (!Genesis::$environment->isProduction()) {
             $container->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'

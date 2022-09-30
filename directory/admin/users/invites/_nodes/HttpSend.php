@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\invites\_nodes;
 
 use df;
@@ -11,11 +12,12 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Dictum;
+use DecodeLabs\Genesis;
 use DecodeLabs\Tagged as Html;
 
 class HttpSend extends arch\node\Form
 {
-    const DEFAULT_EVENT = 'send';
+    public const DEFAULT_EVENT = 'send';
 
     protected $_invite;
 
@@ -66,7 +68,7 @@ class HttpSend extends arch\node\Form
         $fs->addField($this->_('Registration groups'))->push($this['groups']);
 
         // Force send
-        if (!$this->app->isProduction()) {
+        if (!Genesis::$environment->isProduction()) {
             $fs->addField()->push(
                 $this->html->checkbox('forceSend', $this->values->forceSend, $this->_(
                     'Force sending to recipient even in testing mode'

@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\media\_nodes;
 
 use df;
@@ -12,16 +13,17 @@ use df\arch;
 use df\flex;
 use df\neon;
 
-use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
+use DecodeLabs\Typify;
 
 class HttpUploaded extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
-        $path = $this->app->getLocalDataPath().'/upload';
+        $path = Genesis::$hub->getLocalDataPath().'/upload';
         $path .= core\uri\Path::normalizeLocal(
             '/'.flex\Guid::factory($this->request['id']).
             '/'.str_replace('/', '_', $this->request['file'])

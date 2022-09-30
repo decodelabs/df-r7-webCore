@@ -14,8 +14,9 @@ use df\aura;
 use df\link;
 
 use DecodeLabs\Disciple;
-use DecodeLabs\Glitch;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Glitch;
+use DecodeLabs\Genesis;
 
 class HttpDefault extends arch\node\Base
 {
@@ -25,7 +26,7 @@ class HttpDefault extends arch\node\Base
     public function execute()
     {
         if (!$exception = $this->runner->getDispatchException()) {
-            if ($this->app->isDevelopment()) {
+            if (Genesis::$environment->isDevelopment()) {
                 $code = $this->request->getNode();
 
                 if (!link\http\response\HeaderCollection::isValidStatusCode($code)) {
@@ -120,8 +121,8 @@ class HttpDefault extends arch\node\Base
             }
         }
 
-        $isDevelopment = $this->app->isDevelopment();
-        $isTesting = $this->app->isTesting();
+        $isDevelopment = Genesis::$environment->isDevelopment();
+        $isTesting = Genesis::$environment->isTesting();
 
         try {
             $isAdmin = $this->user->isA('developer');

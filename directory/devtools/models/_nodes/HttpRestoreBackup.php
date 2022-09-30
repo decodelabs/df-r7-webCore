@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\models\_nodes;
 
 use df;
@@ -10,12 +11,13 @@ use df\core;
 use df\apex;
 use df\arch;
 
-use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
+use DecodeLabs\Tagged as Html;
 
 class HttpRestoreBackup extends arch\node\ConfirmForm
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_file;
 
@@ -30,7 +32,7 @@ class HttpRestoreBackup extends arch\node\ConfirmForm
             ]);
         }
 
-        $this->_file = $this->app->getSharedDataPath().'/backup/'.$fileName;
+        $this->_file = Genesis::$hub->getSharedDataPath().'/backup/'.$fileName;
 
         if (!is_file($this->_file)) {
             throw Exceptional::NotFound([

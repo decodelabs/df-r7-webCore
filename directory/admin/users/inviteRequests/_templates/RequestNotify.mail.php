@@ -1,5 +1,6 @@
 <?php
 
+use DecodeLabs\Genesis;
 use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
@@ -15,7 +16,7 @@ echo $generator->p([
     ' of ',
     $request['companyName'],
     ' has asked to become a member at ',
-    Html::strong($this->app->getName())
+    Html::strong(Genesis::$hub->getApplicationName())
 ]);
 
 if ($message = $request['message']) {

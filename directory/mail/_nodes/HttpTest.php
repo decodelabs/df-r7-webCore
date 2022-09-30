@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\_nodes;
 
 use df;
@@ -13,11 +14,12 @@ use df\flow;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
 
 class HttpTest extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DEFAULT_EVENT = 'send';
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_EVENT = 'send';
 
     protected function init()
     {
@@ -215,7 +217,7 @@ class HttpTest extends arch\node\Form
             $this->setStore('type', $validator['type']);
 
             if ($validator['type'] == 'custom' && !strlen($this->values['subject'])) {
-                $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => $this->app->getName()]);
+                $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => Genesis::$hub->getApplicationName()]);
             }
         }
     }

@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\models\_nodes;
 
 use df;
@@ -11,14 +12,15 @@ use df\apex;
 use df\arch;
 use df\axis;
 
-use DecodeLabs\Tagged as Html;
-use DecodeLabs\Exceptional;
 use DecodeLabs\Atlas;
+use DecodeLabs\Exceptional;
+use DecodeLabs\Genesis;
+use DecodeLabs\Tagged as Html;
 
 class HttpDeleteBackup extends arch\node\DeleteForm
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'backup';
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'backup';
 
     protected $_file;
 
@@ -33,7 +35,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
             ]);
         }
 
-        $this->_file = $this->app->getSharedDataPath().'/backup/'.$fileName;
+        $this->_file = Genesis::$hub->getSharedDataPath().'/backup/'.$fileName;
 
         if (!is_file($this->_file)) {
             throw Exceptional::NotFound([

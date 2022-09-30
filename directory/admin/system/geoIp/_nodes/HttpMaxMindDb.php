@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\system\geoIp\_nodes;
 
 use df;
@@ -12,6 +13,7 @@ use df\arch;
 use df\link;
 
 use DecodeLabs\Atlas;
+use DecodeLabs\Genesis;
 
 class HttpMaxMindDb extends arch\node\Form
 {
@@ -128,7 +130,7 @@ class HttpMaxMindDb extends arch\node\Form
     protected function _getFileList()
     {
         $output = [];
-        $dir = Atlas::dir($this->app->getLocalDataPath().'/geoIp/');
+        $dir = Atlas::dir(Genesis::$hub->getLocalDataPath().'/geoIp/');
 
         foreach ($dir->scanFiles() as $name => $file) {
             if (substr($name, -5) != '.mmdb') {
@@ -146,7 +148,7 @@ class HttpMaxMindDb extends arch\node\Form
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAllowedExtensions(['mmdb', 'gz']);
         $targetPath = null;
-        $path = $this->app->getLocalDataPath().'/geoIp';
+        $path = Genesis::$hub->getLocalDataPath().'/geoIp';
 
         if (count($uploadHandler)) {
             foreach ($uploadHandler as $file) {
@@ -187,7 +189,7 @@ class HttpMaxMindDb extends arch\node\Form
     protected function _fetchUrl($url)
     {
         $fileName = basename($url);
-        $path = $this->app->getLocalDataPath().'/geoIp';
+        $path = Genesis::$hub->getLocalDataPath().'/geoIp';
         Atlas::createDir($path);
 
         if (is_file($path.'/'.substr($fileName, 0, -3))) {

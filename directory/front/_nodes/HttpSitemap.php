@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\_nodes;
 
 use df;
@@ -11,15 +12,16 @@ use df\apex;
 use df\arch;
 use df\flex;
 
-use DecodeLabs\Dictum;
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\Mode;
 use DecodeLabs\Atlas\File;
+use DecodeLabs\Dictum;
 use DecodeLabs\Exemplar\Writer as XmlWriter;
+use DecodeLabs\Genesis;
 
 class HttpSitemap extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executeAsHtml()
     {
@@ -28,12 +30,12 @@ class HttpSitemap extends arch\node\Base
 
     public function executeAsXml()
     {
-        if ($this->app->isDevelopment()) {
+        if (Genesis::$environment->isDevelopment()) {
             $xml = $this->_generateXml();
             return $this->http->stringResponse((string)$xml, 'application/xml');
         }
 
-        $path = $this->app->getLocalDataPath().'/sitemap/'.$this->app->envMode.'.xml';
+        $path = Genesis::$hub->getLocalDataPath().'/sitemap/'.Genesis::$environment->getMode().'.xml';
         $rebuild = false;
         $file = Atlas::file($path);
 

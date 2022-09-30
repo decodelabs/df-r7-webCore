@@ -1,5 +1,6 @@
 <?php
 
+use DecodeLabs\Genesis;
 use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
 
@@ -11,7 +12,7 @@ $this->view->setSubject($this->_(
 echo $generator->p([
     Html::strong($user['fullName']),
     '  has decided to deactivate their account on ',
-    $this->app->getName(),
+    Genesis::$hub->getApplicationName(),
     '.'
 ]);
 

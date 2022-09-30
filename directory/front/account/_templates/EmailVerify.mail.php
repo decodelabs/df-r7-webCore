@@ -1,15 +1,17 @@
 <?php
+
+use DecodeLabs\Genesis;
 use DecodeLabs\Tagged as Html;
 
 if ($user->isNew()) {
     echo $generator->h4([
         'You have a new account on ',
-        $this->app->getName()
+        Genesis::$hub->getApplicationName()
     ]);
 } else {
     echo $generator->h4([
         'Your email address has recently changed on ',
-        $this->app->getName()
+        Genesis::$hub->getApplicationName()
     ]);
 }
 

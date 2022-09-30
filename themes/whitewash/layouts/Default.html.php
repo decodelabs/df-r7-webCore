@@ -1,10 +1,12 @@
 <?php
+
 use DecodeLabs\Disciple;
+use DecodeLabs\Genesis;
 use DecodeLabs\Tagged as Html;
 
 echo Html::{'div.layout-pageArea.floated'}(function () {
     yield Html::{'header.layout-header'}(function () {
-        yield Html::h1($this->html->link('/', $this->app->getName()));
+        yield Html::h1($this->html->link('/', Genesis::$hub->getApplicationName()));
 
         yield Html::{'nav.user'}(function () {
             if (Disciple::isLoggedIn()) {
