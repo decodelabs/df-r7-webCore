@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\system;
 
 use df;
@@ -10,12 +11,13 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\AreaMenu {
+class HttpScaffold extends arch\scaffold\AreaMenu
+{
+    public const TITLE = 'System';
+    public const ICON = 'controlPanel';
 
-    const TITLE = 'System';
-    const ICON = 'controlPanel';
-
-    public function generateIndexMenu($entryList) {
+    public function generateIndexMenu($entryList)
+    {
         $entryList->addEntries(
             $entryList->newLink('./pest-control/', 'Pest control')
                 ->setId('pest-control')
@@ -27,13 +29,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu {
                 ->setId('geo-ip')
                 ->setDescription('Set up IP lookup tools to find out where your users are')
                 ->setIcon('location')
-                ->setWeight(20),
-
-            $entryList->newLink('./menus/', 'Menus')
-                ->setId('menus')
-                ->setDescription('View and modify pre-defined system menus')
-                ->setIcon('menu')
-                ->setWeight(30)
+                ->setWeight(20)
         );
     }
 }
