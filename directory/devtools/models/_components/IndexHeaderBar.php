@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\models\_components;
 
 use df;
@@ -24,18 +25,6 @@ class IndexHeaderBar extends arch\component\HeaderBar
     protected function addSubOperativeLinks(MenuWidget $menu): void
     {
         switch ($this->request->getNode()) {
-            case 'index':
-                $menu->addLinks(
-                    $this->html->link(
-                            $this->uri('~devtools/models/update', true),
-                            $this->_('Update schemas')
-                        )
-                        ->setIcon('update')
-                        ->setDisposition('operative')
-                );
-
-                break;
-
             case 'backups':
                 $menu->addLinks(
                     $this->html->link(

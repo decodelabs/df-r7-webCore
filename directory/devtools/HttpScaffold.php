@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools;
 
 use df;
@@ -15,10 +16,10 @@ use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const TITLE = 'Devtools';
-    const ICON = 'debug';
-    const HEADER_BAR = false;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const TITLE = 'Devtools';
+    public const ICON = 'debug';
+    public const HEADER_BAR = false;
 
     protected function renderIntro($view)
     {
@@ -40,12 +41,6 @@ class HttpScaffold extends arch\scaffold\AreaMenu
     public function generateIndexMenu($entryList)
     {
         $entryList->addEntries(
-            $entryList->newLink('~devtools/users/', 'User setup')
-                ->setId('users')
-                ->setDescription('Configure root user, authentication adapters and session settings')
-                ->setIcon('user')
-                ->setWeight(10),
-
             $entryList->newLink('~devtools/models/', 'Data models')
                 ->setId('models')
                 ->setDescription('Manage and update database schemas and data')
@@ -58,29 +53,11 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setIcon('task')
                 ->setWeight(30),
 
-            $entryList->newLink('~devtools/theme/', 'Theme configuration')
-                ->setId('theme')
-                ->setDescription('Change settings and define layouts for available site themes')
-                ->setIcon('theme')
-                ->setWeight(40),
-
-            $entryList->newLink('~devtools/application/', 'Application utilities')
-                ->setId('application')
-                ->setDescription('View stats, generate testing and production versions etc.')
-                ->setIcon('stats')
-                ->setWeight(50),
-
             $entryList->newLink('~devtools/cache/', 'Cache control')
                 ->setId('cache')
                 ->setDescription('Refresh, clear and view stats for most cache structures your site employs')
                 ->setIcon('toolkit')
-                ->setWeight(60),
-
-            $entryList->newLink('~devtools/media/', 'Media tools')
-                ->setId('media')
-                ->setDescription('Control where and how your media is stored and served')
-                ->setIcon('folder')
-                ->setWeight(70)
+                ->setWeight(40)
         );
     }
 }

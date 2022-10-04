@@ -4,13 +4,9 @@
  * @license http://opensource.org/licenses/MIT
  */
 
-namespace df\apex\directory\devtools\application\_nodes;
+namespace df\apex\directory\devtools\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\flex;
 
 class HttpFiles extends arch\node\Base
 {
