@@ -26,7 +26,7 @@ class HttpDefault extends arch\node\Base
 
     public function execute()
     {
-        if (!$exception = Legacy::getHttpRunner()->getDispatchException()) {
+        if (!$exception = Legacy::$http->getDispatchException()) {
             if (Genesis::$environment->isDevelopment()) {
                 $code = $this->request->getNode();
 
@@ -37,7 +37,7 @@ class HttpDefault extends arch\node\Base
                 $exception = new \Exception('Testing...', $code);
             } else {
                 $this->logs->logAccessError(403, $this->request, 'You shouldn\'t be here');
-                return $this->http->redirect('/');
+                return Legacy::$http->redirect('/');
             }
         }
 
@@ -47,7 +47,7 @@ class HttpDefault extends arch\node\Base
             $code = $exception->getCode();
         }
 
-        $lastRequest = Legacy::getHttpRunner()->getDispatchRequest();
+        $lastRequest = Legacy::$http->getDispatchRequest();
 
         if (!link\http\response\HeaderCollection::isValidStatusCode($code)
         || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
@@ -60,7 +60,7 @@ class HttpDefault extends arch\node\Base
         if ($code === 401) {
             $redirectRequest = null;
 
-            if (Legacy::getHttpRunner()->getRouter()->isBaseRoot()) {
+            if (Legacy::$http->getRouter()->isBaseRoot()) {
                 if (!Disciple::isLoggedIn()) {
                     $redirectRequest = arch\Request::factory('account/login');
                 } elseif (!$this->user->client->isConfirmed()) {
@@ -77,7 +77,7 @@ class HttpDefault extends arch\node\Base
                     $redirectRequest->getQuery()->rt = $lastRequest->encode();
                 }
 
-                return $this->http->redirect($redirectRequest);
+                return Legacy::$http->redirect($redirectRequest);
             }
         } elseif ($code == 403 && $this->user->client->isDeactivated()) {
             return $this->apex->view('Deactivated.html');
@@ -85,12 +85,12 @@ class HttpDefault extends arch\node\Base
 
         $shouldLog = true;
 
-        if (stristr($this->http->getReferrer(), '~admin/system/error-logs')) {
+        if (stristr(Legacy::$http->getReferrer(), '~admin/system/error-logs')) {
             $shouldLog = false;
         }
 
         if ($shouldLog) {
-            $url = $this->http->request->getUrl();
+            $url = Legacy::$http->getUrl();
 
             try {
                 switch ($code) {
@@ -169,7 +169,7 @@ class HttpDefault extends arch\node\Base
         }
 
         if ($code == 403 || $code == 404 || $code == 500) {
-            Legacy::getHttpRunner()->getResponseAugmentor()->setStatusCode($code);
+            Legacy::$http->getResponseAugmentor()->setStatusCode($code);
         }
 
         $view['code'] = $code;

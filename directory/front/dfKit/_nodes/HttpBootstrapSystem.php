@@ -6,15 +6,13 @@
 
 namespace df\apex\directory\front\dfKit\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\aura;
 use df\fuse;
 
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 
 class HttpBootstrapSystem extends arch\node\Base
 {
@@ -22,7 +20,7 @@ class HttpBootstrapSystem extends arch\node\Base
 
     public function executeAsJs()
     {
-        $output = $this->http->fileResponse(__DIR__.'/bootstrap.system.js', 'text/javascript');
+        $output = Legacy::$http->fileResponse(__DIR__.'/bootstrap.system.js', 'text/javascript');
         $output->headers
             ->set('Access-Control-Allow-Origin', '*')
             ->setCacheAccess('public')
@@ -36,7 +34,7 @@ class HttpBootstrapSystem extends arch\node\Base
     {
         $config = $this->_getRequireConfig($this->_getTheme());
 
-        $output = $this->http->jsonResponse($config);
+        $output = Legacy::$http->jsonResponse($config);
         $output->headers
             ->set('Access-Control-Allow-Origin', '*')
             ->setCacheAccess('public')

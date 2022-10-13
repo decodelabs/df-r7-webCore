@@ -3,21 +3,19 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\invites\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\flex;
 
 use DecodeLabs\Dictum;
+use DecodeLabs\R7\Legacy;
 
 class HttpExport extends arch\node\Base
 {
     public function execute()
     {
-        return $this->http->csvGenerator('Invites ('.Dictum::$time->date('now').').csv', function ($builder) {
+        return Legacy::$http->csvGenerator('Invites ('.Dictum::$time->date('now').').csv', function ($builder) {
             $q = $this->data->user->invite->select()
                 ->leftJoinRelation('owner', 'fullName as owner')
                 ->leftJoinRelation('user', 'fullName as userName')

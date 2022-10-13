@@ -3,21 +3,20 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\avatar\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\aura;
 use df\neon;
 
-use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
+use DecodeLabs\Typify;
 
 class HttpDownload extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
@@ -49,7 +48,7 @@ class HttpDownload extends arch\node\Base
                 $descriptor->applyTransformation('[rs:'.$size.'|'.$size.']');
             }
 
-            return $this->http->fileResponse($descriptor->getLocation())
+            return Legacy::$http->fileResponse($descriptor->getLocation())
                 ->setFileName($descriptor->getFileName())
                 ->setContentType($descriptor->getContentType());
         } else {
@@ -73,7 +72,7 @@ class HttpDownload extends arch\node\Base
                     $size
                 );
 
-                $output = $this->http->redirect($url)->isAlternativeContent(true);
+                $output = Legacy::$http->redirect($url)->isAlternativeContent(true);
                 $output->headers->setCacheExpiration('15 minutes');
                 return $output;
             }

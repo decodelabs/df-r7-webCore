@@ -3,19 +3,18 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_formDelegates;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\user;
+
+use DecodeLabs\R7\Legacy;
 
 class LoginAuth0 extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {
     use arch\node\TForm_ParentUiHandlerDelegate;
 
-    const DEFAULT_REDIRECT = '/';
+    public const DEFAULT_REDIRECT = '/';
 
     protected function createUi()
     {
@@ -36,7 +35,7 @@ class LoginAuth0 extends arch\node\form\Delegate implements arch\node\IParentUiH
 
     protected function onLoginEvent()
     {
-        return $this->http->redirect($this->uri->directoryRequest(
+        return Legacy::$http->redirect($this->uri->directoryRequest(
             'account/auth0/login',
             $this->request->getRedirectFrom(),
             $this->request->getRedirectTo()

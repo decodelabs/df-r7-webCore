@@ -6,15 +6,14 @@
 
 namespace df\apex\directory\front\media\_nodes;
 
-use df;
 use df\core;
-use df\apex;
 use df\arch;
 use df\flex;
 use df\neon;
 
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 use DecodeLabs\Typify;
 
 class HttpUploaded extends arch\node\Base
@@ -50,7 +49,7 @@ class HttpUploaded extends arch\node\Base
         }
 
 
-        $output = $this->http->fileResponse($path)
+        $output = Legacy::$http->fileResponse($path)
             ->setFileName($fileName)
             ->setContentType($type);
 

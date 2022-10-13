@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\plug;
 
 use df;
@@ -12,16 +13,18 @@ use df\arch;
 use df\aura;
 use df\flex;
 
+use DecodeLabs\R7\Legacy;
+
 class Consent implements arch\IDirectoryHelper
 {
     use arch\TDirectoryHelper;
 
-    const COOKIE_NAME = 'cnx';
+    public const COOKIE_NAME = 'cnx';
 
-    const NECESSARY = 1;
-    const PREFERENCES = 2;
-    const STATISTICS = 4;
-    const MARKETING = 8;
+    public const NECESSARY = 1;
+    public const PREFERENCES = 2;
+    public const STATISTICS = 4;
+    public const MARKETING = 8;
 
     protected static $_active;
     protected static $_enabled = null;
@@ -162,7 +165,7 @@ class Consent implements arch\IDirectoryHelper
             'marketing' => false
         ];
 
-        $raw = $this->context->http->getCookie('cnx');
+        $raw = Legacy::$http->getCookie('cnx');
 
         if ($raw === null || $raw === '1') {
             return $output;
@@ -210,7 +213,8 @@ class Consent implements arch\IDirectoryHelper
         }
 
         $cookie = $version.'.'.$flag.'.'.$id;
-        $this->context->http->setCookie(self::COOKIE_NAME, $cookie)
+
+        Legacy::$http->setCookie(self::COOKIE_NAME, $cookie)
             ->setExpiryDate(new core\time\Date('+1 years'));
     }
 }

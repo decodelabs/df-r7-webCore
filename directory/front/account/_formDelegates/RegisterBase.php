@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_formDelegates;
 
 use df;
@@ -11,6 +12,8 @@ use df\apex;
 use df\arch;
 use df\user;
 use df\opal;
+
+use DecodeLabs\R7\Legacy;
 
 abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {
@@ -72,7 +75,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
             $client->save();
         } catch (opal\rdbms\ConstraintException $e) {
             $this->values->email->addError('unique', $this->_('An account already exists with this email address'));
-            $this->forceResponse($this->http->redirect($this->request));
+            $this->forceResponse(Legacy::$http->redirect($this->request));
         }
 
         if ($this->_invite) {

@@ -3,21 +3,21 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\media\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\neon;
 
-class HttpDownload extends arch\node\Base {
+use DecodeLabs\R7\Legacy;
 
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-    const OPTIMIZE = true;
+class HttpDownload extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const OPTIMIZE = true;
 
-    public function execute() {
-        if(isset($this->request['version'])) {
+    public function execute()
+    {
+        if (isset($this->request['version'])) {
             return $this->media->fetchAndServeVersionDownload(
                 $this->request['version']
             );
@@ -26,10 +26,10 @@ class HttpDownload extends arch\node\Base {
         $id = $this->request['file'];
         $test = $this->data->media->normalizeFileId($id);
 
-        if($id != $test) {
+        if ($id != $test) {
             $request = clone $this->request;
             $request->query->file = $test;
-            return $this->http->redirect($request)
+            return Legacy::$http->redirect($request)
                 ->isPermanent(true);
         }
 

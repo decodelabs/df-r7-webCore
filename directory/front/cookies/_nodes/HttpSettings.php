@@ -9,6 +9,7 @@ namespace df\apex\directory\front\cookies\_nodes;
 use df\arch;
 
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 
 class HttpSettings extends arch\node\Base
 {
@@ -48,12 +49,12 @@ class HttpSettings extends arch\node\Base
             $isGlobal = false;
 
             try {
-                if ($referrer = $this->http->getReferrer()) {
+                if ($referrer = Legacy::$http->getReferrer()) {
                     $referrerDomain = $this->uri($referrer)->getDomain();
-                    $referrer = $this->http->localReferrerToRequest($referrer);
+                    $referrer = Legacy::$http->localReferrerToRequest($referrer);
 
                     if ($referrer && !$referrer->matches($request)) {
-                        if ($referrerDomain !== $this->http->request->url->getDomain()) {
+                        if ($referrerDomain !== Legacy::$http->getHost()) {
                             $request->setRedirectTo($referrer);
                             $isGlobal = true;
                         }
@@ -74,7 +75,7 @@ class HttpSettings extends arch\node\Base
             ->addRequiredField('preferences', 'boolean')
             ->addRequiredField('statistics', 'boolean')
             ->addRequiredField('marketing', 'boolean')
-            ->validate($this->http->getPostData());
+            ->validate(Legacy::$http->getPostData());
 
 
         $this->consent->setUserData([
@@ -85,13 +86,13 @@ class HttpSettings extends arch\node\Base
             'marketing' => $validator['marketing']
         ]);
 
-        if ($this->http->isAjaxRequest()) {
-            return $this->http->ajaxResponse('', [
+        if (Legacy::$http->isAjaxRequest()) {
+            return Legacy::$http->ajaxResponse('', [
                 'isComplete' => true,
                 'reload' => true
             ]);
         } else {
-            return $this->http->defaultRedirect('/', true);
+            return Legacy::$http->defaultRedirect('/', true);
         }
     }
 }

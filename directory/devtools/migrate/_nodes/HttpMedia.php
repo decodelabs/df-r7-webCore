@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\devtools\migrate\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Exceptional;
@@ -56,7 +53,7 @@ class HttpMedia extends arch\node\RestApi
             ]);
         }
 
-        $output = $this->http->fileResponse($filePath);
+        $output = Legacy::$http->fileResponse($filePath);
         $output->getHeaders()->set('content-length', filesize($filePath));
         return $output;
     }

@@ -3,19 +3,17 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\previews\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\aura;
 
+use DecodeLabs\R7\Legacy;
 use DecodeLabs\Tagged as Html;
 
 class HttpView extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml()
     {
@@ -32,10 +30,10 @@ class HttpView extends arch\node\Base
 
                 return $view;
             } else {
-                return $this->http->stringResponse($html, 'text/html');
+                return Legacy::$http->stringResponse($html, 'text/html');
             }
         }
 
-        return $this->http->stringResponse($mail->getBodyText(), 'text/plain');
+        return Legacy::$http->stringResponse($mail->getBodyText(), 'text/plain');
     }
 }

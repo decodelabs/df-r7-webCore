@@ -6,13 +6,10 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Disciple;
-use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
 
 class HttpJoinSession extends arch\node\Base
 {
@@ -23,7 +20,7 @@ class HttpJoinSession extends arch\node\Base
         if (isset($this->request['401']) && !Disciple::isLoggedIn()) {
             $request = arch\Request::factory('account/login');
             $request->query->rf = $this->request->encode();
-            return $this->http->redirect($request);
+            return Legacy::$http->redirect($request);
         }
 
         $key = $this->data->fetchForAction(
@@ -45,6 +42,6 @@ class HttpJoinSession extends arch\node\Base
             $key->save();
         }
 
-        return $this->http->defaultRedirect();
+        return Legacy::$http->defaultRedirect();
     }
 }

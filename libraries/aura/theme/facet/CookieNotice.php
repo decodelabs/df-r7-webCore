@@ -9,6 +9,7 @@ namespace df\aura\theme\facet;
 use df\aura;
 
 use DecodeLabs\Genesis;
+use DecodeLabs\R7\Legacy;
 
 class CookieNotice extends Base
 {
@@ -59,7 +60,7 @@ class CookieNotice extends Base
             return;
         }
 
-        $agent = $view->http->getUserAgent();
+        $agent = Legacy::$http->getUserAgent();
 
         if ($view->data->user->agent->isBot($agent)) {
             return;

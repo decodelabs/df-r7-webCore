@@ -3,20 +3,19 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\auth0\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\user;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
 
 class HttpLogin extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function execute()
     {
@@ -56,7 +55,7 @@ class HttpLogin extends arch\node\Base
             }
 
             if (!$link) {
-                return $this->http->redirect(
+                return Legacy::$http->redirect(
                     $this->uri->directoryRequest('account/login')
                         ->setRedirectFrom($this->request->getRedirectFrom())
                         ->setRedirectTo($this->request->getRedirectTo())
@@ -68,6 +67,6 @@ class HttpLogin extends arch\node\Base
             }
         }
 
-        return $this->http->defaultRedirect('/', $success);
+        return Legacy::$http->defaultRedirect('/', $success);
     }
 }

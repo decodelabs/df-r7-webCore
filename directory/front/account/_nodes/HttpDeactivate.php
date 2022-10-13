@@ -3,17 +3,16 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
+use DecodeLabs\R7\Legacy;
 
 class HttpDeactivate extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
-    const DEFAULT_EVENT = 'deactivate';
+    public const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
+    public const DEFAULT_EVENT = 'deactivate';
 
     protected $_deactivation;
 
@@ -101,7 +100,7 @@ class HttpDeactivate extends arch\node\Form
                 'deactivation' => $this->_deactivation
             ]);
 
-            return $this->http->redirect('account/logout');
+            return Legacy::$http->redirect('account/logout');
         }
     }
 }

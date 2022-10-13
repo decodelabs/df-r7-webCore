@@ -3,19 +3,18 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
 
 class HttpResetPassword extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::GUEST;
+    public const DEFAULT_ACCESS = arch\IAccess::GUEST;
 
     protected $_key;
     protected $_auth;
@@ -98,7 +97,7 @@ class HttpResetPassword extends arch\node\Form
             $message
         );
 
-        return $this->http->redirect('account/');
+        return Legacy::$http->redirect('account/');
     }
 
     protected function setDefaultValues()

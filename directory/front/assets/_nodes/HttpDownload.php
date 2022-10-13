@@ -45,7 +45,7 @@ class HttpDownload extends arch\node\Base
                 $descriptor->applyTransformation($this->request['transform']);
             }
 
-            if ($hasFavicon && preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', $this->http->getUserAgent())) {
+            if ($hasFavicon && preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', Legacy::$http->getUserAgent())) {
                 $descriptor->toIcon(16, 32);
             }
 
@@ -69,7 +69,7 @@ class HttpDownload extends arch\node\Base
         }
 
 
-        $output = $this->http->fileResponse($absolutePath);
+        $output = Legacy::$http->fileResponse($absolutePath);
 
         if ($type) {
             $output->setContentType($type);

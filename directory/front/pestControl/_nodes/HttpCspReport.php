@@ -9,13 +9,15 @@ namespace df\apex\directory\front\pestControl\_nodes;
 use df\apex;
 use df\arch;
 
+use DecodeLabs\R7\Legacy;
+
 class HttpCspReport extends arch\node\Base
 {
     public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
     public function executePost()
     {
-        $data = $this->http->request->getBodyDataString();
+        $data = Legacy::$http->getRequest()->getBodyDataString();
 
         if (empty($data)) {
             return 'no data';

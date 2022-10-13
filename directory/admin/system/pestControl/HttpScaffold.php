@@ -12,6 +12,7 @@ use df\apex;
 use df\arch;
 
 use DecodeLabs\Dictum;
+use DecodeLabs\R7\Legacy;
 use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
@@ -77,7 +78,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
 
             switch ($item['mode']) {
                 case 'Http':
-                    $router = $this->_getRouter();
+                    $router = Legacy::$http->getRouter();
 
                     if (preg_match('/^http(s)?:/', $request)) {
                         $url = new df\link\http\Url($request);
@@ -121,14 +122,5 @@ class HttpScaffold extends arch\scaffold\AreaMenu
 
             yield $output;
         });
-    }
-
-    protected function _getRouter()
-    {
-        if (!$this->_router) {
-            $this->_router = core\app\runner\http\Router::getInstance();
-        }
-
-        return $this->_router;
     }
 }

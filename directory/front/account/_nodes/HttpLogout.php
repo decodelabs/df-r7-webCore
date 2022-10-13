@@ -3,20 +3,21 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpLogout extends arch\node\Base {
+use DecodeLabs\R7\Legacy;
 
-    const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+class HttpLogout extends arch\node\Base
+{
+    public const CHECK_ACCESS = false;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function execute() {
+    public function execute()
+    {
         $this->user->auth->unbind();
-        return $this->http->redirect('account/login');
+        return Legacy::$http->redirect('account/login');
     }
 }

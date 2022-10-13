@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\front\fuse\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\R7\Legacy;
@@ -21,7 +18,7 @@ class HttpBootstrap extends arch\node\Base
     {
         $path = Legacy::getLoader()->findFile('apex/js/fuse/loader.js');
 
-        return $this->http->fileResponse($path)
+        return Legacy::$http->fileResponse($path)
             ->setContentType('application/js');
     }
 }

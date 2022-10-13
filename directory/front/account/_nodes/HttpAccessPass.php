@@ -3,19 +3,18 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Disciple;
+use DecodeLabs\R7\Legacy;
 
 class HttpAccessPass extends arch\node\Form
 {
-    const DEFAULT_EVENT = 'login';
-    const DEFAULT_ACCESS = arch\IAccess::GUEST;
+    public const DEFAULT_EVENT = 'login';
+    public const DEFAULT_ACCESS = arch\IAccess::GUEST;
 
     protected $_pass;
 
@@ -44,12 +43,12 @@ class HttpAccessPass extends arch\node\Form
 
         if ($error) {
             $this->_pass->delete();
-            return $this->http->defaultRedirect('/');
+            return Legacy::$http->defaultRedirect('/');
         }
 
         if (Disciple::isLoggedIn()) {
             $this->user->auth->unbind();
-            return $this->http->redirect();
+            return Legacy::$http->redirect();
         }
     }
 

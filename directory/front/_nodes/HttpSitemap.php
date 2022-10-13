@@ -26,14 +26,14 @@ class HttpSitemap extends arch\node\Base
 
     public function executeAsHtml()
     {
-        return $this->http->redirect('/sitemap.xml');
+        return Legacy::$http->redirect('/sitemap.xml');
     }
 
     public function executeAsXml()
     {
         if (Genesis::$environment->isDevelopment()) {
             $xml = $this->_generateXml();
-            return $this->http->stringResponse((string)$xml, 'application/xml');
+            return Legacy::$http->stringResponse((string)$xml, 'application/xml');
         }
 
         $path = Genesis::$hub->getLocalDataPath().'/sitemap/'.Genesis::$environment->getMode().'.xml';
@@ -53,7 +53,7 @@ class HttpSitemap extends arch\node\Base
             $file->close();
         }
 
-        return $this->http->fileResponse($file);
+        return Legacy::$http->fileResponse($file);
     }
 
     protected function _generateXml(File $file=null)

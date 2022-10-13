@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\media\_formDelegates;
 
 use df;
@@ -12,10 +13,11 @@ use df\arch;
 use df\aura;
 use df\link;
 
-use DecodeLabs\Dictum;
 use DecodeLabs\Atlas;
-use DecodeLabs\Tagged as Html;
+use DecodeLabs\Dictum;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
+use DecodeLabs\Tagged as Html;
 
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
@@ -211,7 +213,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
             $this->html->label($this->_chooseLabel ?? $this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
-                ->addClass(!empty($available) ? 'replace': null),
+                ->addClass(!empty($available) ? 'replace' : null),
 
             $this->_showUploadButton ?
                 $this->html->eventButton(
@@ -247,7 +249,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         $uploadHandler->shouldAvScan($this->_avScan);
 
         if (!count($uploadHandler)) {
-            return $this->http->redirect('#'.$this->getWidgetId());
+            return Legacy::$http->redirect('#'.$this->getWidgetId());
         }
 
         $tempDir = $this->_getTempDir();
@@ -274,7 +276,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             }
         }
 
-        return $this->http->redirect('#'.$this->getWidgetId());
+        return Legacy::$http->redirect('#'.$this->getWidgetId());
     }
 
     public function hasAnyFile()
@@ -294,7 +296,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             }
         }
 
-        return $this->http->redirect('#'.$this->getWidgetId());
+        return Legacy::$http->redirect('#'.$this->getWidgetId());
     }
 
     public function apply()

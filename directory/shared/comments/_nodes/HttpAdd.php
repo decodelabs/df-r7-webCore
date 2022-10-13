@@ -3,15 +3,13 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\comments\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\fire;
 
 use DecodeLabs\Disciple;
+use DecodeLabs\R7\Legacy;
 
 class HttpAdd extends arch\node\Form
 {
@@ -115,7 +113,7 @@ class HttpAdd extends arch\node\Form
 
             $this->comms->flashSaveSuccess('comment',
                 $isYours ?
-                    $this->_('Your comment has been successfully saved'):
+                    $this->_('Your comment has been successfully saved') :
                     $this->_('The comment has been successfully saved')
             );
         });
@@ -127,7 +125,7 @@ class HttpAdd extends arch\node\Form
         $output = parent::onResetEvent();
 
         if ($inline) {
-            return $this->http->defaultRedirect();
+            return Legacy::$http->defaultRedirect();
         }
 
         return $output;

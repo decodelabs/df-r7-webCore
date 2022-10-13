@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\capture;
 
 use df;
@@ -13,21 +14,22 @@ use df\opal;
 use df\flow;
 
 use DecodeLabs\Dictum;
-use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
+use DecodeLabs\Tagged as Html;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const TITLE = 'Development mailbox';
-    const ICON = 'mail';
-    const ADAPTER = 'axis://mail/Capture';
-    const KEY_NAME = 'mail';
-    const NAME_FIELD = 'subject';
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const TITLE = 'Development mailbox';
+    public const ICON = 'mail';
+    public const ADAPTER = 'axis://mail/Capture';
+    public const KEY_NAME = 'mail';
+    public const NAME_FIELD = 'subject';
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'subject', 'from', 'to', 'date', 'environmentMode'
     ];
 
@@ -75,7 +77,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $filename = $mail['id'].'-'.$this->request['part'];
         }
 
-        return $this->http->stringResponse($content, $contentType)
+        return Legacy::$http->stringResponse($content, $contentType)
             ->setFilename($filename);
     }
 

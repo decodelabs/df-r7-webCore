@@ -3,25 +3,23 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\flow;
 
 use DecodeLabs\Disciple;
+use DecodeLabs\R7\Legacy;
 
 class HttpLostPassword extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::GUEST;
-    const DEFAULT_EVENT = 'send';
+    public const DEFAULT_ACCESS = arch\IAccess::GUEST;
+    public const DEFAULT_EVENT = 'send';
 
     protected function init()
     {
         if (Disciple::isLoggedIn()) {
-            return $this->http->defaultRedirect('account/');
+            return Legacy::$http->defaultRedirect('account/');
         }
     }
 

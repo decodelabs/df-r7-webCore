@@ -6,11 +6,9 @@
 
 namespace df\apex\directory\front\cookies\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\aura;
+
+use DecodeLabs\R7\Legacy;
 
 class HttpDismissNotice extends arch\node\Base
 {
@@ -30,6 +28,6 @@ class HttpDismissNotice extends arch\node\Base
             ]);
         }
 
-        return $this->http->defaultRedirect('/');
+        return Legacy::$http->defaultRedirect('/');
     }
 }

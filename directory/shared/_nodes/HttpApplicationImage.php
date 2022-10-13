@@ -6,14 +6,12 @@
 
 namespace df\apex\directory\shared\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\neon;
 
-use DecodeLabs\Typify;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
+use DecodeLabs\Typify;
 
 class HttpApplicationImage extends arch\node\Base
 {
@@ -42,7 +40,7 @@ class HttpApplicationImage extends arch\node\Base
         }
 
         $descriptor = (new neon\raster\Descriptor($absPath, $type))
-            ->setFileName($this->http->request->url->path->getFileName())
+            ->setFileName(Legacy::$http->getUrl()->path->getFileName())
             ->shouldIncludeTransformationInFileName(false);
 
         if (isset($this->request['width'])) {
@@ -51,7 +49,7 @@ class HttpApplicationImage extends arch\node\Base
             $descriptor->applyTransformation('[rs:'.$width.'|'.$height.']');
         }
 
-        return $this->http->fileResponse($descriptor->getLocation())
+        return Legacy::$http->fileResponse($descriptor->getLocation())
             ->setFileName($descriptor->getFileName())
             ->setContentType($descriptor->getContentType());
     }

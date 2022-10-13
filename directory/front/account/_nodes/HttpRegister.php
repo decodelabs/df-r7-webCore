@@ -6,13 +6,11 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
 use df\apex;
 use df\arch;
-use df\user;
 
 use DecodeLabs\Disciple;
+use DecodeLabs\R7\Legacy;
 
 class HttpRegister extends arch\node\Form
 {
@@ -24,7 +22,7 @@ class HttpRegister extends arch\node\Form
     protected function init()
     {
         if (Disciple::isLoggedIn()) {
-            return $this->http->defaultRedirect('account/');
+            return Legacy::$http->defaultRedirect('account/');
         }
 
         if (isset($this->request['invite'])) {
@@ -39,7 +37,7 @@ class HttpRegister extends arch\node\Form
                     $this->_('The invite link you have followed is no longer active')
                 );
 
-                return $this->http->defaultRedirect('/');
+                return Legacy::$http->defaultRedirect('/');
             }
         } else {
             if (!$this->data->user->config->isRegistrationEnabled()) {
@@ -48,7 +46,7 @@ class HttpRegister extends arch\node\Form
                     $this->_('Registration for this site is currently disabled')
                 );
 
-                return $this->http->defaultRedirect('/');
+                return Legacy::$http->defaultRedirect('/');
             }
         }
     }

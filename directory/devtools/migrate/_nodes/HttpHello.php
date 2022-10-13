@@ -29,7 +29,7 @@ class HttpHello extends arch\node\RestApi
         }
 
         return [
-            'baseUrl' => Legacy::getHttpRunner()->getRouter()->getBaseUrl(),
+            'baseUrl' => Legacy::$http->getRouter()->getBaseUrl(),
             'nodes' => $nodes
         ];
     }

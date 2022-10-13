@@ -3,24 +3,25 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpEmailVerify extends arch\node\Base {
+use DecodeLabs\R7\Legacy;
 
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
+class HttpEmailVerify extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    public function execute() {
+    public function execute()
+    {
         $result = $this->data->user->emailVerify->verify(
             $this->request['user'],
             $this->request['key']
         );
 
-        if($result) {
+        if ($result) {
             $this->comms->flashSuccess(
                 'emailVerify.success',
                 $this->_('Your email address has been successfully verified')
@@ -33,6 +34,6 @@ class HttpEmailVerify extends arch\node\Base {
         }
 
 
-        return $this->http->defaultRedirect('account/');
+        return Legacy::$http->defaultRedirect('account/');
     }
 }

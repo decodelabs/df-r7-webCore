@@ -6,7 +6,6 @@
 
 namespace df\apex\directory\front\theme\_nodes;
 
-use df;
 use df\core;
 use df\arch;
 use df\aura;
@@ -15,6 +14,7 @@ use df\neon;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
 use DecodeLabs\Typify;
+use DecodeLabs\R7\Legacy;
 
 class HttpDownload extends arch\node\Base
 {
@@ -62,7 +62,7 @@ class HttpDownload extends arch\node\Base
                 $descriptor->applyTransformation($this->request['transform']);
             }
 
-            if ($hasFavicon && preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', $this->http->getUserAgent())) {
+            if ($hasFavicon && preg_match('/MSIE ([0-9]{1,}[\.0-9]{0,})/', Legacy::$http->getUserAgent())) {
                 $descriptor->toIcon(16, 32);
             }
 
@@ -82,7 +82,7 @@ class HttpDownload extends arch\node\Base
                 return $bridge->getMapHttpResponse();
 
             default:
-                $output = $this->http->fileResponse($absolutePath);
+                $output = Legacy::$http->fileResponse($absolutePath);
                 $output->setContentType($type);
         }
 
