@@ -20,7 +20,7 @@ class HttpBootstrapSystem extends arch\node\Base
 
     public function executeAsJs()
     {
-        $output = Legacy::$http->fileResponse(__DIR__.'/bootstrap.system.js', 'text/javascript');
+        $output = Legacy::$http->fileResponse(__DIR__.'/bootstrap.system.js');
         $output->headers
             ->set('Access-Control-Allow-Origin', '*')
             ->setCacheAccess('public')
