@@ -35,6 +35,13 @@
     "prefer-stable": true,
     "scripts": {
         "analyze": "phpstan analyze",
-        "clear-phpstan": "phpstan clear-result-cache"
+        "clear-phpstan": "phpstan clear-result-cache",
+        "veneer-stub": "php vendor/df-r7/base/tests/veneer-stub.php",
+        "prep": [
+            "@composer update",
+            "@veneer-stub",
+            "@clear-phpstan",
+            "@analyze"
+        ]
     }
 }
