@@ -21,6 +21,11 @@
 
         "decodelabs/phpstan-decodelabs": "^0.6"
     },
+    "autoload": {
+        "psr-4": {
+            "DecodeLabs\\": "provider/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
             "DecodeLabs\\PHPStan\\": "vendor/df-r7/base/phpstan/"
