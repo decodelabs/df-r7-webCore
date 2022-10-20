@@ -3,18 +3,18 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\roles\_nodes;
 
-use df;
-use df\core;
 use df\arch;
 
-class HttpAddKey extends arch\node\Form {
-
+class HttpAddKey extends arch\node\Form
+{
     protected $_role;
     protected $_key;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_role = $this->scaffold->getRecord();
 
         $this->_key = $this->data->newRecord('axis://user/Key', [
@@ -22,15 +22,18 @@ class HttpAddKey extends arch\node\Form {
         ]);
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_role['id'];
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->allow = true;
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role key'));
 
@@ -61,12 +64,13 @@ class HttpAddKey extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Domain
             ->addRequiredField('domain', 'text')
-                ->setSanitizer(function($value) {
+                ->setSanitizer(function ($value) {
                     return strtolower($value);
                 })
 
@@ -80,7 +84,7 @@ class HttpAddKey extends arch\node\Form {
             ->applyTo($this->_key);
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_key->save();
             $this->user->instigateGlobalKeyringRegeneration();
 

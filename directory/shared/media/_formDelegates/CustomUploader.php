@@ -113,7 +113,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         $this->_setupBucket();
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         if ($this->_bucketHandler) {
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
@@ -121,12 +121,9 @@ class CustomUploader extends arch\node\form\Delegate implements
             $accept = $this->_acceptTypes;
         }
 
-        /**
-         * Upload
-         * @var CustomTempUploader $upload
-         */
-        $upload = $this->loadDelegate('upload', 'CustomTempUploader');
-        $upload
+        // Upload
+        $this->loadDelegate('upload', 'CustomTempUploader')
+            ->as(CustomTempUploader::class)
             ->isRequired($this->_isRequired)
             ->isForMany($this->_isForMany)
             ->setAcceptTypes(...$accept)
@@ -141,7 +138,7 @@ class CustomUploader extends arch\node\form\Delegate implements
     public function getErrors(): array
     {
         return array_merge(
-            $this['upload']->getErrors(),
+            $this['upload']->as(CustomTempUploader::class)->getErrors(),
             $this->values->selected->getErrors()
         );
     }
@@ -162,49 +159,50 @@ class CustomUploader extends arch\node\form\Delegate implements
             ]);
         }
 
-        return $this['upload']->render(function ($delegate, $available) use ($callback) {
-            if ($this->_isForMany || empty($available)) {
-                $query = $this->data->media->file->select('id as fileId', 'creationDate as time')
-                    ->joinRelation('activeVersion', 'fileName', 'fileSize as size')
-                    ->where('file.id', 'in', (array)$this->getSelected())
-                    ->orderBy('creationDate ASC');
+        return $this['upload']->as(CustomTempUploader::class)
+            ->render(function ($delegate, $available) use ($callback) {
+                if ($this->_isForMany || empty($available)) {
+                    $query = $this->data->media->file->select('id as fileId', 'creationDate as time')
+                        ->joinRelation('activeVersion', 'fileName', 'fileSize as size')
+                        ->where('file.id', 'in', (array)$this->getSelected())
+                        ->orderBy('creationDate ASC');
 
-                if (!$this->_isForMany) {
-                    $available = $query->toRow();
-                } else {
-                    $files = $query->toArray();
-                    $count = count($available);
+                    if (!$this->_isForMany) {
+                        $available = $query->toRow();
+                    } else {
+                        $files = $query->toArray();
+                        $count = count($available);
 
-                    foreach ($files as $i => $file) {
-                        $salt = $count + $i;
-                        $ts = $file['time']->toTimestamp();
-                        $key = $ts.$salt;
-                        $file['time'] = $ts;
-                        $available[$key] = $file;
-                    }
-
-                    ksort($available);
-
-                    foreach ($available as &$file) {
-                        if (!isset($file['fileId'])) {
-                            $file['fileId'] = null;
+                        foreach ($files as $i => $file) {
+                            $salt = $count + $i;
+                            $ts = $file['time']->toTimestamp();
+                            $key = $ts.$salt;
+                            $file['time'] = $ts;
+                            $available[$key] = $file;
                         }
+
+                        ksort($available);
+
+                        foreach ($available as &$file) {
+                            if (!isset($file['fileId'])) {
+                                $file['fileId'] = null;
+                            }
+                        }
+                        unset($file);
                     }
-                    unset($file);
                 }
-            }
 
-            if (!$callback) {
-                $callback = [$this, '_render'];
-            }
+                if (!$callback) {
+                    $callback = [$this, '_render'];
+                }
 
-            return core\lang\Callback($callback, $this, $available);
-        });
+                return core\lang\Callback($callback, $this, $available);
+            });
     }
 
     public function _render($delegate, $available)
     {
-        $delegate = $this['upload'];
+        $delegate = $this['upload']->as(CustomTempUploader::class);
 
         yield Html::{'span'}(null, ['id' => $delegate->getWidgetId()]);
 
@@ -345,7 +343,8 @@ class CustomUploader extends arch\node\form\Delegate implements
             return true;
         }
 
-        return $this['upload']->hasAnyFile();
+        return $this['upload']->as(CustomTempUploader::class)
+            ->hasAnyFile();
     }
 
     public function apply()
@@ -354,7 +353,7 @@ class CustomUploader extends arch\node\form\Delegate implements
             return;
         }
 
-        $delegate = $this['upload'];
+        $delegate = $this['upload']->as(CustomTempUploader::class);
         $delegate->isRequired($this->_isRequired && !$this->hasSelection());
         $delegate->values->file->clearErrors();
 

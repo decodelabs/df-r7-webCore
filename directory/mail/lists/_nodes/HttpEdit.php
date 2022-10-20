@@ -3,12 +3,9 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\lists\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
 use df\flow;
 
 use DecodeLabs\Exceptional;
@@ -39,7 +36,7 @@ class HttpEdit extends HttpAdd
         }
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->import($this->_source);
         $this->values->id = $this->_id;

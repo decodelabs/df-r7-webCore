@@ -3,12 +3,8 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\media\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
+namespace df\apex\directory\admin\media\_nodes;
 
 class HttpEdit extends HttpAdd
 {
@@ -22,7 +18,7 @@ class HttpEdit extends HttpAdd
         return $this->_bucket['id'];
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->importFrom($this->_bucket, [
             'name', 'slug'

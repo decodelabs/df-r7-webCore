@@ -3,15 +3,13 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\roles\_nodes;
 
-use df;
-use df\core;
-use df\arch;
-
-class HttpEditKey extends HttpAddKey {
-
-    protected function init() {
+class HttpEditKey extends HttpAddKey
+{
+    protected function init()
+    {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
             $this->request['key']
@@ -20,11 +18,13 @@ class HttpEditKey extends HttpAddKey {
         $this->_role = $this->_key['role'];
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_key['id'];
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->importFrom($this->_key, [
             'domain', 'pattern', 'allow'
         ]);

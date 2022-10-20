@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\admin\media\files\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
+
+use df\apex\directory\shared\media\_formDelegates\CustomTempUploader;
+use df\arch\node\form\SelectorDelegate;
 
 use DecodeLabs\Disciple;
 
@@ -22,42 +22,36 @@ class HttpAdd extends arch\node\Form
         $this->_file = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
-        /**
-         * File
-         * @var apex\directory\shared\media\_formDelegates\CustomTempUploader $file
-         */
-        $file = $this->loadDelegate('upload', '../CustomTempUploader');
-        $file
+        // Upload
+        $this->loadDelegate('upload', '../CustomTempUploader')
+            ->as(CustomTempUploader::class)
             ->isForOne(true)
             ->isRequired($this->_file->isNew())
             ->shouldShowUploadButton(true);
 
-        /**
-         * Bucket
-         * @var arch\scaffold\Node\Form\SelectorDelegate $bucket
-         */
-        $bucket = $this->loadDelegate('bucket', '../BucketSelector');
-        $bucket
+
+        // Bucket
+        $this->loadDelegate('bucket', '../BucketSelector')
+            ->as(SelectorDelegate::class)
             ->isForOne(true)
             ->isRequired(true);
 
-        /**
-         * User
-         * @var arch\scaffold\Node\Form\SelectorDelegate $user
-         */
-        $user = $this->loadDelegate('owner', '~admin/users/clients/UserSelector');
-        $user
+
+        // Owner
+        $this->loadDelegate('owner', '~admin/users/clients/UserSelector')
+            ->as(SelectorDelegate::class)
             ->isForOne(true)
             ->isRequired(false);
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
-        $this['owner']->setSelected(
-            Disciple::getId()
-        );
+        $this['owner']->as(SelectorDelegate::class)
+            ->setSelected(
+                Disciple::getId()
+            );
     }
 
     protected function createUi()
@@ -100,7 +94,8 @@ class HttpAdd extends arch\node\Form
 
     protected function onSaveEvent()
     {
-        $filePath = $this['upload']->apply();
+        $filePath = $this['upload']->as(CustomTempUploader::class)
+            ->apply();
 
         if ($filePath && $this->values['overwriteName']) {
             unset($this->values->fileName);

@@ -9,6 +9,8 @@ namespace df\apex\directory\front\account\_nodes;
 use df\apex;
 use df\arch;
 
+use df\apex\directory\front\account\_formDelegates\RegisterLocal;
+
 use DecodeLabs\Disciple;
 use DecodeLabs\R7\Legacy;
 
@@ -65,14 +67,11 @@ class HttpRegister extends arch\node\Form
         return null;
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
-        /**
-         * RegisterLocal
-         * @var apex\directory\front\account\_formDelegates\RegisterLocal $register
-         */
-        $register = $this->loadDelegate('Local', '~front/account/RegisterLocal');
-        $register
+        // Local
+        $this->loadDelegate('Local', '~front/account/RegisterLocal')
+            ->as(RegisterLocal::class)
             ->setInvite($this->_invite);
     }
 
@@ -82,7 +81,8 @@ class HttpRegister extends arch\node\Form
             ->setTitle('Register for a new account')
             ->setCanonical('account/register');
 
-        $this['Local']->renderUi();
+        $this['Local']->as(RegisterLocal::class)
+            ->renderUi();
     }
 
     protected function onRegisterEvent(...$args)

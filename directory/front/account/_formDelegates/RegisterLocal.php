@@ -6,15 +6,11 @@
 
 namespace df\apex\directory\front\account\_formDelegates;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
 use df\user;
 
 class RegisterLocal extends RegisterBase
 {
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         if ($this->_invite) {
             $this->values->fullName = $this->_invite['name'];

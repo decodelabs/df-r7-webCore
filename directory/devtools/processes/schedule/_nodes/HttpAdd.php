@@ -3,29 +3,30 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\processes\schedule\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+class HttpAdd extends arch\node\Form
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_schedule;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_schedule = $this->scaffold->newRecord();
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->priority = 'medium';
         $this->values->isLive = true;
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Scheduled task'));
 
@@ -88,7 +89,8 @@ class HttpAdd extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Request
@@ -126,8 +128,8 @@ class HttpAdd extends arch\node\Form {
             ->applyTo($this->_schedule);
 
 
-        return $this->complete(function() {
-            if($this->_schedule->isNew()
+        return $this->complete(function () {
+            if ($this->_schedule->isNew()
             || $this->_schedule->hasChanged('minute', 'hour', 'day', 'month', 'weekday')
             || ($this->_schedule->hasChanged('isLive') && $this->_schedule['isLive'] == false)) {
                 $this->_schedule->isAuto = false;

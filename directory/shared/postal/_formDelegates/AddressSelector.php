@@ -6,7 +6,6 @@
 
 namespace df\apex\directory\shared\postal\_formDelegates;
 
-use df;
 use df\core;
 use df\apex;
 use df\arch;
@@ -133,14 +132,11 @@ class AddressSelector extends arch\node\form\Delegate implements
 
 
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
-        /**
-         * Address
-         * @var AddressEditor $address
-         */
-        $address = $this->loadDelegate('address', 'AddressEditor');
-        $address
+        // Address
+        $this->loadDelegate('address', 'AddressEditor')
+            ->as(AddressEditor::class)
             ->setAddress($this->_address)
             ->setAccessLevel($this->_access)
             ->shouldAutoComplete($this->_autoComplete)
@@ -148,7 +144,7 @@ class AddressSelector extends arch\node\form\Delegate implements
             ->setCountryList($this->_countryList, $this->_isCountryListGrouped);
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
     }
 
@@ -213,10 +209,14 @@ class AddressSelector extends arch\node\form\Delegate implements
 
         if ($showEditor) {
             $fs->push(
-                $this['address']->renderFieldContent()
+                $this['address']->as(AddressEditor::class)
+                    ->renderFieldContent()
             );
 
-            if ($this['address']->hasValue()) {
+            if (
+                $this['address']->as(AddressEditor::class)
+                    ->hasValue()
+            ) {
                 $fs->addButtonArea(
                     $this->html->eventButton(
                                 $this->eventName('removeAddress'),
@@ -249,7 +249,8 @@ class AddressSelector extends arch\node\form\Delegate implements
             return $id;
         }
 
-        $output = $this['address']->apply();
+        $output = $this['address']->as(AddressEditor::class)
+            ->apply();
 
         if ($output) {
             $output = $output->dereferenceDuplicate();

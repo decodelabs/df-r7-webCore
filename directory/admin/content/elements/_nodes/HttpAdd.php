@@ -6,10 +6,9 @@
 
 namespace df\apex\directory\admin\content\elements\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
+
+use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
 
 use DecodeLabs\Disciple;
 
@@ -24,14 +23,10 @@ class HttpAdd extends arch\node\Form
         ]);
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
-        /**
-         * Body
-         * @var  apex\directory\shared\nightfire\_formDelegates\ContentSlot $body
-         */
-        $body = $this->loadDelegate('body', '~/nightfire/ContentSlot');
-        $body
+        $this->loadDelegate('body', '~/nightfire/ContentSlot')
+            ->as(ContentSlot::class)
             ->setCategory('Description')
             ->isRequired(true);
     }

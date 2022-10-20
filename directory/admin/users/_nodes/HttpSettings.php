@@ -3,26 +3,27 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpSettings extends arch\node\Form {
-
+class HttpSettings extends arch\node\Form
+{
     protected $_config;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_config = $this->data->user->config;
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->import($this->_config->getConfigValues());
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Settings'));
 
@@ -73,7 +74,8 @@ class HttpSettings extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Registration
@@ -98,7 +100,7 @@ class HttpSettings extends arch\node\Form {
             ->validate($this->values)
             ->applyTo($this->_config->values);
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_config->save();
 
             $this->comms->flashSuccess(

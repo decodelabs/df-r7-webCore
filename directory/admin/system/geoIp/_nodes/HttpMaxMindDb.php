@@ -6,9 +6,7 @@
 
 namespace df\apex\directory\admin\system\geoIp\_nodes;
 
-use df;
 use df\core;
-use df\apex;
 use df\arch;
 use df\link;
 
@@ -24,7 +22,7 @@ class HttpMaxMindDb extends arch\node\Form
         $this->_config = link\geoIp\Config::getInstance();
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->isEnabled = $this->_config->isEnabled();
         $this->values->file = $this->_config->values->adapters->MaxMindDb['file'];

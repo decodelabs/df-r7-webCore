@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
 use df\apex;
 use df\arch;
+
+use df\apex\directory\shared\media\_formDelegates\CustomTempUploader;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
@@ -37,14 +37,11 @@ class HttpAvatar extends arch\node\Form
         return $this->_file;
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
-        /**
-         * File
-         * @var apex\directory\shared\media\_formDelegates\CustomTempUploader $file
-         */
-        $file = $this->loadDelegate('upload', 'media/CustomTempUploader');
-        $file
+        // Upload
+        $this->loadDelegate('upload', 'media/CustomTempUploader')
+            ->as(CustomTempUploader::class)
             ->isForOne(true)
             //->shouldShowUploadButton(false)
             ;
@@ -157,7 +154,9 @@ class HttpAvatar extends arch\node\Form
 
     protected function onUploadEvent()
     {
-        $filePath = $this['upload']->apply();
+        /** @var CustomTempUploader */
+        $upload = $this['upload'];
+        $filePath = $upload->apply();
 
         return $this->complete(function () use ($filePath) {
             if ($filePath) {

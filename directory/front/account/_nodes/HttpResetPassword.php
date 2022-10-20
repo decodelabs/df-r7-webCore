@@ -100,7 +100,7 @@ class HttpResetPassword extends arch\node\Form
         return Legacy::$http->redirect('account/');
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->data->user->passwordResetKey->pruneUnusedKeys();
     }

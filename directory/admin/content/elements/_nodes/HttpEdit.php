@@ -3,28 +3,31 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\elements\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
+use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
 
-class HttpEdit extends HttpAdd {
-
-    protected function init() {
+class HttpEdit extends HttpAdd
+{
+    protected function init()
+    {
         $this->_element = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_element['id'];
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->importFrom($this->_element, [
             'slug', 'name'
         ]);
 
-        $this['body']->setSlotContent($this->_element['body']);
+        /** @var ContentSlot */
+        $body = $this['body'];
+        $body->setSlotContent($this->_element['body']);
     }
 }

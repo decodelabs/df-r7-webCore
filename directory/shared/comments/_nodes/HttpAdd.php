@@ -30,7 +30,7 @@ class HttpAdd extends arch\node\Form
         return $this->location->query['entity'];
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->isLive = true;
     }

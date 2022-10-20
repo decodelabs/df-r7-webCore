@@ -3,16 +3,15 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\processes\daemons\_nodes;
 
-use df;
 use df\core;
-use df\apex;
 use df\arch;
 
-class HttpSettings extends arch\node\Form {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+class HttpSettings extends arch\node\Form
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_config;
     protected $_isRecord = false;
@@ -22,14 +21,15 @@ class HttpSettings extends arch\node\Form {
         'group' => 'daemonGroup'
     ];
 
-    protected function init() {
-        if(isset($this->request['daemon'])) {
+    protected function init()
+    {
+        if (isset($this->request['daemon'])) {
             $this->_isRecord = true;
 
             $this->_config = $this->data->fetchOrCreateForAction(
                 'axis://daemon/Settings',
                 $this->request['daemon'],
-                function($settings) {
+                function ($settings) {
                     $settings['name'] = $this->request['daemon'];
                 }
             );
@@ -38,13 +38,15 @@ class HttpSettings extends arch\node\Form {
         }
     }
 
-    protected function getInstanceId() {
-        if($this->_isRecord) {
+    protected function getInstanceId()
+    {
+        if ($this->_isRecord) {
             return $this->_config['name'];
         }
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->importFrom($this->_config, [
             $this->_getFieldName('isEnabled'),
             $this->_getFieldName('user'),
@@ -52,7 +54,8 @@ class HttpSettings extends arch\node\Form {
         ]);
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Daemon settings'));
 
@@ -85,7 +88,8 @@ class HttpSettings extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Enabled
@@ -94,14 +98,14 @@ class HttpSettings extends arch\node\Form {
             // User
             ->addField($this->_getFieldName('user'), 'text')
                 ->isRequired(!$this->_isRecord)
-                ->extend(function($value, $field) {
+                ->extend(function ($value, $field) {
                     // TODO: test user
                 })
 
             // Group
             ->addField($this->_getFieldName('group'), 'text')
                 ->isRequired(!$this->_isRecord)
-                ->extend(function($value, $field) {
+                ->extend(function ($value, $field) {
                     // TODO: test group
                 })
 
@@ -109,7 +113,7 @@ class HttpSettings extends arch\node\Form {
             ->applyTo($this->_config);
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_config->save();
 
             $this->comms->flashSuccess(
@@ -119,8 +123,9 @@ class HttpSettings extends arch\node\Form {
         });
     }
 
-    protected function _getFieldName($key) {
-        if($this->_isRecord || !isset($this->_names[$key])) {
+    protected function _getFieldName($key)
+    {
+        if ($this->_isRecord || !isset($this->_names[$key])) {
             return $key;
         }
 

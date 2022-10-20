@@ -11,7 +11,7 @@ use df\user;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
-use DecodeLabs\R7\Legacy;
+use df\arch\node\IParentUiHandlerDelegate as ParentUiHandlerDelegate;
 
 class HttpLogin extends arch\node\Form
 {
@@ -78,7 +78,7 @@ class HttpLogin extends arch\node\Form
         return $this->_config;
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
     }
@@ -95,7 +95,8 @@ class HttpLogin extends arch\node\Form
             $this->_renderSwitcher($enabled);
         }
 
-        $this[$this->_adapter]->renderUi();
+        $this[$this->_adapter]->as(ParentUiHandlerDelegate::class)
+            ->renderUi();
     }
 
     protected function _renderSwitcher(array $enabled)

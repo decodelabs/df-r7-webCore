@@ -27,7 +27,7 @@ class HttpSend extends arch\node\Form
         $this->_invite = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         $this->loadDelegate('groups', '../groups/GroupSelector');
     }

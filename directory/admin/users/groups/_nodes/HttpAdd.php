@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\groups\_nodes;
 
 use df;
@@ -10,19 +11,22 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
-
+class HttpAdd extends arch\node\Form
+{
     protected $_group;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_group = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates(): void
+    {
         $this->loadDelegate('roles', '../roles/RoleSelector');
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $model = $this->data->getModel('user');
 
         $form = $this->content->addForm();
@@ -47,7 +51,8 @@ class HttpAdd extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Name
@@ -66,7 +71,7 @@ class HttpAdd extends arch\node\Form {
             ->applyTo($this->_group);
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_group->save();
             $this->user->instigateGlobalKeyringRegeneration();
 

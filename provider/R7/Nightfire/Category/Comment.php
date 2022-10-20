@@ -6,7 +6,9 @@
 
 namespace DecodeLabs\R7\Nightfire\Category;
 
-class Comment extends Base
+use DecodeLabs\R7\Nightfire\CategoryAbstract;
+
+class Comment extends CategoryAbstract
 {
     public const DEFAULT_BLOCKS = ['SimpleTags', 'Markdown', 'BBCode'];
 }

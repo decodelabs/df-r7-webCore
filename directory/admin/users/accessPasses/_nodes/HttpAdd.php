@@ -6,10 +6,9 @@
 
 namespace df\apex\directory\admin\users\accessPasses\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
+
+use df\arch\node\form\SelectorDelegate;
 
 class HttpAdd extends arch\node\Form
 {
@@ -20,19 +19,16 @@ class HttpAdd extends arch\node\Form
         $this->_pass = $this->scaffold->newRecord();
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
-        /**
-         * User
-         * @var arch\scaffold\Node\Form\SelectorDelegate $user
-         */
-        $user = $this->loadDelegate('user', '../clients/UserSelector');
-        $user
+        // User
+        $this->loadDelegate('user', '../clients/UserSelector')
+            ->as(SelectorDelegate::class)
             ->isForOne(true)
             ->isRequired(true);
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->duration = '1 hour';
     }

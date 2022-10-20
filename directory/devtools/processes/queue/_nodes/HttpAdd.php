@@ -3,28 +3,29 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\processes\queue\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+class HttpAdd extends arch\node\Form
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     protected $_task;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_task = $this->scaffold->newRecord();
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->priority = 'medium';
     }
 
-    protected function createUi() {
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Queued task'));
 
@@ -45,7 +46,8 @@ class HttpAdd extends arch\node\Form {
         $fs->addDefaultButtonGroup();
     }
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Request
@@ -60,7 +62,7 @@ class HttpAdd extends arch\node\Form {
             ->applyTo($this->_task);
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_task->save();
 
             $this->comms->flashSuccess(

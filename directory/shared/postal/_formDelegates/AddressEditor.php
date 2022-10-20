@@ -3,9 +3,9 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\postal\_formDelegates;
 
-use df;
 use df\core;
 use df\apex;
 use df\arch;
@@ -115,7 +115,7 @@ class AddressEditor extends arch\node\form\Delegate
         }
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->importFrom($this->_address, [
             'street1', 'street2', 'street3',

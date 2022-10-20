@@ -59,7 +59,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         $this->_setupBucket();
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         if (!$this->_bucket) {
             return;
@@ -68,22 +68,18 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         $mode = $this->getMode();
         $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
 
-        /**
-         * Upload
-         * @var CustomTempUploader $upload
-         */
-        $upload = $this->loadDelegate('upload', 'CustomTempUploader');
-        $upload
+
+        // Upload
+        $this->loadDelegate('upload', 'CustomTempUploader')
+            ->as(CustomTempUploader::class)
             ->isForMany($this->_isForMany)
             ->isRequired($mode == 'upload')
             ->setAcceptTypes(...$accept);
 
-        /**
-         * Version upload
-         * @var CustomTempUploader $versionUpload
-         */
-        $versionUpload = $this->loadDelegate('versionUpload', 'CustomTempUploader');
-        $versionUpload
+
+        // Version upload
+        $this->loadDelegate('versionUpload', 'CustomTempUploader')
+            ->as(CustomTempUploader::class)
             ->isForOne(true)
             ->isRequired($mode == 'version')
             ->setAcceptTypes(...$accept);
@@ -434,7 +430,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             return;
         }
 
-        $uploadDelegate = $this['upload'];
+        $uploadDelegate = $this['upload']->as(CustomTempUploader::class);
         $result = $uploadDelegate->apply();
 
         if (empty($result)) {
@@ -498,7 +494,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             return;
         }
 
-        $uploadDelegate = $this['versionUpload'];
+        $uploadDelegate = $this['versionUpload']->as(CustomTempUploader::class);
         $result = $uploadDelegate->apply();
 
         if (empty($result)) {
@@ -532,7 +528,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             }
         }
 
-        $uploadDelegate = $this['versionUpload'];
+        $uploadDelegate = $this['versionUpload']->as(CustomTempUploader::class);
         $result = $uploadDelegate->apply();
 
         if (!empty($result)) {

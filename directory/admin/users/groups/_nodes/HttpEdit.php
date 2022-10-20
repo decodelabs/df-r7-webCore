@@ -3,24 +3,29 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\groups\_nodes;
 
-use df;
-use df\core;
-use df\arch;
+use df\arch\node\form\SelectorDelegate;
 
-class HttpEdit extends HttpAdd {
-
-    protected function init() {
+class HttpEdit extends HttpAdd
+{
+    protected function init()
+    {
         $this->_group = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_group['id'];
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->importFrom($this->_group, ['name', 'signifier']);
-        $this['roles']->setSelected($this->_group['#roles']);
+
+        /** @var SelectorDelegate */
+        $roles = $this['roles'];
+        $roles->setSelected($this->_group['#roles']);
     }
 }

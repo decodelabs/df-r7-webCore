@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\mail\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\flow;
 
@@ -26,7 +23,7 @@ class HttpTest extends arch\node\Form
     {
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->setStore('type', 'custom');
         $this->values->type = 'custom';

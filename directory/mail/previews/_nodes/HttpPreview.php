@@ -3,11 +3,9 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\previews\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\flow;
 
@@ -16,8 +14,8 @@ use DecodeLabs\Exceptional;
 
 class HttpPreview extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DEFAULT_EVENT = 'send';
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_EVENT = 'send';
 
     protected $_mail;
 
@@ -26,7 +24,7 @@ class HttpPreview extends arch\node\Form
         $this->_mail = $this->comms->prepareMail($this->request['path']);
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $manager = flow\Manager::getInstance();
         $this->values->transport = $manager->getDefaultMailTransportName();
