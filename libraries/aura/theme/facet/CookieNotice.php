@@ -60,7 +60,7 @@ class CookieNotice extends Base
             return;
         }
 
-        $agent = Legacy::$http->getUserAgent();
+        $agent = Legacy::$http->getUserAgent() ?? '';
 
         if ($view->data->user->agent->isBot($agent)) {
             return;
