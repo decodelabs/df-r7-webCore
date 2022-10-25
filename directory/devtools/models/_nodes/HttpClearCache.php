@@ -3,11 +3,9 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\axis;
 
@@ -15,12 +13,12 @@ use DecodeLabs\Exceptional;
 
 class HttpClearCache extends arch\node\ConfirmForm
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DISPOSITION = 'negative';
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DISPOSITION = 'negative';
 
     protected $_inspector;
 
-    protected function init()
+    protected function init(): void
     {
         $probe = new axis\introspector\Probe();
 
@@ -39,7 +37,7 @@ class HttpClearCache extends arch\node\ConfirmForm
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_inspector->getId();
     }

@@ -108,7 +108,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         return $this->_avScan;
     }
 
-    protected function init()
+    protected function init(): void
     {
         $this->_setupBucket();
     }
@@ -347,10 +347,10 @@ class CustomUploader extends arch\node\form\Delegate implements
             ->hasAnyFile();
     }
 
-    public function apply()
+    public function apply(): array|string|null
     {
         if (!$this->_bucket) {
-            return;
+            return null;
         }
 
         $delegate = $this['upload']->as(CustomTempUploader::class);
@@ -418,7 +418,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         }
     }
 
-    protected function _sanitizeSelection($selection)
+    protected function _sanitizeSelection(string $selection): string
     {
         return (string)flex\Guid::factory($selection);
     }

@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\admin\content\history\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Metamorph;
@@ -20,7 +17,7 @@ class HttpDelete extends arch\node\DeleteForm
 
     protected $_history;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_history = $this->data->fetchForAction(
             'axis://content/History',
@@ -28,7 +25,7 @@ class HttpDelete extends arch\node\DeleteForm
         );
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_history['id'];
     }

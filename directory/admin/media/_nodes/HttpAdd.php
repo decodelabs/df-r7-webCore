@@ -3,23 +3,21 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\media\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\node\Form
 {
     protected $_bucket;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_bucket = $this->scaffold->newRecord();
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Bucket details'));

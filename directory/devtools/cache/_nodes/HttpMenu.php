@@ -3,25 +3,25 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpMenu extends arch\node\Form {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DEFAULT_EVENT = 'refresh';
+class HttpMenu extends arch\node\Form
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_EVENT = 'refresh';
 
     protected $_cache;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_cache = arch\navigation\menu\Cache::getInstance();
     }
 
-    protected function createUi() {
+    protected function createUi(): void
+    {
         $form = $this->content->addForm();
         $menus = arch\navigation\menu\Base::loadList($this->context, $this->_cache->getKeys());
 
@@ -30,27 +30,27 @@ class HttpMenu extends arch\node\Form {
                 ->setErrorMessage($this->_('There are currently no cached menu manifests'))
 
                 // Id
-                ->addField('id', function($menu) {
+                ->addField('id', function ($menu) {
                     return (string)$menu->getId()->getPath();
                 })
 
                 // Source
-                ->addField('source', function($menu) {
+                ->addField('source', function ($menu) {
                     return $menu->getId()->getScheme();
                 })
 
                 // Delegates
-                ->addField('delegates', function($menu) {
+                ->addField('delegates', function ($menu) {
                     return count($menu->getDelegates());
                 })
 
                 // Entries
-                ->addField('entries', function($menu) {
+                ->addField('entries', function ($menu) {
                     return $menu->generateEntries()->count();
                 })
 
                 // Actions
-                ->addField('actions', function($menu) {
+                ->addField('actions', function ($menu) {
                     return $this->html->eventButton(
                             $this->eventName('remove', (string)$menu->getId()),
                             $this->_('Clear')
@@ -80,8 +80,9 @@ class HttpMenu extends arch\node\Form {
         );
     }
 
-    protected function onRemoveEvent($id) {
-        if($this->_cache->has($id)) {
+    protected function onRemoveEvent(string $id): mixed
+    {
+        if ($this->_cache->has($id)) {
             $this->_cache->remove($id);
 
             $this->comms->flashSuccess(
@@ -92,10 +93,13 @@ class HttpMenu extends arch\node\Form {
                     'The entry will not show up again here until the cache has been regenerated'
                 ));
         }
+
+        return null;
     }
 
-    protected function onClearEvent() {
-        return $this->complete(function() {
+    protected function onClearEvent(): mixed
+    {
+        return $this->complete(function () {
             $this->_cache->clear();
 
             $this->comms->flashSuccess(

@@ -15,7 +15,7 @@ class HttpAdd extends arch\node\Form
 {
     protected $_comment;
 
-    protected function init()
+    protected function init(): void
     {
         $this->data->fetchEntityForAction(
             $this->location->query['entity'],
@@ -25,7 +25,7 @@ class HttpAdd extends arch\node\Form
         $this->_comment = $this->data->newRecord('axis://content/Comment');
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->location->query['entity'];
     }
@@ -35,7 +35,7 @@ class HttpAdd extends arch\node\Form
         $this->values->isLive = true;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Add your comment'));
@@ -119,7 +119,7 @@ class HttpAdd extends arch\node\Form
         });
     }
 
-    protected function onResetEvent()
+    protected function onResetEvent(): mixed
     {
         $inline = $this->values['isInline'];
         $output = parent::onResetEvent();

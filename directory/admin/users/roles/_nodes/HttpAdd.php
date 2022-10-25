@@ -3,21 +3,22 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\roles\_nodes;
 
-use df;
-use df\core;
 use df\arch;
 
-class HttpAdd extends arch\node\Form {
-
+class HttpAdd extends arch\node\Form
+{
     protected $_role;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_role = $this->scaffold->newRecord();
     }
 
-    protected function createUi() {
+    protected function createUi(): void
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role details'));
 
@@ -45,7 +46,8 @@ class HttpAdd extends arch\node\Form {
     }
 
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $this->data->newValidator()
 
             // Name
@@ -64,7 +66,7 @@ class HttpAdd extends arch\node\Form {
             ->applyTo($this->_role);
 
 
-        return $this->complete(function() {
+        return $this->complete(function () {
             $this->_role->save();
             $this->user->instigateGlobalKeyringRegeneration();
 

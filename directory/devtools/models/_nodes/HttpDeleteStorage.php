@@ -3,27 +3,24 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\axis;
-use df\opal;
 
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class HttpDeleteStorage extends arch\node\DeleteForm
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'storage';
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'storage';
 
     protected $_unit;
     protected $_describer;
 
-    protected function init()
+    protected function init(): void
     {
         $probe = new axis\introspector\Probe();
         $this->_unit = $probe->inspectUnit($this->request['unit']);
@@ -43,7 +40,7 @@ class HttpDeleteStorage extends arch\node\DeleteForm
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_unit->getId().':'.$this->_describer->name;
     }

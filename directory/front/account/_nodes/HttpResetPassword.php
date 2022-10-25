@@ -19,10 +19,10 @@ class HttpResetPassword extends arch\node\Form
     protected $_key;
     protected $_auth;
 
-    protected function init()
+    protected function init(): void
     {
         if (Disciple::isLoggedIn()) {
-            return $this->_flashError('loggedIn', $this->_(
+            throw $this->_flashError('loggedIn', $this->_(
                 'Passwords cannot be reset while you are logged in'
             ));
         }
@@ -33,7 +33,7 @@ class HttpResetPassword extends arch\node\Form
             ->toRow();
 
         if (!$this->_key) {
-            return $this->_flashError('notFound', $this->_(
+            throw $this->_flashError('notFound', $this->_(
                 'The password reset key this link refers to no longer exists'
             ));
         }
@@ -45,7 +45,7 @@ class HttpResetPassword extends arch\node\Form
         }
 
         if ($this->_key->isRedeemed()) {
-            return $this->_flashError('alreadyReset', $this->_(
+            throw $this->_flashError('alreadyReset', $this->_(
                 'The password reset key this link refers to has already been redeemed'
             ));
         }
@@ -58,7 +58,7 @@ class HttpResetPassword extends arch\node\Form
         }
 
         if ($this->_key->hasExpired()) {
-            return $this->_flashError('expired', $this->_(
+            throw $this->_flashError('expired', $this->_(
                 'The password reset key this link refers to has now expired'
             ));
         }
@@ -80,7 +80,7 @@ class HttpResetPassword extends arch\node\Form
         );
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
@@ -97,7 +97,7 @@ class HttpResetPassword extends arch\node\Form
             $message
         );
 
-        return Legacy::$http->redirect('account/');
+        return Legacy::$http->redirectNow('account/');
     }
 
     protected function setDefaultValues(): void
@@ -105,7 +105,7 @@ class HttpResetPassword extends arch\node\Form
         $this->data->user->passwordResetKey->pruneUnusedKeys();
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setTitle('Reset your password')

@@ -6,16 +6,13 @@
 
 namespace df\apex\directory\admin\users\groups\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class HttpAdd extends arch\node\Form
 {
     protected $_group;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_group = $this->scaffold->newRecord();
     }
@@ -25,7 +22,7 @@ class HttpAdd extends arch\node\Form
         $this->loadDelegate('roles', '../roles/RoleSelector');
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $model = $this->data->getModel('user');
 

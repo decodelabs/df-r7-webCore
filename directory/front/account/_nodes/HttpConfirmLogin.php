@@ -3,28 +3,25 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\user;
 
 use DecodeLabs\Disciple;
 
 class HttpConfirmLogin extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::BOUND;
-    const DEFAULT_EVENT = 'login';
-    const DEFAULT_REDIRECT = '/';
+    public const DEFAULT_ACCESS = arch\IAccess::BOUND;
+    public const DEFAULT_EVENT = 'login';
+    public const DEFAULT_REDIRECT = '/';
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setCanonical('account/confirm-password')

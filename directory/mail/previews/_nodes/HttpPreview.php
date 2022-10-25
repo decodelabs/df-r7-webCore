@@ -19,7 +19,7 @@ class HttpPreview extends arch\node\Form
 
     protected $_mail;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_mail = $this->comms->prepareMail($this->request['path']);
     }
@@ -47,7 +47,7 @@ class HttpPreview extends arch\node\Form
     }
 
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Email details'));

@@ -3,37 +3,37 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\user;
 
-class HttpSession extends arch\node\DeleteForm {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'cache';
-    const IS_PERMANENT = false;
+class HttpSession extends arch\node\DeleteForm
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'cache';
+    public const IS_PERMANENT = false;
 
     protected $_cache;
     protected $_shellCache;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_cache = user\session\Cache::getInstance();
         $this->_shellCache = user\session\perpetuator\Shell_Cache::getInstance();
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_cache)
-            ->addField('name', function($cache) {
+            ->addField('name', function ($cache) {
                 return 'Session storage cache';
             })
-            ->addField('entries', function($cache) {
+            ->addField('entries', function ($cache) {
                 return $cache->count();
             })
-            ->addField('shellSessions', function() {
+            ->addField('shellSessions', function () {
                 return $this->_shellCache->count();
             });
 
@@ -44,10 +44,11 @@ class HttpSession extends arch\node\DeleteForm {
             );
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->_cache->clear();
 
-        if($this->values['deleteShellPerpetuator']) {
+        if ($this->values['deleteShellPerpetuator']) {
             $this->_shellCache->clear();
         }
     }

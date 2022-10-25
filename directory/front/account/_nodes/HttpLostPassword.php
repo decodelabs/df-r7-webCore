@@ -16,19 +16,21 @@ class HttpLostPassword extends arch\node\Form
     public const DEFAULT_ACCESS = arch\IAccess::GUEST;
     public const DEFAULT_EVENT = 'send';
 
-    protected function init()
+    protected function init(): void
     {
         if (Disciple::isLoggedIn()) {
-            return Legacy::$http->defaultRedirect('account/');
+            throw $this->forceResponse(
+                Legacy::$http->defaultRedirect('account/')
+            );
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setTitle('Reset your password')

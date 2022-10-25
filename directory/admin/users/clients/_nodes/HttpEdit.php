@@ -10,12 +10,12 @@ use df\arch\node\form\SelectorDelegate;
 
 class HttpEdit extends HttpAdd
 {
-    protected function init()
+    protected function init(): void
     {
         $this->_client = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_client['id'];
     }

@@ -3,22 +3,20 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Disciple;
 
 class HttpChangePassword extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
+    public const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 
     protected $_auth;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_auth = $this->data->fetchOrCreateForAction(
             'axis://user/Auth',
@@ -37,7 +35,7 @@ class HttpChangePassword extends arch\node\Form
         );
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
@@ -47,7 +45,7 @@ class HttpChangePassword extends arch\node\Form
         return $this->_auth;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setCanonical('account/change-password')

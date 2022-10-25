@@ -299,7 +299,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return Legacy::$http->redirect('#'.$this->getWidgetId());
     }
 
-    public function apply()
+    public function apply(): array|string|null
     {
         $this->onUploadEvent();
 
@@ -376,8 +376,11 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         }
     }
 
-    public function handlePostEvent(arch\node\IActiveForm $target, string $event, array $args)
-    {
+    public function handlePostEvent(
+        arch\node\IActiveForm $target,
+        string $event,
+        array $args
+    ): void {
         $required = $this->_isRequired;
         $this->_isRequired = false;
         $this->onUploadEvent();

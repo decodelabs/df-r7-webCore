@@ -10,12 +10,12 @@ use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
 
 class HttpEdit extends HttpAdd
 {
-    protected function init()
+    protected function init(): void
     {
         $this->_element = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_element['id'];
     }

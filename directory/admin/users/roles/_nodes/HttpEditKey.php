@@ -8,7 +8,7 @@ namespace df\apex\directory\admin\users\roles\_nodes;
 
 class HttpEditKey extends HttpAddKey
 {
-    protected function init()
+    protected function init(): void
     {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
@@ -18,7 +18,7 @@ class HttpEditKey extends HttpAddKey
         $this->_role = $this->_key['role'];
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_key['id'];
     }

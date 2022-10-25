@@ -10,6 +10,9 @@ use df\core;
 use df\apex;
 use df\arch;
 
+use df\aura\html\widget\FieldSet as FieldSetWidget;
+use df\apex\models\postal\address\Record as AddressRecord;
+
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
@@ -96,7 +99,7 @@ class AddressEditor extends arch\node\form\Delegate
         return $this->_isCountryListGrouped;
     }
 
-    protected function init()
+    protected function init(): void
     {
         if (!$this->_address) {
             $this->_address = $this->data->getModel('postal')->address->newRecord([
@@ -127,7 +130,7 @@ class AddressEditor extends arch\node\form\Delegate
         }
     }
 
-    public function renderFieldSet($legend=null)
+    public function renderFieldSet(mixed $legend=null): FieldSetWidget
     {
         if ($legend === null) {
             $legend = $this->_('Address');
@@ -225,7 +228,7 @@ class AddressEditor extends arch\node\form\Delegate
         return $this->values->hasAnyValue(['street1', 'street2', 'street3', 'city', 'county', 'postcode']);
     }
 
-    public function apply()
+    public function apply(): ?AddressRecord
     {
         if (!$this->hasValue()) {
             if ($this->_address->isNew()) {

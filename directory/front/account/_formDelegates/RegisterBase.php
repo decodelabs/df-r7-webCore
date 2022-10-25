@@ -32,7 +32,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         return $this->_invite;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $parts = explode('\\', get_class($this));
         $name = array_pop($parts);

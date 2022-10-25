@@ -23,11 +23,14 @@ class HttpLogin extends arch\node\Form
     protected $_adapter;
     protected $_config;
 
-    protected function init()
+    protected function init(): void
     {
         if (Disciple::isLoggedIn()) {
             $this->setComplete();
-            return $this->_getCompleteRedirect(null, false);
+
+            throw $this->forceResponse(
+                $this->_getCompleteRedirect(null, false)
+            );
         }
 
         $this->_config = user\authentication\Config::getInstance();
@@ -63,7 +66,7 @@ class HttpLogin extends arch\node\Form
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
@@ -83,7 +86,7 @@ class HttpLogin extends arch\node\Form
         $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setTitle('Sign in to your account')
@@ -95,7 +98,8 @@ class HttpLogin extends arch\node\Form
             $this->_renderSwitcher($enabled);
         }
 
-        $this[$this->_adapter]->as(ParentUiHandlerDelegate::class)
+        $this[$this->_adapter]
+            ->as(ParentUiHandlerDelegate::class)
             ->renderUi();
     }
 

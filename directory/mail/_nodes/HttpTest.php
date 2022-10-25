@@ -19,7 +19,7 @@ class HttpTest extends arch\node\Form
     public const DEFAULT_ACCESS = arch\IAccess::DEV;
     public const DEFAULT_EVENT = 'send';
 
-    protected function init()
+    protected function init(): void
     {
     }
 
@@ -48,7 +48,7 @@ class HttpTest extends arch\node\Form
         }
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Test email'));

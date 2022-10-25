@@ -8,12 +8,12 @@ namespace df\apex\directory\devtools\processes\queue\_nodes;
 
 class HttpEdit extends HttpAdd
 {
-    protected function init()
+    protected function init(): void
     {
         $this->_task = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_task['id'];
     }

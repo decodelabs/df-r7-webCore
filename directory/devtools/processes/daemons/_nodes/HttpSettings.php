@@ -21,7 +21,7 @@ class HttpSettings extends arch\node\Form
         'group' => 'daemonGroup'
     ];
 
-    protected function init()
+    protected function init(): void
     {
         if (isset($this->request['daemon'])) {
             $this->_isRecord = true;
@@ -38,11 +38,13 @@ class HttpSettings extends arch\node\Form
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         if ($this->_isRecord) {
             return $this->_config['name'];
         }
+
+        return null;
     }
 
     protected function setDefaultValues(): void
@@ -54,7 +56,7 @@ class HttpSettings extends arch\node\Form
         ]);
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Daemon settings'));

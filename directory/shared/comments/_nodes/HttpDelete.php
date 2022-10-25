@@ -3,22 +3,20 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\comments\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged as Html;
 
 class HttpDelete extends arch\node\DeleteForm
 {
-    const ITEM_NAME = 'comment';
+    public const ITEM_NAME = 'comment';
 
     protected $_comment;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
@@ -26,7 +24,7 @@ class HttpDelete extends arch\node\DeleteForm
         );
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_comment['id'];
     }

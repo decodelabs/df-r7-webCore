@@ -14,7 +14,7 @@ class HttpAdd extends arch\node\Form
 {
     protected $_pass;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_pass = $this->scaffold->newRecord();
     }
@@ -33,7 +33,7 @@ class HttpAdd extends arch\node\Form
         $this->values->duration = '1 hour';
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Access pass details'));

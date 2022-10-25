@@ -13,7 +13,7 @@ class HttpAddKey extends arch\node\Form
     protected $_role;
     protected $_key;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_role = $this->scaffold->getRecord();
 
@@ -22,7 +22,7 @@ class HttpAddKey extends arch\node\Form
         ]);
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_role['id'];
     }
@@ -32,7 +32,7 @@ class HttpAddKey extends arch\node\Form
         $this->values->allow = true;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Role key'));

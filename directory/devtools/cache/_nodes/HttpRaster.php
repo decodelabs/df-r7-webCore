@@ -3,11 +3,9 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\neon;
 
@@ -15,17 +13,17 @@ use DecodeLabs\Tagged as Html;
 
 class HttpRaster extends arch\node\Form
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DEFAULT_EVENT = 'refresh';
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_EVENT = 'refresh';
 
     protected $_fileStore;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_fileStore = neon\raster\FileStore::getInstance();
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $files = $this->_fileStore->getFileList();
@@ -91,7 +89,7 @@ class HttpRaster extends arch\node\Form
         );
     }
 
-    protected function onRemoveEvent($key)
+    protected function onRemoveEvent(string $key): mixed
     {
         if ($this->_fileStore->has($key)) {
             $this->_fileStore->remove($key);
@@ -104,9 +102,11 @@ class HttpRaster extends arch\node\Form
                     'The entry will not show up again here until the cache has been regenerated'
                 ));
         }
+
+        return null;
     }
 
-    protected function onClearEvent()
+    protected function onClearEvent(): mixed
     {
         return $this->complete(function () {
             $this->_fileStore->clear();

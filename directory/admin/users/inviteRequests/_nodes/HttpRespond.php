@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\admin\users\inviteRequests\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged as Html;
@@ -19,7 +16,7 @@ class HttpRespond extends arch\node\Form
 {
     protected $_request;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_request = $this->scaffold->getRecord();
 
@@ -31,12 +28,12 @@ class HttpRespond extends arch\node\Form
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_request['id'];
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->content->addAttributeList($this->_request)
             ->addField('name')

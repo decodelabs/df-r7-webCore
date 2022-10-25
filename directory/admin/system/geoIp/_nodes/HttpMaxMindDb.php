@@ -17,7 +17,7 @@ class HttpMaxMindDb extends arch\node\Form
 {
     protected $_config;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_config = link\geoIp\Config::getInstance();
     }
@@ -28,7 +28,7 @@ class HttpMaxMindDb extends arch\node\Form
         $this->values->file = $this->_config->values->adapters->MaxMindDb['file'];
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->content->push(
             $this->apex->component('IndexHeaderBar')

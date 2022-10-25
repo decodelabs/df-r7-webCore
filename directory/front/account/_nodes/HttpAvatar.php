@@ -6,7 +6,6 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\apex;
 use df\arch;
 
 use df\apex\directory\shared\media\_formDelegates\CustomTempUploader;
@@ -22,12 +21,12 @@ class HttpAvatar extends arch\node\Form
 
     protected $_file;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_file = $this->data->media->fetchSingleUserFile(Disciple::getId(), 'Avatar');
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
@@ -47,7 +46,7 @@ class HttpAvatar extends arch\node\Form
             ;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setCanonical('account/avatar')

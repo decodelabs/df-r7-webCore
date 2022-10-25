@@ -6,7 +6,6 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\apex;
 use df\arch;
 
 use df\apex\directory\front\account\_formDelegates\RegisterLocal;
@@ -21,10 +20,12 @@ class HttpRegister extends arch\node\Form
 
     protected $_invite;
 
-    protected function init()
+    protected function init(): void
     {
         if (Disciple::isLoggedIn()) {
-            return Legacy::$http->defaultRedirect('account/');
+            throw $this->forceResponse(
+                Legacy::$http->defaultRedirect('account/')
+            );
         }
 
         if (isset($this->request['invite'])) {
@@ -39,7 +40,9 @@ class HttpRegister extends arch\node\Form
                     $this->_('The invite link you have followed is no longer active')
                 );
 
-                return Legacy::$http->defaultRedirect('/');
+                throw $this->forceResponse(
+                    Legacy::$http->defaultRedirect('/')
+                );
             }
         } else {
             if (!$this->data->user->config->isRegistrationEnabled()) {
@@ -48,7 +51,9 @@ class HttpRegister extends arch\node\Form
                     $this->_('Registration for this site is currently disabled')
                 );
 
-                return Legacy::$http->defaultRedirect('/');
+                throw $this->forceResponse(
+                    Legacy::$http->defaultRedirect('/')
+                );
             }
         }
     }
@@ -58,7 +63,7 @@ class HttpRegister extends arch\node\Form
         return $this->_invite;
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         if ($this->_invite) {
             return $this->_invite['key'];
@@ -75,13 +80,14 @@ class HttpRegister extends arch\node\Form
             ->setInvite($this->_invite);
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setTitle('Register for a new account')
             ->setCanonical('account/register');
 
-        $this['Local']->as(RegisterLocal::class)
+        $this['Local']
+            ->as(RegisterLocal::class)
             ->renderUi();
     }
 

@@ -3,35 +3,36 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\roles\_nodes;
 
-use df;
-use df\core;
 use df\arch;
-use df\aura;
 
-class HttpDeleteKey extends arch\node\DeleteForm {
-
-    const ITEM_NAME = 'key';
+class HttpDeleteKey extends arch\node\DeleteForm
+{
+    public const ITEM_NAME = 'key';
 
     protected $_key;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_key = $this->data->fetchForAction(
             'axis://user/Key',
             $this->request['key']
         );
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId(): ?string
+    {
         return $this->_key['id'];
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_key)
 
             // Role
-            ->addField('role', function($row) {
+            ->addField('role', function ($row) {
                 return $row['role']['name'];
             })
 
@@ -42,12 +43,13 @@ class HttpDeleteKey extends arch\node\DeleteForm {
             ->addField('pattern')
 
             // Allow
-            ->addField('allow', $this->_('Policy'), function($row) {
+            ->addField('allow', $this->_('Policy'), function ($row) {
                 return $row['allow'] ? $this->_('Allow') : $this->_('Deny');
             });
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->_key->delete();
         $this->user->instigateGlobalKeyringRegeneration();
     }

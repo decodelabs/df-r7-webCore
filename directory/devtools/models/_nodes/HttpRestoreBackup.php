@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Exceptional;
@@ -21,7 +18,7 @@ class HttpRestoreBackup extends arch\node\ConfirmForm
 
     protected $_file;
 
-    protected function init()
+    protected function init(): void
     {
         $fileName = basename($this->request['backup']);
 
@@ -42,7 +39,7 @@ class HttpRestoreBackup extends arch\node\ConfirmForm
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return basename($this->_file);
     }

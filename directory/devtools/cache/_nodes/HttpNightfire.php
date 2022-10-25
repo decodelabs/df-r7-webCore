@@ -3,37 +3,38 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\fire;
 
-class HttpNightfire extends arch\node\DeleteForm {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'nightfire';
-    const IS_PERMANENT = false;
+class HttpNightfire extends arch\node\DeleteForm
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'nightfire';
+    public const IS_PERMANENT = false;
 
     protected $_cache;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_cache = fire\Cache::getInstance();
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_cache)
-            ->addField('name', function($cache) {
+            ->addField('name', function ($cache) {
                 return 'Nightfire block cache';
             })
-            ->addField('entries', function($cache) {
+            ->addField('entries', function ($cache) {
                 return $cache->count();
             });
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->_cache->clear();
     }
 }

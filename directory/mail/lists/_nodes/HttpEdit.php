@@ -15,7 +15,7 @@ class HttpEdit extends HttpAdd
     protected $_id;
     protected $_source;
 
-    protected function initWithSession()
+    protected function initWithSession(): void
     {
         $config = flow\mail\Config::getInstance();
         $sources = $config->getListSources();

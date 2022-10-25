@@ -8,7 +8,7 @@ namespace df\apex\directory\shared\comments\_nodes;
 
 class HttpEdit extends HttpAdd
 {
-    protected function init()
+    protected function init(): void
     {
         $this->_comment = $this->data->fetchForAction(
             'axis://content/Comment',
@@ -16,7 +16,7 @@ class HttpEdit extends HttpAdd
         );
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_comment['id'];
     }

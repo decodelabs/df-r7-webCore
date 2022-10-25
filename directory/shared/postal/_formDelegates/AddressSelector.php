@@ -11,6 +11,8 @@ use df\apex;
 use df\arch;
 use df\aura;
 
+use df\apex\models\postal\address\Record as AddressRecord;
+
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
@@ -55,7 +57,10 @@ class AddressSelector extends arch\node\form\Delegate implements
         return $this->_access;
     }
 
-    public function setDefaultMode(?string $mode)
+    /**
+     * @return $this
+     */
+    public function setDefaultMode(?string $mode): static
     {
         $this->_defaultMode = $mode;
         return $this;
@@ -115,7 +120,7 @@ class AddressSelector extends arch\node\form\Delegate implements
 
 
 
-    protected function init()
+    protected function init(): void
     {
         if ($this->_state->hasStore('remove')) {
             $this->_address = null;
@@ -243,19 +248,20 @@ class AddressSelector extends arch\node\form\Delegate implements
         $this['address']->getState()->reset();
     }
 
-    public function apply()
+    public function apply(): ?string
     {
         if ($id = $this->values['selectAddress']) {
-            return $id;
+            return (string)$id;
         }
 
-        $output = $this['address']->as(AddressEditor::class)
+        $output = $this['address']
+            ->as(AddressEditor::class)
             ->apply();
 
         if ($output) {
             $output = $output->dereferenceDuplicate();
         }
 
-        return $output;
+        return (string)$output['id'];
     }
 }

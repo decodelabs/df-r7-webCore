@@ -3,31 +3,34 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\lists\_nodes;
 
-use df;
 use df\core;
-use df\apex;
 use df\arch;
 use df\flow;
 
-class HttpAdd extends arch\node\Form {
-
+class HttpAdd extends arch\node\Form
+{
     protected $_manager;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_manager = flow\Manager::getInstance();
     }
 
-    protected function createUi() {
-        if(!$adapter = $this->getStore('adapter')) {
-            return $this->createAdapterUi();
+    protected function createUi(): void
+    {
+        if (!$adapter = $this->getStore('adapter')) {
+            $this->createAdapterUi();
+            return;
         }
 
-        return $this->createOptionsUi();
+        $this->createOptionsUi();
     }
 
-    protected function createAdapterUi() {
+    protected function createAdapterUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Mailing list adapter'));
 
@@ -41,7 +44,8 @@ class HttpAdd extends arch\node\Form {
         $fs->addDefaultButtonGroup('setAdapter', $this->_('Select'));
     }
 
-    protected function createOptionsUi() {
+    protected function createOptionsUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Mailing list adapter'));
 
@@ -61,14 +65,14 @@ class HttpAdd extends arch\node\Form {
         // Options
         $options = $this->_manager->getListAdapterSettingsFields($adapter);
 
-        foreach($options as $option => $optionName) {
+        foreach ($options as $option => $optionName) {
             $fs->addField($optionName)->push(
                 $this->html->autoField($option, $optionName, $this->values)
             );
         }
 
         // Primary
-        if($this->hasStore('options')) {
+        if ($this->hasStore('options')) {
             $options = new core\collection\Tree($this->getStore('options'));
             $options['adapter'] = $adapter;
 
@@ -77,7 +81,7 @@ class HttpAdd extends arch\node\Form {
             try {
                 $source = new flow\mailingList\Source($id, $options);
                 $lists = $source->getListOptions();
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 $lists = [];
             }
 
@@ -88,44 +92,46 @@ class HttpAdd extends arch\node\Form {
 
 
         // Buttons
-        if(!$this->hasStore('options')) {
+        if (!$this->hasStore('options')) {
             $fs->addDefaultButtonGroup('setOptions', $this->_('Update'));
         } else {
             $fs->addDefaultButtonGroup();
         }
     }
 
-    protected function onSetAdapterEvent() {
+    protected function onSetAdapterEvent()
+    {
         $validator = $this->data->newValidator()
             ->addRequiredField('adapter', 'enum')
                 ->setOptions($this->_manager->getAvailableListAdapters())
             ->validate($this->values);
 
-        if($validator->isValid()) {
+        if ($validator->isValid()) {
             $this->setStore('adapter', $validator['adapter']);
             $options = $this->_manager->getListAdapterSettingsFields($validator['adapter']);
 
-            if(empty($options)) {
+            if (empty($options)) {
                 $this->setStore('options', []);
             }
         }
     }
 
-    protected function onSetOptionsEvent() {
-        if(!$adapter = $this->getStore('adapter')) {
+    protected function onSetOptionsEvent()
+    {
+        if (!$adapter = $this->getStore('adapter')) {
             return;
         }
 
         $options = $this->_manager->getListAdapterSettingsFields($adapter);
         $validator = $this->data->newValidator();
 
-        foreach($options as $option => $name) {
+        foreach ($options as $option => $name) {
             $validator->addAutoField($option);
         }
 
         $validator->validate($this->values);
 
-        if($validator->isValid()) {
+        if ($validator->isValid()) {
             $options = new core\collection\Tree($validator->getValues());
             $options['adapter'] = $adapter;
 
@@ -134,7 +140,7 @@ class HttpAdd extends arch\node\Form {
             try {
                 $source = new flow\mailingList\Source($id, $options);
                 $source->getManifest();
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 $this->values->adapter->addError('invalid', $this->_(
                     'The adapter cannot connect'
                 ));
@@ -149,12 +155,13 @@ class HttpAdd extends arch\node\Form {
         }
     }
 
-    protected function onSaveEvent() {
-        if(!$adapter = $this->getStore('adapter')) {
+    protected function onSaveEvent()
+    {
+        if (!$adapter = $this->getStore('adapter')) {
             return;
         }
 
-        if(!$options = $this->getStore('options')) {
+        if (!$options = $this->getStore('options')) {
             return;
         }
 
@@ -166,7 +173,7 @@ class HttpAdd extends arch\node\Form {
             ->validate($this->values);
 
 
-        return $this->complete(function() use($adapter, $options, $validator) {
+        return $this->complete(function () use ($adapter, $options, $validator) {
             $options = array_merge(
                 ['adapter' => $adapter],
                 $options,

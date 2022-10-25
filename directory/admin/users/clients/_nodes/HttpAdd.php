@@ -12,7 +12,7 @@ class HttpAdd extends arch\node\Form
 {
     protected $_client;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_client = $this->scaffold->newRecord();
     }
@@ -32,7 +32,7 @@ class HttpAdd extends arch\node\Form
         $this->values->timezone = $this->i18n->timezones->suggestForCountry($locale->getRegion());
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $model = $this->data->getModel('user');
 

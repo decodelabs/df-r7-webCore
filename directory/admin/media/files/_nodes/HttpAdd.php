@@ -17,7 +17,7 @@ class HttpAdd extends arch\node\Form
 {
     protected $_file;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_file = $this->scaffold->newRecord();
     }
@@ -54,7 +54,7 @@ class HttpAdd extends arch\node\Form
             );
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('File details'));

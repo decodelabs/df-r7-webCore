@@ -32,7 +32,10 @@ class DfKit implements arch\IDirectoryHelper
         }
     }
 
-    public function init()
+    /**
+     * @return $this
+     */
+    public function init(): static
     {
         if (self::$_isInit) {
             return $this;

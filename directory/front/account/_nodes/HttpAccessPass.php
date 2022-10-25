@@ -18,7 +18,7 @@ class HttpAccessPass extends arch\node\Form
 
     protected $_pass;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_pass = $this->data->fetchForAction(
             'axis://user/AccessPass',
@@ -43,21 +43,23 @@ class HttpAccessPass extends arch\node\Form
 
         if ($error) {
             $this->_pass->delete();
-            return Legacy::$http->defaultRedirect('/');
+            throw $this->forceResponse(
+                Legacy::$http->defaultRedirect('/')
+            );
         }
 
         if (Disciple::isLoggedIn()) {
             $this->user->auth->unbind();
-            return Legacy::$http->redirect();
+            throw Legacy::$http->redirectNow();
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_pass['id'];
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view->canIndex(false);
 

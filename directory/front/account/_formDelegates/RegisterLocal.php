@@ -20,7 +20,7 @@ class RegisterLocal extends RegisterBase
         }
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Register an account'));

@@ -12,12 +12,12 @@ class HttpEdit extends HttpAdd
 {
     public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_schedule = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_schedule['id'];
     }

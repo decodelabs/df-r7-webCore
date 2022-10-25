@@ -3,32 +3,30 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\media\files\versions\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Tagged as Html;
 
 class HttpPurge extends arch\node\Form
 {
-    const DEFAULT_EVENT = 'purge';
+    public const DEFAULT_EVENT = 'purge';
 
     protected $_version;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_version = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_version['id'];
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Purge'));

@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\admin\users\invites\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Dictum;
@@ -21,7 +18,7 @@ class HttpSend extends arch\node\Form
 
     protected $_invite;
 
-    protected function init()
+    protected function init(): void
     {
         $this->data->checkAccess('axis://user/Invite', 'add');
         $this->_invite = $this->scaffold->newRecord();
@@ -32,7 +29,7 @@ class HttpSend extends arch\node\Form
         $this->loadDelegate('groups', '../groups/GroupSelector');
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('User details'));

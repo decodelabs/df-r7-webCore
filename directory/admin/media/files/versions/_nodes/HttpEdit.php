@@ -12,12 +12,12 @@ class HttpEdit extends arch\node\Form
 {
     protected $_version;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_version = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_version['id'];
     }
@@ -29,7 +29,7 @@ class HttpEdit extends arch\node\Form
         ]);
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Version details'));

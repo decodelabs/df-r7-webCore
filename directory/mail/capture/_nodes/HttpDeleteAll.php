@@ -3,24 +3,23 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\mail\capture\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\aura;
 
-class HttpDeleteAll extends arch\node\DeleteForm {
+class HttpDeleteAll extends arch\node\DeleteForm
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'mailbox';
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'mailbox';
-
-    protected function init() {
+    protected function init(): void
+    {
         $this->data->checkAccess('axis://mail/Capture', 'delete');
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $this->data->getModel('mail')->capture->delete()->execute();
     }
 }

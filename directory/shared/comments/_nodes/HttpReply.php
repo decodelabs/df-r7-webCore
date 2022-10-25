@@ -3,12 +3,8 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\shared\comments\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
+namespace df\apex\directory\shared\comments\_nodes;
 
 use DecodeLabs\Disciple;
 
@@ -16,7 +12,7 @@ class HttpReply extends HttpAdd
 {
     protected $_parentComment;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_parentComment = $this->data->fetchForAction(
             'axis://content/Comment',
@@ -26,7 +22,7 @@ class HttpReply extends HttpAdd
         $this->_comment = $this->data->newRecord('axis://content/Comment');
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_parentComment['id'];
     }

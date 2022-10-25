@@ -12,7 +12,7 @@ class HttpSettings extends arch\node\Form
 {
     protected $_config;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_config = $this->data->user->config;
     }
@@ -22,7 +22,7 @@ class HttpSettings extends arch\node\Form
         $this->values->import($this->_config->getConfigValues());
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Settings'));

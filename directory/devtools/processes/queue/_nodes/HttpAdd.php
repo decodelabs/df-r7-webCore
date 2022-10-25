@@ -14,7 +14,7 @@ class HttpAdd extends arch\node\Form
 
     protected $_task;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_task = $this->scaffold->newRecord();
     }
@@ -24,7 +24,7 @@ class HttpAdd extends arch\node\Form
         $this->values->priority = 'medium';
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Queued task'));

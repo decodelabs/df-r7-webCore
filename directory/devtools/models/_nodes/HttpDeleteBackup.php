@@ -6,11 +6,7 @@
 
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\axis;
 
 use DecodeLabs\Atlas;
 use DecodeLabs\Exceptional;
@@ -24,7 +20,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
 
     protected $_file;
 
-    protected function init()
+    protected function init(): void
     {
         $fileName = basename($this->request['backup']);
 
@@ -45,7 +41,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return basename($this->_file);
     }

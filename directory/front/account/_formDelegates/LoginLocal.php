@@ -22,7 +22,7 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
 
     public const DEFAULT_REDIRECT = '/';
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Sign-in'));

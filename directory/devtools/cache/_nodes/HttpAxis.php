@@ -3,26 +3,26 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpAxis extends arch\node\Form {
-
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const DEFAULT_EVENT = 'refresh';
+class HttpAxis extends arch\node\Form
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_EVENT = 'refresh';
 
     protected $_cache;
 
-    protected function init() {
+    protected function init(): void
+    {
         $this->_cache = axis\schema\Cache::getInstance();
     }
 
-    protected function createUi() {
+    protected function createUi(): void
+    {
         $form = $this->content->addForm();
         $keys = $this->_cache->getKeys();
         $info = axis\Model::getUnitMetaData($keys);
@@ -44,7 +44,7 @@ class HttpAxis extends arch\node\Form {
                 ->addField('type')
 
                 // Actions
-                ->addField('actions', function($info) {
+                ->addField('actions', function ($info) {
                     return $this->html->eventButton(
                             $this->eventName('remove', $info['unitId']),
                             $this->_('Clear')
@@ -74,8 +74,9 @@ class HttpAxis extends arch\node\Form {
         );
     }
 
-    protected function onRemoveEvent($unitId) {
-        if($this->_cache->has($unitId)) {
+    protected function onRemoveEvent(string $unitId): mixed
+    {
+        if ($this->_cache->has($unitId)) {
             $this->_cache->remove($unitId);
 
             $this->comms->flashSuccess(
@@ -86,10 +87,13 @@ class HttpAxis extends arch\node\Form {
                     'The entry will not show up again here until the cache has been regenerated'
                 ));
         }
+
+        return null;
     }
 
-    protected function onClearEvent() {
-        return $this->complete(function() {
+    protected function onClearEvent(): mixed
+    {
+        return $this->complete(function () {
             $this->_cache->clear();
 
             $this->comms->flashSuccess(

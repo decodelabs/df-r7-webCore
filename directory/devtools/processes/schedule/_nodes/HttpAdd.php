@@ -14,7 +14,7 @@ class HttpAdd extends arch\node\Form
 
     protected $_schedule;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_schedule = $this->scaffold->newRecord();
     }
@@ -25,7 +25,7 @@ class HttpAdd extends arch\node\Form
         $this->values->isLive = true;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Scheduled task'));

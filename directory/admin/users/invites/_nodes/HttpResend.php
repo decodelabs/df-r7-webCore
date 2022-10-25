@@ -6,13 +6,11 @@
 
 namespace df\apex\directory\admin\users\invites\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use DecodeLabs\Genesis;
 use DecodeLabs\Metamorph;
+use DecodeLabs\R7\Legacy;
 use DecodeLabs\Tagged as Html;
 
 class HttpResend extends arch\node\ConfirmForm
@@ -21,7 +19,7 @@ class HttpResend extends arch\node\ConfirmForm
 
     protected $_invite;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_invite = $this->scaffold->getRecord();
 
@@ -31,7 +29,9 @@ class HttpResend extends arch\node\ConfirmForm
                 $this->_('This invite is no longer active')
             );
 
-            return $this->complete();
+            throw $this->forceResponse(
+                Legacy::$http->defaultRedirect()
+            );
         }
     }
 

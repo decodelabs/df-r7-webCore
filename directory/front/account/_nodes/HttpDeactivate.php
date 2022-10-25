@@ -16,17 +16,17 @@ class HttpDeactivate extends arch\node\Form
 
     protected $_deactivation;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_deactivation = $this->data->newRecord('axis://user/ClientDeactivation');
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return null;
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $this->view
             ->setCanonical('account/deactivate')

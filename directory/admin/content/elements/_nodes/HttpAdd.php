@@ -16,7 +16,7 @@ class HttpAdd extends arch\node\Form
 {
     protected $_element;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_element = $this->scaffold->newRecord([
             'owner' => Disciple::getId()
@@ -31,7 +31,7 @@ class HttpAdd extends arch\node\Form
             ->isRequired(true);
     }
 
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Element details'));
