@@ -172,9 +172,9 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     yield ' ';
 
                     yield $this->html->eventButton(
-                            $this->eventName('removeFile', $available['fileName']),
-                            $this->_('Remove')
-                        )
+                        $this->eventName('removeFile', $available['fileName']),
+                        $this->_('Remove')
+                    )
                         ->setDisposition('negative')
                         ->setIcon('cross')
                         ->shouldValidate(false)
@@ -195,9 +195,9 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 yield ' ';
 
                 yield $this->html->eventButton(
-                        $this->eventName('removeFile', $file['fileName']),
-                        $this->_('Remove')
-                    )
+                    $this->eventName('removeFile', $file['fileName']),
+                    $this->_('Remove')
+                )
                     ->setDisposition('negative')
                     ->setIcon('cross')
                     ->shouldValidate(false)
@@ -217,9 +217,9 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
             $this->_showUploadButton ?
                 $this->html->eventButton(
-                        $this->eventName('upload'),
-                        $this->_('Upload')
-                    )
+                    $this->eventName('upload'),
+                    $this->_('Upload')
+                )
                     ->setIcon('upload')
                     ->setDisposition('positive')
                     ->shouldValidate(false)
@@ -310,7 +310,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         if (!$this->_isForMany) {
             $fileName = $this->values['selectUpload'];
 
-            if (!strlen($fileName)) {
+            if (!strlen((string)$fileName)) {
                 if ($this->_isRequired) {
                     $this->values->file->addError('required', $this->_(
                         'You must upload a file'
