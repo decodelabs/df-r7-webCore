@@ -49,8 +49,7 @@ class HttpBootstrapSystem extends arch\node\Base
         $themeId = $this->request['theme'];
 
         if (!$themeId) {
-            $config = aura\theme\Config::getInstance();
-            $themeId = $config->getThemeIdFor('front');
+            $themeId = Legacy::getThemeIdFor('front');
         }
 
         try {
