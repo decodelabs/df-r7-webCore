@@ -6,24 +6,19 @@
 
 namespace df\apex\helpers;
 
-use df;
-use df\core;
-use df\apex;
-use df\aura;
-use df\arch;
-use df\spur;
-use df\flex;
-use df\link;
-
+use DecodeLabs\Exceptional;
 use DecodeLabs\Tagged as Html;
 use DecodeLabs\Tagged\Embed\Audioboom;
-use DecodeLabs\Exceptional;
+
+use df;
+use df\arch;
+use df\aura;
 
 class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
 {
     use aura\view\TView_DirectoryHelper;
 
-    public function __invoke(string $type, ?string $embed, array $attributes=null)
+    public function __invoke(string $type, ?string $embed, array $attributes = null)
     {
         if ($type == 'audio') {
             return $this->audio($embed, $attributes);
@@ -31,14 +26,14 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             return $this->video($embed, $attributes);
         } else {
             throw Exceptional::InvalidArgument(
-                'Invalid media element type: '.$type
+                'Invalid media element type: ' . $type
             );
         }
     }
 
 
     // Audio
-    public function audio(?string $embed, array $attributes=null)
+    public function audio(?string $embed, array $attributes = null)
     {
         if ($embed === null) {
             return null;
@@ -58,7 +53,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
             $embed->getAudioboomType() == 'embed'
         ) {
             // Audioboom
-            $sourceUrl = 'https://audioboom.com/posts/'.$embed->getAudioboomId().'.mp3';
+            $sourceUrl = 'https://audioboom.com/posts/' . $embed->getAudioboomId() . '.mp3';
             $type = 'audio/mp3';
         } else {
             // Don't know??
@@ -89,7 +84,7 @@ class MediaElement extends arch\Helper implements arch\IDirectoryHelper, aura\vi
 
 
     // Video
-    public function video(?string $embed, array $attributes=null)
+    public function video(?string $embed, array $attributes = null)
     {
         if ($embed === null) {
             return null;

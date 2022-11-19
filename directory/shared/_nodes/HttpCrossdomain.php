@@ -5,17 +5,15 @@
  */
 namespace df\apex\directory\shared\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpCrossdomain extends arch\node\Base {
+class HttpCrossdomain extends arch\node\Base
+{
+    public const OPTIMIZE = true;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    const OPTIMIZE = true;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-
-    public function executeAsXml() {
+    public function executeAsXml()
+    {
         return $this->apex->view('Crossdomain.xml');
     }
 }

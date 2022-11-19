@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\mail\previews\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpView extends arch\node\Base
 {

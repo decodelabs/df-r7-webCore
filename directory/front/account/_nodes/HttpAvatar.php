@@ -6,13 +6,13 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
-use df\apex\directory\shared\media\_formDelegates\CustomTempUploader;
-
 use DecodeLabs\Disciple;
-use DecodeLabs\Tagged as Html;
+
 use DecodeLabs\Exceptional;
+
+use DecodeLabs\Tagged as Html;
+use df\apex\directory\shared\media\_formDelegates\CustomTempUploader;
+use df\arch;
 
 class HttpAvatar extends arch\node\Form
 {
@@ -43,7 +43,7 @@ class HttpAvatar extends arch\node\Form
             ->as(CustomTempUploader::class)
             ->isForOne(true)
             //->shouldShowUploadButton(false)
-            ;
+        ;
     }
 
     protected function createUi(): void
@@ -99,7 +99,6 @@ class HttpAvatar extends arch\node\Form
             $this->html->eventButton('upload', $this->_('Upload'))
                 ->setIcon('upload')
                 ->setDisposition('positive'),
-
             $this->html->cancelEventButton()
         );
     }
@@ -153,7 +152,7 @@ class HttpAvatar extends arch\node\Form
 
     protected function onUploadEvent()
     {
-        /** @var CustomTempUploader */
+        /** @var CustomTempUploader $upload */
         $upload = $this['upload'];
         $filePath = $upload->apply();
 

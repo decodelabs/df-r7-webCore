@@ -6,14 +6,9 @@
 
 namespace df\apex\directory\admin\system\pestControl\reports;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
-use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -41,7 +36,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $query
             ->importRelationBlock('user', 'link')
-            ;
+        ;
     }
 
 

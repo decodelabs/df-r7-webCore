@@ -5,34 +5,30 @@
  */
 namespace df\apex\directory\admin\content\elements;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Elements';
-    const ICON = 'element';
-    const ADAPTER = 'axis://content/Element';
-    const NAME_FIELD = 'slug';
-    const IS_SHARED = true;
+    public const TITLE = 'Elements';
+    public const ICON = 'element';
+    public const ADAPTER = 'axis://content/Element';
+    public const NAME_FIELD = 'slug';
+    public const IS_SHARED = true;
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         'history'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'slug', 'name', 'owner', 'creationDate',
         'lastEditDate'
     ];
 
-    const CAN_SELECT = true;
-    const CONFIRM_DELETE = true;
+    public const CAN_SELECT = true;
+    public const CONFIRM_DELETE = true;
 
     // Record data
     protected function prepareRecordList($query, $mode)

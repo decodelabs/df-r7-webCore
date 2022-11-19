@@ -6,13 +6,13 @@
 
 namespace df\apex\directory\mail\_nodes;
 
-use df\arch;
-use df\flow;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+
 use DecodeLabs\Genesis;
 use DecodeLabs\R7\Legacy;
+use df\arch;
+use df\flow;
 
 class HttpTest extends arch\node\Form
 {
@@ -58,7 +58,7 @@ class HttpTest extends arch\node\Form
         $transportList = [];
 
         foreach (flow\mail\transport\Base::getAvailableTransports() as $name => $description) {
-            $transportList[$name] = $name.' - '.$description;
+            $transportList[$name] = $name . ' - ' . $description;
         }
 
 
@@ -72,7 +72,6 @@ class HttpTest extends arch\node\Form
             $this->html->emailTextbox('fromAddress', $this->values->fromAddress)
                 ->isRequired(true)
                 ->setPlaceholder($this->_('Address')),
-
             $this->html->textbox('fromName', $this->values->fromName)
                 ->setPlaceholder($this->_('Name'))
         );
@@ -89,7 +88,6 @@ class HttpTest extends arch\node\Form
             $this->html->emailTextbox('toAddress', $this->values->toAddress)
                 ->isRequired(true)
                 ->setPlaceholder($this->_('Address')),
-
             $this->html->textbox('toName', $this->values->toName)
                 ->setPlaceholder($this->_('Name'))
         );
@@ -99,7 +97,6 @@ class HttpTest extends arch\node\Form
         $fs->addField($this->_('CC'))->push(
             $this->html->emailTextbox('ccAddress', $this->values->ccAddress)
                 ->setPlaceholder($this->_('Address')),
-
             $this->html->textbox('ccName', $this->values->ccName)
                 ->setPlaceholder($this->_('Name'))
         );
@@ -109,7 +106,6 @@ class HttpTest extends arch\node\Form
         $fs->addField($this->_('BCC'))->push(
             $this->html->emailTextbox('bccAddress', $this->values->bccAddress)
                 ->setPlaceholder($this->_('Address')),
-
             $this->html->textbox('bccName', $this->values->bccName)
                 ->setPlaceholder($this->_('Name'))
         );
@@ -125,7 +121,6 @@ class HttpTest extends arch\node\Form
                     'custom' => $this->_('Custom text / html')
                 ])
                 ->isRequired(true),
-
             $this->html->eventButton('selectType', $this->_('Select'))
                 ->setIcon('tick')
                 ->setDisposition('positive')
@@ -181,8 +176,8 @@ class HttpTest extends arch\node\Form
             }
 
 
-            $name = $path.$name;
-            $path = '~'.$name;
+            $name = $path . $name;
+            $path = '~' . $name;
 
             try {
                 $mail = $this->comms->prepareMail($path);

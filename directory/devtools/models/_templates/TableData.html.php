@@ -1,10 +1,9 @@
 <?php
-use df\axis;
-use df\core;
-use df\opal;
-use df\flex;
 
 use DecodeLabs\Tagged as Html;
+use df\flex;
+
+use df\opal;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
 

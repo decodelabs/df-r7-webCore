@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\mail\lists\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\flow;
 

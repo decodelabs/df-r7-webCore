@@ -6,13 +6,10 @@
 
 namespace df\apex\directory\admin\content\history\_components;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\Metamorph;
+
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HistoryList extends arch\component\CollectionList
 {
@@ -55,9 +52,9 @@ class HistoryList extends arch\component\CollectionList
     {
         $list->addField('actions', function ($history) {
             return $this->html->link(
-                    $this->uri('~admin/content/history/delete?history='.$history['id'], true),
-                    $this->_('Delete')
-                )
+                $this->uri('~admin/content/history/delete?history=' . $history['id'], true),
+                $this->_('Delete')
+            )
                 ->setIcon('delete');
         });
     }

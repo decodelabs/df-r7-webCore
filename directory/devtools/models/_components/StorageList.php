@@ -5,13 +5,10 @@
  */
 namespace df\apex\directory\devtools\models\_components;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\axis;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+
+use df\axis;
 
 class StorageList extends arch\component\CollectionList
 {
@@ -97,9 +94,9 @@ class StorageList extends arch\component\CollectionList
 
         $list->addField('actions', function ($storage) {
             return $this->html->link(
-                    $this->uri('~devtools/models/delete-storage?unit='.$this->inspector->getId().'&name='.$storage->name, true),
-                    $this->_('Delete storage')
-                )
+                $this->uri('~devtools/models/delete-storage?unit=' . $this->inspector->getId() . '&name=' . $storage->name, true),
+                $this->_('Delete storage')
+            )
                 ->setIcon('delete');
         });
     }

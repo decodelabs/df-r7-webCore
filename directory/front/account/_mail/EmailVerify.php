@@ -5,21 +5,20 @@
  */
 namespace df\apex\directory\front\account\_mail;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class EmailVerify extends arch\mail\Base {
+class EmailVerify extends arch\mail\Base
+{
+    public const SUBJECT = 'Please verify your email address';
 
-    const SUBJECT = 'Please verify your email address';
-
-    public function execute() {
+    public function execute()
+    {
         $this->checkSlots('key', 'user');
         $this->addRecipient($this['user']);
     }
 
-    public function preparePreview() {
+    public function preparePreview()
+    {
         $this['user'] = $this->data->user->client->fetch()->toRow();
         $this['key'] = md5(uniqid());
     }

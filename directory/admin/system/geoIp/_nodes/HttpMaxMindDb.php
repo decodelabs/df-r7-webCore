@@ -6,12 +6,12 @@
 
 namespace df\apex\directory\admin\system\geoIp\_nodes;
 
-use df\core;
-use df\arch;
-use df\link;
-
 use DecodeLabs\Atlas;
 use DecodeLabs\Genesis;
+use df\arch;
+
+use df\core;
+use df\link;
 
 class HttpMaxMindDb extends arch\node\Form
 {
@@ -101,9 +101,9 @@ class HttpMaxMindDb extends arch\node\Form
             if (!$hasLiteCountry) {
                 $fa->push(
                     $this->html->eventButton(
-                            'fetchLiteCountry',
-                            $this->_('GeoLite2-Country')
-                        )
+                        'fetchLiteCountry',
+                        $this->_('GeoLite2-Country')
+                    )
                         ->setIcon('download')
                         ->setDisposition('positive')
                 );
@@ -112,9 +112,9 @@ class HttpMaxMindDb extends arch\node\Form
             if (!$hasLiteCity) {
                 $fa->push(
                     $this->html->eventButton(
-                            'fetchLiteCity',
-                            $this->_('GeoLite2-City')
-                        )
+                        'fetchLiteCity',
+                        $this->_('GeoLite2-City')
+                    )
                         ->setIcon('download')
                         ->setDisposition('positive')
                 );
@@ -128,7 +128,7 @@ class HttpMaxMindDb extends arch\node\Form
     protected function _getFileList()
     {
         $output = [];
-        $dir = Atlas::dir(Genesis::$hub->getLocalDataPath().'/geoIp/');
+        $dir = Atlas::dir(Genesis::$hub->getLocalDataPath() . '/geoIp/');
 
         foreach ($dir->scanFiles() as $name => $file) {
             if (substr($name, -5) != '.mmdb') {
@@ -146,7 +146,7 @@ class HttpMaxMindDb extends arch\node\Form
         $uploadHandler = new link\http\upload\Handler();
         $uploadHandler->setAllowedExtensions(['mmdb', 'gz']);
         $targetPath = null;
-        $path = Genesis::$hub->getLocalDataPath().'/geoIp';
+        $path = Genesis::$hub->getLocalDataPath() . '/geoIp';
 
         if (count($uploadHandler)) {
             foreach ($uploadHandler as $file) {
@@ -154,7 +154,7 @@ class HttpMaxMindDb extends arch\node\Form
                     $file->tempUpload($this->values->upload);
 
                     if ($this->values->upload->isValid()) {
-                        $targetPath = $this->_extractGz($file->getTempPath(), $path.'/'.$file->getFileName());
+                        $targetPath = $this->_extractGz($file->getTempPath(), $path . '/' . $file->getFileName());
                     }
                 } else {
                     $file->upload($path, $this->values->upload);
@@ -187,17 +187,17 @@ class HttpMaxMindDb extends arch\node\Form
     protected function _fetchUrl($url)
     {
         $fileName = basename($url);
-        $path = Genesis::$hub->getLocalDataPath().'/geoIp';
+        $path = Genesis::$hub->getLocalDataPath() . '/geoIp';
         Atlas::createDir($path);
 
-        if (is_file($path.'/'.substr($fileName, 0, -3))) {
+        if (is_file($path . '/' . substr($fileName, 0, -3))) {
             return;
         }
 
-        if (!is_file($path.'/'.$fileName)) {
+        if (!is_file($path . '/' . $fileName)) {
             try {
                 set_time_limit(0);
-                file_put_contents($path.'/'.$fileName, fopen($url, 'r'));
+                file_put_contents($path . '/' . $fileName, fopen($url, 'r'));
             } catch (\ErrorException $e) {
                 $this->values->fetch->addError('download', $this->_(
                     'File download failed!'
@@ -207,12 +207,12 @@ class HttpMaxMindDb extends arch\node\Form
             }
         }
 
-        $targetPath = $this->_extractGz($path.'/'.$fileName);
+        $targetPath = $this->_extractGz($path . '/' . $fileName);
         $this->values->file = basename($targetPath);
         $this->values->isEnabled = true;
     }
 
-    protected function _extractGz($path, $targetPath=null)
+    protected function _extractGz($path, $targetPath = null)
     {
         $targetPath = core\archive\Base::factory('gz')->decompressFile($path, $targetPath);
         Atlas::deleteFile($path);

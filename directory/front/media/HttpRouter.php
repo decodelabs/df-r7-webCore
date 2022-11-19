@@ -2,7 +2,6 @@
 
 namespace df\apex\directory\front\media;
 
-use df\core;
 use df\arch;
 
 class HttpRouter implements arch\IRouter
@@ -25,7 +24,7 @@ class HttpRouter implements arch\IRouter
         }
 
         if (!empty($parts)) {
-            $request->query->transform = '['.array_shift($parts);
+            $request->query->transform = '[' . array_shift($parts);
         }
 
         return $request;
@@ -40,9 +39,9 @@ class HttpRouter implements arch\IRouter
         $query = $request->getQuery();
 
         if (isset($query->version)) {
-            $request->path->push('v'.$query['version']);
+            $request->path->push('v' . $query['version']);
         } elseif (isset($query->file)) {
-            $request->path->push('f'.$query['file']);
+            $request->path->push('f' . $query['file']);
         } else {
             return $request;
         }
@@ -53,7 +52,7 @@ class HttpRouter implements arch\IRouter
 
             if (substr($transform, 0, 1) != '[') {
                 $last = rtrim($last, '|');
-                $transform = '|'.$transform;
+                $transform = '|' . $transform;
             }
 
             $last .= $transform;

@@ -6,8 +6,8 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpDeactivate extends arch\node\Form
 {
@@ -44,27 +44,26 @@ class HttpDeactivate extends arch\node\Form
 
         $fs->addField($this->_('Why do you want to deactivate your account?'))->push(
             $this->html->textbox(
-                    $this->fieldName('reason'),
-                    $this->values->reason
-                )
+                $this->fieldName('reason'),
+                $this->values->reason
+            )
                 ->setMaxLength(255)
         );
 
         $fs->addField($this->_('What could we have done better?'))->push(
             $this->html->textarea(
-                    $this->fieldName('comments'),
-                    $this->values->comments
-                )
+                $this->fieldName('comments'),
+                $this->values->comments
+            )
         );
 
         $fs->addButtonArea(
             $this->html->eventButton(
-                    $this->eventName('deactivate'),
-                    $this->_('Deactivate')
-                )
+                $this->eventName('deactivate'),
+                $this->_('Deactivate')
+            )
                 ->setIcon('remove')
                 ->setDisposition('negative'),
-
             $this->html->cancelEventButton()
         );
     }

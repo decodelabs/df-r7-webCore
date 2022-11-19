@@ -6,13 +6,9 @@
 
 namespace df\apex\directory\admin\users\deactivations;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Metamorph;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {

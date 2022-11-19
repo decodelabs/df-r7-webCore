@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Disciple;
+
+use df\arch;
 
 class HttpChangePassword extends arch\node\Form
 {
@@ -58,9 +58,9 @@ class HttpChangePassword extends arch\node\Form
         if (!$this->_auth->isNew()) {
             $fs->addField($this->_('Old password'))->push(
                 $this->html->passwordTextbox(
-                        $this->fieldName('oldPassword'),
-                        $this->values->oldPassword
-                    )
+                    $this->fieldName('oldPassword'),
+                    $this->values->oldPassword
+                )
                     ->isRequired(true)
             );
         }
@@ -68,18 +68,18 @@ class HttpChangePassword extends arch\node\Form
         // New password
         $fs->addField($this->_('New password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('newPassword'),
-                    $this->values->newPassword
-                )
+                $this->fieldName('newPassword'),
+                $this->values->newPassword
+            )
                 ->isRequired(true)
         );
 
         // Confirm new password
         $fs->addField($this->_('Confirm new password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('confirmNewPassword'),
-                    $this->values->confirmNewPassword
-                )
+                $this->fieldName('confirmNewPassword'),
+                $this->values->confirmNewPassword
+            )
                 ->isRequired(true)
         );
 

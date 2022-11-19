@@ -6,18 +6,15 @@
 
 namespace df\apex\directory\front\error\_nodes;
 
-use df;
-use df\core;
-use df\arch;
-use df\user;
-use df\aura;
-use df\link;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
-use DecodeLabs\Glitch;
 use DecodeLabs\Genesis;
+
+use DecodeLabs\Glitch;
 use DecodeLabs\R7\Legacy;
+use df\arch;
+use df\aura;
+use df\link;
 
 class HttpDefault extends arch\node\Base
 {
@@ -69,7 +66,7 @@ class HttpDefault extends arch\node\Base
             } else {
                 $key = $this->data->session->stub->generateKey();
                 $this->user->session->perpetuator->setJoinKey($key);
-                $redirectRequest = arch\Request::factory('account/join-session?401&key='.bin2hex($key));
+                $redirectRequest = arch\Request::factory('account/join-session?401&key=' . bin2hex($key));
             }
 
             if ($redirectRequest !== null) {
@@ -154,7 +151,7 @@ class HttpDefault extends arch\node\Base
 
         if ($showTemplate) {
             try {
-                $view = $this->apex->view($code.'.html');
+                $view = $this->apex->view($code . '.html');
             } catch (aura\view\NotFoundException $e) {
                 try {
                     $view = $this->apex->view('Default.html');

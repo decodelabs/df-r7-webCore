@@ -5,38 +5,35 @@
  */
 namespace df\apex\directory\admin\media\files;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+
+use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Files';
-    const ICON = 'file';
-    const ADAPTER = 'axis://media/File';
-    const IS_SHARED = true;
+    public const TITLE = 'Files';
+    public const ICON = 'file';
+    public const ADAPTER = 'axis://media/File';
+    public const IS_SHARED = true;
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         'versions' => 'list'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'thumbnail', 'fileName', 'bucket', 'fileSize', 'owner',
         'creationDate', 'version'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'url', 'bucket', 'fileName', 'fileSize', 'owner',
         'hash', 'creationDate'
     ];
 
-    const CAN_PREVIEW = true;
-    const CAN_SELECT = true;
+    public const CAN_PREVIEW = true;
+    public const CAN_SELECT = true;
 
     // Record data
     protected function prepareRecordList($query, $mode)
@@ -51,7 +48,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->end();
     }
 
-    public function deleteRecord(opal\record\IRecord $file, array $flags=[])
+    public function deleteRecord(opal\record\IRecord $file, array $flags = [])
     {
         $this->data->media->deleteFile($file);
         return $this;
@@ -102,12 +99,12 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     // Components
     protected function getRecordParentUriString(array $file): ?string
     {
-        return '../files?bucket='.$this->data->getRelationId($file, 'bucket');
+        return '../files?bucket=' . $this->data->getRelationId($file, 'bucket');
     }
 
     protected function getRecordPreviewUriString(array $file): string
     {
-        return 'media/download?file='.$file['id'];
+        return 'media/download?file=' . $file['id'];
     }
 
 
@@ -137,7 +134,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineUrlField($list, $mode)
     {
         $list->addField('url', $this->_('Copy & paste url'), function ($file) {
-            return Html::{'code'}('media/download/f'.$file['id']);
+            return Html::{'code'}('media/download/f' . $file['id']);
         });
     }
 

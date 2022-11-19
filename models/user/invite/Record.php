@@ -5,11 +5,8 @@
  */
 namespace df\apex\models\user\invite;
 
-use df;
-use df\core;
-use df\axis;
-use df\opal;
 use df\flex;
+use df\opal;
 use df\user;
 
 class Record extends opal\record\Base
@@ -21,22 +18,22 @@ class Record extends opal\record\Base
         }
     }
 
-    public function send($rendererPath=null)
+    public function send($rendererPath = null)
     {
         return $this->getAdapter()->send($this, $rendererPath);
     }
 
-    public function forceSend($rendererPath=null)
+    public function forceSend($rendererPath = null)
     {
         return $this->getAdapter()->forceSend($this, $rendererPath);
     }
 
-    public function resend($rendererPath=null)
+    public function resend($rendererPath = null)
     {
         return $this->getAdapter()->resend($this, $rendererPath);
     }
 
-    public function forceResend($rendererPath=null)
+    public function forceResend($rendererPath = null)
     {
         return $this->getAdapter()->forceResend($this, $rendererPath);
     }

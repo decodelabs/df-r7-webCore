@@ -5,23 +5,20 @@
  */
 namespace df\apex\directory\admin\users\consents;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Cookie consent';
-    const ICON = 'accept';
-    const ADAPTER = 'axis://cookie/Consent';
+    public const TITLE = 'Cookie consent';
+    public const ICON = 'accept';
+    public const ADAPTER = 'axis://cookie/Consent';
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'id', 'creationDate', 'preferences', 'statistics', 'marketing'
     ];
 
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
 
     // Fields

@@ -6,14 +6,11 @@
 
 namespace df\apex\directory\mail\lists;
 
-use df;
-use df\core;
-use df\apex;
+use DecodeLabs\Tagged as Html;
 use df\arch;
 use df\flow;
-use df\opal;
 
-use DecodeLabs\Tagged as Html;
+use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -49,7 +46,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
-    public function deleteRecord(opal\record\IRecord $record, array $flags=[])
+    public function deleteRecord(opal\record\IRecord $record, array $flags = [])
     {
         $id = $record['id'];
         $config = flow\mail\Config::getInstance();
@@ -64,9 +61,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield 'refresh' => $this->html->link(
-                $this->uri('./refresh', true),
-                $this->_('Refresh')
-            )
+            $this->uri('./refresh', true),
+            $this->_('Refresh')
+        )
             ->setIcon('refresh');
     }
 

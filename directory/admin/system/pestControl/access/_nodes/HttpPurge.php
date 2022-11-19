@@ -5,27 +5,25 @@
  */
 namespace df\apex\directory\admin\system\pestControl\access\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\axis;
-use df\halo;
 
-class HttpPurge extends arch\node\ConfirmForm {
+class HttpPurge extends arch\node\ConfirmForm
+{
+    public const DISPOSITION = 'negative';
 
-    const DISPOSITION = 'negative';
-
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to delete all old access logs?');
     }
 
-    protected function customizeMainButton($button) {
+    protected function customizeMainButton($button)
+    {
         $button->setBody($this->_('Delete'))
             ->setIcon('delete');
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         return $this->task->initiateStream('pest-control/purge-access-logs');
     }
 }

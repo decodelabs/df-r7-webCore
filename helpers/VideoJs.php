@@ -6,15 +6,11 @@
 
 namespace df\apex\helpers;
 
-use df;
-use df\core;
-use df\apex;
-use df\aura;
-use df\arch;
-use df\spur;
-use df\flex;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+use df\aura;
+
+use df\flex;
 
 class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\IImplicitViewHelper
 {
@@ -22,7 +18,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
     protected static $_instanceId = 0;
 
-    public function __invoke($embed, array $attributes=null)
+    public function __invoke($embed, array $attributes = null)
     {
         $embed = trim($embed);
 
@@ -72,7 +68,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
         $url = $embed->getPreparedUrl();
         $provider = $embed->getProvider();
-        $elementId = 'videoJs'.self::$_instanceId++.'-'.time();
+        $elementId = 'videoJs' . self::$_instanceId++ . '-' . time();
         $setup = [];
         $sources = null;
         $poster = false;
@@ -104,7 +100,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
 
                 $setup['sources'] = [[
                     'type' => 'video/vimeo',
-                    'src' => 'https://vimeo.com/'.$id
+                    'src' => 'https://vimeo.com/' . $id
                 ]];
                 break;
         }
@@ -132,7 +128,7 @@ class VideoJs extends arch\Helper implements arch\IDirectoryHelper, aura\view\II
             $output->setAttributes($attributes);
         }
 
-        $output->addClass('video-js video '.$skin);
+        $output->addClass('video-js video ' . $skin);
         return $output;
     }
 

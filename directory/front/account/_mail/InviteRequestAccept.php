@@ -5,21 +5,20 @@
  */
 namespace df\apex\directory\front\account\_mail;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class InviteRequestAccept extends arch\mail\Base {
+class InviteRequestAccept extends arch\mail\Base
+{
+    public const DESCRIPTION = 'Invite request accept notification';
 
-    const DESCRIPTION = 'Invite request accept notification';
-
-    public function execute() {
+    public function execute()
+    {
         $this->checkSlots('request');
         $this->addToAddress($this['request']['email'], $this['request']['name']);
     }
 
-    public function preparePreview() {
+    public function preparePreview()
+    {
         $this['request'] = $this->data->user->inviteRequest->newRecord([
             'name' => 'Test User',
             'email' => 'test@example.com',

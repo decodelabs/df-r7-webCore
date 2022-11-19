@@ -5,14 +5,11 @@
  */
 namespace df\apex\directory\front\account\_mail;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class Invite extends arch\mail\Base
 {
-    const DESCRIPTION = 'User invite';
+    public const DESCRIPTION = 'User invite';
 
     public function execute()
     {

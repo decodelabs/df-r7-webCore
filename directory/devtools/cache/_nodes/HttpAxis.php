@@ -46,29 +46,25 @@ class HttpAxis extends arch\node\Form
                 // Actions
                 ->addField('actions', function ($info) {
                     return $this->html->eventButton(
-                            $this->eventName('remove', $info['unitId']),
-                            $this->_('Clear')
-                        )
+                        $this->eventName('remove', $info['unitId']),
+                        $this->_('Clear')
+                    )
                         ->setIcon('delete');
                 }),
-
-
             $this->html->eventButton(
-                    'clear',
-                    $this->_('Clear all')
-                )
+                'clear',
+                $this->_('Clear all')
+            )
                 ->setIcon('delete'),
-
             $this->html->eventButton(
-                    'refresh',
-                    $this->_('Refresh')
-                )
+                'refresh',
+                $this->_('Refresh')
+            )
                 ->setIcon('refresh'),
-
             $this->html->eventButton(
-                    'cancel',
-                    $this->_('Done')
-                )
+                'cancel',
+                $this->_('Done')
+            )
                 ->setIcon('back')
                 ->setDisposition('positive')
         );
@@ -80,9 +76,9 @@ class HttpAxis extends arch\node\Form
             $this->_cache->remove($unitId);
 
             $this->comms->flashSuccess(
-                    'cache.remove',
-                    $this->_('The schema cache %n% has been successfully been removed', ['%n%' => $unitId])
-                )
+                'cache.remove',
+                $this->_('The schema cache %n% has been successfully been removed', ['%n%' => $unitId])
+            )
                 ->setDescription($this->_(
                     'The entry will not show up again here until the cache has been regenerated'
                 ));

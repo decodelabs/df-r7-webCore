@@ -6,15 +6,15 @@
 
 namespace df\apex\directory\front\media\_nodes;
 
-use df\core;
-use df\arch;
-use df\flex;
-use df\neon;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
 use DecodeLabs\R7\Legacy;
 use DecodeLabs\Typify;
+
+use df\arch;
+use df\core;
+use df\flex;
+use df\neon;
 
 class HttpUploaded extends arch\node\Base
 {
@@ -22,10 +22,10 @@ class HttpUploaded extends arch\node\Base
 
     public function execute()
     {
-        $path = Genesis::$hub->getLocalDataPath().'/upload';
+        $path = Genesis::$hub->getLocalDataPath() . '/upload';
         $path .= core\uri\Path::normalizeLocal(
-            '/'.flex\Guid::factory($this->request['id']).
-            '/'.str_replace('/', '_', $this->request['file'])
+            '/' . flex\Guid::factory($this->request['id']) .
+            '/' . str_replace('/', '_', $this->request['file'])
         );
 
         if (!file_exists($path)) {

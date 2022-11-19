@@ -1,4 +1,5 @@
 <?php
+
 use DecodeLabs\Tagged as Html;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
@@ -45,7 +46,7 @@ echo $this->html->attributeList($unit)
         $max = $inspector->getDefinedSchemaVersion();
 
         if ($current < $max) {
-            $output = $this->html->icon('warning', $current.' / '.$max)->addClass('warning');
+            $output = $this->html->icon('warning', $current . ' / ' . $max)->addClass('warning');
         } else {
             $output = $this->html->icon('tick', $current)->addClass('positive');
         }
@@ -62,4 +63,4 @@ echo $this->html->attributeList($unit)
     ->addField('connection', function ($inspector) {
         return $inspector->getAdapterConnectionName();
     })
-    ;
+;

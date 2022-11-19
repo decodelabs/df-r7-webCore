@@ -76,10 +76,10 @@ class HttpAdd extends arch\node\Form
         // Country
         $fs->addField('Country')
             ->addSelect(
-                    'country',
-                    $this->values->country,
-                    $this->i18n->countries->getList()
-                )
+                'country',
+                $this->values->country,
+                $this->i18n->countries->getList()
+            )
                 ->isRequired(true);
 
         // Language

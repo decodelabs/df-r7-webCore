@@ -5,31 +5,27 @@
  */
 namespace df\apex\directory\admin\users\roles;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\user;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+
+use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Roles';
-    const ICON = 'role';
-    const ADAPTER = 'axis://user/Role';
-    const IS_SHARED = true;
+    public const TITLE = 'Roles';
+    public const ICON = 'role';
+    public const ADAPTER = 'axis://user/Role';
+    public const IS_SHARED = true;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'name', 'signifier', 'priority', 'groups', 'keys'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'name', 'signifier', 'priority', 'groups'
     ];
 
-    const CONFIRM_DELETE = true;
+    public const CONFIRM_DELETE = true;
 
     // Record data
     protected function prepareRecordList($query, $mode)
@@ -40,7 +36,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
-    public function deleteRecord(opal\record\IRecord $role, array $flags=[])
+    public function deleteRecord(opal\record\IRecord $role, array $flags = [])
     {
         $role->delete();
         $this->user->instigateGlobalKeyringRegeneration();
@@ -76,9 +72,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         // Add key
         yield 'addKey' => $this->html->link(
-                $this->uri('./add-key?role='.$this->getRecordId(), true),
-                $this->_('Add new key')
-            )
+            $this->uri('./add-key?role=' . $this->getRecordId(), true),
+            $this->_('Add new key')
+        )
             ->setIcon('add')
             ->addAccessLock('axis://user/Key#add');
     }

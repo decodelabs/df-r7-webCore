@@ -6,14 +6,12 @@
 
 namespace df\apex\directory\admin\system\pestControl;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\Dictum;
 use DecodeLabs\R7\Legacy;
+
 use DecodeLabs\Tagged as Html;
+use df;
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
@@ -36,21 +34,18 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setIcon('error')
                 ->setNote(Dictum::$number->counter($criticalErrorCount))
                 ->setWeight(10),
-
             $entryList->newLink('./misses/', '404 errors')
                 ->setId('misses')
                 ->setDescription('View requests that users are making to files and nodes that don\'t exist')
                 ->setIcon('brokenLink')
                 ->setNote(Dictum::$number->counter($notFoundCount))
                 ->setWeight(20),
-
             $entryList->newLink('./access/', 'Access errors')
                 ->setId('access')
                 ->setDescription('See who is trying to access things they are not supposed to')
                 ->setIcon('lock')
                 ->setNote(Dictum::$number->counter($accessErrorCount))
                 ->setWeight(30),
-
             $entryList->newLink('./reports/', 'HTTP reports')
                 ->setId('reports')
                 ->setDescription('View HTTP client reports for CSP, etc')
@@ -84,7 +79,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                         $url = new df\link\http\Url($request);
                     } else {
                         $baseUrl = (string)$router->getBaseUrl();
-                        $url = new df\link\http\Url($baseUrl.$request);
+                        $url = new df\link\http\Url($baseUrl . $request);
                     }
 
                     $output = $router->urlToRequest($url);

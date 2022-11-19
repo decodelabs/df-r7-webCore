@@ -6,7 +6,6 @@
 
 namespace df\apex\directory\admin\users\logins;
 
-use df\apex;
 use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin

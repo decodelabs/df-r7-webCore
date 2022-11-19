@@ -1,4 +1,5 @@
 <?php
+
 use DecodeLabs\Tagged as Html;
 
 echo $this->apex->component('~devtools/models/IndexHeaderBar');
@@ -13,16 +14,16 @@ echo $this->html->collectionList($backupList)
     ->addField('actions', function ($backup) {
         return [
             $this->html->link(
-                    $this->uri('~devtools/models/restore-backup?backup='.$backup, true),
-                    $this->_('Restore backup')
-                )
+                $this->uri('~devtools/models/restore-backup?backup=' . $backup, true),
+                $this->_('Restore backup')
+            )
                 ->setIcon('import')
                 ->setDisposition('operative'),
 
             $this->html->link(
-                    $this->uri('~devtools/models/delete-backup?backup='.$backup, true),
-                    $this->_('Delete backup')
-                )
+                $this->uri('~devtools/models/delete-backup?backup=' . $backup, true),
+                $this->_('Delete backup')
+            )
                 ->setIcon('delete')
         ];
     });

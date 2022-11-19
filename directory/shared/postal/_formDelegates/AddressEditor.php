@@ -6,15 +6,15 @@
 
 namespace df\apex\directory\shared\postal\_formDelegates;
 
-use df\core;
+use DecodeLabs\Disciple;
+use DecodeLabs\Exceptional;
 use df\apex;
+
+use df\apex\models\postal\address\Record as AddressRecord;
 use df\arch;
 
 use df\aura\html\widget\FieldSet as FieldSetWidget;
-use df\apex\models\postal\address\Record as AddressRecord;
-
-use DecodeLabs\Disciple;
-use DecodeLabs\Exceptional;
+use df\core;
 
 class AddressEditor extends arch\node\form\Delegate
 {
@@ -40,7 +40,7 @@ class AddressEditor extends arch\node\form\Delegate
 
             default:
                 throw Exceptional::InvalidArgument(
-                    $level.' is not a valid access level'
+                    $level . ' is not a valid access level'
                 );
         }
 
@@ -52,7 +52,7 @@ class AddressEditor extends arch\node\form\Delegate
         return $this->_access;
     }
 
-    public function shouldAutoComplete(bool $flag=null)
+    public function shouldAutoComplete(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_autoComplete = $flag;
@@ -62,7 +62,7 @@ class AddressEditor extends arch\node\form\Delegate
         return $this->_autoComplete;
     }
 
-    public function setAddress(apex\models\postal\address\Record $address=null)
+    public function setAddress(apex\models\postal\address\Record $address = null)
     {
         $this->_address = $address;
         return $this;
@@ -73,7 +73,7 @@ class AddressEditor extends arch\node\form\Delegate
         return $this->_address;
     }
 
-    public function setCountryList(array $countries=null, $grouped=null)
+    public function setCountryList(array $countries = null, $grouped = null)
     {
         $this->_countryList = $countries;
 
@@ -89,7 +89,7 @@ class AddressEditor extends arch\node\form\Delegate
         return $this->_countryList;
     }
 
-    public function isCountryListGrouped(bool $flag=null)
+    public function isCountryListGrouped(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_isCountryListGrouped = $flag;
@@ -130,7 +130,7 @@ class AddressEditor extends arch\node\form\Delegate
         }
     }
 
-    public function renderFieldSet(mixed $legend=null): FieldSetWidget
+    public function renderFieldSet(mixed $legend = null): FieldSetWidget
     {
         if ($legend === null) {
             $legend = $this->_('Address');
@@ -148,9 +148,9 @@ class AddressEditor extends arch\node\form\Delegate
         // Street 1
         $output->push($this->html->field($this->_('Street line 1'))->push(
             $this->html->textbox(
-                    $this->fieldName('street1'),
-                    $this->values->street1
-                )
+                $this->fieldName('street1'),
+                $this->values->street1
+            )
                 ->shouldAutoComplete($this->_autoComplete)
                 ->isRequired($this->_isRequired)
         ));
@@ -158,27 +158,27 @@ class AddressEditor extends arch\node\form\Delegate
         // Street 2
         $output->push($this->html->field($this->_('Street line 2'))->push(
             $this->html->textbox(
-                    $this->fieldName('street2'),
-                    $this->values->street2
-                )
+                $this->fieldName('street2'),
+                $this->values->street2
+            )
                 ->shouldAutoComplete($this->_autoComplete)
         ));
 
         // Street 3
         $output->push($this->html->field($this->_('Street line 3'))->push(
             $this->html->textbox(
-                    $this->fieldName('street3'),
-                    $this->values->street3
-                )
+                $this->fieldName('street3'),
+                $this->values->street3
+            )
                 ->shouldAutoComplete($this->_autoComplete)
         ));
 
         // City
         $output->push($this->html->field($this->_('Town / city'))->push(
             $this->html->textbox(
-                    $this->fieldName('city'),
-                    $this->values->city
-                )
+                $this->fieldName('city'),
+                $this->values->city
+            )
                 ->shouldAutoComplete($this->_autoComplete)
                 ->isRequired($this->_isRequired)
         ));
@@ -186,18 +186,18 @@ class AddressEditor extends arch\node\form\Delegate
         // County
         $output->push($this->html->field($this->_('County / region'))->push(
             $this->html->textbox(
-                    $this->fieldName('county'),
-                    $this->values->county
-                )
+                $this->fieldName('county'),
+                $this->values->county
+            )
                 ->shouldAutoComplete($this->_autoComplete)
         ));
 
         // Postcode
         $output->push($this->html->field($this->_('Post code'))->push(
             $this->html->textbox(
-                    $this->fieldName('postcode'),
-                    $this->values->postcode
-                )
+                $this->fieldName('postcode'),
+                $this->values->postcode
+            )
                 ->shouldAutoComplete($this->_autoComplete)
                 ->isRequired($this->_isRequired)
         ));
@@ -213,10 +213,10 @@ class AddressEditor extends arch\node\form\Delegate
 
         $output->push($this->html->field($this->_('Country'))->push(
             $this->html->{$isGrouped ? 'groupedSelect' : 'select'}(
-                    $this->fieldName('country'),
-                    $this->values->country,
-                    $countries
-                )
+                $this->fieldName('country'),
+                $this->values->country,
+                $countries
+            )
                 ->isRequired($this->_isRequired)
         ));
 

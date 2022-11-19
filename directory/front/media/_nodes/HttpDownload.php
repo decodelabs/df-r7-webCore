@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\media\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpDownload extends arch\node\Base
 {

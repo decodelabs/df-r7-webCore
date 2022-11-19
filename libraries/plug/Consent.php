@@ -6,14 +6,11 @@
 
 namespace df\plug;
 
-use df;
-use df\core;
-use df\plug;
-use df\arch;
-use df\aura;
-use df\flex;
-
 use DecodeLabs\R7\Legacy;
+use df\arch;
+use df\core;
+
+use df\flex;
 
 class Consent implements arch\IDirectoryHelper
 {
@@ -83,7 +80,7 @@ class Consent implements arch\IDirectoryHelper
         return $this->getUserData()['id'] ?? null;
     }
 
-    public function getUserData(string $logId=null): array
+    public function getUserData(string $logId = null): array
     {
         if (self::$_active) {
             return self::$_active;
@@ -212,7 +209,7 @@ class Consent implements arch\IDirectoryHelper
             $flag |= self::MARKETING;
         }
 
-        $cookie = $version.'.'.$flag.'.'.$id;
+        $cookie = $version . '.' . $flag . '.' . $id;
 
         Legacy::$http->setCookie(self::COOKIE_NAME, $cookie)
             ->setExpiryDate(new core\time\Date('+1 years'));

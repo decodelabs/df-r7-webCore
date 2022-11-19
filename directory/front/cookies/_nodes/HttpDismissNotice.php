@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\cookies\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpDismissNotice extends arch\node\Base
 {

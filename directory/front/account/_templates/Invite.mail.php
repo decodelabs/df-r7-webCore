@@ -22,7 +22,7 @@ if ($message = $invite['message']) {
 
 echo $generator->p([
     $generator->link(
-        $this->uri('account/register?invite='.$invite['key']),
+        $this->uri('account/register?invite=' . $invite['key']),
         'Please follow this link to set up your account'
     )
 ]);

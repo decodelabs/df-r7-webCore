@@ -6,9 +6,6 @@
 
 namespace df\apex\directory\devtools\models\_components;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use df\aura\html\widget\Menu as MenuWidget;
@@ -28,9 +25,9 @@ class IndexHeaderBar extends arch\component\HeaderBar
             case 'backups':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/backup', true),
-                            $this->_('Create backup')
-                        )
+                        $this->uri('~devtools/models/backup', true),
+                        $this->_('Create backup')
+                    )
                         ->setIcon('backup')
                         ->setDisposition('positive')
                 );
@@ -43,16 +40,15 @@ class IndexHeaderBar extends arch\component\HeaderBar
     {
         $menu->addLinks(
             $this->html->link(
-                    '~devtools/models/',
-                    $this->_('Units')
-                )
+                '~devtools/models/',
+                $this->_('Units')
+            )
                 ->setIcon('unit')
                 ->setDisposition('informative'),
-
             $this->html->link(
-                    '~devtools/models/backups',
-                    $this->_('Backups')
-                )
+                '~devtools/models/backups',
+                $this->_('Backups')
+            )
                 ->setIcon('backup')
                 ->setDisposition('informative')
         );

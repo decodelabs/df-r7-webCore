@@ -5,37 +5,32 @@
  */
 namespace df\apex\directory\admin\system\pestControl\misses\logs;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\flex;
-
 use DecodeLabs\Dictum;
+
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = '404 error logs';
-    const ICON = 'log';
-    const ADAPTER = 'axis://pestControl/MissLog';
-    const KEY_NAME = 'log';
-    const NAME_FIELD = 'date';
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const TITLE = '404 error logs';
+    public const ICON = 'log';
+    public const ADAPTER = 'axis://pestControl/MissLog';
+    public const KEY_NAME = 'log';
+    public const NAME_FIELD = 'date';
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'date', 'mode', 'url', 'request',
         'referrer', 'user', 'isBot', 'isProduction'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'date', 'url', 'referrer', 'message',
         'userAgent', 'user', 'isProduction'
     ];
 
-    const CAN_SELECT = true;
+    public const CAN_SELECT = true;
 
 
     // Record data
@@ -48,7 +43,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->paginate()
                 ->addOrderableFields('isBot')
                 ->end()
-            ;
+        ;
     }
 
 
@@ -56,16 +51,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     // Components
     protected function getRecordParentUriString(array $log): ?string
     {
-        return '../details?miss='.$this->data->getRelationId($log, 'miss');
+        return '../details?miss=' . $this->data->getRelationId($log, 'miss');
     }
 
     public function generateRecordOperativeLinks(array $log): iterable
     {
         // Archive
         yield 'archive' => $this->html->link(
-                $this->getRecordUri($log, 'archive', null, true),
-                $this->_('Archive '.$this->getRecordItemName())
-            )
+            $this->getRecordUri($log, 'archive', null, true),
+            $this->_('Archive ' . $this->getRecordItemName())
+        )
             ->setIcon('save')
             ->isDisabled($log['isArchived']);
 
@@ -96,7 +91,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 )) :
                 $this->html->flashMessage($this->_(
                     'This log has not been archived and will be deleted on or around %d%',
-                    ['%d%' => Dictum::$time->date($log['date']->modifyNew('+'.$this->data->pestControl->getPurgeThreshold()))]
+                    ['%d%' => Dictum::$time->date($log['date']->modifyNew('+' . $this->data->pestControl->getPurgeThreshold()))]
                 ), 'warning'),
 
             $this->html->panelSet()

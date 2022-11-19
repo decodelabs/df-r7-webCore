@@ -6,15 +6,11 @@
 
 namespace df\apex\directory\admin\system\geoIp\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\link;
-
 use DecodeLabs\Compass\Ip;
 use DecodeLabs\Disciple;
+
+use df\arch;
+use df\link;
 use GuzzleHttp\Client as HttpClient;
 
 class HttpIndex extends arch\node\Base

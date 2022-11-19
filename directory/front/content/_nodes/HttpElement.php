@@ -5,16 +5,14 @@
  */
 namespace df\apex\directory\front\content\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpElement extends arch\node\Base {
+class HttpElement extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $view = $this->apex->newWidgetView();
         $view->content->push($view->nightfire->renderElement($this->request['element']));
 

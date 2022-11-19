@@ -5,14 +5,11 @@
  */
 namespace df\apex\directory\front\account\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class HttpIndex extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
+    public const DEFAULT_ACCESS = arch\IAccess::CONFIRMED;
 
     public function execute()
     {

@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\account\_formDelegates;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class LoginAuth0 extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {
@@ -24,11 +24,10 @@ class LoginAuth0 extends arch\node\form\Delegate implements arch\node\IParentUiH
         // Button
         $fs->addButtonArea(
             $this->html->eventButton(
-                    $this->eventName('login'),
-                    $this->_('Sign in')
-                )
+                $this->eventName('login'),
+                $this->_('Sign in')
+            )
                 ->setIcon('user'),
-
             $this->html->cancelEventButton()
         );
     }

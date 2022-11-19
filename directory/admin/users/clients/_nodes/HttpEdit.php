@@ -27,7 +27,7 @@ class HttpEdit extends HttpAdd
             'timezone', 'country', 'language'
         ]);
 
-        /** @var SelectorDelegate */
+        /** @var SelectorDelegate $groups */
         $groups = $this['groups'];
         $groups->setSelected(
             $this->_client->groups->selectFromBridge('group')->toList('group')

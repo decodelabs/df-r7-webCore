@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\front\cookies\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Genesis;
+
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpSettings extends arch\node\Base
 {
@@ -23,7 +23,7 @@ class HttpSettings extends arch\node\Base
             ]);
 
             $view->setTitle('Cookie Settings')
-                ->setMeta('description', 'Select which types of cookies you would like to enable on '.Genesis::$hub->getApplicationName())
+                ->setMeta('description', 'Select which types of cookies you would like to enable on ' . Genesis::$hub->getApplicationName())
                 ->setCanonical('cookies/settings');
 
             yield 'cookieData' => $data = $this->consent->getUserData(

@@ -6,13 +6,10 @@
 
 namespace df\apex\directory\mail\previews\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
+use DecodeLabs\R7\Legacy;
 
 use DecodeLabs\Tagged as Html;
-use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpIndex extends arch\node\Base
 {
@@ -72,8 +69,8 @@ class HttpIndex extends arch\node\Base
             }
 
 
-            $name = $path.$name;
-            $path = '~'.$name;
+            $name = $path . $name;
+            $path = '~' . $name;
 
             try {
                 $mail = $this->comms->prepareMail($path);

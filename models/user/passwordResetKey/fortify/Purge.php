@@ -5,9 +5,6 @@
  */
 namespace df\apex\models\user\passwordResetKey\fortify;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
 
 class Purge extends axis\fortify\Base
@@ -42,6 +39,6 @@ class Purge extends axis\fortify\Base
             usleep(100000);
         }
 
-        yield $total.' removed';
+        yield $total . ' removed';
     }
 }

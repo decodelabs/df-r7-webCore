@@ -6,10 +6,9 @@
 
 namespace df\apex\directory\front\pestControl\_nodes;
 
-use df\apex;
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpCspReport extends arch\node\Base
 {
@@ -36,7 +35,8 @@ class HttpCspReport extends arch\node\Base
         }
 
         $this->data->pestControl->report->storeReport(
-            'csp', $data
+            'csp',
+            $data
         );
 
         return 'done';

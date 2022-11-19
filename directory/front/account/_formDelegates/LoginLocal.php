@@ -6,15 +6,11 @@
 
 namespace df\apex\directory\front\account\_formDelegates;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\user;
+use DecodeLabs\Dictum;
 
 use DecodeLabs\Disciple;
-use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {
@@ -43,17 +39,17 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
         // Identity
         $fs->addField($this->_('Email address'))
             ->addEmailTextbox(
-                    $this->fieldName('identity'),
-                    $this->values->identity
-                )
+                $this->fieldName('identity'),
+                $this->values->identity
+            )
                 ->isRequired(true);
 
         // Password
         $fs->addField($this->_('Password'))
             ->addPasswordTextbox(
-                    $this->fieldName('password'),
-                    $this->values->password
-                )
+                $this->fieldName('password'),
+                $this->values->password
+            )
                 ->shouldAutoComplete(false)
                 ->isRequired(true);
 
@@ -69,13 +65,11 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('login'),
-                    $this->_('Sign in')
-                )
+                $this->eventName('login'),
+                $this->_('Sign in')
+            )
                 ->setIcon('user'),
-
             $this->html->cancelEventButton(),
-
             $this->html->buttonGroup(
                 $this->html->link(
                     $this->uri('account/lost-password', true),
@@ -107,7 +101,7 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
             // Check approval
             if (!$gateKeeper->approveLogin($identity, function ($time) {
                 $this->values->identity->addError('time', $this->_(
-                    'Too many login attempts, please wait '.Dictum::$time->until($time)
+                    'Too many login attempts, please wait ' . Dictum::$time->until($time)
                 ));
 
                 $this->values->password->setValue('');

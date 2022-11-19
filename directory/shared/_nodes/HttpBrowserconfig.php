@@ -5,18 +5,15 @@
  */
 namespace df\apex\directory\shared\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\neon;
 
-class HttpBrowserconfig extends arch\node\Base {
+class HttpBrowserconfig extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
+    public const CHECK_ACCESS = false;
 
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-    const CHECK_ACCESS = false;
-
-    public function executeAsXml() {
+    public function executeAsXml()
+    {
         $view = $this->apex->view('Browserconfig.xml');
         $theme = $this->apex->getTheme();
 

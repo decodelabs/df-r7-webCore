@@ -5,18 +5,17 @@
  */
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
+use df\core;
 
-class HttpPurge extends arch\node\DeleteForm {
+class HttpPurge extends arch\node\DeleteForm
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'cache';
+    public const IS_PERMANENT = false;
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'cache';
-    const IS_PERMANENT = false;
-
-    protected function apply() {
+    protected function apply()
+    {
         core\cache\Base::purgeAll();
     }
 }

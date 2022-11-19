@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\mail\lists\_nodes;
 
-use df\flow;
-
 use DecodeLabs\Exceptional;
+
+use df\flow;
 
 class HttpEdit extends HttpAdd
 {

@@ -25,7 +25,7 @@ if ($message = $request['message']) {
 
 echo $generator->p([
     $generator->link(
-        $this->uri('~admin/users/invite-requests/respond?request='.$request['id']),
+        $this->uri('~admin/users/invite-requests/respond?request=' . $request['id']),
         'Please follow this link to see more details and respond'
     )
 ]);

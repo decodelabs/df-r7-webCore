@@ -6,10 +6,10 @@
 
 namespace df\aura\theme\facet;
 
-use df\aura;
-
 use DecodeLabs\Genesis;
+
 use DecodeLabs\R7\Legacy;
+use df\aura;
 
 class CookieNotice extends Base
 {
@@ -71,6 +71,6 @@ class CookieNotice extends Base
         return $view->context->apex->template('~front/cookies/#/elements/Notice.html', [
                 'privacyRequest' => $this->_privacyRequest
             ])
-            ->renderTo($view)."\n".$content;
+            ->renderTo($view) . "\n" . $content;
     }
 }

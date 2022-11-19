@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpLogout extends arch\node\Base
 {

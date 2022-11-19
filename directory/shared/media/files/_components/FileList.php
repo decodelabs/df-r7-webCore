@@ -5,12 +5,9 @@
  */
 namespace df\apex\directory\shared\media\files\_components;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class FileList extends arch\component\CollectionList
 {

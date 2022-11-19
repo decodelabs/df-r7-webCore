@@ -1,4 +1,5 @@
 <?php
+
 use DecodeLabs\Tagged as Html;
 
 echo Html::{'div.audio-cookie-placeholder > div.audio-message'}(function () {

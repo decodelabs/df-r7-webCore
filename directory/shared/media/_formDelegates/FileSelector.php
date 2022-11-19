@@ -6,16 +6,16 @@
 
 namespace df\apex\directory\shared\media\_formDelegates;
 
-use df\core;
-use df\arch;
-use df\aura;
-use df\opal;
-
-use df\opal\query\ISelectQuery as SelectQuery;
-use df\arch\IComponent as Component;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
+use df\arch;
+use df\arch\IComponent as Component;
+
+use df\aura;
+use df\core;
+
+use df\opal;
+use df\opal\query\ISelectQuery as SelectQuery;
 
 class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\IAcceptTypeProcessor
 {
@@ -83,7 +83,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
     }
 
     // Record
-    protected function getBaseQuery(?array $fields=null): SelectQuery
+    protected function getBaseQuery(?array $fields = null): SelectQuery
     {
         if ($this->_bucketHandler) {
             $accept = array_merge($this->_bucketHandler->getAcceptTypes(), $this->_acceptTypes);
@@ -147,7 +147,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
 
 
     // Ui
-    protected function _renderDetailsButtonGroup(aura\html\widget\ButtonArea $ba, $selected, $isList=false)
+    protected function _renderDetailsButtonGroup(aura\html\widget\ButtonArea $ba, $selected, $isList = false)
     {
         if ($hasSelected = !empty($selected)) {
             $mainLabel = $this->_('Replace');
@@ -157,9 +157,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
 
         $ba->push(
             $this->html->eventButton(
-                    $this->eventName('beginSelect'),
-                    $mainLabel
-                )
+                $this->eventName('beginSelect'),
+                $mainLabel
+            )
                 ->setIcon('upload')
                 ->setDisposition('positive')
                 ->shouldValidate(false)
@@ -169,9 +169,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             if (!$this->_isForMany) {
                 $ba->push(
                     $this->html->eventButton(
-                            $this->eventName('beginVersion'),
-                            $this->_('New version')
-                        )
+                        $this->eventName('beginVersion'),
+                        $this->_('New version')
+                    )
                         ->setIcon('upload')
                         ->setDisposition('operative')
                         ->shouldValidate(false)
@@ -179,9 +179,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             } else {
                 $ba->push(
                     $this->html->eventButton(
-                            $this->eventName('beginSelect'),
-                            $mainLabel
-                        )
+                        $this->eventName('beginSelect'),
+                        $mainLabel
+                    )
                         ->setIcon($this->_bucket ? 'upload' : 'select')
                         ->setDisposition('operative')
                         ->shouldValidate(false)
@@ -192,9 +192,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         if ($isList) {
             $ba->push(
                 $this->html->eventButton(
-                        $this->eventName('endSelect'),
-                        $this->_('Update')
-                    )
+                    $this->eventName('endSelect'),
+                    $this->_('Update')
+                )
                     ->setIcon('refresh')
                     ->setDisposition('informative')
                     ->shouldValidate(false)
@@ -205,9 +205,9 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         if (!empty($selected)) {
             $ba->push(
                 $this->html->eventButton(
-                        $this->eventName('clear'),
-                        $this->_('Clear')
-                    )
+                    $this->eventName('clear'),
+                    $this->_('Clear')
+                )
                     ->setIcon('remove')
                     ->shouldValidate(false)
             );
@@ -228,18 +228,16 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
                 $this->html->fileUpload($this['upload']->fieldName('file'))
                     ->allowMultiple($this->_isForMany)
                     ->setAcceptTypes(...$accept),
-
                 $this->html->eventButton(
-                        $this->eventName('beginUpload'),
-                        $this->_('Upload')
-                    )
+                    $this->eventName('beginUpload'),
+                    $this->_('Upload')
+                )
                     ->setIcon('upload')
                     ->setDisposition('positive')
                     ->shouldValidate(false),
-
                 $this->html->cancelEventButton(
-                        $this->eventName('cancelSelect')
-                    )
+                    $this->eventName('cancelSelect')
+                )
             );
         }
 
@@ -270,7 +268,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
 
             $fa->push(
                 Html::{'div.w.list.selection'}([
-                    $this->html->hidden($this->fieldName('selected['.$id.']'), $id),
+                    $this->html->hidden($this->fieldName('selected[' . $id . ']'), $id),
 
                     Html::{'div.body'}([
                         $this->html->icon('file', $name)
@@ -282,17 +280,16 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
                     $this->html->buttonArea(
                         $this->_bucket ?
                             $this->html->eventButton(
-                                    $this->eventName('beginVersion', $id),
-                                    $this->_('New version')
-                                )
+                                $this->eventName('beginVersion', $id),
+                                $this->_('New version')
+                            )
                                 ->shouldValidate(false)
                                 ->setIcon('upload')
                                 ->setDisposition('operative') : null,
-
                         $this->html->eventButton(
-                                $this->eventName('remove', $id),
-                                $this->_('Remove')
-                            )
+                            $this->eventName('remove', $id),
+                            $this->_('Remove')
+                        )
                             ->shouldValidate(false)
                             ->setIcon('remove')
                     )
@@ -308,7 +305,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         }
 
         $selected = $this->createInlineDetailsUi($fa);
-        $ol = $fa->addOverlay($fa->getLabelBody().' - '.$this->_('Upload new file'));
+        $ol = $fa->addOverlay($fa->getLabelBody() . ' - ' . $this->_('Upload new file'));
 
         $fs = $ol->addFieldSet($this->_('Choose your file(s)'));
 
@@ -318,13 +315,12 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
 
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('upload'),
-                    $this->_('Upload')
-                )
+                $this->eventName('upload'),
+                $this->_('Upload')
+            )
                 ->setIcon('upload')
                 ->setDisposition('positive')
                 ->shouldValidate(false),
-
             $this->html->cancelEventButton($this->eventName('cancelUpload'))
         );
     }
@@ -348,7 +344,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             return $this->createOverlaySelectorUi($fa);
         }
 
-        $ol = $fa->addOverlay($fa->getLabelBody().' - '.$this->_('Add new version'));
+        $ol = $fa->addOverlay($fa->getLabelBody() . ' - ' . $this->_('Add new version'));
 
         $fs = $ol->addFieldSet($this->_('Choose your file'));
         $fs->addField($this->_('Select a file'))->push(
@@ -378,22 +374,20 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
 
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('uploadVersion'),
-                    $this->_('Upload version')
-                )
+                $this->eventName('uploadVersion'),
+                $this->_('Upload version')
+            )
                 ->setIcon('upload')
                 ->setDisposition('positive')
                 ->shouldValidate(false),
-
             $this->html->buttonGroup(
                 $this->html->eventButton(
-                        $this->eventName('clearAndUpload'),
-                        $this->_('Clear selection and upload')
-                    )
+                    $this->eventName('clearAndUpload'),
+                    $this->_('Clear selection and upload')
+                )
                     ->setIcon('remove')
                     ->setDisposition('negative')
                     ->shouldValidate(false),
-
                 $this->html->cancelEventButton($this->eventName('cancelVersion'))
             )
         );
@@ -455,7 +449,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
 
 
 
-    protected function onBeginVersionEvent($id=null)
+    protected function onBeginVersionEvent($id = null)
     {
         if (!$this->_bucket) {
             return;

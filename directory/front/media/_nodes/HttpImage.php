@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\media\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpImage extends arch\node\Base
 {
@@ -38,7 +38,9 @@ class HttpImage extends arch\node\Base
         }
 
         return $this->media->fetchAndServeImage(
-            $id, $transform, isset($this->request->query->embed)
+            $id,
+            $transform,
+            isset($this->request->query->embed)
         );
     }
 }

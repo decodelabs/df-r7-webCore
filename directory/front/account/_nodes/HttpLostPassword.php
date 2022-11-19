@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Disciple;
+
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpLostPassword extends arch\node\Form
 {
@@ -49,21 +49,20 @@ class HttpLostPassword extends arch\node\Form
         // Email
         $fs->addField($this->_('Email address'))->push(
             $this->html->emailTextbox(
-                    $this->fieldName('email'),
-                    $this->values->email
-                )
+                $this->fieldName('email'),
+                $this->values->email
+            )
                 ->isRequired(true)
         );
 
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('send'),
-                    $this->_('Send')
-                )
+                $this->eventName('send'),
+                $this->_('Send')
+            )
                 ->setIcon('mail')
                 ->setDisposition('positive'),
-
             $this->html->cancelEventButton()
         );
     }
@@ -88,7 +87,7 @@ class HttpLostPassword extends arch\node\Form
                 })
 
             ->validate($this->values);
-        ;
+        
 
         if ($client) {
             /*
@@ -133,9 +132,9 @@ class HttpLostPassword extends arch\node\Form
             ]);
 
             $this->comms->flashSuccess(
-                    'lostPassword.send',
-                    $this->_('We\'ve sent you an email to change your password.')
-                )
+                'lostPassword.send',
+                $this->_('We\'ve sent you an email to change your password.')
+            )
                 ->setDescription($this->_('Please check your Spam / Junk folder if you don\'t receive it in your Inbox in the next few minutes.'));
         });
     }

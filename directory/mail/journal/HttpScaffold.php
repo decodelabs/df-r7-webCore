@@ -5,30 +5,26 @@
  */
 namespace df\apex\directory\mail\journal;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const TITLE = 'Send logs';
-    const ICON = 'log';
-    const ADAPTER = 'axis://mail/Journal';
-    const NAME_FIELD = 'date';
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
-    const CAN_DELETE = false;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const TITLE = 'Send logs';
+    public const ICON = 'log';
+    public const ADAPTER = 'axis://mail/Journal';
+    public const NAME_FIELD = 'date';
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
+    public const CAN_DELETE = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'date', 'name', 'email', 'user', 'environmentMode', 'expireDate', 'actions' => false
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'date', 'name', 'email', 'user', 'environmentMode', 'expireDate',
         'key1', 'key2'
     ];
@@ -61,7 +57,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             if (substr($name, 0, 1) != '~') {
-                return $this->html->link('~mail/previews/view?path='.$name, $name)
+                return $this->html->link('~mail/previews/view?path=' . $name, $name)
                     ->setIcon('theme')
                     ->setDisposition('transitive');
             }

@@ -6,14 +6,13 @@
 
 namespace df\apex\directory\front\account\_formDelegates;
 
-use df;
-use df\core;
+use DecodeLabs\R7\Legacy;
 use df\apex;
 use df\arch;
-use df\user;
+use df\core;
 use df\opal;
 
-use DecodeLabs\R7\Legacy;
+use df\user;
 
 abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
 {
@@ -21,7 +20,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
 
     protected $_invite;
 
-    public function setInvite(apex\models\user\invite\Record $invite=null)
+    public function setInvite(apex\models\user\invite\Record $invite = null)
     {
         $this->_invite = $invite;
         return $this;
@@ -38,7 +37,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         $name = array_pop($parts);
 
         $this->content->push(
-            $this->apex->component('~front/account/'.$name, $this)
+            $this->apex->component('~front/account/' . $name, $this)
         );
     }
 
@@ -50,7 +49,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         return $client;
     }
 
-    protected function _createAuth(apex\models\user\client\Record $client, $adapterName, $identity=null)
+    protected function _createAuth(apex\models\user\client\Record $client, $adapterName, $identity = null)
     {
         if ($identity === null) {
             $identity = $client['email'];
@@ -102,7 +101,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
         return $this;
     }
 
-    protected function _completeRegistration($requestGenerator=null)
+    protected function _completeRegistration($requestGenerator = null)
     {
         return $this->complete(function () use ($requestGenerator) {
             $redirect = $this->getStore('completionRedirect');

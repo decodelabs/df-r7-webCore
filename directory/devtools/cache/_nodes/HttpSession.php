@@ -38,10 +38,10 @@ class HttpSession extends arch\node\DeleteForm
             });
 
         $container->addCheckbox(
-                'deleteShellPerpetuator',
-                $this->values->deleteShellPerpetuator,
-                $this->_('Also delete the shell session perpetuator cache')
-            );
+            'deleteShellPerpetuator',
+            $this->values->deleteShellPerpetuator,
+            $this->_('Also delete the shell session perpetuator cache')
+        );
     }
 
     protected function apply()

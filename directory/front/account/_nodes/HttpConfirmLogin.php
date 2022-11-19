@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Disciple;
+
+use df\arch;
 
 class HttpConfirmLogin extends arch\node\Form
 {
@@ -33,27 +33,26 @@ class HttpConfirmLogin extends arch\node\Form
         // Identity
         $fs->addField($this->_('User'))
             ->addEmailTextbox(
-                    $this->fieldName('name'),
-                    Disciple::getFullName()
-                )
+                $this->fieldName('name'),
+                Disciple::getFullName()
+            )
                 ->isDisabled(true);
 
         // Password
         $fs->addField($this->_('Password'))
             ->addPasswordTextbox(
-                    $this->fieldName('password'),
-                    $this->values->password
-                )
+                $this->fieldName('password'),
+                $this->values->password
+            )
                 ->isRequired(true);
 
         // Buttons
         $fs->addButtonArea()->push(
             $this->html->eventButton(
-                    $this->eventName('login'),
-                    $this->_('Sign in')
-                )
+                $this->eventName('login'),
+                $this->_('Sign in')
+            )
                 ->setIcon('accept'),
-
             $this->html->cancelEventButton()
                 ->setEvent('logout')
         );

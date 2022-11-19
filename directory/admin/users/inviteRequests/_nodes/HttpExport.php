@@ -6,16 +6,16 @@
 
 namespace df\apex\directory\admin\users\inviteRequests\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Dictum;
+
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpExport extends arch\node\Base
 {
     public function execute()
     {
-        return Legacy::$http->csvGenerator('Invite requests ('.Dictum::$time->date('now').').csv', function ($builder) {
+        return Legacy::$http->csvGenerator('Invite requests (' . Dictum::$time->date('now') . ').csv', function ($builder) {
             $q = $this->data->user->inviteRequest->select()
                 ->leftJoinRelation('invite', 'registrationDate', 'user as inviteUser')
                 ->orderBy('creationDate DESC');

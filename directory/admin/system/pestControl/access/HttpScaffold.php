@@ -5,48 +5,44 @@
  */
 namespace df\apex\directory\admin\system\pestControl\access;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Dictum;
+
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Access errors';
-    const ICON = 'lock';
-    const ADAPTER = 'axis://pestControl/AccessLog';
-    const NAME_FIELD = 'date';
-    const KEY_NAME = 'log';
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const TITLE = 'Access errors';
+    public const ICON = 'lock';
+    public const ADAPTER = 'axis://pestControl/AccessLog';
+    public const NAME_FIELD = 'date';
+    public const KEY_NAME = 'log';
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'date', 'mode', 'code', 'request', 'message',
         'user', 'isProduction'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'date', 'mode', 'code', 'request', 'userAgent',
         'message', 'user', 'isProduction'
     ];
 
-    const CAN_SELECT = true;
+    public const CAN_SELECT = true;
 
     // Record data
     public function describeRecord($record)
     {
-        return $record['mode'].' '.$record['code'].' - '.Dictum::$time->date($record['date']);
+        return $record['mode'] . ' ' . $record['code'] . ' - ' . Dictum::$time->date($record['date']);
     }
 
     protected function prepareRecordList($query, $mode)
     {
         $query
             ->importRelationBlock('user', 'link')
-            ;
+        ;
     }
 
     // Components

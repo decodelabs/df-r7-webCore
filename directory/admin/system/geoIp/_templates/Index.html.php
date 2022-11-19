@@ -1,5 +1,5 @@
 <?php
-use df\link;
+
 use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
 
@@ -75,6 +75,6 @@ echo $this->html->attributeList($result)
     // Latlong
     ->addField('latLong', $this->_('Coordinates'), function ($result) {
         if ($result->latitude) {
-            return $result->latitude.' / '.$result->longitude;
+            return $result->latitude . ' / ' . $result->longitude;
         }
     });

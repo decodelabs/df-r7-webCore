@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Disciple;
+
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpAccessPass extends arch\node\Form
 {
@@ -75,11 +75,10 @@ class HttpAccessPass extends arch\node\Form
         // Buttons
         $fs->addButtonArea(
             $this->html->eventButton(
-                    $this->eventName('login'),
-                    $this->_('Sign in')
-                )
+                $this->eventName('login'),
+                $this->_('Sign in')
+            )
                 ->setIcon('user'),
-
             $this->html->cancelEventButton()
         );
     }

@@ -1,4 +1,5 @@
 <?php
+
 use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 

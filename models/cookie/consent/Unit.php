@@ -5,19 +5,16 @@
  */
 namespace df\apex\models\cookie\consent;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
 
 class Unit extends axis\unit\Table
 {
-    const ORDERABLE_FIELDS = [
+    public const ORDERABLE_FIELDS = [
         'creationDate', 'preferences',
         'statistics', 'marketing'
     ];
 
-    const DEFAULT_ORDER = 'creationDate DESC';
+    public const DEFAULT_ORDER = 'creationDate DESC';
 
     protected function createSchema($schema)
     {

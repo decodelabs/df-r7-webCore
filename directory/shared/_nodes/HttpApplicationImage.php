@@ -6,12 +6,12 @@
 
 namespace df\apex\directory\shared\_nodes;
 
-use df\arch;
-use df\neon;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\R7\Legacy;
+
 use DecodeLabs\Typify;
+use df\arch;
+use df\neon;
 
 class HttpApplicationImage extends arch\node\Base
 {
@@ -34,7 +34,7 @@ class HttpApplicationImage extends arch\node\Base
 
         if (!$absPath) {
             throw Exceptional::{'df/core/fs/NotFound'}([
-                'message' => 'Application image '.$path.' not found',
+                'message' => 'Application image ' . $path . ' not found',
                 'http' => 404
             ]);
         }
@@ -46,7 +46,7 @@ class HttpApplicationImage extends arch\node\Base
         if (isset($this->request['width'])) {
             $width = $this->request['width'];
             $height = $this->request->query->get('height', $width);
-            $descriptor->applyTransformation('[rs:'.$width.'|'.$height.']');
+            $descriptor->applyTransformation('[rs:' . $width . '|' . $height . ']');
         }
 
         return Legacy::$http->fileResponse($descriptor->getLocation())

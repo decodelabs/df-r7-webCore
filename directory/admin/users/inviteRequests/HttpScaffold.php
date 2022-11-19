@@ -6,13 +6,9 @@
 
 namespace df\apex\directory\admin\users\inviteRequests;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Metamorph;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -52,9 +48,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexOperativeLinks(): iterable
     {
         yield 'export' => $this->html->link(
-                $this->getNodeUri('export'),
-                $this->_('Export to csv')
-            )
+            $this->getNodeUri('export'),
+            $this->_('Export to csv')
+        )
             ->setIcon('download')
             ->setDisposition('positive');
     }
@@ -62,9 +58,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexTransitiveLinks(): iterable
     {
         yield 'invites' => $this->html->link(
-                '../invites/',
-                $this->_('Invites')
-            )
+            '../invites/',
+            $this->_('Invites')
+        )
             ->setIcon('mail')
             ->setDisposition('transitive');
     }

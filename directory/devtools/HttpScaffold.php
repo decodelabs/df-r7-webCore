@@ -6,13 +6,11 @@
 
 namespace df\apex\directory\devtools;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\Dictum;
 use DecodeLabs\Tagged as Html;
+
+use df;
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\AreaMenu
 {
@@ -46,13 +44,11 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setDescription('Manage and update database schemas and data')
                 ->setIcon('database')
                 ->setWeight(20),
-
             $entryList->newLink('~devtools/processes/', 'Process manager')
                 ->setId('processManager')
                 ->setDescription('Queue and schedule tasks, launch daemons and view logs of previously run processes')
                 ->setIcon('task')
                 ->setWeight(30),
-
             $entryList->newLink('~devtools/cache/', 'Cache control')
                 ->setId('cache')
                 ->setDescription('Refresh, clear and view stats for most cache structures your site employs')

@@ -5,9 +5,6 @@
  */
 namespace df\apex\directory\devtools\cache\_components;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use df\aura\html\widget\Menu as MenuWidget;
@@ -25,9 +22,9 @@ class IndexHeaderBar extends arch\component\HeaderBar
     {
         $menu->addLinks(
             $this->html->link(
-                    $this->uri('~devtools/cache/purge', true),
-                    $this->_('Purge all cache backends')
-                )
+                $this->uri('~devtools/cache/purge', true),
+                $this->_('Purge all cache backends')
+            )
                 ->setIcon('delete')
                 ->setDisposition('negative')
         );

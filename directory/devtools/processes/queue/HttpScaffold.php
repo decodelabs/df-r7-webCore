@@ -5,30 +5,26 @@
  */
 namespace df\apex\directory\devtools\processes\queue;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const TITLE = 'Task queue';
-    const ICON = 'task';
-    const ADAPTER = 'axis://task/Queue';
-    const NAME_FIELD = 'request';
-    const KEY_NAME = 'task';
+    public const TITLE = 'Task queue';
+    public const ICON = 'task';
+    public const ADAPTER = 'axis://task/Queue';
+    public const NAME_FIELD = 'request';
+    public const KEY_NAME = 'task';
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'request', 'priority', 'queueDate',
         'lockDate', 'status'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'queueDate',
         'lockDate', 'lockId', 'logs', 'status'
     ];
@@ -39,9 +35,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         // Launch
         yield 'launch' => $this->html->link(
-                $this->uri('~devtools/processes/queue/launch?task='.$task['id'], true),
-                $this->_('Launch now')
-            )
+            $this->uri('~devtools/processes/queue/launch?task=' . $task['id'], true),
+            $this->_('Launch now')
+        )
             ->setIcon('launch')
             ->setDisposition('positive');
 
@@ -52,9 +48,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield 'spool' => $this->html->link(
-                $this->uri('~devtools/processes/queue/spool', true),
-                $this->_('Run spool now')
-            )
+            $this->uri('~devtools/processes/queue/spool', true),
+            $this->_('Run spool now')
+        )
             ->setIcon('launch')
             ->setDisposition('operative');
     }
@@ -90,16 +86,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             return $this->html->link(
-                    $this->uri('~devtools/processes/logs/?search='.$request, true),
-                    $this->_(
-                        [
-                            'n == 1' => 'View 1 log',
-                            'n > 1' => 'View %c% logs'
-                        ],
-                        ['%c%' => $count],
-                        $count
-                    )
+                $this->uri('~devtools/processes/logs/?search=' . $request, true),
+                $this->_(
+                    [
+                        'n == 1' => 'View 1 log',
+                        'n > 1' => 'View %c% logs'
+                    ],
+                    ['%c%' => $count],
+                    $count
                 )
+            )
                 ->setIcon('log');
         });
     }

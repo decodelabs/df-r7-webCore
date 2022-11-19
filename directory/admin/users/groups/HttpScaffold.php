@@ -5,32 +5,29 @@
  */
 namespace df\apex\directory\admin\users\groups;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+
+use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Groups';
-    const ICON = 'group';
-    const ADAPTER = 'axis://user/Group';
-    const DEFAULT_SECTION = 'users';
-    const IS_SHARED = true;
+    public const TITLE = 'Groups';
+    public const ICON = 'group';
+    public const ADAPTER = 'axis://user/Group';
+    public const DEFAULT_SECTION = 'users';
+    public const IS_SHARED = true;
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         'users' => 'user'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'name', 'signifier', 'roles', 'users'
     ];
 
-    const CONFIRM_DELETE = true;
+    public const CONFIRM_DELETE = true;
 
 
     // Record data
@@ -41,7 +38,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->countRelation('roles');
     }
 
-    public function deleteRecord(opal\record\IRecord $group, array $flags=[])
+    public function deleteRecord(opal\record\IRecord $group, array $flags = [])
     {
         $group->delete();
         $this->user->instigateGlobalKeyringRegeneration();

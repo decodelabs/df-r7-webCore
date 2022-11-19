@@ -5,20 +5,19 @@
  */
 namespace df\apex\directory\admin\users\inviteRequests\_mail;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class RequestNotify extends arch\mail\Base {
+class RequestNotify extends arch\mail\Base
+{
+    public const DESCRIPTION = 'Invite request';
 
-    const DESCRIPTION = 'Invite request';
-
-    public function execute() {
+    public function execute()
+    {
         $this->checkSlots('request');
     }
 
-    public function preparePreview() {
+    public function preparePreview()
+    {
         $this['request'] = $this->data->user->inviteRequest->newRecord([
             'name' => 'Test User',
             'email' => 'test@example.com',

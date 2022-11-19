@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Exceptional;
+
 use DecodeLabs\Genesis;
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpRestoreBackup extends arch\node\ConfirmForm
 {
@@ -29,7 +29,7 @@ class HttpRestoreBackup extends arch\node\ConfirmForm
             ]);
         }
 
-        $this->_file = Genesis::$hub->getSharedDataPath().'/backup/'.$fileName;
+        $this->_file = Genesis::$hub->getSharedDataPath() . '/backup/' . $fileName;
 
         if (!is_file($this->_file)) {
             throw Exceptional::NotFound([
@@ -68,6 +68,6 @@ class HttpRestoreBackup extends arch\node\ConfirmForm
 
     protected function apply()
     {
-        return $this->task->initiateStream('axis/restore-backup?backup='.basename($this->_file));
+        return $this->task->initiateStream('axis/restore-backup?backup=' . basename($this->_file));
     }
 }

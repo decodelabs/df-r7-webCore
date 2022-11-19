@@ -5,9 +5,6 @@
  */
 namespace df\apex\directory\admin\system\geoIp\_components;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 use df\aura\html\widget\Menu as MenuWidget;
@@ -40,7 +37,6 @@ class IndexHeaderBar extends arch\component\HeaderBar
             $this->html->link('./', $this->_('Details'))
                 ->setIcon('details')
                 ->setDisposition('informative'),
-
             $this->html->link('./max-mind-db', $this->_('MaxMind DB'))
                 ->setIcon('database')
                 ->setDisposition('informative')

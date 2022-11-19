@@ -5,9 +5,6 @@
  */
 namespace df\apex\models\cookie;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
 
 class Model extends axis\Model

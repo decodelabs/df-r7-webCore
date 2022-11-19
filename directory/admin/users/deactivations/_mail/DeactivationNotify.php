@@ -5,21 +5,20 @@
  */
 namespace df\apex\directory\admin\users\deactivations\_mail;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class DeactivationNotify extends arch\mail\Base {
+class DeactivationNotify extends arch\mail\Base
+{
+    public const DESCRIPTION = 'User deactivation';
 
-    const DESCRIPTION = 'User deactivation';
-
-    public function execute() {
+    public function execute()
+    {
         $this->checkSlots('deactivation');
         $this['user'] = $this['deactivation']['user'];
     }
 
-    public function preparePreview() {
+    public function preparePreview()
+    {
         $this['deactivation'] = $this->data->user->clientDeactivation->newRecord([
             'user' => $this->data->user->client->select('id')->toValue('id'),
             'date' => 'now',

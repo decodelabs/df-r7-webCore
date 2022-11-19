@@ -6,17 +6,15 @@
 
 namespace df\apex\directory\shared\media\_formDelegates;
 
-use df;
-use df\core;
-use df\apex;
+use DecodeLabs\Disciple;
+use DecodeLabs\Exceptional;
+use DecodeLabs\Tagged as Html;
 use df\arch;
 use df\aura;
-use df\mesh;
-use df\flex;
 
-use DecodeLabs\Disciple;
-use DecodeLabs\Tagged as Html;
-use DecodeLabs\Exceptional;
+use df\core;
+use df\flex;
+use df\mesh;
 
 class CustomUploader extends arch\node\form\Delegate implements
     arch\node\IDependentDelegate,
@@ -77,7 +75,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         return new mesh\entity\Locator('upload://File');
     }
 
-    public function shouldShowUploadButton(bool $flag=null)
+    public function shouldShowUploadButton(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_showUploadButton = $flag;
@@ -98,7 +96,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         return $this->_chooseLabel;
     }
 
-    public function shouldAvScan(bool $flag=null)
+    public function shouldAvScan(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_avScan = $flag;
@@ -151,7 +149,7 @@ class CustomUploader extends arch\node\form\Delegate implements
         return aura\html\ElementContent::normalize($this->render());
     }
 
-    public function render($callback=null)
+    public function render($callback = null)
     {
         if (!$this->_bucket) {
             throw Exceptional::Setup([
@@ -176,7 +174,7 @@ class CustomUploader extends arch\node\form\Delegate implements
                         foreach ($files as $i => $file) {
                             $salt = $count + $i;
                             $ts = $file['time']->toTimestamp();
-                            $key = $ts.$salt;
+                            $key = $ts . $salt;
                             $file['time'] = $ts;
                             $available[$key] = $file;
                         }
@@ -237,9 +235,9 @@ class CustomUploader extends arch\node\form\Delegate implements
                         yield ' ';
 
                         yield $this->html->eventButton(
-                                $this->eventName('removeFile', $available['fileId']),
-                                $this->_('Remove')
-                            )
+                            $this->eventName('removeFile', $available['fileId']),
+                            $this->_('Remove')
+                        )
                             ->setDisposition('negative')
                             ->setIcon('cross')
                             ->shouldValidate(false)
@@ -255,9 +253,9 @@ class CustomUploader extends arch\node\form\Delegate implements
                         yield ' ';
 
                         yield $this->html->eventButton(
-                                $delegate->eventName('removeFile', $available['fileName']),
-                                $this->_('Remove')
-                            )
+                            $delegate->eventName('removeFile', $available['fileName']),
+                            $this->_('Remove')
+                        )
                             ->setDisposition('negative')
                             ->setIcon('cross')
                             ->shouldValidate(false)
@@ -269,7 +267,7 @@ class CustomUploader extends arch\node\form\Delegate implements
             yield Html::uList($available, function ($file) use ($delegate) {
                 if (isset($file['fileId'])) {
                     yield $this->html->checkbox(
-                        $this->fieldName('selected['.$file['fileId'].']'),
+                        $this->fieldName('selected[' . $file['fileId'] . ']'),
                         $this->values->selected->contains($file['fileId']),
                         [
                             Html::{'span.fileName'}($file['fileName']), ' ',
@@ -283,16 +281,16 @@ class CustomUploader extends arch\node\form\Delegate implements
                     yield ' ';
 
                     yield $this->html->eventButton(
-                            $this->eventName('removeFile', $file['fileId']),
-                            $this->_('Remove')
-                        )
+                        $this->eventName('removeFile', $file['fileId']),
+                        $this->_('Remove')
+                    )
                         ->setDisposition('negative')
                         ->setIcon('cross')
                         ->shouldValidate(false)
                         ->addClass('remove iconOnly');
                 } else {
                     yield $this->html->checkbox(
-                        $delegate->fieldName('selectUpload['.$file['fileName'].']'),
+                        $delegate->fieldName('selectUpload[' . $file['fileName'] . ']'),
                         $delegate->values->selectUpload->{$file['fileName']},
                         [
                             Html::{'span.fileName'}($file['fileName']), ' ',
@@ -303,9 +301,9 @@ class CustomUploader extends arch\node\form\Delegate implements
                     yield ' ';
 
                     yield $this->html->eventButton(
-                            $delegate->eventName('removeFile', $file['fileName']),
-                            $this->_('Remove')
-                        )
+                        $delegate->eventName('removeFile', $file['fileName']),
+                        $this->_('Remove')
+                    )
                         ->setDisposition('negative')
                         ->setIcon('cross')
                         ->shouldValidate(false)
@@ -318,7 +316,7 @@ class CustomUploader extends arch\node\form\Delegate implements
             $input = $this->html->fileUpload($delegate->fieldName('file'), $delegate->values->file)
                 ->allowMultiple($this->_isForMany)
                 ->setAcceptTypes(...$delegate->getAcceptTypes())
-                ->setId($delegate->getWidgetId().'-input'),
+                ->setId($delegate->getWidgetId() . '-input'),
 
             $this->html->label($this->_chooseLabel ?? $this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
@@ -326,9 +324,9 @@ class CustomUploader extends arch\node\form\Delegate implements
 
             $this->_showUploadButton ?
                 $this->html->eventButton(
-                        $delegate->eventName('upload'),
-                        $this->_('Upload')
-                    )
+                    $delegate->eventName('upload'),
+                    $this->_('Upload')
+                )
                     ->setIcon('upload')
                     ->setDisposition('positive')
                     ->shouldValidate(false)

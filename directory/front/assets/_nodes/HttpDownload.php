@@ -6,15 +6,14 @@
 
 namespace df\apex\directory\front\assets\_nodes;
 
-use df;
-use df\core;
-use df\arch;
-use df\aura;
-use df\neon;
-
 use DecodeLabs\Exceptional;
-use DecodeLabs\Typify;
 use DecodeLabs\R7\Legacy;
+use DecodeLabs\Typify;
+use df\arch;
+
+use df\aura;
+use df\core;
+use df\neon;
 
 class HttpDownload extends arch\node\Base
 {
@@ -25,7 +24,7 @@ class HttpDownload extends arch\node\Base
     {
         $path = core\uri\Path::normalizeLocal($this->request['file']);
 
-        if (!$absolutePath = Legacy::getLoader()->findFile('apex/assets/'.$path)) {
+        if (!$absolutePath = Legacy::getLoader()->findFile('apex/assets/' . $path)) {
             throw Exceptional::{'df/core/fs/NotFound'}([
                 'message' => 'File not found',
                 'http' => 404

@@ -5,17 +5,15 @@
  */
 namespace df\apex\directory\admin\content;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpScaffold extends arch\scaffold\AreaMenu {
+class HttpScaffold extends arch\scaffold\AreaMenu
+{
+    public const TITLE = 'Published content';
+    public const ICON = 'content';
 
-    const TITLE = 'Published content';
-    const ICON = 'content';
-
-    public function generateIndexMenu($entryList) {
+    public function generateIndexMenu($entryList)
+    {
         $entryList->addEntries(
             $entryList->newLink('./elements/', 'Elements')
                 ->setId('elements')

@@ -6,12 +6,12 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-use df\user;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+
+use df\arch;
 use df\arch\node\IParentUiHandlerDelegate as ParentUiHandlerDelegate;
+use df\user;
 
 class HttpLogin extends arch\node\Form
 {
@@ -83,7 +83,7 @@ class HttpLogin extends arch\node\Form
 
     protected function loadDelegates(): void
     {
-        $this->loadDelegate($this->_adapter, '~front/account/Login'.$this->_adapter);
+        $this->loadDelegate($this->_adapter, '~front/account/Login' . $this->_adapter);
     }
 
     protected function createUi(): void
@@ -108,7 +108,7 @@ class HttpLogin extends arch\node\Form
         $menu = $this->content->addMenuBar();
 
         foreach ($enabled as $adapterName => $options) {
-            $class = 'df\\user\\authentication\\adapter\\'.$adapterName;
+            $class = 'df\\user\\authentication\\adapter\\' . $adapterName;
 
             if (!class_exists($class)) {
                 continue;
@@ -118,9 +118,9 @@ class HttpLogin extends arch\node\Form
 
             $menu->addLink(
                 $this->html->link(
-                        $this->view->uri->query(['adapter' => $adapterName]),
-                        $name
-                    )
+                    $this->view->uri->query(['adapter' => $adapterName]),
+                    $name
+                )
                     ->isActive($adapterName == $this->_adapter)
             );
         }

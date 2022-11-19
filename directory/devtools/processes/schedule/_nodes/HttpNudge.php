@@ -5,22 +5,21 @@
  */
 namespace df\apex\directory\devtools\processes\schedule\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\halo;
 
-class HttpNudge extends arch\node\ConfirmForm {
+class HttpNudge extends arch\node\ConfirmForm
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'spool';
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'spool';
-
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to launch the spool daemon?');
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $remote = halo\daemon\Remote::factory('TaskSpool');
         $remote->start();
 

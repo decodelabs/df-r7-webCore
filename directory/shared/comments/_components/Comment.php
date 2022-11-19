@@ -5,13 +5,10 @@
  */
 namespace df\apex\directory\shared\comments\_components;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\mesh;
-
 use DecodeLabs\Exceptional;
+use df\arch;
+
+use df\mesh;
 
 class Comment extends arch\component\Base
 {
@@ -20,7 +17,7 @@ class Comment extends arch\component\Base
     protected $_displayAsTree = false;
     protected $_showForm = true;
 
-    protected function init($entityLocator=null)
+    protected function init($entityLocator = null)
     {
         if ($entityLocator) {
             $this->setEntityLocator($entityLocator);
@@ -38,7 +35,7 @@ class Comment extends arch\component\Base
         return $this->_entityLocator;
     }
 
-    public function shouldShowInactive(bool $flag=null)
+    public function shouldShowInactive(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_showInactive = $flag;
@@ -48,7 +45,7 @@ class Comment extends arch\component\Base
         return $this->_showInactive;
     }
 
-    public function shouldDisplayAsTree(bool $flag=null)
+    public function shouldDisplayAsTree(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_displayAsTree = $flag;
@@ -58,7 +55,7 @@ class Comment extends arch\component\Base
         return $this->_displayAsTree;
     }
 
-    public function shouldShowForm(bool $flag=null)
+    public function shouldShowForm(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_showForm = $flag;
@@ -95,7 +92,7 @@ class Comment extends arch\component\Base
             $query->where('root', '=', null)
                 ->populate('replyTree')
                 ->populateSelect('replyTree.owner', 'id', 'fullName')
-                ;
+            ;
         } else {
             $query->populate('inReplyTo')
                 ->populateSelect('inReplyTo.owner', 'id', 'fullName');

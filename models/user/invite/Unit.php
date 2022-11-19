@@ -5,31 +5,29 @@
  */
 namespace df\apex\models\user\invite;
 
-use df;
-use df\core;
-use df\axis;
-use df\user;
-use df\flow;
-use df\flex;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+use df\axis;
+use df\core;
+
+use df\flex;
+use df\user;
 
 class Unit extends axis\unit\Table
 {
-    const INVITE_OPTION = 'invite.allowance';
+    public const INVITE_OPTION = 'invite.allowance';
 
-    const SEARCH_FIELDS = [
+    public const SEARCH_FIELDS = [
         'name' => 5,
         'email' => 2
     ];
 
-    const ORDERABLE_FIELDS = [
+    public const ORDERABLE_FIELDS = [
         'creationDate', 'owner', 'name', 'email',
         'registrationDate', 'user', 'lastSent'
     ];
 
-    const DEFAULT_ORDER = 'lastSent DESC';
+    public const DEFAULT_ORDER = 'lastSent DESC';
 
     protected function createSchema($schema)
     {
@@ -68,17 +66,17 @@ class Unit extends axis\unit\Table
         return (bool)$this->select()->where('email', '=', $email)->where('isActive', '=', true)->count();
     }
 
-    public function send(Record $invite, $rendererPath=null)
+    public function send(Record $invite, $rendererPath = null)
     {
         return $this->_send($invite, $rendererPath);
     }
 
-    public function forceSend(Record $invite, $rendererPath=null)
+    public function forceSend(Record $invite, $rendererPath = null)
     {
         return $this->_send($invite, $rendererPath, true);
     }
 
-    protected function _send(Record $invite, $rendererPath=null, $force=false)
+    protected function _send(Record $invite, $rendererPath = null, $force = false)
     {
         if ($invite['lastSent']) {
             throw Exceptional::Runtime(
@@ -121,17 +119,17 @@ class Unit extends axis\unit\Table
         return $invite;
     }
 
-    public function resend(Record $invite, $rendererPath=null)
+    public function resend(Record $invite, $rendererPath = null)
     {
         return $this->_resend($invite, $rendererPath);
     }
 
-    public function forceResend(Record $invite, $rendererPath=null)
+    public function forceResend(Record $invite, $rendererPath = null)
     {
         return $this->_resend($invite, $rendererPath, true);
     }
 
-    protected function _resend(Record $invite, $rendererPath=null, $force=false)
+    protected function _resend(Record $invite, $rendererPath = null, $force = false)
     {
         if ($invite->isNew()) {
             throw Exceptional::Runtime(
@@ -170,7 +168,7 @@ class Unit extends axis\unit\Table
         return $invite;
     }
 
-    public function ensureSent($email, $generator, $rendererPath=null)
+    public function ensureSent($email, $generator, $rendererPath = null)
     {
         $invite = $this->fetch()
             ->where('email', '=', $email)

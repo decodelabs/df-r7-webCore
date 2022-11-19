@@ -5,27 +5,25 @@
  */
 namespace df\apex\models\user\inviteRequest;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
 
-class Unit extends axis\unit\Table {
-
-    const SEARCH_FIELDS = [
+class Unit extends axis\unit\Table
+{
+    public const SEARCH_FIELDS = [
         'name' => 10,
         'email' => 2,
         'companyName' => 5,
         'companyPosition' => 1
     ];
 
-    const ORDERABLE_FIELDS = [
+    public const ORDERABLE_FIELDS = [
         'name', 'email', 'companyName', 'companyPosition', 'creationDate', 'isActive'
     ];
 
-    const DEFAULT_ORDER = 'creationDate DESC';
+    public const DEFAULT_ORDER = 'creationDate DESC';
 
-    protected function createSchema($schema) {
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'AutoId', 8);
 
         $schema->addField('name', 'Text', 128);

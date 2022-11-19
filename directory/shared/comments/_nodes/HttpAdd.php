@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\shared\comments\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Disciple;
+
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpAdd extends arch\node\Form
 {
@@ -67,10 +67,10 @@ class HttpAdd extends arch\node\Form
             } else {
                 $fs->addField()->push(
                     $this->html->checkbox(
-                            'isLive',
-                            $this->values->isLive,
-                            $this->_('This comment is live and readable')
-                        )
+                        'isLive',
+                        $this->values->isLive,
+                        $this->_('This comment is live and readable')
+                    )
                 );
             }
 
@@ -111,7 +111,8 @@ class HttpAdd extends arch\node\Form
 
             // TODO: send notification?
 
-            $this->comms->flashSaveSuccess('comment',
+            $this->comms->flashSaveSuccess(
+                'comment',
                 $isYours ?
                     $this->_('Your comment has been successfully saved') :
                     $this->_('The comment has been successfully saved')

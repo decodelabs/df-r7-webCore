@@ -5,11 +5,7 @@
  */
 namespace df\apex\directory\devtools\models\_components;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\axis;
 
 use df\aura\html\widget\Menu as MenuWidget;
 
@@ -42,9 +38,9 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/clear-cache?unit='.$this->record->getId(), true),
-                            $this->_('Clear cache')
-                        )
+                        $this->uri('~devtools/models/clear-cache?unit=' . $this->record->getId(), true),
+                        $this->_('Clear cache')
+                    )
                         ->setIcon('delete')
                 );
 
@@ -53,12 +49,12 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/rebuild-table?unit='.$this->record->getId(), true),
-                            $this->_('Rebuild table')
-                        )
+                        $this->uri('~devtools/models/rebuild-table?unit=' . $this->record->getId(), true),
+                        $this->_('Rebuild table')
+                    )
                         ->setIcon('refresh')
                         ->setDisposition('operative')
-                        //->isDisabled(!$this->_storageExists)
+                    //->isDisabled(!$this->_storageExists)
                 );
 
                 break;
@@ -71,9 +67,9 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'tableBackups':
                 $menu->addLinks(
                     $this->html->link(
-                            $this->uri('~devtools/models/purge-table-backups?unit='.$this->record->getId(), true),
-                            $this->_('Delete all backups')
-                        )
+                        $this->uri('~devtools/models/purge-table-backups?unit=' . $this->record->getId(), true),
+                        $this->_('Delete all backups')
+                    )
                         ->setIcon('delete')
                 );
 
@@ -85,9 +81,9 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
     {
         $menu->addLinks(
             $this->html->link(
-                    '~devtools/models/unit-details?unit='.$this->record->getId(),
-                    $this->_('Details')
-                )
+                '~devtools/models/unit-details?unit=' . $this->record->getId(),
+                $this->_('Details')
+            )
                 ->setIcon('details')
         );
 
@@ -95,9 +91,9 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'cache':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/cache-stats?unit='.$this->record->getId(),
-                            $this->_('Stats')
-                        )
+                        '~devtools/models/cache-stats?unit=' . $this->record->getId(),
+                        $this->_('Stats')
+                    )
                         ->setIcon('report')
                 );
 
@@ -106,16 +102,15 @@ class UnitDetailHeaderBar extends arch\component\HeaderBar
             case 'table':
                 $menu->addLinks(
                     $this->html->link(
-                            '~devtools/models/table-data?unit='.$this->record->getId(),
-                            $this->_('Data')
-                        )
+                        '~devtools/models/table-data?unit=' . $this->record->getId(),
+                        $this->_('Data')
+                    )
                         ->setIcon('list')
                         ->isDisabled(!$this->_storageExists),
-
                     $this->html->link(
-                            '~devtools/models/table-backups?unit='.$this->record->getId(),
-                            $this->_('Backups')
-                        )
+                        '~devtools/models/table-backups?unit=' . $this->record->getId(),
+                        $this->_('Backups')
+                    )
                         ->setIcon('backup')
                 );
 

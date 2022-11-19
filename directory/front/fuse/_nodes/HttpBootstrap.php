@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\front\fuse\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpBootstrap extends arch\node\Base
 {

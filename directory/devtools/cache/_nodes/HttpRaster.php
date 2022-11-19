@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df\arch;
-use df\neon;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+
+use df\neon;
 
 class HttpRaster extends arch\node\Form
 {
@@ -61,29 +61,25 @@ class HttpRaster extends arch\node\Form
                 // Actions
                 ->addField('actions', function ($file, $context) {
                     return $this->html->eventButton(
-                            $this->eventName('remove', $context->getKey()),
-                            $this->_('Clear')
-                        )
+                        $this->eventName('remove', $context->getKey()),
+                        $this->_('Clear')
+                    )
                         ->setIcon('delete');
                 }),
-
-
             $this->html->eventButton(
-                    'clear',
-                    $this->_('Clear all')
-                )
+                'clear',
+                $this->_('Clear all')
+            )
                 ->setIcon('delete'),
-
             $this->html->eventButton(
-                    'refresh',
-                    $this->_('Refresh')
-                )
+                'refresh',
+                $this->_('Refresh')
+            )
                 ->setIcon('refresh'),
-
             $this->html->eventButton(
-                    'cancel',
-                    $this->_('Done')
-                )
+                'cancel',
+                $this->_('Done')
+            )
                 ->setIcon('back')
                 ->setDisposition('positive')
         );
@@ -95,9 +91,9 @@ class HttpRaster extends arch\node\Form
             $this->_fileStore->remove($key);
 
             $this->comms->flashSuccess(
-                    'cache.remove',
-                    $this->_('The image cache has been successfully been removed')
-                )
+                'cache.remove',
+                $this->_('The image cache has been successfully been removed')
+            )
                 ->setDescription($this->_(
                     'The entry will not show up again here until the cache has been regenerated'
                 ));

@@ -6,10 +6,8 @@
 
 namespace df\apex\directory\front;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
+use df\core;
 
 class HttpRootNodeRouter extends core\app\http\RootNodeRouter
 {

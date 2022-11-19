@@ -6,19 +6,16 @@
 
 namespace df\apex\directory\front\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\flex;
-
 use DecodeLabs\Atlas;
-use DecodeLabs\Atlas\Mode;
 use DecodeLabs\Atlas\File;
+
+use DecodeLabs\Atlas\Mode;
 use DecodeLabs\Dictum;
 use DecodeLabs\Exemplar\Writer as XmlWriter;
 use DecodeLabs\Genesis;
 use DecodeLabs\R7\Legacy;
+use df\arch;
+use df\core;
 
 class HttpSitemap extends arch\node\Base
 {
@@ -36,7 +33,7 @@ class HttpSitemap extends arch\node\Base
             return Legacy::$http->stringResponse((string)$xml, 'application/xml');
         }
 
-        $path = Genesis::$hub->getLocalDataPath().'/sitemap/'.Genesis::$environment->getMode().'.xml';
+        $path = Genesis::$hub->getLocalDataPath() . '/sitemap/' . Genesis::$environment->getMode() . '.xml';
         $rebuild = false;
         $file = Atlas::file($path);
 
@@ -56,7 +53,7 @@ class HttpSitemap extends arch\node\Base
         return Legacy::$http->fileResponse($file);
     }
 
-    protected function _generateXml(File $file=null)
+    protected function _generateXml(File $file = null)
     {
         if ($file) {
             $xml = XmlWriter::createFile($file->getPath());
@@ -128,7 +125,7 @@ class HttpSitemap extends arch\node\Base
                 continue;
             }
 
-            $class = 'df\\apex\\directory\\'.implode('\\', $keyParts).'\\'.$basename;
+            $class = 'df\\apex\\directory\\' . implode('\\', $keyParts) . '\\' . $basename;
 
             if (!class_exists($class)) {
                 continue;
@@ -139,10 +136,10 @@ class HttpSitemap extends arch\node\Base
             if ($keyParts[0] == 'front') {
                 array_shift($keyParts);
             } else {
-                $keyParts[0] = '~'.$keyParts[0];
+                $keyParts[0] = '~' . $keyParts[0];
             }
 
-            $request = arch\Request::factory(implode('/', $keyParts).'/'.Dictum::actionSlug(substr($basename, 4)));
+            $request = arch\Request::factory(implode('/', $keyParts) . '/' . Dictum::actionSlug(substr($basename, 4)));
             $context = $this->context->spawnInstance($request);
             $node = new $class($context);
             $entries = $node->getSitemapEntries();

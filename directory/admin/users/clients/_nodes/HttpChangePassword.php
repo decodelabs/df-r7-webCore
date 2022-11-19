@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\admin\users\clients\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpChangePassword extends arch\node\Form
 {

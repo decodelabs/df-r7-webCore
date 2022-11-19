@@ -6,18 +6,16 @@
 
 namespace df\apex\directory\shared\media\_formDelegates;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\aura;
-use df\link;
-
 use DecodeLabs\Atlas;
 use DecodeLabs\Dictum;
 use DecodeLabs\Exceptional;
 use DecodeLabs\R7\Legacy;
+
 use DecodeLabs\Tagged as Html;
+use df\arch;
+use df\aura;
+use df\core;
+use df\link;
 
 class CustomTempUploader extends arch\node\form\Delegate implements
     arch\node\ISelectionProviderDelegate,
@@ -39,7 +37,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
     private $_hasUploaded = false;
     private $_fileList;
 
-    public function shouldShowUploadButton(bool $flag=null)
+    public function shouldShowUploadButton(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_showUploadButton = $flag;
@@ -60,7 +58,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return $this->_chooseLabel;
     }
 
-    public function shouldAvScan(bool $flag=null)
+    public function shouldAvScan(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_avScan = $flag;
@@ -95,7 +93,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             foreach ($tempDir->scanFiles() as $fileName => $file) {
                 $time = $file->getLastModified();
 
-                $files[$time.$i] = [
+                $files[$time . $i] = [
                     'fileName' => $fileName,
                     'uploadId' => basename((string)$tempDir),
                     'size' => $file->getSize(),
@@ -133,7 +131,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return aura\html\ElementContent::normalize($this->render());
     }
 
-    public function render($callback=null)
+    public function render($callback = null)
     {
         if (!$callback) {
             $callback = [$this, '_render'];
@@ -184,7 +182,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         } else {
             yield Html::uList($available, function ($file) {
                 yield $this->html->checkbox(
-                    $this->fieldName('selectUpload['.$file['fileName'].']'),
+                    $this->fieldName('selectUpload[' . $file['fileName'] . ']'),
                     $this->values->selectUpload->{$file['fileName']},
                     [
                         Html::{'span.fileName'}($file['fileName']), ' ',
@@ -209,7 +207,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             $input = $this->html->fileUpload($this->fieldName('file'), $this->values->file)
                 ->allowMultiple($this->_isForMany)
                 ->setAcceptTypes(...$this->getAcceptTypes())
-                ->setId($this->getWidgetId().'-input'),
+                ->setId($this->getWidgetId() . '-input'),
 
             $this->html->label($this->_chooseLabel ?? $this->_('Choose a file...'), $input)
                 ->addClass('btn hidden')
@@ -230,7 +228,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
 
     public function getWidgetId()
     {
-        return Dictum::slug('ctu-'.$this->getDelegateId());
+        return Dictum::slug('ctu-' . $this->getDelegateId());
     }
 
 
@@ -249,7 +247,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         $uploadHandler->shouldAvScan($this->_avScan);
 
         if (!count($uploadHandler)) {
-            return Legacy::$http->redirect('#'.$this->getWidgetId());
+            return Legacy::$http->redirect('#' . $this->getWidgetId());
         }
 
         $tempDir = $this->_getTempDir();
@@ -276,7 +274,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             }
         }
 
-        return Legacy::$http->redirect('#'.$this->getWidgetId());
+        return Legacy::$http->redirect('#' . $this->getWidgetId());
     }
 
     public function hasAnyFile()
@@ -284,7 +282,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
         return (bool)count($this->_getFileList());
     }
 
-    public function onRemoveFileEvent($fileName=null)
+    public function onRemoveFileEvent($fileName = null)
     {
         $tempDir = $this->_getTempDir();
 
@@ -296,7 +294,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             }
         }
 
-        return Legacy::$http->redirect('#'.$this->getWidgetId());
+        return Legacy::$http->redirect('#' . $this->getWidgetId());
     }
 
     public function apply(): array|string|null
@@ -325,7 +323,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
             if (!$tempDir->hasFile($fileName)) {
                 $this->logs->logException(
                     Exceptional::{'df/core/fs/NotFound,TempNotFound'}(
-                        'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
+                        'Couldn\'t find temp upload file: ' . $tempDir->getPath() . '/' . $fileName
                     )
                 );
 
@@ -336,7 +334,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 return null;
             }
 
-            return $tempDir.'/'.$fileName;
+            return $tempDir . '/' . $fileName;
         } else {
             $fileNames = $this->values->selectUpload->getKeys();
 
@@ -357,7 +355,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                 if (!$tempDir->hasFile($fileName)) {
                     $this->logs->logException(
                         Exceptional::{'df/core/fs/NotFound,TempNotFound'}(
-                            'Couldn\'t find temp upload file: '.$tempDir->getPath().'/'.$fileName
+                            'Couldn\'t find temp upload file: ' . $tempDir->getPath() . '/' . $fileName
                         )
                     );
 
@@ -369,7 +367,7 @@ class CustomTempUploader extends arch\node\form\Delegate implements
                     return [];
                 }
 
-                $output[] = $tempDir.'/'.$fileName;
+                $output[] = $tempDir . '/' . $fileName;
             }
 
             return $output;

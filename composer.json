@@ -19,7 +19,8 @@
         "phpstan/phpstan": "1.8.x-dev",
         "phpstan/extension-installer": "^1.0",
 
-        "decodelabs/phpstan-decodelabs": "^0.6"
+        "decodelabs/phpstan-decodelabs": "^0.6",
+        "symplify/easy-coding-standard": "^11.1"
     },
     "autoload": {
         "psr-4": {
@@ -34,6 +35,16 @@
     "extra": {
         "branch-alias": {
             "dev-develop": "0.x-dev"
+        },
+        "effigy": {
+            "codeDirs": [
+                "directory",
+                "helpers",
+                "hooks",
+                "libraries",
+                "models",
+                "provider"
+            ]
         }
     },
     "config": {
@@ -42,17 +53,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "analyze": "phpstan analyze",
-        "clear-phpstan": "phpstan clear-result-cache",
-        "veneer-stub": "php vendor/df-r7/base/tests/veneer-stub.php",
-        "prep": [
-            "@composer update",
-            "@veneer-stub",
-            "@clear-phpstan",
-            "@analyze"
-        ]
-    }
-
+    "prefer-stable": true
 }

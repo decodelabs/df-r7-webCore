@@ -6,15 +6,13 @@
 
 namespace df\plug;
 
-use df;
-use df\core;
-use df\plug;
-use df\arch;
-use df\aura;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
+use df\aura;
+use df\core;
 
 class DfKit implements arch\IDirectoryHelper
 {
@@ -48,8 +46,8 @@ class DfKit implements arch\IDirectoryHelper
 
     protected function initSystem()
     {
-        $url = '/df-kit/bootstrap-system.js?theme='.$this->view->getTheme()->getId();
-        $url .= '&cts='.Genesis::$build->getCacheBuster();
+        $url = '/df-kit/bootstrap-system.js?theme=' . $this->view->getTheme()->getId();
+        $url .= '&cts=' . Genesis::$build->getCacheBuster();
 
         $url = Legacy::uri($url);
         $jsUrl = (string)$url;
@@ -58,15 +56,15 @@ class DfKit implements arch\IDirectoryHelper
 
         $this->view->linkJs($mapUrl, 2, [
             'type' => 'systemjs-importmap',
-            'crossorigin' =>'anonymous',
+            'crossorigin' => 'anonymous',
             '__invoke' =>
-                'if (typeof Promise === \'undefined\')'."\n".
-                'document.write(\'<script src="https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.core.min.js"><\/script>\');'."\n".
-                'if (typeof fetch === \'undefined\')'."\n".
+                'if (typeof Promise === \'undefined\')' . "\n" .
+                'document.write(\'<script src="https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.core.min.js"><\/script>\');' . "\n" .
+                'if (typeof fetch === \'undefined\')' . "\n" .
                 'document.write(\'<script src="https://unpkg.com/whatwg-fetch@3.4.1/dist/fetch.umd.js"><\/script>\');'
         ]);
         $this->view->linkJs('https://cdn.jsdelivr.net/npm/systemjs/dist/system.js', 3, [
-            '__invoke' => 'System.import(\''.$jsUrl.'\');'
+            '__invoke' => 'System.import(\'' . $jsUrl . '\');'
         ]);
         $this->view->linkJs('https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-register.js', 4);
         $this->view->linkJs('https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js', 4);

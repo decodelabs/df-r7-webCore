@@ -6,17 +6,13 @@
 
 namespace df\apex\directory\mail\capture;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\flow;
-
 use DecodeLabs\Dictum;
 use DecodeLabs\Exceptional;
+
 use DecodeLabs\R7\Legacy;
 use DecodeLabs\Tagged as Html;
+use df\arch;
+use df\flow;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -43,7 +39,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         }
 
         yield $this->html->flashMessage(
-            'This message was received '.Dictum::$time->since($mail['date'])
+            'This message was received ' . Dictum::$time->since($mail['date'])
         );
 
 
@@ -74,7 +70,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $contentType = $part->getContentType();
 
         if (!$filename = $part->getFilename()) {
-            $filename = $mail['id'].'-'.$this->request['part'];
+            $filename = $mail['id'] . '-' . $this->request['part'];
         }
 
         return Legacy::$http->stringResponse($content, $contentType)
@@ -109,9 +105,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield 'deleteAll' => $this->html->link(
-                $this->uri('~mail/capture/delete-all', true),
-                $this->_('Delete all mail')
-            )
+            $this->uri('~mail/capture/delete-all', true),
+            $this->_('Delete all mail')
+        )
             ->setIcon('delete')
             ->addAccessLock('axis://mail/Capture#delete');
     }
@@ -133,19 +129,19 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             $first = $addresses->extract();
 
             yield $this->html->link(
-                    $this->uri->mailto($first->getAddress()),
-                    $first->getAddress()
-                )
+                $this->uri->mailto($first->getAddress()),
+                $first->getAddress()
+            )
                 ->setIcon('user')
                 ->setDescription($first->getName())
                 ->setDisposition('external');
 
             if (!$addresses->isEmpty()) {
                 yield Html::raw(
-                    '<span class="inactive">'.Html::esc($this->_(
+                    '<span class="inactive">' . Html::esc($this->_(
                         ' and %c% more',
                         ['%c%' => count($addresses)]
-                    )).'</span>'
+                    )) . '</span>'
                 );
             }
         });

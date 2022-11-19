@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Disciple;
+
 use DecodeLabs\Exceptional;
 use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpResetPassword extends arch\node\Form
 {
@@ -93,7 +93,7 @@ class HttpResetPassword extends arch\node\Form
     protected function _flashError($flashKey, $message)
     {
         $this->comms->flashError(
-            'passwordResetKey.'.$flashKey,
+            'passwordResetKey.' . $flashKey,
             $message
         );
 
@@ -118,27 +118,27 @@ class HttpResetPassword extends arch\node\Form
         // Email
         $fs->addField($this->_('Email'))->push(
             $this->html->emailTextbox(
-                    $this->fieldName('email'),
-                    $this->_key['user']['email']
-                )
+                $this->fieldName('email'),
+                $this->_key['user']['email']
+            )
                 ->isDisabled(true)
         );
 
         // New password
         $fs->addField($this->_('New password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('newPassword'),
-                    $this->values->newPassword
-                )
+                $this->fieldName('newPassword'),
+                $this->values->newPassword
+            )
                 ->isRequired(true)
         );
 
         // Confirm password
         $fs->addField($this->_('Confirm new password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('confirmNewPassword'),
-                    $this->values->confirmNewPassword
-                )
+                $this->fieldName('confirmNewPassword'),
+                $this->values->confirmNewPassword
+            )
                 ->isRequired(true)
         );
 

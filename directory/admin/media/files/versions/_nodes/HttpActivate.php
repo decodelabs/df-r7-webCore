@@ -6,10 +6,10 @@
 
 namespace df\apex\directory\admin\media\files\versions\_nodes;
 
-use df\arch;
+use DecodeLabs\Exceptional;
 
 use DecodeLabs\Tagged as Html;
-use DecodeLabs\Exceptional;
+use df\arch;
 
 class HttpActivate extends arch\node\Form
 {
@@ -40,10 +40,8 @@ class HttpActivate extends arch\node\Form
         $fs = $form->addFieldSet($this->_('Activate'));
 
         $fs->push(
-            Html::raw('<p>'.$this->_('Are you sure you want to activate this version?').'</p>'),
-
+            Html::raw('<p>' . $this->_('Are you sure you want to activate this version?') . '</p>'),
             $this->apex->component('VersionDetails', null, $this->_version),
-
             $this->html->yesNoButtonGroup('activate')
         );
     }

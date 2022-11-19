@@ -5,14 +5,12 @@
  */
 namespace df\apex\models\user\passwordResetKey;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
 
-class Unit extends axis\unit\Table {
-
-    protected function createSchema($schema) {
+class Unit extends axis\unit\Table
+{
+    protected function createSchema($schema)
+    {
         $schema->addField('id', 'AutoId');
 
         $schema->addField('user', 'One', 'user/client');
@@ -28,7 +26,8 @@ class Unit extends axis\unit\Table {
             ->isNullable(true);
     }
 
-    public function pruneUnusedKeys() {
+    public function pruneUnusedKeys()
+    {
         $this->delete()
             ->where('creationDate', '<', '-1 week')
             ->where('resetDate', '=', null)
@@ -37,7 +36,8 @@ class Unit extends axis\unit\Table {
         return $this;
     }
 
-    public function deleteRecentUnusedKeys(Record $redeemedKey) {
+    public function deleteRecentUnusedKeys(Record $redeemedKey)
+    {
         $this->delete()
             ->where('user', '=', $redeemedKey['#user'])
             ->where('resetDate', '=', null)

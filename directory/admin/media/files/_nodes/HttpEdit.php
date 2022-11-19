@@ -26,11 +26,11 @@ class HttpEdit extends HttpAdd
             'fileName'
         ]);
 
-        /** @var SelectorDelegate */
+        /** @var SelectorDelegate $bucket */
         $bucket = $this['bucket'];
         $bucket->setSelected($this->_file['#bucket']);
 
-        /** @var SelectorDelegate */
+        /** @var SelectorDelegate $owner */
         $owner = $this['owner'];
         $owner->setSelected($this->_file['#owner']);
 

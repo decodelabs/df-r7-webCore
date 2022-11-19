@@ -1,32 +1,30 @@
 <?php
 
-use df\core;
-use df\flow;
-use df\flex;
-
-use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exemplar\Element as XmlElement;
+
 use DecodeLabs\Metamorph;
+use DecodeLabs\Tagged as Html;
+use df\flow;
 
 echo $this->html->elementContentContainer(function () use ($message) {
-    $renderer = function (array $parts, $baseId='') use (&$renderer) {
+    $renderer = function (array $parts, $baseId = '') use (&$renderer) {
         foreach ($parts as $i => $part) {
-            $currId = $baseId.$i;
+            $currId = $baseId . $i;
 
             if ($part instanceof flow\mime\IMultiPart) {
                 yield $this->html->container(
                     $this->html->attributeList($part->getHeaders()->toArray())->setStyle('font-size', '0.8em'),
-                    $renderer($part->getParts(), $currId.'-')
+                    $renderer($part->getParts(), $currId . '-')
                 );
             } elseif ($part instanceof flow\mime\IContentPart) {
                 yield $this->html->container(function () use ($part, $currId) {
                     yield $this->html->attributeList(
-                            $part->getHeaders()->toArray() +
-                            [
-                                'download' => $this->html->link('./download?mail='.$this['mail']['id'].'&part='.$currId, 'Download part')
-                                    ->setIcon('download')
-                            ]
-                        )
+                        $part->getHeaders()->toArray() +
+                        [
+                            'download' => $this->html->link('./download?mail=' . $this['mail']['id'] . '&part=' . $currId, 'Download part')
+                                ->setIcon('download')
+                        ]
+                    )
                         ->setStyle('font-size', '0.8em');
 
                     switch ($part->getContentType()) {

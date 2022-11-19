@@ -5,14 +5,10 @@
  */
 namespace df\apex\models\postal\address;
 
-use df;
-use df\core;
-use df\apex;
-use df\axis;
-use df\user;
-use df\flex;
-
 use DecodeLabs\Disciple;
+use df\axis;
+
+use df\flex;
 
 class Unit extends axis\unit\Table
 {
@@ -37,7 +33,7 @@ class Unit extends axis\unit\Table
     }
 
 
-    public function lookupPostcode($search, $access=null)
+    public function lookupPostcode($search, $access = null)
     {
         if ($access === null) {
             $access = 'protected';
@@ -79,7 +75,7 @@ class Unit extends axis\unit\Table
         return $output;
     }
 
-    public function lookupPostcodeAsList($search, $access=null)
+    public function lookupPostcodeAsList($search, $access = null)
     {
         $list = $this->lookupPostcode($search, $access);
         $output = [];

@@ -5,17 +5,14 @@
  */
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\axis;
-
 use DecodeLabs\Exceptional;
+use df\arch;
+
+use df\axis;
 
 class HttpCacheStats extends arch\node\Base
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
     public function executeAsHtml()
     {

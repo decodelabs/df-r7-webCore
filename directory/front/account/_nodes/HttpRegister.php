@@ -6,12 +6,12 @@
 
 namespace df\apex\directory\front\account\_nodes;
 
-use df\arch;
+use DecodeLabs\Disciple;
+
+use DecodeLabs\R7\Legacy;
 
 use df\apex\directory\front\account\_formDelegates\RegisterLocal;
-
-use DecodeLabs\Disciple;
-use DecodeLabs\R7\Legacy;
+use df\arch;
 
 class HttpRegister extends arch\node\Form
 {

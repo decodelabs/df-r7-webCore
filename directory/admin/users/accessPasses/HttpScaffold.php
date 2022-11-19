@@ -5,23 +5,20 @@
  */
 namespace df\apex\directory\admin\users\accessPasses;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Access passes';
-    const ICON = 'key';
-    const ADAPTER = 'axis://user/AccessPass';
-    const KEY_NAME = 'pass';
+    public const TITLE = 'Access passes';
+    public const ICON = 'key';
+    public const ADAPTER = 'axis://user/AccessPass';
+    public const KEY_NAME = 'pass';
 
-    const CAN_EDIT = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'id', 'user', 'creationDate', 'expiryDate'
     ];
 
@@ -38,7 +35,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateRecordOperativeLinks(array $pass): iterable
     {
         // Consume
-        yield 'consume' => $this->html->link('account/access-pass?pass='.$pass['id'], 'Consume')
+        yield 'consume' => $this->html->link('account/access-pass?pass=' . $pass['id'], 'Consume')
             ->setIcon('user')
             ->setDisposition('positive');
 

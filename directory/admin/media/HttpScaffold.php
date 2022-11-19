@@ -5,32 +5,28 @@
  */
 namespace df\apex\directory\admin\media;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Media buckets';
-    const ICON = 'database';
-    const ADAPTER = 'axis://media/Bucket';
-    const DEFAULT_SECTION = 'files';
-    const IS_PARENT = true;
+    public const TITLE = 'Media buckets';
+    public const ICON = 'database';
+    public const ADAPTER = 'axis://media/Bucket';
+    public const DEFAULT_SECTION = 'files';
+    public const IS_PARENT = true;
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         'files' => 'file'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'name', 'slug', 'files', 'size'
     ];
 
-    const CONFIRM_DELETE = true;
+    public const CONFIRM_DELETE = true;
 
 
     // Record data
@@ -86,9 +82,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateFilesSectionSubOperativeLinks(): iterable
     {
         yield 'add' => $this->html->link(
-                $this->uri('./files/add?bucket='.$this->getRecordId(), true),
-                $this->_('Add file')
-            )
+            $this->uri('./files/add?bucket=' . $this->getRecordId(), true),
+            $this->_('Add file')
+        )
             ->setIcon('add');
     }
 
@@ -97,7 +93,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineFilesField($list, $mode)
     {
         $list->addField('files', function ($bucket) {
-            return $this->html->link('./files?bucket='.$bucket['id'], $bucket['files'])
+            return $this->html->link('./files?bucket=' . $bucket['id'], $bucket['files'])
                 ->setIcon('file');
         });
     }
@@ -108,4 +104,4 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             return Html::$number->fileSize((int)$bucket['size']);
         });
     }
-};
+}

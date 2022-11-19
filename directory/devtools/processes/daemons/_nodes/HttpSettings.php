@@ -6,8 +6,8 @@
 
 namespace df\apex\directory\devtools\processes\daemons\_nodes;
 
-use df\core;
 use df\arch;
+use df\core;
 
 class HttpSettings extends arch\node\Form
 {
@@ -63,7 +63,9 @@ class HttpSettings extends arch\node\Form
 
         // Enabled
         $fs->addField()->push(
-            $this->html->checkbox($this->_getFieldName('isEnabled'), $this->values->{$this->_getFieldName('isEnabled')},
+            $this->html->checkbox(
+                $this->_getFieldName('isEnabled'),
+                $this->values->{$this->_getFieldName('isEnabled')},
                 $this->_isRecord ?
                     $this->_('This daemon is enabled and can be spawned by this application') :
                     $this->_('Allow this application to spawn deamon processes')

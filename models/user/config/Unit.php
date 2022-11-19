@@ -5,17 +5,14 @@
  */
 namespace df\apex\models\user\config;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
-use df\user;
 
-class Unit extends axis\unit\Config {
+class Unit extends axis\unit\Config
+{
+    public const ID = 'Users';
 
-    const ID = 'Users';
-
-    public function getDefaultValues(): array {
+    public function getDefaultValues(): array
+    {
         return [
             'registrationEnabled' => false,
             'verifyEmail' => false,
@@ -26,8 +23,9 @@ class Unit extends axis\unit\Config {
         ];
     }
 
-    public function isRegistrationEnabled(bool $flag=null) {
-        if($flag !== null) {
+    public function isRegistrationEnabled(bool $flag = null)
+    {
+        if ($flag !== null) {
             $this->values->registrationEnabled = $flag;
             return $this;
         }
@@ -35,8 +33,9 @@ class Unit extends axis\unit\Config {
         return (bool)$this->values['registrationEnabled'];
     }
 
-    public function shouldVerifyEmail(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldVerifyEmail(bool $flag = null)
+    {
+        if ($flag !== null) {
             $this->values->verifyEmail = $flag;
             return $this;
         }
@@ -44,8 +43,9 @@ class Unit extends axis\unit\Config {
         return (bool)$this->values['verifyEmail'];
     }
 
-    public function shouldLoginOnRegistration(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldLoginOnRegistration(bool $flag = null)
+    {
+        if ($flag !== null) {
             $this->values->loginOnRegistration = $flag;
             return $this;
         }
@@ -53,18 +53,21 @@ class Unit extends axis\unit\Config {
         return (bool)$this->values['loginOnRegistration'];
     }
 
-    public function setRegistrationLandingPage($request) {
+    public function setRegistrationLandingPage($request)
+    {
         $this->values->registrationLandingPage = (string)$request;
         return $this;
     }
 
-    public function getRegistrationLandingPage() {
+    public function getRegistrationLandingPage()
+    {
         return $this->values->get('registrationLandingPage', '/account/');
     }
 
 
-    public function shouldCheckPasswordStrength(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldCheckPasswordStrength(bool $flag = null)
+    {
+        if ($flag !== null) {
             $this->values->checkPasswordStrength = $flag;
             return $this;
         }
@@ -72,12 +75,14 @@ class Unit extends axis\unit\Config {
         return (bool)$this->values->get('checkPasswordStrength', true);
     }
 
-    public function setMinPasswordStrength($min) {
+    public function setMinPasswordStrength($min)
+    {
         $this->values->minPasswordStrength = (int)$min;
         return $this;
     }
 
-    public function getMinPasswordStrength() {
+    public function getMinPasswordStrength()
+    {
         return (int)$this->values->get('minPasswordStrength', 18);
     }
 }

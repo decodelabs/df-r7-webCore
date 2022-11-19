@@ -6,15 +6,15 @@
 
 namespace df\apex\directory\front\theme\_nodes;
 
-use df\core;
-use df\arch;
-use df\aura;
-use df\neon;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
-use DecodeLabs\Typify;
 use DecodeLabs\R7\Legacy;
+use DecodeLabs\Typify;
+
+use df\arch;
+use df\aura;
+use df\core;
+use df\neon;
 
 class HttpDownload extends arch\node\Base
 {

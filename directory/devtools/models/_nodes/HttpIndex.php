@@ -5,18 +5,15 @@
  */
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\axis;
-use df\opal;
 
-class HttpIndex extends arch\node\Base {
+class HttpIndex extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $view = $this->apex->view('Index.html');
         $probe = new axis\introspector\Probe();
         $view['unitList'] = $probe->probeUnits();

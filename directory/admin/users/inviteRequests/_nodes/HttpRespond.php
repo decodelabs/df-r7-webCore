@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\admin\users\inviteRequests\_nodes;
 
-use df\arch;
-
-use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
+
 use DecodeLabs\Metamorph;
+use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpRespond extends arch\node\Form
 {
@@ -64,11 +64,9 @@ class HttpRespond extends arch\node\Form
         $fs->addButtonArea(
             $this->html->saveEventButton('accept', $this->_('Accept'))
                 ->setIcon('accept'),
-
             $this->html->saveEventButton('deny', $this->_('Deny'))
                 ->setIcon('deny')
                 ->setDisposition('negative'),
-
             $this->html->cancelEventButton()
         );
     }

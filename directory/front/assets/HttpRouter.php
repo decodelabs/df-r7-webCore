@@ -5,13 +5,12 @@
  */
 namespace df\apex\directory\front\assets;
 
-use df;
-use df\core;
 use df\arch;
 
-class HttpRouter implements arch\IRouter {
-    
-    public function routeIn(arch\IRequest $request) {
+class HttpRouter implements arch\IRouter
+{
+    public function routeIn(arch\IRequest $request)
+    {
         $path = $request->getPath();
         $path->shift();
 
@@ -23,11 +22,12 @@ class HttpRouter implements arch\IRouter {
         return $request;
     }
     
-    public function routeOut(arch\IRequest $request) {
+    public function routeOut(arch\IRequest $request)
+    {
         $path = $request->getPath();
         $query = $request->getQuery();
 
-        if(!isset($query['file'])) {
+        if (!isset($query['file'])) {
             return false;
         }
         

@@ -5,17 +5,12 @@
  */
 namespace df\apex\hooks;
 
-use df;
-use df\core;
-use df\apex;
-use df\spur;
-use df\flow;
-use df\mesh;
 use df\flex;
+use df\mesh;
 
-class EmailVerify extends mesh\event\Hook {
-
-    const EVENTS = [
+class EmailVerify extends mesh\event\Hook
+{
+    public const EVENTS = [
         'axis://user/Client' => [
             'insert' => 'clientInsert',
             'preUpdate' => 'clientUpdate',
@@ -23,21 +18,24 @@ class EmailVerify extends mesh\event\Hook {
         ]
     ];
 
-    public function onClientInsert($event) {
+    public function onClientInsert($event)
+    {
         $record = $event->getCachedEntity();
         $this->_verify($event, $record);
     }
 
-    public function onClientUpdate($event) {
+    public function onClientUpdate($event)
+    {
         $record = $event->getCachedEntity();
 
-        if($record->hasChanged('email')) {
+        if ($record->hasChanged('email')) {
             $this->_verify($event, $record);
         }
     }
 
-    protected function _verify($event, $record) {
-        if(!$this->data->user->emailVerify->isVerified($record['id'], $record['email'])) {
+    protected function _verify($event, $record)
+    {
+        if (!$this->data->user->emailVerify->isVerified($record['id'], $record['email'])) {
             $queue = $event->getJobQueue();
 
             $key = $this->data->user->emailVerify->select('key')
@@ -45,11 +43,13 @@ class EmailVerify extends mesh\event\Hook {
                 ->where('email', '=', $record['email'])
                 ->toValue('key');
 
-            if(!$key) {
+            if (!$key) {
                 $key = flex\Generator::random(12, 16);
             }
 
-            $queue->after($event->getJob(), 'verifyEmail',
+            $queue->after(
+                $event->getJob(),
+                'verifyEmail',
                 $this->data->user->emailVerify->insert([
                         'user' => $record,
                         'email' => $record['email'],
@@ -58,7 +58,7 @@ class EmailVerify extends mesh\event\Hook {
                     ->ifNotExists(true)
             );
 
-            if($this->data->user->config->shouldVerifyEmail()) {
+            if ($this->data->user->config->shouldVerifyEmail()) {
                 $this->comms->sendPreparedMail('account/EmailVerify', [
                     'user' => $record,
                     'key' => $key
@@ -67,7 +67,8 @@ class EmailVerify extends mesh\event\Hook {
         }
     }
 
-    public function onClientDelete($event) {
+    public function onClientDelete($event)
+    {
         $this->data->user->emailVerify->delete()
             ->where('user', '=', $event->getCachedEntity())
             ->execute();

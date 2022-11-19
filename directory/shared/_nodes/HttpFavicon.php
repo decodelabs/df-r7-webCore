@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\shared\_nodes;
 
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpFavicon extends arch\node\Base
 {

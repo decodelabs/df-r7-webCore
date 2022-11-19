@@ -6,15 +6,14 @@
 
 namespace df\apex\directory\shared\postal\_formDelegates;
 
-use df\core;
+use DecodeLabs\Exceptional;
+use DecodeLabs\Tagged as Html;
 use df\apex;
 use df\arch;
+
+
 use df\aura;
-
-use df\apex\models\postal\address\Record as AddressRecord;
-
-use DecodeLabs\Tagged as Html;
-use DecodeLabs\Exceptional;
+use df\core;
 
 class AddressSelector extends arch\node\form\Delegate implements
     arch\node\ISelfContainedRenderableDelegate,
@@ -45,7 +44,7 @@ class AddressSelector extends arch\node\form\Delegate implements
 
             default:
                 throw Exceptional::InvalidArgument(
-                    $level.' is not a valid access level'
+                    $level . ' is not a valid access level'
                 );
         }
 
@@ -71,7 +70,7 @@ class AddressSelector extends arch\node\form\Delegate implements
         return $this->_defaultMode;
     }
 
-    public function shouldAutoComplete(bool $flag=null)
+    public function shouldAutoComplete(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_autoComplete = $flag;
@@ -81,7 +80,7 @@ class AddressSelector extends arch\node\form\Delegate implements
         return $this->_autoComplete;
     }
 
-    public function setAddress(apex\models\postal\address\Record $address=null)
+    public function setAddress(apex\models\postal\address\Record $address = null)
     {
         $this->_address = $address;
         return $this;
@@ -92,7 +91,7 @@ class AddressSelector extends arch\node\form\Delegate implements
         return $this->_address;
     }
 
-    public function setCountryList(array $countries=null, $grouped=null)
+    public function setCountryList(array $countries = null, $grouped = null)
     {
         $this->_countryList = $countries;
 
@@ -108,7 +107,7 @@ class AddressSelector extends arch\node\form\Delegate implements
         return $this->_countryList;
     }
 
-    public function isCountryListGrouped(bool $flag=null)
+    public function isCountryListGrouped(bool $flag = null)
     {
         if ($flag !== null) {
             $this->_isCountryListGrouped = $flag;
@@ -161,15 +160,14 @@ class AddressSelector extends arch\node\form\Delegate implements
         if ($this->_state->getStore('mode', 'lookup') == 'lookup') {
             $fa = $fs->addField($this->_('Find post code'))->push(
                 $this->html->textbox(
-                        $this->fieldName('postcodeSearch'),
-                        $this->values->postcodeSearch
-                    )
+                    $this->fieldName('postcodeSearch'),
+                    $this->values->postcodeSearch
+                )
                     ->shouldAutoComplete(false),
-
                 $this->html->eventButton(
-                        $this->eventName('lookupPostcode'),
-                        $this->_('Find')
-                    )
+                    $this->eventName('lookupPostcode'),
+                    $this->_('Find')
+                )
                     ->setIcon('search')
             );
 
@@ -180,9 +178,9 @@ class AddressSelector extends arch\node\form\Delegate implements
 
                 $fa->push(
                     $this->html->eventButton(
-                            $this->eventName('clearSearch'),
-                            $this->_('Clear')
-                        )
+                        $this->eventName('clearSearch'),
+                        $this->_('Clear')
+                    )
                         ->setIcon('remove')
                 );
 
@@ -198,10 +196,10 @@ class AddressSelector extends arch\node\form\Delegate implements
                 } else {
                     $fs->addField($this->_('Select address'))->push(
                         $this->html->select(
-                                $this->fieldName('selectAddress'),
-                                $this->values->selectAddress,
-                                $list
-                            )
+                            $this->fieldName('selectAddress'),
+                            $this->values->selectAddress,
+                            $list
+                        )
                     );
                 }
             } else {
@@ -224,9 +222,9 @@ class AddressSelector extends arch\node\form\Delegate implements
             ) {
                 $fs->addButtonArea(
                     $this->html->eventButton(
-                                $this->eventName('removeAddress'),
-                                $this->_('Remove address')
-                            )
+                        $this->eventName('removeAddress'),
+                        $this->_('Remove address')
+                    )
                             ->setIcon('remove')
                 );
             }

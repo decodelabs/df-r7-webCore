@@ -6,13 +6,13 @@
 
 namespace df\apex\directory\front\avatar\_nodes;
 
-use df\arch;
-use df\aura;
-use df\neon;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\R7\Legacy;
 use DecodeLabs\Typify;
+
+use df\arch;
+use df\aura;
+use df\neon;
 
 class HttpDownload extends arch\node\Base
 {
@@ -45,7 +45,7 @@ class HttpDownload extends arch\node\Base
             $descriptor = new neon\raster\Descriptor($absolutePath, $type);
 
             if (isset($this->request['size'])) {
-                $descriptor->applyTransformation('[rs:'.$size.'|'.$size.']');
+                $descriptor->applyTransformation('[rs:' . $size . '|' . $size . ']');
             }
 
             return Legacy::$http->fileResponse($descriptor->getLocation())
@@ -61,7 +61,7 @@ class HttpDownload extends arch\node\Base
                     $version['isActive'],
                     $version['contentType'],
                     $version['fileName'],
-                    '[cz:'.$size.'|'.$size.']',
+                    '[cz:' . $size . '|' . $size . ']',
                     $version['creationDate']
                 );
             } catch (\Throwable $e) {

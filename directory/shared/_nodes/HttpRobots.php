@@ -5,17 +5,15 @@
  */
 namespace df\apex\directory\shared\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpRobots extends arch\node\Base {
+class HttpRobots extends arch\node\Base
+{
+    public const OPTIMIZE = true;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    const OPTIMIZE = true;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-
-    public function executeAsTxt() {
+    public function executeAsTxt()
+    {
         return $this->apex->view('Robots.txt');
     }
 }

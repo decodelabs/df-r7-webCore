@@ -24,7 +24,7 @@ class HttpEdit extends HttpAdd
     {
         $this->values->importFrom($this->_group, ['name', 'signifier']);
 
-        /** @var SelectorDelegate */
+        /** @var SelectorDelegate $roles */
         $roles = $this['roles'];
         $roles->setSelected($this->_group['#roles']);
     }

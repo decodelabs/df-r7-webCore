@@ -6,14 +6,10 @@
 
 namespace df\apex\directory\admin\users\invites;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Metamorph;
+
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -79,9 +75,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexOperativeLinks(): iterable
     {
         yield 'send' => $this->html->link(
-                $this->getNodeUri('send', [], true),
-                $this->_('Invite user')
-            )
+            $this->getNodeUri('send', [], true),
+            $this->_('Invite user')
+        )
             ->setIcon('add')
             ->addAccessLock('axis://user/Invite#add');
     }
@@ -89,16 +85,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield 'export' => $this->html->link(
-                $this->getNodeUri('export'),
-                $this->_('Export csv')
-            )
+            $this->getNodeUri('export'),
+            $this->_('Export csv')
+        )
             ->setIcon('download')
             ->setDisposition('positive');
 
         yield 'settings' => $this->html->link(
-                $this->uri('../settings', true),
-                $this->_('Settings')
-            )
+            $this->uri('../settings', true),
+            $this->_('Settings')
+        )
             ->setIcon('settings')
             ->setDisposition('operative');
     }
@@ -106,9 +102,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexTransitiveLinks(): iterable
     {
         yield 'inviteRequests' => $this->html->link(
-                '../invite-requests/',
-                $this->_('Invite requests')
-            )
+            '../invite-requests/',
+            $this->_('Invite requests')
+        )
             ->setIcon('key')
             ->setDisposition('transitive');
     }
@@ -155,7 +151,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function defineLinkField($list, $mode)
     {
         $list->addField('link', function ($invite) {
-            return $this->html->link('account/register?invite='.$invite['key']);
+            return $this->html->link('account/register?invite=' . $invite['key']);
         });
     }
 

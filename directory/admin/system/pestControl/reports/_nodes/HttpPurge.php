@@ -6,12 +6,7 @@
 
 namespace df\apex\directory\admin\system\pestControl\reports\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\axis;
-use df\halo;
 
 class HttpPurge extends arch\node\ConfirmForm
 {

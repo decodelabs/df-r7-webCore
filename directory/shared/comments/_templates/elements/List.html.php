@@ -1,6 +1,7 @@
 <?php
-use df\mesh;
+
 use DecodeLabs\Tagged as Html;
+use df\mesh;
 
 $paginator = null;
 
@@ -10,7 +11,7 @@ if ($this->getSlot('paginate', true)) {
 
 echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($comment, $el) {
     $displayAsTree = $this['displayAsTree'];
-    $hash = 'comment-'.$comment->getUniqueId();
+    $hash = 'comment-' . $comment->getUniqueId();
     $el->setId($hash);
     $redir = clone $this->context->request;
     $redir->setFragment($hash);
@@ -19,15 +20,15 @@ echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($com
     yield Html::{'header'}([
         // Avatar
         $this->html->image(
-                $this->avatar->getAvatarUrl($comment['owner']['id'], 50),
-                'avatar'
-            )
+            $this->avatar->getAvatarUrl($comment['owner']['id'], 50),
+            'avatar'
+        )
             ->setStyles('float: left; margin-right: 0.6em;'),
 
         // By
         Html::{'h3'}(
-             $this->apex->component('~admin/users/clients/UserLink', $comment['owner'])
-                ->setIcon(null)
+            $this->apex->component('~admin/users/clients/UserLink', $comment['owner'])
+               ->setIcon(null)
         ),
 
 
@@ -39,16 +40,16 @@ echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($com
             $displayAsTree || !($inReplyTo = $comment['inReplyTo']) ? null :
             $this->html->_(' in reply to %u%', [
                     '%u%' => $this->html->link(
-                    '#'.$inReplyTo->getUniqueId(),
-                    $inReplyTo['owner']['fullName']
-                )
+                        '#' . $inReplyTo->getUniqueId(),
+                        $inReplyTo['owner']['fullName']
+                    )
                 ->setIcon('user')
                 ->setDisposition('transitive')
             ]),
 
             // Hash link
             ' ',
-            $this->html->link('#'.$hash, '#')
+            $this->html->link('#' . $hash, '#')
                 ->setTitle($this->_('Direct link to this comment'))
                 ->setDisposition('transitive')
         ])
@@ -61,22 +62,22 @@ echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($com
     if ($this->getSlot('showFooter', true)) {
         yield Html::{'footer'}([
             $this->html->link(
-                    $this->uri('~/comments/reply?comment='.$comment['id'], $redir),
-                    $this->_('Reply')
-                )
+                $this->uri('~/comments/reply?comment=' . $comment['id'], $redir),
+                $this->_('Reply')
+            )
                 ->setIcon('comment')
                 ->setDisposition('positive'),
 
             $this->html->link(
-                    $this->uri('~/comments/edit?comment='.$comment['id'], $redir),
-                    $this->_('Edit')
-                )
+                $this->uri('~/comments/edit?comment=' . $comment['id'], $redir),
+                $this->_('Edit')
+            )
                 ->setIcon('edit'),
 
             $this->html->link(
-                    $this->uri('~/comments/delete?comment='.$comment['id'], $redir),
-                    $this->_('Delete')
-                )
+                $this->uri('~/comments/delete?comment=' . $comment['id'], $redir),
+                $this->_('Delete')
+            )
                 ->setIcon('delete'),
         ]);
     }
@@ -99,5 +100,5 @@ echo $paginator;
 
 if ($this->getSlot('showForm', false) && isset($entity)) {
     $locator = mesh\entity\Locator::factory($entity);
-    echo $this->apex->form('~/comments/add?entity='.$locator);
+    echo $this->apex->form('~/comments/add?entity=' . $locator);
 }

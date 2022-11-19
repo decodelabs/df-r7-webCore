@@ -1,4 +1,5 @@
 <?php
+
 use DecodeLabs\Tagged as Html;
 
 echo Html::{'main.cookie-settings'}(function () use ($cookieData) {

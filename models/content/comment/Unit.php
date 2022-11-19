@@ -5,22 +5,19 @@
  */
 namespace df\apex\models\content\comment;
 
-use df;
-use df\core;
-use df\apex;
-use df\axis;
-use df\mesh;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
 
+use df\axis;
+use df\mesh;
+
 class Unit extends axis\unit\Table
 {
-    const ORDERABLE_FIELDS = [
+    public const ORDERABLE_FIELDS = [
         'title', 'date', 'owner', 'isLive'
     ];
 
-    const DEFAULT_ORDER = 'date ASC';
+    public const DEFAULT_ORDER = 'date ASC';
 
     protected function createSchema($schema)
     {
@@ -45,7 +42,7 @@ class Unit extends axis\unit\Table
     }
 
 
-    public function postFor($entityLocator, $body, $user=null, $inReplyTo=null, $format='SimpleTags')
+    public function postFor($entityLocator, $body, $user = null, $inReplyTo = null, $format = 'SimpleTags')
     {
         if ($user == null) {
             $user = Disciple::getId();
@@ -65,7 +62,7 @@ class Unit extends axis\unit\Table
         return $this;
     }
 
-    public function countFor($entityLocator, $includeHidden=false)
+    public function countFor($entityLocator, $includeHidden = false)
     {
         $query = $this->select()->where('topic', '=', $this->_normalizeItemLocator($entityLocator));
 

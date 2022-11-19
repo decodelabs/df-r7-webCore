@@ -52,29 +52,25 @@ class HttpMenu extends arch\node\Form
                 // Actions
                 ->addField('actions', function ($menu) {
                     return $this->html->eventButton(
-                            $this->eventName('remove', (string)$menu->getId()),
-                            $this->_('Clear')
-                        )
+                        $this->eventName('remove', (string)$menu->getId()),
+                        $this->_('Clear')
+                    )
                         ->setIcon('delete');
                 }),
-
-
             $this->html->eventButton(
-                    'clear',
-                    $this->_('Clear all')
-                )
+                'clear',
+                $this->_('Clear all')
+            )
                 ->setIcon('delete'),
-
             $this->html->eventButton(
-                    'refresh',
-                    $this->_('Refresh')
-                )
+                'refresh',
+                $this->_('Refresh')
+            )
                 ->setIcon('refresh'),
-
             $this->html->eventButton(
-                    'cancel',
-                    $this->_('Done')
-                )
+                'cancel',
+                $this->_('Done')
+            )
                 ->setIcon('back')
                 ->setDisposition('positive')
         );
@@ -86,9 +82,9 @@ class HttpMenu extends arch\node\Form
             $this->_cache->remove($id);
 
             $this->comms->flashSuccess(
-                    'cache.remove',
-                    $this->_('The menu cache %n% has been successfully been removed', ['%n%' => $id])
-                )
+                'cache.remove',
+                $this->_('The menu cache %n% has been successfully been removed', ['%n%' => $id])
+            )
                 ->setDescription($this->_(
                     'The entry will not show up again here until the cache has been regenerated'
                 ));

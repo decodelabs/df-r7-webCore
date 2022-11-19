@@ -26,7 +26,7 @@ class HttpEdit extends HttpAdd
             'slug', 'name'
         ]);
 
-        /** @var ContentSlot */
+        /** @var ContentSlot $body */
         $body = $this['body'];
         $body->setSlotContent($this->_element['body']);
     }

@@ -6,16 +6,13 @@
 
 namespace df\apex\directory\serverError\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\link;
-use df\aura;
-
 use DecodeLabs\Atlas;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
+
+use df\arch;
+use df\aura;
+use df\link;
 
 class HttpIndex extends arch\node\Base
 {
@@ -33,23 +30,23 @@ class HttpIndex extends arch\node\Base
 
         if (!link\http\response\HeaderCollection::isErrorStatusCode($code)) {
             throw Exceptional::UnexpectedValue(
-                'Invalid status code: '.$code
+                'Invalid status code: ' . $code
             );
         }
 
-        $xCode = substr($code, 0, 2).'x';
+        $xCode = substr($code, 0, 2) . 'x';
 
         $paths = [
-            '~serverError/'.$code.'.html' => 'serverError/_templates/'.$code.'.html.php',
-            '~serverError/'.$xCode.'.html' => 'serverError/_templates/'.$xCode.'.html.php',
-            '~front/error/'.$code.'.html' => 'front/error/_templates/'.$code.'.html.php',
-            '~front/error/'.$xCode.'.html' => 'front/error/_templates/'.$xCode.'.html.php'
+            '~serverError/' . $code . '.html' => 'serverError/_templates/' . $code . '.html.php',
+            '~serverError/' . $xCode . '.html' => 'serverError/_templates/' . $xCode . '.html.php',
+            '~front/error/' . $code . '.html' => 'front/error/_templates/' . $code . '.html.php',
+            '~front/error/' . $xCode . '.html' => 'front/error/_templates/' . $xCode . '.html.php'
         ];
 
         $templatePath = null;
 
         foreach ($paths as $relPath => $path) {
-            $path = Genesis::$hub->getApplicationPath().'/directory/'.$path;
+            $path = Genesis::$hub->getApplicationPath() . '/directory/' . $path;
 
             if (file_exists($path)) {
                 $templatePath = $relPath;
@@ -58,13 +55,13 @@ class HttpIndex extends arch\node\Base
         }
 
         if (!$templatePath) {
-            $templatePath = '~front/error/'.$code.'.html';
+            $templatePath = '~front/error/' . $code . '.html';
         }
 
         try {
             $view = $this->apex->view($templatePath);
         } catch (aura\view\NotFoundException $e) {
-            $templatePath = substr($templatePath, 0, -6).'x.html';
+            $templatePath = substr($templatePath, 0, -6) . 'x.html';
 
             try {
                 $view = $this->apex->view($templatePath);
@@ -87,7 +84,7 @@ class HttpIndex extends arch\node\Base
             ->setTitle($message);
 
         Atlas::createFile(
-            Genesis::$hub->getApplicationPath().'/serverError/'.$code.'.html',
+            Genesis::$hub->getApplicationPath() . '/serverError/' . $code . '.html',
             $view->render()
         );
 

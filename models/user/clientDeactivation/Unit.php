@@ -5,20 +5,18 @@
  */
 namespace df\apex\models\user\clientDeactivation;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
 
-class Unit extends axis\unit\Table {
-
-    const ORDERABLE_FIELDS = [
+class Unit extends axis\unit\Table
+{
+    public const ORDERABLE_FIELDS = [
         'date', 'user'
     ];
 
-    const DEFAULT_ORDER = 'date DESC';
+    public const DEFAULT_ORDER = 'date DESC';
 
-    protected function createSchema($schema) {
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'AutoId');
         $schema->addField('user', 'One', 'client');
         $schema->addField('date', 'Timestamp');

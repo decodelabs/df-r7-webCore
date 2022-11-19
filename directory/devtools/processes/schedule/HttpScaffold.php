@@ -5,35 +5,32 @@
  */
 namespace df\apex\directory\devtools\processes\schedule;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\halo;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+use df\core;
+
+use df\halo;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const TITLE = 'Scheduled tasks';
-    const ICON = 'calendar';
-    const ADAPTER = 'axis://task/Schedule';
-    const NAME_FIELD = 'request';
+    public const TITLE = 'Scheduled tasks';
+    public const ICON = 'calendar';
+    public const ADAPTER = 'axis://task/Schedule';
+    public const NAME_FIELD = 'request';
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         'logs' => 'log'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'request', 'priority', 'creationDate', 'lastRun', 'lastTrigger', 'nextRun',
         'schedule', 'isLive', 'isAuto', 'status'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'id', 'request', 'priority', 'creationDate',
         'lastRun', 'lastRun', 'minute', 'hour', 'day', 'month', 'weekday',
         'isLive', 'isAuto'
@@ -83,9 +80,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         // Launch
         yield 'launch' => $this->html->link(
-                $this->getRecordUri($schedule, 'launch', null, true),
-                $this->_('Launch '.$this->getRecordItemName())
-            )
+            $this->getRecordUri($schedule, 'launch', null, true),
+            $this->_('Launch ' . $this->getRecordItemName())
+        )
             ->setIcon('launch')
             ->setDisposition('positive');
 
@@ -101,26 +98,26 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         $isRunning = $remote->isRunning();
 
         yield 'nudge' => $this->html->link(
-                $this->uri('~devtools/processes/schedule/nudge', true),
-                $isRunning ?
-                    $this->_('Daemon is running') :
-                    $this->_('Launch spool daemon')
-            )
+            $this->uri('~devtools/processes/schedule/nudge', true),
+            $isRunning ?
+                $this->_('Daemon is running') :
+                $this->_('Launch spool daemon')
+        )
             ->setIcon('launch')
             ->setDisposition('positive')
             ->isDisabled($isRunning);
 
         yield 'scan' => $this->html->link(
-                $this->uri('~devtools/processes/schedule/scan', true),
-                $this->_('Scan for tasks')
-            )
+            $this->uri('~devtools/processes/schedule/scan', true),
+            $this->_('Scan for tasks')
+        )
             ->setIcon('search')
             ->setDisposition('operative');
 
         yield 'spool' => $this->html->link(
-                $this->uri('~devtools/processes/queue/spool', true),
-                $this->_('Spool now')
-            )
+            $this->uri('~devtools/processes/queue/spool', true),
+            $this->_('Spool now')
+        )
             ->setIcon('launch')
             ->setDisposition('operative');
     }
@@ -159,10 +156,10 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('schedule', function ($schedule) {
             return
-                $schedule['minute'].' '.
-                $schedule['hour'].' '.
-                $schedule['day'].' '.
-                $schedule['month'].' '.
+                $schedule['minute'] . ' ' .
+                $schedule['hour'] . ' ' .
+                $schedule['day'] . ' ' .
+                $schedule['month'] . ' ' .
                 $schedule['weekday'];
         });
     }

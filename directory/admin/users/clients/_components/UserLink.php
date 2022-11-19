@@ -5,9 +5,6 @@
  */
 namespace df\apex\directory\admin\users\clients\_components;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class UserLink extends arch\component\RecordLink
@@ -18,7 +15,7 @@ class UserLink extends arch\component\RecordLink
 
 
     // Name
-    public function shouldUseNickName(bool $flag=null)
+    public function shouldUseNickName(bool $flag = null)
     {
         if ($flag !== null) {
             $this->useNickName = $flag;
@@ -28,7 +25,7 @@ class UserLink extends arch\component\RecordLink
         return $this->useNickName;
     }
 
-    public function shouldShortenName(bool $flag=null)
+    public function shouldShortenName(bool $flag = null)
     {
         if ($flag !== null) {
             $this->shortenName = $flag;
@@ -49,11 +46,11 @@ class UserLink extends arch\component\RecordLink
         }
 
         if ($this->shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
-            $name = $matches[1].' '.ucfirst($matches[2][0]).'.';
+            $name = $matches[1] . ' ' . ucfirst($matches[2][0]) . '.';
         }
 
         if ($name === null) {
-            $name = '#'.$this->record['id'];
+            $name = '#' . $this->record['id'];
         }
 
         return $name;
@@ -62,6 +59,6 @@ class UserLink extends arch\component\RecordLink
     // Url
     protected function getRecordUri(string $id)
     {
-        return '~admin/users/clients/details?user='.$id;
+        return '~admin/users/clients/details?user=' . $id;
     }
 }

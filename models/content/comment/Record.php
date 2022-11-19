@@ -5,30 +5,29 @@
  */
 namespace df\apex\models\content\comment;
 
-use df\core;
-use df\axis;
 use df\opal;
-use df\user;
 
-class Record extends opal\record\Base {
-
-    public function getUniqueId() {
-        return md5($this['id'].':'.$this['date']->toTimestamp());
+class Record extends opal\record\Base
+{
+    public function getUniqueId()
+    {
+        return md5($this['id'] . ':' . $this['date']->toTimestamp());
     }
 
-    public function getPopulatedTreeReplies($fetchTree=false) {
-        if($this->replies->count()) {
+    public function getPopulatedTreeReplies($fetchTree = false)
+    {
+        if ($this->replies->count()) {
             return $this->replies->toArray();
         }
 
         $output = [];
 
-        if(!$this->getRaw('root')) {
+        if (!$this->getRaw('root')) {
             return $output;
         }
 
-        if(!$this->replyTree->count()) {
-            if(!$fetchTree) {
+        if (!$this->replyTree->count()) {
+            if (!$fetchTree) {
                 return $output;
             }
 
@@ -41,14 +40,14 @@ class Record extends opal\record\Base {
 
         $treeIndex = [(string)$this['id'] => $this];
 
-        foreach($tree as $node) {
+        foreach ($tree as $node) {
             $treeIndex[(string)$node['id']] = $node;
         }
 
-        foreach($treeIndex as $node) {
+        foreach ($treeIndex as $node) {
             $id = (string)$node['#inReplyTo'];
 
-            if(isset($treeIndex[$id])) {
+            if (isset($treeIndex[$id])) {
                 $treeIndex[$id]->replies->populate($node);
             }
         }

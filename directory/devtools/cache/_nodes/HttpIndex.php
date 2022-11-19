@@ -5,16 +5,14 @@
  */
 namespace df\apex\directory\devtools\cache\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpIndex extends arch\node\Base {
+class HttpIndex extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $view = $this->apex->newWidgetView();
         $view->content->push($this->apex->component('~devtools/cache/IndexHeaderBar'));
         $view->content->addBlockMenu('directory://~devtools/cache/Index')

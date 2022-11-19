@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\devtools\models\_nodes;
 
+use DecodeLabs\Exceptional;
+use DecodeLabs\Tagged as Html;
+
 use df\arch;
 use df\axis;
-
-use DecodeLabs\Tagged as Html;
-use DecodeLabs\Exceptional;
 
 class HttpRebuildTable extends arch\node\ConfirmForm
 {
@@ -93,6 +93,6 @@ class HttpRebuildTable extends arch\node\ConfirmForm
 
     protected function apply()
     {
-        return $this->task->initiateStream('axis/rebuild-table?unit='.$this->_inspector->getId());
+        return $this->task->initiateStream('axis/rebuild-table?unit=' . $this->_inspector->getId());
     }
 }

@@ -8,7 +8,7 @@ echo $generator->h4([
 ]);
 
 echo $generator->p($generator->link(
-    $this->uri('account/reset-password?user='.$key['#user'].'&key='.$key['key']),
+    $this->uri('account/reset-password?user=' . $key['#user'] . '&key=' . $key['key']),
     'Please follow this link to update your password.'
 ));
 

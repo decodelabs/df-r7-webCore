@@ -5,29 +5,25 @@
  */
 namespace df\apex\directory\admin\media\files\versions;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'File versions';
-    const ICON = 'list';
-    const ADAPTER = 'axis://media/Version';
+    public const TITLE = 'File versions';
+    public const ICON = 'list';
+    public const ADAPTER = 'axis://media/Version';
 
-    const CAN_ADD = false;
-    const CAN_DELETE = false;
+    public const CAN_ADD = false;
+    public const CAN_DELETE = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'number', 'fileName', 'file', 'fileSize', 'contentType', 'hash',
         'owner', 'purgeDate', 'creationDate'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'number', 'fileName', 'fileSize', 'contentType', 'hash',
         'file', 'owner', 'purgeDate', 'creationDate'
     ];
@@ -95,7 +91,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     protected function getRecordParentUriString(array $version): ?string
     {
-        return '../versions?file='.$this->data->getRelationId($version, 'file');
+        return '../versions?file=' . $this->data->getRelationId($version, 'file');
     }
 
 
@@ -109,13 +105,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         $list->addField('fileName', function ($version) {
             return $this->html->link(
-                    $this->media->getVersionDownloadUrl(
-                        $this->data->getRelationId($version, 'file'),
-                        $version['id'],
-                        $version['isActive']
-                    ),
-                    $version['fileName']
-                )
+                $this->media->getVersionDownloadUrl(
+                    $this->data->getRelationId($version, 'file'),
+                    $version['id'],
+                    $version['isActive']
+                ),
+                $version['fileName']
+            )
                 ->setIcon('download')
                 ->setDisposition('external');
         });

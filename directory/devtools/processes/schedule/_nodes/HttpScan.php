@@ -5,22 +5,20 @@
  */
 namespace df\apex\directory\devtools\processes\schedule\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\halo;
 
-class HttpScan extends arch\node\ConfirmForm {
+class HttpScan extends arch\node\ConfirmForm
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const ITEM_NAME = 'scan';
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const ITEM_NAME = 'scan';
-
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to scan for new tasks now?');
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->push(
             $this->html->checkbox('reset', $this->values->reset, $this->_(
                 'Reset all auto tasks back to original state'
@@ -28,7 +26,8 @@ class HttpScan extends arch\node\ConfirmForm {
         );
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $validator = $this->data->newValidator()
             ->addRequiredField('reset', 'boolean')
             ->validate($this->values);
@@ -36,7 +35,7 @@ class HttpScan extends arch\node\ConfirmForm {
 
         $task = 'tasks/scan';
 
-        if($validator['reset']) {
+        if ($validator['reset']) {
             $task .= '?reset';
         }
 

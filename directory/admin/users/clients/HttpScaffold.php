@@ -6,16 +6,11 @@
 
 namespace df\apex\directory\admin\users\clients;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\user;
-
-use DecodeLabs\Disciple;
 use DecodeLabs\Metamorph;
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
+use df\user;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
@@ -201,9 +196,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->addField('actions', function ($auth) {
                 if ($auth['adapter'] == 'Local') {
                     return $this->html->link(
-                            $this->uri('./change-password?user='.$auth['#user'], true),
-                            $this->_('Change password')
-                        )
+                        $this->uri('./change-password?user=' . $auth['#user'], true),
+                        $this->_('Change password')
+                    )
                         ->setIcon('edit')
                         ->setDisposition('operative');
                 }
@@ -270,9 +265,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield $this->html->link(
-                $this->uri('../settings', true),
-                $this->_('Settings')
-            )
+            $this->uri('../settings', true),
+            $this->_('Settings')
+        )
             ->setIcon('settings')
             ->setDisposition('operative');
     }
@@ -296,9 +291,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     {
         // Change password
         yield 'changePassword' => $this->html->link(
-                $this->uri('./change-password?user='.$this->getRecordId(), true),
-                $this->_('Change password')
-            )
+            $this->uri('./change-password?user=' . $this->getRecordId(), true),
+            $this->_('Change password')
+        )
             ->setIcon('edit')
             ->setDisposition('operative');
     }
@@ -311,9 +306,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateAccessPassesSectionSubOperativeLinks(): iterable
     {
         yield 'add' => $this->html->link(
-                $this->uri('../access-passes/add?user='.$this->getRecordId(), true),
-                $this->_('Add access pass')
-            )
+            $this->uri('../access-passes/add?user=' . $this->getRecordId(), true),
+            $this->_('Add access pass')
+        )
             ->setIcon('add');
     }
 

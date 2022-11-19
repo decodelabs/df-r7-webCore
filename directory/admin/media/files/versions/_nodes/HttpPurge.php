@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\admin\media\files\versions\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpPurge extends arch\node\Form
 {
@@ -32,10 +32,8 @@ class HttpPurge extends arch\node\Form
         $fs = $form->addFieldSet($this->_('Purge'));
 
         $fs->push(
-            Html::raw('<p>'.$this->_('Are you sure you want to purge this version? The data uploaded for this version will be deleted and cannot be restored!').'</p>'),
-
+            Html::raw('<p>' . $this->_('Are you sure you want to purge this version? The data uploaded for this version will be deleted and cannot be restored!') . '</p>'),
             $this->apex->component('VersionDetails', null, $this->_version),
-
             $this->html->yesNoButtonGroup('purge')
         );
     }

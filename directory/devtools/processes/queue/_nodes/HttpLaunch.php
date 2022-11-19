@@ -32,6 +32,6 @@ class HttpLaunch extends arch\node\ConfirmForm
 
     protected function apply()
     {
-        return $this->task->initiateStream('tasks/launch-queued?id='.$this->_task['id']);
+        return $this->task->initiateStream('tasks/launch-queued?id=' . $this->_task['id']);
     }
 }

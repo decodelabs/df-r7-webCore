@@ -5,36 +5,32 @@
  */
 namespace df\apex\directory\devtools\processes\logs;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const TITLE = 'Spool logs';
-    const ICON = 'log';
-    const ADAPTER = 'axis://task/Log';
-    const NAME_FIELD = 'request';
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
+    public const TITLE = 'Spool logs';
+    public const ICON = 'log';
+    public const ADAPTER = 'axis://task/Log';
+    public const NAME_FIELD = 'request';
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'request', 'startDate', 'lastActivity', 'runTime',
         'status', 'environmentMode'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'id', 'request', 'environmentMode', 'startDate', 'runTime',
         'status'
     ];
 
-    const SEARCH_FIELDS = [
+    public const SEARCH_FIELDS = [
         'request' => 10
     ];
 
@@ -66,9 +62,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexOperativeLinks(): iterable
     {
         yield 'deleteAll' => $this->html->link(
-                $this->uri('~devtools/processes/logs/delete-all', true),
-                $this->_('Delete all logs')
-            )
+            $this->uri('~devtools/processes/logs/delete-all', true),
+            $this->_('Delete all logs')
+        )
             ->setIcon('delete');
     }
 

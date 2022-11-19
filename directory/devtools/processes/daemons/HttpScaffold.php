@@ -5,34 +5,32 @@
  */
 namespace df\apex\directory\devtools\processes\daemons;
 
-use df;
-use df\core;
-use df\apex;
+use DecodeLabs\Dictum;
+use DecodeLabs\Tagged as Html;
 use df\arch;
+use df\core;
+
 use df\halo;
 use df\opal;
 
-use DecodeLabs\Dictum;
-use DecodeLabs\Tagged as Html;
-
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-    const TITLE = 'Daemons';
-    const ICON = 'launch';
-    const KEY_NAME = 'daemon';
-    const ID_FIELD = 'name';
-    const NAME_FIELD = 'name';
-    const CAN_ADD = false;
-    const CAN_EDIT = false;
-    const CAN_DELETE = false;
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
+    public const TITLE = 'Daemons';
+    public const ICON = 'launch';
+    public const KEY_NAME = 'daemon';
+    public const ID_FIELD = 'name';
+    public const NAME_FIELD = 'name';
+    public const CAN_ADD = false;
+    public const CAN_EDIT = false;
+    public const CAN_DELETE = false;
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'name', 'state', 'startDate', 'statusDate',
         'pid', 'testMode', 'automatic'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'name', 'state', 'startDate', 'statusDate',
         'pid', 'user', 'group', 'testMode', 'automatic'
     ];
@@ -84,27 +82,27 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         if ($daemon['isRunning']) {
             // Restart
             yield 'restart' => $this->html->link(
-                    $this->uri('~devtools/processes/daemons/restart?daemon='.$daemon['name'], true),
-                    $this->_('Restart daemon')
-                )
+                $this->uri('~devtools/processes/daemons/restart?daemon=' . $daemon['name'], true),
+                $this->_('Restart daemon')
+            )
                 ->setIcon('refresh')
                 ->setDisposition('operative')
                 ->isDisabled(!$this->_enabled);
 
             // Stop
             yield 'stop' => $this->html->link(
-                    $this->uri('~devtools/processes/daemons/stop?daemon='.$daemon['name'], true),
-                    $this->_('Stop daemon')
-                )
+                $this->uri('~devtools/processes/daemons/stop?daemon=' . $daemon['name'], true),
+                $this->_('Stop daemon')
+            )
                 ->setIcon('remove')
                 ->setDisposition('negative')
                 ->isDisabled(!$this->_enabled);
         } else {
             // Start
             yield 'start' => $this->html->link(
-                    $this->uri('~devtools/processes/daemons/start?daemon='.$daemon['name'], true),
-                    $this->_('Start daemon')
-                )
+                $this->uri('~devtools/processes/daemons/start?daemon=' . $daemon['name'], true),
+                $this->_('Start daemon')
+            )
                 ->setIcon('launch')
                 ->setDisposition('positive')
                 ->isDisabled(!$this->_enabled || !$daemon['isEnabled'] || $daemon['testMode']);
@@ -112,9 +110,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
         // Settings
         yield 'settings' => $this->html->link(
-                $this->uri('~devtools/processes/daemons/settings?daemon='.$daemon['name'], true),
-                $this->_('Settings')
-            )
+            $this->uri('~devtools/processes/daemons/settings?daemon=' . $daemon['name'], true),
+            $this->_('Settings')
+        )
             ->setIcon('settings')
             ->setDisposition('operative')
             ->isDisabled(!$this->_enabled || $daemon['testMode']);
@@ -123,9 +121,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     public function generateIndexSubOperativeLinks(): iterable
     {
         yield 'settings' => $this->html->link(
-                $this->uri('~devtools/processes/daemons/settings', true),
-                $this->_('Settings')
-            )
+            $this->uri('~devtools/processes/daemons/settings', true),
+            $this->_('Settings')
+        )
             ->setIcon('settings')
             ->setDisposition('operative');
     }
@@ -139,14 +137,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             switch ($daemon['state']) {
-                case 'running': $class = 'positive'; break;
-                case 'stopped': $class = 'negative'; break;
+                case 'running': $class = 'positive';
+                    break;
+                case 'stopped': $class = 'negative';
+                    break;
                 case 'stopping':
                 case 'paused':
-                default: $class = 'warning'; break;
+                default: $class = 'warning';
+                    break;
             }
 
-            return Html::{'span.'.$class}(Dictum::name($daemon['state']));
+            return Html::{'span.' . $class}(Dictum::name($daemon['state']));
         });
     }
 

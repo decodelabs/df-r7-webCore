@@ -5,11 +5,7 @@
  */
 namespace df\apex\directory\serverError;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\flex;
 
 class HttpRouter extends arch\router\Base
 {
@@ -19,7 +15,7 @@ class HttpRouter extends arch\router\Base
         $node = $request->getRawNode();
         $query = $request->getQuery();
 
-        $output = $this->newRequest('~serverError/index.'.strtolower((string)$type));
+        $output = $this->newRequest('~serverError/index.' . strtolower((string)$type));
         
         $output->query->import([
             'error' => $node
@@ -34,7 +30,7 @@ class HttpRouter extends arch\router\Base
     {
         $query = $request->getQuery();
 
-        return $this->newRequest('~serverError/'.$query['error'])
+        return $this->newRequest('~serverError/' . $query['error'])
             ->setFragment($request->getFragment())
             ->importQuery($query);
     }

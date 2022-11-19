@@ -5,12 +5,9 @@
  */
 namespace df\apex\directory\devtools\models\_components;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class UnitList extends arch\component\CollectionList
 {
@@ -37,7 +34,7 @@ class UnitList extends arch\component\CollectionList
     {
         $list->addField('canonicalId', $this->_('Storage id'), function ($inspector) {
             return Html::{'abbr'}($id = $inspector->getCanonicalId())
-                ->setTitle($inspector->getAdapterConnectionName().'/'.$id);
+                ->setTitle($inspector->getAdapterConnectionName() . '/' . $id);
         });
     }
 
@@ -70,7 +67,7 @@ class UnitList extends arch\component\CollectionList
             $max = $inspector->getDefinedSchemaVersion();
 
             if ($current < $max) {
-                $output = $this->html->icon('warning', $current.' / '.$max)->addClass('warning');
+                $output = $this->html->icon('warning', $current . ' / ' . $max)->addClass('warning');
             } else {
                 $output = $this->html->icon('tick', $current)->addClass('positive');
             }
@@ -87,18 +84,18 @@ class UnitList extends arch\component\CollectionList
                 case 'cache':
                     return [
                         $this->html->link(
-                                $this->uri('~devtools/models/clear-cache?unit='.$inspector->getId(), true),
-                                $this->_('Clear cache')
-                            )
+                            $this->uri('~devtools/models/clear-cache?unit=' . $inspector->getId(), true),
+                            $this->_('Clear cache')
+                        )
                             ->setIcon('delete')
                     ];
 
                 case 'table':
                     return [
                         $this->html->link(
-                                $this->uri('~devtools/models/rebuild-table?unit='.$inspector->getId(), true),
-                                $this->_('Rebuild table')
-                            )
+                            $this->uri('~devtools/models/rebuild-table?unit=' . $inspector->getId(), true),
+                            $this->_('Rebuild table')
+                        )
                             ->setIcon('refresh')
                             ->setDisposition('operative')
                     ];

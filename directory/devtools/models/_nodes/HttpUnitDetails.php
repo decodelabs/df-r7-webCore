@@ -5,17 +5,15 @@
  */
 namespace df\apex\directory\devtools\models\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\axis;
 
-class HttpUnitDetails extends arch\node\Base {
+class HttpUnitDetails extends arch\node\Base
+{
+    public const DEFAULT_ACCESS = arch\IAccess::DEV;
 
-    const DEFAULT_ACCESS = arch\IAccess::DEV;
-
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         $view = $this->apex->view('UnitDetails.html');
 
         $view['unit'] = (new axis\introspector\Probe())

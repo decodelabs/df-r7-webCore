@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\admin\users\invites\_nodes;
 
-use df\arch;
-
 use DecodeLabs\Dictum;
+
 use DecodeLabs\Genesis;
 use DecodeLabs\Tagged as Html;
+use df\arch;
 
 class HttpSend extends arch\node\Form
 {
@@ -49,7 +49,6 @@ class HttpSend extends arch\node\Form
         if ($this->values->email->hasError('inviteExists')) {
             $fa->push(
                 Html::{'br'}(),
-
                 $this->html->checkbox('sendAnyway', $this->values->sendAnyway, $this->_(
                     'Resend invite anyway'
                 ))

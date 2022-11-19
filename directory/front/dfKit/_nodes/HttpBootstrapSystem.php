@@ -6,13 +6,13 @@
 
 namespace df\apex\directory\front\dfKit\_nodes;
 
-use df\arch;
-use df\aura;
-use df\fuse;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
+use df\aura;
+use df\fuse;
 
 class HttpBootstrapSystem extends arch\node\Base
 {
@@ -20,7 +20,7 @@ class HttpBootstrapSystem extends arch\node\Base
 
     public function executeAsJs()
     {
-        $output = Legacy::$http->fileResponse(__DIR__.'/bootstrap.system.js');
+        $output = Legacy::$http->fileResponse(__DIR__ . '/bootstrap.system.js');
         $output->headers
             ->set('Access-Control-Allow-Origin', '*')
             ->setCacheAccess('public')
@@ -86,7 +86,7 @@ class HttpBootstrapSystem extends arch\node\Base
         ];
 
         foreach ($dfKit as $lib) {
-            $paths['df-kit/'.$lib] = '../assets/lib/df-kit/'.$lib.'.js?cts='.$cts;
+            $paths['df-kit/' . $lib] = '../assets/lib/df-kit/' . $lib . '.js?cts=' . $cts;
         }
 
         foreach ($dependencies as $key => $dependency) {
@@ -94,12 +94,12 @@ class HttpBootstrapSystem extends arch\node\Base
                 continue;
             }
 
-            $paths['{'.$dependency->id.'}/'] = '../assets/vendor/'.$dependency->installName.'/';
+            $paths['{' . $dependency->id . '}/'] = '../assets/vendor/' . $dependency->installName . '/';
 
             if (!empty($dependency->js)) {
                 $js = $dependency->js;
                 $main = array_shift($js);
-                $paths[$dependency->id] = '../assets/vendor/'.$dependency->installName.'/'.$main;
+                $paths[$dependency->id] = '../assets/vendor/' . $dependency->installName . '/' . $main;
             }
         }
 

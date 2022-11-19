@@ -28,27 +28,27 @@ class RegisterLocal extends RegisterBase
         // Name
         $fs->addField($this->_('Your full name'))->push(
             $this->html->textbox(
-                    $this->fieldName('fullName'),
-                    $this->values->fullName
-                )
+                $this->fieldName('fullName'),
+                $this->values->fullName
+            )
                 ->isRequired(true)
         );
 
         // Email
         $fs->addField($this->_('Email address'))->push(
             $this->html->emailTextbox(
-                    $this->fieldName('email'),
-                    $this->values->email
-                )
+                $this->fieldName('email'),
+                $this->values->email
+            )
                 ->isRequired(true)
         );
 
         // Password
         $fs->addField($this->_('Password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('password'),
-                    $this->values->password
-                )
+                $this->fieldName('password'),
+                $this->values->password
+            )
                 ->shouldAutoComplete(false)
                 ->isRequired(true)
         );
@@ -56,9 +56,9 @@ class RegisterLocal extends RegisterBase
         // Confirm password
         $fs->addField($this->_('Confirm password'))->push(
             $this->html->passwordTextbox(
-                    $this->fieldName('confirmPassword'),
-                    $this->values->confirmPassword
-                )
+                $this->fieldName('confirmPassword'),
+                $this->values->confirmPassword
+            )
                 ->shouldAutoComplete(false)
                 ->isRequired(true)
         );
@@ -71,11 +71,10 @@ class RegisterLocal extends RegisterBase
         // Buttons
         $fs->addButtonArea(
             $this->html->eventButton(
-                    $this->eventName('register'),
-                    $this->_('Create account')
-                )
+                $this->eventName('register'),
+                $this->_('Create account')
+            )
                 ->setIcon('accept'),
-
             $this->html->cancelEventButton()
         );
     }

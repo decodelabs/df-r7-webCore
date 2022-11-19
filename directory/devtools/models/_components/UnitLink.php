@@ -5,9 +5,6 @@
  */
 namespace df\apex\directory\devtools\models\_components;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
 class UnitLink extends arch\component\RecordLink
@@ -18,7 +15,7 @@ class UnitLink extends arch\component\RecordLink
     // Url
     protected function getRecordUri(string $id)
     {
-        return '~devtools/models/unit-details?unit='.$id;
+        return '~devtools/models/unit-details?unit=' . $id;
     }
 
     protected function getRecordId(): string
