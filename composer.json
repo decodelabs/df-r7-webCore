@@ -15,10 +15,6 @@
         "df-r7/base": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9",
-        "phpstan/phpstan": "1.8.x-dev",
-        "phpstan/extension-installer": "^1.0",
-
         "decodelabs/phpstan-decodelabs": "^0.6",
         "symplify/easy-coding-standard": "^11.1"
     },
@@ -45,11 +41,6 @@
                 "models",
                 "provider"
             ]
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "phpstan/extension-installer": true
         }
     },
     "minimum-stability": "dev",

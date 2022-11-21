@@ -91,7 +91,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             }
 
             return $this->_getMessagePart($part, $partIds);
-        } elseif (empty($partIds)) {
+        } else {
             if (!$part instanceof flow\mime\IContentPart) {
                 return null;
             }
