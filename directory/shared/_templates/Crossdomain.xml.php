@@ -18,7 +18,7 @@
 -->
 <!--
   If you host a crossdomain.xml file with allow-access-from domain="*"
-  and don’t understand all of the points described here, you probably
+  and don't understand all of the points described here, you probably
   have a nasty security vulnerability. ~ simon willison
 -->
 
