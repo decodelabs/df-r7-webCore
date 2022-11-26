@@ -11,13 +11,91 @@
     text-decoration: none !important;
     list-style-type: disc !important;
 
-    &, h1, h2, h3, h4, h5, h6, p, td, dl, tr, dt, ol, form, select, option, pre, div,
-    table, th, tbody, tfoot, caption, thead, ul, li, address, blockquote, dd, fieldset,
-    li, iframe, strong, legend, em, summary, cite, span, input, sup, label, dfn, object,
-    big, q, samp, acronym, small, img, strike, code, sub, ins, textarea,
-    article, aside, figure, figcaption, footer, header, menu, nav, section, time,
-    mark, audio, video, abbr, address, area, blockquote, canvas, caption, cite, code, colgroup,
-    col, datalist, fieldset, main, map, meta, optgroup, output, progress {
+    &,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    td,
+    dl,
+    tr,
+    dt,
+    ol,
+    form,
+    select,
+    option,
+    pre,
+    div,
+    table,
+    th,
+    tbody,
+    tfoot,
+    caption,
+    thead,
+    ul,
+    li,
+    address,
+    blockquote,
+    dd,
+    fieldset,
+    li,
+    iframe,
+    strong,
+    legend,
+    em,
+    summary,
+    cite,
+    span,
+    input,
+    sup,
+    label,
+    dfn,
+    object,
+    big,
+    q,
+    samp,
+    acronym,
+    small,
+    img,
+    strike,
+    code,
+    sub,
+    ins,
+    textarea,
+    article,
+    aside,
+    figure,
+    figcaption,
+    footer,
+    header,
+    menu,
+    nav,
+    section,
+    time,
+    mark,
+    audio,
+    video,
+    abbr,
+    address,
+    area,
+    blockquote,
+    canvas,
+    caption,
+    cite,
+    code,
+    colgroup,
+    col,
+    datalist,
+    fieldset,
+    main,
+    map,
+    meta,
+    optgroup,
+    output,
+    progress {
         background-attachment: scroll;
         background-image: none;
         background-repeat: repeat;
@@ -37,17 +115,17 @@
         direction: inherit;
         display: inline;
         float: none;
-        font-family:  inherit;
-        font-size:  inherit;
+        font-family: inherit;
+        font-size: inherit;
         font-style: inherit;
         font-variant: normal;
         font-weight: inherit;
         left: auto;
         letter-spacing: normal;
         line-height: inherit;
-        list-style-type:  inherit;
-        list-style-position:  outside;
-        list-style-image:  none;
+        list-style-type: inherit;
+        list-style-position: outside;
+        list-style-image: none;
         margin: 0;
         max-height: none;
         max-width: none;
@@ -58,7 +136,7 @@
         overflow: visible;
         padding: 0;
         position: static;
-        quotes:  "" "";
+        quotes: "" "";
         right: auto;
         table-layout: auto;
         text-decoration: inherit;
@@ -147,7 +225,6 @@
         transform-style: flat;
         word-break: normal;
 
-
         &:not([width]) {
             width: auto;
         }
@@ -165,32 +242,73 @@
         }
     }
 
-
-    &, h3, h5, p, h1, dl, dt, h6, ol, form, option, pre, div, h2, caption, h4, ul, address, blockquote, dd, fieldset, hr,
-    article, dialog, figure, footer, header, hgroup, menu, nav, section, audio, video, address, blockquote, colgroup, main, progress, summary {
+    &,
+    h3,
+    h5,
+    p,
+    h1,
+    dl,
+    dt,
+    h6,
+    ol,
+    form,
+    option,
+    pre,
+    div,
+    h2,
+    caption,
+    h4,
+    ul,
+    address,
+    blockquote,
+    dd,
+    fieldset,
+    hr,
+    article,
+    dialog,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section,
+    audio,
+    video,
+    address,
+    blockquote,
+    colgroup,
+    main,
+    progress,
+    summary {
         display: block;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-weight: bold;
     }
     h1 {
         font-size: 2em;
-        padding: .67em 0;
+        padding: 0.67em 0;
     }
     h2 {
         font-size: 1.5em;
-        padding: .83em 0;
+        padding: 0.83em 0;
     }
     h3 {
         font-size: 1.17em;
-        padding: .83em 0;
+        padding: 0.83em 0;
     }
     h4 {
         font-size: 1em;
     }
     h5 {
-        font-size: .83em;
+        font-size: 0.83em;
     }
     p {
         margin: 1em 0;
@@ -212,42 +330,86 @@
     tr {
         display: table-row;
     }
-    th, td {
+    th,
+    td {
         display: table-cell;
         //padding: 2px;
     }
 
-    ol, ul {
+    ol,
+    ul {
         margin: 1em 0;
     }
-    ul li, ul ul li, ul ul ul li, ol li, ol ol li, ol ol ol li, ul ol ol li, ul ul ol li, ol ul ul li, ol ol ul li {
+    ul li,
+    ul ul li,
+    ul ul ul li,
+    ol li,
+    ol ol li,
+    ol ol ol li,
+    ul ol ol li,
+    ul ul ol li,
+    ol ul ul li,
+    ol ol ul li {
         list-style-position: inside;
-        margin-top: .08em;
+        margin-top: 0.08em;
     }
-    ol ol, ol ol ol, ul ul, ul ul ul, ol ul, ol ul ul, ol ol ul, ul ol, ul ol ol, ul ul ol {
+    ol ol,
+    ol ol ol,
+    ul ul,
+    ul ul ul,
+    ol ul,
+    ol ul ul,
+    ol ol ul,
+    ul ol,
+    ul ol ol,
+    ul ul ol {
         padding-left: 40px;
         margin: 0;
     }
-    nav ul, nav ol {
+    nav ul,
+    nav ol {
         list-style-type: none;
     }
-    ul, menu {
+    ul,
+    menu {
         list-style-type: disc;
     }
     ol {
         list-style-type: decimal;
     }
-    ol ul, ul ul, menu ul, ol menu, ul menu, menu menu {
+    ol ul,
+    ul ul,
+    menu ul,
+    ol menu,
+    ul menu,
+    menu menu {
         list-style-type: circle;
     }
-    ol ol ul, ol ul ul, ol menu ul, ol ol menu, ol ul menu, ol menu menu, ul ol ul, ul ul ul, ul menu ul, ul ol menu, ul ul menu, ul menu menu, menu ol ul, menu ul ul, menu menu ul, menu ol menu, menu ul menu, menu menu menu {
+    ol ol ul,
+    ol ul ul,
+    ol menu ul,
+    ol ol menu,
+    ol ul menu,
+    ol menu menu,
+    ul ol ul,
+    ul ul ul,
+    ul menu ul,
+    ul ol menu,
+    ul ul menu,
+    ul menu menu,
+    menu ol ul,
+    menu ul ul,
+    menu menu ul,
+    menu ol menu,
+    menu ul menu,
+    menu menu menu {
         list-style-type: square;
     }
     li {
         display: list-item;
         min-height: auto;
         min-width: auto;
-        padding-left:  20px;
+        padding-left: 20px;
     }
     strong {
         font-weight: bold;
@@ -255,8 +417,11 @@
     em {
         font-style: italic;
     }
-    kbd, samp, code, pre {
-      font-family: monospace;
+    kbd,
+    samp,
+    code,
+    pre {
+        font-family: monospace;
     }
     a {
         color: blue;
@@ -265,13 +430,16 @@
     a:visited {
         color: #529;
     }
-    a, a *,
-    input[type='submit'],
-    input[type='radio'],
-    input[type='checkbox'], select {
+    a,
+    a *,
+    input[type="submit"],
+    input[type="radio"],
+    input[type="checkbox"],
+    select {
         cursor: pointer;
     }
-    button, input[type='submit'] {
+    button,
+    input[type="submit"] {
         text-align: center;
         padding: 2px 6px 3px;
         border-radius: 4px;
@@ -284,24 +452,62 @@
         border: 1px #a6a6a6 solid;
         background: lightgrey;
         background: rgb(255, 255, 255);
-        background: -moz-linear-gradient(top,  rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(221, 221, 221, 1)), color-stop(100%, rgba(209, 209, 209, 1)), color-stop(100%, rgba(221, 221, 221, 1))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* IE10+ */
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100%, rgba(209, 209, 209, 1) 100%, rgba(221, 221, 221, 1) 100%); /* W3C */
+        background: -moz-linear-gradient(
+            top,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(221, 221, 221, 1) 100%,
+            rgba(209, 209, 209, 1) 100%,
+            rgba(221, 221, 221, 1) 100%
+        ); /* FF3.6+ */
+        background: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            color-stop(0%, rgba(255, 255, 255, 1)),
+            color-stop(100%, rgba(221, 221, 221, 1)),
+            color-stop(100%, rgba(209, 209, 209, 1)),
+            color-stop(100%, rgba(221, 221, 221, 1))
+        ); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(
+            top,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(221, 221, 221, 1) 100%,
+            rgba(209, 209, 209, 1) 100%,
+            rgba(221, 221, 221, 1) 100%
+        ); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(
+            top,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(221, 221, 221, 1) 100%,
+            rgba(209, 209, 209, 1) 100%,
+            rgba(221, 221, 221, 1) 100%
+        ); /* Opera 11.10+ */
+        background: -ms-linear-gradient(
+            top,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(221, 221, 221, 1) 100%,
+            rgba(209, 209, 209, 1) 100%,
+            rgba(221, 221, 221, 1) 100%
+        ); /* IE10+ */
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(221, 221, 221, 1) 100%,
+            rgba(209, 209, 209, 1) 100%,
+            rgba(221, 221, 221, 1) 100%
+        ); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
         -webkit-box-shadow: 1px 1px 0px #eee;
-           -moz-box-shadow: 1px 1px 0px #eee;
-             -o-box-shadow: 1px 1px 0px #eee;
-                box-shadow: 1px 1px 0px #eee;
+        -moz-box-shadow: 1px 1px 0px #eee;
+        -o-box-shadow: 1px 1px 0px #eee;
+        box-shadow: 1px 1px 0px #eee;
         outline: initial;
     }
     button {
         padding: 1px 6px 2px;
         margin-right: 5px;
     }
-    input[type='hidden'] {
+    input[type="hidden"] {
         display: none;
     }
 
@@ -319,7 +525,9 @@
         overflow: auto;
         vertical-align: top;
     }
-    select, textarea, input {
+    select,
+    textarea,
+    input {
         border: 1px solid #ccc;
     }
     select {
@@ -327,36 +535,78 @@
         font-family: helvetica, arial, sans-serif;
         display: inline-block;
     }
-    textarea:focus, input:focus {
+    textarea:focus,
+    input:focus {
         outline: auto 5px -webkit-focus-ring-color;
         outline: initial;
     }
-    input[type='text'] {
+    input[type="text"] {
         background: white;
         padding: 1px;
         font-family: initial;
         font-size: small;
     }
-    input[type='checkbox'],
-    input[type='radio'] {
+    input[type="checkbox"],
+    input[type="radio"] {
         border: 1px #2b2b2b solid;
         border-radius: 4px;
         outline: intial;
     }
-    input[type='radio'] {
+    input[type="radio"] {
         margin: 2px 2px 3px;
     }
-    input[type='submit']:active, button:active {
+    input[type="submit"]:active,
+    button:active {
         background: rgb(59, 103, 158); /* Old browsers */
-        background: -moz-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(59, 103, 158, 1)), color-stop(50%, rgba(43, 136, 217, 1)), color-stop(51%, rgba(32, 124, 202, 1)), color-stop(100%, rgba(125, 185, 232, 1))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* IE10+ */
-        background: linear-gradient(to bottom, rgba(59, 103, 158, 1) 0%, rgba(43, 136, 217, 1) 50%, rgba(32, 124, 202, 1) 51%, rgba(125, 185, 232, 1) 100%); /* W3C */
+        background: -moz-linear-gradient(
+            top,
+            rgba(59, 103, 158, 1) 0%,
+            rgba(43, 136, 217, 1) 50%,
+            rgba(32, 124, 202, 1) 51%,
+            rgba(125, 185, 232, 1) 100%
+        ); /* FF3.6+ */
+        background: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            color-stop(0%, rgba(59, 103, 158, 1)),
+            color-stop(50%, rgba(43, 136, 217, 1)),
+            color-stop(51%, rgba(32, 124, 202, 1)),
+            color-stop(100%, rgba(125, 185, 232, 1))
+        ); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(
+            top,
+            rgba(59, 103, 158, 1) 0%,
+            rgba(43, 136, 217, 1) 50%,
+            rgba(32, 124, 202, 1) 51%,
+            rgba(125, 185, 232, 1) 100%
+        ); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(
+            top,
+            rgba(59, 103, 158, 1) 0%,
+            rgba(43, 136, 217, 1) 50%,
+            rgba(32, 124, 202, 1) 51%,
+            rgba(125, 185, 232, 1) 100%
+        ); /* Opera 11.10+ */
+        background: -ms-linear-gradient(
+            top,
+            rgba(59, 103, 158, 1) 0%,
+            rgba(43, 136, 217, 1) 50%,
+            rgba(32, 124, 202, 1) 51%,
+            rgba(125, 185, 232, 1) 100%
+        ); /* IE10+ */
+        background: linear-gradient(
+            to bottom,
+            rgba(59, 103, 158, 1) 0%,
+            rgba(43, 136, 217, 1) 50%,
+            rgba(32, 124, 202, 1) 51%,
+            rgba(125, 185, 232, 1) 100%
+        ); /* W3C */
         border-color: #5259b0;
     }
-    abbr[title], acronym[title], dfn[title] {
+    abbr[title],
+    acronym[title],
+    dfn[title] {
         cursor: help;
         border-bottom-width: 1px;
         border-bottom-style: dotted;
@@ -368,13 +618,20 @@
     del {
         text-decoration: line-through;
     }
-    blockquote, q  {
+    blockquote,
+    q {
         quotes: none;
     }
-    blockquote:before, blockquote:after, q:before, q:after, li:before, li:after  {
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after,
+    li:before,
+    li:after {
         content: "";
     }
-    input, select {
+    input,
+    select {
         vertical-align: middle;
     }
 
@@ -385,7 +642,7 @@
         border-top: 1px solid #ccc;
         margin: 1em 0;
     }
-    *[dir='rtl'] {
+    *[dir="rtl"] {
         direction: rtl;
     }
     mark {
@@ -399,7 +656,6 @@
         padding-top: 8px;
     }
 
-
     [hidden],
     template {
         display: none;
@@ -407,7 +663,8 @@
     abbr[title] {
         border-bottom: 1px dotted;
     }
-    sub, sup {
+    sub,
+    sup {
         font-size: 75%;
         line-height: 0;
         position: relative;

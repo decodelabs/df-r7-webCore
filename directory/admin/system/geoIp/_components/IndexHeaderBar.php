@@ -29,7 +29,7 @@ class IndexHeaderBar extends arch\component\HeaderBar
                 ->setIcon('delete')
         );
     }
-    */
+     */
 
     protected function addSectionLinks(MenuWidget $menu): void
     {

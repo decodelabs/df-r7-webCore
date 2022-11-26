@@ -28,7 +28,7 @@ echo Html::list($commentList, 'ol.w.articleList', 'li > article', function ($com
         // By
         Html::{'h3'}(
             $this->apex->component('~admin/users/clients/UserLink', $comment['owner'])
-               ->setIcon(null)
+                ->setIcon(null)
         ),
 
 

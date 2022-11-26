@@ -16,7 +16,7 @@ class HttpRouter extends arch\router\Base
         $query = $request->getQuery();
 
         $output = $this->newRequest('~serverError/index.' . strtolower((string)$type));
-        
+
         $output->query->import([
             'error' => $node
         ]);

@@ -35,7 +35,7 @@ class HttpJoinSession extends arch\node\Base
                 'http' => 403
             ]);
         }
-        */
+         */
 
         if (!$key['sessionId']) {
             $key['sessionId'] = $this->user->session->descriptor->id;

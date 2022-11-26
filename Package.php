@@ -8,6 +8,6 @@ namespace df\apex\packages\webCore;
 use df\core;
 
 class Package extends core\Package {
-    
+
     const PRIORITY = 1;
 }

@@ -15,13 +15,13 @@ class HttpRouter implements arch\IRouter
         $path->shift();
 
         $query = $request->getQuery();
-        
+
         $request->setPath('assets/download');
         $query->file = (string)$path;
 
         return $request;
     }
-    
+
     public function routeOut(arch\IRequest $request)
     {
         $path = $request->getPath();
@@ -30,10 +30,10 @@ class HttpRouter implements arch\IRouter
         if (!isset($query['file'])) {
             return false;
         }
-        
+
         $path->set(-1, $query->get('file'));
         $query->remove('file');
-        
+
         return $request;
     }
 }

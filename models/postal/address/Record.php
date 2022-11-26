@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\models\postal\address;
 
 use df\opal;
@@ -89,16 +90,18 @@ class Record extends opal\record\Base implements user\IPostalAddress
             return true;
         }
 
-        $current = $this['street1'] . $this['street2'] . $this['street3'] . $this['city'] .
-                   $this['county'] . $this['postcode'] . $this['country'];
+        $current =
+            $this['street1'] . $this['street2'] . $this['street3'] . $this['city'] .
+            $this['county'] . $this['postcode'] . $this['country'];
 
-        $original = $this->getOriginal('street1') .
-                    $this->getOriginal('street2') .
-                    $this->getOriginal('street3') .
-                    $this->getOriginal('city') .
-                    $this->getOriginal('county') .
-                    $this->getOriginal('postcode') .
-                    $this->getOriginal('country');
+        $original =
+            $this->getOriginal('street1') .
+            $this->getOriginal('street2') .
+            $this->getOriginal('street3') .
+            $this->getOriginal('city') .
+            $this->getOriginal('county') .
+            $this->getOriginal('postcode') .
+            $this->getOriginal('country');
 
         if (levenshtein($current, $original) > 10) {
             return true;

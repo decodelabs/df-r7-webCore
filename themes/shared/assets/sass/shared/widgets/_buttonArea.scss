@@ -1,4 +1,4 @@
-@import '../global/_forms.scss';
+@import "../global/_forms.scss";
 
 div.w.button-area {
     font-size: 1rem;
@@ -41,8 +41,9 @@ div.w.button-area {
             direction: ltr;
         }
     }
-    
-    &.right, [dir="rtl"] & {
+
+    &.right,
+    [dir="rtl"] & {
         > button {
             margin-right: 0;
             margin-left: 0.7em;
@@ -55,8 +56,6 @@ div.w.button-area {
         }
     }
 
-
-
     // Floated
     @media only screen and (min-width: $form-float-threshold) {
         .floated form > fieldset > .body > &,
@@ -67,7 +66,7 @@ div.w.button-area {
         &.floated {
             &:before {
                 /* IE8 hack to ensure buttons are floated */
-                content: '---';
+                content: "---";
                 display: block;
                 float: left;
                 color: transparent !important;

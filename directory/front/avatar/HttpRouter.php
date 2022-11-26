@@ -29,7 +29,7 @@ class HttpRouter implements arch\IRouter
 
         return $request;
     }
-    
+
     public function routeOut(arch\IRequest $request)
     {
         $path = $request->getPath();
@@ -47,7 +47,7 @@ class HttpRouter implements arch\IRouter
 
         $path->setFilename($fileName);
         unset($query['user'], $query['size'], $query['type']);
-        
+
         return $request;
     }
 }

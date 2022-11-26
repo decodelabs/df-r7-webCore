@@ -87,7 +87,7 @@ class HttpLostPassword extends arch\node\Form
                 })
 
             ->validate($this->values);
-        
+
 
         if ($client) {
             /*
@@ -101,7 +101,7 @@ class HttpLostPassword extends arch\node\Form
                     'The account this email address is associated with does not use passwords'
                 ));
             }
-            */
+             */
 
             $count = $this->data->user->passwordResetKey->select()
                 ->where('user', '=', $client)
