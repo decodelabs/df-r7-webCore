@@ -46,5 +46,9 @@ class Zest implements arch\IDirectoryHelper
         foreach ($manifest->getBodyJsData() as $file => $tag) {
             $this->view->linkFootJs($file, null, $tag);
         }
+
+        if ($manifest->isHot()) {
+            $this->view->bodyTag->addClass('zest-dev preload');
+        }
     }
 }
