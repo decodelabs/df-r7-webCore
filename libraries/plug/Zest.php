@@ -35,16 +35,24 @@ class Zest implements arch\IDirectoryHelper
             Genesis::$hub->getApplicationPath() . '/themes/' . $theme . '/assets/manifest.json'
         );
 
+        $cts = Genesis::$build->getCacheBuster();
+
         foreach ($manifest->getCssData() as $file => $tag) {
-            $this->view->linkCss($file, null, $tag);
+            $url = $this->view->uri($file);
+            $url->query->cts = $cts;
+            $this->view->linkCss($url, null, $tag);
         }
 
         foreach ($manifest->getHeadJsData() as $file => $tag) {
-            $this->view->linkJs($file, null, $tag);
+            $url = $this->view->uri($file);
+            $url->query->cts = $cts;
+            $this->view->linkJs($url, null, $tag);
         }
 
         foreach ($manifest->getBodyJsData() as $file => $tag) {
-            $this->view->linkFootJs($file, null, $tag);
+            $url = $this->view->uri($file);
+            $url->query->cts = $cts;
+            $this->view->linkFootJs($url, null, $tag);
         }
 
         if ($manifest->isHot()) {
