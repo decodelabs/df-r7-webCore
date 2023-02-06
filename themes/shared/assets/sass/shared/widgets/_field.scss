@@ -1,5 +1,5 @@
-@import '../global/_forms.scss';
-@import '../global/_clearfix.scss';
+@import "../global/_forms.scss";
+@import "../global/_clearfix.scss";
 
 %innerLabelWidget {
     text-align: left;
@@ -25,13 +25,11 @@ div.w.field {
         outline: 2px yellow solid;
     }
 
-
     // Label area
     > div.w.list.labels {
         font-size: 1rem;
         margin-bottom: 0.4rem;
         box-sizing: border-box;
-
 
         > label {
             display: block;
@@ -52,19 +50,16 @@ div.w.field {
 
     &.required > div.w.list.labels {
         > label.w:after {
-            content: ' *';
-            color: #CC0000;
+            content: " *";
+            color: #cc0000;
         }
     }
-
 
     // Error list
     > div.w.list.errors {
         margin-bottom: 0.2rem;
         box-sizing: border-box;
     }
-
-
 
     // Inputs
     > div.w.list.inputs {
@@ -95,9 +90,6 @@ div.w.field {
         }
     }
 
-
-
-
     // Floated
     @media only screen and (min-width: $form-float-threshold) {
         .floated form > fieldset > .body > &:not(.stacked),
@@ -118,12 +110,11 @@ div.w.field {
                 padding-bottom: 0;
             }
 
-
             // Error floater
             &.error:before {
                 display: block;
                 order: -2;
-                content: ' ';
+                content: " ";
                 height: 1px;
 
                 width: $form-label-width;
@@ -134,10 +125,8 @@ div.w.field {
                 max-width: 40%;
                 padding-right: 1rem;
                 box-sizing: border-box;
-                display: box;
                 position: relative;
             }
-
 
             // Labels
             > div.w.list.labels {
@@ -151,7 +140,6 @@ div.w.field {
                 height: auto;
             }
 
-
             // Error list
             > div.w.list.errors {
                 order: -1;
@@ -159,7 +147,6 @@ div.w.field {
                 width: calc(100% - #{$form-label-width});
                 min-width: 60%;
             }
-
 
             // Inputs
             > div.w.list.inputs {
