@@ -1,100 +1,103 @@
-$gold: #E7D240 !default;
+$gold: #e7d240 !default;
 
 $icon-font-family: Icomoon !default;
 $icon-shadow: false !default;
+$font-dir: "../fonts" !default;
 
-@include exports("global/_icons") { @if $icon-font-family != false {
-    @font-face {
-        font-family: $icon-font-family;
-        src: url('../fonts/' + $icon-font-family + '.eot?cts=');
-        src: url('../fonts/' + $icon-font-family + '.eot?cts=#iefix') format('embedded-opentype'),
-            url('../fonts/' + $icon-font-family + '.svg?cts=#' + $icon-font-family) format('svg'),
-            url('../fonts/' + $icon-font-family + '.woff?cts=') format('woff'),
-            url('../fonts/' + $icon-font-family + '.ttf?cts=') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    span[data-icon] {
-        margin: 0.2em;
-        text-decoration: none !important;
-        font-style: normal !important;
-
-        &:before {
+@include exports("global/_icons") {
+    @if $icon-font-family != false {
+        @font-face {
             font-family: $icon-font-family;
-            content: attr(data-icon);
-            speak: none;
-            color: inherit;
-
-            @if $icon-shadow != false {
-                text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
-            }
-
-            font-size: 0.9em;
-            padding-right: 0.8em;
-            vertical-align: baseline;
+            src: url($font-dir + "/" + $icon-font-family + ".eot?cts=");
+            src: url($font-dir + "/" + $icon-font-family + ".eot?cts=#iefix") format("embedded-opentype"),
+                url($font-dir + "/" + $icon-font-family + ".svg?cts=#" + $icon-font-family) format("svg"),
+                url($font-dir + "/" + $icon-font-family + ".woff?cts=") format("woff"),
+                url($font-dir + "/" + $icon-font-family + ".ttf?cts=") format("truetype");
+            font-weight: normal;
+            font-style: normal;
         }
 
-        &:empty:before {
-            padding-right: 0.4em;
-        }
-
-        &.star:before {
-            color: $gold;
-            text-shadow: none;
-        }
-    }
-
-    a span[data-icon] {
-        line-height: 1;
-        display: inline-block;
-        text-decoration: none !important;
-    }
-
-    .iconOnly {
-        width: 1.2em !important;
-        font-size: 1.2em;
-        overflow: hidden;
-        visibility: collapse;
-        padding: 0;
-        line-height: 1;
-        border: none;
-        white-space: nowrap;
-        display: inline-block;
-        box-sizing: border-box;
-
-        > span[data-icon] {
-            margin: 0 0 -0.1em;
-            padding: 0;
-            visibility: visible;
-            line-height: 1;
-            color: inherit;
-            width: 1.2em;
-            text-align: center;
+        span[data-icon] {
+            margin: 0.2em;
+            text-decoration: none !important;
+            font-style: normal !important;
 
             &:before {
-                display: inline-block;
-                padding-top: 0.1em;
+                font-family: $icon-font-family;
+                content: attr(data-icon);
+                speak: none;
+                color: inherit;
+
+                @if $icon-shadow != false {
+                    text-shadow: 0.02em 0.02em 0.02em #fff, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
+                }
+
+                font-size: 0.9em;
+                padding-right: 0.8em;
+                vertical-align: baseline;
+            }
+
+            &:empty:before {
+                padding-right: 0.4em;
+            }
+
+            &.star:before {
+                color: $gold;
+                text-shadow: none;
+            }
+        }
+
+        a span[data-icon] {
+            line-height: 1;
+            display: inline-block;
+            text-decoration: none !important;
+        }
+
+        .iconOnly {
+            width: 1.2em !important;
+            font-size: 1.2em;
+            overflow: hidden;
+            visibility: collapse;
+            padding: 0;
+            line-height: 1;
+            border: none;
+            white-space: nowrap;
+            display: inline-block;
+            box-sizing: border-box;
+
+            > span[data-icon] {
+                margin: 0 0 -0.1em;
+                padding: 0;
+                visibility: visible;
+                line-height: 1;
+                color: inherit;
+                width: 1.2em;
+                text-align: center;
+
+                &:before {
+                    display: inline-block;
+                    padding-top: 0.1em;
+                    padding-right: 0;
+                }
+            }
+        }
+
+        @if $icon-shadow != false {
+            a:hover span[data-icon]:before {
+                text-shadow: 0.02em 0.02em 0.02em #fff, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        [dir="rtl"] span[data-icon] {
+            &:before {
+                padding-left: 0.8em;
+                padding-right: 0;
+            }
+
+            &:empty:before {
+                padding-left: 0.4em;
                 padding-right: 0;
             }
         }
     }
-
-    @if $icon-shadow != false {
-        a:hover span[data-icon]:before {
-            text-shadow: 0.02em 0.02em 0.02em #FFF, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
-        }
-    }
-
-    [dir="rtl"] span[data-icon] {
-        &:before {
-            padding-left: 0.8em;
-            padding-right: 0;
-        }
-
-        &:empty:before {
-            padding-left: 0.4em;
-            padding-right: 0;
-        }
-    }
-}}
+}
