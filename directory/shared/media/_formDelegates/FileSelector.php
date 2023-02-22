@@ -91,6 +91,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
             $accept = $this->_acceptTypes;
         }
 
+
         return $this->data->media->file->select($fields)
             ->countRelation('versions')
             ->leftJoinRelation('activeVersion', 'number as version', 'fileSize', 'contentType')
@@ -136,6 +137,7 @@ class FileSelector extends arch\node\form\SelectorDelegate implements core\lang\
         }
 
         $query->searchFor($search, [
+            'id' => 1,
             'fileName' => 2
         ]);
     }
