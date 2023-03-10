@@ -15,7 +15,7 @@ echo $generator->p(function () use ($invite) {
         yield Html::strong($invite['owner']->getFullName());
         yield ' has invited you';
     } else {
-        'You have been invited';
+        yield 'You have been invited';
     }
 
     yield ' to become a member at ';
