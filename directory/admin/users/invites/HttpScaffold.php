@@ -70,14 +70,17 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->setDisposition('positive')
             ->isDisabled(!$invite['isActive'] || $invite['registrationDate']);
 
-        // Deactivate
-        yield 'deactivate' => $this->apex->component('InviteLink', $invite, $this->_('Deactivate invite'))
-            ->setNode('deactivate')
-            ->setIcon('remove')
-            ->setDisposition('negative')
-            ->isDisabled(!$invite['isActive']);
-
-        yield from parent::generateRecordOperativeLinks($invite);
+        if (!$this->isRecordDeleteable($invite)) {
+            // Deactivate
+            yield 'deactivate' => $this->apex->component('InviteLink', $invite, $this->_('Deactivate invite'))
+                ->setNode('deactivate')
+                ->setIcon('remove')
+                ->setDisposition('negative')
+                ->isDisabled(!$invite['isActive']);
+        } else {
+            // Delete
+            yield 'delete' => $this->generateRecordDeleteLink($invite);
+        }
     }
 
     public function generateIndexOperativeLinks(): iterable
