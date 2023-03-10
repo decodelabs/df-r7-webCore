@@ -10,11 +10,17 @@ $this->view->setSubject($this->_(
     ['%n%' => Genesis::$hub->getApplicationName()]
 ));
 
-echo $generator->p([
-    Html::strong($invite['owner']->getFullName()),
-    ' has invited you to become a member at ',
-    Html::strong(Genesis::$hub->getApplicationName())
-]);
+echo $generator->p(function () use ($invite) {
+    if ($invite['owner']) {
+        yield Html::strong($invite['owner']->getFullName());
+        yield ' has invited you';
+    } else {
+        'You have been invited';
+    }
+
+    yield ' to become a member at ';
+    yield Html::strong(Genesis::$hub->getApplicationName());
+});
 
 if ($message = $invite['message']) {
     echo Metamorph::idiom($message);
