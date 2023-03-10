@@ -20,7 +20,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     public const CAN_ADD = false;
     public const CAN_EDIT = false;
-    public const CAN_DELETE = false;
 
 
     public const LIST_FIELDS = [
@@ -53,6 +52,13 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         ]);
     }
 
+    public function isRecordDeleteable($record): bool
+    {
+        return
+            !$record['isActive'] &&
+            !$record['registrationDate'];
+    }
+
 
     // Components
     public function generateRecordOperativeLinks(array $invite): iterable
@@ -70,6 +76,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->setIcon('remove')
             ->setDisposition('negative')
             ->isDisabled(!$invite['isActive']);
+
+        yield from parent::generateRecordOperativeLinks($invite);
     }
 
     public function generateIndexOperativeLinks(): iterable
