@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\models\user\invite;
 
 use DecodeLabs\Disciple;
@@ -209,6 +210,15 @@ class Unit extends axis\unit\Table
             ->execute();
 
         $this->context->mesh->emitEvent($invite, 'claim');
+        return $this;
+    }
+
+    public function deactivate(Record $invite)
+    {
+        $invite['isActive'] = false;
+        $invite->save();
+
+        $this->context->mesh->emitEvent($invite, 'deactivate');
         return $this;
     }
 }

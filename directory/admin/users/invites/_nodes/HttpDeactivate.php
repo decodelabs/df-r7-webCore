@@ -70,8 +70,7 @@ class HttpDeactivate extends arch\node\ConfirmForm
 
     protected function apply()
     {
-        $this->_invite['isActive'] = false;
-        $this->_invite->save();
+        $this->_invite->deactivate();
     }
 
     protected function getFlashMessage()

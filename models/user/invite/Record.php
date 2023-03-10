@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\models\user\invite;
 
 use df\flex;
@@ -41,5 +42,10 @@ class Record extends opal\record\Base
     public function claim(user\IClientDataObject $client)
     {
         return $this->getAdapter()->claim($this, $client);
+    }
+
+    public function deactivate()
+    {
+        return $this->getAdapter()->deactivate($this);
     }
 }
