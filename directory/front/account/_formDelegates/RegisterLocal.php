@@ -66,6 +66,7 @@ class RegisterLocal extends RegisterBase
         // Recaptcha
         $fs->addField()->push(
             $this->html->recaptcha()
+                ->setView($this->view)
         );
 
         // Buttons
