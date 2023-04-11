@@ -22,7 +22,7 @@ class HttpUploaded extends arch\node\Base
 
     public function execute()
     {
-        $path = Genesis::$hub->getLocalDataPath() . '/upload';
+        $path = Genesis::$hub->getSharedDataPath() . '/upload';
         $path .= core\uri\Path::normalizeLocal(
             '/' . flex\Guid::factory($this->request['id']) .
             '/' . str_replace('/', '_', $this->request['file'])
