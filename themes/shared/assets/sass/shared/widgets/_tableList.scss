@@ -115,9 +115,8 @@ div.w.list.collection {
             button.w.btn.event {
                 margin: 0 0.15rem;
                 font-size: 1.2rem;
-                width: 1.2rem !important;
+                width: 1.15rem !important;
                 overflow: hidden;
-                visibility: hidden;
                 padding: 0;
                 line-height: 1;
                 display: inline-block;
@@ -131,8 +130,8 @@ div.w.list.collection {
                 span[data-icon] {
                     margin: 0;
                     padding: 0;
-                    visibility: visible;
                     line-height: 1;
+                    width: 1.15rem;
 
                     &:before {
                         padding-right: 0;
