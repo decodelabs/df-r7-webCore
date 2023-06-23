@@ -24,6 +24,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'details',
         //'invites' => 'mail',
         'authentication' => 'lock',
+        'logins' => 'form',
         'sessions' => 'time',
         'accessPasses' => 'key'
     ];
@@ -63,6 +64,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->from('axis://user/AccessPass')
                 ->on('user', '=', 'id')
                 ->endCorrelation()
+            ->correlate('COUNT(*) as logins')
+                ->from('axis://user/Login')
+                ->on('user', '=', 'id')
+                ->endCorrelation()
+            ->correlate('COUNT(*) as sessions')
+                ->from('axis://session/Descriptor')
+                ->on('user', '=', 'id')
+                ->endCorrelation()
             ->where('id', '=', $record['id'])
             ->toRow();
     }
@@ -88,6 +97,38 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         return $this->buildRecordListNode(function ($query) {
             $query->where('status', '=', user\IState::SPAM);
         });
+    }
+
+    public function byLoginHtmlNode()
+    {
+        return $this->buildRecordListNode(function ($query) {
+            $query
+                ->correlate('COUNT(*) as logins')
+                    ->from('axis://user/Login')
+                    ->on('user', '=', 'id')
+                    ->where('date', '>=', '-1 month')
+                    ->endCorrelation()
+                ->having('logins', '>', 0)
+                ->orderBy('logins DESC');
+        }, [
+            'logins' => true
+        ]);
+    }
+
+    public function bySessionHtmlNode()
+    {
+        return $this->buildRecordListNode(function ($query) {
+            $query
+                ->correlate('COUNT(*) as sessions')
+                    ->from('axis://session/Descriptor')
+                    ->on('user', '=', 'id')
+                    ->where('startTime', '>=', '-1 month')
+                    ->endCorrelation()
+                ->having('sessions', '>', 0)
+                ->orderBy('sessions DESC');
+        }, [
+            'sessions' => true
+        ]);
     }
 
 
@@ -230,6 +271,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             });
     }
 
+    public function renderLoginsSectionBody($client)
+    {
+        return $this->apex->scaffold('../logins/')
+            ->renderRecordList(function ($query) use ($client) {
+                $query->where('user', '=', $client['id']);
+            }, [
+                'user' => false
+            ]);
+    }
+
     public function renderAccessPassesSectionBody($client)
     {
         return $this->apex->scaffold('../access-passes/')
@@ -259,6 +310,14 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
         yield 'spam' => $this->html->link('./spam', $this->_('Spam'), true)
             ->setIcon('warning')
+            ->setDisposition('informative');
+
+        yield 'logins' => $this->html->link('./by-login', $this->_('Logins'), true)
+            ->setIcon('form')
+            ->setDisposition('informative');
+
+        yield 'sessions' => $this->html->link('./by-session', $this->_('Sessions'), true)
+            ->setIcon('time')
             ->setDisposition('informative');
     }
 
@@ -437,6 +496,22 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             return Html::uList($groupList, function ($group) {
                 return $this->apex->component('../groups/GroupLink', $group);
             });
+        });
+    }
+
+    public function defineLoginsField($list, $mode)
+    {
+        $list->addField('logins', function ($client) use ($mode) {
+            return $this->html->link('./logins?user='.$client['id'], $client['logins'])
+                ->setIcon('form');
+        });
+    }
+
+    public function defineSessionsField($list, $mode)
+    {
+        $list->addField('sessions', function ($client) use ($mode) {
+            return $this->html->link('./sessions?user='.$client['id'], $client['sessions'])
+                ->setIcon('time');
         });
     }
 }
