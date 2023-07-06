@@ -32,7 +32,7 @@ class Zest implements arch\IDirectoryHelper
         $theme = $this->view->getTheme()->getId();
 
         $manifest = Manifest::load(
-            Genesis::$hub->getApplicationPath() . '/themes/' . $theme . '/assets/manifest.json'
+            Genesis::$hub->getApplicationPath() . '/themes/' . $theme . '/assets/zest/manifest.json'
         );
 
         foreach ($manifest->getCssData() as $file => $tag) {
