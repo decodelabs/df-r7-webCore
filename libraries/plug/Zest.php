@@ -29,11 +29,13 @@ class Zest implements arch\IDirectoryHelper
 
     public function __invoke()
     {
-        $theme = $this->view->getTheme()->getId();
+        $theme = $this->view->getTheme();
 
-        $manifest = Manifest::load(
-            Genesis::$hub->getApplicationPath() . '/themes/' . $theme . '/assets/zest/manifest.json'
-        );
+        if (!$path = $theme->findAsset('zest/manifest.json')) {
+            return;
+        }
+
+        $manifest = Manifest::load($path);
 
         foreach ($manifest->getCssData() as $file => $tag) {
             $this->view->linkCss($file, null, $tag);
