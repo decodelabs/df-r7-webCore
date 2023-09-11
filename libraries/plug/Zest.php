@@ -7,7 +7,6 @@
 namespace df\plug;
 
 use DecodeLabs\Exceptional;
-use DecodeLabs\Genesis;
 use DecodeLabs\Zest\Manifest;
 
 use df\arch;

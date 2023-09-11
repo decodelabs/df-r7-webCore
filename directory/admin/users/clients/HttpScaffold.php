@@ -501,16 +501,16 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     public function defineLoginsField($list, $mode)
     {
-        $list->addField('logins', function ($client) use ($mode) {
-            return $this->html->link('./logins?user='.$client['id'], $client['logins'])
+        $list->addField('logins', function ($client) {
+            return $this->html->link('./logins?user=' . $client['id'], $client['logins'])
                 ->setIcon('form');
         });
     }
 
     public function defineSessionsField($list, $mode)
     {
-        $list->addField('sessions', function ($client) use ($mode) {
-            return $this->html->link('./sessions?user='.$client['id'], $client['sessions'])
+        $list->addField('sessions', function ($client) {
+            return $this->html->link('./sessions?user=' . $client['id'], $client['sessions'])
                 ->setIcon('time');
         });
     }
