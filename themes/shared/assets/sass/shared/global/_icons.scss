@@ -8,11 +8,7 @@ $font-dir: "../fonts" !default;
     @if $icon-font-family != false {
         @font-face {
             font-family: $icon-font-family;
-            src: url($font-dir + "/" + $icon-font-family + ".eot?cts=");
-            src: url($font-dir + "/" + $icon-font-family + ".eot?cts=#iefix") format("embedded-opentype"),
-                url($font-dir + "/" + $icon-font-family + ".svg?cts=#" + $icon-font-family) format("svg"),
-                url($font-dir + "/" + $icon-font-family + ".woff?cts=") format("woff"),
-                url($font-dir + "/" + $icon-font-family + ".ttf?cts=") format("truetype");
+            src: url($font-dir + "/" + $icon-font-family + ".woff?cts=") format("woff");
             font-weight: normal;
             font-style: normal;
         }
@@ -29,7 +25,9 @@ $font-dir: "../fonts" !default;
                 color: inherit;
 
                 @if $icon-shadow != false {
-                    text-shadow: 0.02em 0.02em 0.02em #fff, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
+                    text-shadow:
+                        0.02em 0.02em 0.02em #fff,
+                        0.15em 0.15em 0.2em rgba(0, 0, 0, 0.15);
                 }
 
                 font-size: 0.9em;
@@ -84,7 +82,9 @@ $font-dir: "../fonts" !default;
 
         @if $icon-shadow != false {
             a:hover span[data-icon]:before {
-                text-shadow: 0.02em 0.02em 0.02em #fff, 0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
+                text-shadow:
+                    0.02em 0.02em 0.02em #fff,
+                    0.15em 0.15em 0.2em rgba(0, 0, 0, 0.1);
             }
         }
 
