@@ -26,11 +26,24 @@ class Zest implements arch\IDirectoryHelper
         }
     }
 
-    public function __invoke()
-    {
+    public function __invoke(
+        ?string $configName = null,
+        ?string $manifestName = null
+    ): void {
         $theme = $this->view->getTheme();
+        $path = 'zest/';
 
-        if (!$path = $theme->findAsset('zest/manifest.json')) {
+        if ($configName !== null) {
+            $path .= $configName . '/';
+        }
+
+        if ($manifestName !== null) {
+            $path .= $manifestName . '.';
+        }
+
+        $path .= 'manifest.json';
+
+        if (!$path = $theme->findAsset($path)) {
             return;
         }
 
