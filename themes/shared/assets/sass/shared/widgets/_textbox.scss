@@ -2,10 +2,9 @@
     width: 100%;
     max-width: $form-input-width;
     box-sizing: border-box;
-    background: #FFF;
-    border: 1px #AAA solid;
+    background: #fff;
+    border: 1px #aaa solid;
     padding: 0.2rem 0.4rem;
-
 
     // Multiline
     &.multiline {
@@ -13,9 +12,8 @@
         min-height: 6em;
     }
 
-
     &.short {
-        max-width: $form-input-width / 2.5;
+        max-width: calc($form-input-width / 2.5);
     }
 
     &.error {
@@ -23,7 +21,7 @@
     }
 
     &[disabled] {
-        background: #EEE;
+        background: #eee;
         opacity: 0.8;
     }
 
@@ -36,7 +34,7 @@
     }
 
     &.number {
-        max-width: $form-input-width / 2.5;
+        max-width: calc($form-input-width / 2.5);
     }
 
     &.editor {
@@ -53,7 +51,6 @@
         opacity: 0.6;
     }
 }
-
 
 input.w.file + label.hidden {
     display: none;
