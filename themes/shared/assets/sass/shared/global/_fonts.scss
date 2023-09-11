@@ -26,7 +26,7 @@ $font-scale-crossover: null !default;
     $divisions: calc(($font-base-size / 1px) - ($font-min-size / 1px));
 
     @if $font-scale-crossover != false {
-        $expDivisions: floor(math.div(($maxWidth - $font-scale-crossover) / $font-scale-region));
+        $expDivisions: floor(($maxWidth - $font-scale-crossover) / $font-scale-region);
 
         html {
             font-size: $font-base-size + $expDivisions - 1;
