@@ -23,7 +23,7 @@ $font-scale-crossover: null !default;
 
 // FONT SCALING
 @mixin applyRelativeFontSizing($maxWidth: $font-scale-threshold) {
-    $divisions: calc(($font-base-size / 1px) - ($font-min-size / 1px));
+    $divisions: ($font-base-size / 1px) - ($font-min-size / 1px);
 
     @if $font-scale-crossover != false {
         $expDivisions: floor(($maxWidth - $font-scale-crossover) / $font-scale-region);
@@ -40,7 +40,7 @@ $font-scale-crossover: null !default;
             }
         }
 
-        $divisionWidth: calc(($font-scale-crossover - 600px) / $divisions);
+        $divisionWidth: ($font-scale-crossover - 600px) / $divisions;
 
         @for $i from 1 through $divisions {
             @media only screen and (max-width: #{$font-scale-crossover - (($i - 1) * $divisionWidth)}) {
