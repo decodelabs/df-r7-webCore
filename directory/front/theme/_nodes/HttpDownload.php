@@ -74,20 +74,8 @@ class HttpDownload extends arch\node\Base
             $fileName = $descriptor->getFileName();
         }
 
-        switch ($type) {
-            case 'text/x-sass':
-            case 'text/x-scss':
-                $bridge = new aura\css\SassBridge($this->context, $absolutePath);
-                return $bridge->getHttpResponse();
-
-            case 'application/x-sass-map':
-                $bridge = new aura\css\SassBridge($this->context, $absolutePath);
-                return $bridge->getMapHttpResponse();
-
-            default:
-                $output = Legacy::$http->fileResponse($absolutePath);
-                $output->setContentType($type);
-        }
+        $output = Legacy::$http->fileResponse($absolutePath);
+        $output->setContentType($type);
 
         $output->setFileName($fileName, isset($this->request['attachment']))
             ->getHeaders()
