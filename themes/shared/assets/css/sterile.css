@@ -1,0 +1,963 @@
+.sterile {
+  font-size: medium !important;
+  line-height: 1.2 !important;
+  direction: ltr !important;
+  text-align: left !important;
+  text-align: start !important;
+  font-family: Arial, sans-serif !important;
+  color: black !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  text-decoration: none !important;
+  list-style-type: disc !important;
+}
+
+.sterile,
+.sterile h1,
+.sterile h2,
+.sterile h3,
+.sterile h4,
+.sterile h5,
+.sterile h6,
+.sterile p,
+.sterile td,
+.sterile dl,
+.sterile tr,
+.sterile dt,
+.sterile ol,
+.sterile form,
+.sterile select,
+.sterile option,
+.sterile pre,
+.sterile div,
+.sterile table,
+.sterile th,
+.sterile tbody,
+.sterile tfoot,
+.sterile caption,
+.sterile thead,
+.sterile ul,
+.sterile li,
+.sterile address,
+.sterile blockquote,
+.sterile dd,
+.sterile fieldset,
+.sterile li,
+.sterile iframe,
+.sterile strong,
+.sterile legend,
+.sterile em,
+.sterile summary,
+.sterile cite,
+.sterile span,
+.sterile input,
+.sterile sup,
+.sterile label,
+.sterile dfn,
+.sterile object,
+.sterile big,
+.sterile q,
+.sterile samp,
+.sterile acronym,
+.sterile small,
+.sterile img,
+.sterile strike,
+.sterile code,
+.sterile sub,
+.sterile ins,
+.sterile textarea,
+.sterile article,
+.sterile aside,
+.sterile figure,
+.sterile figcaption,
+.sterile footer,
+.sterile header,
+.sterile menu,
+.sterile nav,
+.sterile section,
+.sterile time,
+.sterile mark,
+.sterile audio,
+.sterile video,
+.sterile abbr,
+.sterile address,
+.sterile area,
+.sterile blockquote,
+.sterile canvas,
+.sterile caption,
+.sterile cite,
+.sterile code,
+.sterile colgroup,
+.sterile col,
+.sterile datalist,
+.sterile fieldset,
+.sterile main,
+.sterile map,
+.sterile meta,
+.sterile optgroup,
+.sterile output,
+.sterile progress {
+  background-attachment: scroll;
+  background-image: none;
+  background-repeat: repeat;
+  background-position: 0 0;
+  border-color: black;
+  border-color: currentColor;
+  border-radius: 0;
+  border-style: none;
+  border-width: medium;
+  bottom: auto;
+  clear: none;
+  clip: auto;
+  color: inherit;
+  counter-increment: none;
+  counter-reset: none;
+  cursor: auto;
+  direction: inherit;
+  display: inline;
+  float: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-variant: normal;
+  font-weight: inherit;
+  left: auto;
+  letter-spacing: normal;
+  line-height: inherit;
+  list-style-type: inherit;
+  list-style-position: outside;
+  list-style-image: none;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  min-height: 0;
+  min-width: 0;
+  opacity: 1;
+  outline: invert none medium;
+  overflow: visible;
+  padding: 0;
+  position: static;
+  quotes: "" "";
+  right: auto;
+  table-layout: auto;
+  text-decoration: inherit;
+  text-indent: 0;
+  text-transform: none;
+  top: auto;
+  unicode-bidi: normal;
+  vertical-align: baseline;
+  visibility: inherit;
+  white-space: normal;
+  word-spacing: normal;
+  z-index: auto;
+  background-origin: padding-box;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  background-size: auto;
+  -o-border-image: none;
+  border-image: none;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  -moz-column-count: auto;
+  column-count: auto;
+  -moz-column-gap: normal;
+  column-gap: normal;
+  -moz-column-rule: medium none black;
+  column-rule: medium none black;
+  -moz-column-span: 1;
+  column-span: 1;
+  -moz-column-width: auto;
+  column-width: auto;
+  font-feature-settings: normal;
+  overflow-x: visible;
+  overflow-y: visible;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  -ms-perspective: none;
+  -o-perspective: none;
+  perspective: none;
+  -ms-perspective-origin: 50% 50%;
+  -o-perspective-origin: 50% 50%;
+  perspective-origin: 50% 50%;
+  backface-visibility: visible;
+  text-shadow: none;
+  transition: all 0s ease 0s;
+  transform: none;
+  transform-origin: 50% 50%;
+  transform-style: flat;
+  word-break: normal;
+}
+
+.sterile:not([width]),
+.sterile h1:not([width]),
+.sterile h2:not([width]),
+.sterile h3:not([width]),
+.sterile h4:not([width]),
+.sterile h5:not([width]),
+.sterile h6:not([width]),
+.sterile p:not([width]),
+.sterile td:not([width]),
+.sterile dl:not([width]),
+.sterile tr:not([width]),
+.sterile dt:not([width]),
+.sterile ol:not([width]),
+.sterile form:not([width]),
+.sterile select:not([width]),
+.sterile option:not([width]),
+.sterile pre:not([width]),
+.sterile div:not([width]),
+.sterile table:not([width]),
+.sterile th:not([width]),
+.sterile tbody:not([width]),
+.sterile tfoot:not([width]),
+.sterile caption:not([width]),
+.sterile thead:not([width]),
+.sterile ul:not([width]),
+.sterile li:not([width]),
+.sterile address:not([width]),
+.sterile blockquote:not([width]),
+.sterile dd:not([width]),
+.sterile fieldset:not([width]),
+.sterile li:not([width]),
+.sterile iframe:not([width]),
+.sterile strong:not([width]),
+.sterile legend:not([width]),
+.sterile em:not([width]),
+.sterile summary:not([width]),
+.sterile cite:not([width]),
+.sterile span:not([width]),
+.sterile input:not([width]),
+.sterile sup:not([width]),
+.sterile label:not([width]),
+.sterile dfn:not([width]),
+.sterile object:not([width]),
+.sterile big:not([width]),
+.sterile q:not([width]),
+.sterile samp:not([width]),
+.sterile acronym:not([width]),
+.sterile small:not([width]),
+.sterile img:not([width]),
+.sterile strike:not([width]),
+.sterile code:not([width]),
+.sterile sub:not([width]),
+.sterile ins:not([width]),
+.sterile textarea:not([width]),
+.sterile article:not([width]),
+.sterile aside:not([width]),
+.sterile figure:not([width]),
+.sterile figcaption:not([width]),
+.sterile footer:not([width]),
+.sterile header:not([width]),
+.sterile menu:not([width]),
+.sterile nav:not([width]),
+.sterile section:not([width]),
+.sterile time:not([width]),
+.sterile mark:not([width]),
+.sterile audio:not([width]),
+.sterile video:not([width]),
+.sterile abbr:not([width]),
+.sterile address:not([width]),
+.sterile area:not([width]),
+.sterile blockquote:not([width]),
+.sterile canvas:not([width]),
+.sterile caption:not([width]),
+.sterile cite:not([width]),
+.sterile code:not([width]),
+.sterile colgroup:not([width]),
+.sterile col:not([width]),
+.sterile datalist:not([width]),
+.sterile fieldset:not([width]),
+.sterile main:not([width]),
+.sterile map:not([width]),
+.sterile meta:not([width]),
+.sterile optgroup:not([width]),
+.sterile output:not([width]),
+.sterile progress:not([width]) {
+  width: auto;
+}
+
+.sterile:not([height]),
+.sterile h1:not([height]),
+.sterile h2:not([height]),
+.sterile h3:not([height]),
+.sterile h4:not([height]),
+.sterile h5:not([height]),
+.sterile h6:not([height]),
+.sterile p:not([height]),
+.sterile td:not([height]),
+.sterile dl:not([height]),
+.sterile tr:not([height]),
+.sterile dt:not([height]),
+.sterile ol:not([height]),
+.sterile form:not([height]),
+.sterile select:not([height]),
+.sterile option:not([height]),
+.sterile pre:not([height]),
+.sterile div:not([height]),
+.sterile table:not([height]),
+.sterile th:not([height]),
+.sterile tbody:not([height]),
+.sterile tfoot:not([height]),
+.sterile caption:not([height]),
+.sterile thead:not([height]),
+.sterile ul:not([height]),
+.sterile li:not([height]),
+.sterile address:not([height]),
+.sterile blockquote:not([height]),
+.sterile dd:not([height]),
+.sterile fieldset:not([height]),
+.sterile li:not([height]),
+.sterile iframe:not([height]),
+.sterile strong:not([height]),
+.sterile legend:not([height]),
+.sterile em:not([height]),
+.sterile summary:not([height]),
+.sterile cite:not([height]),
+.sterile span:not([height]),
+.sterile input:not([height]),
+.sterile sup:not([height]),
+.sterile label:not([height]),
+.sterile dfn:not([height]),
+.sterile object:not([height]),
+.sterile big:not([height]),
+.sterile q:not([height]),
+.sterile samp:not([height]),
+.sterile acronym:not([height]),
+.sterile small:not([height]),
+.sterile img:not([height]),
+.sterile strike:not([height]),
+.sterile code:not([height]),
+.sterile sub:not([height]),
+.sterile ins:not([height]),
+.sterile textarea:not([height]),
+.sterile article:not([height]),
+.sterile aside:not([height]),
+.sterile figure:not([height]),
+.sterile figcaption:not([height]),
+.sterile footer:not([height]),
+.sterile header:not([height]),
+.sterile menu:not([height]),
+.sterile nav:not([height]),
+.sterile section:not([height]),
+.sterile time:not([height]),
+.sterile mark:not([height]),
+.sterile audio:not([height]),
+.sterile video:not([height]),
+.sterile abbr:not([height]),
+.sterile address:not([height]),
+.sterile area:not([height]),
+.sterile blockquote:not([height]),
+.sterile canvas:not([height]),
+.sterile caption:not([height]),
+.sterile cite:not([height]),
+.sterile code:not([height]),
+.sterile colgroup:not([height]),
+.sterile col:not([height]),
+.sterile datalist:not([height]),
+.sterile fieldset:not([height]),
+.sterile main:not([height]),
+.sterile map:not([height]),
+.sterile meta:not([height]),
+.sterile optgroup:not([height]),
+.sterile output:not([height]),
+.sterile progress:not([height]) {
+  height: auto;
+}
+
+.sterile:not([align]),
+.sterile h1:not([align]),
+.sterile h2:not([align]),
+.sterile h3:not([align]),
+.sterile h4:not([align]),
+.sterile h5:not([align]),
+.sterile h6:not([align]),
+.sterile p:not([align]),
+.sterile td:not([align]),
+.sterile dl:not([align]),
+.sterile tr:not([align]),
+.sterile dt:not([align]),
+.sterile ol:not([align]),
+.sterile form:not([align]),
+.sterile select:not([align]),
+.sterile option:not([align]),
+.sterile pre:not([align]),
+.sterile div:not([align]),
+.sterile table:not([align]),
+.sterile th:not([align]),
+.sterile tbody:not([align]),
+.sterile tfoot:not([align]),
+.sterile caption:not([align]),
+.sterile thead:not([align]),
+.sterile ul:not([align]),
+.sterile li:not([align]),
+.sterile address:not([align]),
+.sterile blockquote:not([align]),
+.sterile dd:not([align]),
+.sterile fieldset:not([align]),
+.sterile li:not([align]),
+.sterile iframe:not([align]),
+.sterile strong:not([align]),
+.sterile legend:not([align]),
+.sterile em:not([align]),
+.sterile summary:not([align]),
+.sterile cite:not([align]),
+.sterile span:not([align]),
+.sterile input:not([align]),
+.sterile sup:not([align]),
+.sterile label:not([align]),
+.sterile dfn:not([align]),
+.sterile object:not([align]),
+.sterile big:not([align]),
+.sterile q:not([align]),
+.sterile samp:not([align]),
+.sterile acronym:not([align]),
+.sterile small:not([align]),
+.sterile img:not([align]),
+.sterile strike:not([align]),
+.sterile code:not([align]),
+.sterile sub:not([align]),
+.sterile ins:not([align]),
+.sterile textarea:not([align]),
+.sterile article:not([align]),
+.sterile aside:not([align]),
+.sterile figure:not([align]),
+.sterile figcaption:not([align]),
+.sterile footer:not([align]),
+.sterile header:not([align]),
+.sterile menu:not([align]),
+.sterile nav:not([align]),
+.sterile section:not([align]),
+.sterile time:not([align]),
+.sterile mark:not([align]),
+.sterile audio:not([align]),
+.sterile video:not([align]),
+.sterile abbr:not([align]),
+.sterile address:not([align]),
+.sterile area:not([align]),
+.sterile blockquote:not([align]),
+.sterile canvas:not([align]),
+.sterile caption:not([align]),
+.sterile cite:not([align]),
+.sterile code:not([align]),
+.sterile colgroup:not([align]),
+.sterile col:not([align]),
+.sterile datalist:not([align]),
+.sterile fieldset:not([align]),
+.sterile main:not([align]),
+.sterile map:not([align]),
+.sterile meta:not([align]),
+.sterile optgroup:not([align]),
+.sterile output:not([align]),
+.sterile progress:not([align]) {
+  text-align: inherit;
+}
+
+.sterile:not([bgcolor]),
+.sterile h1:not([bgcolor]),
+.sterile h2:not([bgcolor]),
+.sterile h3:not([bgcolor]),
+.sterile h4:not([bgcolor]),
+.sterile h5:not([bgcolor]),
+.sterile h6:not([bgcolor]),
+.sterile p:not([bgcolor]),
+.sterile td:not([bgcolor]),
+.sterile dl:not([bgcolor]),
+.sterile tr:not([bgcolor]),
+.sterile dt:not([bgcolor]),
+.sterile ol:not([bgcolor]),
+.sterile form:not([bgcolor]),
+.sterile select:not([bgcolor]),
+.sterile option:not([bgcolor]),
+.sterile pre:not([bgcolor]),
+.sterile div:not([bgcolor]),
+.sterile table:not([bgcolor]),
+.sterile th:not([bgcolor]),
+.sterile tbody:not([bgcolor]),
+.sterile tfoot:not([bgcolor]),
+.sterile caption:not([bgcolor]),
+.sterile thead:not([bgcolor]),
+.sterile ul:not([bgcolor]),
+.sterile li:not([bgcolor]),
+.sterile address:not([bgcolor]),
+.sterile blockquote:not([bgcolor]),
+.sterile dd:not([bgcolor]),
+.sterile fieldset:not([bgcolor]),
+.sterile li:not([bgcolor]),
+.sterile iframe:not([bgcolor]),
+.sterile strong:not([bgcolor]),
+.sterile legend:not([bgcolor]),
+.sterile em:not([bgcolor]),
+.sterile summary:not([bgcolor]),
+.sterile cite:not([bgcolor]),
+.sterile span:not([bgcolor]),
+.sterile input:not([bgcolor]),
+.sterile sup:not([bgcolor]),
+.sterile label:not([bgcolor]),
+.sterile dfn:not([bgcolor]),
+.sterile object:not([bgcolor]),
+.sterile big:not([bgcolor]),
+.sterile q:not([bgcolor]),
+.sterile samp:not([bgcolor]),
+.sterile acronym:not([bgcolor]),
+.sterile small:not([bgcolor]),
+.sterile img:not([bgcolor]),
+.sterile strike:not([bgcolor]),
+.sterile code:not([bgcolor]),
+.sterile sub:not([bgcolor]),
+.sterile ins:not([bgcolor]),
+.sterile textarea:not([bgcolor]),
+.sterile article:not([bgcolor]),
+.sterile aside:not([bgcolor]),
+.sterile figure:not([bgcolor]),
+.sterile figcaption:not([bgcolor]),
+.sterile footer:not([bgcolor]),
+.sterile header:not([bgcolor]),
+.sterile menu:not([bgcolor]),
+.sterile nav:not([bgcolor]),
+.sterile section:not([bgcolor]),
+.sterile time:not([bgcolor]),
+.sterile mark:not([bgcolor]),
+.sterile audio:not([bgcolor]),
+.sterile video:not([bgcolor]),
+.sterile abbr:not([bgcolor]),
+.sterile address:not([bgcolor]),
+.sterile area:not([bgcolor]),
+.sterile blockquote:not([bgcolor]),
+.sterile canvas:not([bgcolor]),
+.sterile caption:not([bgcolor]),
+.sterile cite:not([bgcolor]),
+.sterile code:not([bgcolor]),
+.sterile colgroup:not([bgcolor]),
+.sterile col:not([bgcolor]),
+.sterile datalist:not([bgcolor]),
+.sterile fieldset:not([bgcolor]),
+.sterile main:not([bgcolor]),
+.sterile map:not([bgcolor]),
+.sterile meta:not([bgcolor]),
+.sterile optgroup:not([bgcolor]),
+.sterile output:not([bgcolor]),
+.sterile progress:not([bgcolor]) {
+  background-color: transparent;
+}
+
+.sterile,
+.sterile h3,
+.sterile h5,
+.sterile p,
+.sterile h1,
+.sterile dl,
+.sterile dt,
+.sterile h6,
+.sterile ol,
+.sterile form,
+.sterile option,
+.sterile pre,
+.sterile div,
+.sterile h2,
+.sterile caption,
+.sterile h4,
+.sterile ul,
+.sterile address,
+.sterile blockquote,
+.sterile dd,
+.sterile fieldset,
+.sterile hr,
+.sterile article,
+.sterile dialog,
+.sterile figure,
+.sterile footer,
+.sterile header,
+.sterile hgroup,
+.sterile menu,
+.sterile nav,
+.sterile section,
+.sterile audio,
+.sterile video,
+.sterile address,
+.sterile blockquote,
+.sterile colgroup,
+.sterile main,
+.sterile progress,
+.sterile summary {
+  display: block;
+}
+
+.sterile h1,
+.sterile h2,
+.sterile h3,
+.sterile h4,
+.sterile h5,
+.sterile h6 {
+  font-weight: bold;
+}
+
+.sterile h1 {
+  font-size: 2em;
+  padding: 0.67em 0;
+}
+
+.sterile h2 {
+  font-size: 1.5em;
+  padding: 0.83em 0;
+}
+
+.sterile h3 {
+  font-size: 1.17em;
+  padding: 0.83em 0;
+}
+
+.sterile h4 {
+  font-size: 1em;
+}
+
+.sterile h5 {
+  font-size: 0.83em;
+}
+
+.sterile p {
+  margin: 1em 0;
+}
+
+.sterile table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.sterile thead {
+  display: table-header-group;
+}
+
+.sterile tbody {
+  display: table-row-group;
+}
+
+.sterile tfoot {
+  display: table-footer-group;
+}
+
+.sterile tr {
+  display: table-row;
+}
+
+.sterile th,
+.sterile td {
+  display: table-cell;
+}
+
+.sterile ol,
+.sterile ul {
+  margin: 1em 0;
+}
+
+.sterile ul li,
+.sterile ul ul li,
+.sterile ul ul ul li,
+.sterile ol li,
+.sterile ol ol li,
+.sterile ol ol ol li,
+.sterile ul ol ol li,
+.sterile ul ul ol li,
+.sterile ol ul ul li,
+.sterile ol ol ul li {
+  list-style-position: inside;
+  margin-top: 0.08em;
+}
+
+.sterile ol ol,
+.sterile ol ol ol,
+.sterile ul ul,
+.sterile ul ul ul,
+.sterile ol ul,
+.sterile ol ul ul,
+.sterile ol ol ul,
+.sterile ul ol,
+.sterile ul ol ol,
+.sterile ul ul ol {
+  padding-left: 40px;
+  margin: 0;
+}
+
+.sterile nav ul,
+.sterile nav ol {
+  list-style-type: none;
+}
+
+.sterile ul,
+.sterile menu {
+  list-style-type: disc;
+}
+
+.sterile ol {
+  list-style-type: decimal;
+}
+
+.sterile ol ul,
+.sterile ul ul,
+.sterile menu ul,
+.sterile ol menu,
+.sterile ul menu,
+.sterile menu menu {
+  list-style-type: circle;
+}
+
+.sterile ol ol ul,
+.sterile ol ul ul,
+.sterile ol menu ul,
+.sterile ol ol menu,
+.sterile ol ul menu,
+.sterile ol menu menu,
+.sterile ul ol ul,
+.sterile ul ul ul,
+.sterile ul menu ul,
+.sterile ul ol menu,
+.sterile ul ul menu,
+.sterile ul menu menu,
+.sterile menu ol ul,
+.sterile menu ul ul,
+.sterile menu menu ul,
+.sterile menu ol menu,
+.sterile menu ul menu,
+.sterile menu menu menu {
+  list-style-type: square;
+}
+
+.sterile li {
+  display: list-item;
+  min-height: auto;
+  min-width: auto;
+  padding-left: 20px;
+}
+
+.sterile strong {
+  font-weight: bold;
+}
+
+.sterile em {
+  font-style: italic;
+}
+
+.sterile kbd,
+.sterile samp,
+.sterile code,
+.sterile pre {
+  font-family: monospace;
+}
+
+.sterile a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.sterile a:visited {
+  color: #529;
+}
+
+.sterile a,
+.sterile a *,
+.sterile input[type="submit"],
+.sterile input[type="radio"],
+.sterile input[type="checkbox"],
+.sterile select {
+  cursor: pointer;
+}
+
+.sterile button,
+.sterile input[type="submit"] {
+  text-align: center;
+  padding: 2px 6px 3px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: arial, helvetica, sans-serif;
+  font-size: small;
+  background: white;
+  -webkit-appearance: push-button;
+  color: buttontext;
+  border: 1px #a6a6a6 solid;
+  background: lightgrey;
+  background: white;
+  /* FF3.6+ */
+  /* Chrome,Safari4+ */
+  /* Chrome10+,Safari5.1+ */
+  /* Opera 11.10+ */
+  /* IE10+ */
+  background: linear-gradient(to bottom, white 0%, #dddddd 100%, #d1d1d1 100%, #dddddd 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddddd',GradientType=0 );
+  /* IE6-9 */
+  -o-box-shadow: 1px 1px 0px #eee;
+  box-shadow: 1px 1px 0px #eee;
+  outline: initial;
+}
+
+.sterile button {
+  padding: 1px 6px 2px;
+  margin-right: 5px;
+}
+
+.sterile input[type="hidden"] {
+  display: none;
+}
+
+.sterile textarea {
+  -webkit-appearance: textarea;
+  background: white;
+  padding: 2px;
+  margin-left: 4px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 11px;
+  font-family: arial, helvetica, sans-serif;
+  line-height: 13px;
+  resize: both;
+  overflow: auto;
+  vertical-align: top;
+}
+
+.sterile select,
+.sterile textarea,
+.sterile input {
+  border: 1px solid #ccc;
+}
+
+.sterile select {
+  font-size: 11px;
+  font-family: helvetica, arial, sans-serif;
+  display: inline-block;
+}
+
+.sterile textarea:focus,
+.sterile input:focus {
+  outline: auto 5px -webkit-focus-ring-color;
+  outline: initial;
+}
+
+.sterile input[type="text"] {
+  background: white;
+  padding: 1px;
+  font-family: initial;
+  font-size: small;
+}
+
+.sterile input[type="checkbox"],
+.sterile input[type="radio"] {
+  border: 1px #2b2b2b solid;
+  border-radius: 4px;
+  outline: intial;
+}
+
+.sterile input[type="radio"] {
+  margin: 2px 2px 3px;
+}
+
+.sterile input[type="submit"]:active,
+.sterile button:active {
+  background: #3b679e;
+  /* Old browsers */
+  /* FF3.6+ */
+  /* Chrome,Safari4+ */
+  /* Chrome10+,Safari5.1+ */
+  /* Opera 11.10+ */
+  /* IE10+ */
+  background: linear-gradient(to bottom, #3b679e 0%, #2b88d9 50%, #207cca 51%, #7db9e8 100%);
+  /* W3C */
+  border-color: #5259b0;
+}
+
+.sterile abbr[title],
+.sterile acronym[title],
+.sterile dfn[title] {
+  cursor: help;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+}
+
+.sterile ins {
+  background-color: #ff9;
+  color: black;
+}
+
+.sterile del {
+  text-decoration: line-through;
+}
+
+.sterile blockquote,
+.sterile q {
+  quotes: none;
+}
+
+.sterile blockquote:before,
+.sterile blockquote:after,
+.sterile q:before,
+.sterile q:after,
+.sterile li:before,
+.sterile li:after {
+  content: "";
+}
+
+.sterile input,
+.sterile select {
+  vertical-align: middle;
+}
+
+.sterile hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+}
+
+.sterile *[dir="rtl"] {
+  direction: rtl;
+}
+
+.sterile mark {
+  background-color: #ff9;
+  color: black;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.sterile menu {
+  padding-left: 40px;
+  padding-top: 8px;
+}
+
+.sterile [hidden],
+.sterile template {
+  display: none;
+}
+
+.sterile abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+.sterile sub,
+.sterile sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.sterile sup {
+  top: -0.5em;
+}
+
+.sterile sub {
+  bottom: -0.25em;
+}
+
+.sterile img {
+  border: 0;
+}
+
+.sterile figure {
+  margin: 0;
+}
+
+.sterile pre {
+  white-space: pre;
+}
