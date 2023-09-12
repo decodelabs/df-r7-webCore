@@ -9,7 +9,7 @@ $pxToRem-base-size: null;
 }
 
 @function pxToRem($px, $base: $pxToRem-base-size) {
-    @return #{($px + 0px) / $pxToRem-base-size}rem;
+    @return #{calc(($px + 0px) / $pxToRem-base-size)}rem;
 }
 
 %stretch-behind {
