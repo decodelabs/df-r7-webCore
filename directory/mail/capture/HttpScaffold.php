@@ -43,7 +43,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         );
 
 
-        $this->view->linkCss('theme://css/sterile.scss');
+        $this->view->linkCss('theme://css/sterile.css');
         $message = $mail->toMessage();
 
         yield $this->apex->template('Message.html', [
