@@ -31,20 +31,24 @@ class Zest implements arch\IDirectoryHelper
         ?string $manifestName = null
     ): void {
         $theme = $this->view->getTheme();
-        $path = 'zest/';
+        $file = 'zest/';
 
         if ($configName !== null) {
-            $path .= $configName . '/';
+            $file .= $configName . '/';
         }
 
         if ($manifestName !== null) {
-            $path .= $manifestName . '.';
+            $file .= $manifestName . '.';
         }
 
-        $path .= 'manifest.json';
+        $file .= 'manifest.json';
 
-        if (!$path = $theme->findAsset($path)) {
-            return;
+        if (!$path = $theme->findAsset($file)) {
+            if (!$path = $theme->findAsset($file.'.php')) {
+                return;
+            }
+
+            $path = substr($path, 0, -4);
         }
 
         $manifest = Manifest::load($path);
