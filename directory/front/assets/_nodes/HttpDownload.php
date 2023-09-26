@@ -11,7 +11,6 @@ use DecodeLabs\R7\Legacy;
 use DecodeLabs\Typify;
 use df\arch;
 
-use df\aura;
 use df\core;
 use df\neon;
 

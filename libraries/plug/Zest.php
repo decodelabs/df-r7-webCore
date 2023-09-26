@@ -44,7 +44,7 @@ class Zest implements arch\IDirectoryHelper
         $file .= 'manifest.json';
 
         if (!$path = $theme->findAsset($file)) {
-            if (!$path = $theme->findAsset($file.'.php')) {
+            if (!$path = $theme->findAsset($file . '.php')) {
                 return;
             }
 
