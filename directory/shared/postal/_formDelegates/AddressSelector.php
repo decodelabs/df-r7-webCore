@@ -33,7 +33,7 @@ class AddressSelector extends arch\node\form\Delegate implements
 
     public function setAccessLevel($level)
     {
-        $level = strtolower($level);
+        $level = strtolower((string)$level);
 
         switch ($level) {
             case 'public':

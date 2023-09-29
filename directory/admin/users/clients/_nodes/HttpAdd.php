@@ -164,7 +164,7 @@ class HttpAdd extends arch\node\Form
             // Country
             ->addRequiredField('country', 'text')
                 ->setSanitizer(function ($value) {
-                    return strtoupper($value);
+                    return strtoupper((string)$value);
                 })
                 ->extend(function ($value, $field) {
                     if (!$this->i18n->countries->isValidId($value)) {
@@ -177,7 +177,7 @@ class HttpAdd extends arch\node\Form
             // Language
             ->addRequiredField('language', 'text')
                 ->setSanitizer(function ($value) {
-                    return strtolower($value);
+                    return strtolower((string)$value);
                 })
                 ->extend(function ($value, $field) {
                     if (!$this->i18n->languages->isValidId($value)) {

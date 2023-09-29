@@ -71,7 +71,7 @@ class HttpAddKey extends arch\node\Form
             // Domain
             ->addRequiredField('domain', 'text')
                 ->setSanitizer(function ($value) {
-                    return strtolower($value);
+                    return strtolower((string)$value);
                 })
 
             // Pattern

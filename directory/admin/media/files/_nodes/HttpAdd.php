@@ -111,7 +111,7 @@ class HttpAdd extends arch\node\Form
             ->addRequiredField('fileName', 'text')
                 ->setMaxLength(1024)
                 ->setSanitizer(function ($value) use ($filePath) {
-                    if (!strlen($value)) {
+                    if (!strlen((string)$value)) {
                         $value = basename($filePath);
                     }
 

@@ -29,7 +29,7 @@ class AddressEditor extends arch\node\form\Delegate
 
     public function setAccessLevel($level)
     {
-        $level = strtolower($level);
+        $level = strtolower((string)$level);
 
         switch ($level) {
             case 'public':
@@ -259,13 +259,13 @@ class AddressEditor extends arch\node\form\Delegate
             // Postcode
             ->addRequiredField('postcode', 'text')
                 ->setSanitizer(function ($value) {
-                    return strtoupper($value);
+                    return strtoupper((string)$value);
                 })
 
             // Country
             ->addRequiredField('country', 'text')
                 ->setSanitizer(function ($value) {
-                    return strtoupper($value);
+                    return strtoupper((string)$value);
                 })
                 ->extend(function ($value, $field) {
                     if (!$this->i18n->countries->isValidId($value)) {

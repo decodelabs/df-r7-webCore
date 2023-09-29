@@ -59,7 +59,7 @@ class Consent implements arch\IDirectoryHelper
         $data = $this->getUserData();
 
         foreach ($keys as $key) {
-            $key = strtolower($key);
+            $key = strtolower((string)$key);
 
             switch ($key) {
                 case 'preferences':
