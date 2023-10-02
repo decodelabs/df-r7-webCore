@@ -209,7 +209,7 @@ class HttpTest extends arch\node\Form
         if ($validator->isValid()) {
             $this->setStore('type', $validator['type']);
 
-            if ($validator['type'] == 'custom' && !strlen($this->values['subject'])) {
+            if ($validator['type'] == 'custom' && !strlen((string)$this->values['subject'])) {
                 $this->values->subject = $this->_('This is a test email from %n%', ['%n%' => Genesis::$hub->getApplicationName()]);
             }
         }
