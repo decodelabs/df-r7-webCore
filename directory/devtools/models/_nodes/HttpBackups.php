@@ -20,7 +20,7 @@ class HttpBackups extends arch\node\Base
         $view = $this->apex->view('Backups.html');
 
         $backups = Atlas::listFileNames(Genesis::$hub->getSharedDataPath() . '/backup/', function ($name) {
-            return preg_match('/^axis\-[0-9]+\.tar$/i', $name);
+            return preg_match('/^axis\-[0-9]+\.tar$/i', (string)$name);
         });
 
         rsort($backups);

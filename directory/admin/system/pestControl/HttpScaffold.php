@@ -75,7 +75,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 case 'Http':
                     $router = Legacy::$http->getRouter();
 
-                    if (preg_match('/^http(s)?:/', $request)) {
+                    if (preg_match('/^http(s)?:/', (string)$request)) {
                         $url = new df\link\http\Url($request);
                     } else {
                         $baseUrl = (string)$router->getBaseUrl();

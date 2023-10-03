@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\users\clients\_components;
 
 use df\arch;
@@ -45,7 +46,7 @@ class UserLink extends arch\component\RecordLink
             $name = $this->record['fullName'];
         }
 
-        if ($this->shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', $name, $matches)) {
+        if ($this->shortenName && preg_match('/^([^ ]+) ([^ ]+)$/', (string)$name, $matches)) {
             $name = $matches[1] . ' ' . ucfirst($matches[2][0]) . '.';
         }
 
