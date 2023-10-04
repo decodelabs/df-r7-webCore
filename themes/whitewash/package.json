@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-legacy": "^4.1.1",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.31",
     "postcss-cachebuster": "github:betterthanclay/postcss-cachebuster",
     "postcss-preset-env": "^9.1.3",
     "sass": "^1.66.1",
