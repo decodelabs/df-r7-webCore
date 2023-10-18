@@ -8,7 +8,7 @@ namespace df\apex\directory\admin\system\geoIp\_nodes;
 
 use DecodeLabs\Compass\Ip;
 use DecodeLabs\Disciple;
-
+use DecodeLabs\R7\Config\GeoIp as GeoIpConfig;
 use df\arch;
 use df\link;
 use GuzzleHttp\Client as HttpClient;
@@ -37,7 +37,7 @@ class HttpIndex extends arch\node\Base
             }
         }
 
-        $view['config'] = link\geoIp\Config::getInstance();
+        $view['config'] = GeoIpConfig::load();
         $view['result'] = $handler->lookup($ip);
         $view['adapterList'] = link\geoIp\Handler::getAdapterList();
 

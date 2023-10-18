@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\system\geoIp\_components;
 
 use df\arch;
@@ -30,16 +31,4 @@ class IndexHeaderBar extends arch\component\HeaderBar
         );
     }
      */
-
-    protected function addSectionLinks(MenuWidget $menu): void
-    {
-        $menu->addLinks(
-            $this->html->link('./', $this->_('Details'))
-                ->setIcon('details')
-                ->setDisposition('informative'),
-            $this->html->link('./max-mind-db', $this->_('MaxMind DB'))
-                ->setIcon('database')
-                ->setDisposition('informative')
-        );
-    }
 }
