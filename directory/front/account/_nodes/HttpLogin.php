@@ -8,10 +8,9 @@ namespace df\apex\directory\front\account\_nodes;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
-
+use DecodeLabs\R7\Config\Authentication as AuthConfig;
 use df\arch;
 use df\arch\node\IParentUiHandlerDelegate as ParentUiHandlerDelegate;
-use df\user;
 
 class HttpLogin extends arch\node\Form
 {
@@ -33,7 +32,7 @@ class HttpLogin extends arch\node\Form
             );
         }
 
-        $this->_config = user\authentication\Config::getInstance();
+        $this->_config = AuthConfig::load();
 
         if (isset($this->request['adapter'])) {
             $this->_adapter = $this->request['adapter'];

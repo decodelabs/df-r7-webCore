@@ -8,7 +8,7 @@ namespace df\apex\directory\front\account\auth0\_nodes;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
-
+use DecodeLabs\R7\Config\Authentication as AuthConfig;
 use DecodeLabs\R7\Legacy;
 use df\arch;
 use df\user;
@@ -20,7 +20,7 @@ class HttpLogin extends arch\node\Base
     public function execute()
     {
         $link = Disciple::isLoggedIn();
-        $config = user\authentication\Config::getInstance();
+        $config = AuthConfig::load();
 
         if (!$config->isAdapterEnabled('Auth0')) {
             throw Exceptional::Forbidden([
