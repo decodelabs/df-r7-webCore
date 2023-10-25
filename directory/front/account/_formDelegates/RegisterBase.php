@@ -6,12 +6,12 @@
 
 namespace df\apex\directory\front\account\_formDelegates;
 
+use DecodeLabs\R7\Config\Users as UserConfig;
 use DecodeLabs\R7\Legacy;
 use df\apex;
 use df\arch;
 use df\core;
 use df\opal;
-
 use df\user;
 
 abstract class RegisterBase extends arch\node\form\Delegate implements arch\node\IParentUiHandlerDelegate
@@ -105,7 +105,7 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
     {
         return $this->complete(function () use ($requestGenerator) {
             $redirect = $this->getStore('completionRedirect');
-            $config = $this->data->user->config;
+            $config = UserConfig::load();
 
             if ($redirect === null) {
                 $redirect = $config->getRegistrationLandingPage();
@@ -116,7 +116,10 @@ abstract class RegisterBase extends arch\node\form\Delegate implements arch\node
                 $this->_('Your account has been successfully created')
             );
 
-            if ($requestGenerator && $config->shouldLoginOnRegistration()) {
+            if (
+                $requestGenerator &&
+                $config->shouldLoginOnRegistration()
+            ) {
                 $request = core\lang\Callback($requestGenerator);
 
                 if ($request instanceof user\authentication\IRequest) {

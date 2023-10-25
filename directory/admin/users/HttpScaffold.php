@@ -56,12 +56,7 @@ class HttpScaffold extends arch\scaffold\AreaMenu
                 ->setDescription('See who has decided to deactivate their account')
                 ->setIcon('remove')
                 ->setWeight(80)
-                ->setDisposition('neutral'),
-            $entryList->newLink('./settings', 'Settings')
-                ->setId('setting')
-                ->setDescription('Set options for registration and login')
-                ->setIcon('settings')
-                ->setWeight(100)
+                ->setDisposition('neutral')
         );
     }
 }

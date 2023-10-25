@@ -7,8 +7,8 @@
 namespace df\apex\directory\front\account\_nodes;
 
 use DecodeLabs\Disciple;
-
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Config\Users as UserConfig;
 use DecodeLabs\R7\Legacy;
 use df\arch;
 
@@ -148,7 +148,7 @@ class HttpResetPassword extends arch\node\Form
 
     protected function onSaveEvent()
     {
-        $userConfig = $this->data->user->config;
+        $userConfig = UserConfig::load();
 
         $this->data->newValidator()
             ->addRequiredField('newPassword', 'password')

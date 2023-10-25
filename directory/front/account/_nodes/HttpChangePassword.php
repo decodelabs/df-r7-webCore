@@ -7,7 +7,7 @@
 namespace df\apex\directory\front\account\_nodes;
 
 use DecodeLabs\Disciple;
-
+use DecodeLabs\R7\Config\Users as UserConfig;
 use df\arch;
 
 class HttpChangePassword extends arch\node\Form
@@ -89,7 +89,7 @@ class HttpChangePassword extends arch\node\Form
 
     protected function onSaveEvent()
     {
-        $userConfig = $this->data->user->config;
+        $userConfig = UserConfig::load();
 
         $validator = $this->data->newValidator()
 

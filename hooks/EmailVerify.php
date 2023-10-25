@@ -3,8 +3,10 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\hooks;
 
+use DecodeLabs\R7\Config\Users as UserConfig;
 use df\flex;
 use df\mesh;
 
@@ -58,7 +60,7 @@ class EmailVerify extends mesh\event\Hook
                     ->ifNotExists(true)
             );
 
-            if ($this->data->user->config->shouldVerifyEmail()) {
+            if (UserConfig::load()->shouldVerifyEmail()) {
                 $this->comms->sendPreparedMail('account/EmailVerify', [
                     'user' => $record,
                     'key' => $key

@@ -7,9 +7,8 @@
 namespace df\apex\directory\front\account\_nodes;
 
 use DecodeLabs\Disciple;
-
+use DecodeLabs\R7\Config\Users as UserConfig;
 use DecodeLabs\R7\Legacy;
-
 use df\apex\directory\front\account\_formDelegates\RegisterLocal;
 use df\arch;
 
@@ -45,7 +44,7 @@ class HttpRegister extends arch\node\Form
                 );
             }
         } else {
-            if (!$this->data->user->config->isRegistrationEnabled()) {
+            if (!UserConfig::load()->isRegistrationEnabled()) {
                 $this->comms->flashError(
                     'registration.disabled',
                     $this->_('Registration for this site is currently disabled')

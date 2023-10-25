@@ -7,8 +7,8 @@
 namespace df\apex\directory\front\account\_formDelegates;
 
 use DecodeLabs\Dictum;
-
 use DecodeLabs\Disciple;
+use DecodeLabs\R7\Config\Users as UserConfig;
 use DecodeLabs\Tagged as Html;
 use df\arch;
 
@@ -24,7 +24,7 @@ class LoginLocal extends arch\node\form\Delegate implements arch\node\IParentUiH
         $fs = $form->addFieldSet($this->_('Sign-in'));
 
         // Register
-        if ($this->data->user->config->isRegistrationEnabled()) {
+        if (UserConfig::load()->isRegistrationEnabled()) {
             $fs->addField()->push(
                 Html::{'p'}([
                     $this->_('Not signed up yet?'), ' ',
