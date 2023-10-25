@@ -9,7 +9,6 @@ namespace df\apex\directory\mail\lists;
 use DecodeLabs\Tagged as Html;
 use df\arch;
 use df\flow;
-
 use df\opal;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
@@ -48,10 +47,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
     public function deleteRecord(opal\record\IRecord $record, array $flags = [])
     {
-        $id = $record['id'];
-        $config = flow\mail\Config::getInstance();
-        unset($config->values->listSources->{$id});
-        $config->save();
         flow\mailingList\Cache::getInstance()->remove('source:default');
         return $this;
     }

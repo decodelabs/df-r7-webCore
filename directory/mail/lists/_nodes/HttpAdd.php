@@ -180,10 +180,6 @@ class HttpAdd extends arch\node\Form
                 ['primaryList' => $validator['primaryList']]
             );
 
-            $config = flow\mail\Config::getInstance();
-            $config->values->listSources->{$validator['id']} = $options;
-            $config->save();
-
             $this->comms->flashSaveSuccess('source');
         });
     }

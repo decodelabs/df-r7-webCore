@@ -7,8 +7,7 @@
 namespace df\apex\directory\mail\lists\_nodes;
 
 use DecodeLabs\Exceptional;
-
-use df\flow;
+use DecodeLabs\R7\Config\Mail as MailConfig;
 
 class HttpEdit extends HttpAdd
 {
@@ -17,7 +16,7 @@ class HttpEdit extends HttpAdd
 
     protected function initWithSession(): void
     {
-        $config = flow\mail\Config::getInstance();
+        $config = MailConfig::load();
         $sources = $config->getListSources();
         $this->_id = $this->request['source'];
 

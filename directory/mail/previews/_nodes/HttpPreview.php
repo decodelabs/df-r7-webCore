@@ -7,8 +7,7 @@
 namespace df\apex\directory\mail\previews\_nodes;
 
 use DecodeLabs\Disciple;
-use DecodeLabs\Exceptional;
-
+use DecodeLabs\R7\Config\Mail as MailConfig;
 use df\arch;
 use df\flow;
 
@@ -29,13 +28,8 @@ class HttpPreview extends arch\node\Form
         $manager = flow\Manager::getInstance();
         $this->values->transport = $manager->getDefaultMailTransportName();
 
-        $config = flow\mail\Config::getInstance();
-
-        if (null === ($from = flow\mail\Address::factory($config->getDefaultAddress()))) {
-            throw Exceptional::UnexpectedValue(
-                'Unable to parse default email address'
-            );
-        }
+        $config = MailConfig::load();
+        $from = flow\mail\Address::factory($config->getDefaultAddress());
 
         $this->values->fromName = $from->getName();
         $this->values->fromAddress = $from->getAddress();
