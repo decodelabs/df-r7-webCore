@@ -3,13 +3,14 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\processes\daemons;
 
 use DecodeLabs\Dictum;
+use DecodeLabs\R7\Config\Environment as EnvironmentConfig;
 use DecodeLabs\Tagged as Html;
 use df\arch;
 use df\core;
-
 use df\halo;
 use df\opal;
 
@@ -41,7 +42,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     // Record data
     protected function generateRecordAdapter()
     {
-        $this->_enabled = core\environment\Config::getInstance()->canUseDaemons();
+        $this->_enabled = EnvironmentConfig::load()->canUseDaemons();
 
         $daemons = halo\daemon\Base::loadAll();
         $data = [];
@@ -107,15 +108,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
                 ->setDisposition('positive')
                 ->isDisabled(!$this->_enabled || !$daemon['isEnabled'] || $daemon['testMode']);
         }
-
-        // Settings
-        yield 'settings' => $this->html->link(
-            $this->uri('~devtools/processes/daemons/settings?daemon=' . $daemon['name'], true),
-            $this->_('Settings')
-        )
-            ->setIcon('settings')
-            ->setDisposition('operative')
-            ->isDisabled(!$this->_enabled || $daemon['testMode']);
     }
 
     public function generateIndexSubOperativeLinks(): iterable
