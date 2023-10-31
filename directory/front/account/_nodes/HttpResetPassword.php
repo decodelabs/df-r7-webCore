@@ -160,7 +160,7 @@ class HttpResetPassword extends arch\node\Form
 
 
         return $this->complete(function () {
-            $this->_auth->password = $this->user->password->hash($this->values['newPassword']);
+            $this->_auth->password = Legacy::hash($this->values['newPassword']);
             $this->_auth->save();
 
             $this->_key->resetDate = 'now';

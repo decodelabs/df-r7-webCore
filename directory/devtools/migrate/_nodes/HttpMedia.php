@@ -7,7 +7,6 @@
 namespace df\apex\directory\devtools\migrate\_nodes;
 
 use DecodeLabs\Exceptional;
-
 use DecodeLabs\R7\Legacy;
 use df\arch;
 
@@ -60,7 +59,7 @@ class HttpMedia extends arch\node\RestApi
 
     public function authorizeRequest()
     {
-        $key = $this->data->hexHash(Legacy::getPassKey());
+        $key = Legacy::hexHash(Legacy::getPassKey());
 
         if ($key != $this->request['key']) {
             throw Exceptional::{'Forbidden,UnexpectedValue'}([

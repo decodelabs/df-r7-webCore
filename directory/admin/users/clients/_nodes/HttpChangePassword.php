@@ -6,8 +6,8 @@
 
 namespace df\apex\directory\admin\users\clients\_nodes;
 
+use DecodeLabs\R7\Legacy;
 use DecodeLabs\Tagged as Html;
-
 use df\arch;
 
 class HttpChangePassword extends arch\node\Form
@@ -77,7 +77,7 @@ class HttpChangePassword extends arch\node\Form
             ->validate($this->values);
 
         return $this->complete(function () {
-            $this->_auth->password = $this->user->password->hash($this->values['password']);
+            $this->_auth->password = Legacy::hash($this->values['password']);
             $this->_auth->save();
 
             $this->comms->flashSuccess(

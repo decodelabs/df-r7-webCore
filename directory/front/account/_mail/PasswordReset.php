@@ -3,8 +3,10 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\front\account\_mail;
 
+use DecodeLabs\R7\Legacy;
 use df\arch;
 
 class PasswordReset extends arch\mail\Base
@@ -20,7 +22,7 @@ class PasswordReset extends arch\mail\Base
     public function preparePreview()
     {
         $this['key'] = $this->data->user->passwordResetKey->newRecord([
-            'key' => $this->data->hash(uniqid()),
+            'key' => Legacy::hash(uniqid()),
             'user' => $this->data->user->client->fetch()->toRow(),
             'adapter' => 'Local',
             'creationDate' => 'now'

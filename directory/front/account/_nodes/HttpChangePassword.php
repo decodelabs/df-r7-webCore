@@ -8,6 +8,7 @@ namespace df\apex\directory\front\account\_nodes;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\R7\Config\Users as UserConfig;
+use DecodeLabs\R7\Legacy;
 use df\arch;
 
 class HttpChangePassword extends arch\node\Form
@@ -97,7 +98,7 @@ class HttpChangePassword extends arch\node\Form
             ->chainIf(!$this->_auth->isNew(), function ($validator) {
                 $validator->addRequiredField('oldPassword', 'text')
                     ->extend(function ($value, $field) {
-                        $hash = $this->user->password->hash($value);
+                        $hash = Legacy::hash($value);
 
                         if ($hash != $this->_auth['password']) {
                             $field->addError('incorrect', $this->_(
