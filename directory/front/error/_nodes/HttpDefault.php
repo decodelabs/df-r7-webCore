@@ -46,8 +46,10 @@ class HttpDefault extends arch\node\Base
 
         $lastRequest = Legacy::$http->getDispatchRequest();
 
-        if (!link\http\response\HeaderCollection::isValidStatusCode($code)
-        || !link\http\response\HeaderCollection::isErrorStatusCode($code)) {
+        if (
+            !link\http\response\HeaderCollection::isValidStatusCode($code) ||
+            !link\http\response\HeaderCollection::isErrorStatusCode($code)
+        ) {
             $code = 500;
         }
 
@@ -80,47 +82,6 @@ class HttpDefault extends arch\node\Base
             return $this->apex->view('Deactivated.html');
         }
 
-        $shouldLog = true;
-
-        if (
-            stristr((string)Legacy::$http->getReferrer(), '~admin/system/error-logs') ||
-            $code === 405
-        ) {
-            $shouldLog = false;
-        }
-
-        if ($shouldLog) {
-            $url = Legacy::$http->getUrl();
-
-            try {
-                switch ($code) {
-                    case 401:
-                    case 403:
-                        $this->logs->logAccessError($code, $url, $exception->getMessage());
-                        break;
-
-                    case 404:
-                        $this->logs->logNotFound($url, $exception->getMessage());
-
-                        if ($lastRequest && $lastRequest->isArea('admin')) {
-                            $this->logs->logException($exception, $url);
-                        }
-                        break;
-
-                    case 500:
-                    case 502:
-                    default:
-                        $this->logs->logException($exception, $url);
-                        break;
-                }
-            } catch (\Throwable $e) {
-                try {
-                    $this->logs->logException($e);
-                } catch (\Throwable $f) {
-                    Glitch::dumpDie($e, $f, $exception);
-                }
-            }
-        }
 
         $isDevelopment = Genesis::$environment->isDevelopment();
         $isTesting = Genesis::$environment->isTesting();
