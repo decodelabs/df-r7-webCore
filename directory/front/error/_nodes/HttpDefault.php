@@ -83,7 +83,7 @@ class HttpDefault extends arch\node\Base
         $shouldLog = true;
 
         if (
-            stristr(Legacy::$http->getReferrer(), '~admin/system/error-logs') ||
+            stristr((string)Legacy::$http->getReferrer(), '~admin/system/error-logs') ||
             $code === 405
         ) {
             $shouldLog = false;
