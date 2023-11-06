@@ -16,12 +16,10 @@ class HttpSession extends arch\node\DeleteForm
     public const IS_PERMANENT = false;
 
     protected $_cache;
-    protected $_shellCache;
 
     protected function init(): void
     {
         $this->_cache = user\session\Cache::getInstance();
-        $this->_shellCache = user\session\perpetuator\Shell_Cache::getInstance();
     }
 
     protected function createItemUi($container)
@@ -32,24 +30,11 @@ class HttpSession extends arch\node\DeleteForm
             })
             ->addField('entries', function ($cache) {
                 return $cache->count();
-            })
-            ->addField('shellSessions', function () {
-                return $this->_shellCache->count();
             });
-
-        $container->addCheckbox(
-            'deleteShellPerpetuator',
-            $this->values->deleteShellPerpetuator,
-            $this->_('Also delete the shell session perpetuator cache')
-        );
     }
 
     protected function apply()
     {
         $this->_cache->clear();
-
-        if ($this->values['deleteShellPerpetuator']) {
-            $this->_shellCache->clear();
-        }
     }
 }

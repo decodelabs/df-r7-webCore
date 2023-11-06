@@ -3,8 +3,10 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_nodes;
 
+use DecodeLabs\Stash;
 use df\arch;
 use df\core;
 
@@ -17,5 +19,6 @@ class HttpPurge extends arch\node\DeleteForm
     protected function apply()
     {
         core\cache\Base::purgeAll();
+        Stash::purgeAll();
     }
 }
