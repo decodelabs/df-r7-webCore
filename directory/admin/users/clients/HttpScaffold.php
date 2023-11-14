@@ -321,16 +321,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
             ->setDisposition('informative');
     }
 
-    public function generateIndexSubOperativeLinks(): iterable
-    {
-        yield $this->html->link(
-            $this->uri('../settings', true),
-            $this->_('Settings')
-        )
-            ->setIcon('settings')
-            ->setDisposition('operative');
-    }
-
     public function generateIndexTransitiveLinks(): iterable
     {
         yield 'groups' => $this->html->link('../groups/', $this->_('Groups'))
