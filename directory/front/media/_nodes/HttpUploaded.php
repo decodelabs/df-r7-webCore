@@ -8,12 +8,11 @@ namespace df\apex\directory\front\media\_nodes;
 
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
+use DecodeLabs\Guidance;
 use DecodeLabs\R7\Legacy;
 use DecodeLabs\Typify;
-
 use df\arch;
 use df\core;
-use df\flex;
 use df\neon;
 
 class HttpUploaded extends arch\node\Base
@@ -24,7 +23,7 @@ class HttpUploaded extends arch\node\Base
     {
         $path = Genesis::$hub->getSharedDataPath() . '/upload';
         $path .= core\uri\Path::normalizeLocal(
-            '/' . flex\Guid::factory($this->request['id']) .
+            '/' . Guidance::fromString($this->request['id']) .
             '/' . str_replace('/', '_', $this->request['file'])
         );
 

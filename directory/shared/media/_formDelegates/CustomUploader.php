@@ -8,12 +8,11 @@ namespace df\apex\directory\shared\media\_formDelegates;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Guidance;
 use DecodeLabs\Tagged as Html;
 use df\arch;
 use df\aura;
-
 use df\core;
-use df\flex;
 use df\mesh;
 
 class CustomUploader extends arch\node\form\Delegate implements
@@ -418,6 +417,6 @@ class CustomUploader extends arch\node\form\Delegate implements
 
     protected function _sanitizeSelection(string $selection): string
     {
-        return (string)flex\Guid::factory($selection);
+        return (string)Guidance::fromString($selection);
     }
 }

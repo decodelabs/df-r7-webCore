@@ -6,11 +6,10 @@
 
 namespace df\plug;
 
+use DecodeLabs\Guidance;
 use DecodeLabs\R7\Legacy;
 use df\arch;
 use df\core;
-
-use df\flex;
 
 class Consent implements arch\IDirectoryHelper
 {
@@ -144,7 +143,7 @@ class Consent implements arch\IDirectoryHelper
             $data['id'] = (string)$record['id'];
         } catch (\Throwable $e) {
             core\logException($e);
-            $data['id'] = (string)flex\Guid::comb();
+            $data['id'] = Guidance::createV4CombString();
         }
 
         $this->context->user->store->set('cnxId', $data['id']);
@@ -188,7 +187,7 @@ class Consent implements arch\IDirectoryHelper
 
     public function setCookieData(array $data)
     {
-        $id = $data['id'] = $data['id'] ?? self::$_active['id'] ?? (string)flex\Guid::comb();
+        $id = $data['id'] = $data['id'] ?? self::$_active['id'] ?? Guidance::createV4CombString();
         $version = $data['version'] = (int)($data['version'] ?? 0);
         $data['preferences'] = (bool)($data['preferences'] ?? false);
         $data['statistics'] = (bool)($data['statistics'] ?? false);

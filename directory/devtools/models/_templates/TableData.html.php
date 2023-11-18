@@ -1,8 +1,7 @@
 <?php
 
+use DecodeLabs\Guidance;
 use DecodeLabs\Tagged as Html;
-use df\flex;
-
 use df\opal;
 
 echo $this->apex->component('~devtools/models/UnitDetailHeaderBar', $unit);
@@ -26,8 +25,10 @@ foreach ($primitives as $primitive) {
             return Html::$time->date($row[$name]);
         }
 
-        if ($primitive instanceof opal\schema\Primitive_DateTime
-        || $primitive instanceof opal\schema\Primitive_Timestamp) {
+        if (
+            $primitive instanceof opal\schema\Primitive_DateTime ||
+            $primitive instanceof opal\schema\Primitive_Timestamp
+        ) {
             return Html::$time->date($row[$name]);
         }
 
@@ -37,7 +38,7 @@ foreach ($primitives as $primitive) {
             }
 
             return Html::{'abbr'}('GUID')
-                ->setTitle(flex\Guid::factory($row[$name]));
+                ->setTitle(Guidance::tryFrom($row[$name]));
         }
 
         return $this->html->shorten($row[$name], 25);
