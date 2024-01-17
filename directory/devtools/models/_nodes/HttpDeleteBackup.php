@@ -7,7 +7,6 @@
 namespace df\apex\directory\devtools\models\_nodes;
 
 use DecodeLabs\Atlas;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\Genesis;
 use DecodeLabs\Tagged as Html;
@@ -24,7 +23,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
     {
         $fileName = basename($this->request['backup']);
 
-        if (!preg_match('/^axis\-[0-9]+\.tar$/i', $fileName)) {
+        if (!preg_match('/-([0-9]{14})\.sql/i', $fileName)) {
             throw Exceptional::Forbidden([
                 'message' => 'Not an axis backup file',
                 'http' => 403
@@ -53,7 +52,7 @@ class HttpDeleteBackup extends arch\node\DeleteForm
                 return $backup;
             })
             ->addField('created', function ($backup) {
-                return Html::$time->since(\df\core\time\Date::fromCompressedString(substr($backup, 5, -4), 'UTC'));
+                return Html::$time->since(\df\core\time\Date::fromCompressedString(substr($backup, -18, 14), 'UTC'));
             });
     }
 

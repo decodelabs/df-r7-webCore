@@ -27,7 +27,7 @@ class HttpDownload extends arch\node\Base
         $assetPath = core\uri\Path::normalizeLocal($this->request['file']);
         $type = null;
 
-        if(
+        if (
             isset($this->request['v']) ||
             isset($this->request['cts'])
         ) {

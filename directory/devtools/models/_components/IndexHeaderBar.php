@@ -41,7 +41,8 @@ class IndexHeaderBar extends arch\component\HeaderBar
         $menu->addLinks(
             $this->html->link(
                 '~devtools/models/',
-                $this->_('Units')
+                $this->_('Units'),
+                true
             )
                 ->setIcon('unit')
                 ->setDisposition('informative'),

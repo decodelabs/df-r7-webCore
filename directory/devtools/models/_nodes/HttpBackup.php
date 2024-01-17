@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\models\_nodes;
 
 use df\arch;
@@ -18,12 +19,12 @@ class HttpBackup extends arch\node\ConfirmForm
 
     protected function customizeMainButton($button)
     {
-        $button->setBody($this->_('Back up'))
+        $button->setBody($this->_('Run mariadb-dump'))
             ->setIcon('backup');
     }
 
     protected function apply()
     {
-        return $this->task->initiateStream('axis/backup');
+        return $this->task->initiateStream('axis/mariadb-dump');
     }
 }
