@@ -294,6 +294,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
+    public function generateIndexSubOperativeLinks(): iterable
+    {
+        yield 'export' => $this->html->link(
+            $this->getNodeUri('export', [
+                'country' => $this->request['country']
+            ], true),
+            'Export CSV'
+        )
+            ->setIcon('export')
+            ->setDisposition('positive');
+    }
+
     public function generateIndexSectionLinks(): iterable
     {
         yield 'all' => $this->html->link('./', $this->_('All'), true)
