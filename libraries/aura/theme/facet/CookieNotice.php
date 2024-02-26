@@ -16,6 +16,7 @@ class CookieNotice extends Base
     protected $_privacyRequest;
     protected $_privacyVersion = 0;
     protected $_categories = [];
+    protected bool $_customRenderer = false;
 
     public function __construct(array $config)
     {
@@ -24,6 +25,7 @@ class CookieNotice extends Base
         $this->_privacyRequest = $config['privacyRequest'] ?? null;
         $this->_privacyVersion = (int)($config['privacyVersion'] ?? 0);
         $this->_categories = (array)($config['categories'] ?? []);
+        $this->_customRenderer = (bool)($config['customRenderer'] ?? false);
     }
 
     public function getPrivacyRequest(): ?string
@@ -63,6 +65,10 @@ class CookieNotice extends Base
         $agent = Legacy::$http->getUserAgent() ?? '';
 
         if ($view->data->user->agent->isBot($agent)) {
+            return;
+        }
+
+        if($this->_customRenderer) {
             return;
         }
 
