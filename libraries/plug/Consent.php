@@ -35,6 +35,11 @@ class Consent implements arch\IDirectoryHelper
         );
     }
 
+    public function setEnabled(bool $flag): void
+    {
+        self::$_enabled = $flag;
+    }
+
     public function isEnabled(): bool
     {
         if (self::$_enabled === null) {
