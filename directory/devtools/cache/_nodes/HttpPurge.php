@@ -19,6 +19,6 @@ class HttpPurge extends arch\node\DeleteForm
     protected function apply()
     {
         core\cache\Base::purgeAll();
-        Stash::purgeAll();
+        Stash::purge();
     }
 }
