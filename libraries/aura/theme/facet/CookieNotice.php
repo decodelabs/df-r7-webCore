@@ -68,7 +68,7 @@ class CookieNotice extends Base
             return;
         }
 
-        if($this->_customRenderer) {
+        if ($this->_customRenderer) {
             return;
         }
 
