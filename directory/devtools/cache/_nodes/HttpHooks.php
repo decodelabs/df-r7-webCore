@@ -6,8 +6,9 @@
 
 namespace df\apex\directory\devtools\cache\_nodes;
 
+use DecodeLabs\Stash;
+use DecodeLabs\Stash\Store;
 use df\arch;
-use df\mesh;
 
 class HttpHooks extends arch\node\DeleteForm
 {
@@ -15,11 +16,11 @@ class HttpHooks extends arch\node\DeleteForm
     public const ITEM_NAME = 'cache';
     public const IS_PERMANENT = false;
 
-    protected $_cache;
+    protected Store $_cache;
 
     protected function init(): void
     {
-        $this->_cache = mesh\event\HookCache::getInstance();
+        $this->_cache = Stash::load('mesh.hook');
     }
 
     protected function createItemUi($container)
@@ -27,9 +28,6 @@ class HttpHooks extends arch\node\DeleteForm
         $container->addAttributeList($this->_cache)
             ->addField('name', function ($cache) {
                 return 'Mesh event hook cache';
-            })
-            ->addField('entries', function ($cache) {
-                return $cache->count();
             });
     }
 

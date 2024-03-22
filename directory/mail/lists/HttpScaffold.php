@@ -23,6 +23,8 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'id', 'adapter', 'primaryListId', 'updated'
     ];
 
+    public const CAN_DELETE = false;
+
 
     // Record data
     protected function generateRecordAdapter()
@@ -45,11 +47,6 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
     }
 
 
-    public function deleteRecord(opal\record\IRecord $record, array $flags = [])
-    {
-        flow\mailingList\Cache::getInstance()->remove('source:default');
-        return $this;
-    }
 
 
     // Components

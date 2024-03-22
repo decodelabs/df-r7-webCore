@@ -27,9 +27,6 @@ class HttpSession extends arch\node\DeleteForm
         $container->addAttributeList($this->_cache)
             ->addField('name', function ($cache) {
                 return 'Session storage cache';
-            })
-            ->addField('entries', function ($cache) {
-                return $cache->count();
             });
     }
 

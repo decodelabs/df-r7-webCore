@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\devtools\cache\_menus;
 
 use df\arch;
@@ -16,14 +17,6 @@ class Index_WebCore extends arch\navigation\menu\Base
                 ->setId('axis')
                 ->setIcon('database')
                 ->setWeight(10),
-            $entryList->newLink('~devtools/cache/nightfire', 'Nightfire blocks')
-                ->setId('nightfireBlocks')
-                ->setIcon('node')
-                ->setWeight(15),
-            $entryList->newLink('~devtools/cache/menu', 'Navigation menu')
-                ->setId('menu')
-                ->setIcon('menu')
-                ->setWeight(20),
             $entryList->newLink('~devtools/cache/hooks', 'Event hooks')
                 ->setId('hooks')
                 ->setIcon('hook')
