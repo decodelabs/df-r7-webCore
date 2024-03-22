@@ -6,27 +6,27 @@
 
 namespace df\apex\directory\devtools\cache\_nodes;
 
+use DecodeLabs\Stash;
+use DecodeLabs\Stash\FileStore;
 use DecodeLabs\Tagged as Html;
 use df\arch;
-
-use df\neon;
 
 class HttpRaster extends arch\node\Form
 {
     public const DEFAULT_ACCESS = arch\IAccess::DEV;
     public const DEFAULT_EVENT = 'refresh';
 
-    protected $_fileStore;
+    protected FileStore $_fileStore;
 
     protected function init(): void
     {
-        $this->_fileStore = neon\raster\FileStore::getInstance();
+        $this->_fileStore = Stash::loadFileStore('neon.raster');
     }
 
     protected function createUi(): void
     {
         $form = $this->content->addForm();
-        $files = $this->_fileStore->getFileList();
+        $files = $this->_fileStore->scanAll();
 
         $form->push(
             $this->html->collectionList($files)
@@ -88,7 +88,7 @@ class HttpRaster extends arch\node\Form
     protected function onRemoveEvent(string $key): mixed
     {
         if ($this->_fileStore->has($key)) {
-            $this->_fileStore->remove($key);
+            $this->_fileStore->delete($key);
 
             $this->comms->flashSuccess(
                 'cache.remove',
