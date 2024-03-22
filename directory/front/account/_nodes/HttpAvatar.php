@@ -116,7 +116,7 @@ class HttpAvatar extends arch\node\Form
             );
 
             $this->data->media->activateVersion($version['file'], $version);
-            $this->data->user->cache->setAvatarCacheTime();
+            $this->data->user->setAvatarCacheTime();
         });
     }
 
@@ -139,7 +139,7 @@ class HttpAvatar extends arch\node\Form
         }
 
         $this->data->media->purgeVersion($version);
-        $this->data->user->cache->setAvatarCacheTime();
+        $this->data->user->setAvatarCacheTime();
 
         $active = $this->_file->versions->select()
             ->where('purgeDate', '=', null)
@@ -161,7 +161,7 @@ class HttpAvatar extends arch\node\Form
                 $this->data->media->publishFile($filePath, 'Avatar');
             }
 
-            $this->data->user->cache->setAvatarCacheTime();
+            $this->data->user->setAvatarCacheTime();
             $this->comms->flash('avatar.save', $this->_('Your avatar has been successfully updated'), 'success');
         });
     }
